@@ -5,119 +5,79 @@ RSpec.describe IsoDoc::Ogc do
   it "processes default metadata" do
     csdc = IsoDoc::Ogc::HtmlConvert.new({})
     input = <<~"INPUT"
-<ogc-standard xmlns="#{Metanorma::Ogc::DOCUMENT_NAMESPACE}">
-<bibdata type="standard">
-  <title language="en" format="plain">Main Title</title>
-  <docidentifier>1000</docidentifier>
-  <contributor>
-    <role type="author"/>
-    <organization>
-      <name>#{Metanorma::Ogc::ORGANIZATION_NAME_SHORT}</name>
-    </organization>
-  </contributor>
-  <contributor>
-    <role type="publisher"/>
-    <organization>
-      <name>#{Metanorma::Ogc::ORGANIZATION_NAME_SHORT}</name>
-    </organization>
-  </contributor>
-  <language>en</language>
-  <script>Latn</script>
-  <status format="plain">working-draft</status>
-  <copyright>
-    <from>2001</from>
-    <owner>
-      <organization>
-        <name>#{Metanorma::Ogc::ORGANIZATION_NAME_SHORT}</name>
-      </organization>
-    </owner>
-  </copyright>
-  <editorialgroup>
-    <committee type="A">TC</committee>
-  </editorialgroup>
-  <security>Client Confidential</security>
-</bibdata><version>
-  <edition>2</edition>
-  <revision-date>2000-01-01</revision-date>
-  <draft>3.4</draft>
-</version>
-<sections/>
-</ogc-standard>
+       <ogc-standard xmlns="https://open.ribose.com/standards/ogc">
+       <bibdata type="implementation-standard">
+         <title language="en" format="text/plain">Main Title</title>
+         <source>http://www.example.com</source>
+         <docidentifier type="ogc-external">http://www.example2.com</docidentifier>
+         <docidentifier type="ogc-internal">1000</docidentifier>
+         <docnumber>1000</docnumber>
+         <date type="published">
+           <on>2002-01-01</on>
+         </date>
+         <date type="created">
+           <on>1999-01-01</on>
+         </date>
+         <date type="issued">
+           <on>2001-01-01</on>
+         </date>
+         <contributor>
+           <role type="author"/>
+           <organization>
+             <name>OGC</name>
+           </organization>
+         </contributor>
+         <contributor>
+           <role type="editor"/>
+           <person>
+             <name>
+               <completename>Fred Flintstone</completename>
+             </name>
+           </person>
+         </contributor>
+         <contributor>
+           <role type="author"/>
+           <person>
+             <name>
+               <forename>Barney</forename>
+               <surname>Rubble</surname>
+             </name>
+           </person>
+         </contributor>
+         <contributor>
+           <role type="publisher"/>
+           <organization>
+             <name>OGC</name>
+           </organization>
+         </contributor>
+         <language>en</language>
+         <script>Latn</script>
+         <status format="plain">SWG Work</status>
+         <copyright>
+           <from>2001</from>
+           <owner>
+             <organization>
+               <name>OGC</name>
+             </organization>
+           </owner>
+         </copyright>
+         <editorialgroup>
+           <committee type="A">TC</committee>
+           <committee type="B">TC1</committee>
+         </editorialgroup>
+       </bibdata><version>
+         <edition>2.0</edition>
+         <revision-date>2000-01-01</revision-date>
+         <draft>3.4</draft>
+       </version>
+       <sections/>
+       </ogc-standard>
     INPUT
 
     output = <<~"OUTPUT"
-        {:accesseddate=>"XXX", :confirmeddate=>"XXX", :createddate=>"XXX", :docnumber=>"1000(wd)", :doctitle=>"Main Title", :doctype=>"Standard", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :editorialgroup=>[], :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :obsoleteddate=>"XXX", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :sc=>"XXXX", :secretariat=>"XXXX", :security=>"Client Confidential", :status=>"Working Draft", :tc=>"TC", :updateddate=>"XXX", :wg=>"XXXX"}
+    {:accesseddate=>"XXX", :authors=>["BarneyRubble"], :confirmeddate=>"XXX", :createddate=>"1999-01-01", :docnumber=>"1000", :doctitle=>"Main Title", :doctype=>"Implementation Standard", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :editorialgroup=>[], :editors=>["Fred Flintstone"], :externalid=>"http://www.example2.com", :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"2001-01-01", :obsoleteddate=>"XXX", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"2002-01-01", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :sc=>"XXXX", :secretariat=>"XXXX", :status=>"Swg work", :tc=>"TC", :updateddate=>"XXX", :wg=>"XXXX"}
     OUTPUT
 
-    docxml, filename, dir = csdc.convert_init(input, "test", true)
-    expect(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s)).to be_equivalent_to output
-  end
-
-  it "abbreviates committee-draft" do
-    input = <<~"INPUT"
-<ogc-standard xmlns="#{Metanorma::Ogc::DOCUMENT_NAMESPACE}">
-<bibdata type="standard">
-  <status format="plain">committee-draft</status>
-</bibdata><version>
-  <edition>2</edition>
-  <revision-date>2000-01-01</revision-date>
-  <draft>3.4</draft>
-</version>
-<sections/>
-</ogc-standard>
-    INPUT
-
-    output = <<~"OUTPUT"
-      {:accesseddate=>"XXX", :confirmeddate=>"XXX", :createddate=>"XXX", :docnumber=>"(cd)", :doctitle=>nil, :doctype=>"Standard", :docyear=>nil, :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :editorialgroup=>[], :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :obsoleteddate=>"XXX", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :sc=>"XXXX", :secretariat=>"XXXX", :status=>"Committee Draft", :tc=>"XXXX", :updateddate=>"XXX", :wg=>"XXXX"}
-    OUTPUT
-
-    csdc = IsoDoc::Ogc::HtmlConvert.new({})
-    docxml, filename, dir = csdc.convert_init(input, "test", true)
-    expect(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s)).to be_equivalent_to output
-  end
-
-  it "abbreviates draft-standard" do
-    input = <<~"INPUT"
-<ogc-standard xmlns="#{Metanorma::Ogc::DOCUMENT_NAMESPACE}">
-<bibdata type="standard">
-  <status format="plain">draft-standard</status>
-</bibdata><version>
-  <edition>2</edition>
-  <revision-date>2000-01-01</revision-date>
-  <draft>3.4</draft>
-</version>
-<sections/>
-</ogc-standard>
-    INPUT
-
-    output = <<~"OUTPUT"
-      {:accesseddate=>"XXX", :confirmeddate=>"XXX", :createddate=>"XXX", :docnumber=>"(d)", :doctitle=>nil, :doctype=>"Standard", :docyear=>nil, :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :editorialgroup=>[], :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :obsoleteddate=>"XXX", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :sc=>"XXXX", :secretariat=>"XXXX", :status=>"Draft Standard", :tc=>"XXXX", :updateddate=>"XXX", :wg=>"XXXX"}
-    OUTPUT
-
-    csdc = IsoDoc::Ogc::HtmlConvert.new({})
-    docxml, filename, dir = csdc.convert_init(input, "test", true)
-    expect(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s)).to be_equivalent_to output
-  end
-
-  it "ignores unrecognised status" do
-    input = <<~"INPUT"
-<ogc-standard xmlns="#{Metanorma::Ogc::DOCUMENT_NAMESPACE}">
-<bibdata type="standard">
-  <status format="plain">standard</status>
-</bibdata><version>
-  <edition>2</edition>
-  <revision-date>2000-01-01</revision-date>
-  <draft>3.4</draft>
-</version>
-<sections/>
-</ogc-standard>
-    INPUT
-
-    output = <<~"OUTPUT"
-      {:accesseddate=>"XXX", :confirmeddate=>"XXX", :createddate=>"XXX", :docnumber=>nil, :doctitle=>nil, :doctype=>"Standard", :docyear=>nil, :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :editorialgroup=>[], :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"XXX", :obsoleteddate=>"XXX", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :sc=>"XXXX", :secretariat=>"XXXX", :status=>"Standard", :tc=>"XXXX", :updateddate=>"XXX", :wg=>"XXXX"}
-    OUTPUT
-
-    csdc = IsoDoc::Ogc::HtmlConvert.new({})
     docxml, filename, dir = csdc.convert_init(input, "test", true)
     expect(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s)).to be_equivalent_to output
   end

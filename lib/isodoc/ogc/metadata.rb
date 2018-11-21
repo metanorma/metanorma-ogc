@@ -21,18 +21,31 @@ module IsoDoc
       def author(isoxml, _out)
         tc = isoxml.at(ns("//bibdata/editorialgroup/committee"))
         set(:tc, tc.text) if tc
+        authors = isoxml.xpath(ns("//bibdata/contributor[role/@type = 'author']/person/name"))
+        set(:authors, extract_person_names(authors))
+        editors = isoxml.xpath(ns("//bibdata/contributor[role/@type = 'editor']/person/name"))
+        set(:editors, extract_person_names(editors))
+      end
+
+      def extract_person_names(authors)
+        ret = []
+        authors.each do |a|
+          if a.at(ns("./completename"))
+            ret << a.at(ns("./completename")).text
+          else
+            fn = []
+            forenames = a.xpath(ns("./forename"))
+            forenames.each { |f| fn << f.text }
+            surname = a&.at(ns("./surname"))&.text
+            ret << fn.join(" ") + surname
+          end
+        end
+        ret
       end
 
       def docid(isoxml, _out)
-        docnumber = isoxml.at(ns("//bibdata/docidentifier"))
-        docstatus = isoxml.at(ns("//bibdata/status"))
-        dn = docnumber&.text
-        if docstatus
-          set(:status, status_print(docstatus.text))
-          abbr = status_abbr(docstatus.text)
-          dn = "#{dn}(#{abbr})" unless abbr.empty?
-        end
-        set(:docnumber, dn)
+        set(:docnumber, isoxml&.at(ns("//bibdata/docidentifier[@type = 'ogc-internal']"))&.text)
+        set(:externalid, isoxml&.at(ns("//bibdata/docidentifier[@type = 'ogc-external']"))&.text)
       end
 
       def status_print(status)
@@ -40,13 +53,6 @@ module IsoDoc
       end
 
       def status_abbr(status)
-        case status
-        when "working-draft" then "wd"
-        when "committee-draft" then "cd"
-        when "draft-standard" then "d"
-        else
-          ""
-        end
       end
 
       def version(isoxml, _out)
