@@ -41,7 +41,7 @@ module Asciidoctor
       def ogc_editor(node, xml)
         return unless node.attr("editor")
         xml.contributor do |c|
-          c.role **{ type: node.attr("role#{suffix}") || "author" }
+          c.role **{ type: "editor" }
           c.person do |p|
             p.name do |n|
               n.completename node.attr("editor")
@@ -77,7 +77,7 @@ module Asciidoctor
 
       def metadata_committee(node, xml)
         xml.editorialgroup do |a|
-          a.committee (node.attr("committee") || node.attr("workingGroup")),
+          a.committee (node.attr("committee") || node.attr("workinggroup")),
             **attr_code(type: node.attr("committee-type"))
           i = 2
           while node.attr("committee_#{i}") do
@@ -95,9 +95,9 @@ module Asciidoctor
       def metadata_id(node, xml)
         node.attr("external-id") and
           xml.docidentifier node.attr("external-id"), **{ type: "ogc-external" }
-        node.attr("referenceURLID") and
+        node.attr("referenceurlid") and
           xml.docidentifier externalurl(node), **{ type: "ogc-external" }
-        docnumber = node.attr("docnumber") || node.attr("docReference")
+        docnumber = node.attr("docnumber") || node.attr("docreference")
         if docnumber
           xml.docidentifier docnumber, **{ type: "ogc-internal" }
           xml.docnumber docnumber
@@ -106,14 +106,14 @@ module Asciidoctor
 
       def externalurl(node)
         if node.attr("doctype") == "engineering-report"
-          "http://www.opengis.net/doc/PER/t14-#{node.attr('referenceURLID')}"
+          "http://www.opengis.net/doc/PER/t14-#{node.attr('referenceurlid')}"
         else
-          node.attr('referenceURLID')
+          node.attr('referenceurlid')
         end
       end
 
       def metadata_copyright(node, xml)
-        from = node.attr("copyright-year") || node.attr("copyrightYear") || Date.today.year
+        from = node.attr("copyright-year") || node.attr("copyrightyear") || Date.today.year
         xml.copyright do |c|
           c.from from
           c.owner do |owner|
@@ -126,9 +126,9 @@ module Asciidoctor
 
       def metadata_date(node, xml)
         super
-        ogc_date(node, xml, "submissionDate", "received-date" )
-        ogc_date(node, xml, "publicationDate", "published-date" )
-        ogc_date(node, xml, "approvalDate", "issued-date" )
+        ogc_date(node, xml, "submissiondate", "received-date" )
+        ogc_date(node, xml, "publicationdate", "published-date" )
+        ogc_date(node, xml, "approvaldate", "issued-date" )
       end
 
       def ogc_date(node, xml, ogcname, metanormaname)

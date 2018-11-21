@@ -81,7 +81,7 @@ RSpec.describe Asciidoctor::Ogc do
       :received-date: 1999-06-01
       :uri: http://www.example.com
       :external-id: http://www.example2.com
-      :referenceURLID: http://www.example2.com
+      :referenceURLID: ABC
       :fullname: Fred Flintstone
       :role: author
       :surname_2: Rubble
@@ -95,6 +95,7 @@ RSpec.describe Asciidoctor::Ogc do
          <title language="en" format="text/plain">Main Title</title>
          <source>http://www.example.com</source>
          <docidentifier type="ogc-external">http://www.example2.com</docidentifier>
+         <docidentifier type="ogc-external">ABC</docidentifier>
          <docidentifier type="ogc-internal">1000</docidentifier>
          <docnumber>1000</docnumber>
          <date type="published">
@@ -206,19 +207,23 @@ RSpec.describe Asciidoctor::Ogc do
 
     output = <<~"OUTPUT"
            <ogc-standard xmlns="https://standards.opengeospatial.org/document">
-       <bibdata type="standard">
+       <bibdata type="engineering-report">
          <title language="en" format="text/plain">Main Title</title>
          <source>http://www.example.com</source>
          <docidentifier type="ogc-external">http://www.example2.com</docidentifier>
+         <docidentifier type="ogc-external">http://www.opengis.net/doc/PER/t14-http://www.example2.com</docidentifier>
          <docidentifier type="ogc-internal">1000</docidentifier>
          <docnumber>1000</docnumber>
-         <date type="published">
-           <on>2002-01-01</on>
-         </date>
-         <date type="created">
+                  <date type="created">
            <on>1999-01-01</on>
          </date>
-         <date type="issued">
+         <date type="received-date">
+           <on>1999-06-01</on>
+         </date>
+         <date type="published-date">
+           <on>2002-01-01</on>
+         </date>
+         <date type="issued-date">
            <on>2001-01-01</on>
          </date>
          <contributor>
@@ -226,6 +231,14 @@ RSpec.describe Asciidoctor::Ogc do
            <organization>
              <name>OGC</name>
            </organization>
+         </contributor>
+         <contributor>
+           <role type="editor"/>
+           <person>
+             <name>
+               <completename>Wilma Flintstone</completename>
+             </name>
+           </person>
          </contributor>
          <contributor>
            <role type="editor"/>
