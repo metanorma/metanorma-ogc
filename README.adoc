@@ -100,7 +100,7 @@ The gem relies on Asciidoctor document attributes to provide necessary
 metadata about the document. The https://github.com/riboseinc/metanorma-standoc[metanorma-standoc]
 gem documents the Asciidoctor document attributes common to all metanorma gems. These include:
 
-`:edition:`:: The document edition
+`:edition:`:: The document version; e.g. `2.0`.
 
 `:revdate:`:: The date the document was last updated
 
@@ -114,21 +114,44 @@ introduced with `=`, is ignored)
 `:doctype:`:: The document type (mandatory). The permitted types are:
 +
 --
-code:: Code Artifact
-presentation:: Presentation
-proposal:: Proposal; includes IETF DRAFT
-standard:: Recommendation; includes IETF RFC
-report:: report
+* Standards
+implementation-standard::: Implementation Standard (with or without Compliance Suite)
+abstract-specification::: Abstract Specification (with or without Compliance Suite)
+community-standard::: Community Standard (with or without Compliance Suite)
+profile::: Profile (with or without Compliance Suite)
+best-practices::: Best Practices Document
+* Other
+engineering-report::: Engineering Report
+discussion-paper::: Discussion Paper
+white-paper::: White Paper
+user-guide::: User Guide
+policy-directive::: Technical Committee Policy Directive
+informative::: Informative
 --
 
-`:status:``:: The document status. The permitted types are: `proposal`,
-`working-draft`, `committee-draft`, `draft-standard`, `final-draft`,
-`published`, `withdrawn`.
+`:status:``:: The document status. The permitted types are: 
 
-`:technical-committee:`:: The name of the relevant M3D technical committee
+* SWG Work
+* OAB Review
+* OGC-NA Review
+* Public Review
+* Prepare for Approval
+* TC Approval to Vote
+* TC Vote
+* PC Vote
+* Published
+
+`:committee:`:: The name of the relevant committee
 (mandatory)
 
 `:language:` :: The language of the document (only `en` for now)  (mandatory)
+
+`:published-date`:: The publication date for the document.
+`:issued-date`:: The approval date for the document.
+`:created-date`:: The submission date for the document.
+
+`:uri:`:: The URI to which this standard is published.
+`:docnumber:`:: The internal identifier referring to this document.
 
 The attribute `:draft:`, if present, includes review notes in the XML output;
 these are otherwise suppressed.
@@ -139,6 +162,15 @@ The https://github.com/riboseinc/metanorma-standoc[metanorma-standoc]
 gem documents the customisations of Asciidoctor markup common to all metanorma gems.
 The following markup is specific to this gem:
 
+`:external-id`:: The external identifier referring to this document.
+
+`:fullname{_i}`:: The full name of a person who is a contributor to the document.
+A second person is indicated by using a numeric suffix: `:fullname`, `:fullname_2`, `fullname_3`, &c.
+
+`:surname{_i}`:: The surname of a person who is a contributor to the document.
+`:givenname{_i}`:: The given name(s) of a person who is a contributor to the document.
+`:role{_i}`:: The role of a a person who is a contributor to the document. By default,
+they are coded as an `editor`; they can also be represented as an `author`.
 
 == Examples
 

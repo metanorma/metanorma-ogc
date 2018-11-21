@@ -13,10 +13,42 @@ module Asciidoctor
       register_for "ogc"
 
       def metadata_author(node, xml)
+        corporate_author(xml)
+        personal_author(node, xml)
+      end
+
+      def corporate_author(xml)
         xml.contributor do |c|
           c.role **{ type: "author" }
           c.organization do |a|
             a.name Metanorma::Ogc::ORGANIZATION_NAME_SHORT
+          end
+        end
+      end
+
+      def personal_author(node, xml)
+        if node.attr("fullname") || node.attr("surname")
+          personal_author1(node, xml, "")
+        end
+        i = 2
+        while node.attr("fullname_#{i}") || node.attr("surname_#{i}")
+          personal_author1(node, xml, "_#{i}")
+          i += 1
+        end
+      end
+
+      def personal_author1(node, xml, suffix)
+        xml.contributor do |c|
+          c.role **{ type: node.attr("role#{suffix}") || "author" }
+          c.person do |p|
+            p.name do |n|
+              if node.attr("fullname#{suffix}")
+                n.completename node.attr("fullname#{suffix}")
+              else
+                n.forename node.attr("givenname#{suffix}")
+                n.surname node.attr("surname#{suffix}")
+              end
+            end
           end
         end
       end
@@ -48,12 +80,13 @@ module Asciidoctor
       end
 
       def metadata_id(node, xml)
-        return unless node.attr("docnumber")
-        xml.docidentifier do |i|
-          i << "#{Metanorma::Ogc::ORGANIZATION_NAME_SHORT} "\
-            "#{node.attr("docnumber")}"
+        if node.attr("external-id")
+          xml.docidentifier node.attr("external-id"), **{ type: "ogc-external" }
         end
-        xml.docnumber { |i| i << node.attr("docnumber") }
+        if node.attr("docnumber")
+          xml.docidentifier node.attr("docnumber"), **{ type: "ogc-internal" }
+          xml.docnumber node.attr("docnumber")
+        end
       end
 
       def metadata_copyright(node, xml)
@@ -68,14 +101,8 @@ module Asciidoctor
         end
       end
 
-      def metadata_security(node, xml)
-        security = node.attr("security") || return
-        xml.security security
-      end
-
       def metadata(node, xml)
         super
-        metadata_security(node, xml)
       end
 
       def title_validate(root)
@@ -97,9 +124,11 @@ module Asciidoctor
 
       def doctype(node)
         d = node.attr("doctype")
-        unless %w{policy-and-procedures best-practices supporting-document report legal directives proposal standard}.include? d
-          warn "#{d} is not a legal document type: reverting to 'standard'"
-          d = "standard"
+        unless %w{implementation-standard abstract-specification community-standard profile
+                best-practices engineering-report discussion-paper white-paper 
+                user-guide policy-directive informative}.include? d
+          warn "#{d} is not a legal document type: reverting to 'implementation-standard'"
+          d = "implementation-standard"
         end
         d
       end

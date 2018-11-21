@@ -53,8 +53,8 @@ RSpec.describe Asciidoctor::Ogc do
       :nodoc:
       :novalid:
       :docnumber: 1000
-      :doctype: standard
-      :edition: 2
+      :doctype: implementation-standard
+      :edition: 2.0
       :revdate: 2000-01-01
       :draft: 3.4
       :committee: TC
@@ -71,55 +71,90 @@ RSpec.describe Asciidoctor::Ogc do
       :workgroup-type: C
       :secretariat: SECRETARIAT
       :copyright-year: 2001
-      :status: working-draft
+      :status: SWG Work
       :iteration: 3
       :language: en
       :title: Main Title
-      :security: Client Confidential
+      :published-date: 2002-01-01
+      :issued-date: 2001-01-01
+      :created-date: 1999-01-01
+      :uri: http://www.example.com
+      :external-id: http://www.example2.com
+      :fullname: Fred Flintstone
+      :role: author
+      :surname_2: Rubble
+      :givenname_2: Barney
+      :role: editor
     INPUT
 
     output = <<~"OUTPUT"
-    <?xml version="1.0" encoding="UTF-8"?>
-<ogc-standard xmlns="#{Metanorma::Ogc::DOCUMENT_NAMESPACE}">
-<bibdata type="standard">
-  <title language="en" format="text/plain">Main Title</title>
-  <docidentifier>OGC 1000</docidentifier>
-  <docnumber>1000</docnumber>
-  <contributor>
-    <role type="author"/>
-    <organization>
-      <name>#{Metanorma::Ogc::ORGANIZATION_NAME_SHORT}</name>
-    </organization>
-  </contributor>
-  <contributor>
-    <role type="publisher"/>
-    <organization>
-      <name>#{Metanorma::Ogc::ORGANIZATION_NAME_SHORT}</name>
-    </organization>
-  </contributor>
-  <language>en</language>
-  <script>Latn</script>
-  <status format="plain">working-draft</status>
-  <copyright>
-    <from>2001</from>
-    <owner>
-      <organization>
-        <name>#{Metanorma::Ogc::ORGANIZATION_NAME_SHORT}</name>
-      </organization>
-    </owner>
-  </copyright>
-  <editorialgroup>
-    <committee type="A">TC</committee>
-    <committee type="B">TC1</committee>
-  </editorialgroup>
-  <security>Client Confidential</security>
-</bibdata><version>
-  <edition>2</edition>
-  <revision-date>2000-01-01</revision-date>
-  <draft>3.4</draft>
-</version>
-<sections/>
-</ogc-standard>
+       <ogc-standard xmlns="https://open.ribose.com/standards/ogc">
+       <bibdata type="implementation-standard">
+         <title language="en" format="text/plain">Main Title</title>
+         <source>http://www.example.com</source>
+         <docidentifier type="ogc-external">http://www.example2.com</docidentifier>
+         <docidentifier type="ogc-internal">1000</docidentifier>
+         <docnumber>1000</docnumber>
+         <date type="published">
+           <on>2002-01-01</on>
+         </date>
+         <date type="created">
+           <on>1999-01-01</on>
+         </date>
+         <date type="issued">
+           <on>2001-01-01</on>
+         </date>
+         <contributor>
+           <role type="author"/>
+           <organization>
+             <name>OGC</name>
+           </organization>
+         </contributor>
+         <contributor>
+           <role type="editor"/>
+           <person>
+             <name>
+               <completename>Fred Flintstone</completename>
+             </name>
+           </person>
+         </contributor>
+         <contributor>
+           <role type="author"/>
+           <person>
+             <name>
+               <forename>Barney</forename>
+               <surname>Rubble</surname>
+             </name>
+           </person>
+         </contributor>
+         <contributor>
+           <role type="publisher"/>
+           <organization>
+             <name>OGC</name>
+           </organization>
+         </contributor>
+         <language>en</language>
+         <script>Latn</script>
+         <status format="plain">SWG Work</status>
+         <copyright>
+           <from>2001</from>
+           <owner>
+             <organization>
+               <name>OGC</name>
+             </organization>
+           </owner>
+         </copyright>
+         <editorialgroup>
+           <committee type="A">TC</committee>
+           <committee type="B">TC1</committee>
+         </editorialgroup>
+       </bibdata><version>
+         <edition>2.0</edition>
+         <revision-date>2000-01-01</revision-date>
+         <draft>3.4</draft>
+       </version>
+       <sections/>
+       </ogc-standard>
     OUTPUT
 
     expect(Asciidoctor.convert(input, backend: :ogc, header_footer: true)).to be_equivalent_to output

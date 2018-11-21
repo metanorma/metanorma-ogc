@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ogc-standard xmlns="https://open.ribose.com/standards/ogc">
-<bibdata type="standard">
+<bibdata type="implementation-standard">
   
   <contributor>
     <role type="author"/>
@@ -30,6 +30,6 @@
   </editorialgroup>
 </bibdata>
 <sections>
-  <p id="_0eac99f1-ed61-40ae-952e-0696178962d9">Test</p>
+  <p id="_ffc7a3f1-cedf-4c8f-917d-be33c7fc2e3f">Test</p>
 </sections>
 </ogc-standard>
