@@ -1,4 +1,4 @@
-= metanorma-ogc: Asciidoctor processor for Open Geospatial Consortium  documents
+= metanorma-ogc: Metanorma processor for the Open Geospatial Consortium document class
 
 image:https://img.shields.io/gem/v/metanorma-ogc.svg["Gem Version", link="https://rubygems.org/gems/metanorma-ogc"]
 image:https://img.shields.io/travis/riboseinc/metanorma-ogc/master.svg["Build Status", link="https://travis-ci.org/riboseinc/metanorma-ogc"]
@@ -8,52 +8,35 @@ WARNING: This gem is still under development.
 
 == Functionality
 
-This gem processes http://asciidoctor.org/[Asciidoctor] documents following
-a template for generating OGC documents.
+This gem processes Metanorma documents into the OGC document class.
 
-The gem currently inherits from the https://github.com/riboseinc/metanorma-standoc
-gem, and aligns closely to it. Refer to the ISO gem documentation
-for guidance, including https://github.com/riboseinc/metanorma-iso/wiki/Guidance-for-authoring
+It provides the following functions:
 
-The following outputs are generated.
-
-* an XML representation of the document, intended as a document model for OGC documents.
-* The XML representation is processed in turn to generate the following outputs
-as end deliverable OGC documents.
-** HTML
-** http://asciimath.org[AsciiMathML] is to be used for mathematical formatting.
-The gem uses the https://github.com/asciidoctor/asciimath[Ruby AsciiMath parser],
-which is syntactically stricter than the common MathJax processor;
-if you do not get expected results, try bracketing terms your in AsciiMathML
-expressions.
-
-== Usage
-
-The preferred way to invoke this gem is via the `metanorma` script:
-
-[source,console]
-----
-$ metanorma --type ogc a.adoc                   # output HTML 
-$ metanorma --type ogc --extensions html a.adoc # output just HTML
-$ metanorma --type ogc --extensions xml a.adoc  # output RSD XML
-----
-
-The gem translates the document into Metanorma XML format, and then
-validates its output against the Metanorma XML document model; errors are
-reported to console against the XML, and are intended for users to
+. Compiles Metanorma input into the Metanorma-OGC XML format
+. Validates XML output against the Metanorma-OGC document model
+** Errors are reported to console against the XML, and are intended for users to
 check that they have provided all necessary components of the
 document.
+. Metanorma-OGC XML is then converted into desired output formats.
 
-The gem then converts the XML into HTML.
+The following outputs are supported:
 
-The gem can also be invoked directly within asciidoctor, though this is deprecated:
+* Primary: the canonical Metanorma-OGC XML representation (`.xml`).
+* Secondary: the Metanorma-OGC XML representation is processed to generate the following outputs
+as end deliverable OGC documents.
+** HTML (`.html`)
+** PDF (`.pdf`)
+** Word (`.doc`)
 
-[source,console]
-----
-$ asciidoctor -b ogc -r 'metanorma-ogc' a.adoc  
-----
+== Structure
 
-=== Installation
+It inherits from the https://github.com/riboseinc/metanorma-standoc
+gem, and aligns closely to it.
+
+
+=== Quickstart
+
+Please see https://www.metanorma.com for instructions to get started.
 
 If you are using a Mac, the https://github.com/riboseinc/metanorma-macos-setup
 repository has instructions on setting up your machine to run Metanorma
@@ -62,50 +45,92 @@ scripts such as this one. You need only run the following in a Terminal console:
 [source,console]
 ----
 $ bash <(curl -s https://raw.githubusercontent.com/riboseinc/metanorma-macos-setup/master/metanorma-setup)
-$ gem install metanorma-ogc
 $ gem install metanorma-cli
+$ gem install metanorma-ogc
 ----
+
+
+== Usage
+
+Using the `metanorma` CLI:
+
+[source,console]
+----
+$ metanorma --type ogc a.adoc                   # output HTML
+$ metanorma --type ogc --extensions html a.adoc # output just HTML
+$ metanorma --type ogc --extensions xml a.adoc  # output Metanorma XML
+----
+
+
+== Authoring
+
+Please refer to the Metanorma-ISO documentation for general documentation.
+
+* Metanorma-ISO general documentation: https://www.metanorma.com/software/metanorma-iso/
+
+* Metanorma-ISO guidance: https://www.metanorma.com/software/metanorma-iso/docs/guidance/
+
+
+////
+** http://asciimath.org[AsciiMathML] is used for mathematical formatting.
+The gem uses the https://github.com/asciidoctor/asciimath[Ruby AsciiMath parser],
+which is syntactically stricter than the common MathJax processor;
+if you do not get expected results, try bracketing terms your in AsciiMathML
+expressions.
+////
+
 
 == Approach
 
 === Document model
 
-The OGC Document model used by this gem is an instance of the
-https://github.com/riboseinc/isodoc-models[StandardDocument model].
+The OGC document model is detailed here:
 
-The Metanorma XML format intends to introduce rigor into the OGC
-standards authoring process, and is prescribed in a separate document.
+* https://github.com/riboseinc/metanorma-model-ogc[OGC document model]
 
-=== Asciidoctor
+It is an instance of the
+https://github.com/riboseinc/metanorma-model-standoc[StandardDocument model].
 
-Asciidoctor has been selected as the authoring tool to generate the document
-model representation of OGC standards. It is a document formatting tool like
-Markdown and DocBook, which combines the relative ease of use of the former
-(using relatively lightweight markup), and the rigor and expressively of the
-latter (it has a well-defined syntax, and was in fact initially developed as a
-DocBook document authoring tool). Asciidoctor has built-in capability to output
-Text, DocBook and HTML; so it can be used to preview the file as it is being
-autA
 
-Generating documents via a document model substantially automated formatting
-associated with the document, including automating numbering of headings, figures,
-tables etc, and automatically generating references and citations.
-hored.
+=== Document input
 
-== Document Attributes
+Document input to Metanorma is for the compilation of content into the
+Metanorma XML document.
+
+The Metanorma-OGC processor supports AsciiDoc input.
+
+AsciiDoc is selected has been selected as the authoring tool to generate the document
+model representation of OGC standards.
+
+Similar to Markdown, AsciiDoc is a lightweight markup format, but
+combines the rigor and expressivity of DocBook.
+A number of editors (through plugins) support preview of AsciiDoc files,
+so textual content can be previewed without running the Metanorma toolchain.
+
+The Metanorma processor automates numbering of headings, figures,
+tables etc, automatically generates references and citations,
+and  the resulting output presentations.
+
+NOTE: The Asciidoctor gem is used for AsciiDoc input parsing.
+
+
+== Document attributes
 
 === Common attributes
 
-The gem relies on Asciidoctor document attributes to provide necessary
-metadata about the document. The https://github.com/riboseinc/metanorma-standoc[metanorma-standoc]
-gem documents the Asciidoctor document attributes common to all metanorma gems. These include:
+Metadata of the document is provided through AsciiDoc document attributes.
+
+https://github.com/riboseinc/metanorma-standoc[Metanorma-Standoc]
+documents all common Metanorma document attributes.
+
+The ones relevant to OGC documents include:
 
 `:edition:`:: The document version; e.g. `2.0`.
 
-`:revdate:`:: The date the document was last updated
+`:revdate:`:: The date the document was last updated.
 
 `:copyright-year:`:: The year which will be claimed as when the copyright for
-the document was issued
+the document was issued.
 
 `:title:`:: The main component of the English title of the document
 (mandatory). (The first line of the AsciiDoc document, which contains the title
@@ -115,66 +140,66 @@ introduced with `=`, is ignored)
 +
 --
 * Standards
-implementation-standard::: Implementation Standard (with or without Compliance Suite)
-abstract-specification::: Abstract Specification (with or without Compliance Suite)
-community-standard::: Community Standard (with or without Compliance Suite)
-profile::: Profile (with or without Compliance Suite)
-best-practices::: Best Practices Document
+`standard`::: Implementation Standard
+`standard-with-suite`::: Implementation Standard with Compliance Suite
+`abstract-specification`::: Abstract Specification
+`community-standard`::: Community Standard
+`profile`::: Profile / Application Profile
+`best-practice`::: Best Practices Document
+
 * Other
-engineering-report::: Engineering Report
-discussion-paper::: Discussion Paper
-white-paper::: White Paper
-user-guide::: User Guide
-policy-directive::: Technical Committee Policy Directive
-informative::: Informative
+`engineering-report`::: Engineering Report
+`discussion-paper`::: Discussion Paper
+`reference-model`::: OGC Reference Model
+`user-guide`::: User Guide
+`policy`::: OGC Policy Document
+`guide`::: Guide
+`amendment`::: Technical Amendment
+`technical-corrigendum`::: Corrigendum (errata) Changes to OGC Standards
+`administrative`::: Internal administrative documents
 --
 
-`:status:``:: The document status. The permitted types are: 
+`:status:``:: Document status/stage. The permitted types are:
++
+`rfc`::: OGC RFC (proposal)
+`candidate`::: Candidate Standard
+`published`::: Published
+`deprecated`::: Deprecated
+`retired`::: Retired
 
-* SWG Work
-* OAB Review
-* OGC-NA Review
-* Public Review
-* Prepare for Approval
-* TC Approval to Vote
-* TC Vote
-* PC Vote
-* Published
+`:committee:`:: The name of the relevant committee (mandatory)
 
-`:committee:`:: The name of the relevant committee
-(mandatory)
+`:language:`:: The language of the document (e.g. `en`) (mandatory)
 
-`:language:` :: The language of the document (only `en` for now)  (mandatory)
-
-`:published-date`:: The publication date for the document.
-`:issued-date`:: The approval date for the document.
-`:created-date`:: The submission date for the document.
+`:published-date:`:: The publication date for the document.
+`:issued-date:`:: The approval date for the document.
+`:created-date:`:: The submission date for the document.
 
 `:uri:`:: The URI to which this standard is published.
 `:docnumber:`:: The internal identifier referring to this document.
 
-The attribute `:draft:`, if present, includes review notes in the XML output;
-these are otherwise suppressed.
+`:draft:`:: If present, review notes are included in the
+Metanorma XML output; otherwise they are suppressed.
 
-== Asciidoctor features specific to OGC
 
-The https://github.com/riboseinc/metanorma-standoc[metanorma-standoc]
-gem documents the customisations of Asciidoctor markup common to all metanorma gems.
-The following markup is specific to this gem:
+=== OGC-specific attributes
 
-`:external-id`:: The external identifier referring to this document.
+The following document attributes are specific to this document class:
 
-`:fullname{_i}`:: The full name of a person who is a contributor to the document.
-A second person is indicated by using a numeric suffix: `:fullname`, `:fullname_2`, `fullname_3`, &c.
+`:external-id:`:: The external identifier referring to this document.
 
-`:surname{_i}`:: The surname of a person who is a contributor to the document.
-`:givenname{_i}`:: The given name(s) of a person who is a contributor to the document.
-`:role{_i}`:: The role of a a person who is a contributor to the document. By default,
+`:fullname{_i}:`:: The full name of a person who is a contributor to the document.
+A second person is indicated by using a numeric suffix: `:fullname:`, `:fullname_2:`, `fullname_3:`, &c.
+
+`:surname{_i}:`:: The surname of a person who is a contributor to the document.
+`:givenname{_i}:`:: The given name(s) of a person who is a contributor to the document.
+`:role{_i}:`:: The role of a a person who is a contributor to the document. By default,
 they are coded as an `editor`; they can also be represented as an `author`.
+
 
 == Examples
 
-* link:spec/examples/rfc6350.adoc[] is an Metanorma Asciidoctor version of https://tools.ietf.org/html/rfc6350[RFC 6350].
+* link:spec/examples/rfc6350.adoc[] is an Metanorma AsciiDoc version of https://tools.ietf.org/html/rfc6350[RFC 6350].
 * link:spec/examples/rfc6350.html[] is an HTML file generated from the Asciidoctor.
 * link:spec/examples/rfc6350.doc[] is a Word document generated from the Asciidoctor.
 
