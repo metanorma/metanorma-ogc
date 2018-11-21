@@ -52,7 +52,7 @@ HDR
 BLANK_HDR = <<~"HDR"
        <?xml version="1.0" encoding="UTF-8"?>
        <ogc-standard xmlns="#{Metanorma::Ogc::DOCUMENT_NAMESPACE}">
-       <bibdata type="implementation-standard">
+       <bibdata type="standard">
 
 
          <contributor>

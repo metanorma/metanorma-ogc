@@ -78,8 +78,10 @@ RSpec.describe Asciidoctor::Ogc do
       :published-date: 2002-01-01
       :issued-date: 2001-01-01
       :created-date: 1999-01-01
+      :received-date: 1999-06-01
       :uri: http://www.example.com
       :external-id: http://www.example2.com
+      :referenceURLID: http://www.example2.com
       :fullname: Fred Flintstone
       :role: author
       :surname_2: Rubble
@@ -89,7 +91,7 @@ RSpec.describe Asciidoctor::Ogc do
 
     output = <<~"OUTPUT"
        <ogc-standard xmlns="https://standards.opengeospatial.org/document">
-       <bibdata type="implementation-standard">
+       <bibdata type="standard">
          <title language="en" format="text/plain">Main Title</title>
          <source>http://www.example.com</source>
          <docidentifier type="ogc-external">http://www.example2.com</docidentifier>
@@ -157,6 +159,120 @@ RSpec.describe Asciidoctor::Ogc do
        </ogc-standard>
     OUTPUT
 
+    expect(Asciidoctor.convert(input, backend: :ogc, header_footer: true)).to be_equivalent_to output
+  end
+
+    it "processes OGC synonyms for default metadata" do
+    input = <<~"INPUT"
+      = Document title
+      Author
+      :docfile: test.adoc
+      :nodoc:
+      :novalid:
+      :docReference: 1000
+      :doctype: engineering-report
+      :edition: 2.0
+      :revdate: 2000-01-01
+      :draft: 3.4
+      :workingGroup: TC
+      :committee-number: 1
+      :committee-type: A
+      :committee_2: TC1
+      :committee-number_2: 1
+      :committee-type_2: B
+      :subcommittee: SC
+      :subcommittee-number: 2
+      :subcommittee-type: B
+      :secretariat: SECRETARIAT
+      :copyrightYear: 2001
+      :status: SWG Work
+      :iteration: 3
+      :language: en
+      :title: Main Title
+      :publicationDate: 2002-01-01
+      :approvalDate: 2001-01-01
+      :created-date: 1999-01-01
+      :submissionDate: 1999-06-01
+      :uri: http://www.example.com
+      :external-id: http://www.example2.com
+      :referenceURLID: http://www.example2.com
+      :fullname: Fred Flintstone
+      :role: author
+      :surname_2: Rubble
+      :givenname_2: Barney
+      :role: editor
+      :editor: Wilma Flintstone
+    INPUT
+
+    output = <<~"OUTPUT"
+           <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+       <bibdata type="standard">
+         <title language="en" format="text/plain">Main Title</title>
+         <source>http://www.example.com</source>
+         <docidentifier type="ogc-external">http://www.example2.com</docidentifier>
+         <docidentifier type="ogc-internal">1000</docidentifier>
+         <docnumber>1000</docnumber>
+         <date type="published">
+           <on>2002-01-01</on>
+         </date>
+         <date type="created">
+           <on>1999-01-01</on>
+         </date>
+         <date type="issued">
+           <on>2001-01-01</on>
+         </date>
+         <contributor>
+           <role type="author"/>
+           <organization>
+             <name>OGC</name>
+           </organization>
+         </contributor>
+         <contributor>
+           <role type="editor"/>
+           <person>
+             <name>
+               <completename>Fred Flintstone</completename>
+             </name>
+           </person>
+         </contributor>
+         <contributor>
+           <role type="author"/>
+           <person>
+             <name>
+               <forename>Barney</forename>
+               <surname>Rubble</surname>
+             </name>
+           </person>
+         </contributor>
+         <contributor>
+           <role type="publisher"/>
+           <organization>
+             <name>OGC</name>
+           </organization>
+         </contributor>
+         <language>en</language>
+         <script>Latn</script>
+         <status format="plain">SWG Work</status>
+         <copyright>
+           <from>2001</from>
+           <owner>
+             <organization>
+               <name>OGC</name>
+             </organization>
+           </owner>
+         </copyright>
+         <editorialgroup>
+           <committee type="A">TC</committee>
+           <committee type="B">TC1</committee>
+         </editorialgroup>
+       </bibdata><version>
+         <edition>2.0</edition>
+         <revision-date>2000-01-01</revision-date>
+         <draft>3.4</draft>
+       </version>
+       <sections/>
+       </ogc-standard>
+OUTPUT
     expect(Asciidoctor.convert(input, backend: :ogc, header_footer: true)).to be_equivalent_to output
   end
 

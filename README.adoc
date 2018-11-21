@@ -30,7 +30,7 @@ as end deliverable OGC documents.
 
 == Structure
 
-It inherits from the https://github.com/riboseinc/metanorma-standoc
+This gem inherits from the https://github.com/riboseinc/metanorma-standoc
 gem, and aligns closely to it.
 
 
@@ -122,14 +122,15 @@ Metadata of the document is provided through AsciiDoc document attributes.
 
 https://github.com/riboseinc/metanorma-standoc[Metanorma-Standoc]
 documents all common Metanorma document attributes.
-
-The ones relevant to OGC documents include:
+Where these preexisting metanorma attributes correspond to attributes already used
+by OGC in their Asciidoctor template, they are treated as synonyms of the Metanorma
+attributes.  The attributes relevant to OGC documents include:
 
 `:edition:`:: The document version; e.g. `2.0`.
 
 `:revdate:`:: The date the document was last updated.
 
-`:copyright-year:`:: The year which will be claimed as when the copyright for
+`:copyright-year:` (OGC: `:copyrightYear`):: The year which will be claimed as when the copyright for
 the document was issued.
 
 `:title:`:: The main component of the English title of the document
@@ -167,16 +168,17 @@ introduced with `=`, is ignored)
 `deprecated`::: Deprecated
 `retired`::: Retired
 
-`:committee:`:: The name of the relevant committee (mandatory)
+`:committee:` (OGC: `:workingGroup:`):: The name of the relevant committee producing the document (mandatory)
 
 `:language:`:: The language of the document (e.g. `en`) (mandatory)
 
-`:published-date:`:: The publication date for the document.
-`:issued-date:`:: The approval date for the document.
-`:created-date:`:: The submission date for the document.
+`:published-date:` (OGC: `:publicationDate:`):: The publication date for the document.
+`:issued-date:`  (OGC: `:approvalDate:`):: The approval date for the document.
+`:created-date:`:: The creation date for the document.
+`:received-date:`  (OGC: `:submissionDate:`):: The date at which the document was submitted to the standards body.
 
 `:uri:`:: The URI to which this standard is published.
-`:docnumber:`:: The internal identifier referring to this document.
+`:docnumber:`  (OGC: `docReference`):: The internal identifier referring to this document.
 
 `:draft:`:: If present, review notes are included in the
 Metanorma XML output; otherwise they are suppressed.
@@ -187,6 +189,9 @@ Metanorma XML output; otherwise they are suppressed.
 The following document attributes are specific to this document class:
 
 `:external-id:`:: The external identifier referring to this document.
+`:referenceURLID:`:: The identifier embedded into a document type-specific
+external URL.
+
 
 `:fullname{_i}:`:: The full name of a person who is a contributor to the document.
 A second person is indicated by using a numeric suffix: `:fullname:`, `:fullname_2:`, `fullname_3:`, &c.
@@ -196,6 +201,15 @@ A second person is indicated by using a numeric suffix: `:fullname:`, `:fullname
 `:role{_i}:`:: The role of a a person who is a contributor to the document. By default,
 they are coded as an `editor`; they can also be represented as an `author`.
 
+OGC `:editor:`:: corresponds to `:fullname:` with `role` = "editor"
+
+== Asciidoctor features specific to OGC
+
+The https://github.com/riboseinc/metanorma-standoc[metanorma-standoc]
+gem documents the customisations of Asciidoctor markup common to all metanorma gems.
+The following markup is specific to this gem:
+
+TBD
 
 == Examples
 

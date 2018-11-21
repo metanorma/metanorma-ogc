@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ogc-standard xmlns="https://standards.opengeospatial.org/document">
-<bibdata type="implementation-standard">
+<bibdata type="standard">
   
   <contributor>
     <role type="author"/>
@@ -30,6 +30,6 @@
   </editorialgroup>
 </bibdata>
 <sections>
-  <p id="_19f4f2ca-8d97-49ed-b592-f14dc785bc70">Test</p>
+  <p id="_ba498328-9fb9-4c14-847b-80aef7902366">Test</p>
 </sections>
 </ogc-standard>
