@@ -43,7 +43,7 @@ RSpec.describe Metanorma::Ogc::Processor do
   it "generates HTML from IsoDoc XML" do
     FileUtils.rm_f "test.xml"
     input = <<~"INPUT"
-    <ogc-standard xmlns="http://riboseinc.com/isoxml">
+    <ogc-standard xmlns="https://standards.opengeospatial.org/document">
       <sections>
         <terms id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title>
           <term id="J">

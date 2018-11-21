@@ -88,7 +88,7 @@ RSpec.describe Asciidoctor::Ogc do
     INPUT
 
     output = <<~"OUTPUT"
-       <ogc-standard xmlns="https://open.ribose.com/standards/ogc">
+       <ogc-standard xmlns="https://standards.opengeospatial.org/document">
        <bibdata type="implementation-standard">
          <title language="en" format="text/plain">Main Title</title>
          <source>http://www.example.com</source>

@@ -5,7 +5,7 @@ RSpec.describe IsoDoc::Ogc do
   it "processes default metadata" do
     csdc = IsoDoc::Ogc::HtmlConvert.new({})
     input = <<~"INPUT"
-       <ogc-standard xmlns="https://open.ribose.com/standards/ogc">
+       <ogc-standard xmlns="https://standards.opengeospatial.org/document">
        <bibdata type="implementation-standard">
          <title language="en" format="text/plain">Main Title</title>
          <source>http://www.example.com</source>
@@ -142,7 +142,7 @@ RSpec.describe IsoDoc::Ogc do
 
   it "processes simple terms & definitions" do
     input = <<~"INPUT"
-     <ogc-standard xmlns="http://riboseinc.com/isoxml">
+     <ogc-standard xmlns="https://standards.opengeospatial.org/document">
        <sections>
        <terms id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title>
          <term id="J">
@@ -175,7 +175,7 @@ RSpec.describe IsoDoc::Ogc do
 
   it "processes terms & definitions with external source" do
     input = <<~"INPUT"
-    <ogc-standard xmlns="http://riboseinc.com/isoxml">
+    <ogc-standard xmlns="https://standards.opengeospatial.org/document">
          <termdocsource type="inline" bibitemid="ISO712"/>
        <sections>
        <terms id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title>
@@ -227,7 +227,7 @@ RSpec.describe IsoDoc::Ogc do
 
   it "processes empty terms & definitions" do
     input = <<~"INPUT"
-    <ogc-standard xmlns="http://riboseinc.com/isoxml">
+    <ogc-standard xmlns="https://standards.opengeospatial.org/document">
       <sections>
         <terms id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title>
         </terms>
@@ -254,7 +254,7 @@ RSpec.describe IsoDoc::Ogc do
 
   it "processes section names" do
     input = <<~"INPUT"
-    <ogc-standard xmlns="http://riboseinc.com/isoxml">
+    <ogc-standard xmlns="https://standards.opengeospatial.org/document">
       <preface>
       <foreword obligation="informative">
          <title>Foreword</title>

@@ -5,7 +5,7 @@ module Metanorma
 
     ORGANIZATION_NAME_SHORT = "OGC"
     ORGANIZATION_NAME_LONG = "Open Geospatial Consortium"
-    DOCUMENT_NAMESPACE = "https://open.ribose.com/standards/ogc"
+    DOCUMENT_NAMESPACE = "https://standards.opengeospatial.org/document"
 
   end
 end
