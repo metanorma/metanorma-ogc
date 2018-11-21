@@ -59,9 +59,9 @@ time, mark, audio, video {
 
 
 html, body, div, span, applet, object, iframe,
-p, blockquote, 
-a, abbr, acronym, address, big, cite, 
-del, dfn, em, img, ins, q, s, 
+p, blockquote,
+a, abbr, acronym, address, big, cite,
+del, dfn, em, img, ins, q, s,
 small, strike, strong, sub, sup, var,
 b, u, i, center,
 dl, dt, dd, ol, ul, li,
@@ -161,14 +161,14 @@ table {
         overflow: auto;
         padding: 0 0 0 45px;
         margin-right: 30px;
-        background-color:#f7f7f7;
+        background-color:#f6f6f6;
     }
 
     #toggle {
         position: fixed;
         height: 100%;
         width: 30px;
-        background-color:#1661AD;
+        background-color:#00335b;
         color: white!important;
         cursor: pointer;
         z-index: 100;
@@ -209,8 +209,8 @@ table {
 }
 
 @media screen {
-  img { 
-      width: 100%; 
+  img {
+      width: 100%;
       height: auto;
   }
 }
@@ -226,7 +226,7 @@ table {
 }
 
 #toc a {
-    color: #485094;
+    color: #2e81c2;
     text-decoration: none;
     display: block;
 }
@@ -248,8 +248,8 @@ table {
 }
 
 #toc .toc-active, #toc li:hover {
-    background: #1661AD;
-    box-shadow: inset -5px 0px 10px -5px #1661AD!important;
+    background: #00335b;
+    box-shadow: inset -5px 0px 10px -5px #00335b!important;
 
 }
 
@@ -421,7 +421,7 @@ p.document-stage {
 
   h1,h2,h3,h4,h5,h6 {
     font-family: $headerfont;
-    color: #1661AD;
+    color: #00335b;
     font-weight: 300;
     margin-top: 1.6em;
     margin-bottom: 0.3em;
@@ -450,7 +450,7 @@ p.document-stage {
   }
 
   .TermNum, .Terms, .AltTerms {
-    color: #1661AD;
+    color: #00335b;
     font-weight: 100;
   }
 
@@ -478,27 +478,27 @@ p.document-stage {
 
     a, a:visited{
         text-decoration: none;
-        color: #485094;
+        color: #2e81c2;
     }
 
     a:hover {
         color: white;
-        background: #1661AD;
-        box-shadow: 3px 0 0 #1661AD, -3px 0 0 #1661AD;
+        background: #00335b;
+        box-shadow: 3px 0 0 #00335b, -3px 0 0 #00335b;
         /* padding: 2px 0 2px 0; */
     }
 
     ::selection {
-        background: #1661AD; /* WebKit/Blink Browsers */
+        background: #00335b; /* WebKit/Blink Browsers */
         color: white;
       }
       ::-moz-selection {
-        background: #1661AD; /* Gecko Browsers */
+        background: #00335b; /* Gecko Browsers */
         color: white;
       }
 
       .contact-info a:hover {
-          color: #485094;
+          color: #2e81c2;
           text-decoration: underline;
           background: none;
           box-shadow: 0 0 0 0;
@@ -547,7 +547,7 @@ ul li:first-child {
     .rule {
         width: 100%;
         height: 1px;
-        background-color: #0e1a85;
+        background-color: #00335b;
         margin: 2em 0;
       }
 
@@ -566,7 +566,7 @@ p.Biblio, p.NormRef {
 
 .figure, .Sourcecode {
     font-family: $monospacefont;
-    background-color: #f7f7f7;
+    background-color: #f6f6f6;
     font-size: 0.8em;
     line-height: 1.6em;
     padding: 1.5em;
@@ -664,7 +664,7 @@ a.footnote-number {
 */
 
 .Quote {
-    background-color: #f7f7f7;
+    background-color: #f6f6f6;
     font-style: italic;
     width: 80%;
     padding: 1.5em;
@@ -679,7 +679,7 @@ a.footnote-number {
 */
 
 .formula {
-    background-color: #f7f7f7;
+    background-color: #f6f6f6;
     padding: 1.5em;
     margin-top: 2em;
     text-align: center;
@@ -690,20 +690,18 @@ a.footnote-number {
 */
 
 .contact-info {
-    padding: 2em;
-    margin-top: 5em;
-    width: 250px;
-
+  padding: 2em;
+  margin-top: 5em;
+  width: 280px;
   text-align: left;
-  border: #1661AD solid 2px;
-  color: #1661AD!important;
+  border: #00335b solid 2px;
+  color: #00335b!important;
   border-radius: 25px;
-
 }
 
 .contact-info a,
 .contact-info a:hover {
-  color: #1661AD;
+  color: #00335b;
 }
 
 .contact-info p, .contact-info a {
@@ -759,7 +757,7 @@ h2 p {
 }
 
 .wrapper-top {
-  background: linear-gradient(200deg, #0f365e, #1661AD);
+  background: linear-gradient(135deg, #00335b, #00335b, #93c0d6);
   color: #ffffff;
   padding: 2em 0;
   width: 100%;
@@ -768,7 +766,7 @@ h2 p {
 .wrapper-top-bottom {
   width: 0;
   height: 0;
-  border-top: 100px solid #1661AD;
+  border-top: 100px solid #00335b;
   border-right: 100px solid transparent;
   position: absolute;
 }
@@ -852,7 +850,7 @@ h2 p {
     border: #f36f36 solid 2px;
   color: #f36f36!important;
   margin: 1em 2em;
-  color: #485094;
+  color: #2e81c2;
   padding: 2em 1em 1em 1em;
   border-radius: 25px;
   }
@@ -876,7 +874,7 @@ h2 p {
   }
 
 
-/*  .copyright .name, .copyright .address {color: #485094;} */
+/*  .copyright .name, .copyright .address {color: #2e81c2;} */
 
 
 
@@ -915,7 +913,7 @@ To top button
 
   a.anchorjs-link:hover {
   background: none;
-  color: #485094;
+  color: #2e81c2;
   box-shadow: none;
 }
 
