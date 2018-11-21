@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<acme-standard xmlns="https://open.ribose.com/standards/acme">
+<ogc-standard xmlns="https://open.ribose.com/standards/ogc">
 <bibdata type="standard">
   
   <contributor>
     <role type="author"/>
     <organization>
-      <name>Acme</name>
+      <name>OGC</name>
     </organization>
   </contributor>
   <contributor>
     <role type="publisher"/>
     <organization>
-      <name>Acme</name>
+      <name>OGC</name>
     </organization>
   </contributor>
   <language>en</language>
@@ -21,7 +21,7 @@
     <from>2018</from>
     <owner>
       <organization>
-        <name>Acme</name>
+        <name>OGC</name>
       </organization>
     </owner>
   </copyright>
@@ -30,6 +30,6 @@
   </editorialgroup>
 </bibdata>
 <sections>
-  <p id="_0cbb5a6c-0bfb-49b8-aca3-de71e19beb7c">Test</p>
+  <p id="_0eac99f1-ed61-40ae-952e-0696178962d9">Test</p>
 </sections>
-</acme-standard>
+</ogc-standard>

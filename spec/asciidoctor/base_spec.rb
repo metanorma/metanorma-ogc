@@ -5,7 +5,7 @@ RSpec.describe Asciidoctor::Ogc do
   it "generates output for the Rice document" do
     FileUtils.rm_rf %w(spec/examples/rfc6350.doc spec/examples/rfc6350.html spec/examples/rfc6350.pdf)
     FileUtils.cd "spec/examples"
-    Asciidoctor.convert_file "rfc6350.adoc", {:attributes=>{"backend"=>"acme"}, :safe=>0, :header_footer=>true, :requires=>["metanorma-acme"], :failure_level=>4, :mkdirs=>true, :to_file=>nil}
+    Asciidoctor.convert_file "rfc6350.adoc", {:attributes=>{"backend"=>"ogc"}, :safe=>0, :header_footer=>true, :requires=>["metanorma-ogc"], :failure_level=>4, :mkdirs=>true, :to_file=>nil}
     FileUtils.cd "../.."
     expect(File.exist?("spec/examples/rfc6350.doc")).to be true
     expect(File.exist?("spec/examples/rfc6350.html")).to be true
@@ -20,7 +20,7 @@ RSpec.describe Asciidoctor::Ogc do
     output = <<~"OUTPUT"
     #{BLANK_HDR}
 <sections/>
-</acme-standard>
+</ogc-standard>
     OUTPUT
 
     expect(Asciidoctor.convert(input, backend: :ogc, header_footer: true)).to be_equivalent_to output
@@ -37,7 +37,7 @@ RSpec.describe Asciidoctor::Ogc do
     output = <<~"OUTPUT"
     #{BLANK_HDR}
 <sections/>
-</acme-standard>
+</ogc-standard>
     OUTPUT
 
     FileUtils.rm_f "test.html"
@@ -80,10 +80,10 @@ RSpec.describe Asciidoctor::Ogc do
 
     output = <<~"OUTPUT"
     <?xml version="1.0" encoding="UTF-8"?>
-<acme-standard xmlns="#{Metanorma::Ogc::DOCUMENT_NAMESPACE}">
+<ogc-standard xmlns="#{Metanorma::Ogc::DOCUMENT_NAMESPACE}">
 <bibdata type="standard">
   <title language="en" format="text/plain">Main Title</title>
-  <docidentifier>Ogc 1000</docidentifier>
+  <docidentifier>OGC 1000</docidentifier>
   <docnumber>1000</docnumber>
   <contributor>
     <role type="author"/>
@@ -119,7 +119,7 @@ RSpec.describe Asciidoctor::Ogc do
   <draft>3.4</draft>
 </version>
 <sections/>
-</acme-standard>
+</ogc-standard>
     OUTPUT
 
     expect(Asciidoctor.convert(input, backend: :ogc, header_footer: true)).to be_equivalent_to output
@@ -148,7 +148,7 @@ RSpec.describe Asciidoctor::Ogc do
        Amen</pre>
        </figure>
        </sections>
-       </acme-standard>
+       </ogc-standard>
     OUTPUT
 
     expect(strip_guid(Asciidoctor.convert(input, backend: :ogc, header_footer: true))).to be_equivalent_to output
@@ -171,7 +171,7 @@ RSpec.describe Asciidoctor::Ogc do
        <clause id="_" obligation="normative">
          <title>Section 1</title>
        </clause></sections>
-       </acme-standard>
+       </ogc-standard>
     OUTPUT
 
     expect(strip_guid(Asciidoctor.convert(input, backend: :ogc, header_footer: true))).to be_equivalent_to output
@@ -266,7 +266,7 @@ RSpec.describe Asciidoctor::Ogc do
        <strike>strike</strike>
        <smallcap>smallcap</smallcap></p>
        </sections>
-       </acme-standard>
+       </ogc-standard>
     OUTPUT
 
     expect(strip_guid(Asciidoctor.convert(input, backend: :ogc, header_footer: true))).to be_equivalent_to output
@@ -274,7 +274,7 @@ RSpec.describe Asciidoctor::Ogc do
 
   it "uses user-specified HTML stylesheets" do
     FileUtils.rm_f "spec/assets/test.html"
-    system "metanorma -t acme -r metanorma-acme spec/assets/test.adoc"
+    system "metanorma -t ogc -r metanorma-ogc spec/assets/test.adoc"
     html = File.read("spec/assets/test.html", encoding: "utf-8")
     expect(html).to match(%r[I am an HTML stylesheet])
     expect(html).to match(%r[I am an HTML cover page])
@@ -284,7 +284,7 @@ RSpec.describe Asciidoctor::Ogc do
 
   it "uses user-specified Word stylesheets" do
     FileUtils.rm_f "spec/assets/test.doc"
-    system "metanorma -t acme -r metanorma-acme spec/assets/test.adoc"
+    system "metanorma -t ogc -r metanorma-ogc spec/assets/test.adoc"
     html = File.read("spec/assets/test.doc", encoding: "utf-8")
     expect(html).to match(%r[I am a Word stylesheet])
     expect(html).to match(%r[I am a Standard stylesheet])
