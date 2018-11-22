@@ -299,25 +299,23 @@ table {
 }
 
 p.document-type, p.document-stage {
-    color: white;
-    text-transform: uppercase;
-    font-size: 0.9em;
-    font-weight: 400;
-    letter-spacing: 0.05em;
-    margin:0;
-    margin-left: 6px;
-    writing-mode:tb-rl;
-	-webkit-transform:rotate(180deg);
-	-moz-transform:rotate(180deg);
-	-o-transform: rotate(180deg);
-	white-space:nowrap;
-	display:block;
-    bottom:0;
+  color: white;
+  text-transform: uppercase;
+  font-size: 0.9em;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  margin:0;
+  margin-left: 6px;
+  writing-mode:tb-rl;
+  transform:rotate(180deg);
+        white-space:nowrap;
+        display:block;
+  bottom:0;
 }
 
 p.document-type {
     font-weight: 400;
-    height: 150;
+    height: 210px;
 }
 
 #governance-band p.document-type {
@@ -330,86 +328,59 @@ p.document-stage {
     height:160px;
 }
 
-#standard-band p{
-  height: 270px;
+$doctype-colors-list:(
+  standard: #0AC442,
+  standard-with-suite: #540D6E,
+  abstract-specification: #D183C9,
+  community-standard: #65AFFF,
+  profile: #3A405A,
+  best-practice: #F26430,
+  engineering-report: #C84630,
+  discussion-paper: #BFAE48,
+  reference-model: #BD9391,
+  user-guide: #303633,
+  policy: #8BE8CB,
+  guide: #7EA2AA,
+  amendment: #888DA7,
+  technical-corrigendum: #9C7A97,
+  administrative: #C4F1BE
+);
+
+@each $key,$val in $doctype-colors-list{
+  ##{$key}-band {
+    background-color: #{$val};
+  }
+  ##{$key} {
+    border-bottom: solid 3px #{$val};
+  }
 }
 
-#proposal-band p {
-  height: 150px;
-}
+$docstage-colors-list:(
+  rfc: #39A0ED,
+  candidate: #2D7393,
+  published: #069E2D,
+  deprecated: #004E64,
+  retired: #2E382E,
+);
 
-
-#standard-band,  #published-band {
-    background-color: #9ABD48;
-}
-
-#standard, #published {
-    border-bottom: solid 3px #9ABD48;
-}
-
-#governance, #policy-and-procedures {
-    border-bottom: solid 3px #750697;
-}
-
-#governance-band, #policy-and-procedures-band {
-    background-color: #750697;
-}
-
-#guide {
-    border-bottom: solid 3px #48a0e7;
-}
-
-#guide-band {
-    background-color: #48a0e7;
+@each $key,$val in $docstage-colors-list{
+  ##{$key}-band {
+    background-color: #{$val};
+  }
+  ##{$key} {
+    border-bottom: solid 3px #{$val};
+  }
 }
 
 .coverpage-maturity {
-    font-family: $bodyfont;
-    font-weight: 400;
-    font-size: 1em;
-    margin: 0 0 2em 0;
-    text-transform: uppercase;
-    }
-
-#working-draft, #proposal {
-    border-bottom: solid 3px #F7803C;
+  font-family: $bodyfont;
+  font-weight: 400;
+  font-size: 1em;
+  margin: 0 0 2em 0;
+  text-transform: uppercase;
 }
 
-#working-draft-band, #proposal-band {
-    background-color: #F7803C;
-}
 
-#committee-draft {
-    border-bottom: solid 3px #fd06fd;
-}
-
-#committee-draft-band {
-    background-color: #fd06fd;
-}
-
-#draft-standard {
-    border-bottom: solid 3px #fdf906;
-}
-
-#draft-standard-band {
-    background-color: #fdf906;
-}
-
-#standard {
-    border-bottom: solid 3px #9ABD48;
-}
-
-#standard-band {
-    background-color: #9ABD48;
-}
-
-#obsolete {
-    border-bottom: solid 3px #7e0d13;
-}
-
-#obsolete-band {
-    background-color: #7e0d13;
-}
 
 /*
     3. TYPOGRAPHY
