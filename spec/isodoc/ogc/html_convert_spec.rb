@@ -9,6 +9,10 @@ RSpec.describe IsoDoc::Ogc do
        <bibdata type="implementation-standard">
          <title language="en" format="text/plain">Main Title</title>
          <source>http://www.example.com</source>
+         <source type="html">http://www.example.com/html</source>
+         <source type="xml">http://www.example.com/xml</source>
+         <source type="pdf">http://www.example.com/pdf</source>
+         <source type="doc">http://www.example.com/doc</source>
          <docidentifier type="ogc-external">http://www.example2.com</docidentifier>
          <docidentifier type="ogc-internal">1000</docidentifier>
          <docnumber>1000</docnumber>
@@ -64,6 +68,8 @@ RSpec.describe IsoDoc::Ogc do
          <editorialgroup>
            <committee type="A">TC</committee>
            <committee type="B">TC1</committee>
+           <subcommittee type="C" number="1">SC1</committee>
+           <workgroup type="D" number="2">WG1</committee>
          </editorialgroup>
        </bibdata><version>
          <edition>2.0</edition>
@@ -75,7 +81,7 @@ RSpec.describe IsoDoc::Ogc do
     INPUT
 
     output = <<~"OUTPUT"
-    {:accesseddate=>"XXX", :authors=>["BarneyRubble"], :confirmeddate=>"XXX", :createddate=>"1999-01-01", :docnumber=>"1000", :doctitle=>"Main Title", :doctype=>"Implementation Standard", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :edition=>"2.0", :editorialgroup=>[], :editors=>["Fred Flintstone"], :externalid=>"http://www.example2.com", :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"2001-01-01", :language=>["eng", "", "en", "English", "anglais"], :obsoleteddate=>"XXX", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"2002-01-01", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :sc=>"XXXX", :secretariat=>"XXXX", :status=>"Swg work", :tc=>"TC", :updateddate=>"XXX", :wg=>"XXXX"}
+    {:accesseddate=>"XXX", :authors=>["BarneyRubble"], :confirmeddate=>"XXX", :createddate=>"1999-01-01", :doc=>"http://www.example.com/doc", :docnumber=>"1000", :doctitle=>"Main Title", :doctype=>"Implementation Standard", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :edition=>"2.0", :editorialgroup=>[], :editors=>["Fred Flintstone"], :externalid=>"http://www.example2.com", :html=>"http://www.example.com/html", :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"2001-01-01", :language=>["eng", "", "en", "English", "anglais"], :obsoleteddate=>"XXX", :obsoletes=>nil, :obsoletes_part=>nil, :pdf=>"http://www.example.com/pdf", :publisheddate=>"2002-01-01", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :sc=>"XXXX", :secretariat=>"XXXX", :status=>"Swg work", :tc=>"TC", :updateddate=>"XXX", :url=>"http://www.example.com", :wg=>"XXXX", :xml=>"http://www.example.com/xml"}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)

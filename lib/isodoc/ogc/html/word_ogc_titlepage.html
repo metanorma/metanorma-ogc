@@ -17,6 +17,11 @@ style='mso-no-proof:yes;font-size:10.0pt'>External identifier of this OGC® docu
 <p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
 style='mso-no-proof:yes;font-size:10.0pt'>Internal reference number of this OGC® document: {{ docnumber }}</span></span></p>
 
+{% if url or html %}
+<p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
+style='mso-no-proof:yes;font-size:10.0pt'>URL for this OGC® document: {{ url or html }}</span></span></p>
+{% endif %}
+
 {% if edition %}
 <p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
 style='mso-no-proof:yes;font-size:10.0pt'>Version: {{ edition }}</span></span></p>
@@ -44,6 +49,18 @@ style='mso-color-alt:windowtext'><a href="http://www.opengeospatial.org/legal/">
 style='mso-color-alt:windowtext'>http://www.opengeospatial.org/legal/</span></a></span></span>.<b
 style='mso-bidi-font-weight:normal'><o:p></o:p></b></span></p>
 
+{% if status == "Policy" %}
+<p class="MsoNormal" align="center" style='margin-bottom:6.0pt;text-align:center;
+border:none;mso-border-alt:solid windowtext .5pt;padding:0cm;mso-padding-alt:
+1.0pt 4.0pt 1.0pt 4.0pt'><b style='mso-bidi-font-weight:normal'><span
+lang="EN-GB" style='font-size:10.0pt;mso-bidi-font-size:11.0pt'>Warning<o:p></o:p></span></b></p>
+
+<p class="MsoNormal" style='margin-bottom:6.0pt;border:none;mso-border-alt:solid windowtext .5pt;
+padding:0cm;mso-padding-alt:1.0pt 4.0pt 1.0pt 4.0pt'><span lang="EN-GB"
+style='font-size:10.0pt;mso-bidi-font-size:11.0pt;mso-bidi-font-weight:bold'>This document is an OGC Policies and Procedures Document. The document is subject to change based on membership requirements and motions. Please note that the OGC <a href="http://www.opengeospatial.org/ogc/policies/directives">Policies Related to OGC Standards</a> should be also be read. 
+<o:p></o:p></span></p>
+{% endif %}
+
 {% if status != "Published" and status != "Withdrawn" %}
 <p class="MsoNormal" align="center" style='margin-bottom:6.0pt;text-align:center;
 border:none;mso-border-alt:solid windowtext .5pt;padding:0cm;mso-padding-alt:
@@ -54,7 +71,7 @@ lang="EN-GB" style='font-size:10.0pt;mso-bidi-font-size:11.0pt'>Warning for draf
 padding:0cm;mso-padding-alt:1.0pt 4.0pt 1.0pt 4.0pt'><span lang="EN-GB"
 style='font-size:10.0pt;mso-bidi-font-size:11.0pt;mso-bidi-font-weight:bold'>This document
 is not a OGC Standard.This document is distributed for review and comment. This document is subject to change without notice and may not be referred to as an OGC Standard.<o:p></o:p></span></p>
-
+{% endif %}
 
 <div style='mso-element:frame;mso-element-frame-hspace:7.1pt;mso-element-frame-vspace:
 7.1pt;mso-element-wrap:auto;mso-element-anchor-vertical:page;mso-element-anchor-horizontal:
@@ -107,6 +124,7 @@ page;mso-element-left:39.9pt;mso-element-top:693.25pt;mso-height-rule:exactly'>
 
 </div>
 
+{% if status != "Published" and status != "Withdrawn" %}
 <p class="MsoNormal" style='border:none;mso-border-alt:solid windowtext .5pt;
 padding:0cm;mso-padding-alt:1.0pt 4.0pt 1.0pt 4.0pt'><span lang="EN-GB"
 style='font-size:10.0pt;mso-bidi-font-size:11.0pt;mso-bidi-font-weight:bold'>Recipients

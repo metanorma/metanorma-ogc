@@ -18,10 +18,30 @@
 
   <div class="coverpage-doc-identity">
     <div class="doc-number">
-      <span class="docnumber">{{ docnumber }}</span>
-      <span class="docnumber-separator">:</span>
-      <span class="docyear">{{ docyear }} {{ draftinfo }}</span>
+    <p>Submission Date: {{ receiveddate }}</p>
+    <p>Approval Date: {{ issueddate }}</p>
+    <p>Publication Date: {{ publisheddate }}</p>
+      <p>External identifier of this OGC® document <span class="docnumber">{{ externalid }}</span></p>
+      <p>Internal identifier of this OGC® document <span class="docnumber">{{ docnumber }}</span></p>
+      {% if url or html %}
+      <p>URL for this OGC® document: {{ url or html }}</p>
+      {% endif %}
     </div>
+
+      {% if xml or pdf or doc %}
+    <div class="coverpage-doc-identity">
+      <p>Additional Formats:
+      {% if xml %}<a href="{{ xml }}">XML</a>{% endif %}
+      {% if pdf %}<a href="{{ pdf }}">PDF</a>{% endif %}
+      {% if doc %}<a href="{{ doc }}">DOC</a>{% endif %}
+      </p></div>
+      {% endif %}
+
+      {% if previousuri %}
+    <div class="coverpage-doc-identity">
+      <p>Previous URI: <a href="{{ previousuri }}">{{previousuri}}</a></p>
+    </div>
+      {% endif %}
 
     <div class="coverpage-title">
       <span class="title-first">{{ doctitle }}</span>
@@ -47,13 +67,14 @@
 
   <div class="coverpage-stage-block" >
     <p><span class="coverpage-maturity" id="{{ status | replace: ' ', '-' | downcase }}">{{ status }}</span></p>
-{% if security %}
-<p><span class="coverpage-maturity">Classification: {{ security }}</span></p>
-{% endif %}
 </div>
 
-{% if doctype == "Policy And Procedures" or doctype == "Proposal" %}
-<div  class="coverpage-stage-block" >{{ revdate }}</div>
+{% if doctype == "Policy" %}
+  <div class="coverpage-warning">
+    <span class="title">Warning</span>
+    <p class="content">This document is an OGC Policies and Procedures Document. The document is subject to change based on membership requirements and motions. Please note that the OGC <a href="http://www.opengeospatial.org/ogc/policies/directives">Policies Related to OGC Standards</a> should be also be read.
+    </p>
+ </div>
 {% endif %}
 
 {% if status != "Published" and status != "Withdrawn" %}

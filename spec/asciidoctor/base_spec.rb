@@ -87,6 +87,7 @@ RSpec.describe Asciidoctor::Ogc do
       :surname_2: Rubble
       :givenname_2: Barney
       :role: editor
+      :previous-uri: PREVIOUS URI
     INPUT
 
     output = <<~"OUTPUT"
@@ -94,6 +95,7 @@ RSpec.describe Asciidoctor::Ogc do
        <bibdata type="standard">
          <title language="en" format="text/plain">Main Title</title>
          <source>http://www.example.com</source>
+         <source type="previous">PREVIOUS URI</source>
          <docidentifier type="ogc-external">http://www.example2.com</docidentifier>
          <docidentifier type="ogc-external">ABC</docidentifier>
          <docidentifier type="ogc-internal">1000</docidentifier>
@@ -148,8 +150,9 @@ RSpec.describe Asciidoctor::Ogc do
            </owner>
          </copyright>
          <editorialgroup>
-           <committee type="A">TC</committee>
-           <committee type="B">TC1</committee>
+           <committee>TC</committee>
+           <subcommittee type="B" number="2">SC</subcommittee>
+           <workgroup type="C" number="3">WG</workgroup>
          </editorialgroup>
        </bibdata><version>
          <edition>2.0</edition>
@@ -175,16 +178,6 @@ RSpec.describe Asciidoctor::Ogc do
       :edition: 2.0
       :revdate: 2000-01-01
       :draft: 3.4
-      :workingGroup: TC
-      :committee-number: 1
-      :committee-type: A
-      :committee_2: TC1
-      :committee-number_2: 1
-      :committee-type_2: B
-      :subcommittee: SC
-      :subcommittee-number: 2
-      :subcommittee-type: B
-      :secretariat: SECRETARIAT
       :copyrightYear: 2001
       :status: SWG Work
       :iteration: 3
@@ -217,13 +210,13 @@ RSpec.describe Asciidoctor::Ogc do
                   <date type="created">
            <on>1999-01-01</on>
          </date>
-         <date type="received-date">
+         <date type="received">
            <on>1999-06-01</on>
          </date>
-         <date type="published-date">
+         <date type="published">
            <on>2002-01-01</on>
          </date>
-         <date type="issued-date">
+         <date type="issued">
            <on>2001-01-01</on>
          </date>
          <contributor>
@@ -275,8 +268,7 @@ RSpec.describe Asciidoctor::Ogc do
            </owner>
          </copyright>
          <editorialgroup>
-           <committee type="A">TC</committee>
-           <committee type="B">TC1</committee>
+           <committee>technical</committee>
          </editorialgroup>
        </bibdata><version>
          <edition>2.0</edition>

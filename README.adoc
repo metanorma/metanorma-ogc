@@ -168,7 +168,10 @@ introduced with `=`, is ignored)
 `deprecated`::: Deprecated
 `retired`::: Retired
 
-`:committee:` (OGC: `:workingGroup:`):: The name of the relevant committee producing the document (mandatory)
+`:committee:`:: The name of the relevant committee producing the document (mandatory). The legal values are: 
+`technical`, `planning`, `strategic-member-advisory1
+`:subcommittee:`:: The name of the relevant subcommittee producing the document
+`:workgroup:` (OGC: `:workingGroup:`):: The name of the relevant working group producing the document (mandatory)
 
 `:language:`:: The language of the document (e.g. `en`) (mandatory)
 
@@ -178,6 +181,9 @@ introduced with `=`, is ignored)
 `:received-date:`  (OGC: `:submissionDate:`):: The date at which the document was submitted to the standards body.
 
 `:uri:`:: The URI to which this standard is published.
+`:xml-uri:`:: The URI for the Metanorma XML as which this standard is published.
+`:pdf-uri:`:: The URI for the PDF as which this standard is published.
+`:doc-uri:`:: The URI for the DOC as which this standard is published.
 `:docnumber:`  (OGC: `docReference`):: The internal identifier referring to this document.
 
 `:draft:`:: If present, review notes are included in the
@@ -191,6 +197,11 @@ The following document attributes are specific to this document class:
 `:external-id:`:: The external identifier referring to this document.
 `:referenceURLID:`:: The identifier embedded into a document type-specific
 external URL.
+`:previous-uri:`:: URI of previous version of the document.
+`:subcommittee-type:`:: The type of the relevant subcommittee producing the document
+`:subcommittee-number:`:: The number of the relevant subcommittee producing the document
+`:workgroup-type:`:: The type of the relevant workgroup producing the document
+`:workgroup-number:`:: The number of the relevant workgroup producing the document
 
 
 `:fullname{_i}:`:: The full name of a person who is a contributor to the document.

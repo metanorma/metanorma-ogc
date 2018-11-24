@@ -84,6 +84,11 @@ module IsoDoc
         return isodate unless m && m[:yr] && m[:mo]
         return "#{MONTHS[m[:mo].to_sym]} #{m[:yr]}"
       end
+
+      def url(xml, _out)
+        super
+        a = xml.at(ns("//bibdata/source[@type = 'previous']")) and set(:previousuri, a.text)
+      end
     end
   end
 end

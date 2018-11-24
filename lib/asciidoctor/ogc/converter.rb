@@ -77,14 +77,15 @@ module Asciidoctor
 
       def metadata_committee(node, xml)
         xml.editorialgroup do |a|
-          a.committee (node.attr("committee") || node.attr("workinggroup")),
-            **attr_code(type: node.attr("committee-type"))
-          i = 2
-          while node.attr("committee_#{i}") do
-            a.committee node.attr("committee_#{i}"),
-              **attr_code(type: node.attr("committee-type_#{i}"))
-            i += 1
-          end
+          a.committee(node.attr("committee") || "technical")
+          node.attr("subcommittee") and
+            a.subcommittee(node.attr("subcommittee"),
+                           **attr_code(type: node.attr("subcommittee-type"),
+                                       number: node.attr("subcommittee-number")))
+          (node.attr("workgroup") || node.attr("workinggroup")) and
+            a.workgroup(node.attr("workgroup") || node.attr("workinggroup"),
+                        **attr_code(type: node.attr("workgroup-type"),
+                                    number: node.attr("workgroup-number")))
         end
       end
 
@@ -111,6 +112,11 @@ module Asciidoctor
         else
           node.attr('referenceurlid')
         end
+      end
+
+      def metadata_source(node, xml)
+        super
+        node.attr("previous-uri") && xml.source(node.attr("previous-uri"), type: "previous")
       end
 
       def metadata_copyright(node, xml)
