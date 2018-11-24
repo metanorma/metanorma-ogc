@@ -69,6 +69,40 @@
     <p><span class="coverpage-maturity" id="{{ status | replace: ' ', '-' | downcase }}">{{ status }}</span></p>
 </div>
 
+{% if doctype == "Standard" or doctype == "Standard With Suite" %}
+  <div class="coverpage-warning">
+    <span class="title">Warning</span>
+    <p class="content">This document is an OGC Member approved international standard. This document is available on a royalty free, non-discriminatory basis. Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation.
+    </p>
+ </div>
+{% endif %}
+
+{% if doctype == "Discussion Paper" %}
+  <div class="coverpage-warning">
+    <span class="title">Warning</span>
+    <p class="content">This document is not an OGC Standard. This document is an OGC Discussion Paper and is therefore <i>not an official position</i> of the OGC membership. It is distributed for review and comment. It is subject to change without notice and may not be referred to as an OGC Standard. Further, an OGC Discussion Paper should not be referenced as required or mandatory technology in procurements.
+    </p>
+ </div>
+{% endif %}
+
+
+{% if doctype == "Engineering Report" %}
+  <div class="coverpage-warning">
+    <span class="title">Warning</span>
+    <p class="content">This document is not an OGC Standard. This document is an OGC Public Engineering Report created as a deliverable in an OGC Interoperability Initiative and is <i>not an official position</i> of the OGC membership. It is distributed for review and comment. It is subject to change without notice and may not be referred to as an OGC Standard. Further, any OGC Engineering Report should not be referenced as required or mandatory technology in procurements.
+    </p>
+ </div>
+{% endif %}
+
+
+{% if doctype == "Best Practice" %}
+  <div class="coverpage-warning">
+    <span class="title">Warning</span>
+    <p class="content">This document defines an OGC Best Practices on a particular technology or approach related to an OGC standard. This document is <i>not</i> an OGC Standard and may not be referred to as an OGC Standard. It is subject to change without notice. However, this document is an <i>official</i> position of the OGC membership on this particular technology topic.
+    </p>
+ </div>
+{% endif %}
+
 {% if doctype == "Policy" %}
   <div class="coverpage-warning">
     <span class="title">Warning</span>
@@ -84,9 +118,10 @@
     <p class="content">
     This document is not a OGC Standard. It is distributed for review and
     comment, and is subject to change without notice and may not be referred to as
-    a Standard. Recipients of this draft are invited to submit, with their
-    comments, notification of any relevant patent rights of which they are aware
-    and to provide supporting documentation.
+    a Standard.</p>
+    <p class="content">Attention is drawn to the possibility that some of the elements of this document may be the subject of patent rights. The Open Geospatial Consortium Inc. shall not be held responsible for identifying any or all such patent rights.
+    </p>
+    <p class="content">Recipients of this document are requested to submit, with their comments, notification of any relevant patent claims or other intellectual property rights of which they may be aware that might be infringed by any implementation of the standard set forth in this document, and to provide supporting documentation.
     </p>
   </div>
 {% endif %}
