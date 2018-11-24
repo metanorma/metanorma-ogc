@@ -75,7 +75,7 @@ RSpec.describe IsoDoc::Ogc do
     INPUT
 
     output = <<~"OUTPUT"
-    {:accesseddate=>"XXX", :authors=>["BarneyRubble"], :confirmeddate=>"XXX", :createddate=>"1999-01-01", :docnumber=>"1000", :doctitle=>"Main Title", :doctype=>"Implementation Standard", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :editorialgroup=>[], :editors=>["Fred Flintstone"], :externalid=>"http://www.example2.com", :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"2001-01-01", :obsoleteddate=>"XXX", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"2002-01-01", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :sc=>"XXXX", :secretariat=>"XXXX", :status=>"Swg work", :tc=>"TC", :updateddate=>"XXX", :wg=>"XXXX"}
+    {:accesseddate=>"XXX", :authors=>["BarneyRubble"], :confirmeddate=>"XXX", :createddate=>"1999-01-01", :docnumber=>"1000", :doctitle=>"Main Title", :doctype=>"Implementation Standard", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :edition=>"2.0", :editorialgroup=>[], :editors=>["Fred Flintstone"], :externalid=>"http://www.example2.com", :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"2001-01-01", :language=>["eng", "", "en", "English", "anglais"], :obsoleteddate=>"XXX", :obsoletes=>nil, :obsoletes_part=>nil, :publisheddate=>"2002-01-01", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :sc=>"XXXX", :secretariat=>"XXXX", :status=>"Swg work", :tc=>"TC", :updateddate=>"XXX", :wg=>"XXXX"}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)

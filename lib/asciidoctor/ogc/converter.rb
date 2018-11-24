@@ -89,7 +89,8 @@ module Asciidoctor
       end
 
       def metadata_status(node, xml)
-        xml.status(**{ format: "plain" }) { |s| s << node.attr("status") }
+        status = node.attr("status") || "published"
+        xml.status(**{ format: "plain" }) { |s| s << status }
       end
 
       def metadata_id(node, xml)
@@ -126,9 +127,9 @@ module Asciidoctor
 
       def metadata_date(node, xml)
         super
-        ogc_date(node, xml, "submissiondate", "received-date" )
-        ogc_date(node, xml, "publicationdate", "published-date" )
-        ogc_date(node, xml, "approvaldate", "issued-date" )
+        ogc_date(node, xml, "submissiondate", "received" )
+        ogc_date(node, xml, "publicationdate", "published" )
+        ogc_date(node, xml, "approvaldate", "issued" )
       end
 
       def ogc_date(node, xml, ogcname, metanormaname)
@@ -141,6 +142,10 @@ module Asciidoctor
 
       def metadata(node, xml)
         super
+      end
+
+      # ignore, we generate ToC outside of asciidoctor
+      def toc(value)
       end
 
       def title_validate(root)
@@ -224,29 +229,6 @@ module Asciidoctor
 
       def word_converter(node)
         IsoDoc::Ogc::WordConvert.new(doc_extract_attributes(node))
-      end
-
-      def inline_quoted(node)
-        noko do |xml|
-          case node.type
-          when :emphasis then xml.em node.text
-          when :strong then xml.strong node.text
-          when :monospaced then xml.tt node.text
-          when :double then xml << "\"#{node.text}\""
-          when :single then xml << "'#{node.text}'"
-          when :superscript then xml.sup node.text
-          when :subscript then xml.sub node.text
-          when :asciimath then stem_parse(node.text, xml)
-          else
-            case node.role
-            when "strike" then xml.strike node.text
-            when "smallcap" then xml.smallcap node.text
-            when "keyword" then xml.keyword node.text
-            else
-              xml << node.text
-            end
-          end
-        end.join
       end
     end
   end

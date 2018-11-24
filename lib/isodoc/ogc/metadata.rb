@@ -1,4 +1,5 @@
 require "isodoc"
+require "iso-639"
 
 module IsoDoc
   module Ogc
@@ -59,6 +60,8 @@ module IsoDoc
         super
         revdate = get[:revdate]
         set(:revdate_monthyear, monthyr(revdate))
+        set(:edition, isoxml&.at(ns("//version/edition"))&.text)
+        set(:language, ISO_639.find_by_code(isoxml&.at(ns("//bibdata/language"))&.text))
       end
 
       MONTHS = {
@@ -80,11 +83,6 @@ module IsoDoc
         m = /(?<yr>\d\d\d\d)-(?<mo>\d\d)/.match isodate
         return isodate unless m && m[:yr] && m[:mo]
         return "#{MONTHS[m[:mo].to_sym]} #{m[:yr]}"
-      end
-
-      def security(isoxml, _out)
-        security = isoxml.at(ns("//bibdata/security")) || return
-        set(:security, security.text)
       end
     end
   end
