@@ -90,11 +90,6 @@ module IsoDoc
         end
       end
 
-      def i18n_init(lang, script)
-        super
-        @annex_lbl = "Appendix"
-      end
-
       def error_parse(node, out)
         # catch elements not defined in ISO
         case node.name
@@ -126,10 +121,68 @@ module IsoDoc
       end
 
       def info(isoxml, out)
+        @meta.keywords isoxml, out
         super
       end
 
+      def load_yaml(lang, script)
+        y = if @i18nyaml then YAML.load_file(@i18nyaml)
+            elsif lang == "en"
+              YAML.load_file(File.join(File.dirname(__FILE__), "i18n-en.yaml"))
+            else
+              YAML.load_file(File.join(File.dirname(__FILE__), "i18n-en.yaml"))
+            end
+        super.merge(y)
+      end
+
+      def keywords(_docxml, out)
+        kw = @meta.get[:keywords] 
+        kw.empty? and return
+        out.div **{ class: "Section3" } do |div|
+          clause_name(nil, "Keywords", div,  class: "IntroTitle")
+          div.p "The following are keywords to be used by search engines and document catalogues."
+          div.p kw.join(", ")
+        end
+      end
+
+      SUBMITTINGORGS = 
+        "//bibdata/contributor[role/@type = 'author']/organization/name".freeze
+
+      def submittingorgs(docxml, out)
+        orgs = []
+        docxml.xpath(ns(SUBMITTINGORGS)).each { |org| orgs << org.text }
+        return if orgs.empty?
+        out.div **{ class: "Section3" } do |div|
+          clause_name(nil, "Submitting Organizations", div,  class: "IntroTitle")
+          div.p "The following organizations submitted this Document to the Open Geospatial Consortium (OGC):"
+          div.ul do |ul|
+            orgs.each do |org|
+              ul.li org
+            end
+          end
+        end
+      end
+
+      def submitters(docxml, out)
+        f = docxml.at(ns("//submitters")) || return
+         out.div **{ class: "Section3" } do |div|
+          clause_name(nil, "Submitters", div,  class: "IntroTitle")
+          f.elements.each { |e| parse(e, div) unless e.name == "title" }
+        end
+      end
+
+      def make_body3(body, docxml)
+        body.div **{ class: "main-section" } do |div3|
+          abstract docxml, div3
+          keywords docxml, div3
+          foreword docxml, div3
+          submittingorgs docxml, div3
+          submitters docxml, div3
+          middle docxml, div3
+          footnotes div3
+          comments div3
+        end
+      end
     end
   end
 end
-

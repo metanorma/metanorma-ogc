@@ -203,6 +203,10 @@ external URL.
 `:workgroup-type:`:: The type of the relevant workgroup producing the document
 `:workgroup-number:`:: The number of the relevant workgroup producing the document
 
+`:keywords:`:: Comma-delimited list of the keywords associated with the document.
+`:submitting-organizations:`:: Semicolon-delimited list of the submitting organisations
+for this document. (The organisation names themselves may contain commas; e.g.
+`University of Calgary, Canada; National Central University, Taiwan`.
 
 `:fullname{_i}:`:: The full name of a person who is a contributor to the document.
 A second person is indicated by using a numeric suffix: `:fullname:`, `:fullname_2:`, `fullname_3:`, &c.
@@ -220,7 +224,58 @@ The https://github.com/riboseinc/metanorma-standoc[metanorma-standoc]
 gem documents the customisations of Asciidoctor markup common to all metanorma gems.
 The following markup is specific to this gem:
 
-TBD
+=== Preliminary elements
+
+The following clauses are preliminary elements, and are moved into the frontispiece
+of the document (in Metanorma, the document preface):
+
+* Abstract
+* Keywords
+* Preface
+* Submitting Organizations
+* Submitters
+
+The abstract is recognised as the first clause with an `abstract` style attribute: 
+
+[source,asciidoc]
+---
+[abstract]
+== Abstract
+
+xxx
+---
+
+The preface is recognised as the text between the Asciidoctor document attributes and
+the first Asciidoctor section title; it must not be given a section title of its own.
+
+[source,asciidoc]
+---
+:received-date: 2019-01-01
+
+.Preface
+
+preface text
+
+=== Submitters
+---
+
+Keywords and Submitting Organizations consist of lists. They are treated as document metadata, 
+and are entered as a document attribute.
+The prefatory text introducing them is added automatically.
+
+Submitters are treated as a table, contained in a section with the title `Submitters`:
+
+[source,asciidoc]
+---
+=== Submitters
+
+|===
+|Name |Representing |OGC member
+
+|Steve Liang | University of Calgary, Canada / SensorUp Inc. | Yes
+|===
+---
+
 
 == Examples
 

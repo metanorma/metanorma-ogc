@@ -56,12 +56,6 @@ BLANK_HDR = <<~"HDR"
 
 
          <contributor>
-           <role type="author"/>
-           <organization>
-             <name>#{Metanorma::Ogc::ORGANIZATION_NAME_SHORT}</name>
-           </organization>
-         </contributor>
-         <contributor>
            <role type="publisher"/>
            <organization>
              <name>#{Metanorma::Ogc::ORGANIZATION_NAME_SHORT}</name>

@@ -13,15 +13,18 @@ module Asciidoctor
       register_for "ogc"
 
       def metadata_author(node, xml)
-        corporate_author(xml)
+        corporate_author(node, xml)
         personal_author(node, xml)
       end
 
-      def corporate_author(xml)
-        xml.contributor do |c|
-          c.role **{ type: "author" }
-          c.organization do |a|
-            a.name Metanorma::Ogc::ORGANIZATION_NAME_SHORT
+      def corporate_author(node, xml)
+        return unless node.attr("submitting-organizations")
+        node.attr("submitting-organizations").split(/;[ ]*/).each do |org|
+          xml.contributor do |c|
+            c.role **{ type: "author" }
+            c.organization do |a|
+              a.name org
+            end
           end
         end
       end
@@ -131,6 +134,13 @@ module Asciidoctor
         end
       end
 
+      def metadata_keywords(node, xml)
+        return unless node.attr("keywords")
+        node.attr("keywords").split(/,[ ]*/).each do |kw|
+          xml.keyword kw
+        end
+      end
+
       def metadata_date(node, xml)
         super
         ogc_date(node, xml, "submissiondate", "received" )
@@ -148,6 +158,7 @@ module Asciidoctor
 
       def metadata(node, xml)
         super
+        metadata_keywords(node, xml)
       end
 
       # ignore, we generate ToC outside of asciidoctor
@@ -218,6 +229,26 @@ module Asciidoctor
         super
         x.xpath("//*[@inline-header]").each do |h|
           h.delete("inline-header")
+        end
+      end
+
+      def make_preface(x, s)
+        super
+        if x.at("//submitters")
+          preface = s.at("//preface") || s.add_previous_sibling("<preface/>").first
+          submitters = x.at("//submitters").remove
+          preface.prepend_child submitters.remove
+        end
+      end
+
+      def clause_parse(attrs, xml, node)
+        submitters_parse(attrs, xml, node) if node.title.downcase == "submitters"
+        super
+      end
+
+      def submitters_parse(attrs, xml, node)
+         xml.submitters **attr_code(attrs) do |xml_section|
+          xml_section << node.content
         end
       end
 

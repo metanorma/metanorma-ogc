@@ -88,6 +88,8 @@ RSpec.describe Asciidoctor::Ogc do
       :givenname_2: Barney
       :role: editor
       :previous-uri: PREVIOUS URI
+      :submitting-organizations: University of Bern, Switzerland; Amazon, USA
+      :keywords: a, b, c
     INPUT
 
     output = <<~"OUTPUT"
@@ -112,7 +114,13 @@ RSpec.describe Asciidoctor::Ogc do
          <contributor>
            <role type="author"/>
            <organization>
-             <name>OGC</name>
+             <name>University of Bern, Switzerland</name>
+           </organization>
+         </contributor>
+         <contributor>
+           <role type="author"/>
+           <organization>
+             <name>Amazon, USA</name>
            </organization>
          </contributor>
          <contributor>
@@ -154,6 +162,9 @@ RSpec.describe Asciidoctor::Ogc do
            <subcommittee type="B" number="2">SC</subcommittee>
            <workgroup type="C" number="3">WG</workgroup>
          </editorialgroup>
+         <keyword>a</keyword>
+        <keyword>b</keyword>
+        <keyword>c</keyword>
        </bibdata><version>
          <edition>2.0</edition>
          <revision-date>2000-01-01</revision-date>
@@ -219,12 +230,6 @@ RSpec.describe Asciidoctor::Ogc do
          <date type="issued">
            <on>2001-01-01</on>
          </date>
-         <contributor>
-           <role type="author"/>
-           <organization>
-             <name>OGC</name>
-           </organization>
-         </contributor>
          <contributor>
            <role type="editor"/>
            <person>
@@ -306,6 +311,64 @@ OUTPUT
        </sections>
        </ogc-standard>
     OUTPUT
+
+    expect(strip_guid(Asciidoctor.convert(input, backend: :ogc, header_footer: true))).to be_equivalent_to output
+  end
+
+  it "processes submitters" do
+        input = <<~"INPUT"
+      #{ASCIIDOC_BLANK_HDR}
+      This is a preamble
+
+      [abstract]
+      Abstract
+
+      == Clause
+      Clause 1
+
+      == Submitters
+      Clause 2
+    INPUT
+
+    output = <<~"OUTPUT"
+    <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+<bibdata type="standard">
+
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <name>OGC</name>
+    </organization>
+  </contributor>
+  <language>en</language>
+  <script>Latn</script>
+  <status format="plain">published</status>
+  <copyright>
+    <from>2018</from>
+    <owner>
+      <organization>
+        <name>OGC</name>
+      </organization>
+    </owner>
+  </copyright>
+  <editorialgroup>
+    <committee>technical</committee>
+  </editorialgroup>
+</bibdata>
+<preface><submitters id="_">
+  <p id="_">Clause 2</p>
+</submitters><foreword obligation="informative"><title>Foreword</title><p id="_">This is a preamble</p>
+</foreword></preface><sections>
+<clause id="_" obligation="normative">
+  <title>Clause</title>
+  <p id="_">Clause 1</p>
+</clause>
+<clause id="_" obligation="normative">
+  <title>Submitters</title>
+  <p id="_">Clause 2</p>
+</clause></sections>
+</ogc-standard>
+        OUTPUT
 
     expect(strip_guid(Asciidoctor.convert(input, backend: :ogc, header_footer: true))).to be_equivalent_to output
   end

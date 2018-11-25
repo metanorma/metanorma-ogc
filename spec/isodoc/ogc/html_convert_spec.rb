@@ -71,6 +71,8 @@ RSpec.describe IsoDoc::Ogc do
            <subcommittee type="C" number="1">SC1</committee>
            <workgroup type="D" number="2">WG1</committee>
          </editorialgroup>
+         <keyword>A</keyword>
+         <keyword>B</keyword>
        </bibdata><version>
          <edition>2.0</edition>
          <revision-date>2000-01-01</revision-date>
@@ -81,7 +83,7 @@ RSpec.describe IsoDoc::Ogc do
     INPUT
 
     output = <<~"OUTPUT"
-    {:accesseddate=>"XXX", :authors=>["BarneyRubble"], :confirmeddate=>"XXX", :createddate=>"1999-01-01", :doc=>"http://www.example.com/doc", :docnumber=>"1000", :doctitle=>"Main Title", :doctype=>"Implementation Standard", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :edition=>"2.0", :editorialgroup=>[], :editors=>["Fred Flintstone"], :externalid=>"http://www.example2.com", :html=>"http://www.example.com/html", :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"2001-01-01", :language=>["eng", "", "en", "English", "anglais"], :obsoleteddate=>"XXX", :obsoletes=>nil, :obsoletes_part=>nil, :pdf=>"http://www.example.com/pdf", :publisheddate=>"2002-01-01", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :sc=>"XXXX", :secretariat=>"XXXX", :status=>"Swg work", :tc=>"TC", :updateddate=>"XXX", :url=>"http://www.example.com", :wg=>"XXXX", :xml=>"http://www.example.com/xml"}
+    {:accesseddate=>"XXX", :authors=>["BarneyRubble"], :confirmeddate=>"XXX", :createddate=>"1999-01-01", :doc=>"http://www.example.com/doc", :docnumber=>"1000", :doctitle=>"Main Title", :doctype=>"Implementation Standard", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :edition=>"2.0", :editorialgroup=>[], :editors=>["Fred Flintstone"], :externalid=>"http://www.example2.com", :html=>"http://www.example.com/html", :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"2001-01-01", :keywords=>["A", "B"], :language=>["eng", "", "en", "English", "anglais"], :obsoleteddate=>"XXX", :obsoletes=>nil, :obsoletes_part=>nil, :pdf=>"http://www.example.com/pdf", :publisheddate=>"2002-01-01", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :sc=>"XXXX", :secretariat=>"XXXX", :status=>"Swg work", :tc=>"TC", :updateddate=>"XXX", :url=>"http://www.example.com", :wg=>"XXXX", :xml=>"http://www.example.com/xml"}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)
@@ -101,7 +103,7 @@ RSpec.describe IsoDoc::Ogc do
     #{HTML_HDR}
              <br/>
              <div>
-               <h1 class="ForewordTitle">Foreword</h1>
+               <h1 class="ForewordTitle">Preface</h1>
                <pre>ABC</pre>
              </div>
              <p class="zzSTDTitle1"/>
@@ -130,7 +132,7 @@ RSpec.describe IsoDoc::Ogc do
         #{HTML_HDR}
              <br/>
              <div>
-               <h1 class="ForewordTitle">Foreword</h1>
+               <h1 class="ForewordTitle">Preface</h1>
                <span class="keyword">ABC</span>
              </div>
              <p class="zzSTDTitle1"/>
@@ -261,6 +263,22 @@ RSpec.describe IsoDoc::Ogc do
   it "processes section names" do
     input = <<~"INPUT"
     <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+      <bibdata>
+         <contributor>
+           <role type="author"/>
+           <organization>
+             <name>OGC</name>
+           </organization>
+         </contributor>
+         <contributor>
+           <role type="author"/>
+           <organization>
+             <name>DEF</name>
+           </organization>
+         </contributor>
+      <keyword>A</keyword>
+      <keyword>B</keyword>
+      </bibdata>
       <preface>
       <foreword obligation="informative">
          <title>Foreword</title>
@@ -269,7 +287,14 @@ RSpec.describe IsoDoc::Ogc do
         <introduction id="B" obligation="informative"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
          <title>Introduction Subsection</title>
        </clause>
-       </introduction></preface><sections>
+       </introduction>
+       <abstract obligation="informative">
+       <p>XYZ</p>
+       </abstract>
+       <submitters obligation="informative">
+       <p>ABC</p>
+       </submitters>
+        </preface><sections>
        <clause id="D" obligation="normative">
          <title>Scope</title>
          <p id="E">Text</p>
@@ -323,17 +348,32 @@ RSpec.describe IsoDoc::Ogc do
 
     output = <<~"OUTPUT"
         #{HTML_HDR}
-             <br/>
+        <br/>
              <div>
-               <h1 class="ForewordTitle">Foreword</h1>
-               <p id="A">This is a preamble</p>
+               <h1 class="AbstractTitle">Abstract</h1>
+               <p>XYZ</p>
+             </div>
+             <div class="Section3">
+               <h1 class="IntroTitle">Keywords</h1>
+               <p>The following are keywords to be used by search engines and document catalogues.</p>
+               <p>A, B</p>
              </div>
              <br/>
-             <div class="Section3" id="B">
-               <h1 class="IntroTitle">Introduction</h1>
-               <div id="C">
-          <h2>Introduction Subsection</h2>
-        </div>
+             <div>
+               <h1 class="ForewordTitle">Preface</h1>
+               <p id="A">This is a preamble</p>
+             </div>
+             <div class="Section3">
+               <h1 class="IntroTitle">Submitting Organizations</h1>
+               <p>The following organizations submitted this Document to the Open Geospatial Consortium (OGC):</p>
+               <ul>
+                 <li>OGC</li>
+                 <li>DEF</li>
+               </ul>
+             </div>
+             <div class="Section3">
+               <h1 class="IntroTitle">Submitters</h1>
+               <p>ABC</p>
              </div>
              <p class="zzSTDTitle1"/>
              <div id="D">
@@ -374,7 +414,7 @@ RSpec.describe IsoDoc::Ogc do
              </div>
              <br/>
              <div id="P" class="Section3">
-                <h1 class="Annex"><b>Appendix A</b><br/>(normative)<br/><b>Annex</b></h1>
+                <h1 class="Annex"><b>Annex A</b><br/>(normative)<br/><b>Annex</b></h1>
                <div id="Q">
           <h2>A.1. Annex A.1</h2>
           <div id="Q1">

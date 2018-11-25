@@ -56,6 +56,14 @@ module IsoDoc
       def status_abbr(status)
       end
 
+      def keywords(isoxml, _out)
+        keywords = []
+        isoxml.xpath(ns("//bibdata/keyword")).each do |kw|
+          keywords << kw.text
+        end
+        set(:keywords, keywords)
+      end
+
       def version(isoxml, _out)
         super
         revdate = get[:revdate]

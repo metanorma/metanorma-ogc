@@ -3,12 +3,6 @@
 <bibdata type="standard">
   
   <contributor>
-    <role type="author"/>
-    <organization>
-      <name>OGC</name>
-    </organization>
-  </contributor>
-  <contributor>
     <role type="publisher"/>
     <organization>
       <name>OGC</name>
@@ -30,6 +24,6 @@
   </editorialgroup>
 </bibdata>
 <sections>
-  <p id="_4a5d85cc-6d81-4a10-b0c2-12a392cc7053">Test</p>
+  <p id="_dd3897d8-c3d1-4b9e-a02f-de9bd1e23982">Test</p>
 </sections>
 </ogc-standard>
