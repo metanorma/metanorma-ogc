@@ -38,7 +38,7 @@ module IsoDoc
             forenames = a.xpath(ns("./forename"))
             forenames.each { |f| fn << f.text }
             surname = a&.at(ns("./surname"))&.text
-            ret << fn.join(" ") + surname
+            ret << fn.join(" ") + " " + surname
           end
         end
         ret
