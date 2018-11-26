@@ -224,6 +224,10 @@ The https://github.com/riboseinc/metanorma-standoc[metanorma-standoc]
 gem documents the customisations of Asciidoctor markup common to all metanorma gems.
 The following markup is specific to this gem:
 
+=== Section names
+
+The Normative References section may be named just "References", reflecting OGC practice.
+
 === Preliminary elements
 
 The following clauses are preliminary elements, and are moved into the frontispiece

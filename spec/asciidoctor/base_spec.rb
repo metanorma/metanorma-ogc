@@ -362,16 +362,56 @@ OUTPUT
 <clause id="_" obligation="normative">
   <title>Clause</title>
   <p id="_">Clause 1</p>
-</clause>
-<clause id="_" obligation="normative">
-  <title>Submitters</title>
-  <p id="_">Clause 2</p>
 </clause></sections>
 </ogc-standard>
         OUTPUT
 
     expect(strip_guid(Asciidoctor.convert(input, backend: :ogc, header_footer: true))).to be_equivalent_to output
   end
+
+    it "processes References" do
+      input = <<~"INPUT"
+      #{ASCIIDOC_BLANK_HDR}
+
+      [bibliography]
+      == References
+      INPUT
+
+          output = <<~"OUTPUT"
+          <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+<bibdata type="standard">
+
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <name>OGC</name>
+    </organization>
+  </contributor>
+  <language>en</language>
+  <script>Latn</script>
+  <status format="plain">published</status>
+  <copyright>
+    <from>2018</from>
+    <owner>
+      <organization>
+        <name>OGC</name>
+      </organization>
+    </owner>
+  </copyright>
+  <editorialgroup>
+    <committee>technical</committee>
+  </editorialgroup>
+</bibdata>
+<sections>
+
+
+</sections><bibliography><references id="_" obligation="informative">
+  <title>Normative References</title>
+</references></bibliography>
+</ogc-standard>
+OUTPUT
+    expect(strip_guid(Asciidoctor.convert(input, backend: :ogc, header_footer: true))).to be_equivalent_to output
+    end
 
   it "strips inline header" do
     input = <<~"INPUT"

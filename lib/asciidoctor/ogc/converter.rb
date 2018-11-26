@@ -1,6 +1,7 @@
 require "asciidoctor"
 require "asciidoctor/standoc/converter"
 require "fileutils"
+require_relative "front"
 
 module Asciidoctor
   module Ogc
@@ -11,155 +12,6 @@ module Asciidoctor
     class Converter < Standoc::Converter
 
       register_for "ogc"
-
-      def metadata_author(node, xml)
-        corporate_author(node, xml)
-        personal_author(node, xml)
-      end
-
-      def corporate_author(node, xml)
-        return unless node.attr("submitting-organizations")
-        node.attr("submitting-organizations").split(/;[ ]*/).each do |org|
-          xml.contributor do |c|
-            c.role **{ type: "author" }
-            c.organization do |a|
-              a.name org
-            end
-          end
-        end
-      end
-
-      def personal_author(node, xml)
-        ogc_editor(node, xml)
-        if node.attr("fullname") || node.attr("surname")
-          personal_author1(node, xml, "")
-        end
-        i = 2
-        while node.attr("fullname_#{i}") || node.attr("surname_#{i}")
-          personal_author1(node, xml, "_#{i}")
-          i += 1
-        end
-      end
-
-      def ogc_editor(node, xml)
-        return unless node.attr("editor")
-        xml.contributor do |c|
-          c.role **{ type: "editor" }
-          c.person do |p|
-            p.name do |n|
-              n.completename node.attr("editor")
-            end
-          end
-        end
-      end
-
-      def personal_author1(node, xml, suffix)
-        xml.contributor do |c|
-          c.role **{ type: node.attr("role#{suffix}") || "author" }
-          c.person do |p|
-            p.name do |n|
-              if node.attr("fullname#{suffix}")
-                n.completename node.attr("fullname#{suffix}")
-              else
-                n.forename node.attr("givenname#{suffix}")
-                n.surname node.attr("surname#{suffix}")
-              end
-            end
-          end
-        end
-      end
-
-      def metadata_publisher(node, xml)
-        xml.contributor do |c|
-          c.role **{ type: "publisher" }
-          c.organization do |a|
-            a.name Metanorma::Ogc::ORGANIZATION_NAME_SHORT
-          end
-        end
-      end
-
-      def metadata_committee(node, xml)
-        xml.editorialgroup do |a|
-          a.committee(node.attr("committee") || "technical")
-          node.attr("subcommittee") and
-            a.subcommittee(node.attr("subcommittee"),
-                           **attr_code(type: node.attr("subcommittee-type"),
-                                       number: node.attr("subcommittee-number")))
-          (node.attr("workgroup") || node.attr("workinggroup")) and
-            a.workgroup(node.attr("workgroup") || node.attr("workinggroup"),
-                        **attr_code(type: node.attr("workgroup-type"),
-                                    number: node.attr("workgroup-number")))
-        end
-      end
-
-      def metadata_status(node, xml)
-        status = node.attr("status") || "published"
-        xml.status(**{ format: "plain" }) { |s| s << status }
-      end
-
-      def metadata_id(node, xml)
-        node.attr("external-id") and
-          xml.docidentifier node.attr("external-id"), **{ type: "ogc-external" }
-        node.attr("referenceurlid") and
-          xml.docidentifier externalurl(node), **{ type: "ogc-external" }
-        docnumber = node.attr("docnumber") || node.attr("docreference")
-        if docnumber
-          xml.docidentifier docnumber, **{ type: "ogc-internal" }
-          xml.docnumber docnumber
-        end
-      end
-
-      def externalurl(node)
-        if node.attr("doctype") == "engineering-report"
-          "http://www.opengis.net/doc/PER/t14-#{node.attr('referenceurlid')}"
-        else
-          node.attr('referenceurlid')
-        end
-      end
-
-      def metadata_source(node, xml)
-        super
-        node.attr("previous-uri") && xml.source(node.attr("previous-uri"), type: "previous")
-      end
-
-      def metadata_copyright(node, xml)
-        from = node.attr("copyright-year") || node.attr("copyrightyear") || Date.today.year
-        xml.copyright do |c|
-          c.from from
-          c.owner do |owner|
-            owner.organization do |o|
-              o.name Metanorma::Ogc::ORGANIZATION_NAME_SHORT
-            end
-          end
-        end
-      end
-
-      def metadata_keywords(node, xml)
-        return unless node.attr("keywords")
-        node.attr("keywords").split(/,[ ]*/).each do |kw|
-          xml.keyword kw
-        end
-      end
-
-      def metadata_date(node, xml)
-        super
-        ogc_date(node, xml, "submissiondate", "received" )
-        ogc_date(node, xml, "publicationdate", "published" )
-        ogc_date(node, xml, "approvaldate", "issued" )
-      end
-
-      def ogc_date(node, xml, ogcname, metanormaname)
-        if node.attr(ogcname)
-          xml.date **{ type: metanormaname } do |d|
-            d.on node.attr(ogcname)
-          end
-        end
-      end
-
-      def metadata(node, xml)
-        super
-        metadata_keywords(node, xml)
-      end
 
       # ignore, we generate ToC outside of asciidoctor
       def toc(value)
@@ -216,6 +68,72 @@ module Asciidoctor
                         File.join(File.dirname(__FILE__), "ogc.rng"))
       end
 
+      def section_validate(doc)
+        sections_sequence_validate(doc.root)
+      end
+
+      STANDARDTYPE = %w{standard standard-with-suite abstract-specification
+      community-standard profile}.freeze
+
+      # spec of permissible section sequence
+      # we skip normative references, it goes to end of list
+      SEQ = 
+        [
+          {
+            msg: "Prefatory material must be followed by (clause) Scope",
+            val: [{ tag: "clause", title: "Scope" }],
+          },
+                    {
+            msg: "Scope must be followed by Conformance",
+            val: [{ tag: "clause", title: "Conformance" }],
+          },
+          {
+            msg: "Normative References must be followed by "\
+            "Terms and Definitions",
+            val: [
+              { tag: "terms", title: "Terms and definitions" },
+              { tag: "clause", title: "Terms and definitions" },
+              {
+                tag: "terms",
+                title: "Terms, definitions, symbols and abbreviated terms",
+              },
+              {
+                tag: "clause",
+                title: "Terms, definitions, symbols and abbreviated terms",
+              },
+            ],
+          },
+      ].freeze
+
+      def seqcheck(names, msg, accepted)
+        n = names.shift
+        unless accepted.include? n
+          warn "OGC style: #{msg}"
+          names = []
+        end
+        names
+      end
+
+      def sections_sequence_validate(root)
+        return unless STANDARDTYPE.include? root&.at("//bibdata/@type")&.text
+        f = root.at("//sections").elements
+        names = f.map { |s| { tag: s.name, title: s&.at("./title")&.text } }
+        names = seqcheck(names, SEQ[0][:msg], SEQ[0][:val]) || return
+        names = seqcheck(names, SEQ[1][:msg], SEQ[1][:val]) || return
+        names = seqcheck(names, SEQ[2][:msg], SEQ[2][:val]) || return
+        n = names.shift
+        if n == { tag: "definitions", title: nil }
+          n = names.shift
+        end
+        unless n
+          warn "OGC style: Document must contain at least one clause"
+          return
+        end
+        root.at("//references | //clause[descendant::references][not(parent::clause)]") or
+          seqcheck([{tag: "clause"}], 
+                   "Normative References are mandatory", [{tag: "references"}])
+      end
+
       def literal(node)
         noko do |xml|
           xml.figure **id_attr(node) do |f|
@@ -242,12 +160,23 @@ module Asciidoctor
       end
 
       def clause_parse(attrs, xml, node)
-        submitters_parse(attrs, xml, node) if node.title.downcase == "submitters"
-        super
+        clausetype = node&.attr("heading")&.downcase || node.title.downcase
+        if clausetype == "submitters" then submitters_parse(attrs, xml, node)
+        else
+          super
+        end
+      end
+
+      def bibliography_parse(attrs, xml, node)
+        clausetype = node&.attr("heading")&.downcase || node.title.downcase
+        if clausetype == "references" then norm_ref_parse(attrs, xml, node) 
+        else
+          super
+        end
       end
 
       def submitters_parse(attrs, xml, node)
-         xml.submitters **attr_code(attrs) do |xml_section|
+        xml.submitters **attr_code(attrs) do |xml_section|
           xml_section << node.content
         end
       end
