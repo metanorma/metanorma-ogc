@@ -742,21 +742,42 @@ h2 p {
   position: absolute;
 }
 
-  .doc-number {
-      font-size: 0.5em;
-      font-family: $bodyfont;
-  }
+.coverpage-metadata,
+.coverpage-alt-formats {
+  line-height: 1.5em;
+  padding: 0 1em 1em 1em;
+  text-align: right;
+}
 
-  .coverpage-title {
-      padding-bottom: 0.5em;
-      font-family: $headerfont;
-      font-size: 1.2em;
-      line-height: 1.5em;
+.coverpage-metadata > span {
+  display: block;
+  text-align: right;
+}
+
+.coverpage-alt-formats > span {
+  display: inline-block;
+  text-align: right;
+}
+
+.coverpage-metadata a,
+.coverpage-alt-formats a,
+.coverpage-metadata a:visited,
+.coverpage-alt-formats a:visited {
+  color: #fff;
+  text-decoration: underline;
+}
+
+
+.coverpage-title {
+  padding-bottom: 0.5em;
+  font-family: $headerfont;
+  font-size: 2.3em;
+  line-height: 1.5em;
   font-weight: 100;
   padding-left: 1em;
   padding-right: 1em;
   text-transform: uppercase;
-  }
+}
 
   .WordSection11 {
     padding: 0 2em 0 3em;
@@ -797,7 +818,6 @@ h2 p {
 */
 
   .coverpage-doc-identity {
-    font-size: 2em;
     line-height: 2em;
   }
 
