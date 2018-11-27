@@ -24,7 +24,7 @@
       <span>External identifier of this OGC® document: <span class="docnumber">{{ externalid }}</span></span>
       <span>Internal identifier of this OGC® document: <span class="docnumber">{{ docnumber }}</span></span>
       {% if url or html %}
-      <span>URL for this OGC® document: {{ url or html }}</span>
+      <span>URL for this OGC® document: <a href="{{ url or html }}">{{ url or html }}</a></span>
       {% endif %}
       {% if previousuri %}
       <span>Previous URI: <a href="{{ previousuri }}">{{previousuri}}</a></span>
@@ -33,10 +33,10 @@
 
     {% if xml or pdf or doc %}
     <div class="coverpage-alt-formats">
-      <span>Additional Formats:
-      {% if xml %}<a href="{{ xml }}">XML</a>{% endif %}
-      {% if pdf %}<a href="{{ pdf }}">PDF</a>{% endif %}
-      {% if doc %}<a href="{{ doc }}">DOC</a>{% endif %}
+      <span>Additional Formats: </span>
+      {% if xml %}<span><a href="{{ xml }}"><i class="far fa-file-code"></i>XML</a></span>{% endif %}
+      {% if pdf %}<span><a href="{{ pdf }}"><i class="far fa-file-pdf"></i>PDF</a></span>{% endif %}
+      {% if doc %}<span><a href="{{ doc }}"><i class="far fa-file-word"></i>DOC</a></span>{% endif %}
       </span>
     </div>
     {% endif %}
