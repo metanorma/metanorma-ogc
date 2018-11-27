@@ -160,7 +160,7 @@ introduced with `=`, is ignored)
 `administrative`::: Internal administrative documents
 --
 
-`:status:``:: Document status/stage. The permitted types are:
+`:status:`:: Document status/stage. The permitted types are:
 +
 `rfc`::: OGC RFC (proposal)
 `candidate`::: Candidate Standard
@@ -168,8 +168,8 @@ introduced with `=`, is ignored)
 `deprecated`::: Deprecated
 `retired`::: Retired
 
-`:committee:`:: The name of the relevant committee producing the document (mandatory). The legal values are: 
-`technical`, `planning`, `strategic-member-advisory1
+`:committee:`:: The name of the relevant committee producing the document (mandatory). The legal values are:
+`technical`, `planning`, `strategic-member-advisory`
 `:subcommittee:`:: The name of the relevant subcommittee producing the document
 `:workgroup:` (OGC: `:workingGroup:`):: The name of the relevant working group producing the document (mandatory)
 
@@ -239,7 +239,7 @@ of the document (in Metanorma, the document preface):
 * Submitting Organizations
 * Submitters
 
-The abstract is recognised as the first clause with an `abstract` style attribute: 
+The abstract is recognised as the first clause with an `abstract` style attribute:
 
 [source,asciidoc]
 ---
@@ -263,7 +263,7 @@ preface text
 === Submitters
 ---
 
-Keywords and Submitting Organizations consist of lists. They are treated as document metadata, 
+Keywords and Submitting Organizations consist of lists. They are treated as document metadata,
 and are entered as a document attribute.
 The prefatory text introducing them is added automatically.
 
