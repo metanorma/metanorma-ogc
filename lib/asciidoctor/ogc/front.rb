@@ -53,7 +53,7 @@ module Asciidoctor
 
       def personal_author1(node, xml, suffix)
         xml.contributor do |c|
-          c.role **{ type: node.attr("role#{suffix}").downcase || "author" }
+          c.role **{ type: node&.attr("role#{suffix}")&.downcase || "author" }
           c.person do |p|
             p.name do |n|
               if node.attr("fullname#{suffix}")
