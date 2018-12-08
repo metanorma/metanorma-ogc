@@ -111,6 +111,9 @@ RSpec.describe Asciidoctor::Ogc do
          <date type="issued">
            <on>2001-01-01</on>
          </date>
+         <date type="received">
+        <on>1999-06-01</on>
+        </date>
          <contributor>
            <role type="author"/>
            <organization>
@@ -284,35 +287,6 @@ RSpec.describe Asciidoctor::Ogc do
        </ogc-standard>
 OUTPUT
     expect(Asciidoctor.convert(input, backend: :ogc, header_footer: true)).to be_equivalent_to output
-  end
-
-  it "processes figures" do
-    input = <<~"INPUT"
-      #{ASCIIDOC_BLANK_HDR}
-
-      [[id]]
-      .Figure 1
-      ....
-      This is a literal
-
-      Amen
-      ....
-    INPUT
-
-    output = <<~"OUTPUT"
-    #{BLANK_HDR}
-       <sections>
-                <figure id="id">
-         <name>Figure 1</name>
-         <pre>This is a literal
-
-       Amen</pre>
-       </figure>
-       </sections>
-       </ogc-standard>
-    OUTPUT
-
-    expect(strip_guid(Asciidoctor.convert(input, backend: :ogc, header_footer: true))).to be_equivalent_to output
   end
 
   it "processes submitters" do

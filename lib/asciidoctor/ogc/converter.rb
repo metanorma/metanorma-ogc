@@ -134,15 +134,6 @@ module Asciidoctor
                    "Normative References are mandatory", [{tag: "references"}])
       end
 
-      def literal(node)
-        noko do |xml|
-          xml.figure **id_attr(node) do |f|
-            figure_title(node, f)
-            f.pre node.lines.join("\n")
-          end
-        end
-      end
-
       def sections_cleanup(x)
         super
         x.xpath("//*[@inline-header]").each do |h|
