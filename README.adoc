@@ -242,18 +242,18 @@ of the document (in Metanorma, the document preface):
 The abstract is recognised as the first clause with an `abstract` style attribute:
 
 [source,asciidoc]
----
+----
 [abstract]
 == Abstract
 
 xxx
----
+----
 
 The preface is recognised as the text between the Asciidoctor document attributes and
 the first Asciidoctor section title; it must not be given a section title of its own.
 
 [source,asciidoc]
----
+----
 :received-date: 2019-01-01
 
 .Preface
@@ -261,7 +261,7 @@ the first Asciidoctor section title; it must not be given a section title of its
 preface text
 
 === Submitters
----
+----
 
 Keywords and Submitting Organizations consist of lists. They are treated as document metadata,
 and are entered as a document attribute.
@@ -270,7 +270,7 @@ The prefatory text introducing them is added automatically.
 Submitters are treated as a table, contained in a section with the title `Submitters`:
 
 [source,asciidoc]
----
+----
 === Submitters
 
 |===
@@ -278,7 +278,7 @@ Submitters are treated as a table, contained in a section with the title `Submit
 
 |Steve Liang | University of Calgary, Canada / SensorUp Inc. | Yes
 |===
----
+----
 
 
 == Examples
