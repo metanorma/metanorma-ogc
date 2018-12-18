@@ -83,7 +83,7 @@ module Asciidoctor
             msg: "Prefatory material must be followed by (clause) Scope",
             val: [{ tag: "clause", title: "Scope" }],
           },
-                    {
+          {
             msg: "Scope must be followed by Conformance",
             val: [{ tag: "clause", title: "Conformance" }],
           },
@@ -146,7 +146,7 @@ module Asciidoctor
         if x.at("//submitters")
           preface = s.at("//preface") || s.add_previous_sibling("<preface/>").first
           submitters = x.at("//submitters").remove
-          preface.prepend_child submitters.remove
+          preface.add_child submitters.remove
         end
       end
 
@@ -172,9 +172,70 @@ module Asciidoctor
         end
       end
 
+      def example(node)
+        return term_example(node) if in_terms?
+        noko do |xml|
+          xml.example **id_attr(node) do |ex|
+            figure_title(node, ex)
+            wrap_in_para(node, ex)
+          end
+        end.join("\n")
+      end
+
       def style(n, t)
         return
       end
+
+      def termdef_boilerplate_cleanup(xmldoc)
+        return
+      end
+
+      def cleanup(xmldoc)
+        recommendation_cleanup(xmldoc)
+        requirement_cleanup(xmldoc)
+        permission_cleanup(xmldoc)
+        super
+      end
+
+      def recommendation_cleanup(xmldoc)
+        xmldoc.xpath("//table").each do |t|
+          td = t&.at("./tbody/tr/td[1]")&.text
+          /^\s*(Recommendation( \d+)?)\s*$/.match td or next
+          body = t&.at("./tbody/tr/td[2]") or next
+          t.name = "recommendation"
+          t.children = body&.children
+          label = t&.at("./p")&.remove or next
+          label.name = "name"
+          t.prepend_child label
+        end
+      end
+
+      def requirement_cleanup(xmldoc)
+        xmldoc.xpath("//table").each do |t|
+          td = t&.at("./tbody/tr/td[1]")&.text
+          /^\s*(Requirement( \d+)?)\s*$/.match td or next
+          body = t&.at("./tbody/tr/td[2]") or next
+          t.name = "requirement"
+          t.children = body&.children
+          label = t&.at("./p")&.remove or next
+          label.name = "name"
+          t.prepend_child label
+        end
+      end
+
+      def permission_cleanup(xmldoc)
+        xmldoc.xpath("//table").each do |t|
+          td = t&.at("./tbody/tr/td[1]")&.text
+          /^\s*(Permission( \d+)?)\s*/.match td or next
+          body = t&.at("./tbody/tr/td[2]") or next
+          t.name = "permission"
+          t.children = body&.children
+          label = t&.at("./p")&.remove or next
+          label.name = "name"
+          t.prepend_child label
+        end
+      end
+
 
       def html_converter(node)
         IsoDoc::Ogc::HtmlConvert.new(html_extract_attributes(node))

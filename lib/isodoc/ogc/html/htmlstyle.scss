@@ -78,6 +78,10 @@ code, pre, tt, kbd, samp {
   font-family: $monospacefont;
 }
 
+code *, pre *, tt *, kbd *, samp * {
+  font-family: $monospacefont !important;
+}
+
 h1, h2, h3, h4, h5, h6, .h2Annex {
   font-family: $headerfont;
 }
@@ -566,6 +570,18 @@ p.Biblio, p.NormRef {
     }
 }
 
+.Admonition {
+    background-color: #ffcccc;
+    color: #47430c;
+    padding: 1.2em;
+    margin: 1em 0 1em 0;
+
+    p {
+        margin: 0;
+    }
+}
+
+
 /*
     3.8 Examples
 */
@@ -582,6 +598,13 @@ p.Biblio, p.NormRef {
     text-align: center;
     margin-top:0;
 }
+
+.recommend {
+    background-color: #ccffcc;
+    padding: 1.2em;
+    margin: 2em 0 1em 0;
+}
+
 
 /*
     3.9 Tables

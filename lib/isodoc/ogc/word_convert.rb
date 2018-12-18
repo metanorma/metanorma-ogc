@@ -157,6 +157,37 @@ module IsoDoc
         end
         section_break(body)
       end
+
+      def preface_names(clause)
+        return if clause.nil?
+        @prefacenum += 1
+        @anchors[clause["id"]] =
+          { label: RomanNumerals.to_roman(@prefacenum).downcase,
+            level: 1, xref: preface_clause_name(clause), type: "clause" }
+        clause.xpath(ns("./clause | ./terms | ./term | ./definitions")).each_with_index do |c, i|
+          section_names1(c, "#{@prefacenum}.#{i + 1}", 2)
+        end
+      end
+
+      def initial_anchor_names(d)
+        @prefacenum = 0
+        preface_names(d.at(ns("//preface/abstract")))
+        preface_names(d.at(ns("//foreword")))
+        preface_names(d.at(ns("//introduction")))
+        preface_names(d.at(ns("//submitters")))
+        sequential_asset_names(d.xpath(ns("//preface/abstract | //foreword | //introduction | //submitters")))
+        n = section_names(d.at(ns("//clause[title = 'Scope']")), 0, 1)
+        n = section_names(d.at(ns(
+          "//references[title = 'Normative References' or title = 'Normative references']")), n, 1)
+        n = section_names(d.at(ns("//sections/terms | "\
+                                  "//sections/clause[descendant::terms]")), n, 1)
+        n = section_names(d.at(ns("//sections/definitions")), n, 1)
+        middle_section_asset_names(d)
+        clause_names(d, n)
+        termnote_anchor_names(d)
+        termexample_anchor_names(d)
+      end
+
     end
   end
 end
