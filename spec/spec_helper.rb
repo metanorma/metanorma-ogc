@@ -54,7 +54,7 @@ BLANK_HDR = <<~"HDR"
        <ogc-standard xmlns="#{Metanorma::Ogc::DOCUMENT_NAMESPACE}">
        <bibdata type="standard">
 
-
+        <title language="en" format="text/plain">Document title</title>
          <contributor>
            <role type="publisher"/>
            <organization>
