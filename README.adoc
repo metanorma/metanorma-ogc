@@ -280,6 +280,40 @@ Submitters are treated as a table, contained in a section with the title `Submit
 |===
 ----
 
+=== Examples
+
+Unlike the normal case in Metanorma, examples can have captions:
+
+[source,asciidoc]
+----
+[example]
+.Example caption
+====
+Text
+====
+----
+
+=== Recommendations, requirements, and permissions
+
+Distinct recommendations, requirements and permissions are recognised in Metanorma
+Asciidoctor as tables whose first cell contains the text _Recommendation_, _Requirement_, _Permission_,
+optionally followed by a number (which is ignored in parsing; the elements are renumberd
+automatically in rendering.) These are currently constituted of two elements: an internal
+label, which is parsed as the first paragraph of the second table cell, and the body of
+the recommendation etc., which is parsed as the remainder of the second table cell.
+
+[source,asciidoc]
+----
+[[recommendation1]]
+|===
+|Recommendation |/ogc/recommendation/wfs/2 +
+
+If the API definition document uses the OpenAPI Specification 3.0,
+the document SHOULD conform to the
+<<rc_oas30,OpenAPI Specification 3.0 requirements class>>.
+|===
+----
+
 
 == Examples
 
