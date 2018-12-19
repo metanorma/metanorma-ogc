@@ -63,8 +63,8 @@ module IsoDoc
           t << "#{get_anchors[annex['id']][:label]} "
           t.br
           t.b do |b|
-          name&.children&.each { |c2| parse(c2, b) }
-        end
+            name&.children&.each { |c2| parse(c2, b) }
+          end
         end
       end
 
@@ -109,11 +109,12 @@ module IsoDoc
         super.merge(y)
       end
 
-            def keywords(_docxml, out)
+      def keywords(_docxml, out)
         kw = @meta.get[:keywords]
         kw.empty? and return
+        @prefacenum += 1
         out.div **{ class: "Section3" } do |div|
-          clause_name(nil, "Keywords", div,  class: "IntroTitle")
+          clause_name(RomanNumerals.to_roman(@prefacenum).downcase, "Keywords", div,  class: "IntroTitle")
           div.p "The following are keywords to be used by search engines and document catalogues."
           div.p kw.join(", ")
         end
@@ -126,8 +127,9 @@ module IsoDoc
         orgs = []
         docxml.xpath(ns(SUBMITTINGORGS)).each { |org| orgs << org.text }
         return if orgs.empty?
+        @prefacenum += 1
         out.div **{ class: "Section3" } do |div|
-          clause_name(nil, "Submitting Organizations", div,  class: "IntroTitle")
+          clause_name(RomanNumerals.to_roman(@prefacenum).downcase, "Submitting Organizations", div,  class: "IntroTitle")
           div.p "The following organizations submitted this Document to the Open Geospatial Consortium (OGC):"
           div.ul do |ul|
             orgs.each do |org|
@@ -140,16 +142,17 @@ module IsoDoc
       def submitters(docxml, out)
         f = docxml.at(ns("//submitters")) || return
         out.div **{ class: "Section3" } do |div|
-          clause_name(nil, "Submitters", div,  class: "IntroTitle")
+          clause_name(get_anchors[f['id']][:label], "Submitters", div,  class: "IntroTitle")
           f.elements.each { |e| parse(e, div) unless e.name == "title" }
         end
       end
 
       def make_body2(body, docxml)
         body.div **{ class: "WordSection2" } do |div2|
+          @prefacenum = 0
           info docxml, div2
-          keywords docxml, div2
           abstract docxml, div2
+          keywords docxml, div2
           foreword docxml, div2
           submittingorgs docxml, div2
           submitters docxml, div2
@@ -169,14 +172,164 @@ module IsoDoc
         end
       end
 
+            def abstract(isoxml, out)
+        f = isoxml.at(ns("//preface/abstract")) || return
+        @prefacenum += 1
+        page_break(out)
+        out.div **attr_code(id: f["id"]) do |s|
+          clause_name(get_anchors[f["id"]][:label], @abstract_lbl, s, class: "AbstractTitle")
+          f.elements.each { |e| parse(e, s) unless e.name == "title" }
+        end
+      end
+
+      def foreword(isoxml, out)
+        f = isoxml.at(ns("//foreword")) || return
+        @prefacenum += 1
+        page_break(out)
+        out.div **attr_code(id: f["id"]) do |s|
+          clause_name(get_anchors[f["id"]][:label], @foreword_lbl, s, class: "ForewordTitle")
+          f.elements.each { |e| parse(e, s) unless e.name == "title" }
+        end
+      end
+
+      def example_parse(node, out)
+        name = node.at(ns("./name"))
+        sourcecode_name_parse(node, out, name) if name
+        out.table **example_table_attr(node) do |t|
+          t.tr do |tr|
+            tr.td **EXAMPLE_TBL_ATTR do |td|
+              td << example_label(node)
+            end
+            tr.td **{ valign: "top", class: "example" } do |td|
+              node.children.each { |n| parse(n, td) unless n.name == "name" }
+            end
+          end
+        end
+      end
+
+      def error_parse(node, out)
+        case node.name
+        when "recommendation" then recommendation_parse(node, out)
+        when "requirement" then requirement_parse(node, out)
+        when "permission" then permission_parse(node, out)
+        else
+          super
+        end
+      end
+
+            def anchor_names(docxml)
+        super
+        recommendation_anchor_names(docxml)
+        requirement_anchor_names(docxml)
+        permission_anchor_names(docxml)
+      end
+
+      def recommendation_anchor_names(docxml)
+        docxml.xpath(ns("//recommendation")).each_with_index do |x, i|
+          @anchors[x["id"]] = anchor_struct(i+1, nil, "Recommendation", "recommendation")
+        end
+      end
+
+      def requirement_anchor_names(docxml)
+        docxml.xpath(ns("//requirement")).each_with_index do |x, i|
+          @anchors[x["id"]] = anchor_struct(i+1, nil, "Requirement", "requirement")
+        end
+      end
+
+      def permission_anchor_names(docxml)
+        docxml.xpath(ns("//permission")).each_with_index do |x, i|
+          @anchors[x["id"]] = anchor_struct(i+1, nil, "Permission", "permission")
+        end
+      end
+
+      def recommend_table_attr(node)
+        attr_code(id: node["id"], class: "recommend",
+                  cellspacing: 0, cellpadding: 0,
+                  style: "border-collapse:collapse" )
+      end
+
+      REQ_TBL_ATTR =
+        { valign: "top", class: "example_label",
+          style: "width:100.0pt;padding:0 0 0 1em;margin-left:0pt" }.freeze
+
+      def recommend_name_parse(node, div)
+        name = node&.at(ns("./name"))&.text or return
+        div.p do |p|
+          p.b name
+        end
+      end
+
+      def recommendation_parse(node, out)
+        out.table **recommend_table_attr(node) do |t|
+          t.tr do |tr|
+            tr.td **REQ_TBL_ATTR do |td|
+              td << recommendation_label(node)
+            end
+            tr.td **{ valign: "top", class: "recommend" } do |td|
+              recommend_name_parse(node, td)
+              node.children.each { |n| parse(n, td) unless n.name == "name" }
+            end
+          end
+        end
+      end
+
+      def recommendation_label(node)
+        n = get_anchors[node["id"]]
+        return "Recommendation" if n.nil? || n[:label].empty?
+        l10n("#{"Recommendation"} #{n[:label]}")
+      end
+
+      def requirement_parse(node, out)
+        out.table **recommend_table_attr(node) do |t|
+          t.tr do |tr|
+            tr.td **REQ_TBL_ATTR do |td|
+              td << requirement_label(node)
+            end
+            tr.td **{ valign: "top", class: "recommend" } do |td|
+              recommend_name_parse(node, td)
+              node.children.each { |n| parse(n, td) unless n.name == "name" }
+            end
+          end
+        end
+      end
+
+            def requirement_label(node)
+        n = get_anchors[node["id"]]
+        return "Requirement" if n.nil? || n[:label].empty?
+        l10n("#{"Requirement"} #{n[:label]}")
+      end
+
+      def permission_parse(node, out)
+        out.table **recommend_table_attr(node) do |t|
+          t.tr do |tr|
+            tr.td **REQ_TBL_ATTR do |td|
+              td << permission_label(node)
+            end
+            tr.td **{ valign: "top", class: "recommend" } do |td|
+              recommend_name_parse(node, td)
+              node.children.each { |n| parse(n, td) unless n.name == "name" }
+            end
+          end
+        end
+      end
+
+      def permission_label(node)
+        n = get_anchors[node["id"]]
+        return "Permission" if n.nil? || n[:label].empty?
+        l10n("#{"Permission"} #{n[:label]}")
+      end
+
       def initial_anchor_names(d)
         @prefacenum = 0
         preface_names(d.at(ns("//preface/abstract")))
+                @prefacenum += 1 if d.at(ns("//keyword"))
         preface_names(d.at(ns("//foreword")))
-        preface_names(d.at(ns("//introduction")))
+        #preface_names(d.at(ns("//introduction")))
+        @prefacenum += 1 if d.at(ns(SUBMITTINGORGS))
         preface_names(d.at(ns("//submitters")))
         sequential_asset_names(d.xpath(ns("//preface/abstract | //foreword | //introduction | //submitters")))
         n = section_names(d.at(ns("//clause[title = 'Scope']")), 0, 1)
+        n = section_names(d.at(ns("//clause[title = 'Conformance']")), n, 1)
         n = section_names(d.at(ns(
           "//references[title = 'Normative References' or title = 'Normative references']")), n, 1)
         n = section_names(d.at(ns("//sections/terms | "\
@@ -187,7 +340,6 @@ module IsoDoc
         termnote_anchor_names(d)
         termexample_anchor_names(d)
       end
-
     end
   end
 end

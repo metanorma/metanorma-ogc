@@ -329,7 +329,6 @@ module IsoDoc
         l10n("#{"Permission"} #{n[:label]}")
       end
 
-
       def initial_anchor_names(d)
         @prefacenum = 0
         preface_names(d.at(ns("//preface/abstract")))
@@ -340,6 +339,7 @@ module IsoDoc
         preface_names(d.at(ns("//submitters")))
         sequential_asset_names(d.xpath(ns("//preface/abstract | //foreword | //introduction | //submitters")))
         n = section_names(d.at(ns("//clause[title = 'Scope']")), 0, 1)
+        n = section_names(d.at(ns("//clause[title = 'Conformance']")), n, 1)
         n = section_names(d.at(ns(
           "//references[title = 'Normative References' or title = 'Normative references']")), n, 1)
         n = section_names(d.at(ns("//sections/terms | "\
@@ -350,7 +350,6 @@ module IsoDoc
         termnote_anchor_names(d)
         termexample_anchor_names(d)
       end
-
     end
   end
 end
