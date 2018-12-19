@@ -114,6 +114,11 @@ RSpec.describe Asciidoctor::Ogc do
          <date type="received">
         <on>1999-06-01</on>
         </date>
+                 <edition>2.0</edition>
+        <version>
+         <revision-date>2000-01-01</revision-date>
+         <draft>3.4</draft>
+       </version>
          <contributor>
            <role type="author"/>
            <organization>
@@ -135,7 +140,7 @@ RSpec.describe Asciidoctor::Ogc do
            </person>
          </contributor>
          <contributor>
-           <role type="author"/>
+           <role type="editor"/>
            <person>
              <name>
                <forename>Barney</forename>
@@ -168,11 +173,7 @@ RSpec.describe Asciidoctor::Ogc do
          <keyword>a</keyword>
         <keyword>b</keyword>
         <keyword>c</keyword>
-       </bibdata><version>
-         <edition>2.0</edition>
-         <revision-date>2000-01-01</revision-date>
-         <draft>3.4</draft>
-       </version>
+       </bibdata>
        <sections/>
        </ogc-standard>
     OUTPUT
@@ -233,6 +234,11 @@ RSpec.describe Asciidoctor::Ogc do
          <date type="issued">
            <on>2001-01-01</on>
          </date>
+                  <edition>2.0</edition>
+          <version>
+         <revision-date>2000-01-01</revision-date>
+         <draft>3.4</draft>
+       </version>
          <contributor>
            <role type="editor"/>
            <person>
@@ -250,7 +256,7 @@ RSpec.describe Asciidoctor::Ogc do
            </person>
          </contributor>
          <contributor>
-           <role type="author"/>
+           <role type="editor"/>
            <person>
              <name>
                <forename>Barney</forename>
@@ -278,11 +284,7 @@ RSpec.describe Asciidoctor::Ogc do
          <editorialgroup>
            <committee>technical</committee>
          </editorialgroup>
-       </bibdata><version>
-         <edition>2.0</edition>
-         <revision-date>2000-01-01</revision-date>
-         <draft>3.4</draft>
-       </version>
+       </bibdata>
        <sections/>
        </ogc-standard>
 OUTPUT
@@ -307,7 +309,7 @@ OUTPUT
     output = <<~"OUTPUT"
     <ogc-standard xmlns="https://standards.opengeospatial.org/document">
 <bibdata type="standard">
-
+ <title language="en" format="text/plain">Document title</title>
   <contributor>
     <role type="publisher"/>
     <organization>
@@ -329,10 +331,11 @@ OUTPUT
     <committee>technical</committee>
   </editorialgroup>
 </bibdata>
-<preface><submitters id="_">
+<preface><foreword obligation="informative"><title>Foreword</title><p id="_">This is a preamble</p></foreword>
+<submitters id="_">
   <p id="_">Clause 2</p>
-</submitters><foreword obligation="informative"><title>Foreword</title><p id="_">This is a preamble</p>
-</foreword></preface><sections>
+</submitters>
+</preface><sections>
 <clause id="_" obligation="normative">
   <title>Clause</title>
   <p id="_">Clause 1</p>
@@ -354,7 +357,7 @@ OUTPUT
           output = <<~"OUTPUT"
           <ogc-standard xmlns="https://standards.opengeospatial.org/document">
 <bibdata type="standard">
-
+<title language="en" format="text/plain">Document title</title>
   <contributor>
     <role type="publisher"/>
     <organization>
@@ -489,8 +492,8 @@ OUTPUT
         <p id="_"><em>emphasis</em>
        <strong>strong</strong>
        <tt>monospace</tt>
-       "double quote"
-       'single quote'
+       “double quote”
+       ‘single quote’
        super<sup>script</sup>
        sub<sub>script</sub>
        <stem type="AsciiMath">a_90</stem>

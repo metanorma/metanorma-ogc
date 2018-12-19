@@ -103,7 +103,7 @@ RSpec.describe IsoDoc::Ogc do
     #{HTML_HDR}
              <br/>
              <div>
-               <h1 class="ForewordTitle">Preface</h1>
+               <h1 class="ForewordTitle">i.&#160; Preface</h1>
                <pre>ABC</pre>
              </div>
              <p class="zzSTDTitle1"/>
@@ -122,22 +122,22 @@ RSpec.describe IsoDoc::Ogc do
   it "processes keyword" do
     input = <<~"INPUT"
 <ogc-standard xmlns="#{Metanorma::Ogc::DOCUMENT_NAMESPACE}">
-<preface><foreword>
+<bibdata>
 <keyword>ABC</keyword>
-</foreword></preface>
+</bibdata>
 </ogc-standard>
     INPUT
 
     output = <<~"OUTPUT"
         #{HTML_HDR}
-             <br/>
-             <div>
-               <h1 class="ForewordTitle">Preface</h1>
-               <span class="keyword">ABC</span>
-             </div>
-             <p class="zzSTDTitle1"/>
-           </div>
-         </body>
+        <div class="Section3">
+        <h1 class="IntroTitle">i.&#160; Keywords</h1>
+        <p>The following are keywords to be used by search engines and document catalogues.</p>
+        <p>ABC</p>
+      </div>
+      <p class="zzSTDTitle1"/>
+    </div>
+  </body>
     OUTPUT
 
     expect(
@@ -280,18 +280,14 @@ RSpec.describe IsoDoc::Ogc do
       <keyword>B</keyword>
       </bibdata>
       <preface>
-      <foreword obligation="informative">
+       <abstract obligation="informative" id="1">
+       <p>XYZ</p>
+       </abstract>
+      <foreword obligation="informative" id="2">
          <title>Foreword</title>
          <p id="A">This is a preamble</p>
        </foreword>
-        <introduction id="B" obligation="informative"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
-         <title>Introduction Subsection</title>
-       </clause>
-       </introduction>
-       <abstract obligation="informative">
-       <p>XYZ</p>
-       </abstract>
-       <submitters obligation="informative">
+       <submitters obligation="informative" id="3">
        <p>ABC</p>
        </submitters>
         </preface><sections>
@@ -349,22 +345,22 @@ RSpec.describe IsoDoc::Ogc do
     output = <<~"OUTPUT"
         #{HTML_HDR}
         <br/>
-             <div>
-               <h1 class="AbstractTitle">Abstract</h1>
+             <div id="1">
+               <h1 class="AbstractTitle">i.&#160; Abstract</h1>
                <p>XYZ</p>
              </div>
              <div class="Section3">
-               <h1 class="IntroTitle">Keywords</h1>
+               <h1 class="IntroTitle">ii.&#160; Keywords</h1>
                <p>The following are keywords to be used by search engines and document catalogues.</p>
                <p>A, B</p>
              </div>
              <br/>
-             <div>
-               <h1 class="ForewordTitle">Preface</h1>
+             <div id="2">
+               <h1 class="ForewordTitle">iii.&#160; Preface</h1>
                <p id="A">This is a preamble</p>
              </div>
              <div class="Section3">
-               <h1 class="IntroTitle">Submitting Organizations</h1>
+               <h1 class="IntroTitle">iv.&#160; Submitting Organizations</h1>
                <p>The following organizations submitted this Document to the Open Geospatial Consortium (OGC):</p>
                <ul>
                  <li>OGC</li>
@@ -372,7 +368,7 @@ RSpec.describe IsoDoc::Ogc do
                </ul>
              </div>
              <div class="Section3">
-               <h1 class="IntroTitle">Submitters</h1>
+               <h1 class="IntroTitle">v.&#160; Submitters</h1>
                <p>ABC</p>
              </div>
              <p class="zzSTDTitle1"/>
