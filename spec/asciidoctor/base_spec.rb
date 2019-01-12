@@ -86,7 +86,7 @@ RSpec.describe Asciidoctor::Ogc do
       :role: author
       :surname_2: Rubble
       :givenname_2: Barney
-      :role: editor
+      :role_2: editor
       :previous-uri: PREVIOUS URI
       :submitting-organizations: University of Bern, Switzerland; Amazon, USA
       :keywords: a, b, c
@@ -132,7 +132,7 @@ RSpec.describe Asciidoctor::Ogc do
            </organization>
          </contributor>
          <contributor>
-           <role type="editor"/>
+           <role type="author"/>
            <person>
              <name>
                <completename>Fred Flintstone</completename>
@@ -320,7 +320,7 @@ OUTPUT
   <script>Latn</script>
   <status format="plain">published</status>
   <copyright>
-    <from>2018</from>
+    <from>#{Date.today.year}</from>
     <owner>
       <organization>
         <name>OGC</name>
@@ -368,7 +368,7 @@ OUTPUT
   <script>Latn</script>
   <status format="plain">published</status>
   <copyright>
-    <from>2018</from>
+    <from>#{Date.today.year}</from>
     <owner>
       <organization>
         <name>OGC</name>

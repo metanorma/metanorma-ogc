@@ -13,7 +13,7 @@
   <script>Latn</script>
   <status format="plain">published</status>
   <copyright>
-    <from>2018</from>
+    <from>2019</from>
     <owner>
       <organization>
         <name>OGC</name>
@@ -25,6 +25,6 @@
   </editorialgroup>
 </bibdata>
 <sections>
-  <p id="_6f51479c-cb13-41fa-a893-7545787819b6">Test</p>
+  <p id="_4584ab12-68c4-4f99-92d5-85301a8d2cae">Test</p>
 </sections>
 </ogc-standard>
