@@ -1,7 +1,7 @@
 = metanorma-ogc: Metanorma processor for the Open Geospatial Consortium document class
 
 image:https://img.shields.io/gem/v/metanorma-ogc.svg["Gem Version", link="https://rubygems.org/gems/metanorma-ogc"]
-image:https://img.shields.io/travis/riboseinc/metanorma-ogc/master.svg["Build Status", link="https://travis-ci.org/riboseinc/metanorma-ogc"]
+image:https://img.shields.io/travis/riboseinc/metanorma-ogc/master.svg["Build Status", link="https://travis-ci.com/riboseinc/metanorma-ogc"]
 image:https://codeclimate.com/github/riboseinc/metanorma-ogc/badges/gpa.svg["Code Climate", link="https://codeclimate.com/github/riboseinc/metanorma-ogc"]
 
 WARNING: This gem is still under development.
