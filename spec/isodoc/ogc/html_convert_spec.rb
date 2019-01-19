@@ -8,11 +8,11 @@ RSpec.describe IsoDoc::Ogc do
        <ogc-standard xmlns="https://standards.opengeospatial.org/document">
        <bibdata type="implementation-standard">
          <title language="en" format="text/plain">Main Title</title>
-         <source>http://www.example.com</source>
-         <source type="html">http://www.example.com/html</source>
-         <source type="xml">http://www.example.com/xml</source>
-         <source type="pdf">http://www.example.com/pdf</source>
-         <source type="doc">http://www.example.com/doc</source>
+         <uri>http://www.example.com</uri>
+         <uri type="html">http://www.example.com/html</uri>
+         <uri type="xml">http://www.example.com/xml</uri>
+         <uri type="pdf">http://www.example.com/pdf</uri>
+         <uri type="doc">http://www.example.com/doc</uri>
          <docidentifier type="ogc-external">http://www.example2.com</docidentifier>
          <docidentifier type="ogc-internal">1000</docidentifier>
          <docnumber>1000</docnumber>

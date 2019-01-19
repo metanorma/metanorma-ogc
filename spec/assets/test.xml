@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ogc-standard xmlns="https://standards.opengeospatial.org/document">
-<bibdata type="standard">
-  <title language="en" format="text/plain">Document title</title>
-  
-  <contributor>
-    <role type="publisher"/>
-    <organization>
-      <name>OGC</name>
-    </organization>
-  </contributor>
-  <language>en</language>
-  <script>Latn</script>
-  <status format="plain">published</status>
-  <copyright>
-    <from>2019</from>
-    <owner>
-      <organization>
-        <name>OGC</name>
-      </organization>
-    </owner>
-  </copyright>
-  <editorialgroup>
-    <committee>technical</committee>
-  </editorialgroup>
+<bibdata type="standard"> 
+  <title language="en" format="text/plain">Document title</title> 
+   
+  <contributor> 
+    <role type="publisher"/> 
+    <organization> 
+      <name>OGC</name> 
+    </organization> 
+  </contributor> 
+  <language>en</language> 
+  <script>Latn</script> 
+  <status format="plain">published</status> 
+  <copyright> 
+    <from>2019</from> 
+    <owner> 
+      <organization> 
+        <name>OGC</name> 
+      </organization> 
+    </owner> 
+  </copyright> 
+  <editorialgroup> 
+    <committee>technical</committee> 
+  </editorialgroup> 
 </bibdata>
-<sections>
-  <p id="_4584ab12-68c4-4f99-92d5-85301a8d2cae">Test</p>
+<sections> 
+  <p id="_bd64f813-d0b9-4691-8e12-ae80d4016a74">Test</p> 
 </sections>
 </ogc-standard>
