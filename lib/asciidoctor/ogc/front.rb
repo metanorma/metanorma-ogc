@@ -117,7 +117,7 @@ module Asciidoctor
 
       def metadata_source(node, xml)
         super
-        node.attr("previous-uri") && xml.source(node.attr("previous-uri"), type: "previous")
+        node.attr("previous-uri") && xml.uri(node.attr("previous-uri"), type: "previous")
       end
 
       def metadata_copyright(node, xml)

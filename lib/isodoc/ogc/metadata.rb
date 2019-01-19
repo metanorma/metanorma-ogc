@@ -95,7 +95,7 @@ module IsoDoc
 
       def url(xml, _out)
         super
-        a = xml.at(ns("//bibdata/source[@type = 'previous']")) and set(:previousuri, a.text)
+        a = xml.at(ns("//bibdata/uri[@type = 'previous']")) and set(:previousuri, a.text)
       end
     end
   end

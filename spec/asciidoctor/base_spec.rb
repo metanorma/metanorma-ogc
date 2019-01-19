@@ -96,8 +96,8 @@ RSpec.describe Asciidoctor::Ogc do
        <ogc-standard xmlns="https://standards.opengeospatial.org/document">
        <bibdata type="standard">
          <title language="en" format="text/plain">Main Title</title>
-         <source>http://www.example.com</source>
-         <source type="previous">PREVIOUS URI</source>
+         <uri>http://www.example.com</uri>
+         <uri type="previous">PREVIOUS URI</uri>
          <docidentifier type="ogc-external">http://www.example2.com</docidentifier>
          <docidentifier type="ogc-external">ABC</docidentifier>
          <docidentifier type="ogc-internal">1000</docidentifier>
@@ -217,7 +217,7 @@ RSpec.describe Asciidoctor::Ogc do
            <ogc-standard xmlns="https://standards.opengeospatial.org/document">
        <bibdata type="engineering-report">
          <title language="en" format="text/plain">Main Title</title>
-         <source>http://www.example.com</source>
+         <uri>http://www.example.com</uri>
          <docidentifier type="ogc-external">http://www.example2.com</docidentifier>
          <docidentifier type="ogc-external">http://www.opengis.net/doc/PER/t14-http://www.example2.com</docidentifier>
          <docidentifier type="ogc-internal">1000</docidentifier>
