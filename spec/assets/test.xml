@@ -2,13 +2,13 @@
 <ogc-standard xmlns="https://standards.opengeospatial.org/document">
 <bibdata type="standard"> 
   <title language="en" format="text/plain">Document title</title> 
-   
   <contributor> 
     <role type="publisher"/> 
     <organization> 
       <name>OGC</name> 
     </organization> 
   </contributor> 
+   
   <language>en</language> 
   <script>Latn</script> 
   <status format="plain">published</status> 
@@ -25,6 +25,6 @@
   </editorialgroup> 
 </bibdata>
 <sections> 
-  <p id="_bd64f813-d0b9-4691-8e12-ae80d4016a74">Test</p> 
+  <p id="_333ca2e3-d442-4ea2-8c38-9a64c410ff98">Test</p> 
 </sections>
 </ogc-standard>
