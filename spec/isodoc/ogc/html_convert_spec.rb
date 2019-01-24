@@ -260,6 +260,79 @@ RSpec.describe IsoDoc::Ogc do
     ).to be_equivalent_to output
   end
 
+    it "processes admonitions" do
+      expect(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")).to be_equivalent_to <<~"OUTPUT"
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+    <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" type="caution">
+  <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+</admonition>
+    </foreword></preface>
+    </iso-standard>
+    INPUT
+        #{HTML_HDR}
+               <br/>
+               <div>
+                 <h1 class="ForewordTitle">i.&#160; Preface</h1>
+                 <div class="Admonition"><title>CAUTION</title>
+         <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+       </div>
+               </div>
+               <p class="zzSTDTitle1"/>
+             </div>
+           </body>
+    OUTPUT
+  end
+
+      it "processes warning admonitions" do
+    expect(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")).to be_equivalent_to <<~"OUTPUT"
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+    <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" type="warning">
+  <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+</admonition>
+    </foreword></preface>
+    </iso-standard>
+    INPUT
+        #{HTML_HDR}
+               <br/>
+               <div>
+                 <h1 class="ForewordTitle">i.&#160; Preface</h1>
+                 <div class="Admonition.Warning"><title>WARNING</title>
+         <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+       </div>
+               </div>
+               <p class="zzSTDTitle1"/>
+             </div>
+           </body>
+    OUTPUT
+  end
+
+        it "processes important admonitions" do
+    expect(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")).to be_equivalent_to <<~"OUTPUT"
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+    <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" type="important">
+  <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+</admonition>
+    </foreword></preface>
+    </iso-standard>
+    INPUT
+        #{HTML_HDR}
+               <br/>
+               <div>
+                 <h1 class="ForewordTitle">i.&#160; Preface</h1>
+                 <div class="Admonition.Important"><title>IMPORTANT</title>
+         <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+       </div>
+               </div>
+               <p class="zzSTDTitle1"/>
+             </div>
+           </body>
+    OUTPUT
+  end
+
+
   it "processes section names" do
     input = <<~"INPUT"
     <ogc-standard xmlns="https://standards.opengeospatial.org/document">

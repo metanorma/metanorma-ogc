@@ -17,7 +17,7 @@ module IsoDoc
       def default_fonts(options)
         {
           bodyfont: (options[:script] == "Hans" ? '"SimSun",serif' : '"Overpass",sans-serif'),
-          headerfont: (options[:script] == "Hans" ? '"SimHei",sans-serif' : '"Overpass",sans-serif'),
+          headerfont: (options[:script] == "Hans" ? '"SimHei",sans-serif' : '"Teko",sans-serif'),
           monospacefont: '"Space Mono",monospace'
         }
       end
@@ -44,13 +44,23 @@ module IsoDoc
     <script type="text/javascript"  src="https://cdn.rawgit.com/jgallen23/toc/0.3.2/dist/toc.min.js"></script>
 
     <!--Google fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i|Space+Mono:400,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Overpass:300,300i,600,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i|Space+Mono:400,700" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Overpass:300,300i,600,900" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Teko:300,400,500" rel="stylesheet">
     <!--Font awesome import for the link icon-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/solid.css" integrity="sha384-rdyFrfAIC05c5ph7BKz3l5NG5yEottvO/DQ0dCrwD8gzeQDjYBHNr1ucUpQuljos" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/fontawesome.css" integrity="sha384-u5J7JghGz0qUrmEsWzBQkfvc8nK3fUT7DCaQzNQ+q4oEXhGSx+P2OqjWsfIRB8QT" crossorigin="anonymous">
     <style class="anchorjs"></style>
         HEAD
+      end
+
+      def admonition_class(node)
+        case node["type"]
+        when "important" then "Admonition.Important"
+        when "warning" then "Admonition.Warning"
+        else
+          "Admonition"
+        end
       end
 
       def make_body(xml, docxml)
@@ -71,8 +81,8 @@ module IsoDoc
           t << "#{get_anchors[annex['id']][:label]} "
           t.br
           t.b do |b|
-          name&.children&.each { |c2| parse(c2, b) }
-        end
+            name&.children&.each { |c2| parse(c2, b) }
+          end
         end
       end
 
@@ -150,7 +160,7 @@ module IsoDoc
 
       def submitters(docxml, out)
         f = docxml.at(ns("//submitters")) || return
-         out.div **{ class: "Section3" } do |div|
+        out.div **{ class: "Section3" } do |div|
           clause_name(get_anchors[f['id']][:label], "Submitters", div,  class: "IntroTitle")
           f.elements.each { |e| parse(e, div) unless e.name == "title" }
         end
@@ -181,7 +191,7 @@ module IsoDoc
         end
       end
 
-            def abstract(isoxml, out)
+      def abstract(isoxml, out)
         f = isoxml.at(ns("//preface/abstract")) || return
         @prefacenum += 1
         page_break(out)
@@ -239,7 +249,7 @@ module IsoDoc
         end
       end
 
-            def requirement_anchor_names(docxml)
+      def requirement_anchor_names(docxml)
         docxml.xpath(ns("//requirement")).each_with_index do |x, i|
           @anchors[x["id"]] = anchor_struct(i+1, nil, "Requirement", "requirement")
         end
@@ -302,7 +312,7 @@ module IsoDoc
         end
       end
 
-            def requirement_label(node)
+      def requirement_label(node)
         n = get_anchors[node["id"]]
         return "Requirement" if n.nil? || n[:label].empty?
         l10n("#{"Requirement"} #{n[:label]}")
@@ -335,11 +345,11 @@ module IsoDoc
         @prefacenum += 1 if d.at(ns("//keyword"))
         preface_names(d.at(ns("//foreword")))
         #preface_names(d.at(ns("//introduction")))
-         @prefacenum += 1 if d.at(ns(SUBMITTINGORGS))
+        @prefacenum += 1 if d.at(ns(SUBMITTINGORGS))
         preface_names(d.at(ns("//submitters")))
         sequential_asset_names(d.xpath(ns("//preface/abstract | //foreword | //introduction | //submitters")))
         n = section_names(d.at(ns("//clause[title = 'Scope']")), 0, 1)
-                n = section_names(d.at(ns("//clause[title = 'Conformance']")), n, 1)
+        n = section_names(d.at(ns("//clause[title = 'Conformance']")), n, 1)
         n = section_names(d.at(ns(
           "//references[title = 'Normative References' or title = 'Normative references']")), n, 1)
         n = section_names(d.at(ns("//sections/terms | "\

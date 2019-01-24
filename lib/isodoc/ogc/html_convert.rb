@@ -19,7 +19,7 @@ module IsoDoc
       def default_fonts(options)
         {
           bodyfont: (options[:script] == "Hans" ? '"SimSun",serif' : '"Overpass",sans-serif'),
-          headerfont: (options[:script] == "Hans" ? '"SimHei",sans-serif' : '"Overpass",sans-serif'),
+          headerfont: (options[:script] == "Hans" ? '"SimHei",sans-serif' : '"Teko",sans-serif'),
           monospacefont: '"Space Mono",monospace'
         }
       end
@@ -46,13 +46,23 @@ module IsoDoc
     <script type="text/javascript" src="https://cdn.rawgit.com/jgallen23/toc/0.3.2/dist/toc.min.js"></script>
 
     <!--Google fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i|Space+Mono:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i|Space+Mono:400,700" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Teko:300,400,500" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Overpass:300,300i,600,900" rel="stylesheet">
     <!--Font awesome import for the link icon-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/solid.css" integrity="sha384-rdyFrfAIC05c5ph7BKz3l5NG5yEottvO/DQ0dCrwD8gzeQDjYBHNr1ucUpQuljos" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/fontawesome.css" integrity="sha384-u5J7JghGz0qUrmEsWzBQkfvc8nK3fUT7DCaQzNQ+q4oEXhGSx+P2OqjWsfIRB8QT" crossorigin="anonymous">
     <style class="anchorjs"></style>
         HEAD
+      end
+
+      def admonition_class(node)
+        case node["type"]
+        when "important" then "Admonition.Important"
+        when "warning" then "Admonition.Warning"
+        else
+          "Admonition"
+        end
       end
 
       def make_body(xml, docxml)

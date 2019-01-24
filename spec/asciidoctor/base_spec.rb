@@ -427,7 +427,7 @@ OUTPUT
     html = File.read("test.html", encoding: "utf-8")
     expect(html).to match(%r[\.Sourcecode[^{]+\{[^}]+font-family: "Space Mono", monospace;]m)
     expect(html).to match(%r[ div[^{]+\{[^}]+font-family: "Overpass", sans-serif;]m)
-    expect(html).to match(%r[h1, h2, h3, h4, h5, h6 \{[^}]+font-family: "Overpass", sans-serif;]m)
+    expect(html).to match(%r[h1, h2, h3, h4, h5, h6 \{[^}]+font-family: "Teko", sans-serif;]m)
   end
 
   it "uses Chinese fonts" do
@@ -496,7 +496,7 @@ OUTPUT
        ‘single quote’
        super<sup>script</sup>
        sub<sub>script</sub>
-       <stem type="AsciiMath">a_90</stem>
+       <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>a</mi><mn>90</mn></msub></math></stem>
        <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub> <mrow> <mrow> <mi mathvariant="bold-italic">F</mi> </mrow> </mrow> <mrow> <mrow> <mi mathvariant="bold-italic">Α</mi> </mrow> </mrow> </msub> </math></stem>
        <keyword>keyword</keyword>
        <strike>strike</strike>

@@ -137,11 +137,11 @@ table {
     margin-left: auto;
     margin-right: auto;
     max-width: 100%;
-    color: #1d1d1d;
+    color: #00335b;
     font-weight: 300;
-    font-size: 15px;
-    line-height: 1.4em;
-    background-color: #ffffff;
+    font-size: 16px;
+    line-height: 1.5;
+    background-color: #f6f8fa;
   }
 
   main {margin: 0 3em 0 6em;}
@@ -167,7 +167,7 @@ table {
         overflow: auto;
         padding: 0 0 0 45px;
         margin-right: 30px;
-        background-color:#f6f6f6;
+        background-color:#f1f8ff;
     }
 
     #toggle {
@@ -229,10 +229,11 @@ table {
 
 #toc li {
     padding: 5px 10px;
+    font-size: 14px;
 }
 
 #toc a {
-    color: #2e81c2;
+    color: #00335b;
     text-decoration: none;
     display: block;
 }
@@ -256,7 +257,7 @@ table {
 #toc .toc-active, #toc li:hover {
     background: #00335b;
     box-shadow: inset -5px 0px 10px -5px #00335b!important;
-
+    font-weight: 600;
 }
 
 #toc li:hover a {
@@ -266,7 +267,7 @@ table {
 }
 
 #toc li a {
-  text-transform: uppercase;
+  text-transform: nonce;
 }
 
 /*
@@ -305,7 +306,6 @@ table {
 }
 
 p.document-type, p.document-stage {
-  color: white;
   text-transform: uppercase;
   font-size: 0.9em;
   font-weight: 400;
@@ -313,15 +313,18 @@ p.document-type, p.document-stage {
   margin:0;
   margin-left: 6px;
   writing-mode:tb-rl;
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
   transform:rotate(180deg);
-        white-space:nowrap;
-        display:block;
+  white-space:nowrap;
+  display:block;
   bottom:0;
 }
 
 p.document-type {
     font-weight: 400;
-    height: 210px;
+    height: 150;
 }
 
 #governance-band p.document-type {
@@ -334,39 +337,40 @@ p.document-stage {
     height:160px;
 }
 
-$doctype-colors-list:(
-  standard: #0AC442,
-  standard-with-suite: #540D6E,
-  abstract-specification: #D183C9,
-  community-standard: #65AFFF,
-  profile: #3A405A,
-  best-practice: #F26430,
-  engineering-report: #C84630,
-  discussion-paper: #BFAE48,
-  reference-model: #BD9391,
-  user-guide: #303633,
-  policy: #8BE8CB,
-  guide: #7EA2AA,
-  amendment: #888DA7,
-  technical-corrigendum: #9C7A97,
-  administrative: #C4F1BE
-);
+#standard-band p {
+      height: 135px; }
 
-@each $key,$val in $doctype-colors-list{
-  ##{$key}-band {
-    background-color: #{$val};
-  }
-  ##{$key} {
-    border-bottom: solid 3px #{$val};
-  }
-}
+#proposal-band p {
+      height: 150px; }
+
+    #standard-band, #published-band {
+      color: rgb(123, 168, 18);
+      background-color: rgb(216, 236, 168); }
+
+    #standard, #published {
+      color: #9ABD48; }
+
+    #governance, #policy-and-procedures {
+      border-bottom: solid 3px #750697; }
+
+    #governance-band, #policy-and-procedures-band {
+      background-color: #750697; }
+
+
 
 $docstage-colors-list:(
-  rfc: #39A0ED,
-  candidate: #2D7393,
-  published: #069E2D,
-  deprecated: #004E64,
-  retired: #2E382E,
+  rfc: #48a0e7,
+  candidate: #fd06fd,
+  published: #9abd48,
+  deprecated: #7e0d13,
+  retired: #7e0d13,
+  working-draft: #f780ec,
+  proposal: #f780ec,
+  committee-draft: #fd06fd,
+  draft-standard: #fd06fd,
+  standard: #9abd48,
+  obsolete: #7e0d13,
+  guide: #48a0e7,
 );
 
 @each $key,$val in $docstage-colors-list{
@@ -378,14 +382,13 @@ $docstage-colors-list:(
   }
 }
 
-.coverpage-maturity {
-  font-family: $bodyfont;
+.coverpage-maturity, .coverpage-stage {
+  font-family: $headerfont;
   font-weight: 400;
-  font-size: 1em;
+  font-size: 1.3em;
   margin: 0 0 2em 0;
   text-transform: uppercase;
 }
-
 
 
 /*
@@ -399,13 +402,13 @@ $docstage-colors-list:(
   h1,h2,h3,h4,h5,h6 {
     font-family: $headerfont;
     color: #00335b;
-    font-weight: 300;
+    font-weight: 400;
     margin-top: 1.6em;
     margin-bottom: 0.3em;
   }
 
   h1 {
-    font-size: 1.6em;
+    font-size: 1.8em;
     text-transform: uppercase;
     margin-top: 2em;
   }
@@ -416,37 +419,44 @@ $docstage-colors-list:(
 
   h2 {
     margin-top: 1.3em;
-    font-size: 1.3em;
-    font-weight: 400;
+    font-size: 1.7em;
+    font-weight: 300;
   }
 
   h3 {
-    margin-top: 1.1em;
-    font-size: 1.1em;
+    margin-top: 1.3em;
+    font-size: 1.5em;
     font-weight: 100;
+  }
+
+  h4 {
+    font-size: 1.4em;
   }
 
   .TermNum, .Terms, .AltTerms {
     color: #00335b;
-    font-weight: 100;
+    font-weight: 300;
+    font-family: $headerfont;
   }
 
   h2.TermNum {
     margin-bottom: 0;
   }
 
+  /*
   p.Terms {
     font-size: 1.1em;
     line-height: 1.5em;
     margin: 0;
   }
+  */
 
   p.AltTerms {
     /*
     font-style: italic;
      */
-    font-size: 1.1em;
-    margin: 0;
+    font-size: 24px;
+    margin-top: 1em;
   }
 
 /*
@@ -495,8 +505,9 @@ $docstage-colors-list:(
 
    ul > li:before {
     content: "\2014";
-    display: inline-block; width: 1em;
-    margin-left: -1.2em;
+    display: inline-block; 
+    width: 1em;
+    margin-left: -1em;
   }
 
   ul > li p:first-child {
@@ -544,7 +555,8 @@ p.Biblio, p.NormRef {
 .figure, .Sourcecode {
     font-family: $monospacefont;
     font-variant-ligatures: none;
-    background-color: #f6f6f6;
+    background-color: #e1eef1;
+    color: #424242;
     font-size: 0.8em;
     line-height: 1.6em;
     padding: 1.5em;
@@ -563,8 +575,8 @@ p.Biblio, p.NormRef {
 */
 
 .Note {
-    background-color: #fff495;
-    color: #47430c;
+    background-color: #ffff8bb;
+    color: #7d760b;
     padding: 1.2em;
     margin: 1em 0 1em 0;
 
@@ -573,16 +585,30 @@ p.Biblio, p.NormRef {
     }
 }
 
-.Admonition {
-    background-color: #ffcccc;
-    color: #47430c;
-    padding: 1.2em;
-    margin: 1em 0 1em 0;
+    .Admonition {
+      padding: 1em 1.2em 1.2em 1.2em;
+      margin: 1em 0 1em 0;
+      background-color: #fcad88;
+      border-top: 10px solid #eb5a06;
+      color:#290404;
+      }
 
-    p {
+    .Admonition.Important {
+      background-color: #f58cff;
+      color: #5d1364;
+      border-top: 10px solid #9503a8;
+    }
+
+    .Admonition.Warning {
+      background-color: #ff989d;
+      color: #270204;
+      border-top: 10px solid #e4010c;
+    }
+
+
+      .Admonition p {
         margin: 0;
     }
-}
 
 
 /*
@@ -591,6 +617,7 @@ p.Biblio, p.NormRef {
 
 .example {
     background-color: #e1eef1;
+    color: #424242;
     padding: 1.2em;
     margin: 2em 0 1em 0;
     padding-left: 2em;
@@ -603,11 +630,34 @@ p.Biblio, p.NormRef {
     margin-left:-1.5em;
 }
 
-.recommend {
-    background-color: #ccffcc;
-    padding: 1.2em;
-    margin: 2em 0 1em 0;
-}
+    .example .Sourcecode {
+      background: none;
+    }
+
+    .recommend, .recommend .example_label {
+      background-color: #f8ffbd;
+    }
+
+    .recommend .example_label {
+      font-weight: bold;
+    }
+
+    .permission, .permission .example_label {
+      background-color: #cdfdbe;
+    }
+
+    .permission .example_label {
+      font-weight: bold;
+    }
+
+    .require, .require .example_label {
+      background-color: #d3e6ff;
+    }
+
+    .require .example_label {
+      font-weight: bold;
+    }
+
 
 
 /*
@@ -617,6 +667,7 @@ p.Biblio, p.NormRef {
 table {
   border-collapse: collapse;
   width: 100%;
+  color: #010d16;
   font-weight: 300;
   margin: 1em 0 2em 0;
   margin-left: auto;
@@ -625,8 +676,15 @@ table {
 }
 
 table, th, td {
-  border: 1px solid black;
+  border: none!important;
   font-size: 0.95em;
+}
+
+tr:nth-child(even) {background: #f1f8ff}
+tr:nth-child(odd) {background: #cfe6fd}
+
+thead tr th {
+  background-color: #5d99d6;
 }
 
 td, th {
@@ -662,7 +720,7 @@ a.footnote-number {
 */
 
 .Quote {
-    background-color: #f6f6f6;
+    background-color: #e1eef1;
     font-style: italic;
     width: 80%;
     padding: 1.5em;
@@ -756,9 +814,10 @@ h2 p {
 }
 
 .wrapper-top {
-  background: linear-gradient(135deg, #00335b, #00335b, #93c0d6);
+  background: rgb(0,51,91);
+  background: linear-gradient(130deg, rgba(0,51,91,1) 45%, rgba(241,248,255,1) 100%);
   color: #ffffff;
-  padding: 2em 0;
+  padding: 5em 0;
   width: 100%;
 }
 
@@ -770,41 +829,70 @@ h2 p {
   position: absolute;
 }
 
+.coverpage-metadata {
+      margin-top: 35px;
+      padding-top: 15px;
+      margin-right: 25px;
+      border-top: solid 1px white;
+}
+
 .coverpage-metadata,
 .coverpage-alt-formats {
-  line-height: 1.5em;
-  padding: 0 1em 1em 1em;
+  font-size: 12px;
+  font-family: $headerfont;
+  margin-left: 1em;
   text-align: right;
 }
 
-.coverpage-metadata > span {
+.coverpage-metadata span,
+.coverpage-alt-formats span {
   display: block;
   text-align: right;
 }
 
-.coverpage-alt-formats > span {
-  display: inline-block;
-  text-align: right;
+.coverpage-metadata .value,
+.coverpage-alt-formats .value {
+  font-size: 15px;
+  margin-bottom: 15px;
+}
+.coverpage-metadata .label,
+.coverpage-alt-formats .label {
+  font-size: 12px;
+  padding:0;
+}
+.coverpage-alt-formats span {
+  display: inline;
+  text-align: left;
 }
 
-.coverpage-metadata a,
-.coverpage-alt-formats a,
-.coverpage-metadata a:visited,
-.coverpage-alt-formats a:visited {
-  color: #fff;
+.coverpage-metadata span a,
+.coverpage-alt-formats span a {
+  color: white;
+}
+.coverpage-alt-formats span a {
+  padding-right: 5px;
+}
+.coverpage-metadata span a:hover,
+.coverpage-alt-formats span a:hover {
   text-decoration: underline;
+  background: none;
+  box-shadow: none !important;
+  font-weight: 400;
 }
-
 
 .coverpage-title {
   padding-bottom: 0.5em;
   font-family: $headerfont;
-  font-size: 2.3em;
-  line-height: 1.5em;
   font-weight: 100;
   padding-left: 1em;
   padding-right: 1em;
   text-transform: uppercase;
+}
+
+.coverpage-title span {
+  font-family: $headerfont;
+  font-size: 1.8em;
+  line-height: 1;
 }
 
   .WordSection11 {
@@ -818,11 +906,9 @@ h2 p {
     padding: 0 3em 0 6em;
   }
 
-
   .zzSTDTitle1, .MsoCommentText {
     display: none;
   }
-
 
   .coverpage {
     text-align: center;
@@ -833,6 +919,7 @@ h2 p {
     font-family: $bodyfont;
       text-transform: none;
       font-weight: 300;
+      margin-left: 1em;
   }
 
   .coverpage-tc-name {
@@ -846,6 +933,7 @@ h2 p {
 */
 
   .coverpage-doc-identity {
+    font-size: 2em;
     line-height: 2em;
   }
 
@@ -854,12 +942,31 @@ h2 p {
   }
 
   .coverpage-stage-block {
-    font-family: $bodyfont;
+    font-family: $headerfont;
     font-weight: 600;
     font-size: 1.25em;
     margin: 2em 0em 2em 0em;
     text-transform: uppercase;
   }
+
+          .authors {
+      margin-top: 2em;
+    }
+
+    .authors span{
+      display: block;
+      line-height: 2;
+    }
+
+    .authors span span {
+      display: inline-block;
+      font-size: 12px;
+      color: #00335b;
+      background-color: white;
+      padding: 2px 5px;
+      margin-left: 7px;
+      border-radius: 5px;
+    }
 
 /*
     4.3 Draft Warning
@@ -918,7 +1025,7 @@ To top button
     font-size: 12px;
     border: none;
     outline: none;
-    background-color: #1f8ca0;
+    background-color: #00335b;
     opacity: 0.15;
     color: white;
     cursor: pointer;

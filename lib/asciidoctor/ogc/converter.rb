@@ -122,7 +122,7 @@ module Asciidoctor
         names = seqcheck(names, SEQ[1][:msg], SEQ[1][:val]) || return
         names = seqcheck(names, SEQ[2][:msg], SEQ[2][:val]) || return
         n = names.shift
-        if n == { tag: "definitions", title: nil }
+        if !n.nil? && n[:tag] == "definitions"
           n = names.shift
         end
         unless n
