@@ -17,38 +17,6 @@
     <div class="wrapper-top">
 
   <div class="coverpage-doc-identity">
-    <div class="coverpage-metadata">
-      <span>Submission Date: {{ receiveddate }}</span>
-      <span>Approval Date: {{ issueddate }}</span>
-      <span>Publication Date: {{ publisheddate }}</span>
-      <span>External identifier of this OGC® document: <span class="docnumber">{{ externalid }}</span></span>
-      <span>Internal identifier of this OGC® document: <span class="docnumber">{{ docnumber }}</span></span>
-      {% if url or html %}
-      <span>URL for this OGC® document: <a href="{{ url or html }}">{{ url or html }}</a></span>
-      {% endif %}
-      {% if previousuri %}
-      <span>Previous URI: <a href="{{ previousuri }}">{{previousuri}}</a></span>
-      {% endif %}
-      {% if editors %}
-      <span>Editor: {{ editors | join: ", " }}</span>
-      {% endif %}
-    </div>
-
-    {% if xml or pdf or doc %}
-    <div class="coverpage-alt-formats">
-      <span>Additional Formats: </span>
-      {% if xml %}
-      <span><a href="{{ xml }}"><i class="far fa-file-code"></i>XML</a></span>
-      {% endif %}
-      {% if pdf %}
-      <span><a href="{{ pdf }}"><i class="far fa-file-pdf"></i>PDF</a></span>
-      {% endif %}
-      {% if doc %}
-      <span><a href="{{ doc }}"><i class="far fa-file-word"></i>DOC</a></span>
-      {% endif %}
-      </span>
-    </div>
-    {% endif %}
 
     <div class="coverpage-title">
       <span class="title-first">{{ doctitle }}</span>
@@ -63,6 +31,45 @@
   <div class="coverpage-tc-name">
     <span>{{ tc | capitalize }}</span>
   </div>
+
+  <div class="authors">
+    {% if editors %}
+    {% for editor in editors %}
+    <span>{{ editor }} <span class="roletag">Editor</span></span><br/>
+    {% endfor %}
+    {% endif %}
+  </div>
+
+    <div class="coverpage-metadata">
+      <span class="label">Submission Date: </span> <span class="value">{{ receiveddate }}</span>
+      <span class="label">Approval Date: </span> <span class="value">{{ issueddate }}</span>
+      <span class="label">Publication Date: </span> <span class="value">{{ publisheddate }}</span>
+      <span class="label">External identifier of this OGC® document: <span class="docnumber value">{{ externalid }}</span></span>
+      <span class="label">Internal identifier of this OGC® document: <span class="docnumber value">{{ docnumber }}</span></span>
+      {% if url or html %}
+      <span class="label">URL for this OGC® document:</span> <span class="value"><a href="{{ url or html }}">{{ url or html }}</a></span>
+      {% endif %}
+      {% if previousuri %}
+      <span class="label">Previous URI: </span> <span class="value"><a href="{{ previousuri }}">{{previousuri}}</a></span>
+      {% endif %}
+    </div>
+
+    {% if xml or pdf or doc %}
+    <div class="coverpage-alt-formats">
+      <span class="label">Additional Formats: </span>
+      {% if xml %}
+      <span class="value"><a href="{{ xml }}"><i class="far fa-file-code"></i>XML</a></span>
+      {% endif %}
+      {% if pdf %}
+      <span class="value"><a href="{{ pdf }}"><i class="far fa-file-pdf"></i>PDF</a></span>
+      {% endif %}
+      {% if doc %}
+      <span class="value"><a href="{{ doc }}"><i class="far fa-file-word"></i>DOC</a></span>
+      {% endif %}
+      </span>
+    </div>
+    {% endif %}
+
   </div>
 
     <div class="wrapper-top-bottom"></div>
@@ -74,6 +81,7 @@
 
   <div class="coverpage-stage-block" >
     <p><span class="coverpage-maturity" id="{{ status | replace: ' ', '-' | downcase }}">{{ status }}</span></p>
+  </div>
 </div>
 
 {% if doctype == "Standard" or doctype == "Standard With Suite" %}
@@ -167,6 +175,6 @@
 <div class="rule"></div>
 </div>
   </div>
-
+</div>
 
 </header>
