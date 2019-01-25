@@ -606,7 +606,7 @@ p.Biblio, p.NormRef {
     }
 
 
-      .Admonition p {
+      .Admonition p, .Admonition.Important p, .Admonition.Warning p {
         margin: 0;
     }
 
