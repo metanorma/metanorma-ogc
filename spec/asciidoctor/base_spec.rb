@@ -529,4 +529,26 @@ OUTPUT
     # expect(html).to match(%r[I am a Word header file]) -- binhexed:
     expect(html).to match(%r[\nPCEtLSBJIGFtIGEgV29yZCBIZWFkZXIgZmlsZSAtLT4K\n])
   end
+
+  it "processes examples" do
+      expect(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true))).to be_equivalent_to <<~"OUTPUT"
+      #{ASCIIDOC_BLANK_HDR}
+      
+      [example]
+      .Example Title
+      ====
+      This is an example
+
+      Amen
+      ====
+      INPUT
+      #{BLANK_HDR}
+       <sections>
+         <example id="_"><name>Example Title</name><p id="_">This is an example</p>
+       <p id="_">Amen</p></example>
+       </sections>
+       </ogc-document>
+      OUTPUT
+    end
+
 end

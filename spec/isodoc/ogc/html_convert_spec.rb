@@ -332,6 +332,29 @@ RSpec.describe IsoDoc::Ogc do
     OUTPUT
   end
 
+  it "processes examples with titles" do
+    expect(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")).to be_equivalent_to <<~"OUTPUT"
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword>
+          <example id="_"><name>Example Title</name><p id="_">This is an example</p>
+<p id="_">Amen</p></example>
+    </foreword></preface>
+    </iso-standard>
+    INPUT
+        #{HTML_HDR}
+        <br/>
+      <div>
+        <h1 class="ForewordTitle">i.&#160; Preface</h1>
+        <p class="FigureTitle" align="center">Example Title</p>
+        <div id="_" class="example"><p class="example-title">EXAMPLE</p><para><b role="strong">&lt;name&gt;Example Title&lt;/name&gt;</b></para><p id="_">This is an example</p>
+<p id="_">Amen</p></div>
+      </div>
+      <p class="zzSTDTitle1"/>
+    </div>
+  </body>
+    OUTPUT
+  end
+
 
   it "processes section names" do
     input = <<~"INPUT"

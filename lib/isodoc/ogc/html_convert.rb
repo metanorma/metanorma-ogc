@@ -214,7 +214,7 @@ module IsoDoc
 
       def example_parse(node, out)
         name = node.at(ns("./name"))
-        return sourcecode_name_parse(node, out, name) if name
+        sourcecode_name_parse(node, out, name) if name
         super
       end
 
