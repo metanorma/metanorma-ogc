@@ -194,17 +194,8 @@ module IsoDoc
 
       def example_parse(node, out)
         name = node.at(ns("./name"))
-        sourcecode_name_parse(node, out, name) if name
-        out.table **example_table_attr(node) do |t|
-          t.tr do |tr|
-            tr.td **EXAMPLE_TBL_ATTR do |td|
-              td << example_label(node)
-            end
-            tr.td **{ valign: "top", class: "example" } do |td|
-              node.children.each { |n| parse(n, td) unless n.name == "name" }
-            end
-          end
-        end
+        return sourcecode_name_parse(node, out, name) if name
+        super
       end
 
       def error_parse(node, out)
@@ -217,7 +208,7 @@ module IsoDoc
         end
       end
 
-            def anchor_names(docxml)
+      def anchor_names(docxml)
         super
         recommendation_anchor_names(docxml)
         requirement_anchor_names(docxml)
@@ -293,7 +284,7 @@ module IsoDoc
         end
       end
 
-            def requirement_label(node)
+      def requirement_label(node)
         n = get_anchors[node["id"]]
         return "Requirement" if n.nil? || n[:label].empty?
         l10n("#{"Requirement"} #{n[:label]}")
@@ -322,7 +313,7 @@ module IsoDoc
       def initial_anchor_names(d)
         @prefacenum = 0
         preface_names(d.at(ns("//preface/abstract")))
-                @prefacenum += 1 if d.at(ns("//keyword"))
+        @prefacenum += 1 if d.at(ns("//keyword"))
         preface_names(d.at(ns("//foreword")))
         #preface_names(d.at(ns("//introduction")))
         @prefacenum += 1 if d.at(ns(SUBMITTINGORGS))

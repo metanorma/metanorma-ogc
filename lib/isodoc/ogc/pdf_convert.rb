@@ -213,17 +213,8 @@ module IsoDoc
 
       def example_parse(node, out)
         name = node.at(ns("./name"))
-        sourcecode_name_parse(node, out, name) if name
-        out.table **example_table_attr(node) do |t|
-          t.tr do |tr|
-            tr.td **EXAMPLE_TBL_ATTR do |td|
-              td << example_label(node)
-            end
-            tr.td **{ valign: "top", class: "example" } do |td|
-              node.children.each { |n| parse(n, td) unless n.name == "name" }
-            end
-          end
-        end
+        return sourcecode_name_parse(node, out, name) if name
+        super
       end
 
       def error_parse(node, out)
