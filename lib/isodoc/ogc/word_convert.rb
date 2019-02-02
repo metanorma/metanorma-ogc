@@ -66,8 +66,8 @@ module IsoDoc
           toc += make_TableWordToC(docxml)
         end
         if docxml.at("//p[@class = 'FigureTitle']")
-          toc += make_FigureWordToC(docxml)
           toc += %{<p class="TOCTitle">List of Figures</p>}
+          toc += make_FigureWordToC(docxml)
         end
         if docxml.at("//p[@class = 'RecommendationTitle']")
           toc += %{<p class="TOCTitle">List of Recommendations</p>}
@@ -354,7 +354,7 @@ module IsoDoc
         n = get_anchors[node["id"]]
         label = (n.nil? || n[:label].empty?) ?
           "Recommendation" : l10n("#{"Recommendation"} #{n[:label]}")
-        out.p **{class: "RecommendationLabel" } do |p|
+        out.p **{class: "RecommendationTitle" } do |p|
           p << label
         end
       end
@@ -377,7 +377,7 @@ module IsoDoc
         n = get_anchors[node["id"]]
         label = (n.nil? || n[:label].empty?) ?
           "Requirement" : l10n("#{"Requirement"} #{n[:label]}")
-        out.p **{class: "RecommendationLabel" } do |p|
+        out.p **{class: "RecommendationTitle" } do |p|
           p << label
         end
       end
@@ -400,7 +400,7 @@ module IsoDoc
         n = get_anchors[node["id"]]
         label = (n.nil? || n[:label].empty?) ?
           "Permission" : l10n("#{"Permission"} #{n[:label]}")
-        out.p **{class: "RecommendationLabel" } do |p|
+        out.p **{class: "RecommendationTitle" } do |p|
           p << label
         end
       end
