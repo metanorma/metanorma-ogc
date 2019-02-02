@@ -60,8 +60,6 @@ module IsoDoc
 
       def insert_toc(intro, docxml)
         toc = ""
-        toc += %{<p class="TOCTitle" style="page-break-before:
-        always;">Table of Contents</p>}
         toc += make_WordToC(docxml)
         if docxml.at("//p[@class = 'TableTitle']")
           toc += %{<p class="TOCTitle">List of Tables</p>}
