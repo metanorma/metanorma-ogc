@@ -373,7 +373,7 @@ module IsoDoc
         end
       end
 
-      def requirement_label(node)
+      def requirement_label(node, out)
         n = get_anchors[node["id"]]
         label = (n.nil? || n[:label].empty?) ?
           "Requirement" : l10n("#{"Requirement"} #{n[:label]}")
@@ -396,7 +396,7 @@ module IsoDoc
         end
       end
 
-      def permission_label(node)
+      def permission_label(node, out)
         n = get_anchors[node["id"]]
         label = (n.nil? || n[:label].empty?) ?
           "Permission" : l10n("#{"Permission"} #{n[:label]}")
