@@ -58,6 +58,94 @@ module IsoDoc
       end
 =end
 
+      def insert_toc(intro, docxml)
+        toc = ""
+        toc += %{<p class="TOCTitle" style="page-break-before:
+        always;">Table of Contents</p>}
+        toc += make_WordToC(docxml)
+        if docxml.at("//p[@class = 'TableTitle']")
+          toc += %{<p class="TOCTitle">List of Tables</p>}
+          toc += make_TableWordToC(docxml)
+        end
+        if docxml.at("//p[@class = 'FigureTitle']")
+          toc += make_FigureWordToC(docxml)
+          toc += %{<p class="TOCTitle">List of Figures</p>}
+        end
+        if docxml.at("//p[@class = 'RecommendationTitle']")
+          toc += %{<p class="TOCTitle">List of Recommendations</p>}
+          toc += make_RecommendationWordToC(docxml)
+        end
+        intro.sub(/WORDTOC/, toc)
+      end
+
+      WORD_TOC_RECOMMENDATION_PREFACE1 = <<~TOC.freeze
+                          <span lang="EN-GB"><span
+        style='mso-element:field-begin'></span><span
+        style='mso-spacerun:yes'>&#xA0;</span>TOC
+        \\h \\z \\t &quot;RecommendationTitle,1&quot; <span
+        style='mso-element:field-separator'></span></span>
+      TOC
+
+      WORD_TOC_TABLE_PREFACE1 = <<~TOC.freeze
+                          <span lang="EN-GB"><span
+        style='mso-element:field-begin'></span><span
+        style='mso-spacerun:yes'>&#xA0;</span>TOC
+        \\h \\z \\t &quot;TableTitle,1&quot; <span
+        style='mso-element:field-separator'></span></span>
+      TOC
+
+      WORD_TOC_FIGURE_PREFACE1 = <<~TOC.freeze
+                                      <span lang="EN-GB"><span
+        style='mso-element:field-begin'></span><span
+        style='mso-spacerun:yes'>&#xA0;</span>TOC
+        \\h \\z \\t &quot;FigureTitle,1&quot; <span
+        style='mso-element:field-separator'></span></span>
+      TOC
+
+      def header_strip(h)
+        h = h.to_s.gsub(/<\/?p[^>]*>/, "")
+        super
+      end
+
+      def make_TableWordToC(docxml)
+        toc = ""
+        docxml.xpath("//p[@class = 'TableTitle']").each do |h|
+          toc += word_toc_entry(1, header_strip(h))
+        end
+        toc.sub(/(<p class="MsoToc1">)/,
+                %{\\1#{WORD_TOC_TABLE_PREFACE1}}) +  WORD_TOC_SUFFIX1
+      end
+
+      def make_FigureWordToC(docxml)
+        toc = ""
+        docxml.xpath("//p[@class = 'FigureTitle']").each do |h|
+          toc += word_toc_entry(1, header_strip(h))
+        end
+        toc.sub(/(<p class="MsoToc1">)/,
+                %{\\1#{WORD_TOC_FIGURE_PREFACE1}}) +  WORD_TOC_SUFFIX1
+      end
+
+      def make_RecommendationWordToC(docxml)
+        toc = ""
+        docxml.xpath("//p[@class = 'RecommendationTitle']").each do |h|
+          toc += word_toc_entry(1, header_strip(h))
+        end
+        toc.sub(/(<p class="MsoToc1">)/,
+                %{\\1#{WORD_TOC_RECOMMENDATION_PREFACE1}}) +  WORD_TOC_SUFFIX1
+      end
+
+      def make_WordToC(docxml)
+        toc = ""
+        docxml.xpath("//h1[not(ancestor::*[@class = 'WordSection2'])] |"\
+                     "//h1[contains(., 'Executive Summary')] |"\
+                     "//h2[not(ancestor::*[@class = 'WordSection2'])] |"\
+                     "//h3[not(ancestor::*[@class = 'WordSection2'])]").each do |h|
+          toc += word_toc_entry(h.name[1].to_i, header_strip(h))
+        end
+        toc.sub(/(<p class="MsoToc1">)/,
+                %{\\1#{WORD_TOC_PREFACE1}}) +  WORD_TOC_SUFFIX1
+      end
+
       def annex_name(annex, name, div)
         div.h1 **{ class: "Annex" } do |t|
           t << "#{get_anchors[annex['id']][:label]} "
@@ -172,7 +260,7 @@ module IsoDoc
         end
       end
 
-            def abstract(isoxml, out)
+      def abstract(isoxml, out)
         f = isoxml.at(ns("//preface/abstract")) || return
         @prefacenum += 1
         page_break(out)
