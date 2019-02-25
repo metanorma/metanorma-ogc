@@ -273,7 +273,7 @@ module IsoDoc
         out.table **recommend_table_attr(node) do |t|
           t.tr do |tr|
             tr.td **REQ_TBL_ATTR do |td|
-              td << recommendation_label(node)
+              recommendation_label(node, td)
             end
             tr.td **{ valign: "top", class: "recommend" } do |td|
               recommend_name_parse(node, td)
@@ -283,17 +283,20 @@ module IsoDoc
         end
       end
 
-      def recommendation_label(node)
+            def recommendation_label(node, out)
         n = get_anchors[node["id"]]
-        return "Recommendation" if n.nil? || n[:label].empty?
-        l10n("#{"Recommendation"} #{n[:label]}")
+        label = (n.nil? || n[:label].empty?) ?
+          "Recommendation" : l10n("#{"Recommendation"} #{n[:label]}")
+        out.p **{class: "RecommendationTitle" } do |p|
+          p << label
+        end
       end
 
       def requirement_parse(node, out)
         out.table **recommend_table_attr(node) do |t|
           t.tr do |tr|
             tr.td **REQ_TBL_ATTR do |td|
-              td << requirement_label(node)
+              requirement_label(node, td)
             end
             tr.td **{ valign: "top", class: "recommend" } do |td|
               recommend_name_parse(node, td)
@@ -303,17 +306,20 @@ module IsoDoc
         end
       end
 
-      def requirement_label(node)
+            def requirement_label(node, out)
         n = get_anchors[node["id"]]
-        return "Requirement" if n.nil? || n[:label].empty?
-        l10n("#{"Requirement"} #{n[:label]}")
+        label = (n.nil? || n[:label].empty?) ?
+          "Requirement" : l10n("#{"Requirement"} #{n[:label]}")
+        out.p **{class: "RecommendationTitle" } do |p|
+          p << label
+        end
       end
 
       def permission_parse(node, out)
         out.table **recommend_table_attr(node) do |t|
           t.tr do |tr|
             tr.td **REQ_TBL_ATTR do |td|
-              td << permission_label(node)
+              permission_label(node, td)
             end
             tr.td **{ valign: "top", class: "recommend" } do |td|
               recommend_name_parse(node, td)
@@ -323,12 +329,14 @@ module IsoDoc
         end
       end
 
-      def permission_label(node)
+            def permission_label(node, out)
         n = get_anchors[node["id"]]
-        return "Permission" if n.nil? || n[:label].empty?
-        l10n("#{"Permission"} #{n[:label]}")
+        label = (n.nil? || n[:label].empty?) ?
+          "Permission" : l10n("#{"Permission"} #{n[:label]}")
+        out.p **{class: "RecommendationTitle" } do |p|
+          p << label
+        end
       end
-
 
       def initial_anchor_names(d)
         @prefacenum = 0
