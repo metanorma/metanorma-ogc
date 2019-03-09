@@ -173,7 +173,7 @@ introduced with `=`, is ignored)
 `:subcommittee:`:: The name of the relevant subcommittee producing the document
 `:workgroup:` (OGC: `:workingGroup:`):: The name of the relevant working group producing the document (mandatory)
 
-`:language:`:: The language of the document (e.g. `en`) (mandatory)
+`:language:`:: The language of the document (e.g. `en`) 
 
 `:published-date:` (OGC: `:publicationDate:`):: The publication date for the document.
 `:issued-date:`  (OGC: `:approvalDate:`):: The approval date for the document.
