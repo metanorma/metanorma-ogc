@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
     Metanorma for the Open Geospatial Consortium.
   DESCRIPTION
 
-  spec.homepage      = "https://github.com/riboseinc/metanorma-ogc"
+  spec.homepage      = "https://github.com/metanorma/metanorma-ogc"
   spec.license       = "BSD-2-Clause"
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|

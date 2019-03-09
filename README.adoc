@@ -1,8 +1,8 @@
 = metanorma-ogc: Metanorma processor for the Open Geospatial Consortium document class
 
 image:https://img.shields.io/gem/v/metanorma-ogc.svg["Gem Version", link="https://rubygems.org/gems/metanorma-ogc"]
-image:https://img.shields.io/travis/riboseinc/metanorma-ogc/master.svg["Build Status", link="https://travis-ci.com/riboseinc/metanorma-ogc"]
-image:https://codeclimate.com/github/riboseinc/metanorma-ogc/badges/gpa.svg["Code Climate", link="https://codeclimate.com/github/riboseinc/metanorma-ogc"]
+image:https://img.shields.io/travis/metanorma/metanorma-ogc/master.svg["Build Status", link="https://travis-ci.com/metanorma/metanorma-ogc"]
+image:https://codeclimate.com/github/metanorma/metanorma-ogc/badges/gpa.svg["Code Climate", link="https://codeclimate.com/github/metanorma/metanorma-ogc"]
 
 WARNING: This gem is still under development.
 
@@ -30,7 +30,7 @@ as end deliverable OGC documents.
 
 == Structure
 
-This gem inherits from the https://github.com/riboseinc/metanorma-standoc
+This gem inherits from the https://github.com/metanorma/metanorma-standoc
 gem, and aligns closely to it.
 
 
@@ -38,13 +38,13 @@ gem, and aligns closely to it.
 
 Please see https://www.metanorma.com for instructions to get started.
 
-If you are using a Mac, the https://github.com/riboseinc/metanorma-macos-setup
+If you are using a Mac, the https://github.com/metanorma/metanorma-macos-setup
 repository has instructions on setting up your machine to run Metanorma
 scripts such as this one. You need only run the following in a Terminal console:
 
 [source,console]
 ----
-$ bash <(curl -s https://raw.githubusercontent.com/riboseinc/metanorma-macos-setup/master/metanorma-setup)
+$ bash <(curl -s https://raw.githubusercontent.com/metanorma/metanorma-macos-setup/master/metanorma-setup)
 $ gem install metanorma-cli
 $ gem install metanorma-ogc
 ----
@@ -86,10 +86,10 @@ expressions.
 
 The OGC document model is detailed here:
 
-* https://github.com/riboseinc/metanorma-model-ogc[OGC document model]
+* https://github.com/metanorma/metanorma-model-ogc[OGC document model]
 
 It is an instance of the
-https://github.com/riboseinc/metanorma-model-standoc[StandardDocument model].
+https://github.com/metanorma/metanorma-model-standoc[StandardDocument model].
 
 
 === Document input
@@ -120,7 +120,7 @@ NOTE: The Asciidoctor gem is used for AsciiDoc input parsing.
 
 Metadata of the document is provided through AsciiDoc document attributes.
 
-https://github.com/riboseinc/metanorma-standoc[Metanorma-Standoc]
+https://github.com/metanorma/metanorma-standoc[Metanorma-Standoc]
 documents all common Metanorma document attributes.
 Where these preexisting metanorma attributes correspond to attributes already used
 by OGC in their Asciidoctor template, they are treated as synonyms of the Metanorma
@@ -220,7 +220,7 @@ OGC `:editor:`:: corresponds to `:fullname:` with `role` = "editor"
 
 == Asciidoctor features specific to OGC
 
-The https://github.com/riboseinc/metanorma-standoc[metanorma-standoc]
+The https://github.com/metanorma/metanorma-standoc[metanorma-standoc]
 gem documents the customisations of Asciidoctor markup common to all metanorma gems.
 The following markup is specific to this gem:
 
