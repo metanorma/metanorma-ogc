@@ -8,9 +8,9 @@ rvm:
   - ruby-head
 before_install:
   - gem install bundler -v 2.0.1
-  - npm install -g puppeteer
-  - npm install
-  - unset _JAVA_OPTIONS
+  - travis_retry sudo apt-get update
+  - sudo bash -c "curl -L https://raw.githubusercontent.com/metanorma/metanorma-linux-setup/master/ubuntu-install-puppeteer.sh | bash"
 matrix:
   allow_failures:
     - rvm: ruby-head
+
