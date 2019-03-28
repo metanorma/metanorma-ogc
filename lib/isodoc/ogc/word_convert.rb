@@ -132,7 +132,7 @@ module IsoDoc
                 %{\\1#{WORD_TOC_RECOMMENDATION_PREFACE1}}) +  WORD_TOC_SUFFIX1
       end
 
-      def make_WordToC(docxml)
+      def make_WordToC(docxml, level)
         toc = ""
         docxml.xpath("//h1[not(ancestor::*[@class = 'WordSection2'])] |"\
                      "//h1[contains(., 'Executive Summary')] |"\
@@ -141,7 +141,7 @@ module IsoDoc
           toc += word_toc_entry(h.name[1].to_i, header_strip(h))
         end
         toc.sub(/(<p class="MsoToc1">)/,
-                %{\\1#{WORD_TOC_PREFACE1}}) +  WORD_TOC_SUFFIX1
+                %{\\1#{word_toc_preface(level)}}) +  WORD_TOC_SUFFIX1
       end
 
       def annex_name(annex, name, div)
