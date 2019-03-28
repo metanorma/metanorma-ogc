@@ -58,9 +58,9 @@ module IsoDoc
       end
 =end
 
-      def insert_toc(intro, docxml)
+      def insert_toc(intro, docxml, level)
         toc = ""
-        toc += make_WordToC(docxml)
+        toc += make_WordToC(docxml, level)
         if docxml.at("//p[@class = 'TableTitle']")
           toc += %{<p class="TOCTitle">List of Tables</p>}
           toc += make_TableWordToC(docxml)
@@ -130,18 +130,6 @@ module IsoDoc
         end
         toc.sub(/(<p class="MsoToc1">)/,
                 %{\\1#{WORD_TOC_RECOMMENDATION_PREFACE1}}) +  WORD_TOC_SUFFIX1
-      end
-
-      def make_WordToC(docxml, level)
-        toc = ""
-        docxml.xpath("//h1[not(ancestor::*[@class = 'WordSection2'])] |"\
-                     "//h1[contains(., 'Executive Summary')] |"\
-                     "//h2[not(ancestor::*[@class = 'WordSection2'])] |"\
-                     "//h3[not(ancestor::*[@class = 'WordSection2'])]").each do |h|
-          toc += word_toc_entry(h.name[1].to_i, header_strip(h))
-        end
-        toc.sub(/(<p class="MsoToc1">)/,
-                %{\\1#{word_toc_preface(level)}}) +  WORD_TOC_SUFFIX1
       end
 
       def annex_name(annex, name, div)
