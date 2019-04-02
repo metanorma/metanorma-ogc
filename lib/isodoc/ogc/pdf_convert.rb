@@ -35,27 +35,11 @@ module IsoDoc
         @meta = Metadata.new(lang, script, labels)
       end
 
-      def html_head()
+      def googlefonts()
         <<~HEAD.freeze
-        <title>{{ doctitle }}</title>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-    <!--TOC script import-->
-    <script type="text/javascript"  src="https://cdn.rawgit.com/jgallen23/toc/0.3.2/dist/toc.min.js"></script>
-    <script type="text/javascript">
-    function toclevel() { var i; var text = "";
-      for(i = 1; i <= #{@htmlToClevels}; i++) {
-        if (i > 1) { text += ","; } text += "h" + i + ":not(.TermNum)"; } }
-    </script>
-
-    <!--Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i|Space+Mono:400,700" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Overpass:300,300i,600,900" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Teko:300,400,500" rel="stylesheet">
-    <!--Font awesome import for the link icon-->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/solid.css" integrity="sha384-rdyFrfAIC05c5ph7BKz3l5NG5yEottvO/DQ0dCrwD8gzeQDjYBHNr1ucUpQuljos" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/fontawesome.css" integrity="sha384-u5J7JghGz0qUrmEsWzBQkfvc8nK3fUT7DCaQzNQ+q4oEXhGSx+P2OqjWsfIRB8QT" crossorigin="anonymous">
-    <style class="anchorjs"></style>
         HEAD
       end
 
