@@ -49,6 +49,8 @@ style='mso-color-alt:windowtext'><a href="http://www.opengeospatial.org/legal/">
 style='mso-color-alt:windowtext'>http://www.opengeospatial.org/legal/</span></a></span></span>.<b
 style='mso-bidi-font-weight:normal'><o:p></o:p></b></span></p>
 
+{% if status == "Published" or status == "Withdrawn" %}
+
 {% if doctype == "Standard" or doctype == "Standard With Suite" %}
 <p class="MsoNormal" align="center" style='margin-bottom:6.0pt;text-align:center;
 border:none;mso-border-alt:solid windowtext .5pt;padding:0cm;mso-padding-alt:
@@ -109,20 +111,44 @@ style='font-size:10.0pt;mso-bidi-font-size:11.0pt;mso-bidi-font-weight:bold'>Thi
 <o:p></o:p></span></p>
 {% endif %}
 
-{% if status != "Published" and status != "Withdrawn" %}
+{% else %}
 <p class="MsoNormal" align="center" style='margin-bottom:6.0pt;text-align:center;
 border:none;mso-border-alt:solid windowtext .5pt;padding:0cm;mso-padding-alt:
 1.0pt 4.0pt 1.0pt 4.0pt'><b style='mso-bidi-font-weight:normal'><span
 lang="EN-GB" style='font-size:10.0pt;mso-bidi-font-size:11.0pt'>Warning for drafts<o:p></o:p></span></b></p>
 
-<p class="MsoNormal" style='margin-bottom:6.0pt;border:none;mso-border-alt:solid windowtext .5pt;padding:0cm;mso-padding-alt:1.0pt 4.0pt 1.0pt 4.0pt'><span lang="EN-GB" style='font-size:10.0pt;mso-bidi-font-size:11.0pt;mso-bidi-font-weight:bold'>This document is not a OGC Standard. It is distributed for review and comment, and is subject to change without notice and may not be referred to as a Standard.
+{% if doctype == "Standard" or doctype == "Standard With Suite" %}
+<p class="MsoNormal" style='margin-bottom:6.0pt;border:none;mso-border-alt:solid windowtext .5pt;padding:0cm;mso-padding-alt:1.0pt 4.0pt 1.0pt 4.0pt'><span lang="EN-GB" style='font-size:10.0pt;mso-bidi-font-size:11.0pt;mso-bidi-font-weight:bold'>This document is not an OGC Standard. This document is distributed for review and comment. This document is subject to change without notice and may not be referred to as an OGC Standard.
 </p>
 
-<p class="MsoNormal" style='margin-bottom:6.0pt;border:none;mso-border-alt:solid windowtext .5pt;padding:0cm;mso-padding-alt:1.0pt 4.0pt 1.0pt 4.0pt'><span lang="EN-GB" style='font-size:10.0pt;mso-bidi-font-size:11.0pt;mso-bidi-font-weight:bold'>Attention is drawn to the possibility that some of the elements of this document may be the subject of patent rights. The Open Geospatial Consortium Inc. shall not be held responsible for identifying any or all such patent rights.
-</p>
+<p class="MsoNormal" style='margin-bottom:6.0pt;border:none;mso-border-alt:solid windowtext .5pt;padding:0cm;mso-padding-alt:1.0pt 4.0pt 1.0pt 4.0pt'><span lang="EN-GB" style='font-size:10.0pt;mso-bidi-font-size:11.0pt;mso-bidi-font-weight:bold'>Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation.</p>
+{% endif %}
 
-<p class="MsoNormal" style='margin-bottom:6.0pt;border:none;mso-border-alt:solid windowtext .5pt;padding:0cm;mso-padding-alt:1.0pt 4.0pt 1.0pt 4.0pt'><span lang="EN-GB" style='font-size:10.0pt;mso-bidi-font-size:11.0pt;mso-bidi-font-weight:bold'>Recipients of this document are requested to submit, with their comments, notification of any relevant patent claims or other intellectual property rights of which they may be aware that might be infringed by any implementation of the standard set forth in this document, and to provide supporting documentation.
+{% if doctype == "Best Practice" %}
+<p class="MsoNormal" style='margin-bottom:6.0pt;border:none;mso-border-alt:solid windowtext .5pt;padding:0cm;mso-padding-alt:1.0pt 4.0pt 1.0pt 4.0pt'><span lang="EN-GB" style='font-size:10.0pt;mso-bidi-font-size:11.0pt;mso-bidi-font-weight:bold'>This document defines an OGC Best Practice on a particular technology or approach related to an OGC standard. This document is not an OGC Standard and may not be referred to as an OGC Standard. It is subject to change without notice. However, this document is an official position of the OGC membership on this particular technology topic.
 </p>
+<p class="MsoNormal" style='margin-bottom:6.0pt;border:none;mso-border-alt:solid windowtext .5pt;padding:0cm;mso-padding-alt:1.0pt 4.0pt 1.0pt 4.0pt'><span lang="EN-GB" style='font-size:10.0pt;mso-bidi-font-size:11.0pt;mso-bidi-font-weight:bold'>Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation.
+</p>
+{% endif %}
+
+{% if doctype == "Discussion Paper" %}
+<p class="MsoNormal" style='margin-bottom:6.0pt;border:none;mso-border-alt:solid windowtext .5pt;padding:0cm;mso-padding-alt:1.0pt 4.0pt 1.0pt 4.0pt'><span lang="EN-GB" style='font-size:10.0pt;mso-bidi-font-size:11.0pt;mso-bidi-font-weight:bold'>This document is not an OGC Standard. This document is an OGC Discussion Paper and is therefore not an official position of the OGC membership. It is distributed for review and comment. It is subject to change without notice and may not be referred to as an OGC Standard. Further, an OGC Discussion Paper should not be referenced as required or mandatory technology in procurements.
+</p>
+{% endif %}
+
+{% if doctype == "White Paper" %}
+<p class="MsoNormal" style='margin-bottom:6.0pt;border:none;mso-border-alt:solid windowtext .5pt;padding:0cm;mso-padding-alt:1.0pt 4.0pt 1.0pt 4.0pt'><span lang="EN-GB" style='font-size:10.0pt;mso-bidi-font-size:11.0pt;mso-bidi-font-weight:bold'>This document is not an OGC Standard. This document is an OGC White Paper and is therefore not an official position of the OGC membership. It is distributed for review and comment. It is subject to change without notice and may not be referred to as an OGC Standard. Further, an OGC White Paper should not be referenced as required or mandatory technology in procurements.
+</p>
+{% endif %}
+
+{% if doctype == "Release Notes" %}
+<p class="MsoNormal" style='margin-bottom:6.0pt;border:none;mso-border-alt:solid windowtext .5pt;padding:0cm;mso-padding-alt:1.0pt 4.0pt 1.0pt 4.0pt'><span lang="EN-GB" style='font-size:10.0pt;mso-bidi-font-size:11.0pt;mso-bidi-font-weight:bold'>This document is not an OGC standard. This document provides release notes for an OGC standard. This document is subject to change without notice and may not be referred to as an OGC Standard.
+</p>
+<p class="MsoNormal" style='margin-bottom:6.0pt;border:none;mso-border-alt:solid windowtext .5pt;padding:0cm;mso-padding-alt:1.0pt 4.0pt 1.0pt 4.0pt'><span lang="EN-GB" style='font-size:10.0pt;mso-bidi-font-size:11.0pt;mso-bidi-font-weight:bold'>Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation.
+</p>
+{% endif %}
+
+
 {% endif %}
 
 <div style='mso-element:frame;mso-element-frame-hspace:7.1pt;mso-element-frame-vspace:
@@ -175,17 +201,6 @@ page;mso-element-left:39.9pt;mso-element-top:693.25pt;mso-height-rule:exactly'>
 </table>
 
 </div>
-
-{% if status != "Published" and status != "Withdrawn" %}
-<p class="MsoNormal" style='border:none;mso-border-alt:solid windowtext .5pt;
-padding:0cm;mso-padding-alt:1.0pt 4.0pt 1.0pt 4.0pt'><span lang="EN-GB"
-style='font-size:10.0pt;mso-bidi-font-size:11.0pt;mso-bidi-font-weight:bold'>Recipients
-of this draft are invited to submit, with their comments, notification of any
-relevant patent rights of which they are aware and to provide supporting
-documentation.</span><span lang="EN-GB" style='font-size:10.0pt;mso-bidi-font-size:
-11.0pt'><o:p></o:p></span></p>
-
-{% endif %}
 
 
 

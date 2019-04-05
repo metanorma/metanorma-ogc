@@ -84,6 +84,7 @@
   </div>
 </div>
 
+{% if status == "Published" or status == "Withdrawn" %}
 {% if doctype == "Standard" or doctype == "Standard With Suite" %}
   <div class="coverpage-warning">
     <span class="title">Warning</span>
@@ -126,18 +127,36 @@
  </div>
 {% endif %}
 
-{% if status != "Published" and status != "Withdrawn" %}
+{% else %}
   <div class="coverpage-warning">
     <span class="title">Warning for Drafts</span>
 
-    <p class="content">
-    This document is not a OGC Standard. It is distributed for review and
-    comment, and is subject to change without notice and may not be referred to as
-    a Standard.</p>
-    <p class="content">Attention is drawn to the possibility that some of the elements of this document may be the subject of patent rights. The Open Geospatial Consortium Inc. shall not be held responsible for identifying any or all such patent rights.
-    </p>
-    <p class="content">Recipients of this document are requested to submit, with their comments, notification of any relevant patent claims or other intellectual property rights of which they may be aware that might be infringed by any implementation of the standard set forth in this document, and to provide supporting documentation.
-    </p>
+    {% if doctype == "Standard" or doctype == "Standard With Suite" %}
+    <p class="content">This document is not an OGC Standard. This document is distributed for review and comment. This document is subject to change without notice and may not be referred to as an OGC Standard.</p>
+
+<p class="content">Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation.</p>
+    {% endif %}
+
+    {% if doctype == "Best Practice" %}
+    <p class="content">This document defines an OGC Best Practice on a particular technology or approach related to an OGC standard. This document is not an OGC Standard and may not be referred to as an OGC Standard. It is subject to change without notice. However, this document is an official position of the OGC membership on this particular technology topic.
+
+<p class="content">Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation.</p>
+    {% endif %}
+
+    {% if doctype == "Discussion Paper" %}
+    <p class="content">This document is not an OGC Standard. This document is an OGC Discussion Paper and is therefore not an official position of the OGC membership. It is distributed for review and comment. It is subject to change without notice and may not be referred to as an OGC Standard. Further, an OGC Discussion Paper should not be referenced as required or mandatory technology in procurements.</p>
+    {% endif %}
+
+    {% if doctype == "White Paper" %}
+    <p class="content">This document is not an OGC Standard. This document is an OGC White Paper and is therefore not an official position of the OGC membership. It is distributed for review and comment. It is subject to change without notice and may not be referred to as an OGC Standard. Further, an OGC White Paper should not be referenced as required or mandatory technology in procurements.</p>
+    {% endif %}
+
+    {% if doctype == "Release Notes" %}
+    <p class="content">This document is not an OGC standard. This document provides release notes for an OGC standard. This document is subject to change without notice and may not be referred to as an OGC Standard.
+
+<p class="content">Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation.</p>
+    {% endif %}
+
   </div>
 {% endif %}
 
