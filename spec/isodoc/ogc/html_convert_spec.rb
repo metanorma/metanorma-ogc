@@ -391,6 +391,10 @@ RSpec.describe IsoDoc::Ogc do
          <title>Scope</title>
          <p id="E">Text</p>
        </clause>
+       <clause id="D1" obligation="normative">
+         <title>Conformance</title>
+         <p id="E1">Text</p>
+       </clause>
 
        <clause id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title><terms id="I" obligation="normative">
          <title>Normal Terms</title>
@@ -472,22 +476,26 @@ RSpec.describe IsoDoc::Ogc do
                <h1>1.&#160; Scope</h1>
                <p id="E">Text</p>
              </div>
+             <div id="D1">
+                <h1>2.&#160; Conformance</h1>
+                <p id="E1">Text</p>
+            </div>
              <div>
-               <h1>2.&#160; Normative references</h1>
+               <h1>3.&#160; Normative references</h1>
                <p>There are no normative references in this document.</p>
              </div>
-             <div id="H"><h1>3.&#160; Terms, definitions, symbols and abbreviated terms</h1><p>For the purposes of this document,
+             <div id="H"><h1>4.&#160; Terms, definitions, symbols and abbreviated terms</h1><p>For the purposes of this document,
            the following terms and definitions apply.</p>
        <div id="I">
-          <h2>3.1. Normal Terms</h2>
-          <p class="TermNum" id="J">3.1.1.</p>
+          <h2>4.1. Normal Terms</h2>
+          <p class="TermNum" id="J">4.1.1.</p>
           <p class="Terms" style="text-align:left;">Term2</p>
 
-        </div><div id="K"><h2>3.2. Symbols and abbreviated terms</h2>
+        </div><div id="K"><h2>4.2. Symbols and abbreviated terms</h2>
           <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
         </div></div>
              <div id="L" class="Symbols">
-               <h1>4.&#160; Symbols and abbreviated terms</h1>
+               <h1>5.&#160; Symbols and abbreviated terms</h1>
                <dl>
                  <dt>
                    <p>Symbol</p>
@@ -496,12 +504,12 @@ RSpec.describe IsoDoc::Ogc do
                </dl>
              </div>
              <div id="M">
-               <h1>5.&#160; Clause 4</h1>
+               <h1>6.&#160; Clause 4</h1>
                <div id="N">
-          <h2>5.1. Introduction</h2>
+          <h2>6.1. Introduction</h2>
         </div>
                <div id="O">
-          <h2>5.2. Clause 4.2</h2>
+          <h2>6.2. Clause 4.2</h2>
         </div>
              </div>
              <br/>

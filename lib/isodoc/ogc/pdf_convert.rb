@@ -349,6 +349,42 @@ module IsoDoc
         termexample_anchor_names(d)
       end
 
+      MIDDLE_CLAUSE =
+        "//clause[parent::sections][not(xmlns:title = 'Scope' or xmlns:title = 'Conformance')]"\
+        "[not(descendant::terms)]".freeze
+
+                def middle_section_asset_names(d)
+      middle_sections = "//clause[title = 'Scope' or title = 'Conformance'] | "\
+        "//foreword | //introduction | "\
+        "//references[title = 'Normative References' or title = 'Normative references'] | "\
+        "//sections/terms | "\
+        "//sections/definitions | //clause[parent::sections]"
+      sequential_asset_names(d.xpath(ns(middle_sections)))
+    end
+
+      def conformance(isoxml, out, num)
+        f = isoxml.at(ns("//clause[title = 'Conformance']")) or return num
+        out.div **attr_code(id: f["id"]) do |div|
+          num = num + 1
+          clause_name(num, "Conformance", div, nil)
+          f.elements.each do |e|
+            parse(e, div) unless e.name == "title"
+          end
+        end
+        num
+      end
+
+      def middle(isoxml, out)
+        middle_title(out)
+        i = scope isoxml, out, 0
+        i = conformance isoxml, out, i
+        i = norm_ref isoxml, out, i
+        i = terms_defs isoxml, out, i
+        i = symbols_abbrevs isoxml, out, i
+        clause isoxml, out
+        annex isoxml, out
+        bibliography isoxml, out
+      end
     end
   end
 end
