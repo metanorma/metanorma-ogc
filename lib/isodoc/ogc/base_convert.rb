@@ -287,6 +287,12 @@ module IsoDoc
         sequential_asset_names(d.xpath(ns(middle_sections)))
       end
 
+      def clause_names(docxml, sect_num)
+        docxml.xpath(ns(self.class::MIDDLE_CLAUSE)).each_with_index do |c, i|
+          section_names(c, (i + sect_num), 1)
+        end
+      end
+
       def conformance(isoxml, out, num)
         f = isoxml.at(ns("//clause[title = 'Conformance']")) or return num
         out.div **attr_code(id: f["id"]) do |div|
@@ -299,6 +305,19 @@ module IsoDoc
         num
       end
 
+      def clause(isoxml, out, num)
+        isoxml.xpath(ns(self.class::MIDDLE_CLAUSE)).each do |c|
+          out.div **attr_code(id: c["id"]) do |div|
+            num = num + 1
+            clause_name(num,
+                        c&.at(ns("./title"))&.content, div, nil)
+            c.elements.each do |e|
+              parse(e, div) unless e.name == "title"
+            end
+          end
+        end
+      end
+
       def middle(isoxml, out)
         middle_title(out)
         i = scope isoxml, out, 0
@@ -306,7 +325,7 @@ module IsoDoc
         i = norm_ref isoxml, out, i
         i = terms_defs isoxml, out, i
         i = symbols_abbrevs isoxml, out, i
-        clause isoxml, out
+        clause isoxml, out, i
         annex isoxml, out
         bibliography isoxml, out
       end
