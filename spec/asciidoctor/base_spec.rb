@@ -510,7 +510,7 @@ OUTPUT
 
   it "uses user-specified HTML stylesheets" do
     FileUtils.rm_f "spec/assets/test.html"
-    system "metanorma -t ogc -r metanorma-ogc spec/assets/test.adoc"
+    system "metanorma compile -t ogc spec/assets/test.adoc"
     html = File.read("spec/assets/test.html", encoding: "utf-8")
     expect(html).to match(%r[I am an HTML stylesheet])
     expect(html).to match(%r[I am an HTML cover page])
@@ -520,7 +520,7 @@ OUTPUT
 
   it "uses user-specified Word stylesheets" do
     FileUtils.rm_f "spec/assets/test.doc"
-    system "metanorma -t ogc -r metanorma-ogc spec/assets/test.adoc"
+    system "metanorma compile -t ogc spec/assets/test.adoc"
     html = File.read("spec/assets/test.doc", encoding: "utf-8")
     expect(html).to match(%r[I am a Word stylesheet])
     expect(html).to match(%r[I am a Standard stylesheet])
