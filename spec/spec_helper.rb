@@ -65,7 +65,8 @@ BLANK_HDR = <<~"HDR"
          <language>en</language>
          <script>Latn</script>
 
-         <status format="plain">published</status>
+         <status> <stage>published</stage> </status>
+
          <copyright>
            <from>#{Time.new.year}</from>
            <owner>

@@ -62,17 +62,6 @@
         </choice>
       </element>
     </define>
-    <define name="status">
-      <element name="status">
-        <choice>
-          <value>rfc</value>
-          <value>candidate</value>
-          <value>published</value>
-          <value>deprecated</value>
-          <value>retired</value>
-        </choice>
-      </element>
-    </define>
     <define name="BibItemType" combine="choice">
       <choice>
         <value>standard</value>
@@ -192,6 +181,9 @@
       <zeroOrMore>
         <ref name="termdocsource"/>
       </zeroOrMore>
+      <optional>
+        <ref name="boilerplate"/>
+      </optional>
       <ref name="preface"/>
       <oneOrMore>
         <ref name="sections"/>

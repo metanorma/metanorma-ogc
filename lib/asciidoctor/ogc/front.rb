@@ -90,11 +90,6 @@ module Asciidoctor
         end
       end
 
-      def metadata_status(node, xml)
-        status = node.attr("status") || "published"
-        xml.status(**{ format: "plain" }) { |s| s << status }
-      end
-
       def metadata_id(node, xml)
         node.attr("external-id") and
           xml.docidentifier node.attr("external-id"), **{ type: "ogc-external" }

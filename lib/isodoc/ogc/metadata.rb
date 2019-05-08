@@ -7,7 +7,6 @@ module IsoDoc
     class Metadata < IsoDoc::Metadata
       def initialize(lang, script, labels)
         super
-        set(:status, "XXX")
       end
 
       def title(isoxml, _out)
@@ -31,10 +30,6 @@ module IsoDoc
       def docid(isoxml, _out)
         set(:docnumber, isoxml&.at(ns("//bibdata/docidentifier[@type = 'ogc-internal']"))&.text)
         set(:externalid, isoxml&.at(ns("//bibdata/docidentifier[@type = 'ogc-external']"))&.text)
-      end
-
-      def status_print(status)
-        status.split(/-/).map{ |w| w.capitalize }.join(" ")
       end
 
       def status_abbr(status)

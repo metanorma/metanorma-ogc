@@ -156,7 +156,10 @@ RSpec.describe Asciidoctor::Ogc do
          </contributor>
          <language>en</language>
          <script>Latn</script>
-         <status format="plain">SWG Work</status>
+         <status>
+           <stage>SWG Work</stage>
+           <iteration>3</iteration>
+         </status>
          <copyright>
            <from>2001</from>
            <owner>
@@ -272,7 +275,10 @@ RSpec.describe Asciidoctor::Ogc do
          </contributor>
          <language>en</language>
          <script>Latn</script>
-         <status format="plain">SWG Work</status>
+         <status>
+           <stage>SWG Work</stage>
+           <iteration>3</iteration>
+         </status>
          <copyright>
            <from>2001</from>
            <owner>
@@ -318,7 +324,7 @@ OUTPUT
   </contributor>
   <language>en</language>
   <script>Latn</script>
-  <status format="plain">published</status>
+  <status><stage>published</stage></status>
   <copyright>
     <from>#{Date.today.year}</from>
     <owner>
@@ -366,7 +372,7 @@ OUTPUT
   </contributor>
   <language>en</language>
   <script>Latn</script>
-  <status format="plain">published</status>
+  <status><stage>published</stage></status>
   <copyright>
     <from>#{Date.today.year}</from>
     <owner>
