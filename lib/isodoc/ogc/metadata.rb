@@ -19,7 +19,7 @@ module IsoDoc
       end
 
       def author(isoxml, _out)
-        tc = isoxml.at(ns("//bibdata/editorialgroup/committee"))
+        tc = isoxml.at(ns("//bibdata/ext/editorialgroup/committee"))
         set(:tc, tc.text) if tc
         authors = isoxml.xpath(ns("//bibdata/contributor[role/@type = 'author']/person"))
         set(:authors, extract_person_names(authors))
@@ -37,7 +37,7 @@ module IsoDoc
 
       def keywords(isoxml, _out)
         keywords = []
-        isoxml.xpath(ns("//bibdata/keyword")).each do |kw|
+        isoxml.xpath(ns("//bibdata/ext/keyword")).each do |kw|
           keywords << kw.text
         end
         set(:keywords, keywords)
@@ -47,7 +47,7 @@ module IsoDoc
         super
         revdate = get[:revdate]
         set(:revdate_monthyear, monthyr(revdate))
-        set(:edition, isoxml&.at(ns("//version/edition"))&.text)
+        set(:edition, isoxml&.at(ns("//bibdata/edition"))&.text)
         set(:language, ISO_639.find_by_code(isoxml&.at(ns("//bibdata/language"))&.text))
       end
 
@@ -75,6 +75,14 @@ module IsoDoc
       def url(xml, _out)
         super
         a = xml.at(ns("//bibdata/uri[@type = 'previous']")) and set(:previousuri, a.text)
+      end
+
+      def doctype(isoxml, _out)
+        b = isoxml&.at(ns("//bibdata/ext/doctype"))&.text || return
+        t = b.split(/[- ]/).map do |w|
+          w.capitalize unless %w(SWG).include? w
+        end.join(" ")
+        set(:doctype, t)
       end
     end
   end

@@ -6,7 +6,7 @@ RSpec.describe IsoDoc::Ogc do
     csdc = IsoDoc::Ogc::HtmlConvert.new({})
     input = <<~"INPUT"
        <ogc-standard xmlns="https://standards.opengeospatial.org/document">
-       <bibdata type="implementation-standard">
+       <bibdata type="standard">
          <title language="en" format="text/plain">Main Title</title>
          <uri>http://www.example.com</uri>
          <uri type="html">http://www.example.com/html</uri>
@@ -54,6 +54,11 @@ RSpec.describe IsoDoc::Ogc do
              <name>OGC</name>
            </organization>
          </contributor>
+         <edition>2.0</edition>
+         <version>
+         <revision-date>2000-01-01</revision-date>
+         <draft>3.4</draft>
+       </version>
          <language>en</language>
          <script>Latn</script>
          <status><stage>SWG Work</stage></status>
@@ -65,6 +70,8 @@ RSpec.describe IsoDoc::Ogc do
              </organization>
            </owner>
          </copyright>
+         <ext>
+         <doctype>implementation-standard</doctype>
          <editorialgroup>
            <committee type="A">TC</committee>
            <committee type="B">TC1</committee>
@@ -73,17 +80,14 @@ RSpec.describe IsoDoc::Ogc do
          </editorialgroup>
          <keyword>A</keyword>
          <keyword>B</keyword>
-       </bibdata><version>
-         <edition>2.0</edition>
-         <revision-date>2000-01-01</revision-date>
-         <draft>3.4</draft>
-       </version>
+         </ext>
+       </bibdata>
        <sections/>
        </ogc-standard>
     INPUT
 
     output = <<~"OUTPUT"
-    {:accesseddate=>"XXX", :authors=>["Barney Rubble"], :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"1999-01-01", :doc=>"http://www.example.com/doc", :docnumber=>"1000", :doctitle=>"Main Title", :doctype=>"Implementation Standard", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :edition=>"2.0", :editorialgroup=>[], :editors=>["Fred Flintstone"], :externalid=>"http://www.example2.com", :html=>"http://www.example.com/html", :ics=>"XXX", :implementeddate=>"XXX", :issueddate=>"2001-01-01", :keywords=>["A", "B"], :language=>["eng", "", "en", "English", "anglais"], :obsoleteddate=>"XXX", :obsoletes=>nil, :obsoletes_part=>nil, :pdf=>"http://www.example.com/pdf", :publisheddate=>"2002-01-01", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :sc=>"XXXX", :secretariat=>"XXXX", :stage=>"Swg work", :tc=>"TC", :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>true, :updateddate=>"XXX", :url=>"http://www.example.com", :wg=>"XXXX", :xml=>"http://www.example.com/xml"}
+    {:accesseddate=>"XXX", :authors=>["Barney Rubble"], :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"1999-01-01", :doc=>"http://www.example.com/doc", :docnumber=>"1000", :doctitle=>"Main Title", :doctype=>"Implementation Standard", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :edition=>"2.0", :editors=>["Fred Flintstone"], :externalid=>"http://www.example2.com", :html=>"http://www.example.com/html", :implementeddate=>"XXX", :issueddate=>"2001-01-01", :keywords=>["A", "B"], :language=>["eng", "", "en", "English", "anglais"], :obsoleteddate=>"XXX", :pdf=>"http://www.example.com/pdf", :publisheddate=>"2002-01-01", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :stage=>"Swg work", :tc=>"TC", :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>true, :updateddate=>"XXX", :url=>"http://www.example.com", :xml=>"http://www.example.com/xml"}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)
@@ -123,7 +127,9 @@ RSpec.describe IsoDoc::Ogc do
     input = <<~"INPUT"
 <ogc-standard xmlns="#{Metanorma::Ogc::DOCUMENT_NAMESPACE}">
 <bibdata>
+<ext>
 <keyword>ABC</keyword>
+</ext>
 </bibdata>
 </ogc-standard>
     INPUT
@@ -372,8 +378,10 @@ RSpec.describe IsoDoc::Ogc do
              <name>DEF</name>
            </organization>
          </contributor>
+         <ext>
       <keyword>A</keyword>
       <keyword>B</keyword>
+      </ext>
       </bibdata>
       <preface>
        <abstract obligation="informative" id="1">

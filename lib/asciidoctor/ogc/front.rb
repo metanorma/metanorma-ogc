@@ -77,6 +77,7 @@ module Asciidoctor
       end
 
       def metadata_committee(node, xml)
+        return unless node.attr("committee")
         xml.editorialgroup do |a|
           a.committee(node.attr("committee") || "technical")
           node.attr("subcommittee") and
@@ -149,8 +150,9 @@ module Asciidoctor
         end
       end
 
-      def metadata(node, xml)
-        super
+      def metadata_ext(node, xml)
+        metadata_doctype(node, xml)
+        metadata_committee(node, xml)
         metadata_keywords(node, xml)
       end
     end

@@ -115,7 +115,7 @@ module Asciidoctor
       end
 
       def sections_sequence_validate(root)
-        return unless STANDARDTYPE.include? root&.at("//bibdata/@type")&.text
+        return unless STANDARDTYPE.include? root&.at("//bibdata/ext/doctype")&.text
         f = root.at("//sections").elements
         names = f.map { |s| { tag: s.name, title: s&.at("./title")&.text } }
         names = seqcheck(names, SEQ[0][:msg], SEQ[0][:val]) || return

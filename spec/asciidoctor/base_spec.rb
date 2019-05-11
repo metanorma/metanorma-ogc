@@ -168,6 +168,8 @@ RSpec.describe Asciidoctor::Ogc do
              </organization>
            </owner>
          </copyright>
+         <ext>
+         <doctype>standard</doctype>
          <editorialgroup>
            <committee>TC</committee>
            <subcommittee type="B" number="2">SC</subcommittee>
@@ -176,6 +178,7 @@ RSpec.describe Asciidoctor::Ogc do
          <keyword>a</keyword>
         <keyword>b</keyword>
         <keyword>c</keyword>
+        </ext>
        </bibdata>
        <sections/>
        </ogc-standard>
@@ -218,7 +221,7 @@ RSpec.describe Asciidoctor::Ogc do
 
     output = <<~"OUTPUT"
            <ogc-standard xmlns="https://standards.opengeospatial.org/document">
-       <bibdata type="engineering-report">
+       <bibdata type="standard">
          <title language="en" format="text/plain">Main Title</title>
          <uri>http://www.example.com</uri>
          <docidentifier type="ogc-external">http://www.example2.com</docidentifier>
@@ -237,11 +240,6 @@ RSpec.describe Asciidoctor::Ogc do
          <date type="issued">
            <on>2001-01-01</on>
          </date>
-                  <edition>2.0</edition>
-          <version>
-         <revision-date>2000-01-01</revision-date>
-         <draft>3.4</draft>
-       </version>
          <contributor>
            <role type="editor"/>
            <person>
@@ -273,6 +271,11 @@ RSpec.describe Asciidoctor::Ogc do
              <name>OGC</name>
            </organization>
          </contributor>
+       <edition>2.0</edition>
+          <version>
+         <revision-date>2000-01-01</revision-date>
+         <draft>3.4</draft>
+       </version>
          <language>en</language>
          <script>Latn</script>
          <status>
@@ -287,9 +290,9 @@ RSpec.describe Asciidoctor::Ogc do
              </organization>
            </owner>
          </copyright>
-         <editorialgroup>
-           <committee>technical</committee>
-         </editorialgroup>
+         <ext>
+         <doctype>engineering-report</doctype>
+         </ext>
        </bibdata>
        <sections/>
        </ogc-standard>
@@ -333,9 +336,9 @@ OUTPUT
       </organization>
     </owner>
   </copyright>
-  <editorialgroup>
-    <committee>technical</committee>
-  </editorialgroup>
+  <ext>
+  <doctype>standard</doctype>
+  </ext>
 </bibdata>
 <preface><foreword obligation="informative"><title>Foreword</title><p id="_">This is a preamble</p></foreword>
 <submitters id="_">
@@ -381,9 +384,9 @@ OUTPUT
       </organization>
     </owner>
   </copyright>
-  <editorialgroup>
-    <committee>technical</committee>
-  </editorialgroup>
+  <ext>
+  <doctype>standard</doctype>
+  </ext>
 </bibdata>
 <sections>
 
