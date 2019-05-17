@@ -1,6 +1,32 @@
 require "spec_helper"
 
 RSpec.describe Asciidoctor::Ogc do
+      it "Warns of illegal doctype" do
+    expect { Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) }.to output(/pizza is not a legal document type/).to_stderr
+  = Document title
+  Author
+  :docfile: test.adoc
+  :nodoc:
+  :no-isobib:
+  :doctype: pizza
+
+  text
+  INPUT
+end
+
+      it "Warns of illegal status" do
+    expect { Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) }.to output(/pizza is not a recognised status/).to_stderr
+  = Document title
+  Author
+  :docfile: test.adoc
+  :nodoc:
+  :no-isobib:
+  :status: pizza
+
+  text
+  INPUT
+end
+
   it "does not issue section order warnings unless document is a standard" do
   expect { Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) }.not_to output(%r{Prefatory material must be followed by \(clause\) Scope}).to_stderr
     = Document title
