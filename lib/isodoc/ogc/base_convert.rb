@@ -149,20 +149,29 @@ module IsoDoc
       end
 
       def recommendation_anchor_names(docxml)
-        docxml.xpath(ns("//recommendation")).each_with_index do |x, i|
-          @anchors[x["id"]] = anchor_struct(i+1, nil, "Recommendation", "recommendation")
+        i = 0
+        docxml.xpath(ns("//recommendation")).each do |x|
+          next if x["id"].nil? || x["id"].empty?
+          @anchors[x["id"]] = anchor_struct(i+1, nil, "Recommendation", "recommendation", x["unnumbered"])
+          i += 1 unless x["unnumbered"]
         end
       end
 
       def requirement_anchor_names(docxml)
-        docxml.xpath(ns("//requirement")).each_with_index do |x, i|
-          @anchors[x["id"]] = anchor_struct(i+1, nil, "Requirement", "requirement")
+        i = 0
+        docxml.xpath(ns("//requirement")).each_with_index do |x|
+          next if x["id"].nil? || x["id"].empty?
+          @anchors[x["id"]] = anchor_struct(i+1, nil, "Requirement", "requirement", x["unnumbered"])
+          i += 1 unless x["unnumbered"]
         end
       end
 
       def permission_anchor_names(docxml)
-        docxml.xpath(ns("//permission")).each_with_index do |x, i|
-          @anchors[x["id"]] = anchor_struct(i+1, nil, "Permission", "permission")
+        i = 0
+        docxml.xpath(ns("//permission")).each do |x|
+          next if x["id"].nil? || x["id"].empty?
+          @anchors[x["id"]] = anchor_struct(i+1, nil, "Permission", "permission", x["unnumbered"])
+          i += 1 unless x["unnumbered"]
         end
       end
 
@@ -199,7 +208,7 @@ module IsoDoc
 
       def recommendation_label(node, out)
         n = get_anchors[node["id"]]
-        label = (n.nil? || n[:label].empty?) ?
+        label = (n.nil? ||  n[:label].nil? || n[:label].empty?) ?
           "Recommendation" : l10n("#{"Recommendation"} #{n[:label]}")
         out.p **{class: "RecommendationTitle" } do |p|
           p << label
@@ -222,7 +231,7 @@ module IsoDoc
 
       def requirement_label(node, out)
         n = get_anchors[node["id"]]
-        label = (n.nil? || n[:label].empty?) ?
+        label = (n.nil? || n[:label].nil? || n[:label].empty?) ?
           "Requirement" : l10n("#{"Requirement"} #{n[:label]}")
         out.p **{class: "RecommendationTitle" } do |p|
           p << label
@@ -245,7 +254,7 @@ module IsoDoc
 
       def permission_label(node, out)
         n = get_anchors[node["id"]]
-        label = (n.nil? || n[:label].empty?) ?
+        label = (n.nil? || n[:label].nil? || n[:label].empty?) ?
           "Permission" : l10n("#{"Permission"} #{n[:label]}")
         out.p **{class: "RecommendationTitle" } do |p|
           p << label
