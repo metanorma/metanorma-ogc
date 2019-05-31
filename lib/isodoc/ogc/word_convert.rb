@@ -140,6 +140,7 @@ module IsoDoc
           abstract docxml, div2
           keywords docxml, div2
           foreword docxml, div2
+          introduction docxml, div2
           submittingorgs docxml, div2
           submitters docxml, div2
           div2.p { |p| p << "&nbsp;" } # placeholder

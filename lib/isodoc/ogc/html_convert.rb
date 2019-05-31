@@ -74,6 +74,7 @@ module IsoDoc
           abstract docxml, div3
           keywords docxml, div3
           foreword docxml, div3
+          introduction docxml, div3
           submittingorgs docxml, div3
           submitters docxml, div3
           middle docxml, div3

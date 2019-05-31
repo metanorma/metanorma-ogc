@@ -266,7 +266,7 @@ module IsoDoc
         preface_names(d.at(ns("//preface/abstract")))
         @prefacenum += 1 if d.at(ns("//keyword"))
         preface_names(d.at(ns("//foreword")))
-        #preface_names(d.at(ns("//introduction")))
+        preface_names(d.at(ns("//introduction")))
         @prefacenum += 1 if d.at(ns(SUBMITTINGORGS))
         preface_names(d.at(ns("//submitters")))
         sequential_asset_names(d.xpath(ns("//preface/abstract | //foreword | //introduction | //submitters")))
