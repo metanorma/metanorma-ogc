@@ -7,7 +7,7 @@ module IsoDoc
     module BaseConvert
       def annex_name(annex, name, div)
         div.h1 **{ class: "Annex" } do |t|
-          t << "#{anchor(annex['id'], :label)} "
+          t << "#{get_anchors[annex['id']][:label]} "
           t.br
           t.b do |b|
             name&.children&.each { |c2| parse(c2, b) }
@@ -89,7 +89,7 @@ module IsoDoc
       def submitters(docxml, out)
         f = docxml.at(ns("//submitters")) || return
         out.div **{ class: "Section3" } do |div|
-          clause_name(anchor(f['id'], :label), "Submitters", div,  class: "IntroTitle")
+          clause_name(get_anchors[f['id']][:label], "Submitters", div,  class: "IntroTitle")
           f.elements.each { |e| parse(e, div) unless e.name == "title" }
         end
       end
@@ -110,7 +110,7 @@ module IsoDoc
         @prefacenum += 1
         page_break(out)
         out.div **attr_code(id: f["id"]) do |s|
-          clause_name(anchor(f["id"], :label), @abstract_lbl, s, class: "AbstractTitle")
+          clause_name(get_anchors[f["id"]][:label], @abstract_lbl, s, class: "AbstractTitle")
           f.elements.each { |e| parse(e, s) unless e.name == "title" }
         end
       end
@@ -120,7 +120,7 @@ module IsoDoc
         @prefacenum += 1
         page_break(out)
         out.div **attr_code(id: f["id"]) do |s|
-          clause_name(anchor(f["id"], :label), @foreword_lbl, s, class: "ForewordTitle")
+          clause_name(get_anchors[f["id"]][:label], @foreword_lbl, s, class: "ForewordTitle")
           f.elements.each { |e| parse(e, s) unless e.name == "title" }
         end
       end

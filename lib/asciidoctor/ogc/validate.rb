@@ -15,7 +15,7 @@ module Asciidoctor
       end
 
       def stage_validate(xmldoc)
-        stage = xmldoc&.at("//bibdata/status/stage")&.text
+        stage = xmldoc&.at("//bibdata/status[@format='plain']")&.text
         %w(rfc candidate published deprecated retired).include? stage or
         warn "Document Attributes: #{stage} is not a recognised status"
       end
@@ -67,7 +67,7 @@ module Asciidoctor
       end
 
       def sections_sequence_validate(root)
-        return unless STANDARDTYPE.include? root&.at("//bibdata/ext/doctype")&.text
+        return unless STANDARDTYPE.include? root&.at("//bibdata/@type")&.text
         f = root.at("//sections").elements
         names = f.map { |s| { tag: s.name, title: s&.at("./title")&.text } }
         names = seqcheck(names, SEQ[0][:msg], SEQ[0][:val]) || return

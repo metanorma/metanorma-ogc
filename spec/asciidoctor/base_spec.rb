@@ -114,11 +114,6 @@ RSpec.describe Asciidoctor::Ogc do
          <date type="received">
         <on>1999-06-01</on>
         </date>
-                 <edition>2.0</edition>
-        <version>
-         <revision-date>2000-01-01</revision-date>
-         <draft>3.4</draft>
-       </version>
          <contributor>
            <role type="author"/>
            <organization>
@@ -154,12 +149,14 @@ RSpec.describe Asciidoctor::Ogc do
              <name>OGC</name>
            </organization>
          </contributor>
+         <edition>2.0</edition>
+         <version>
+           <revision-date>2000-01-01</revision-date>
+           <draft>3.4</draft>
+         </version>
          <language>en</language>
          <script>Latn</script>
-         <status>
-           <stage>SWG Work</stage>
-           <iteration>3</iteration>
-         </status>
+         <status format="plain">SWG Work</status>
          <copyright>
            <from>2001</from>
            <owner>
@@ -168,17 +165,11 @@ RSpec.describe Asciidoctor::Ogc do
              </organization>
            </owner>
          </copyright>
-         <ext>
-         <doctype>standard</doctype>
          <editorialgroup>
            <committee>TC</committee>
            <subcommittee type="B" number="2">SC</subcommittee>
            <workgroup type="C" number="3">WG</workgroup>
          </editorialgroup>
-         <keyword>a</keyword>
-        <keyword>b</keyword>
-        <keyword>c</keyword>
-        </ext>
        </bibdata>
        <sections/>
        </ogc-standard>
@@ -221,7 +212,7 @@ RSpec.describe Asciidoctor::Ogc do
 
     output = <<~"OUTPUT"
            <ogc-standard xmlns="https://standards.opengeospatial.org/document">
-       <bibdata type="standard">
+       <bibdata type="engineering-report">
          <title language="en" format="text/plain">Main Title</title>
          <uri>http://www.example.com</uri>
          <docidentifier type="ogc-external">http://www.example2.com</docidentifier>
@@ -278,10 +269,7 @@ RSpec.describe Asciidoctor::Ogc do
        </version>
          <language>en</language>
          <script>Latn</script>
-         <status>
-           <stage>SWG Work</stage>
-           <iteration>3</iteration>
-         </status>
+         <status format="plain">SWG Work</status>
          <copyright>
            <from>2001</from>
            <owner>
@@ -290,9 +278,6 @@ RSpec.describe Asciidoctor::Ogc do
              </organization>
            </owner>
          </copyright>
-         <ext>
-         <doctype>engineering-report</doctype>
-         </ext>
        </bibdata>
        <sections/>
        </ogc-standard>
@@ -327,7 +312,7 @@ OUTPUT
   </contributor>
   <language>en</language>
   <script>Latn</script>
-  <status><stage>published</stage></status>
+  <status format="plain">published</status>
   <copyright>
     <from>#{Date.today.year}</from>
     <owner>
@@ -336,9 +321,6 @@ OUTPUT
       </organization>
     </owner>
   </copyright>
-  <ext>
-  <doctype>standard</doctype>
-  </ext>
 </bibdata>
 <preface><foreword obligation="informative"><title>Foreword</title><p id="_">This is a preamble</p></foreword>
 <submitters id="_">
@@ -375,7 +357,7 @@ OUTPUT
   </contributor>
   <language>en</language>
   <script>Latn</script>
-  <status><stage>published</stage></status>
+  <status format="plain">published</status>
   <copyright>
     <from>#{Date.today.year}</from>
     <owner>
@@ -384,9 +366,6 @@ OUTPUT
       </organization>
     </owner>
   </copyright>
-  <ext>
-  <doctype>standard</doctype>
-  </ext>
 </bibdata>
 <sections>
 
