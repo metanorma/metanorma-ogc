@@ -1,3 +1,4 @@
+require "metanorma/ogc/version"
 require "metanorma/ogc/processor"
 
 module Metanorma
