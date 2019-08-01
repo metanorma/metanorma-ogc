@@ -105,9 +105,10 @@ module Asciidoctor
 
       def example(node)
         return term_example(node) if in_terms?
-        return requirement(node, "recommendation") if node.attr("style") == "recommendation"
-        return requirement(node, "requirement") if node.attr("style") == "requirement"
-        return requirement(node, "permission") if node.attr("style") == "permission"
+        role = node.role || node.attr("style")
+        return requirement(node, "recommendation") if role == "recommendation"
+        return requirement(node, "requirement") if role == "requirement"
+        return requirement(node, "permission") if role == "permission"
         noko do |xml|
           xml.example **id_attr(node) do |ex|
             figure_title(node, ex)
