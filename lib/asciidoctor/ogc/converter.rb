@@ -126,51 +126,24 @@ module Asciidoctor
       end
 
       def cleanup(xmldoc)
-        recommendation_cleanup(xmldoc)
-        requirement_cleanup(xmldoc)
-        permission_cleanup(xmldoc)
+        requirement_cleanup_ogc(xmldoc, "recommendation")
+        requirement_cleanup_ogc(xmldoc, "requirement")
+        requirement_cleanup_ogc(xmldoc, "permission")
         super
       end
 
-      def recommendation_cleanup(xmldoc)
+      def requirement_cleanup_ogc(xmldoc, lbl)
         xmldoc.xpath("//table").each do |t|
           td = t&.at("./tbody/tr/td[1]")&.text
-          /^\s*(Recommendation( \d+)?)\s*$/.match td or next
+          /^\s*(#{lbl}( \d+)?)\s*$/i.match td or next
           body = t&.at("./tbody/tr/td[2]") or next
-          t.name = "recommendation"
+          t.name = lbl
           t.children = body&.children
           label = t&.at("./p")&.remove or next
-          label.name = "name"
+          label.name = "title"
           t.prepend_child label
         end
       end
-
-      def requirement_cleanup(xmldoc)
-        xmldoc.xpath("//table").each do |t|
-          td = t&.at("./tbody/tr/td[1]")&.text
-          /^\s*(Requirement( \d+)?)\s*$/.match td or next
-          body = t&.at("./tbody/tr/td[2]") or next
-          t.name = "requirement"
-          t.children = body&.children
-          label = t&.at("./p")&.remove or next
-          label.name = "name"
-          t.prepend_child label
-        end
-      end
-
-      def permission_cleanup(xmldoc)
-        xmldoc.xpath("//table").each do |t|
-          td = t&.at("./tbody/tr/td[1]")&.text
-          /^\s*(Permission( \d+)?)\s*/.match td or next
-          body = t&.at("./tbody/tr/td[2]") or next
-          t.name = "permission"
-          t.children = body&.children
-          label = t&.at("./p")&.remove or next
-          label.name = "name"
-          t.prepend_child label
-        end
-      end
-
 
       def html_converter(node)
         IsoDoc::Ogc::HtmlConvert.new(html_extract_attributes(node))
