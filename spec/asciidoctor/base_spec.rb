@@ -537,27 +537,4 @@ OUTPUT
        </ogc-document>
       OUTPUT
     end
-
-    it "processes requirements in legacy format" do
-      expect(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true))).to be_equivalent_to <<~"OUTPUT"
-#{ASCIIDOC_BLANK_HDR}
-
-[width="90%",cols="2,6"]
-|===
-.2+|*Requirement 1*{set:cellbgcolor:#CACCCE} 
-a|/req/pipelineml-conceptual/similarity
-
-An encoding, when claiming compliance with this conceptual model, SHALL implement its components (classes, attributes, relationships) respecting the conceptual model definitions and intent, such that high semantic similarity is obtained between the encoding and conceptual model components.
-|===
-      INPUT
-      #{BLANK_HDR}
-       <sections>
-              <requirement id="_"><title id="_">/req/pipelineml-conceptual/similarity</title><description>
-       <p id="_">An encoding, when claiming compliance with this conceptual model, SHALL implement its components (classes, attributes, relationships) respecting the conceptual model definitions and intent, such that high semantic similarity is obtained between the encoding and conceptual model components.</p></description></requirement>
-       </sections>
-       </sections>
-       </ogc-document>
-      OUTPUT
-    end
-
 end

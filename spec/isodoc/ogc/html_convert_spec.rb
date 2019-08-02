@@ -569,4 +569,285 @@ RSpec.describe IsoDoc::Ogc do
     expect(html).to match(%r{Overpass})
   end
 
+  it "processes permissions" do
+        expect(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")).to be_equivalent_to <<~"OUTPUT"
+        <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+    <preface><foreword>
+    <permission id="_">
+  <label>/ogc/recommendation/wfs/2</label>
+  <inherit>/ss/584/2015/level/1</inherit>
+  <subject>user</subject>
+  <classification> <tag>control-class</tag> <value>Technical</value> </classification><classification> <tag>priority</tag> <value>P0</value> </classification><classification> <tag>family</tag> <value>System and Communications Protection</value> </classification><classification> <tag>family</tag> <value>System and Communications Protocols</value> </classification>
+  <description>
+    <p id="_">I recommend <em>this</em>.</p>
+  </description>
+  <specification exclude="true" type="tabular">
+    <p id="_">This is the object of the recommendation:</p>
+    <table id="_">
+      <tbody>
+        <tr>
+          <td align="left">Object</td>
+          <td align="left">Value</td>
+        </tr>
+        <tr>
+          <td align="left">Mission</td>
+          <td align="left">Accomplished</td>
+        </tr>
+      </tbody>
+    </table>
+  </specification>
+  <description>
+    <p id="_">As for the measurement targets,</p>
+  </description>
+  <measurement-target exclude="false">
+    <p id="_">The measurement target shall be measured as:</p>
+    <formula id="_">
+      <stem type="AsciiMath">r/1 = 0</stem>
+    </formula>
+  </measurement-target>
+  <verification exclude="false">
+    <p id="_">The following code will be run for verification:</p>
+    <sourcecode id="_">CoreRoot(success): HttpResponse
+      if (success)
+      recommendation(label: success-response)
+      end
+    </sourcecode>
+  </verification>
+  <import exclude="true">
+    <sourcecode id="_">success-response()</sourcecode>
+  </import>
+</permission>
+    </foreword></preface>
+    </ogc-standard>
+    INPUT
+    #{HTML_HDR}
+             <br/>
+             <div>
+               <h1 class="ForewordTitle">i.&#160; Preface</h1>
+               <table id="_" class="recommend" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+                 <tr>
+                   <td valign="top" class="example_label" style="width:100.0pt;padding:0 0 0 1em;margin-left:0pt">
+                     <p class="AdmonitionTitle">Permission 1:</p>
+                   </td>
+                   <td valign="top" class="recommend"><p><b>/ogc/recommendation/wfs/2</b></p>
+     
+         <div class="requirement-inherit">/ss/584/2015/level/1</div>
+     
+     
+         <div class="requirement-description">
+           <p id="_">I recommend <i>this</i>.</p>
+         </div>
+     
+         <div class="requirement-description">
+           <p id="_">As for the measurement targets,</p>
+         </div>
+         <div class="requirement-measurement-target">
+           <p id="_">The measurement target shall be measured as:</p>
+           <div id="_" class="formula"><p><span class="stem">(#(r/1 = 0)#)</span>&#160; (1)</p></div>
+     
+     
+         </div>
+         <div class="requirement-verification">
+           <p id="_">The following code will be run for verification:</p>
+           <pre id="_" class="prettyprint ">CoreRoot(success): HttpResponse<br/>&#160;&#160;&#160;&#160;&#160; if (success)<br/>&#160;&#160;&#160;&#160;&#160; recommendation(label: success-response)<br/>&#160;&#160;&#160;&#160;&#160; end<br/>&#160;&#160;&#160; </pre>
+         </div>
+     
+       </td>
+                 </tr>
+               </table>
+             </div>
+             <p class="zzSTDTitle1"/>
+           </div>
+         </body>
+    OUTPUT
+
+  end
+
+  it "processes requirements" do
+        expect(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")).to be_equivalent_to <<~"OUTPUT"
+          <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+    <preface><foreword>
+    <requirement id="A" unnumbered="true">
+  <title>A New Requirement</title>
+  <label>/ogc/recommendation/wfs/2</label>
+  <inherit>/ss/584/2015/level/1</inherit>
+  <subject>user</subject>
+  <description>
+    <p id="_">I recommend <em>this</em>.</p>
+  </description>
+  <specification exclude="true" type="tabular">
+    <p id="_">This is the object of the recommendation:</p>
+    <table id="_">
+      <tbody>
+        <tr>
+          <td align="left">Object</td>
+          <td align="left">Value</td>
+        </tr>
+        <tr>
+          <td align="left">Mission</td>
+          <td align="left">Accomplished</td>
+        </tr>
+      </tbody>
+    </table>
+  </specification>
+  <description>
+    <p id="_">As for the measurement targets,</p>
+  </description>
+  <measurement-target exclude="false">
+    <p id="_">The measurement target shall be measured as:</p>
+    <formula id="B">
+      <stem type="AsciiMath">r/1 = 0</stem>
+    </formula>
+  </measurement-target>
+  <verification exclude="false">
+    <p id="_">The following code will be run for verification:</p>
+    <sourcecode id="_">CoreRoot(success): HttpResponse
+      if (success)
+      recommendation(label: success-response)
+      end
+    </sourcecode>
+  </verification>
+  <import exclude="true">
+    <sourcecode id="_">success-response()</sourcecode>
+  </import>
+</requirement>
+    </foreword></preface>
+    </ogc-standard>
+INPUT
+    #{HTML_HDR}
+<br/>
+             <div>
+               <h1 class="ForewordTitle">i.&#160; Preface</h1>
+               <table id="A" class="recommend" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+                 <tr>
+                   <td valign="top" class="example_label" style="width:100.0pt;padding:0 0 0 1em;margin-left:0pt">
+                     <p class="AdmonitionTitle">Requirement:</p>
+                   </td>
+                   <td valign="top" class="recommend"><p><b>/ogc/recommendation/wfs/2. A New Requirement</b></p>
+     
+     
+         <div class="requirement-inherit">/ss/584/2015/level/1</div>
+     
+         <div class="requirement-description">
+           <p id="_">I recommend <i>this</i>.</p>
+         </div>
+     
+         <div class="requirement-description">
+           <p id="_">As for the measurement targets,</p>
+         </div>
+         <div class="requirement-measurement-target">
+           <p id="_">The measurement target shall be measured as:</p>
+           <div id="B" class="formula"><p><span class="stem">(#(r/1 = 0)#)</span>&#160; (1)</p></div>
+     
+     
+         </div>
+         <div class="requirement-verification">
+           <p id="_">The following code will be run for verification:</p>
+           <pre id="_" class="prettyprint ">CoreRoot(success): HttpResponse<br/>&#160;&#160;&#160;&#160;&#160; if (success)<br/>&#160;&#160;&#160;&#160;&#160; recommendation(label: success-response)<br/>&#160;&#160;&#160;&#160;&#160; end<br/>&#160;&#160;&#160; </pre>
+         </div>
+     
+       </td>
+                 </tr>
+               </table>
+             </div>
+             <p class="zzSTDTitle1"/>
+           </div>
+         </body>
+    OUTPUT
+
+  end
+
+  it "processes recommendations" do
+        expect(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")).to be_equivalent_to <<~"OUTPUT"
+      <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+    <preface><foreword>
+    <recommendation id="_">
+  <label>/ogc/recommendation/wfs/2</label>
+  <inherit>/ss/584/2015/level/1</inherit>
+  <subject>user</subject>
+  <description>
+    <p id="_">I recommend <em>this</em>.</p>
+  </description>
+  <specification exclude="true" type="tabular">
+    <p id="_">This is the object of the recommendation:</p>
+    <table id="_">
+      <tbody>
+        <tr>
+          <td align="left">Object</td>
+          <td align="left">Value</td>
+        </tr>
+        <tr>
+          <td align="left">Mission</td>
+          <td align="left">Accomplished</td>
+        </tr>
+      </tbody>
+    </table>
+  </specification>
+  <description>
+    <p id="_">As for the measurement targets,</p>
+  </description>
+  <measurement-target exclude="false">
+    <p id="_">The measurement target shall be measured as:</p>
+    <formula id="_">
+      <stem type="AsciiMath">r/1 = 0</stem>
+    </formula>
+  </measurement-target>
+  <verification exclude="false">
+    <p id="_">The following code will be run for verification:</p>
+    <sourcecode id="_">CoreRoot(success): HttpResponse
+      if (success)
+      recommendation(label: success-response)
+      end
+    </sourcecode>
+  </verification>
+  <import exclude="true">
+    <sourcecode id="_">success-response()</sourcecode>
+  </import>
+</recommendation>
+    </foreword></preface>
+    </ogc-standard>
+INPUT
+    #{HTML_HDR}
+ <br/>
+             <div>
+               <h1 class="ForewordTitle">i.&#160; Preface</h1>
+               <table id="_" class="recommend" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+                 <tr>
+                   <td valign="top" class="example_label" style="width:100.0pt;padding:0 0 0 1em;margin-left:0pt">
+                     <p class="AdmonitionTitle">Recommendation 1:</p>
+                   </td>
+                   <td valign="top" class="recommend"><p><b>/ogc/recommendation/wfs/2</b></p>
+     
+         <div class="requirement-inherit">/ss/584/2015/level/1</div>
+     
+         <div class="requirement-description">
+           <p id="_">I recommend <i>this</i>.</p>
+         </div>
+     
+         <div class="requirement-description">
+           <p id="_">As for the measurement targets,</p>
+         </div>
+         <div class="requirement-measurement-target">
+           <p id="_">The measurement target shall be measured as:</p>
+           <div id="_" class="formula"><p><span class="stem">(#(r/1 = 0)#)</span>&#160; (1)</p></div>
+     
+     
+         </div>
+         <div class="requirement-verification">
+           <p id="_">The following code will be run for verification:</p>
+           <pre id="_" class="prettyprint ">CoreRoot(success): HttpResponse<br/>&#160;&#160;&#160;&#160;&#160; if (success)<br/>&#160;&#160;&#160;&#160;&#160; recommendation(label: success-response)<br/>&#160;&#160;&#160;&#160;&#160; end<br/>&#160;&#160;&#160; </pre>
+         </div>
+     
+       </td>
+                 </tr>
+               </table>
+             </div>
+             <p class="zzSTDTitle1"/>
+           </div>
+         </body>
+    OUTPUT
+  end
+
+
+
 end
