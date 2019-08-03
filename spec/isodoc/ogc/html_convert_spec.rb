@@ -207,6 +207,7 @@ RSpec.describe IsoDoc::Ogc do
     <role type="publisher"/>
     <organization>
       <name>International Organization for Standardization</name>
+      <abbreviation>ISO</abbreviation>
     </organization>
   </contributor>
 </bibitem></references>
@@ -220,7 +221,7 @@ RSpec.describe IsoDoc::Ogc do
              <div>
                <h1>1.&#160; Normative references</h1>
                <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
-                 <p id="ISO712" class="NormRef">ISO 712, <i> Cereals and cereal products?~@~I?~@~T?~@~IDetermination of moisture content?~@~I?~@~T?~@~IReference method</i></p>
+                 <p id="ISO712" class="NormRef">ISO: ISO 712, <i> Cereals and cereal products?~@~I?~@~T?~@~IDetermination of moisture content?~@~I?~@~T?~@~IReference method</i>. <span>International Organization for Standardization</span></p>
                               </div>
              <div id="H"><h1>2.&#160; Terms and definitions</h1><p>For the purposes of this document, the terms and definitions
          given in <a href="#ISO712">ISO 712</a> and the following apply.</p>
@@ -848,6 +849,140 @@ INPUT
     OUTPUT
   end
 
+  it "processes bibliographies" do
+        expect(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")).to be_equivalent_to <<~"OUTPUT"
+      <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+      <bibdata>
+    <language>en</language>
+    </bibdata>
+    <preface><foreword>
+  <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">
+  <eref bibitemid="ISO712"/>
+  <eref bibitemid="ISO16634"/>
+  <eref bibitemid="ISO20483"/>
+  <eref bibitemid="ref1"/>
+  <eref bibitemid="ref10"/>
+  </p>
+    </foreword></preface>
+    <bibliography><references id="_normative_references" obligation="informative"><title>Normative References</title>
+<bibitem id="ISO712" type="standard">
+  <title format="text/plain">Cereals or cereal products</title>
+  <title type="main" format="text/plain">Cereals and cereal products</title>
+  <docidentifier type="ISO">ISO 712</docidentifier>
+  <date type="published">
+    <on>2018</on>
+  </date>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <name>International Organization for Standardization</name>
+      <abbreviation>ISO</abbreviation>
+    </organization>
+  </contributor>
+  <place>Geneva</place>
+</bibitem>
+<bibitem id="ISO16634" type="standard">
+  <title language="x" format="text/plain">Cereals, pulses, milled cereal products, xxxx, oilseeds and animal feeding stuffs</title>
+  <title language="en" format="text/plain">Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</title>
+  <docidentifier type="ISO">ISO 16634:-- (all parts)</docidentifier>
+  <date type="published">
+    <from>2018</from>
+    <to>2019</to>
+  </date>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <name>International Organization for Standardization</name>
+      <abbreviation>ISO</abbreviation>
+    </organization>
+  </contributor>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <name>International Electrotechnical Commission</name>
+      <abbreviation>IEC</abbreviation>
+    </organization>
+  </contributor>
+  <note format="text/plain" reference="1">ISO DATE: Under preparation. (Stage at the time of publication ISO/DIS 16634)</note>
+  <extent type="part">
+  <referenceFrom>all</referenceFrom>
+  </extent>
+
+</bibitem>
+<bibitem id="ISO20483" type="standard">
+  <title format="text/plain">Cereals and pulses</title>
+  <docidentifier type="ISO">ISO 20483:2013-2014</docidentifier>
+  <date type="published"><from>2013</from><to>2014</to></date>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <name>International Organization for Standardization</name>
+    </organization>
+  </contributor>
+</bibitem>
+<bibitem id="ref1">
+  <formattedref format="application/x-isodoc+xml"><smallcap>Standard No I.C.C 167</smallcap>. <em>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</em> (see <link target="http://www.icc.or.at"/>)</formattedref>
+  <docidentifier type="ICC">167</docidentifier>
+</bibitem>
+</references><references id="_bibliography" obligation="informative">
+  <title>Bibliography</title>
+<bibitem id="ISO3696" type="standard">
+  <title format="text/plain">Water for analytical laboratory use</title>
+  <docidentifier type="ISO">ISO 3696</docidentifier>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <abbreviation>ISO</abbreviation>
+    </organization>
+  </contributor>
+</bibitem>
+<bibitem id="ref10">
+  <formattedref format="application/x-isodoc+xml"><smallcap>Standard No I.C.C 167</smallcap>. <em>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</em> (see <link target="http://www.icc.or.at"/>)</formattedref>
+  <docidentifier>[10]</docidentifier>
+</bibitem>
+<bibitem id="ref11">
+  <title>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</title>
+  <docidentifier type="IETF">RFC 10</docidentifier>
+</bibitem>
+
+
+</references>
+</bibliography>
+    </ogc-standard>
+
+INPUT
+    #{HTML_HDR}
+             <br/>
+             <div>
+               <h1 class="ForewordTitle">i.&#160; Preface</h1>
+               <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">
+         <a href="#ISO712">ISO 712</a>
+         <a href="#ISO16634">ISO 16634:-- (all parts)</a>
+         <a href="#ISO20483">ISO 20483:2013-2014</a>
+         <a href="#ref1">ICC 167</a>
+         <a href="#ref10">[10]</a>
+         </p>
+             </div>
+             <p class="zzSTDTitle1"/>
+             <div>
+               <h1>1.&#160; Normative references</h1>
+               <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
+               <p id="ISO712" class="NormRef">ISO: ISO 712, <i>Cereals and cereal products</i>. <span>International Organization for Standardization</span>, Geneva (2018).</p>
+               <p id="ISO16634" class="NormRef">ISO/IEC: ISO 16634:-- (all parts), <i>Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</i>. <span>International Organization for Standardization</span> and <span>International Electrotechnical Commission</span> (2018&#8211;2019).</p>
+               <p id="ISO20483" class="NormRef">International Organization for Standardization: ISO 20483:2013-2014, <i>Cereals and pulses</i>. <span>International Organization for Standardization</span> (2013&#8211;2014).</p>
+               <p id="ref1" class="NormRef"><span style="font-variant:small-caps;">Standard No I.C.C 167</span>. <i>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</i> (see <a href="http://www.icc.or.at">http://www.icc.or.at</a>)</p>
+             </div>
+             <br/>
+             <div>
+               <h1 class="Section3">Bibliography</h1>
+               <p id="ISO3696" class="Biblio">[1]&#160; ISO 3696, <i>Water for analytical laboratory use</i>. </p>
+               <p id="ref10" class="Biblio">[10]&#160; <span style="font-variant:small-caps;">Standard No I.C.C 167</span>. <i>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</i> (see <a href="http://www.icc.or.at">http://www.icc.or.at</a>)</p>
+               <p id="ref11" class="Biblio">IETF RFC 10, <i>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</i>. </p>
+             </div>
+           </div>
+         </body>
+OUTPUT
+  end
 
 
 end

@@ -1,6 +1,7 @@
 require "isodoc"
 require_relative "metadata"
 require_relative "reqt"
+require_relative "biblio"
 require "fileutils"
 
 module IsoDoc
@@ -62,8 +63,10 @@ module IsoDoc
         kw.empty? and return
         @prefacenum += 1
         out.div **{ class: "Section3" } do |div|
-          clause_name(RomanNumerals.to_roman(@prefacenum).downcase, "Keywords", div,  class: "IntroTitle")
-          div.p "The following are keywords to be used by search engines and document catalogues."
+          clause_name(RomanNumerals.to_roman(@prefacenum).downcase,
+                      "Keywords", div,  class: "IntroTitle")
+          div.p "The following are keywords to be used by search engines and "\
+            "document catalogues."
           div.p kw.join(", ")
         end
       end
@@ -77,12 +80,12 @@ module IsoDoc
         return if orgs.empty?
         @prefacenum += 1
         out.div **{ class: "Section3" } do |div|
-          clause_name(RomanNumerals.to_roman(@prefacenum).downcase, "Submitting Organizations", div,  class: "IntroTitle")
-          div.p "The following organizations submitted this Document to the Open Geospatial Consortium (OGC):"
+          clause_name(RomanNumerals.to_roman(@prefacenum).downcase,
+                      "Submitting Organizations", div,  class: "IntroTitle")
+          div.p "The following organizations submitted this Document to the "\
+            "Open Geospatial Consortium (OGC):"
           div.ul do |ul|
-            orgs.each do |org|
-              ul.li org
-            end
+            orgs.each { |org| ul.li org }
           end
         end
       end
@@ -90,7 +93,8 @@ module IsoDoc
       def submitters(docxml, out)
         f = docxml.at(ns("//submitters")) || return
         out.div **{ class: "Section3" } do |div|
-          clause_name(anchor(f['id'], :label), "Submitters", div,  class: "IntroTitle")
+          clause_name(anchor(f['id'], :label), "Submitters", div,
+                      class: "IntroTitle")
           f.elements.each { |e| parse(e, div) unless e.name == "title" }
         end
       end
@@ -101,7 +105,8 @@ module IsoDoc
         @anchors[clause["id"]] =
           { label: RomanNumerals.to_roman(@prefacenum).downcase,
             level: 1, xref: preface_clause_name(clause), type: "clause" }
-        clause.xpath(ns("./clause | ./terms | ./term | ./definitions")).each_with_index do |c, i|
+        clause.xpath(ns("./clause | ./terms | ./term | ./definitions")).
+          each_with_index do |c, i|
           section_names1(c, "#{@prefacenum}.#{i + 1}", 2)
         end
       end
@@ -111,7 +116,8 @@ module IsoDoc
         @prefacenum += 1
         page_break(out)
         out.div **attr_code(id: f["id"]) do |s|
-          clause_name(anchor(f["id"], :label), @abstract_lbl, s, class: "AbstractTitle")
+          clause_name(anchor(f["id"], :label), @abstract_lbl, s,
+                      class: "AbstractTitle")
           f.elements.each { |e| parse(e, s) unless e.name == "title" }
         end
       end
@@ -121,7 +127,8 @@ module IsoDoc
         @prefacenum += 1
         page_break(out)
         out.div **attr_code(id: f["id"]) do |s|
-          clause_name(anchor(f["id"], :label), @foreword_lbl, s, class: "ForewordTitle")
+          clause_name(anchor(f["id"], :label), @foreword_lbl, s,
+                      class: "ForewordTitle")
           f.elements.each { |e| parse(e, s) unless e.name == "title" }
         end
       end
@@ -140,11 +147,13 @@ module IsoDoc
         preface_names(d.at(ns("//introduction")))
         @prefacenum += 1 if d.at(ns(SUBMITTINGORGS))
         preface_names(d.at(ns("//submitters")))
-        sequential_asset_names(d.xpath(ns("//preface/abstract | //foreword | //introduction | //submitters")))
+        sequential_asset_names(d.xpath(ns("//preface/abstract | //foreword | "\
+"//introduction | //submitters")))
         n = section_names(d.at(ns("//clause[title = 'Scope']")), 0, 1)
         n = section_names(d.at(ns("//clause[title = 'Conformance']")), n, 1)
         n = section_names(d.at(ns(
-          "//references[title = 'Normative References' or title = 'Normative references']")), n, 1)
+          "//references[title = 'Normative References' or "\
+          "title = 'Normative references']")), n, 1)
         n = section_names(d.at(ns("//sections/terms | "\
                                   "//sections/clause[descendant::terms]")), n, 1)
         n = section_names(d.at(ns("//sections/definitions")), n, 1)
@@ -155,25 +164,18 @@ module IsoDoc
       end
 
       MIDDLE_CLAUSE =
-        "//clause[parent::sections][not(xmlns:title = 'Scope' or xmlns:title = 'Conformance')]"\
-        "[not(descendant::terms)]".freeze
+        "//clause[parent::sections][not(xmlns:title = 'Scope' or "\
+        "xmlns:title = 'Conformance')][not(descendant::terms)]".freeze
 
       def middle_section_asset_names(d)
-        middle_sections = "//clause[title = 'Scope' or title = 'Conformance'] | "\
-          "//foreword | //introduction | "\
-          "//references[title = 'Normative References' or title = 'Normative references'] | "\
+        middle_sections = "//clause[title = 'Scope' or title = 'Conformance'] "\
+          "| //foreword | //introduction | "\
+          "//references[title = 'Normative References' or title = "\
+          "'Normative references'] | "\
           "//sections/terms | "\
           "//sections/definitions | //clause[parent::sections]"
         sequential_asset_names(d.xpath(ns(middle_sections)))
       end
-
-=begin
-      def clause_names(docxml, sect_num)
-        docxml.xpath(ns(self.class::MIDDLE_CLAUSE)).each_with_index do |c, i|
-          section_names(c, (i + sect_num), 1)
-        end
-      end
-=end
 
       def conformance(isoxml, out, num)
         f = isoxml.at(ns("//clause[title = 'Conformance']")) or return num
@@ -186,21 +188,6 @@ module IsoDoc
         end
         num
       end
-
-=begin
-      def clause(isoxml, out, num)
-        isoxml.xpath(ns(self.class::MIDDLE_CLAUSE)).each do |c|
-          out.div **attr_code(id: c["id"]) do |div|
-            num = num + 1
-            clause_name(num,
-                        c&.at(ns("./title"))&.content, div, nil)
-            c.elements.each do |e|
-              parse(e, div) unless e.name == "title"
-            end
-          end
-        end
-      end
-=end
 
       def middle(isoxml, out)
         middle_title(out)
