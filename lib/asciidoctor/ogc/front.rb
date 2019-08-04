@@ -128,13 +128,6 @@ module Asciidoctor
         end
       end
 
-      def metadata_keywords(node, xml)
-        return unless node.attr("keywords")
-        node.attr("keywords").split(/,[ ]*/).each do |kw|
-          xml.keyword kw
-        end
-      end
-
       def metadata_date(node, xml)
         super
         ogc_date(node, xml, "submissiondate", "received" )
@@ -153,7 +146,6 @@ module Asciidoctor
       def metadata_ext(node, xml)
         metadata_doctype(node, xml)
         metadata_committee(node, xml)
-        metadata_keywords(node, xml)
       end
     end
   end

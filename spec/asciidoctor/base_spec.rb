@@ -168,6 +168,9 @@ RSpec.describe Asciidoctor::Ogc do
              </organization>
            </owner>
          </copyright>
+         <keyword>a</keyword>
+        <keyword>b</keyword>
+        <keyword>c</keyword>
          <ext>
          <doctype>standard</doctype>
          <editorialgroup>
@@ -175,9 +178,6 @@ RSpec.describe Asciidoctor::Ogc do
            <subcommittee type="B" number="2">SC</subcommittee>
            <workgroup type="C" number="3">WG</workgroup>
          </editorialgroup>
-         <keyword>a</keyword>
-        <keyword>b</keyword>
-        <keyword>c</keyword>
         </ext>
        </bibdata>
        <sections/>
