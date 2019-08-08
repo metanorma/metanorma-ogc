@@ -64,10 +64,6 @@ module IsoDoc
         end
       end
 
-      def html_toc(docxml)
-        docxml
-      end
-
       def make_body3(body, docxml)
         body.div **{ class: "main-section" } do |div3|
           @prefacenum = 0
