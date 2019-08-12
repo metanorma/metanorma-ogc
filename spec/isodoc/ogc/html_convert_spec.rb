@@ -281,7 +281,7 @@ RSpec.describe IsoDoc::Ogc do
                <br/>
                <div>
                  <h1 class="ForewordTitle">i.&#160; Preface</h1>
-                 <div class="Admonition"><p class="AdmonitionTitle" align="center">CAUTION</p>
+                 <div class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">CAUTION</p>
          <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
        </div>
                </div>
@@ -305,7 +305,7 @@ RSpec.describe IsoDoc::Ogc do
                <br/>
                <div>
                  <h1 class="ForewordTitle">i.&#160; Preface</h1>
-                 <div class="Admonition.Warning"><p class="AdmonitionTitle" align="center">WARNING</p>
+                 <div class="Admonition.Warning"><p class="AdmonitionTitle" style="text-align:center;">WARNING</p>
          <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
        </div>
                </div>
@@ -329,7 +329,7 @@ RSpec.describe IsoDoc::Ogc do
                <br/>
                <div>
                  <h1 class="ForewordTitle">i.&#160; Preface</h1>
-                 <div class="Admonition.Important"><p class="AdmonitionTitle" align="center">IMPORTANT</p>
+                 <div class="Admonition.Important"><p class="AdmonitionTitle" style="text-align:center;">IMPORTANT</p>
          <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
        </div>
                </div>
@@ -352,7 +352,7 @@ RSpec.describe IsoDoc::Ogc do
         <br/>
       <div>
         <h1 class="ForewordTitle">i.&#160; Preface</h1>
-        <p class="SourceTitle" align="center">Example Title</p>
+        <p class="SourceTitle" style="text-align:center;">Example Title</p>
         <div id="_" class="example"><p class="example-title">EXAMPLE</p><para><b role="strong">&lt;name&gt;Example Title&lt;/name&gt;</b></para><p id="_">This is an example</p>
 <p id="_">Amen</p></div>
       </div>
@@ -587,12 +587,9 @@ RSpec.describe IsoDoc::Ogc do
     <table id="_">
       <tbody>
         <tr>
-          <td align="left">Object</td>
-          <td align="left">Value</td>
-        </tr>
-        <tr>
-          <td align="left">Mission</td>
-          <td align="left">Accomplished</td>
+          <td style="text-align:left;">Object</td>
+          <td style="text-align:left;">Value</td>
+          <td style="text-align:left;">Accomplished</td>
         </tr>
       </tbody>
     </table>
@@ -627,10 +624,10 @@ RSpec.describe IsoDoc::Ogc do
                <h1 class="ForewordTitle">i.&#160; Preface</h1>
                <table id="_" class="recommend" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
                  <tr>
-                   <td valign="top" class="example_label" style="width:100.0pt;padding:0 0 0 1em;margin-left:0pt">
+                   <td class="example_label" style="width:100.0pt;padding:0 0 0 1em;margin-left:0pt;vertical-align:top;">
                      <p class="AdmonitionTitle">Permission 1:</p>
                    </td>
-                   <td valign="top" class="recommend"><p><b>/ogc/recommendation/wfs/2</b></p>
+                   <td style="vertical-align:top;" class="recommend"><p><b>/ogc/recommendation/wfs/2</b></p>
      
          <div class="requirement-inherit">/ss/584/2015/level/1</div>
      
@@ -681,12 +678,12 @@ RSpec.describe IsoDoc::Ogc do
     <table id="_">
       <tbody>
         <tr>
-          <td align="left">Object</td>
-          <td align="left">Value</td>
+          <td style="text-align:left;">Object</td>
+          <td style="text-align:left;">Value</td>
         </tr>
         <tr>
-          <td align="left">Mission</td>
-          <td align="left">Accomplished</td>
+          <td style="text-align:left;">Mission</td>
+          <td style="text-align:left;">Accomplished</td>
         </tr>
       </tbody>
     </table>
@@ -721,10 +718,10 @@ INPUT
                <h1 class="ForewordTitle">i.&#160; Preface</h1>
                <table id="A" class="recommend" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
                  <tr>
-                   <td valign="top" class="example_label" style="width:100.0pt;padding:0 0 0 1em;margin-left:0pt">
+                   <td class="example_label" style="width:100.0pt;padding:0 0 0 1em;margin-left:0pt;vertical-align:top;">
                      <p class="AdmonitionTitle">Requirement:</p>
                    </td>
-                   <td valign="top" class="recommend"><p><b>/ogc/recommendation/wfs/2. A New Requirement</b></p>
+                   <td style="vertical-align:top;" class="recommend"><p><b>/ogc/recommendation/wfs/2. A New Requirement</b></p>
      
      
          <div class="requirement-inherit">/ss/584/2015/level/1</div>
@@ -774,12 +771,12 @@ INPUT
     <table id="_">
       <tbody>
         <tr>
-          <td align="left">Object</td>
-          <td align="left">Value</td>
+          <td style="text-align:left;">Object</td>
+          <td style="text-align:left;">Value</td>
         </tr>
         <tr>
-          <td align="left">Mission</td>
-          <td align="left">Accomplished</td>
+          <td style="text-align:left;">Mission</td>
+          <td style="text-align:left;">Accomplished</td>
         </tr>
       </tbody>
     </table>
@@ -814,10 +811,10 @@ INPUT
                <h1 class="ForewordTitle">i.&#160; Preface</h1>
                <table id="_" class="recommend" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
                  <tr>
-                   <td valign="top" class="example_label" style="width:100.0pt;padding:0 0 0 1em;margin-left:0pt">
+                   <td class="example_label" style="width:100.0pt;padding:0 0 0 1em;margin-left:0pt;vertical-align:top;">
                      <p class="AdmonitionTitle">Recommendation 1:</p>
                    </td>
-                   <td valign="top" class="recommend"><p><b>/ogc/recommendation/wfs/2</b></p>
+                   <td style="vertical-align:top;" class="recommend"><p><b>/ogc/recommendation/wfs/2</b></p>
      
          <div class="requirement-inherit">/ss/584/2015/level/1</div>
      

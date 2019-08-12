@@ -12,8 +12,8 @@ module IsoDoc
       end
 
       REQ_TBL_ATTR =
-        { valign: "top", class: "example_label",
-          style: "width:100.0pt;padding:0 0 0 1em;margin-left:0pt" }.freeze
+        { class: "example_label",
+          style: "width:100.0pt;padding:0 0 0 1em;margin-left:0pt;vertical-align:top;" }.freeze
 
       def recommendation_name(node, out, type)
         out.p **{ class: "AdmonitionTitle" }  do |b|
@@ -36,7 +36,7 @@ module IsoDoc
       end
 
       def recommendation_body(node, tr)
-        tr.td **{ valign: "top", class: "recommend" } do |td|
+        tr.td **{ style: "vertical-align:top;", class: "recommend" } do |td|
           recommend_title(node, td)
           node.children.each do |n|
             parse(n, td) unless %(label title).include?(n.name)
