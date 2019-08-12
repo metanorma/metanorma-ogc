@@ -7,8 +7,7 @@ module IsoDoc
     module BaseConvert
       def recommend_table_attr(node)
         attr_code(id: node["id"], class: "recommend",
-                  cellspacing: 0, cellpadding: 0,
-                  style: "border-collapse:collapse" )
+                  style: "border-collapse:collapse;border-spacing:0;" )
       end
 
       REQ_TBL_ATTR =

@@ -622,7 +622,7 @@ RSpec.describe IsoDoc::Ogc do
              <br/>
              <div>
                <h1 class="ForewordTitle">i.&#160; Preface</h1>
-               <table id="_" class="recommend" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+               <table id="_" class="recommend" style="border-collapse:collapse;border-spacing:0;">
                  <tr>
                    <td class="example_label" style="width:100.0pt;padding:0 0 0 1em;margin-left:0pt;vertical-align:top;">
                      <p class="AdmonitionTitle">Permission 1:</p>
@@ -716,7 +716,7 @@ INPUT
 <br/>
              <div>
                <h1 class="ForewordTitle">i.&#160; Preface</h1>
-               <table id="A" class="recommend" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+               <table id="A" class="recommend" style="border-collapse:collapse;border-spacing:0;">
                  <tr>
                    <td class="example_label" style="width:100.0pt;padding:0 0 0 1em;margin-left:0pt;vertical-align:top;">
                      <p class="AdmonitionTitle">Requirement:</p>
@@ -809,7 +809,7 @@ INPUT
  <br/>
              <div>
                <h1 class="ForewordTitle">i.&#160; Preface</h1>
-               <table id="_" class="recommend" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+               <table id="_" class="recommend" style="border-collapse:collapse;border-spacing:0;">
                  <tr>
                    <td class="example_label" style="width:100.0pt;padding:0 0 0 1em;margin-left:0pt;vertical-align:top;">
                      <p class="AdmonitionTitle">Recommendation 1:</p>
