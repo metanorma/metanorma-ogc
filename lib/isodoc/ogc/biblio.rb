@@ -1,20 +1,18 @@
 module IsoDoc
   module Ogc
     module BaseConvert
-      def iso_bibitem_entry(list, b, ordinal, biblio)
-        return if implicit_reference(b)
+      def std_bibitem_entry(list, b, ordinal, biblio)
         list.p **attr_code(iso_bibitem_entry_attrs(b, biblio)) do |ref|
           prefix_bracketed_ref(ref, ordinal) if biblio
           standard_citation(ref, b)
         end
       end
 
-      def noniso_bibitem(list, b, ordinal, bibliography)
+      def nonstd_bibitem(list, b, ordinal, bibliography)
         list.p **attr_code(iso_bibitem_entry_attrs(b, bibliography)) do |r|
+          id = bibitem_ref_code(b)
           if bibliography
-            id = docid_l10n(b.at(ns("./docidentifier")).text.gsub(/[\[\]]/, ""))
-            prefix = b&.at(ns("./docidentifier/@type"))&.text
-            ref_entry_code(r, ordinal, prefix, id) unless prefix
+            ref_entry_code(r, ordinal, id)
           end
           reference_format(b, r)
         end
@@ -85,11 +83,14 @@ module IsoDoc
 
       # {author}: {document identifier}, {title}. {publisher}, {city} ({year})
       def standard_citation(out, b)
+        if ftitle = b.at(ns("./formattedref"))
+          ftitle&.children&.each { |n| parse(n, out) }
+        else
         pub, pub_abbrev = extract_publisher(b)
         c = extract_city(b)
         y = extract_year(b)
         out << "#{pub_abbrev}: " if pub_abbrev
-        out << iso_bibitem_ref_code(b)
+        out << bibitem_ref_code(b)
         out << ", "
         out.i do |i|
           iso_title(b)&.children&.each { |n| parse(n, i) }
@@ -100,6 +101,7 @@ module IsoDoc
         c&.children&.each { |n| parse(n, out) }
         out << " " if (pub || c) && y
         out << "(#{y})." if y
+        end
       end
     end
   end
