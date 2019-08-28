@@ -537,4 +537,24 @@ OUTPUT
        </ogc-document>
       OUTPUT
     end
+
+  it "leaves user boilerplate alone in terms & definitions" do
+          expect(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true))).to be_equivalent_to <<~"OUTPUT"
+      #{ASCIIDOC_BLANK_HDR}
+      
+      == Terms and Definitions
+
+      This is a prefatory paragraph
+
+      INPUT
+      #{BLANK_HDR}
+        <sections><terms id="_" obligation="normative">
+         <title>Terms and definitions</title><p>No terms and definitions are listed in this document.</p>
+     
+         <p id="_">This is a prefatory paragraph</p>
+       </terms>
+       </sections>
+       </ogc-standard>
+      OUTPUT
+  end
 end
