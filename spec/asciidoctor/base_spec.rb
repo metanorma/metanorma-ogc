@@ -393,6 +393,7 @@ OUTPUT
 
 </sections><bibliography><references id="_" obligation="informative">
   <title>Normative References</title>
+  <p>There are no normative references in this document.</p>
 </references></bibliography>
 </ogc-standard>
 OUTPUT

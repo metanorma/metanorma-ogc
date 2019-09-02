@@ -410,7 +410,6 @@ RSpec.describe IsoDoc::Ogc do
             </div>
              <div>
                <h1>3.&#160; Normative references</h1>
-               <p>There are no normative references in this document.</p>
              </div>
              <div id="H"><h1>4.&#160; Terms, definitions, symbols and abbreviated terms</h1>
        <div id="I">
@@ -780,6 +779,7 @@ INPUT
   </p>
     </foreword></preface>
     <bibliography><references id="_normative_references" obligation="informative"><title>Normative References</title>
+               <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
 <bibitem id="ISO712" type="standard">
   <title format="text/plain">Cereals or cereal products</title>
   <title type="main" format="text/plain">Cereals and cereal products</title>
