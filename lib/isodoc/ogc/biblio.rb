@@ -11,8 +11,9 @@ module IsoDoc
       def nonstd_bibitem(list, b, ordinal, bibliography)
         list.p **attr_code(iso_bibitem_entry_attrs(b, bibliography)) do |r|
           id = bibitem_ref_code(b)
+          identifier = render_identifier(id)
           if bibliography
-            ref_entry_code(r, ordinal, id)
+            ref_entry_code(r, ordinal, identifier, id)
           end
           reference_format(b, r)
         end
@@ -86,21 +87,21 @@ module IsoDoc
         if ftitle = b.at(ns("./formattedref"))
           ftitle&.children&.each { |n| parse(n, out) }
         else
-        pub, pub_abbrev = extract_publisher(b)
-        c = extract_city(b)
-        y = extract_year(b)
-        out << "#{pub_abbrev}: " if pub_abbrev
-        out << bibitem_ref_code(b)
-        out << ", "
-        out.i do |i|
-          iso_title(b)&.children&.each { |n| parse(n, i) }
-        end
-        out << ". "
-        out << pub if pub
-        out << ", " if pub && c
-        c&.children&.each { |n| parse(n, out) }
-        out << " " if (pub || c) && y
-        out << "(#{y})." if y
+          pub, pub_abbrev = extract_publisher(b)
+          c = extract_city(b)
+          y = extract_year(b)
+          out << "#{pub_abbrev}: " if pub_abbrev
+          out << render_identifier(bibitem_ref_code(b))
+          out << ", "
+          out.i do |i|
+            iso_title(b)&.children&.each { |n| parse(n, i) }
+          end
+          out << ". "
+          out << pub if pub
+          out << ", " if pub && c
+          c&.children&.each { |n| parse(n, out) }
+          out << " " if (pub || c) && y
+          out << "(#{y})." if y
         end
       end
     end
