@@ -91,13 +91,13 @@ module IsoDoc
         end
       end
 
-      def preface_names(clause)
+      def preface_names_numbered(clause)
         return if clause.nil?
         @prefacenum += 1
         @anchors[clause["id"]] =
           { label: RomanNumerals.to_roman(@prefacenum).downcase,
             level: 1, xref: preface_clause_name(clause), type: "clause" }
-        clause.xpath(ns("./clause | ./terms | ./term | ./definitions")).
+        clause.xpath(ns("./clause | ./terms | ./term | ./definitions | ./references")).
           each_with_index do |c, i|
           section_names1(c, "#{@prefacenum}.#{i + 1}", 2)
         end
@@ -133,14 +133,14 @@ module IsoDoc
 
       def initial_anchor_names(d)
         @prefacenum = 0
-        preface_names(d.at(ns("//preface/abstract")))
+        preface_names_numbered(d.at(ns("//preface/abstract")))
         @prefacenum += 1 if d.at(ns("//keyword"))
-        preface_names(d.at(ns("//foreword")))
-        preface_names(d.at(ns("//introduction")))
+        preface_names_numbered(d.at(ns("//foreword")))
+        preface_names_numbered(d.at(ns("//introduction")))
         @prefacenum += 1 if d.at(ns(SUBMITTINGORGS))
-        preface_names(d.at(ns("//submitters")))
+        preface_names_numbered(d.at(ns("//submitters")))
         sequential_asset_names(d.xpath(ns("//preface/abstract | //foreword | "\
-"//introduction | //submitters")))
+                                          "//introduction | //submitters")))
         n = section_names(d.at(ns("//clause[title = 'Scope']")), 0, 1)
         n = section_names(d.at(ns("//clause[title = 'Conformance']")), n, 1)
         n = section_names(d.at(ns(
