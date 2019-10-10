@@ -103,20 +103,6 @@ module Asciidoctor
         end
       end
 
-      def example(node)
-        return term_example(node) if in_terms?
-        role = node.role || node.attr("style")
-        return requirement(node, "recommendation") if role == "recommendation"
-        return requirement(node, "requirement") if role == "requirement"
-        return requirement(node, "permission") if role == "permission"
-        noko do |xml|
-          xml.example **id_attr(node) do |ex|
-            figure_title(node, ex)
-            wrap_in_para(node, ex)
-          end
-        end.join("\n")
-      end
-
       def style(n, t)
         return
       end
