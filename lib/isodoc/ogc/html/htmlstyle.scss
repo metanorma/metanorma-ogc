@@ -554,9 +554,12 @@ p.Biblio, p.NormRef {
     3.6 Source Code + figures
 */
 
-.figure, .Sourcecode {
+.Sourcecode {
     font-family: $monospacefont;
     font-variant-ligatures: none;
+  }
+
+.figure, .Sourcecode, .pseudocode {
     background-color: #e1eef1;
     color: #424242;
     font-size: 0.8em;
@@ -632,7 +635,7 @@ p.Biblio, p.NormRef {
     margin-left:-1.5em;
 }
 
-    .example .Sourcecode {
+    .example .Sourcecode, .example .pseudocode {
       background: none;
     }
 
@@ -1066,7 +1069,7 @@ To top button
     margin-top: 1.2em;
   }
 
-  .note, .figure, .Sourcecode, table {
+  .note, .figure, .Sourcecode, .pseudocode, table {
     page-break-inside: avoid;
   }
 
