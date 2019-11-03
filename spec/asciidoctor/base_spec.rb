@@ -7,9 +7,9 @@ RSpec.describe Asciidoctor::Ogc do
   #  FileUtils.cd "spec/examples"
   #  Asciidoctor.convert_file "rfc6350.adoc", {:attributes=>{"backend"=>"ogc"}, :safe=>0, :header_footer=>true, :requires=>["metanorma-ogc"], :failure_level=>4, :mkdirs=>true, :to_file=>nil}
   #  FileUtils.cd "../.."
-  #  expect(File.exist?("spec/examples/rfc6350.doc")).to be true
-  #  expect(File.exist?("spec/examples/rfc6350.html")).to be true
-  #  expect(File.exist?("spec/examples/rfc6350.pdf")).to be true
+  #  expect(xmlpp(File.exist?("spec/examples/rfc6350.doc"))).to be true
+  #  expect(xmlpp(File.exist?("spec/examples/rfc6350.html"))).to be true
+  #  expect(xmlpp(File.exist?("spec/examples/rfc6350.pdf"))).to be true
   #end
 
   it "processes a blank document" do
@@ -17,13 +17,13 @@ RSpec.describe Asciidoctor::Ogc do
     #{ASCIIDOC_BLANK_HDR}
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     #{BLANK_HDR}
 <sections/>
 </ogc-standard>
     OUTPUT
 
-    expect(Asciidoctor.convert(input, backend: :ogc, header_footer: true)).to be_equivalent_to output
+    expect(xmlpp(Asciidoctor.convert(input, backend: :ogc, header_footer: true))).to be_equivalent_to output
   end
 
   it "converts a blank document" do
@@ -34,14 +34,14 @@ RSpec.describe Asciidoctor::Ogc do
       :novalid:
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     #{BLANK_HDR}
 <sections/>
 </ogc-standard>
     OUTPUT
 
     FileUtils.rm_f "test.html"
-    expect(Asciidoctor.convert(input, backend: :ogc, header_footer: true)).to be_equivalent_to output
+    expect(xmlpp(Asciidoctor.convert(input, backend: :ogc, header_footer: true))).to be_equivalent_to output
     expect(File.exist?("test.html")).to be true
   end
 
@@ -92,7 +92,7 @@ RSpec.describe Asciidoctor::Ogc do
       :keywords: a, b, c
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
        <ogc-standard xmlns="https://standards.opengeospatial.org/document">
        <bibdata type="standard">
          <title language="en" format="text/plain">Main Title</title>
@@ -184,7 +184,7 @@ RSpec.describe Asciidoctor::Ogc do
        </ogc-standard>
     OUTPUT
 
-    expect(Asciidoctor.convert(input, backend: :ogc, header_footer: true)).to be_equivalent_to output
+    expect(xmlpp(Asciidoctor.convert(input, backend: :ogc, header_footer: true))).to be_equivalent_to output
   end
 
     it "processes OGC synonyms for default metadata" do
@@ -219,7 +219,7 @@ RSpec.describe Asciidoctor::Ogc do
       :editor: Wilma Flintstone
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
            <ogc-standard xmlns="https://standards.opengeospatial.org/document">
        <bibdata type="standard">
          <title language="en" format="text/plain">Main Title</title>
@@ -297,7 +297,7 @@ RSpec.describe Asciidoctor::Ogc do
        <sections/>
        </ogc-standard>
 OUTPUT
-    expect(Asciidoctor.convert(input, backend: :ogc, header_footer: true)).to be_equivalent_to output
+    expect(xmlpp(Asciidoctor.convert(input, backend: :ogc, header_footer: true))).to be_equivalent_to output
   end
 
   it "processes submitters" do
@@ -315,7 +315,7 @@ OUTPUT
       Clause 2
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     <ogc-standard xmlns="https://standards.opengeospatial.org/document">
 <bibdata type="standard">
  <title language="en" format="text/plain">Document title</title>
@@ -352,7 +352,7 @@ OUTPUT
 </ogc-standard>
         OUTPUT
 
-    expect(strip_guid(Asciidoctor.convert(input, backend: :ogc, header_footer: true))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :ogc, header_footer: true)))).to be_equivalent_to output
   end
 
     it "processes References" do
@@ -363,7 +363,7 @@ OUTPUT
       == References
       INPUT
 
-          output = <<~"OUTPUT"
+          output = xmlpp(<<~"OUTPUT")
           <ogc-standard xmlns="https://standards.opengeospatial.org/document">
 <bibdata type="standard">
 <title language="en" format="text/plain">Document title</title>
@@ -397,7 +397,7 @@ OUTPUT
 </references></bibliography>
 </ogc-standard>
 OUTPUT
-    expect(strip_guid(Asciidoctor.convert(input, backend: :ogc, header_footer: true))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :ogc, header_footer: true)))).to be_equivalent_to output
     end
 
   it "strips inline header" do
@@ -408,7 +408,7 @@ OUTPUT
       == Section 1
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     #{BLANK_HDR}
              <preface><foreword obligation="informative">
          <title>Foreword</title>
@@ -420,7 +420,7 @@ OUTPUT
        </ogc-standard>
     OUTPUT
 
-    expect(strip_guid(Asciidoctor.convert(input, backend: :ogc, header_footer: true))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :ogc, header_footer: true)))).to be_equivalent_to output
   end
 
   it "uses default fonts" do
@@ -496,7 +496,7 @@ OUTPUT
       [smallcap]#smallcap#
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
             #{BLANK_HDR}
        <sections>
         <p id="_"><em>emphasis</em>
@@ -515,11 +515,11 @@ OUTPUT
        </ogc-standard>
     OUTPUT
 
-    expect(strip_guid(Asciidoctor.convert(input, backend: :ogc, header_footer: true))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :ogc, header_footer: true)))).to be_equivalent_to output
   end
 
   it "processes examples" do
-      expect(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true))).to be_equivalent_to <<~"OUTPUT"
+      expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
       #{ASCIIDOC_BLANK_HDR}
       
       [example]
@@ -535,12 +535,12 @@ OUTPUT
          <example id="_"><name>Example Title</name><p id="_">This is an example</p>
        <p id="_">Amen</p></example>
        </sections>
-       </ogc-document>
+       </ogc-standard>
       OUTPUT
     end
 
   it "leaves user boilerplate alone in terms & definitions" do
-          expect(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true))).to be_equivalent_to <<~"OUTPUT"
+          expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
       #{ASCIIDOC_BLANK_HDR}
       
       == Terms and Definitions

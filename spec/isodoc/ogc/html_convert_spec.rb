@@ -86,12 +86,12 @@ RSpec.describe IsoDoc::Ogc do
        </ogc-standard>
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     {:accesseddate=>"XXX", :authors=>["Barney Rubble"], :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"1999-01-01", :doc=>"http://www.example.com/doc", :docnumber=>"1000", :doctitle=>"Main Title", :doctype=>"Implementation Standard", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :edition=>"2.0", :editors=>["Fred Flintstone"], :externalid=>"http://www.example2.com", :html=>"http://www.example.com/html", :implementeddate=>"XXX", :issueddate=>"2001-01-01", :keywords=>["A", "B"], :language=>["eng", "", "en", "English", "anglais"], :obsoleteddate=>"XXX", :pdf=>"http://www.example.com/pdf", :publisheddate=>"2002-01-01", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :stage=>"Swg work", :tc=>"TC", :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>true, :updateddate=>"XXX", :url=>"http://www.example.com", :xml=>"http://www.example.com/xml"}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)
-    expect(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s)).to be_equivalent_to output
+    expect(xmlpp(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s))).to be_equivalent_to output
   end
 
   it "processes pre" do
@@ -103,7 +103,7 @@ RSpec.describe IsoDoc::Ogc do
 </ogc-standard>
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     #{HTML_HDR}
              <br/>
              <div>
@@ -115,12 +115,12 @@ RSpec.describe IsoDoc::Ogc do
          </body>
     OUTPUT
 
-    expect(
+    expect(xmlpp(
       IsoDoc::Ogc::HtmlConvert.new({}).
       convert("test", input, true).
       gsub(%r{^.*<body}m, "<body").
       gsub(%r{</body>.*}m, "</body>")
-    ).to be_equivalent_to output
+    )).to be_equivalent_to output
   end
 
   it "processes keyword" do
@@ -134,7 +134,7 @@ RSpec.describe IsoDoc::Ogc do
 </ogc-standard>
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
         #{HTML_HDR}
         <div class="Section3">
         <h1 class="IntroTitle">i.&#160; Keywords</h1>
@@ -146,12 +146,12 @@ RSpec.describe IsoDoc::Ogc do
   </body>
     OUTPUT
 
-    expect(
+    expect(xmlpp(
       IsoDoc::Ogc::HtmlConvert.new({}).
       convert("test", input, true).
       gsub(%r{^.*<body}m, "<body").
       gsub(%r{</body>.*}m, "</body>")
-    ).to be_equivalent_to output
+    )).to be_equivalent_to output
   end
 
   it "processes simple terms & definitions" do
@@ -167,7 +167,7 @@ RSpec.describe IsoDoc::Ogc do
         </ogc-standard>
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
         #{HTML_HDR}
              <p class="zzSTDTitle1"/>
              <div id="H"><h1>1.&#160; Terms and definitions</h1>
@@ -178,16 +178,16 @@ RSpec.describe IsoDoc::Ogc do
          </body>
     OUTPUT
 
-    expect(
+    expect(xmlpp(
       IsoDoc::Ogc::HtmlConvert.new({}).
       convert("test", input, true).
       gsub(%r{^.*<body}m, "<body").
       gsub(%r{</body>.*}m, "</body>")
-    ).to be_equivalent_to output
+    )).to be_equivalent_to output
   end
 
     it "processes admonitions" do
-      expect(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")).to be_equivalent_to <<~"OUTPUT"
+      expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" type="caution">
@@ -211,7 +211,7 @@ RSpec.describe IsoDoc::Ogc do
   end
 
       it "processes warning admonitions" do
-    expect(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")).to be_equivalent_to <<~"OUTPUT"
+    expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" type="warning">
@@ -235,7 +235,7 @@ RSpec.describe IsoDoc::Ogc do
   end
 
         it "processes important admonitions" do
-    expect(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")).to be_equivalent_to <<~"OUTPUT"
+    expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
     <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" type="important">
@@ -259,7 +259,7 @@ RSpec.describe IsoDoc::Ogc do
   end
 
   it "processes examples with titles" do
-    expect(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")).to be_equivalent_to <<~"OUTPUT"
+    expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword>
           <example id="_"><name>Example Title</name><p id="_">This is an example</p>
@@ -370,7 +370,7 @@ RSpec.describe IsoDoc::Ogc do
        </ogc-standard>
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
         #{HTML_HDR}
         <br/>
              <div id="1">
@@ -459,11 +459,11 @@ RSpec.describe IsoDoc::Ogc do
          </body>
     OUTPUT
 
-    expect(
+    expect(xmlpp(
       IsoDoc::Ogc::HtmlConvert.new({}).convert("test", input, true).
       gsub(%r{^.*<body}m, "<body").
       gsub(%r{</body>.*}m, "</body>")
-    ).to be_equivalent_to output
+    )).to be_equivalent_to output
   end
 
   it "injects JS into blank html" do
@@ -475,20 +475,20 @@ RSpec.describe IsoDoc::Ogc do
       :novalid:
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     #{BLANK_HDR}
 <sections/>
 </ogc-standard>
     OUTPUT
 
-    expect(Asciidoctor.convert(input, backend: :ogc, header_footer: true)).to be_equivalent_to output
+    expect(xmlpp(Asciidoctor.convert(input, backend: :ogc, header_footer: true))).to be_equivalent_to output
     html = File.read("test.html", encoding: "utf-8")
     expect(html).to match(%r{jquery\.min\.js})
     expect(html).to match(%r{Overpass})
   end
 
   it "processes permissions" do
-        expect(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")).to be_equivalent_to <<~"OUTPUT"
+        expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
         <ogc-standard xmlns="https://standards.opengeospatial.org/document">
     <preface><foreword>
     <permission id="_">
@@ -579,7 +579,7 @@ RSpec.describe IsoDoc::Ogc do
   end
 
   it "processes requirements" do
-        expect(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")).to be_equivalent_to <<~"OUTPUT"
+        expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
           <ogc-standard xmlns="https://standards.opengeospatial.org/document">
     <preface><foreword>
     <requirement id="A" unnumbered="true">
@@ -673,7 +673,7 @@ INPUT
   end
 
   it "processes recommendations" do
-        expect(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")).to be_equivalent_to <<~"OUTPUT"
+        expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
       <ogc-standard xmlns="https://standards.opengeospatial.org/document">
     <preface><foreword>
     <recommendation id="_">
@@ -764,7 +764,7 @@ INPUT
   end
 
   it "processes bibliographies" do
-        expect(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")).to be_equivalent_to <<~"OUTPUT"
+        expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
       <ogc-standard xmlns="https://standards.opengeospatial.org/document">
       <bibdata>
     <language>en</language>
