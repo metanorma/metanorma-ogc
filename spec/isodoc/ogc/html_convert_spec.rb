@@ -97,7 +97,7 @@ RSpec.describe IsoDoc::Ogc do
   it "processes pre" do
     input = <<~"INPUT"
 <ogc-standard xmlns="#{Metanorma::Ogc::DOCUMENT_NAMESPACE}">
-<preface><foreword>
+<preface><foreword id="A">
 <pre>ABC</pre>
 </foreword></preface>
 </ogc-standard>
@@ -106,7 +106,7 @@ RSpec.describe IsoDoc::Ogc do
     output = xmlpp(<<~"OUTPUT")
     #{HTML_HDR}
              <br/>
-             <div>
+             <div id="A">
                <h1 class="ForewordTitle">i.&#160; Preface</h1>
                <pre>ABC</pre>
              </div>
@@ -189,7 +189,7 @@ RSpec.describe IsoDoc::Ogc do
     it "processes admonitions" do
       expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <preface><foreword>
+    <preface><foreword id="A">
     <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" type="caution">
   <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
 </admonition>
@@ -198,7 +198,7 @@ RSpec.describe IsoDoc::Ogc do
     INPUT
         #{HTML_HDR}
                <br/>
-               <div>
+               <div id="A">
                  <h1 class="ForewordTitle">i.&#160; Preface</h1>
                  <div class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">CAUTION</p>
          <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
@@ -213,7 +213,7 @@ RSpec.describe IsoDoc::Ogc do
       it "processes warning admonitions" do
     expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <preface><foreword>
+    <preface><foreword id="A">
     <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" type="warning">
   <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
 </admonition>
@@ -222,7 +222,7 @@ RSpec.describe IsoDoc::Ogc do
     INPUT
         #{HTML_HDR}
                <br/>
-               <div>
+               <div id="A">
                  <h1 class="ForewordTitle">i.&#160; Preface</h1>
                  <div class="Admonition.Warning"><p class="AdmonitionTitle" style="text-align:center;">WARNING</p>
          <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
@@ -237,7 +237,7 @@ RSpec.describe IsoDoc::Ogc do
         it "processes important admonitions" do
     expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <preface><foreword>
+    <preface><foreword id="A">
     <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" type="important">
   <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
 </admonition>
@@ -246,7 +246,7 @@ RSpec.describe IsoDoc::Ogc do
     INPUT
         #{HTML_HDR}
                <br/>
-               <div>
+               <div id="A">
                  <h1 class="ForewordTitle">i.&#160; Preface</h1>
                  <div class="Admonition.Important"><p class="AdmonitionTitle" style="text-align:center;">IMPORTANT</p>
          <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
@@ -261,7 +261,7 @@ RSpec.describe IsoDoc::Ogc do
   it "processes examples with titles" do
     expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
-    <preface><foreword>
+    <preface><foreword id="A">
           <example id="_"><name>Example Title</name><p id="_">This is an example</p>
 <p id="_">Amen</p></example>
     </foreword></preface>
@@ -269,7 +269,7 @@ RSpec.describe IsoDoc::Ogc do
     INPUT
         #{HTML_HDR}
         <br/>
-      <div>
+      <div id="A">
         <h1 class="ForewordTitle">i.&#160; Preface</h1>
         <p class="SourceTitle" style="text-align:center;">Example Title</p>
         <div id="_" class="example"><p class="example-title">EXAMPLE&#160;&#8212; Example Title</p><p id="_">This is an example</p>
@@ -490,7 +490,7 @@ RSpec.describe IsoDoc::Ogc do
   it "processes permissions" do
         expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
         <ogc-standard xmlns="https://standards.opengeospatial.org/document">
-    <preface><foreword>
+    <preface><foreword id="A">
     <permission id="_">
   <label>/ogc/recommendation/wfs/2</label>
   <inherit>/ss/584/2015/level/1</inherit>
@@ -537,7 +537,7 @@ RSpec.describe IsoDoc::Ogc do
     INPUT
     #{HTML_HDR}
              <br/>
-             <div>
+             <div id="A">
                <h1 class="ForewordTitle">i.&#160; Preface</h1>
                <table id="_" class="recommend" style="border-collapse:collapse;border-spacing:0;">
                  <tr>
@@ -581,7 +581,7 @@ RSpec.describe IsoDoc::Ogc do
   it "processes requirements" do
         expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
           <ogc-standard xmlns="https://standards.opengeospatial.org/document">
-    <preface><foreword>
+    <preface><foreword id="A0">
     <requirement id="A" unnumbered="true">
   <title>A New Requirement</title>
   <label>/ogc/recommendation/wfs/2</label>
@@ -631,7 +631,7 @@ RSpec.describe IsoDoc::Ogc do
 INPUT
     #{HTML_HDR}
 <br/>
-             <div>
+             <div id="A0">
                <h1 class="ForewordTitle">i.&#160; Preface</h1>
                <table id="A" class="recommend" style="border-collapse:collapse;border-spacing:0;">
                  <tr>
@@ -675,7 +675,7 @@ INPUT
   it "processes recommendations" do
         expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
       <ogc-standard xmlns="https://standards.opengeospatial.org/document">
-    <preface><foreword>
+    <preface><foreword id="A">
     <recommendation id="_">
   <label>/ogc/recommendation/wfs/2</label>
   <inherit>/ss/584/2015/level/1</inherit>
@@ -724,7 +724,7 @@ INPUT
 INPUT
     #{HTML_HDR}
  <br/>
-             <div>
+             <div id="A">
                <h1 class="ForewordTitle">i.&#160; Preface</h1>
                <table id="_" class="recommend" style="border-collapse:collapse;border-spacing:0;">
                  <tr>
@@ -769,7 +769,7 @@ INPUT
       <bibdata>
     <language>en</language>
     </bibdata>
-    <preface><foreword>
+    <preface><foreword id="A">
   <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">
   <eref bibitemid="ISO712"/>
   <eref bibitemid="ISO16634"/>
@@ -868,7 +868,7 @@ INPUT
 INPUT
     #{HTML_HDR}
              <br/>
-             <div>
+             <div id="A">
                <h1 class="ForewordTitle">i.&#160; Preface</h1>
                <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">
          <a href="#ISO712">ISO 712</a>
