@@ -271,7 +271,7 @@ RSpec.describe IsoDoc::Ogc do
         <br/>
       <div id="A">
         <h1 class="ForewordTitle">i.&#160; Preface</h1>
-        <p class="SourceTitle" style="text-align:center;">Example Title</p>
+        <p class='SourceTitle' style='text-align:center;'>Figure &#160;&#8212; Example Title</p>
         <div id="_" class="example"><p class="example-title">EXAMPLE&#160;&#8212; Example Title</p><p id="_">This is an example</p>
 <p id="_">Amen</p></div>
       </div>
