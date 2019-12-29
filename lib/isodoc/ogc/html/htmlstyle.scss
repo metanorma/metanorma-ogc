@@ -89,9 +89,13 @@ nav {
 }
 
 #toc-list {
-  ul {margin-bottom: 0.25em;}
+  ul {
+    margin-bottom: 0.25em;
+  }
 
-  li {list-style-type: none;}
+  li {
+    list-style-type: none;
+  }
 }
 
 .figure {
