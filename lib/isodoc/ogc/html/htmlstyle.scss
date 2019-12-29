@@ -247,7 +247,7 @@ span.keyword {
 /* Tables */
 
 table {
-  @include table($border: none);
+  @include table($border: none !important);
 
   color: #010d16;
 
