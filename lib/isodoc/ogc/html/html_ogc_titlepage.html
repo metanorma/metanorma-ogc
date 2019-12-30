@@ -52,6 +52,9 @@
       {% if previousuri %}
       <span class="label">Previous URI: </span> <span class="value"><a href="{{ previousuri }}">{{previousuri}}</a></span>
       {% endif %}
+      {% if edition %}
+      <span class="label">Version: </span> <span class="value">{{ edition }}</span>
+      {% endif %}
     </div>
 
     {% if xml or pdf or doc %}
