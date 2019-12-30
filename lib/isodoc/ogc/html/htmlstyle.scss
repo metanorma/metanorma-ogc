@@ -361,17 +361,14 @@ p.document-stage {
 
 
 $docstage-colors-list:(
-  rfc: #48a0e7,
-  candidate: #fd06fd,
+  public-rfc: #48a0e7,
+  swg-draft: #fd06fd,
   published: #9abd48,
   deprecated: #7e0d13,
   retired: #7e0d13,
-  working-draft: #f780ec,
-  proposal: #f780ec,
-  committee-draft: #fd06fd,
-  draft-standard: #fd06fd,
+  oab-review: #f780ec,
+  tc-vote: #f780ec,
   standard: #9abd48,
-  obsolete: #7e0d13,
   guide: #48a0e7,
 );
 

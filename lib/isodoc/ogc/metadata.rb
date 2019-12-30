@@ -43,6 +43,10 @@ module IsoDoc
         set(:keywords, keywords)
       end
 
+      def unpublished(status)
+        !%w(published deprecated retired).include?(status.downcase)
+      end
+
       def version(isoxml, _out)
         super
         revdate = get[:revdate]
