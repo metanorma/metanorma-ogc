@@ -189,7 +189,7 @@
 }
 
 @media print {
-  .document-info,  .copyright, .prefatory-section {
+  .document-info,  .copyright {
     page-break-before: always;
   }
 

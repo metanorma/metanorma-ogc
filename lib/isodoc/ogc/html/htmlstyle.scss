@@ -457,6 +457,10 @@ a.anchorjs-link {
     font-size: 1em;
   }
 
+  .prefatory-section {
+    page-break-before: always;
+  }
+
   .note, .pseudocode {
     page-break-inside: avoid;
   }
