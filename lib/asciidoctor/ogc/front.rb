@@ -113,11 +113,13 @@ module Asciidoctor
 
       def metadata_source(node, xml)
         super
-        node.attr("previous-uri") && xml.uri(node.attr("previous-uri"), type: "previous")
+        node.attr("previous-uri") && xml.uri(node.attr("previous-uri"),
+                                             type: "previous")
       end
 
       def metadata_copyright(node, xml)
-        from = node.attr("copyright-year") || node.attr("copyrightyear") || Date.today.year
+        from = node.attr("copyright-year") || node.attr("copyrightyear") ||
+          Date.today.year
         xml.copyright do |c|
           c.from from
           c.owner do |owner|
@@ -143,8 +145,31 @@ module Asciidoctor
         end
       end
 
+      def metadata_subdoctype(node, xml)
+        s = node.attr("docsubtype")
+        case doctype(node)
+        when "standard"
+          unless %w{conceptual-model conceptual-model-and-encoding
+                    conceptual-model-and-implementation encoding extension
+                    implementation profile profile-with-extension}.include? s
+            warn "#{s} is not a permitted subtype of Standard: "\
+              "reverting to 'implementation'"
+            s = "implementation"
+          end
+        when "best-practice"
+          unless %w{general encoding extension profile
+                    profile-with-extension}.include? s
+            warn "#{s} is not a permitted subtype of Standard: "\
+              "reverting to 'implementation'"
+            s = "general"
+          end
+        end
+        s and xml.docsubtype s
+      end
+
       def metadata_ext(node, xml)
         metadata_doctype(node, xml)
+        metadata_subdoctype(node, xml)
         metadata_committee(node, xml)
       end
     end

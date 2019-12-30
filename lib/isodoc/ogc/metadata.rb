@@ -81,12 +81,17 @@ module IsoDoc
         a = xml.at(ns("//bibdata/uri[@type = 'previous']")) and set(:previousuri, a.text)
       end
 
-      def doctype(isoxml, _out)
-        b = isoxml&.at(ns("//bibdata/ext/doctype"))&.text || return
-        t = b.split(/[- ]/).map do |w|
+      def type_capitalise(b)
+        b.split(/[- ]/).map do |w|
           w.capitalize unless %w(SWG).include? w
         end.join(" ")
-        set(:doctype, t)
+      end
+
+      def doctype(isoxml, _out)
+        b = isoxml&.at(ns("//bibdata/ext/doctype"))&.text and
+        set(:doctype, type_capitalise(b))
+        b = isoxml&.at(ns("//bibdata/ext/docsubtype"))&.text and
+        set(:docsubtype, type_capitalise(b))
       end
     end
   end

@@ -53,7 +53,8 @@ RSpec.describe Asciidoctor::Ogc do
       :nodoc:
       :novalid:
       :docnumber: 1000
-      :doctype: implementation-standard
+      :doctype: standard
+      :docsubtype: conceptual-model
       :edition: 2.0
       :revdate: 2000-01-01
       :draft: 3.4
@@ -114,11 +115,6 @@ RSpec.describe Asciidoctor::Ogc do
          <date type="received">
         <on>1999-06-01</on>
         </date>
-                 <edition>2.0</edition>
-        <version>
-         <revision-date>2000-01-01</revision-date>
-         <draft>3.4</draft>
-       </version>
          <contributor>
            <role type="author"/>
            <organization>
@@ -154,6 +150,11 @@ RSpec.describe Asciidoctor::Ogc do
              <name>OGC</name>
            </organization>
          </contributor>
+         <edition>2.0</edition>
+        <version>
+         <revision-date>2000-01-01</revision-date>
+         <draft>3.4</draft>
+       </version>
          <language>en</language>
          <script>Latn</script>
          <status>
@@ -173,6 +174,7 @@ RSpec.describe Asciidoctor::Ogc do
         <keyword>c</keyword>
          <ext>
          <doctype>standard</doctype>
+         <docsubtype>conceptual-model</docsubtype>
          <editorialgroup>
            <committee>TC</committee>
            <subcommittee type="B" number="2">SC</subcommittee>
@@ -338,6 +340,7 @@ OUTPUT
   </copyright>
   <ext>
   <doctype>standard</doctype>
+  <docsubtype>implementation</docsubtype>
   </ext>
 </bibdata>
 <preface><foreword obligation="informative"><title>Foreword</title><p id="_">This is a preamble</p></foreword>
@@ -386,6 +389,7 @@ OUTPUT
   </copyright>
   <ext>
   <doctype>standard</doctype>
+  <docsubtype>implementation</docsubtype>
   </ext>
 </bibdata>
 <sections>

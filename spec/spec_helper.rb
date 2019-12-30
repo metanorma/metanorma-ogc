@@ -86,6 +86,7 @@ BLANK_HDR = <<~"HDR"
          </copyright>
          <ext>
          <doctype>standard</doctype>
+         <docsubtype>implementation</docsubtype>
          </ext>
        </bibdata>
 HDR

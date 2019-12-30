@@ -14,7 +14,21 @@ RSpec.describe Asciidoctor::Ogc do
   INPUT
 end
 
-      it "Warns of illegal status" do
+      it "Warns of illegal doc subtype" do
+    expect { Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) }.to output(/pizza is not a permitted subtype of Standard: reverting to 'implementation'/).to_stderr
+  = Document title
+  Author
+  :docfile: test.adoc
+  :nodoc:
+  :no-isobib:
+  :doctype: standard
+  :docsubtype: pizza
+
+  text
+  INPUT
+end
+
+ it "Warns of illegal status" do
     expect { Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) }.to output(/pizza is not a recognised status/).to_stderr
   = Document title
   Author
@@ -26,6 +40,7 @@ end
   text
   INPUT
 end
+
 
   it "does not issue section order warnings unless document is a standard" do
   expect { Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) }.not_to output(%r{Prefatory material must be followed by \(clause\) Scope}).to_stderr
