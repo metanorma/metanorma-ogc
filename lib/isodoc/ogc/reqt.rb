@@ -15,7 +15,7 @@ module IsoDoc
           style: "width:100.0pt;padding:0 0 0 1em;margin-left:0pt;vertical-align:top;" }.freeze
 
       def recommendation_name(node, out, type)
-        out.p **{ class: "AdmonitionTitle" }  do |b|
+        out.p **{ class: "RecommendationTitle" }  do |b|
           lbl = anchor(node['id'], :label, false)
           b << (lbl.nil? ? l10n("#{type}:") : l10n("#{type} #{lbl}:"))
         end
