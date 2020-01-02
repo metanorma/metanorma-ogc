@@ -543,7 +543,7 @@ RSpec.describe IsoDoc::Ogc do
                <table id="_" class="recommend" style="border-collapse:collapse;border-spacing:0;">
                  <tr>
                    <td class="example_label" style="width:100.0pt;padding:0 0 0 1em;margin-left:0pt;vertical-align:top;">
-                     <p class="AdmonitionTitle">Permission 1:</p>
+                     <p class="RecommendationTitle">Permission 1:</p>
                    </td>
                    <td style="vertical-align:top;" class="recommend"><p><b>/ogc/recommendation/wfs/2</b></p>
      
@@ -637,7 +637,7 @@ INPUT
                <table id="A" class="recommend" style="border-collapse:collapse;border-spacing:0;">
                  <tr>
                    <td class="example_label" style="width:100.0pt;padding:0 0 0 1em;margin-left:0pt;vertical-align:top;">
-                     <p class="AdmonitionTitle">Requirement:</p>
+                     <p class="RecommendationTitle">Requirement:</p>
                    </td>
                    <td style="vertical-align:top;" class="recommend"><p><b>/ogc/recommendation/wfs/2. A New Requirement</b></p>
      
@@ -730,7 +730,7 @@ INPUT
                <table id="_" class="recommend" style="border-collapse:collapse;border-spacing:0;">
                  <tr>
                    <td class="example_label" style="width:100.0pt;padding:0 0 0 1em;margin-left:0pt;vertical-align:top;">
-                     <p class="AdmonitionTitle">Recommendation 1:</p>
+                     <p class="RecommendationTitle">Recommendation 1:</p>
                    </td>
                    <td style="vertical-align:top;" class="recommend"><p><b>/ogc/recommendation/wfs/2</b></p>
      
