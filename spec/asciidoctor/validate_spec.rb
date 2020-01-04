@@ -2,7 +2,7 @@ require "spec_helper"
 
 RSpec.describe Asciidoctor::Ogc do
       it "Warns of illegal doctype" do
-    expect { Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) }.to output(/pizza is not a legal document type/).to_stderr
+    expect { Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) }.to output(/'pizza' is not a legal document type/).to_stderr
   = Document title
   Author
   :docfile: test.adoc
@@ -15,7 +15,7 @@ RSpec.describe Asciidoctor::Ogc do
 end
 
       it "Warns of illegal doc subtype" do
-    expect { Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) }.to output(/pizza is not a permitted subtype of Standard: reverting to 'implementation'/).to_stderr
+    expect { Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) }.to output(/'pizza' is not a permitted subtype of Standard: reverting to 'implementation'/).to_stderr
   = Document title
   Author
   :docfile: test.adoc

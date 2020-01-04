@@ -492,7 +492,8 @@ RSpec.describe IsoDoc::Ogc do
         expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
         <ogc-standard xmlns="https://standards.opengeospatial.org/document">
     <preface><foreword id="A">
-    <permission id="_">
+        <p id="_"><xref target="A1"/></p>
+    <permission id="A1">
   <label>/ogc/recommendation/wfs/2</label>
   <inherit>/ss/584/2015/level/1</inherit>
   <subject>user</subject>
@@ -513,7 +514,10 @@ RSpec.describe IsoDoc::Ogc do
     </table>
   </specification>
   <description>
-    <p id="_">As for the measurement targets,</p>
+  <dl>
+  <dt>A</dt><dd>B</dd>
+  <dt>C</dt><dd>D</dd>
+  </dl>
   </description>
   <measurement-target exclude="false">
     <p id="_">The measurement target shall be measured as:</p>
@@ -537,47 +541,254 @@ RSpec.describe IsoDoc::Ogc do
     </ogc-standard>
     INPUT
     #{HTML_HDR}
-             <br/>
-             <div id="A">
-               <h1 class="ForewordTitle">i.&#160; Preface</h1>
-               <table id="_" class="recommend" style="border-collapse:collapse;border-spacing:0;">
+     <br/>
+           <div id='A'>
+             <h1 class='ForewordTitle'>i.&#160; Preface</h1>
+             <p id='_'>
+  <a href='#A1'>Permission 1</a>
+</p>
+             <table id='A1' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
+               <thead>
                  <tr>
-                   <td class="example_label" style="width:100.0pt;padding:0 0 0 1em;margin-left:0pt;vertical-align:top;">
-                     <p class="RecommendationTitle">Permission 1:</p>
-                   </td>
-                   <td style="vertical-align:top;" class="recommend"><p><b>/ogc/recommendation/wfs/2</b></p>
-     
-         <div class="requirement-inherit">/ss/584/2015/level/1</div>
-     
-     
-         <div class="requirement-description">
-           <p id="_">I recommend <i>this</i>.</p>
-         </div>
-     
-         <div class="requirement-description">
-           <p id="_">As for the measurement targets,</p>
-         </div>
-         <div class="requirement-measurement-target">
-           <p id="_">The measurement target shall be measured as:</p>
-           <div id="_" class="formula"><p><span class="stem">(#(r/1 = 0)#)</span>&#160; (1)</p></div>
-     
-     
-         </div>
-         <div class="requirement-verification">
-           <p id="_">The following code will be run for verification:</p>
-           <pre id="_" class="prettyprint ">CoreRoot(success): HttpResponse<br/>&#160;&#160;&#160;&#160;&#160; if (success)<br/>&#160;&#160;&#160;&#160;&#160; recommendation(label: success-response)<br/>&#160;&#160;&#160;&#160;&#160; end<br/>&#160;&#160;&#160; </pre>
-         </div>
-     
-       </td>
+                   <th style='vertical-align:top;' class='recommend' colspan='2'>
+                     <p class='RecommendationTitle'>Permission 1:</p>
+                   </th>
                  </tr>
-               </table>
-             </div>
-             <p class="zzSTDTitle1"/>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend' colspan='2'>
+                     <p>/ogc/recommendation/wfs/2</p>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend'>Subject</td>
+                   <td style='vertical-align:top;' class='recommend'>user</td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend'>Control-class</td>
+                   <td style='vertical-align:top;' class='recommend'>Technical</td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend'>Priority</td>
+                   <td style='vertical-align:top;' class='recommend'>P0</td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend'>Family</td>
+                   <td style='vertical-align:top;' class='recommend'>System and Communications Protection</td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend'>Family</td>
+                   <td style='vertical-align:top;' class='recommend'>System and Communications Protocols</td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend' colspan='2'>/ss/584/2015/level/1</td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend' colspan='2'>
+                     <p id='_'>
+                       I recommend
+                       <i>this</i>
+                       .
+                     </p>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend'>A</td>
+                   <td style='vertical-align:top;' class='recommend'>B</td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend'>C</td>
+                   <td style='vertical-align:top;' class='recommend'>D</td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend' colspan='2'>
+                     <p id='_'>The measurement target shall be measured as:</p>
+                     <div id='_' class='formula'>
+                       <p>
+                         <span class='stem'>(#(r/1 = 0)#)</span>
+                         &#160; (1)
+                       </p>
+                     </div>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend' colspan='2'>
+                     <p id='_'>The following code will be run for verification:</p>
+                     <pre id='_' class='prettyprint '>
+                       CoreRoot(success): HttpResponse
+                       <br/>
+                       &#160;&#160;&#160;&#160;&#160; if (success)
+                       <br/>
+                       &#160;&#160;&#160;&#160;&#160; recommendation(label:
+                       success-response)
+                       <br/>
+                       &#160;&#160;&#160;&#160;&#160; end
+                       <br/>
+                       &#160;&#160;&#160;
+                     </pre>
+                   </td>
+                 </tr>
+               </tbody>
+             </table>
            </div>
-         </body>
+           <p class='zzSTDTitle1'/>
+         </div>
+       </body>
     OUTPUT
 
   end
+
+    it "processes permission verifications" do
+        expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+        <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+    <preface>
+        <foreword id="A">
+        <p id="_"><xref target="A1"/></p>
+    <permission id="A1" type="verification">
+  <label>/ogc/recommendation/wfs/2</label>
+  <inherit>/ss/584/2015/level/1</inherit>
+  <subject>user</subject>
+  <classification> <tag>control-class</tag> <value>Technical</value> </classification><classification> <tag>priority</tag> <value>P0</value> </classification><classification> <tag>family</tag> <value>System and Communications Protection</value> </classification><classification> <tag>family</tag> <value>System and Communications Protocols</value> </classification>
+  <description>
+    <p id="_">I recommend <em>this</em>.</p>
+  </description>
+  <specification exclude="true" type="tabular">
+    <p id="_">This is the object of the recommendation:</p>
+    <table id="_">
+      <tbody>
+        <tr>
+          <td style="text-align:left;">Object</td>
+          <td style="text-align:left;">Value</td>
+          <td style="text-align:left;">Accomplished</td>
+        </tr>
+      </tbody>
+    </table>
+  </specification>
+  <description>
+  <dl>
+  <dt>A</dt><dd>B</dd>
+  <dt>C</dt><dd>D</dd>
+  </dl>
+  </description>
+  <measurement-target exclude="false">
+    <p id="_">The measurement target shall be measured as:</p>
+    <formula id="_">
+      <stem type="AsciiMath">r/1 = 0</stem>
+    </formula>
+  </measurement-target>
+  <verification exclude="false">
+    <p id="_">The following code will be run for verification:</p>
+    <sourcecode id="_">CoreRoot(success): HttpResponse
+      if (success)
+      recommendation(label: success-response)
+      end
+    </sourcecode>
+  </verification>
+  <import exclude="true">
+    <sourcecode id="_">success-response()</sourcecode>
+  </import>
+</permission>
+    </foreword></preface>
+    </ogc-standard>
+    INPUT
+    #{HTML_HDR}
+    <br/>
+        <div id='A'>
+      <h1 class='ForewordTitle'>i.&#160; Preface</h1>
+      <p id='_'>
+        <a href='#A1'>Permission Test 1</a>
+      </p>
+      <table id='A1' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
+        <thead>
+          <tr>
+            <th style='vertical-align:top;' class='recommend' colspan='2'>
+              <p class='RecommendationTestTitle'>Permission Test 1:</p>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style='vertical-align:top;' class='recommend' colspan='2'>
+              <p>/ogc/recommendation/wfs/2</p>
+            </td>
+          </tr>
+          <tr>
+            <td style='vertical-align:top;' class='recommend'>Subject</td>
+            <td style='vertical-align:top;' class='recommend'>user</td>
+          </tr>
+          <tr>
+            <td style='vertical-align:top;' class='recommend'>Control-class</td>
+            <td style='vertical-align:top;' class='recommend'>Technical</td>
+          </tr>
+          <tr>
+            <td style='vertical-align:top;' class='recommend'>Priority</td>
+            <td style='vertical-align:top;' class='recommend'>P0</td>
+          </tr>
+          <tr>
+            <td style='vertical-align:top;' class='recommend'>Family</td>
+            <td style='vertical-align:top;' class='recommend'>System and Communications Protection</td>
+          </tr>
+          <tr>
+            <td style='vertical-align:top;' class='recommend'>Family</td>
+            <td style='vertical-align:top;' class='recommend'>System and Communications Protocols</td>
+          </tr>
+          <tr>
+            <td style='vertical-align:top;' class='recommend' colspan='2'>/ss/584/2015/level/1</td>
+          </tr>
+          <tr>
+            <td style='vertical-align:top;' class='recommend' colspan='2'>
+              <p id='_'>
+                I recommend
+                <i>this</i>
+                .
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td style='vertical-align:top;' class='recommend'>A</td>
+            <td style='vertical-align:top;' class='recommend'>B</td>
+          </tr>
+          <tr>
+            <td style='vertical-align:top;' class='recommend'>C</td>
+            <td style='vertical-align:top;' class='recommend'>D</td>
+          </tr>
+          <tr>
+            <td style='vertical-align:top;' class='recommend' colspan='2'>
+              <p id='_'>The measurement target shall be measured as:</p>
+              <div id='_' class='formula'>
+                <p>
+                  <span class='stem'>(#(r/1 = 0)#)</span>
+                  &#160; (1)
+                </p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td style='vertical-align:top;' class='recommend' colspan='2'>
+              <p id='_'>The following code will be run for verification:</p>
+              <pre id='_' class='prettyprint '>
+                CoreRoot(success): HttpResponse
+                <br/>
+                &#160;&#160;&#160;&#160;&#160; if (success)
+                <br/>
+                &#160;&#160;&#160;&#160;&#160; recommendation(label:
+                success-response)
+                <br/>
+                &#160;&#160;&#160;&#160;&#160; end
+                <br/>
+                &#160;&#160;&#160;
+              </pre>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class='zzSTDTitle1'/>
+  </div>
+</body>
+OUTPUT
+    end
 
   it "processes requirements" do
         expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
@@ -631,44 +842,78 @@ RSpec.describe IsoDoc::Ogc do
     </ogc-standard>
 INPUT
     #{HTML_HDR}
-<br/>
-             <div id="A0">
-               <h1 class="ForewordTitle">i.&#160; Preface</h1>
-               <table id="A" class="recommend" style="border-collapse:collapse;border-spacing:0;">
+    <br/>
+           <div id='A0'>
+             <h1 class='ForewordTitle'>i.&#160; Preface</h1>
+             <table id='A' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
+               <thead>
                  <tr>
-                   <td class="example_label" style="width:100.0pt;padding:0 0 0 1em;margin-left:0pt;vertical-align:top;">
-                     <p class="RecommendationTitle">Requirement:</p>
-                   </td>
-                   <td style="vertical-align:top;" class="recommend"><p><b>/ogc/recommendation/wfs/2. A New Requirement</b></p>
-     
-     
-         <div class="requirement-inherit">/ss/584/2015/level/1</div>
-     
-         <div class="requirement-description">
-           <p id="_">I recommend <i>this</i>.</p>
-         </div>
-     
-         <div class="requirement-description">
-           <p id="_">As for the measurement targets,</p>
-         </div>
-         <div class="requirement-measurement-target">
-           <p id="_">The measurement target shall be measured as:</p>
-           <div id="B" class="formula"><p><span class="stem">(#(r/1 = 0)#)</span>&#160; (1)</p></div>
-     
-     
-         </div>
-         <div class="requirement-verification">
-           <p id="_">The following code will be run for verification:</p>
-           <pre id="_" class="prettyprint ">CoreRoot(success): HttpResponse<br/>&#160;&#160;&#160;&#160;&#160; if (success)<br/>&#160;&#160;&#160;&#160;&#160; recommendation(label: success-response)<br/>&#160;&#160;&#160;&#160;&#160; end<br/>&#160;&#160;&#160; </pre>
-         </div>
-     
-       </td>
+                   <th style='vertical-align:top;' class='recommend' colspan='2'>
+                     <p class='RecommendationTitle'>Requirement: A New Requirement</p>
+                   </th>
                  </tr>
-               </table>
-             </div>
-             <p class="zzSTDTitle1"/>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend' colspan='2'>
+                     <p>/ogc/recommendation/wfs/2</p>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend'>Subject</td>
+                   <td style='vertical-align:top;' class='recommend'>user</td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend' colspan='2'>/ss/584/2015/level/1</td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend' colspan='2'>
+                     <p id='_'>
+                       I recommend
+                       <i>this</i>
+                       .
+                     </p>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend' colspan='2'>
+                     <p id='_'>As for the measurement targets,</p>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend' colspan='2'>
+                     <p id='_'>The measurement target shall be measured as:</p>
+                     <div id='B' class='formula'>
+                       <p>
+                         <span class='stem'>(#(r/1 = 0)#)</span>
+                         &#160; (1)
+                       </p>
+                     </div>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend' colspan='2'>
+                     <p id='_'>The following code will be run for verification:</p>
+                     <pre id='_' class='prettyprint '>
+                       CoreRoot(success): HttpResponse
+                       <br/>
+                       &#160;&#160;&#160;&#160;&#160; if (success)
+                       <br/>
+                       &#160;&#160;&#160;&#160;&#160; recommendation(label:
+                       success-response)
+                       <br/>
+                       &#160;&#160;&#160;&#160;&#160; end
+                       <br/>
+                       &#160;&#160;&#160;
+                     </pre>
+                   </td>
+                 </tr>
+               </tbody>
+             </table>
            </div>
-         </body>
+           <p class='zzSTDTitle1'/>
+         </div>
+       </body>
     OUTPUT
 
   end
@@ -724,43 +969,78 @@ INPUT
     </ogc-standard>
 INPUT
     #{HTML_HDR}
- <br/>
-             <div id="A">
-               <h1 class="ForewordTitle">i.&#160; Preface</h1>
-               <table id="_" class="recommend" style="border-collapse:collapse;border-spacing:0;">
+    <br/>
+           <div id='A'>
+             <h1 class='ForewordTitle'>i.&#160; Preface</h1>
+             <table id='_' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
+               <thead>
                  <tr>
-                   <td class="example_label" style="width:100.0pt;padding:0 0 0 1em;margin-left:0pt;vertical-align:top;">
-                     <p class="RecommendationTitle">Recommendation 1:</p>
-                   </td>
-                   <td style="vertical-align:top;" class="recommend"><p><b>/ogc/recommendation/wfs/2</b></p>
-     
-         <div class="requirement-inherit">/ss/584/2015/level/1</div>
-     
-         <div class="requirement-description">
-           <p id="_">I recommend <i>this</i>.</p>
-         </div>
-     
-         <div class="requirement-description">
-           <p id="_">As for the measurement targets,</p>
-         </div>
-         <div class="requirement-measurement-target">
-           <p id="_">The measurement target shall be measured as:</p>
-           <div id="_" class="formula"><p><span class="stem">(#(r/1 = 0)#)</span>&#160; (1)</p></div>
-     
-     
-         </div>
-         <div class="requirement-verification">
-           <p id="_">The following code will be run for verification:</p>
-           <pre id="_" class="prettyprint ">CoreRoot(success): HttpResponse<br/>&#160;&#160;&#160;&#160;&#160; if (success)<br/>&#160;&#160;&#160;&#160;&#160; recommendation(label: success-response)<br/>&#160;&#160;&#160;&#160;&#160; end<br/>&#160;&#160;&#160; </pre>
-         </div>
-     
-       </td>
+                   <th style='vertical-align:top;' class='recommend' colspan='2'>
+                     <p class='RecommendationTitle'>Recommendation 1:</p>
+                   </th>
                  </tr>
-               </table>
-             </div>
-             <p class="zzSTDTitle1"/>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend' colspan='2'>
+                     <p>/ogc/recommendation/wfs/2</p>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend'>Subject</td>
+                   <td style='vertical-align:top;' class='recommend'>user</td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend' colspan='2'>/ss/584/2015/level/1</td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend' colspan='2'>
+                     <p id='_'>
+                       I recommend 
+                       <i>this</i>
+                       .
+                     </p>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend' colspan='2'>
+                     <p id='_'>As for the measurement targets,</p>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend' colspan='2'>
+                     <p id='_'>The measurement target shall be measured as:</p>
+                     <div id='_' class='formula'>
+                       <p>
+                         <span class='stem'>(#(r/1 = 0)#)</span>
+                         &#160; (1)
+                       </p>
+                     </div>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend' colspan='2'>
+                     <p id='_'>The following code will be run for verification:</p>
+                     <pre id='_' class='prettyprint '>
+                       CoreRoot(success): HttpResponse
+                       <br/>
+                       &#160;&#160;&#160;&#160;&#160; if (success)
+                       <br/>
+                       &#160;&#160;&#160;&#160;&#160; recommendation(label:
+                       success-response)
+                       <br/>
+                       &#160;&#160;&#160;&#160;&#160; end
+                       <br/>
+                       &#160;&#160;&#160; 
+                     </pre>
+                   </td>
+                 </tr>
+               </tbody>
+             </table>
            </div>
-         </body>
+           <p class='zzSTDTitle1'/>
+         </div>
+       </body>
     OUTPUT
   end
 

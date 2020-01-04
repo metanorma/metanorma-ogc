@@ -275,6 +275,39 @@ table {
   }
 }
 
+table.recommendtest {
+  @include table($border: none !important);
+
+  color: #010d16;
+
+  tr:nth-child(even) {
+    background: #ffffff
+  }
+  tr:nth-child(odd) {
+    background: #ffffff
+  }
+
+  thead tr th {
+    background-color: #5d99d6;
+  }
+
+  td, th {
+    padding: 1em;
+  }
+
+  td.header {
+    font-weight: 400;
+  }
+}
+
+td > p:first-child, th > p:first-child {
+  margin-top: 0em;
+}
+td > p:last-child, th > p:last-child {
+  margin-bottom: 0em;
+}
+
+
 p.TableTitle {
   text-align: center;
   margin-top: 2.5em;
@@ -393,6 +426,24 @@ p.Biblio, p.NormRef {
   @include formulaBlock(#f6f6f6);
 }
 
+.recommend, .recommendtest {
+  @include recommendationBlock();
+}
+
+.require, .requiretest {
+  @include recommendationBlock();
+}
+
+.permission, .permissiontest {
+  @include recommendationBlock();
+}
+
+
+.RecommendationTestTitle {
+  @include blockTitle();
+}
+
+/*
 .recommend {
   &, .example_label {
     background-color: #f8ffbd;
@@ -419,6 +470,7 @@ p.Biblio, p.NormRef {
     font-weight: bold;
   }
 }
+*/
 
 .recommend {
   @include recommendationBlock();

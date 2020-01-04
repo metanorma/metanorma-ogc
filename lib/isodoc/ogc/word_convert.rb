@@ -138,6 +138,24 @@ module IsoDoc
         section_break(body)
       end
 
+      def word_cleanup(docxml)
+        word_recommend_cleanup(docxml)
+        super
+      end
+
+      def word_recommend_cleanup(docxml)
+        docxml.xpath("//table[@class = 'recommendtest']/thead/tr").each do |tr|
+          style_update(tr, "background:#C9C9C9;")
+        end
+        docxml.xpath("//table[@class = 'recommend']/thead/tr").each do |tr|
+          style_update(tr, "background:#A5A5A5;")
+        end
+        docxml.xpath("//table[@class = 'recommend']/tbody/tr").
+          each_slice(2) do |tr1, tr2|
+          tr2 && style_update(tr2, "background:#C9C9C9;")
+        end
+      end
+
       include BaseConvert
     end
   end

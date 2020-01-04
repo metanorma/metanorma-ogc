@@ -146,20 +146,20 @@ module Asciidoctor
       end
 
       def metadata_subdoctype(node, xml)
-        s = node.attr("docsubtype")
+        s = node.attr("docsubtype") 
         case doctype(node)
         when "standard"
           unless %w{conceptual-model conceptual-model-and-encoding
                     conceptual-model-and-implementation encoding extension
                     implementation profile profile-with-extension}.include? s
-            warn "#{s} is not a permitted subtype of Standard: "\
+            warn "'#{s}' is not a permitted subtype of Standard: "\
               "reverting to 'implementation'"
             s = "implementation"
           end
         when "best-practice"
           unless %w{general encoding extension profile
                     profile-with-extension}.include? s
-            warn "#{s} is not a permitted subtype of Standard: "\
+            warn "'#{s}' is not a permitted subtype of Standard: "\
               "reverting to 'implementation'"
             s = "general"
           end
