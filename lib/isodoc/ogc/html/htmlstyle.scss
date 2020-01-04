@@ -420,6 +420,18 @@ p.Biblio, p.NormRef {
   }
 }
 
+.recommend {
+  @include recommendationBlock();
+}
+
+.require {
+  @include recommendationBlock();
+}
+
+.permission {
+  @include recommendationBlock();
+}
+
 #myBtn {
   @include toTopBtn(white, #00335b);
 }
