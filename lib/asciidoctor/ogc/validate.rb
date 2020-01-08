@@ -22,6 +22,7 @@ module Asciidoctor
       end
 
       def section_validate(doc)
+        preface_sequence_validate(doc.root)
         sections_sequence_validate(doc.root)
       end
 
@@ -68,7 +69,8 @@ module Asciidoctor
       end
 
       def sections_sequence_validate(root)
-        return unless STANDARDTYPE.include? root&.at("//bibdata/ext/doctype")&.text
+        return unless STANDARDTYPE.include?(
+          root&.at("//bibdata/ext/doctype")&.text)
         f = root.at("//sections").elements
         names = f.map { |s| { tag: s.name, title: s&.at("./title")&.text } }
         names = seqcheck(names, SEQ[0][:msg], SEQ[0][:val]) || return
@@ -82,9 +84,21 @@ module Asciidoctor
           warn "OGC style: Document must contain at least one clause"
           return
         end
-        root.at("//references | //clause[descendant::references][not(parent::clause)]") or
-          seqcheck([{tag: "clause"}],
-                   "Normative References are mandatory", [{tag: "references"}])
+        root.at("//references | //clause[descendant::references]"\
+                "[not(parent::clause)]") or
+        seqcheck([{tag: "clause"}],
+                 "Normative References are mandatory", [{tag: "references"}])
+      end
+
+      def preface_sequence_validate(root)
+        root.at("//preface/abstract") or warn "OGC style: Abstract is missing!"
+        root.at("//bibdata/keyword | //bibdata/ext/keyword") or
+          warn "OGC style: Keywords are missing!"
+        root.at("//foreword") or warn "OGC style: Preface is missing!"
+        root.at("//bibdata/contributor[role/@type = 'author']/organization/"\
+                "name") or
+               warn "OGC style: Submitting Organizations is missing!"
+        root.at("//submitters") or warn "OGC style: Submitters is missing!"
       end
     end
   end

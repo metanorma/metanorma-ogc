@@ -158,4 +158,126 @@ it "Warning if no normative references" do
   INPUT
 end
 
+  it "Warning if missing abstract" do
+  expect { Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) }.to output(%r{OGC style: Abstract is missing}).to_stderr
+  #{VALIDATING_BLANK_HDR}
+
+  == Symbols and Abbreviated Terms
+
+  Paragraph
+  INPUT
+end
+
+  it "Warning if missing keywords" do
+  expect { Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) }.to output(%r{OGC style: Keywords are missing}).to_stderr
+  #{VALIDATING_BLANK_HDR}
+
+  == Symbols and Abbreviated Terms
+
+  Paragraph
+  INPUT
+end
+
+  it "Warning if missing preface" do
+  expect { Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) }.to output(%r{OGC style: Preface is missing}).to_stderr
+  #{VALIDATING_BLANK_HDR}
+
+  == Symbols and Abbreviated Terms
+
+  Paragraph
+  INPUT
+end
+
+  it "Warning if missing submitting organizations" do
+  expect { Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) }.to output(%r{OGC style: Submitting Organizations is missing}).to_stderr
+  #{VALIDATING_BLANK_HDR}
+
+  == Symbols and Abbreviated Terms
+
+  Paragraph
+  INPUT
+end
+
+  it "Warning if missing submitters" do
+  expect { Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) }.to output(%r{OGC style: Submitters is missing}).to_stderr
+  #{VALIDATING_BLANK_HDR}
+
+  == Symbols and Abbreviated Terms
+
+  Paragraph
+  INPUT
+end
+
+    it "does not warn if not missing abstract" do
+  expect { Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) }.not_to output(%r{OGC style: Abstract is missing}).to_stderr
+  #{VALIDATING_BLANK_HDR}
+
+  [abstract]
+  == Abstract
+
+  X
+
+  == Symbols and Abbreviated Terms
+
+  Paragraph
+  INPUT
+end
+
+  it "does not warn if not missing keywords" do
+  expect { Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) }.not_to output(%r{OGC style: Keyworrds are missing}).to_stderr
+  = Document title
+  Author
+  :docfile: test.adoc
+  :nodoc:
+  :keywords: A
+
+  == Symbols and Abbreviated Terms
+
+  Paragraph
+  INPUT
+end
+
+  it "does not warn if not missing preface" do
+  expect { Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) }.not_to output(%r{OGC style: Preface is missing}).to_stderr
+  #{VALIDATING_BLANK_HDR}
+  
+  .Title
+
+  Preface
+
+  == Symbols and Abbreviated Terms
+
+  Paragraph
+  INPUT
+end
+
+  it "does not warn if not missing submitting organizations" do
+  expect { Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) }.not_to output(%r{OGC style: Submitting Organizations is missing}).to_stderr
+  = Document title
+  Author
+  :docfile: test.adoc
+  :nodoc:
+  :submitting-organizations: University of Bern, Switzerland; Amazon, USA
+
+  == Symbols and Abbreviated Terms
+
+  Paragraph
+  INPUT
+end
+
+  it "does not warn if not missing submitters" do
+  expect { Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) }.not_to output(%r{OGC style: Submitters is missing}).to_stderr
+  #{VALIDATING_BLANK_HDR}
+
+  == Submitters
+
+  X
+
+  == Symbols and Abbreviated Terms
+
+  Paragraph
+  INPUT
+end
+
+
 end
