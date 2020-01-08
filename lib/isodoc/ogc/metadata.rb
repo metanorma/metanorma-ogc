@@ -52,7 +52,8 @@ module IsoDoc
         revdate = get[:revdate]
         set(:revdate_monthyear, monthyr(revdate))
         set(:edition, isoxml&.at(ns("//bibdata/edition"))&.text)
-        set(:language, ISO_639.find_by_code(isoxml&.at(ns("//bibdata/language"))&.text))
+        lg = ISO_639.find_by_code(isoxml&.at(ns("//bibdata/language"))&.text)
+        set(:doclanguage, lg ? lg[3] : "English")
       end
 
       MONTHS = {
@@ -83,7 +84,7 @@ module IsoDoc
 
       def type_capitalise(b)
         b.split(/[- ]/).map do |w|
-          w.capitalize unless %w(SWG).include? w
+          %w(SWG).include?(w) ? w : w.capitalize
         end.join(" ")
       end
 
@@ -92,6 +93,10 @@ module IsoDoc
         set(:doctype, type_capitalise(b))
         b = isoxml&.at(ns("//bibdata/ext/docsubtype"))&.text and
         set(:docsubtype, type_capitalise(b))
+      end
+
+      def status_print(status)
+        type_capitalise(status)
       end
     end
   end

@@ -87,12 +87,12 @@ RSpec.describe IsoDoc::Ogc do
        </ogc-standard>
     INPUT
 
-    output = xmlpp(<<~"OUTPUT")
-    {:accesseddate=>"XXX", :authors=>["Barney Rubble"], :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"1999-01-01", :doc=>"http://www.example.com/doc", :docnumber=>"1000", :docsubtype=>"Conceptual Model And Encoding", :doctitle=>"Main Title", :doctype=>"Implementation Standard", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :edition=>"2.0", :editors=>["Fred Flintstone"], :externalid=>"http://www.example2.com", :html=>"http://www.example.com/html", :implementeddate=>"XXX", :issueddate=>"2001-01-01", :keywords=>["A", "B"], :language=>["eng", "", "en", "English", "anglais"], :obsoleteddate=>"XXX", :pdf=>"http://www.example.com/pdf", :publisheddate=>"2002-01-01", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :stage=>"Swg work", :tc=>"TC", :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>true, :updateddate=>"XXX", :url=>"http://www.example.com", :xml=>"http://www.example.com/xml"}
+    output = <<~"OUTPUT"
+    {:accesseddate=>"XXX", :authors=>["Barney Rubble"], :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"1999-01-01", :doc=>"http://www.example.com/doc", :doclanguage=>"English", :docnumber=>"1000", :docsubtype=>"Conceptual Model And Encoding", :doctitle=>"Main Title", :doctype=>"Standard", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :edition=>"2.0", :editors=>["Fred Flintstone"], :externalid=>"http://www.example2.com", :html=>"http://www.example.com/html", :implementeddate=>"XXX", :issueddate=>"2001-01-01", :keywords=>["A", "B"], :obsoleteddate=>"XXX", :pdf=>"http://www.example.com/pdf", :publisheddate=>"2002-01-01", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :stage=>"SWG Work", :tc=>"TC", :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>true, :updateddate=>"XXX", :url=>"http://www.example.com", :xml=>"http://www.example.com/xml"}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)
-    expect(xmlpp(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s))).to be_equivalent_to output
+    expect(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s)).to be_equivalent_to output
   end
 
   it "processes pre" do

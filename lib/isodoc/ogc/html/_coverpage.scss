@@ -91,6 +91,39 @@
   }
 }
 
+.docstage-box {
+table {
+  width: auto;
+}
+th {
+  background-color: #93c0d6;
+}
+td {
+vertical-align: top;
+background-color: #daeef3;
+padding: 0.5em;
+border: 0;
+}
+th:first-child {
+border-radius: 1em 0 0 0;
+}
+th:last-child {
+border-radius: 0 1em 0 0;
+}
+tr:first-child {
+border-radius: 0 0 0 1em;
+}
+tr:last-child {
+border-radius: 0 1em 0 0;
+}
+tr:last-child > td:first-child {
+border-radius: 0 0 0 1em;
+}
+tr:last-child > td:last-child {
+border-radius: 0 0 1em 0;
+}
+}
+
 
 .WordSection11 {
   padding: 0 2em 0 3em;
