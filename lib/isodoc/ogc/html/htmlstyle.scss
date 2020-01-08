@@ -484,6 +484,11 @@ p.Biblio, p.NormRef {
   @include recommendationBlock();
 }
 
+tbody td.recommend p.RecommendationTitle, tbody td.recommend p.RecommendationTitle, tbody td.recommend p.RecommendationTitle {
+  font-weight: normal;
+  text-align: left;
+}
+
 #myBtn {
   @include toTopBtn(white, #00335b);
 }
