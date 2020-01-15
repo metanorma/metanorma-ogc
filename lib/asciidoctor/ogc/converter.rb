@@ -35,7 +35,7 @@ module Asciidoctor
         d = node.attr("doctype")
         unless %w{abstract-specification-topic best-practice change-request-supporting-document 
           community-practice community-standard discussion-paper engineering-report other policy 
-          reference-model release-notes standard user-guide white-paper}.include? d
+          reference-model release-notes standard user-guide white-paper test-suite}.include? d
           warn "'#{d}' is not a legal document type: reverting to 'standard'" unless @warned_doctype
           @warned_doctype = true
           d = "standard"
