@@ -397,7 +397,7 @@ OUTPUT
 
 </sections><bibliography><references id="_" obligation="informative">
   <title>Normative References</title>
-  <p>There are no normative references in this document.</p>
+  <p id="_">There are no normative references in this document.</p>
 </references></bibliography>
 </ogc-standard>
 OUTPUT
@@ -554,7 +554,7 @@ OUTPUT
       INPUT
       #{BLANK_HDR}
         <sections><terms id="_" obligation="normative">
-         <title>Terms and definitions</title><p>No terms and definitions are listed in this document.</p>
+         <title>Terms and definitions</title><p id="_">No terms and definitions are listed in this document.</p>
      
          <p id="_">This is a prefatory paragraph</p>
        </terms>
