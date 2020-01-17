@@ -5,10 +5,15 @@ require "fileutils"
 module IsoDoc
   module Ogc
     module BaseConvert
+      def recommend_class(node)
+        return "recommendtest" if node["type"] == "verification"
+        return "recommendclass" if node["type"] == "class"
+        "recommend"
+      end
+
       def recommend_table_attr(node)
         attr_code(id: node["id"], 
-                  class: node["type"] == "verification" ?
-                  "recommendtest" : "recommend",
+                  class: recommend_class(node),
                   style: "border-collapse:collapse;border-spacing:0;")
       end
 
@@ -42,11 +47,12 @@ module IsoDoc
       def recommendation_attributes1(node)
         out = []
         oblig = node["obligation"] and out << ["Obligation", oblig]
-        subj = node&.at(ns("./subject"))&.text and out << ["Subject", subj]
+        subj = node&.at(ns("./subject"))&.text and
+          out << [node["type"] == "class" ? "Target Type" : "Subject", subj]
+        node.xpath(ns("./inherit")).each { |i| out << ["Dependency", i.text] }
         node.xpath(ns("./classification")).each do |c|
-          tag = c.at(ns("./tag"))
-          value = c.at(ns("./value"))
-          tag && value or next
+          tag = c.at(ns("./tag")) or next
+          value = c.at(ns("./value")) or next
           out << [tag.text.capitalize, value.text]
         end
         out
@@ -113,19 +119,33 @@ module IsoDoc
       end
 
       def recommendation_parse(node, out)
-        recommendation_parse1(node, out, node["type"] == "verification" ?
-                              @labels["recommendationtest"] :
-                              @recommendation_lbl)
+        label = case node["type"]
+                when "verification" then @labels["recommendationtest"]
+                when "class" then @labels["recommendationclass"]
+                else
+                  @recommendation_lbl
+                end
+        recommendation_parse1(node, out, label)
       end
 
       def requirement_parse(node, out)
-        recommendation_parse1(node, out, node["type"] == "verification" ?
-                              @labels["requirementtest"] : @requirement_lbl)
+        label = case node["type"]
+                when "verification" then @labels["requirementtest"]
+                when "class" then @labels["requirementclass"]
+                else
+                  @requirement_lbl
+                end
+        recommendation_parse1(node, out, label)
       end
 
       def permission_parse(node, out)
-        recommendation_parse1(node, out, node["type"] == "verification" ?
-                              @labels["permissiontest"] : @permission_lbl)
+        label = case node["type"]
+                when "verification" then @labels["permissiontest"]
+                when "class" then @labels["permissionclass"]
+                else
+                  @permission_lbl
+                end
+        recommendation_parse1(node, out, label)
       end
 
       FIRST_LVL_REQ = IsoDoc::Function::XrefGen::FIRST_LVL_REQ
@@ -136,13 +156,20 @@ module IsoDoc
           next if t["id"].nil? || t["id"].empty?
           id = c.increment(t).print
           @anchors[t["id"]] = anchor_struct(id, t, label, klass, t["unnumbered"])
-          sequential_permission_names1(t, id, "permission[not(@type = 'verification')]", @permission_lbl)
-          sequential_permission_names1(t, id, "requirement[not(@type = 'verification')]", @requirement_lbl)
-          sequential_permission_names1(t, id, "recommendation[not(@type = 'verification')]", @recommendation_lbl)
-          sequential_permission_names1(t, id, "permission[@type = 'verification']", @labels["permissiontest"])
-          sequential_permission_names1(t, id, "requirement[@type = 'verification']", @labels["requirementtest"])
-          sequential_permission_names1(t, id, "recommendation[@type = 'verification']", @labels["recommendationtest"])
+          sequential_permission_children(t, id)
         end
+      end
+
+      def sequential_permission_children(t, id)
+        sequential_permission_names1(t, id, "permission[not(@type = 'verification' or @type = 'class')]", @permission_lbl)
+        sequential_permission_names1(t, id, "requirement[not(@type = 'verification' or @type = 'class')]", @requirement_lbl)
+        sequential_permission_names1(t, id, "recommendation[not(@type = 'verification' or @type = 'class')]", @recommendation_lbl)
+        sequential_permission_names1(t, id, "permission[@type = 'verification']", @labels["permissiontest"])
+        sequential_permission_names1(t, id, "requirement[@type = 'verification']", @labels["requirementtest"])
+        sequential_permission_names1(t, id, "recommendation[@type = 'verification']", @labels["recommendationtest"])
+        sequential_permission_names1(t, id, "permission[@type = 'class']", @labels["permissionclass"])
+        sequential_permission_names1(t, id, "requirement[@type = 'class']", @labels["requirementclass"])
+        sequential_permission_names1(t, id, "recommendation[@type = 'class']", @labels["recommendationclass"])
       end
 
       def sequential_permission_names1(block, lbl, klass, label)
@@ -151,12 +178,7 @@ module IsoDoc
           next if t["id"].nil? || t["id"].empty?
           id = "#{lbl}#{hierfigsep}#{c.increment(t).print}"
           @anchors[t["id"]] = anchor_struct(id, t, label, klass, t["unnumbered"])
-          sequential_permission_names1(t, id, "permission[not(@type = 'verification')]", @permission_lbl)
-          sequential_permission_names1(t, id, "requirement[not(@type = 'verification')]", @requirement_lbl)
-          sequential_permission_names1(t, id, "recommendation[not(@type = 'verification')]", @recommendation_lbl)
-          sequential_permission_names1(t, id, "permission[@type = 'verification']", @labels["permissiontest"])
-          sequential_permission_names1(t, id, "requirement[@type = 'verification']", @labels["requirementtest"])
-          sequential_permission_names1(t, id, "recommendation[@type = 'verification']", @labels["recommendationtest"])
+          sequential_permission_children(t, id)
         end
       end
 
@@ -164,24 +186,30 @@ module IsoDoc
         sequential_table_names(clause)
         sequential_figure_names(clause)
         sequential_formula_names(clause)
-        sequential_permission_names(clause, "permission[not(@type = 'verification')]", @permission_lbl)
-        sequential_permission_names(clause, "requirement[not(@type = 'verification')]", @requirement_lbl)
-        sequential_permission_names(clause, "recommendation[not(@type = 'verification')]", @recommendation_lbl)
+        sequential_permission_names(clause, "permission[not(@type = 'verification' or @type = 'class')]", @permission_lbl)
+        sequential_permission_names(clause, "requirement[not(@type = 'verification' or @type = 'class')]", @requirement_lbl)
+        sequential_permission_names(clause, "recommendation[not(@type = 'verification' or @type = 'class')]", @recommendation_lbl)
         sequential_permission_names(clause, "permission[@type = 'verification']", @labels["permissiontest"])
         sequential_permission_names(clause, "requirement[@type = 'verification']", @labels["requirementtest"])
         sequential_permission_names(clause, "recommendation[@type = 'verification']", @labels["recommendationtest"])
+        sequential_permission_names(clause, "permission[@type = 'class']", @labels["permissionclass"])
+        sequential_permission_names(clause, "requirement[@type = 'class']", @labels["requirementclass"])
+        sequential_permission_names(clause, "recommendation[@type = 'class']", @labels["recommendationclass"])
       end
 
       def hierarchical_asset_names(clause, num)
         hierarchical_table_names(clause, num)
         hierarchical_figure_names(clause, num)
         hierarchical_formula_names(clause, num)
-        hierarchical_permission_names(clause, num, "permission[not(@type = 'verification')]", @permission_lbl)
-        hierarchical_permission_names(clause, num, "requirement[not(@type = 'verification')]", @requirement_lbl)
-        hierarchical_permission_names(clause, num, "recommendation[not(@type = 'verification')]", @recommendation_lbl)
+        hierarchical_permission_names(clause, num, "permission[not(@type = 'verification' or @type = 'class')]", @permission_lbl)
+        hierarchical_permission_names(clause, num, "requirement[not(@type = 'verification' or @type = 'class')]", @requirement_lbl)
+        hierarchical_permission_names(clause, num, "recommendation[not(@type = 'verification' or @type = 'class')]", @recommendation_lbl)
         hierarchical_permission_names(clause, num, "permission[@type = 'verification']", @labels["permissiontest"])
         hierarchical_permission_names(clause, num, "requirement[@type = 'verification']", @labels["requirementtest"])
         hierarchical_permission_names(clause, num, "recommendation[@type = 'verification']", @labels["recommendationtest"])
+        hierarchical_permission_names(clause, num, "permission[@type = 'class']", @labels["permissionclass"])
+        hierarchical_permission_names(clause, num, "requirement[@type = 'class']", @labels["requirementclass"])
+        hierarchical_permission_names(clause, num, "recommendation[@type = 'class']", @labels["recommendationclass"])
       end
 
       def hierarchical_permission_names(clause, num, klass, label)
@@ -190,12 +218,7 @@ module IsoDoc
           next if t["id"].nil? || t["id"].empty?
           lbl = "#{num}#{hiersep}#{c.increment(t).print}"
           @anchors[t["id"]] = anchor_struct(lbl, t, label, klass, t["unnumbered"])
-          sequential_permission_names1(t, lbl, "permission[not(@type = 'verification')]", @permission_lbl)
-          sequential_permission_names1(t, lbl, "requirement[not(@type = 'verification')]", @requirement_lbl)
-          sequential_permission_names1(t, lbl, "recommendation[not(@type = 'verification')]", @recommendation_lbl)
-          sequential_permission_names1(t, lbl, "permission[@type = 'verification']", @labels["permissiontest"])
-          sequential_permission_names1(t, lbl, "requirement[@type = 'verification']", @labels["requirementtest"])
-          sequential_permission_names1(t, lbl, "recommendation[@type = 'verification']", @labels["recommendationtest"])
+          sequential_permission_children(t, lbl)
         end
       end
     end

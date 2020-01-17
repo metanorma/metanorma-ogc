@@ -2,6 +2,322 @@ require "spec_helper"
 
 RSpec.describe IsoDoc::Ogc do
 
+     it "processes permission classes" do
+        FileUtils.rm_f "test.doc"
+    IsoDoc::Ogc::WordConvert.new({}).convert("test", <<~"INPUT", false)
+        <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+    <preface><foreword id="A">
+        <p id="_"><xref target="A1"/></p>
+    <permission id="A1" type="class">
+  <label>/ogc/recommendation/wfs/2</label>
+  <inherit>/ss/584/2015/level/1</inherit>
+  <inherit>/ss/584/2015/level/2</inherit>
+  <subject>user</subject>
+  <permission id="A2">
+  <label>Permission 1</label>
+  </permission>
+  <requirement id="A3">
+  <label>Requirement 1</label>
+  </requirement>
+  <recommendation id="A4">
+  <label>Recommendation 1</label>
+  </recommendation>
+</permission>
+    </foreword></preface>
+    </ogc-standard>
+    INPUT
+        expect(xmlpp(File.read("test.doc").gsub(%r{^.*<a name="A" id="A">}m, "<body xmlns:m=''><div><div><a name='A' id='A'>").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+        <body xmlns:m=''>
+         <div>
+           <div>
+             <a name='A' id='A'/>
+             <h1 class='ForewordTitle'>
+               i.
+               <span style='mso-tab-count:1'>&#xA0; </span>
+               Preface
+             </h1>
+             <p class='MsoNormal'>
+               <a name='_' id='_'/>
+               <a href='#A1'>Permission Class 1</a>
+             </p>
+             <table class='recommendclass' style='border-collapse:collapse;border-spacing:0;'>
+               <a name='A1' id='A1'/>
+               <thead>
+                 <tr>
+                   <th style='vertical-align:top;' class='recommend' colspan='2'>
+                     <p class='RecommendationTitle'>Permission Class 1:</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend' colspan='2'>
+                     <p class='MsoNormal'>/ogc/recommendation/wfs/2</p>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend'>Target Type</td>
+                   <td style='vertical-align:top;' class='recommend'>user</td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend'>Dependency</td>
+                   <td style='vertical-align:top;' class='recommend'>/ss/584/2015/level/1</td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend'>Dependency</td>
+                   <td style='vertical-align:top;' class='recommend'>/ss/584/2015/level/2</td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend' colspan='1'>
+                     <p class='MsoNormal'>Permission 1-1:</p>
+                     <td style='vertical-align:top;' class='recommend' colspan='1'>
+                       <p class='MsoNormal'>Permission 1</p>
+                     </td>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend' colspan='1'>
+                     <p class='MsoNormal'>Requirement 1-1:</p>
+                     <td style='vertical-align:top;' class='recommend' colspan='1'>
+                       <p class='MsoNormal'>Requirement 1</p>
+                     </td>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend' colspan='1'>
+                     <p class='MsoNormal'>Recommendation 1-1:</p>
+                     <td style='vertical-align:top;' class='recommend' colspan='1'>
+                       <p class='MsoNormal'>Recommendation 1</p>
+                     </td>
+                   </td>
+                 </tr>
+               </tbody>
+             </table>
+           </div>
+           <p class='MsoNormal'>&#xA0;</p>
+         </div>
+         <p class='MsoNormal'>
+           <br clear='all' class='section'/>
+         </p>
+         <div class='WordSection3'>
+           <p class='zzSTDTitle1'/>
+         </div>
+         <div style='mso-element:footnote-list'/>
+       </body>
+OUTPUT
+      end
+
+            it "processes requirement classes" do
+        FileUtils.rm_f "test.doc"
+    IsoDoc::Ogc::WordConvert.new({}).convert("test", <<~"INPUT", false)
+        <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+    <preface><foreword id="A">
+        <p id="_"><xref target="A1"/></p>
+    <requirement id="A1" type="class">
+  <label>/ogc/recommendation/wfs/2</label>
+  <inherit>/ss/584/2015/level/1</inherit>
+  <inherit>/ss/584/2015/level/2</inherit>
+  <subject>user</subject>
+  <permission id="A2">
+  <label>Permission 1</label>
+  </permission>
+  <requirement id="A3">
+  <label>Requirement 1</label>
+  </requirement>
+  <recommendation id="A4">
+  <label>Recommendation 1</label>
+  </recommendation>
+</requirement>
+    </foreword></preface>
+    </ogc-standard>
+    INPUT
+        expect(xmlpp(File.read("test.doc").gsub(%r{^.*<a name="A" id="A">}m, "<body xmlns:m=''><div><div><a name='A' id='A'>").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+               <body xmlns:m=''>
+         <div>
+           <div>
+             <a name='A' id='A'/>
+             <h1 class='ForewordTitle'>
+               i.
+               <span style='mso-tab-count:1'>&#xA0; </span>
+               Preface
+             </h1>
+             <p class='MsoNormal'>
+               <a name='_' id='_'/>
+               <a href='#A1'>Requirement Class 1</a>
+             </p>
+             <table class='recommendclass' style='border-collapse:collapse;border-spacing:0;'>
+               <a name='A1' id='A1'/>
+               <thead>
+                 <tr>
+                   <th style='vertical-align:top;' class='recommend' colspan='2'>
+                     <p class='RecommendationTitle'>Requirement Class 1:</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend' colspan='2'>
+                     <p class='MsoNormal'>/ogc/recommendation/wfs/2</p>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend'>Target Type</td>
+                   <td style='vertical-align:top;' class='recommend'>user</td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend'>Dependency</td>
+                   <td style='vertical-align:top;' class='recommend'>/ss/584/2015/level/1</td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend'>Dependency</td>
+                   <td style='vertical-align:top;' class='recommend'>/ss/584/2015/level/2</td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend' colspan='1'>
+                     <p class='MsoNormal'>Permission 1-1:</p>
+                     <td style='vertical-align:top;' class='recommend' colspan='1'>
+                       <p class='MsoNormal'>Permission 1</p>
+                     </td>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend' colspan='1'>
+                     <p class='MsoNormal'>Requirement 1-1:</p>
+                     <td style='vertical-align:top;' class='recommend' colspan='1'>
+                       <p class='MsoNormal'>Requirement 1</p>
+                     </td>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend' colspan='1'>
+                     <p class='MsoNormal'>Recommendation 1-1:</p>
+                     <td style='vertical-align:top;' class='recommend' colspan='1'>
+                       <p class='MsoNormal'>Recommendation 1</p>
+                     </td>
+                   </td>
+                 </tr>
+               </tbody>
+             </table>
+           </div>
+           <p class='MsoNormal'>&#xA0;</p>
+         </div>
+         <p class='MsoNormal'>
+           <br clear='all' class='section'/>
+         </p>
+         <div class='WordSection3'>
+           <p class='zzSTDTitle1'/>
+         </div>
+         <div style='mso-element:footnote-list'/>
+       </body>
+OUTPUT
+      end
+
+                  it "processes recommendation classes" do
+        FileUtils.rm_f "test.doc"
+    IsoDoc::Ogc::WordConvert.new({}).convert("test", <<~"INPUT", false)
+        <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+    <preface><foreword id="A">
+        <p id="_"><xref target="A1"/></p>
+    <recommendation id="A1" type="class">
+  <label>/ogc/recommendation/wfs/2</label>
+  <inherit>/ss/584/2015/level/1</inherit>
+  <inherit>/ss/584/2015/level/2</inherit>
+  <subject>user</subject>
+  <permission id="A2">
+  <label>Permission 1</label>
+  </permission>
+  <requirement id="A3">
+  <label>Requirement 1</label>
+  </requirement>
+  <recommendation id="A4">
+  <label>Recommendation 1</label>
+  </recommendation>
+</recommendation>
+    </foreword></preface>
+    </ogc-standard>
+    INPUT
+        expect(xmlpp(File.read("test.doc").gsub(%r{^.*<a name="A" id="A">}m, "<body xmlns:m=''><div><div><a name='A' id='A'>").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+        <body xmlns:m=''>
+          <div>
+            <div>
+              <a name='A' id='A'/>
+              <h1 class='ForewordTitle'>
+                i.
+                <span style='mso-tab-count:1'>&#xA0; </span>
+                Preface
+              </h1>
+              <p class='MsoNormal'>
+                <a name='_' id='_'/>
+                <a href='#A1'>Recommendation Class 1</a>
+              </p>
+              <table class='recommendclass' style='border-collapse:collapse;border-spacing:0;'>
+                <a name='A1' id='A1'/>
+                <thead>
+                  <tr>
+                    <th style='vertical-align:top;' class='recommend' colspan='2'>
+                      <p class='RecommendationTitle'>Recommendation Class 1:</p>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style='vertical-align:top;' class='recommend' colspan='2'>
+                      <p class='MsoNormal'>/ogc/recommendation/wfs/2</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style='vertical-align:top;' class='recommend'>Target Type</td>
+                    <td style='vertical-align:top;' class='recommend'>user</td>
+                  </tr>
+                  <tr>
+                    <td style='vertical-align:top;' class='recommend'>Dependency</td>
+                    <td style='vertical-align:top;' class='recommend'>/ss/584/2015/level/1</td>
+                  </tr>
+                  <tr>
+                    <td style='vertical-align:top;' class='recommend'>Dependency</td>
+                    <td style='vertical-align:top;' class='recommend'>/ss/584/2015/level/2</td>
+                  </tr>
+                  <tr>
+                    <td style='vertical-align:top;' class='recommend' colspan='1'>
+                      <p class='MsoNormal'>Permission 1-1:</p>
+                      <td style='vertical-align:top;' class='recommend' colspan='1'>
+                        <p class='MsoNormal'>Permission 1</p>
+                      </td>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style='vertical-align:top;' class='recommend' colspan='1'>
+                      <p class='MsoNormal'>Requirement 1-1:</p>
+                      <td style='vertical-align:top;' class='recommend' colspan='1'>
+                        <p class='MsoNormal'>Requirement 1</p>
+                      </td>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style='vertical-align:top;' class='recommend' colspan='1'>
+                      <p class='MsoNormal'>Recommendation 1-1:</p>
+                      <td style='vertical-align:top;' class='recommend' colspan='1'>
+                        <p class='MsoNormal'>Recommendation 1</p>
+                      </td>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class='MsoNormal'>&#xA0;</p>
+          </div>
+          <p class='MsoNormal'>
+            <br clear='all' class='section'/>
+          </p>
+          <div class='WordSection3'>
+            <p class='zzSTDTitle1'/>
+          </div>
+          <div style='mso-element:footnote-list'/>
+        </body>
+OUTPUT
+      end
+
+
   it "processes permissions" do
         FileUtils.rm_f "test.doc"
     IsoDoc::Ogc::WordConvert.new({}).convert("test", <<~"INPUT", false)
@@ -10,6 +326,7 @@ RSpec.describe IsoDoc::Ogc do
     <permission id="_">
   <label>/ogc/recommendation/wfs/2</label>
   <inherit>/ss/584/2015/level/1</inherit>
+  <inherit>/ss/584/2015/level/2</inherit>
   <subject>user</subject>
   <classification> <tag>control-class</tag> <value>Technical</value> </classification><classification> <tag>priority</tag> <value>P0</value> </classification><classification> <tag>family</tag> <value>System and Communications Protection</value> </classification><classification> <tag>family</tag> <value>System and Communications Protocols</value> </classification>
   <description>
@@ -83,6 +400,14 @@ RSpec.describe IsoDoc::Ogc do
                    <td style='vertical-align:top;' class='recommend'>Subject</td>
                    <td style='vertical-align:top;' class='recommend'>user</td>
                  </tr>
+                  <tr>
+   <td style='vertical-align:top;' class='recommend'>Dependency</td>
+   <td style='vertical-align:top;' class='recommend'>/ss/584/2015/level/1</td>
+ </tr>
+ <tr style='background:#C9C9C9;'>
+   <td style='vertical-align:top;' class='recommend'>Dependency</td>
+   <td style='vertical-align:top;' class='recommend'>/ss/584/2015/level/2</td>
+ </tr>
                  <tr>
                    <td style='vertical-align:top;' class='recommend'>Control-class</td>
                    <td style='vertical-align:top;' class='recommend'>Technical</td>
@@ -100,9 +425,6 @@ RSpec.describe IsoDoc::Ogc do
                    <td style='vertical-align:top;' class='recommend'>System and Communications Protocols</td>
                  </tr>
                  <tr>
-                   <td style='vertical-align:top;' class='recommend' colspan='2'>/ss/584/2015/level/1</td>
-                 </tr>
-                 <tr style='background:#C9C9C9;'>
                    <td style='vertical-align:top;' class='recommend' colspan='2'>
                      <p class='MsoNormal'>
                        <a name='_' id='_'/>
@@ -112,15 +434,15 @@ RSpec.describe IsoDoc::Ogc do
                      </p>
                    </td>
                  </tr>
-                 <tr>
+                 <tr style='background:#C9C9C9;'>
                    <td style='vertical-align:top;' class='recommend'>A</td>
                    <td style='vertical-align:top;' class='recommend'>B</td>
                  </tr>
-                 <tr style='background:#C9C9C9;'>
+                 <tr>
                    <td style='vertical-align:top;' class='recommend'>C</td>
                    <td style='vertical-align:top;' class='recommend'>D</td>
                  </tr>
-                 <tr>
+                 <tr style='background:#C9C9C9;'>
                    <td style='vertical-align:top;' class='recommend' colspan='2'>
                      <p class='MsoNormal'>
                        <a name='_' id='_'/>
@@ -157,7 +479,7 @@ RSpec.describe IsoDoc::Ogc do
                      </div>
                    </td>
                  </tr>
-                 <tr style='background:#C9C9C9;'>
+                 <tr>
                    <td style='vertical-align:top;' class='recommend' colspan='2'>
                      <p class='MsoNormal'>
                        <a name='_' id='_'/>
@@ -277,6 +599,10 @@ RSpec.describe IsoDoc::Ogc do
                    <td style='vertical-align:top;' class='recommend'>user</td>
                  </tr>
                  <tr>
+  <td style='vertical-align:top;' class='recommend'>Dependency</td>
+  <td style='vertical-align:top;' class='recommend'>/ss/584/2015/level/1</td>
+</tr>
+                 <tr>
                    <td style='vertical-align:top;' class='recommend'>Control-class</td>
                    <td style='vertical-align:top;' class='recommend'>Technical</td>
                  </tr>
@@ -291,9 +617,6 @@ RSpec.describe IsoDoc::Ogc do
                  <tr>
                    <td style='vertical-align:top;' class='recommend'>Family</td>
                    <td style='vertical-align:top;' class='recommend'>System and Communications Protocols</td>
-                 </tr>
-                 <tr>
-                   <td style='vertical-align:top;' class='recommend' colspan='2'>/ss/584/2015/level/1</td>
                  </tr>
                  <tr>
                    <td style='vertical-align:top;' class='recommend' colspan='2'>
@@ -469,7 +792,8 @@ INPUT
                    <td style='vertical-align:top;' class='recommend'>user</td>
                  </tr>
                  <tr>
-                   <td style='vertical-align:top;' class='recommend' colspan='2'>/ss/584/2015/level/1</td>
+                 <td style='vertical-align:top;' class='recommend'>Dependency</td>
+<td style='vertical-align:top;' class='recommend'>/ss/584/2015/level/1</td>
                  </tr>
                  <tr style='background:#C9C9C9;'>
                    <td style='vertical-align:top;' class='recommend' colspan='2'>
@@ -645,7 +969,8 @@ INPUT
                    <td style='vertical-align:top;' class='recommend'>user</td>
                  </tr>
                  <tr>
-                   <td style='vertical-align:top;' class='recommend' colspan='2'>/ss/584/2015/level/1</td>
+                 <td style='vertical-align:top;' class='recommend'>Dependency</td>
+<td style='vertical-align:top;' class='recommend'>/ss/584/2015/level/1</td>
                  </tr>
                  <tr style='background:#C9C9C9;'>
                    <td style='vertical-align:top;' class='recommend' colspan='2'>
