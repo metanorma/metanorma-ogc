@@ -23,7 +23,7 @@ RSpec.describe Asciidoctor::Ogc do
 </ogc-standard>
     OUTPUT
 
-    expect(xmlpp(Asciidoctor.convert(input, backend: :ogc, header_footer: true))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :ogc, header_footer: true)))).to be_equivalent_to output
   end
 
   it "converts a blank document" do
@@ -41,7 +41,7 @@ RSpec.describe Asciidoctor::Ogc do
     OUTPUT
 
     FileUtils.rm_f "test.html"
-    expect(xmlpp(Asciidoctor.convert(input, backend: :ogc, header_footer: true))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :ogc, header_footer: true)))).to be_equivalent_to output
     expect(File.exist?("test.html")).to be true
   end
 
@@ -182,11 +182,12 @@ RSpec.describe Asciidoctor::Ogc do
          </editorialgroup>
         </ext>
        </bibdata>
+    #{BOILERPLATE.sub(/#{Date.today.year} Open Geospatial Consortium/, "2001 Open Geospatial Consortium").sub(%r{<title>Warning</title>}, "<title>Warning for Drafts</title>").sub(/This document is an OGC Member approved international standard. This document is available on a royalty free, non-discriminatory basis\. Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation\./, "This document is not an OGC Standard. This document is distributed for review and comment. This document is subject to change without notice and may not be referred to as an OGC Standard.</p><p id='_'>Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation.")}
        <sections/>
        </ogc-standard>
     OUTPUT
 
-    expect(xmlpp(Asciidoctor.convert(input, backend: :ogc, header_footer: true))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :ogc, header_footer: true)))).to be_equivalent_to output
   end
 
     it "processes OGC synonyms for default metadata" do
@@ -296,10 +297,11 @@ RSpec.describe Asciidoctor::Ogc do
          <doctype>engineering-report</doctype>
          </ext>
        </bibdata>
+    #{BOILERPLATE.sub(/#{Date.today.year} Open Geospatial Consortium/, "2001 Open Geospatial Consortium").sub(%r{<title>Warning</title>}, "<title>Warning for Drafts</title>").sub(/This document is an OGC Member approved international standard. This document is available on a royalty free, non-discriminatory basis\. Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation\./, "This document is not an OGC Standard. This document is distributed for review and comment. This document is subject to change without notice and may not be referred to as an OGC Standard.</p><p id='_'>Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation.").sub(%r{<feedback-statement>.*</feedback-statement>}m, "")}
        <sections/>
        </ogc-standard>
 OUTPUT
-    expect(xmlpp(Asciidoctor.convert(input, backend: :ogc, header_footer: true))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :ogc, header_footer: true)))).to be_equivalent_to output
   end
 
   it "processes submitters" do
@@ -343,6 +345,7 @@ OUTPUT
   <docsubtype>implementation</docsubtype>
   </ext>
 </bibdata>
+#{BOILERPLATE}
 <preface><foreword obligation="informative"><title>Foreword</title><p id="_">This is a preamble</p></foreword>
 <submitters id="_">
   <p id="_">Clause 2</p>
@@ -392,6 +395,7 @@ OUTPUT
   <docsubtype>implementation</docsubtype>
   </ext>
 </bibdata>
+#{BOILERPLATE}
 <sections>
 
 

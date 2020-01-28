@@ -482,7 +482,7 @@ RSpec.describe IsoDoc::Ogc do
 </ogc-standard>
     OUTPUT
 
-    expect(xmlpp(Asciidoctor.convert(input, backend: :ogc, header_footer: true))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :ogc, header_footer: true)))).to be_equivalent_to output
     html = File.read("test.html", encoding: "utf-8")
     expect(html).to match(%r{jquery\.min\.js})
     expect(html).to match(%r{Overpass})
