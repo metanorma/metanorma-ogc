@@ -37,7 +37,7 @@ RSpec.describe Metanorma::Ogc::Processor do
 </ogc-standard>
     OUTPUT
 
-    expect(xmlpp(processor.input_to_isodoc(input, nil))).to be_equivalent_to xmlpp(output)
+    expect(xmlpp(strip_guid(processor.input_to_isodoc(input, nil)))).to be_equivalent_to (xmlpp(output))
   end
 
   it "generates HTML from IsoDoc XML" do

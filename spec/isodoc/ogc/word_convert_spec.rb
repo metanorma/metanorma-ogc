@@ -1099,6 +1099,7 @@ FileUtils.rm_f "test.doc"
     word = File.read("test.doc").sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">').
       sub(%r{^.*<p class="zzContents" style="margin-top:0cm">}m, "<div><p class='zzContents' style='margin-top:0cm'>").
       sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
+      #sub(%r{<p class="MsoNormal">\s*\&#xA0;\s*</p>\s*</div>\s*$}, "")
     expect(xmlpp(word.gsub(/_Toc\d\d+/, "_Toc"))).to be_equivalent_to xmlpp(<<~'OUTPUT')
     <div>
          <p class='zzContents' style='margin-top:0cm'>
