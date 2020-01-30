@@ -127,6 +127,7 @@ module IsoDoc
         body.div **{ class: "WordSection2" } do |div2|
           @prefacenum = 0
           info docxml, div2
+          boilerplate docxml, div2
           abstract docxml, div2
           keywords docxml, div2
           foreword docxml, div2
@@ -141,6 +142,14 @@ module IsoDoc
       def word_cleanup(docxml)
         word_recommend_cleanup(docxml)
         super
+        word_license_cleanup(docxml)
+        docxml
+      end
+
+      def word_license_cleanup(docxml)
+        docxml.xpath("//div[@class = 'license']//p[not(@class)]").each do |p|
+          p["class"] = "license"
+        end
       end
 
       def word_recommend_cleanup(docxml)
@@ -154,6 +163,11 @@ module IsoDoc
           each_slice(2) do |tr1, tr2|
           tr2 && style_update(tr2, "background:#C9C9C9;")
         end
+      end
+
+      def authority_cleanup(docxml)
+        docxml&.at("//div[@id = 'boilerplate-contact']")&.remove
+        super
       end
 
       include BaseConvert

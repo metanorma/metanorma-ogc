@@ -89,81 +89,9 @@
   </div>
 </div>
 
-{% if stage == "Published" or stage == "Withdrawn" %}
-{% if doctype == "Standard" or doctype == "Standard With Suite" %}
   <div class="coverpage-warning">
-    <span class="title">Warning</span>
-    <p class="content">This document is an OGC Member approved international standard. This document is available on a royalty free, non-discriminatory basis. Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation.
-    </p>
+    <div id="boilerplate-legal-destination"/>
  </div>
-{% endif %}
-
-{% if doctype == "Discussion Paper" %}
-  <div class="coverpage-warning">
-    <span class="title">Warning</span>
-    <p class="content">This document is not an OGC Standard. This document is an OGC Discussion Paper and is therefore <i>not an official position</i> of the OGC membership. It is distributed for review and comment. It is subject to change without notice and may not be referred to as an OGC Standard. Further, an OGC Discussion Paper should not be referenced as required or mandatory technology in procurements.
-    </p>
- </div>
-{% endif %}
-
-
-{% if doctype == "Engineering Report" %}
-  <div class="coverpage-warning">
-    <span class="title">Warning</span>
-    <p class="content">This document is not an OGC Standard. This document is an OGC Public Engineering Report created as a deliverable in an OGC Interoperability Initiative and is <i>not an official position</i> of the OGC membership. It is distributed for review and comment. It is subject to change without notice and may not be referred to as an OGC Standard. Further, any OGC Engineering Report should not be referenced as required or mandatory technology in procurements.
-    </p>
- </div>
-{% endif %}
-
-
-{% if doctype == "Best Practice" %}
-  <div class="coverpage-warning">
-    <span class="title">Warning</span>
-    <p class="content">This document defines an OGC Best Practices on a particular technology or approach related to an OGC standard. This document is <i>not</i> an OGC Standard and may not be referred to as an OGC Standard. It is subject to change without notice. However, this document is an <i>official</i> position of the OGC membership on this particular technology topic.
-    </p>
- </div>
-{% endif %}
-
-{% if doctype == "Policy" %}
-  <div class="coverpage-warning">
-    <span class="title">Warning</span>
-    <p class="content">This document is an OGC Policies and Procedures Document. The document is subject to change based on membership requirements and motions. Please note that the OGC <a href="http://www.opengeospatial.org/ogc/policies/directives">Policies Related to OGC Standards</a> should be also be read.
-    </p>
- </div>
-{% endif %}
-
-{% else %}
-  <div class="coverpage-warning">
-    <span class="title">Warning for Drafts</span>
-
-    {% if doctype == "Standard" or doctype == "Standard With Suite" %}
-    <p class="content">This document is not an OGC Standard. This document is distributed for review and comment. This document is subject to change without notice and may not be referred to as an OGC Standard.</p>
-
-<p class="content">Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation.</p>
-    {% endif %}
-
-    {% if doctype == "Best Practice" %}
-    <p class="content">This document defines an OGC Best Practice on a particular technology or approach related to an OGC standard. This document is not an OGC Standard and may not be referred to as an OGC Standard. It is subject to change without notice. However, this document is an official position of the OGC membership on this particular technology topic.
-
-<p class="content">Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation.</p>
-    {% endif %}
-
-    {% if doctype == "Discussion Paper" %}
-    <p class="content">This document is not an OGC Standard. This document is an OGC Discussion Paper and is therefore not an official position of the OGC membership. It is distributed for review and comment. It is subject to change without notice and may not be referred to as an OGC Standard. Further, an OGC Discussion Paper should not be referenced as required or mandatory technology in procurements.</p>
-    {% endif %}
-
-    {% if doctype == "White Paper" %}
-    <p class="content">This document is not an OGC Standard. This document is an OGC White Paper and is therefore not an official position of the OGC membership. It is distributed for review and comment. It is subject to change without notice and may not be referred to as an OGC Standard. Further, an OGC White Paper should not be referenced as required or mandatory technology in procurements.</p>
-    {% endif %}
-
-    {% if doctype == "Release Notes" %}
-    <p class="content">This document is not an OGC standard. This document provides release notes for an OGC standard. This document is subject to change without notice and may not be referred to as an OGC Standard.
-
-<p class="content">Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation.</p>
-    {% endif %}
-
-  </div>
-{% endif %}
 
 <div class="docstage-box">
   <table>
@@ -176,27 +104,10 @@
 
 <div class="info-section">
 <div class="copyright">
-  <p><b>Copyright notice</b></p>
-  <p class="year">
-    Copyright &copy; {{ docyear }} Open Geospatial Consortium
-  </p>
-
-  <p class="message">
-    To obtain additional rights of use, visit <a href="http://www.opengeospatial.org/legal/">http://www.opengeospatial.org/legal/</a>.
-  </p>
+  <div id="boilerplate-copyright-destination"/>
 
 <div class="contact-info">
-  <p class="name">Open Geospatial Consortium</p>
-  <p class="address">
-    35 Main Street<br />
-    Suite 5<br />
-    Wayland<br />
-    MA, 01778<br />
-    United States of America<br />
-    <br />
-    <a href="mailto:copyright@opengeospatial.org">copyright@opengeospatial.org</a><br />
-    <a href="www.opengeospatial.org">www.opengeospatial.org</a>
-  </p>
+  <div id="boilerplate-contact-destination"/>
 </div>
 </div>
 

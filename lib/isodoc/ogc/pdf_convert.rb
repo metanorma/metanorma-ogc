@@ -69,6 +69,7 @@ module IsoDoc
       def make_body3(body, docxml)
         body.div **{ class: "main-section" } do |div3|
           @prefacenum = 0
+          boilerplate docxml, div3
           abstract docxml, div3
           keywords docxml, div3
           foreword docxml, div3
@@ -79,6 +80,11 @@ module IsoDoc
           footnotes div3
           comments div3
         end
+      end
+
+       def authority_cleanup(docxml)
+        authority_cleanup1(docxml, "boilerplate-contact")
+        super
       end
 
       include BaseConvert
