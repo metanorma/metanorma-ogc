@@ -1,0 +1,190 @@
+<boilerplate>
+  <copyright-statement>
+    <clause>
+      <title>Copyright notice</title>
+
+      <p align="center">Copyright
+        © {{ docyear }} Open Geospatial Consortium<br/>
+        To obtain additional rights of use, visit 
+        <link target="http://www.opengeospatial.org/legal/">http://www.opengeospatial.org/legal/</link></p>
+    </clause>
+  </copyright-statement>
+  <license-statement>
+    <clause>
+      <title>License Agreement</title>
+
+      <p>Permission is hereby granted by the Open Geospatial
+        Consortium, ("Licensor"), free of charge and subject to the terms set
+        forth below, to any person obtaining a copy of this Intellectual Property and
+        any associated documentation, to deal in the Intellectual Property without
+        restriction (except as set forth below), including without limitation the
+        rights to implement, use, copy, modify, merge, publish, distribute, and/or
+        sublicense copies of the Intellectual Property, and to permit persons to whom
+        the Intellectual Property is furnished to do so, provided that all copyright notices
+        on the intellectual property are retained intact and that each person to whom
+        the Intellectual Property is furnished agrees to the terms of this Agreement.</p>
+
+      <p>If you modify the Intellectual Property, all copies of
+        the modified Intellectual Property must include, in addition to the above
+        copyright notice, a notice that the Intellectual Property includes
+        modifications that have not been approved or adopted by LICENSOR.</p>
+
+      <p>THIS LICENSE IS A COPYRIGHT LICENSE ONLY, AND DOES NOT
+        CONVEY ANY RIGHTS UNDER ANY PATENTS THAT MAY BE IN FORCE ANYWHERE IN THE WORLD.</p>
+
+      <p>THE INTELLECTUAL PROPERTY IS PROVIDED "AS
+        IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+        LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE,
+        AND NONINFRINGEMENT OF THIRD PARTY RIGHTS. THE COPYRIGHT HOLDER OR HOLDERS
+        INCLUDED IN THIS NOTICE DO NOT WARRANT THAT THE FUNCTIONS CONTAINED IN THE
+        INTELLECTUAL PROPERTY WILL MEET YOUR REQUIREMENTS OR THAT THE OPERATION OF THE
+        INTELLECTUAL PROPERTY WILL BE UNINTERRUPTED OR ERROR FREE. ANY USE OF THE
+        INTELLECTUAL PROPERTY SHALL BE MADE ENTIRELY AT THE USER’S OWN RISK. IN NO
+        EVENT SHALL THE COPYRIGHT HOLDER OR ANY CONTRIBUTOR OF INTELLECTUAL PROPERTY
+        RIGHTS TO THE INTELLECTUAL PROPERTY BE LIABLE FOR ANY CLAIM, OR ANY DIRECT,
+        SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES, OR ANY DAMAGES WHATSOEVER RESULTING
+        FROM ANY ALLEGED INFRINGEMENT OR ANY LOSS OF USE, DATA OR PROFITS, WHETHER IN
+        AN ACTION OF CONTRACT, NEGLIGENCE OR UNDER ANY OTHER LEGAL THEORY, ARISING OUT
+        OF OR IN CONNECTION WITH THE IMPLEMENTATION, USE, COMMERCIALIZATION OR
+        PERFORMANCE OF THIS INTELLECTUAL PROPERTY.</p>
+
+      <p>This license is effective until terminated. You may
+        terminate it at any time by destroying the Intellectual Property together with
+        all copies in any form. The license will also terminate if you fail to comply
+        with any term or condition of this Agreement. Except as provided in the
+        following sentence, no such termination of this license shall require the
+        termination of any third party end-user sublicense to the Intellectual Property
+        which is in force as of the date of notice of such termination. In addition,
+        should the Intellectual Property, or the operation of the Intellectual
+        Property, infringe, or in LICENSOR’s sole opinion be
+        likely to infringe, any patent, copyright, trademark or other right of a third
+        party, you agree that LICENSOR, in its sole discretion, may terminate this
+        license without any compensation or liability to you, your licensees or any
+        other party. You agree upon termination of any kind to destroy or cause to be
+        destroyed the Intellectual Property together with all copies in any form,
+        whether held by you or by any third party.</p>
+
+      <p>Except as contained in this notice, the name of
+        LICENSOR or of any other holder of a copyright in all or part of the Intellectual
+        Property shall not be used in advertising or otherwise to promote the sale, use
+        or other dealings in this Intellectual Property without prior written
+        authorization of LICENSOR or such copyright holder. LICENSOR is and shall at
+        all times be the sole entity that may authorize you or any third party to use
+        certification marks, trademarks or other special designations to indicate
+        compliance with any LICENSOR standards or specifications. This Agreement is
+        governed by the laws of the Commonwealth of Massachusetts. The application to
+        this Agreement of the United Nations Convention on Contracts for the
+        International Sale of Goods is hereby expressly excluded. In the event any
+        provision of this Agreement shall be deemed unenforceable, void or invalid, such
+        provision shall be modified so as to make it valid and enforceable, and as so
+        modified the entire Agreement shall remain in full force and effect. No
+        decision, action or inaction by LICENSOR shall be construed to be a waiver of
+        any rights or remedies available to it.</p>
+    </clause>
+  </license-statement>
+
+  <legal-statement>
+    {% if stage == "Published" or stage == "Withdrawn" %}
+    {% if doctype == "Standard" or doctype == "Community Standard" %}
+    <clause>
+      <title>Warning</title>
+      <p>This document is an OGC Member approved international standard. This document is available on a royalty free, non-discriminatory basis. Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation.
+      </p>
+    </clause>
+
+    {% elsif doctype == "Discussion Paper" %}
+    <clause>
+      <title>Warning</title>
+      <p>This document is not an OGC Standard. This document is an OGC Discussion Paper and is therefore <em>not an official position</em> of the OGC membership. It is distributed for review and comment. It is subject to change without notice and may not be referred to as an OGC Standard. Further, an OGC Discussion Paper should not be referenced as required or mandatory technology in procurements.
+      </p>
+    </clause>
+
+
+    {% elsif doctype == "Engineering Report" %}
+    <clause>
+      <title>Warning</title>
+      <p>This document is not an OGC Standard. This document is an OGC Public Engineering Report created as a deliverable in an OGC Interoperability Initiative and is <em>not an official position</em> of the OGC membership. It is distributed for review and comment. It is subject to change without notice and may not be referred to as an OGC Standard. Further, any OGC Engineering Report should not be referenced as required or mandatory technology in procurements.
+      </p>
+    </clause>
+
+
+    {% elsif doctype == "Best Practice" %}
+    <clause>
+      <title>Warning</title>
+      <p>This document defines an OGC Best Practices on a particular technology or approach related to an OGC standard. This document is <em>not</em> an OGC Standard and may not be referred to as an OGC Standard. It is subject to change without notice. However, this document is an <em>official</em> position of the OGC membership on this particular technology topic.
+      </p>
+    </clause>
+
+    {% elsif doctype == "Policy" %}
+    <clause>
+      <title>Warning</title>
+      <p>This document is an OGC Policies and Procedures Document. The document is subject to change based on membership requirements and motions. Please note that the OGC <link target="http://www.opengeospatial.org/ogc/policies/directives">Policies Related to OGC Standards</link> should be also be read.
+      </p>
+    </clause>
+    {% else %}
+    <clause>
+      <title>Warning</title>
+      <p>This document is published by OGC. 
+      </p>
+    </clause>
+    {% endif %}
+
+    {% else %}
+    <clause>
+      <title>Warning for Drafts</title>
+
+      {% if doctype == "Standard" or doctype == "Standard With Suite" %}
+      <p>This document is not an OGC Standard. This document is distributed for review and comment. This document is subject to change without notice and may not be referred to as an OGC Standard.</p>
+
+      <p>Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation.</p>
+
+      {% elsif doctype == "Best Practice" %}
+      <p>This document defines an OGC Best Practice on a particular technology or approach related to an OGC standard. This document is not an OGC Standard and may not be referred to as an OGC Standard. It is subject to change without notice. However, this document is an official position of the OGC membership on this particular technology topic.</p>
+
+      <p>Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation.</p>
+
+      {% elsif doctype == "Discussion Paper" %}
+      <p>This document is not an OGC Standard. This document is an OGC Discussion Paper and is therefore not an official position of the OGC membership. It is distributed for review and comment. It is subject to change without notice and may not be referred to as an OGC Standard. Further, an OGC Discussion Paper should not be referenced as required or mandatory technology in procurements.</p>
+
+      {% elsif doctype == "White Paper" %}
+      <p>This document is not an OGC Standard. This document is an OGC White Paper and is therefore not an official position of the OGC membership. It is distributed for review and comment. It is subject to change without notice and may not be referred to as an OGC Standard. Further, an OGC White Paper should not be referenced as required or mandatory technology in procurements.</p>
+
+      {% elsif doctype == "Release Notes" %}
+      <p>This document is not an OGC standard. This document provides release notes for an OGC standard. This document is subject to change without notice and may not be referred to as an OGC Standard.</p>
+
+      <p>Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation.</p>
+
+      {% else %}
+       <p>This document is not an OGC Standard. This document is distributed for review and comment. This document is subject to change without notice and may not be referred to as an OGC Standard.</p>
+
+      <p>Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation.</p>
+      {% endif %}
+
+    </clause>
+    {% endif %}
+  </legal-statement>
+
+
+
+
+  {% if doctype == "Standard" or doctype == "Community Standard" %}
+  <feedback-statement>
+    <clause>
+      <p>Suggested additions, changes and comments on this standard are welcome and encouraged. Such suggestions may be submitted using the online change request form on OGC web site: <link target="http://portal.opengeospatial.org/public_ogc/change_request.php">http://portal.opengeospatial.org/public_ogc/change_request.php</link></p>
+    </clause>
+    <clause id="boilerplate-contact">
+      <p id="boilerplate-name">Open Geospatial Consortium</p>
+  <p id="boilerplate-address" align="left">
+    35 Main Street<br />
+    Suite 5<br />
+    Wayland<br />
+    MA, 01778<br />
+    United States of America<br />
+    <br />
+    <link target="mailto:copyright@opengeospatial.org">copyright@opengeospatial.org</link><br />
+    <link target="www.opengeospatial.org">www.opengeospatial.org</link>
+  </p>
+    </clause>
+  </feedback-statement>
+  {% endif %}
+</boilerplate>
