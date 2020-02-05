@@ -83,7 +83,7 @@ module IsoDoc
       end
 
        def authority_cleanup(docxml)
-        authority_cleanup1(docxml, "boilerplate-contact")
+        authority_cleanup1(docxml, "contact")
         super
       end
 

@@ -13,8 +13,6 @@ module IsoDoc
       def initialize(options)
         @libdir = File.dirname(__FILE__)
         super
-        #FileUtils.cp html_doc_path('logo.jpg'), "logo.jpg"
-        #@files_to_delete << "logo.jpg"
       end
 
       def default_fonts(options)
@@ -81,7 +79,7 @@ module IsoDoc
       end
 
       def authority_cleanup(docxml)
-        authority_cleanup1(docxml, "boilerplate-contact")
+        authority_cleanup1(docxml, "contact")
         super
       end
 
