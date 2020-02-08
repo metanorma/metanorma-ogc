@@ -6,11 +6,12 @@ require_relative "validate"
 
 module Asciidoctor
   module Ogc
-
     # A {Converter} implementation that generates RSD output, and a document
     # schema encapsulation of the document for validation
     #
     class Converter < Standoc::Converter
+      XML_ROOT_TAG = "ogc-standard".freeze
+      XML_NAMESPACE = "https://www.metanorma.com/ns/ogc".freeze
 
       register_for "ogc"
 
@@ -19,16 +20,8 @@ module Asciidoctor
       end
 
       def makexml(node)
-        result = ["<?xml version='1.0' encoding='UTF-8'?>\n<ogc-standard>"]
         @draft = node.attributes.has_key?("draft")
-        result << noko { |ixml| front node, ixml }
-        result << noko { |ixml| middle node, ixml }
-        result << "</ogc-standard>"
-        result = textcleanup(result)
-        ret1 = cleanup(Nokogiri::XML(result))
-        validate(ret1) unless @novalid
-        ret1.root.add_namespace(nil, Metanorma::Ogc::DOCUMENT_NAMESPACE)
-        ret1
+        super
       end
 
       def doctype(node)
