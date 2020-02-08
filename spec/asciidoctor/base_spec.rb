@@ -94,7 +94,7 @@ RSpec.describe Asciidoctor::Ogc do
     INPUT
 
     output = xmlpp(<<~"OUTPUT")
-       <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+       <ogc-standard xmlns="https://www.metanorma.com/ns/ogc">
        <bibdata type="standard">
          <title language="en" format="text/plain">Main Title</title>
          <uri>http://www.example.com</uri>
@@ -223,7 +223,7 @@ RSpec.describe Asciidoctor::Ogc do
     INPUT
 
     output = xmlpp(<<~"OUTPUT")
-           <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+           <ogc-standard xmlns="https://www.metanorma.com/ns/ogc">
        <bibdata type="standard">
          <title language="en" format="text/plain">Main Title</title>
          <uri>http://www.example.com</uri>
@@ -320,7 +320,7 @@ OUTPUT
     INPUT
 
     output = xmlpp(<<~"OUTPUT")
-    <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+    <ogc-standard xmlns="https://www.metanorma.com/ns/ogc">
 <bibdata type="standard">
  <title language="en" format="text/plain">Document title</title>
   <contributor>
@@ -370,7 +370,7 @@ OUTPUT
       INPUT
 
           output = xmlpp(<<~"OUTPUT")
-          <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+          <ogc-standard xmlns="https://www.metanorma.com/ns/ogc">
 <bibdata type="standard">
 <title language="en" format="text/plain">Document title</title>
   <contributor>
