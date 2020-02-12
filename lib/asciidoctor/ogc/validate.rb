@@ -24,6 +24,7 @@ module Asciidoctor
       def section_validate(doc)
         preface_sequence_validate(doc.root)
         sections_sequence_validate(doc.root)
+        super
       end
 
       STANDARDTYPE = %w{standard standard-with-suite abstract-specification
