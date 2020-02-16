@@ -33,6 +33,13 @@ body {
   @include sidebarNavContainer(360px);
 }
 
+// Scroll too wide source code
+dl {
+  grid-template-columns: minmax(0, 1fr) 93%;
+  pre {
+    overflow-x: scroll;
+  }
+}
 
 #toc {
   @include toc($colorLink: #00335b, $colorLinkActiveBg: #00335b, $colorLinkActiveFg: white);
@@ -227,7 +234,7 @@ ul {
 
     &:before {
       content: "\2014";
-      display: inline-block; 
+      display: inline-block;
       width: 1em;
       margin-left: -1em;
     }
