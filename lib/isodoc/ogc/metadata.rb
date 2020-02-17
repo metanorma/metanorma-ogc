@@ -32,9 +32,6 @@ module IsoDoc
         set(:externalid, isoxml&.at(ns("//bibdata/docidentifier[@type = 'ogc-external']"))&.text)
       end
 
-      def status_abbr(status)
-      end
-
       def keywords(isoxml, _out)
         keywords = []
         isoxml.xpath(ns("//bibdata/keyword | //bibdata/ext/keyword")).each do |kw|
