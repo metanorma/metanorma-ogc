@@ -11,7 +11,7 @@ module Asciidoctor
     #
     class Converter < Standoc::Converter
       XML_ROOT_TAG = "ogc-standard".freeze
-      XML_NAMESPACE = "https://www.metanorma.com/ns/ogc".freeze
+      XML_NAMESPACE = "https://www.metanorma.org/ns/ogc".freeze
 
       register_for "ogc"
 
