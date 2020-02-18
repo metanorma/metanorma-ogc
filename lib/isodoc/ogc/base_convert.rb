@@ -33,11 +33,13 @@ module IsoDoc
           x = t.at("./thead") and x.replace(x.children)
           x = t.at("./tbody") and x.replace(x.children)
           x = t.at("./tfoot") and x.replace(x.children)
-          if x = t.at("./tr/th[@colspan = '2']") and y = t.at("./tr/td[@colspan = '2']")
+          if x = t.at("./tr/th[@colspan = '2']") and
+              y = t.at("./tr/td[@colspan = '2']")
             x["colspan"] = "1"
             y["colspan"] = "1"
             x.name = "td"
-            p = x.at("./p[@class = 'RecommendationTitle']") and p.delete("class")
+            p = x.at("./p[@class = 'RecommendationTitle']") and
+              p.delete("class")
             x << y.dup
             y.parent.remove
           end
@@ -103,10 +105,23 @@ module IsoDoc
 
       def submitters(docxml, out)
         f = docxml.at(ns("//submitters")) || return
+        @prefacenum += 1
         out.div **{ class: "Section3" } do |div|
           clause_name(anchor(f['id'], :label), "Submitters", div,
                       class: "IntroTitle")
           f.elements.each { |e| parse(e, div) unless e.name == "title" }
+        end
+      end
+
+      def preface(isoxml, out)
+        title_attr = { class: "IntroTitle" }
+        isoxml.xpath(ns("//preface/clause")).each do |f|
+          @prefacenum += 1
+          out.div **{ class: "Section3", id: f["id"] } do |div|
+            clause_name(RomanNumerals.to_roman(@prefacenum).downcase,
+                        f&.at(ns("./title")), div, title_attr)
+            f.elements.each { |e| parse(e, div) unless e.name == "title" }
+          end
         end
       end
 
@@ -116,8 +131,8 @@ module IsoDoc
         @anchors[clause["id"]] =
           { label: RomanNumerals.to_roman(@prefacenum).downcase,
             level: 1, xref: preface_clause_name(clause), type: "clause" }
-        clause.xpath(ns("./clause | ./terms | ./term | ./definitions | ./references")).
-          each_with_index do |c, i|
+        clause.xpath(ns("./clause | ./terms | ./term | ./definitions | "\
+                        "./references")).each_with_index do |c, i|
           section_names1(c, "#{@prefacenum}.#{i + 1}", 2)
         end
       end
@@ -145,16 +160,14 @@ module IsoDoc
       end
 
       def acknowledgements(isoxml, out)
-      f = isoxml.at(ns("//acknowledgements")) || return
+        f = isoxml.at(ns("//acknowledgements")) || return
         @prefacenum += 1
-      page_break(out)
-      out.div **{ class: "Section3", id: f["id"] } do |div|
-        clause_name(anchor(f["id"], :label), f&.at(ns("./title")), div, class: "IntroTitle")
-        f.elements.each do |e|
-          parse(e, div) unless e.name == "title"
+        out.div **{ class: "Section3", id: f["id"] } do |div|
+          clause_name(anchor(f["id"], :label), f&.at(ns("./title")), div,
+                      class: "IntroTitle")
+          f.elements.each { |e| parse(e, div) unless e.name == "title" }
         end
       end
-    end
 
       def example_parse(node, out)
         name = node.at(ns("./name"))
@@ -170,6 +183,9 @@ module IsoDoc
         preface_names_numbered(d.at(ns("//introduction")))
         @prefacenum += 1 if d.at(ns(SUBMITTINGORGS))
         preface_names_numbered(d.at(ns("//submitters")))
+        d.xpath(ns("//preface/clause")).each do |c|
+          preface_names_numbered(c)
+        end
         preface_names_numbered(d.at(ns("//acknowledgements")))
         sequential_asset_names(d.xpath(ns(
           "//preface/abstract | //foreword | //introduction | "\
@@ -179,8 +195,9 @@ module IsoDoc
         n = section_names(d.at(ns(
           "//references[title = 'Normative References' or "\
           "title = 'Normative references']")), n, 1)
-        n = section_names(d.at(ns("//sections/terms | "\
-                                  "//sections/clause[descendant::terms]")), n, 1)
+        n = section_names(
+          d.at(ns("//sections/terms | //sections/clause[descendant::terms]")),
+          n, 1)
         n = section_names(d.at(ns("//sections/definitions")), n, 1)
         middle_section_asset_names(d)
         clause_names(d, n)
@@ -194,11 +211,10 @@ module IsoDoc
 
       def middle_section_asset_names(d)
         middle_sections = "//clause[title = 'Scope' or title = 'Conformance'] "\
-          "| //foreword | //introduction | "\
-          "//preface/abstract | //submitters | //acknowledgements | //preface/clause | "\
+          "| //foreword | //introduction | //preface/abstract | "\
+          "//submitters | //acknowledgements | //preface/clause | "\
           "//references[title = 'Normative References' or title = "\
-          "'Normative references'] | "\
-          "//sections/terms | "\
+          "'Normative references'] | //sections/terms | "\
           "//sections/definitions | //clause[parent::sections]"
         sequential_asset_names(d.xpath(ns(middle_sections)))
       end
@@ -208,9 +224,7 @@ module IsoDoc
         out.div **attr_code(id: f["id"]) do |div|
           num = num + 1
           clause_name(num, "Conformance", div, nil)
-          f.elements.each do |e|
-            parse(e, div) unless e.name == "title"
-          end
+          f.elements.each { |e| parse(e, div) unless e.name == "title" }
         end
         num
       end

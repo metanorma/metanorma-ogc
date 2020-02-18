@@ -76,6 +76,7 @@ module IsoDoc
           introduction docxml, div3
           submittingorgs docxml, div3
           submitters docxml, div3
+          preface docxml, div3
           acknowledgements docxml, div3
           middle docxml, div3
           footnotes div3

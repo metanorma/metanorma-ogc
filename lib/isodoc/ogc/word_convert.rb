@@ -134,6 +134,7 @@ module IsoDoc
           introduction docxml, div2
           submittingorgs docxml, div2
           submitters docxml, div2
+          preface docxml, div2
           acknowledgements docxml, div2
           div2.p { |p| p << "&nbsp;" } # placeholder
         end
