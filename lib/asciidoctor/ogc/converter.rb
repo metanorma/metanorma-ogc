@@ -26,10 +26,13 @@ module Asciidoctor
 
       def doctype(node)
         d = node.attr("doctype")
-        unless %w{abstract-specification-topic best-practice change-request-supporting-document 
-          community-practice community-standard discussion-paper engineering-report other policy 
-          reference-model release-notes standard user-guide white-paper test-suite}.include? d
-          warn "'#{d}' is not a legal document type: reverting to 'standard'" unless @warned_doctype
+        unless %w{abstract-specification-topic best-practice 
+          change-request-supporting-document community-practice 
+          community-standard discussion-paper engineering-report other policy 
+          reference-model release-notes standard user-guide white-paper 
+          test-suite}.include? d
+          @warned_doctype or
+            warn "'#{d}' is not a legal document type: reverting to 'standard'"
           @warned_doctype = true
           d = "standard"
         end
@@ -68,7 +71,8 @@ module Asciidoctor
       def make_preface(x, s)
         super
         if x.at("//submitters")
-          preface = s.at("//preface") || s.add_previous_sibling("<preface/>").first
+          preface = s.at("//preface") || 
+            s.add_previous_sibling("<preface/>").first
           submitters = x.at("//submitters").remove
           preface.add_child submitters.remove
         end

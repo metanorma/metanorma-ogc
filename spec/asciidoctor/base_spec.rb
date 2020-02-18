@@ -312,6 +312,8 @@ OUTPUT
       [abstract]
       Abstract
 
+      == Acknowledgements
+
       == Clause
       Clause 1
 
@@ -347,6 +349,9 @@ OUTPUT
 </bibdata>
 #{BOILERPLATE}
 <preface><foreword obligation="informative"><title>Foreword</title><p id="_">This is a preamble</p></foreword>
+<acknowledgements id='_' obligation='informative'>
+  <title>Acknowledgements</title>
+</acknowledgements>
 <submitters id="_">
   <p id="_">Clause 2</p>
 </submitters>

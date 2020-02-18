@@ -144,6 +144,18 @@ module IsoDoc
         end
       end
 
+      def acknowledgements(isoxml, out)
+      f = isoxml.at(ns("//acknowledgements")) || return
+        @prefacenum += 1
+      page_break(out)
+      out.div **{ class: "Section3", id: f["id"] } do |div|
+        clause_name(anchor(f["id"], :label), f&.at(ns("./title")), div, class: "IntroTitle")
+        f.elements.each do |e|
+          parse(e, div) unless e.name == "title"
+        end
+      end
+    end
+
       def example_parse(node, out)
         name = node.at(ns("./name"))
         sourcecode_name_parse(node, out, name) if name
@@ -158,8 +170,10 @@ module IsoDoc
         preface_names_numbered(d.at(ns("//introduction")))
         @prefacenum += 1 if d.at(ns(SUBMITTINGORGS))
         preface_names_numbered(d.at(ns("//submitters")))
-        sequential_asset_names(d.xpath(ns("//preface/abstract | //foreword | "\
-                                          "//introduction | //submitters")))
+        preface_names_numbered(d.at(ns("//acknowledgements")))
+        sequential_asset_names(d.xpath(ns(
+          "//preface/abstract | //foreword | //introduction | "\
+          "//submitters | //acknowledgements | //preface/clause")))
         n = section_names(d.at(ns("//clause[title = 'Scope']")), 0, 1)
         n = section_names(d.at(ns("//clause[title = 'Conformance']")), n, 1)
         n = section_names(d.at(ns(
@@ -181,6 +195,7 @@ module IsoDoc
       def middle_section_asset_names(d)
         middle_sections = "//clause[title = 'Scope' or title = 'Conformance'] "\
           "| //foreword | //introduction | "\
+          "//preface/abstract | //submitters | //acknowledgements | //preface/clause | "\
           "//references[title = 'Normative References' or title = "\
           "'Normative references'] | "\
           "//sections/terms | "\
