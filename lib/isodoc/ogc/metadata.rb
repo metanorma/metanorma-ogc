@@ -3,6 +3,35 @@ require "iso-639"
 
 module IsoDoc
   module Ogc
+    DOCTYPE_ABBR = {
+          "standard" => "IS",
+          "abstract-specification-topic" => "AST",
+          "best-practice" => "BP",
+          "change-request-supporting-document" => "CRSD",
+          "community-practice" => "CP",
+          "community-standard" => "CS",
+          "discussion-paper" => "DP",
+          "engineering-report" => "ER",
+          "policy" => "POL",
+          "reference-model" => "RM",
+          "release-notes" => "RN",
+          "test-suite" => "TS",
+          "user-guide" => "UG",
+          "white-paper" => "WP",
+          "other" => "other",
+        }
+
+        DOCSUBTYPE_ABBR = {
+          "implementation" => "IMP",
+          "conceptual-model" => "CM",
+          "conceptual-model-and-encoding" => "CME",
+          "conceptual-model-and-implementation" => "CMI",
+          "encoding" => "EN",
+          "extension" => "EXT",
+          "profile" => "PF",
+          "profile-with-extension" => "PFE",
+          "general" => "GE",
+        }
 
     class Metadata < IsoDoc::Metadata
       def initialize(lang, script, labels)
@@ -86,10 +115,22 @@ module IsoDoc
       end
 
       def doctype(isoxml, _out)
-        b = isoxml&.at(ns("//bibdata/ext/doctype"))&.text and
-        set(:doctype, type_capitalise(b))
-        b = isoxml&.at(ns("//bibdata/ext/docsubtype"))&.text and
-        set(:docsubtype, type_capitalise(b))
+        if t = isoxml&.at(ns("//bibdata/ext/doctype"))&.text
+          set(:doctype, type_capitalise(t))
+          set(:doctype_abbr, doctype_abbr(t))
+          if st = isoxml&.at(ns("//bibdata/ext/docsubtype"))&.text
+            set(:docsubtype, type_capitalise(st))
+            set(:docsubtype_abbr, docsubtype_abbr(st, t))
+          end
+        end
+      end
+
+      def doctype_abbr(b)
+        IsoDoc::Ogc::DOCTYPE_ABBR[b] || b
+      end
+
+      def docsubtype_abbr(st, t)
+        IsoDoc::Ogc::DOCSUBTYPE_ABBR[st] || st
       end
 
       def status_print(status)
