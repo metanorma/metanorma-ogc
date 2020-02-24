@@ -39,6 +39,15 @@ module Asciidoctor
         d
       end
 
+      def sectiontype_streamline(ret)
+        case ret
+        when "preface" then "foreword"
+        when "foreword" then "donotrecognise-foreword"
+        else
+          super
+        end
+      end
+
       def document(node)
         init(node)
         ret1 = makexml(node)
