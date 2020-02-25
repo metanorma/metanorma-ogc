@@ -147,6 +147,7 @@ module Asciidoctor
 
       def metadata_subdoctype(node, xml)
         s = node.attr("docsubtype") 
+        s1 = ::IsoDoc::Ogc::DOCSUBTYPE_ABBR.invert[s] and s = s1
         case doctype(node)
         when "standard"
           unless %w{conceptual-model conceptual-model-and-encoding

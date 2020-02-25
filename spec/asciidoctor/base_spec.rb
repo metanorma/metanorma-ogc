@@ -53,8 +53,8 @@ RSpec.describe Asciidoctor::Ogc do
       :nodoc:
       :novalid:
       :docnumber: 1000
-      :doctype: standard
-      :docsubtype: conceptual-model
+      :doctype: IS
+      :docsubtype: CM
       :edition: 2.0
       :revdate: 2000-01-01
       :draft: 3.4
