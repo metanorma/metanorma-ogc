@@ -312,6 +312,8 @@ OUTPUT
       [abstract]
       Abstract
 
+      == Acknowledgements
+
       == Clause
       Clause 1
 
@@ -347,6 +349,9 @@ OUTPUT
 </bibdata>
 #{BOILERPLATE}
 <preface><foreword obligation="informative"><title>Foreword</title><p id="_">This is a preamble</p></foreword>
+<acknowledgements id='_' obligation='informative'>
+  <title>Acknowledgements</title>
+</acknowledgements>
 <submitters id="_">
   <p id="_">Clause 2</p>
 </submitters>
@@ -566,4 +571,47 @@ OUTPUT
        </ogc-standard>
       OUTPUT
   end
+
+    it "processes preface section" do
+          expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+      #{ASCIIDOC_BLANK_HDR}
+
+      == Preface
+
+      This is a prefatory paragraph
+
+      INPUT
+      #{BLANK_HDR}
+       <preface>
+           <foreword id='_' obligation='informative'>
+             <title>Preface</title>
+             <p id='_'>This is a prefatory paragraph</p>
+           </foreword>
+         </preface>
+         <sections> </sections>
+       </ogc-standard>
+      OUTPUT
+  end
+
+        it "does not recognise 'Foreword' as a preface section" do
+          expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+      #{ASCIIDOC_BLANK_HDR}
+
+      == Foreword
+
+      This is a prefatory paragraph
+
+      INPUT
+      #{BLANK_HDR}
+           <sections>
+      <clause id='_' obligation='normative'>
+        <title>Foreword</title>
+        <p id='_'>This is a prefatory paragraph</p>
+      </clause>
+    </sections>
+  </ogc-standard>
+      OUTPUT
+  end
+
+
 end

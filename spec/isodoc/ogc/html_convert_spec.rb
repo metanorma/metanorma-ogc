@@ -315,6 +315,12 @@ RSpec.describe IsoDoc::Ogc do
        <submitters obligation="informative" id="3">
        <p>ABC</p>
        </submitters>
+       <clause id="5"><title>Dedication</title></clause>
+       <clause id="6"><title>Note to readers</title></clause>
+       <acknowledgements obligation="informative" id="4">
+       <title>Acknowlegements</title>
+       <p>ABC</p>
+       </acknowledgements>
         </preface><sections>
        <clause id="D" obligation="normative">
          <title>Scope</title>
@@ -400,6 +406,16 @@ RSpec.describe IsoDoc::Ogc do
                <h1 class="IntroTitle">v.&#160; Submitters</h1>
                <p>ABC</p>
              </div>
+             <div class='Section3' id='5'>
+  <h1 class='IntroTitle'>vi.&#160; Dedication</h1>
+</div>
+<div class='Section3' id='6'>
+  <h1 class='IntroTitle'>vii.&#160; Note to readers</h1>
+</div>
+<div class='Section3' id='4'>
+  <h1 class='IntroTitle'>viii.&#160; Acknowlegements</h1>
+  <p>ABC</p>
+</div>
              <p class="zzSTDTitle1"/>
              <div id="D">
                <h1>1.&#160; Scope</h1>
