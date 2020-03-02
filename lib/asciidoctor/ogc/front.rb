@@ -4,12 +4,7 @@ require "fileutils"
 
 module Asciidoctor
   module Ogc
-
-    # A {Converter} implementation that generates RSD output, and a document
-    # schema encapsulation of the document for validation
-    #
     class Converter < Standoc::Converter
-
       def metadata_author(node, xml)
         corporate_author(node, xml)
         personal_author(node, xml)
@@ -17,7 +12,8 @@ module Asciidoctor
 
       def corporate_author(node, xml)
         return unless node.attr("submitting-organizations")
-        node.attr("submitting-organizations").split(/;[ ]*/).each do |org|
+        HTMLEntities.new.decode(node.attr("submitting-organizations")).
+          split(/;[ ]*/).each do |org|
           xml.contributor do |c|
             c.role **{ type: "author" }
             c.organization do |a|

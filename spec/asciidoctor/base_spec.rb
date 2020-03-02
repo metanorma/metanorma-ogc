@@ -89,7 +89,7 @@ RSpec.describe Asciidoctor::Ogc do
       :givenname_2: Barney
       :role_2: editor
       :previous-uri: PREVIOUS URI
-      :submitting-organizations: University of Bern, Switzerland; Amazon, USA
+      :submitting-organizations: University of Bern, Switzerland; Proctor & Gamble
       :keywords: a, b, c
     INPUT
 
@@ -124,7 +124,7 @@ RSpec.describe Asciidoctor::Ogc do
          <contributor>
            <role type="author"/>
            <organization>
-             <name>Amazon, USA</name>
+             <name>Proctor &amp; Gamble</name>
            </organization>
          </contributor>
          <contributor>
