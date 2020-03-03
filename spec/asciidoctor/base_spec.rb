@@ -94,6 +94,7 @@ RSpec.describe Asciidoctor::Ogc do
     INPUT
 
     output = xmlpp(<<~"OUTPUT")
+    <?xml version='1.0' encoding='UTF-8'?>
        <ogc-standard xmlns="https://www.metanorma.org/ns/ogc">
        <bibdata type="standard">
          <title language="en" format="text/plain">Main Title</title>
@@ -182,7 +183,7 @@ RSpec.describe Asciidoctor::Ogc do
          </editorialgroup>
         </ext>
        </bibdata>
-    #{BOILERPLATE.sub(/#{Date.today.year} Open Geospatial Consortium/, "2001 Open Geospatial Consortium").sub(%r{<title>Warning</title>}, "<title>Warning for Drafts</title>").sub(/This document is an OGC Member approved international standard. This document is available on a royalty free, non-discriminatory basis\. Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation\./, "This document is not an OGC Standard. This document is distributed for review and comment. This document is subject to change without notice and may not be referred to as an OGC Standard.</p><p id='_'>Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation.")}
+    #{BOILERPLATE.sub(/#{Date.today.year} Open Geospatial Consortium/, "2001 Open Geospatial Consortium").sub(%r{<title>Warning</title>}, "<title>Warning for Drafts</title>").sub(/This document is an OGC Member approved international standard. This document is available on a royalty free, non-discriminatory basis\. Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation\.\s*/, "This document is not an OGC Standard. This document is distributed for review and comment. This document is subject to change without notice and may not be referred to as an OGC Standard.</p><p id='_'>Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation.")}
        <sections/>
        </ogc-standard>
     OUTPUT
