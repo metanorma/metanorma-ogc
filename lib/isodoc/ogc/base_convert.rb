@@ -128,12 +128,13 @@ module IsoDoc
       def preface_names_numbered(clause)
         return if clause.nil?
         @prefacenum += 1
+        pref = RomanNumerals.to_roman(@prefacenum).downcase
         @anchors[clause["id"]] =
-          { label: RomanNumerals.to_roman(@prefacenum).downcase,
+          { label: pref,
             level: 1, xref: preface_clause_name(clause), type: "clause" }
         clause.xpath(ns("./clause | ./terms | ./term | ./definitions | "\
                         "./references")).each_with_index do |c, i|
-          section_names1(c, "#{@prefacenum}.#{i + 1}", 2)
+          section_names1(c, "#{pref}.#{i + 1}", 2)
         end
       end
 

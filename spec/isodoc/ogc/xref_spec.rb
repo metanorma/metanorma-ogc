@@ -71,7 +71,7 @@ RSpec.describe IsoDoc::Ogc do
              <h1 class='ForewordTitle'>Preface</h1>
              <p>
                <a href='#N1'>Introduction, Requirement 1</a>
-               <a href='#N2'>Clause 2.1, Requirement (??)</a>
+               <a href='#N2'>Clause ii.1, Requirement (??)</a>
                <a href='#N'>Clause 1, Requirement 2</a>
                <a href='#note1'>Clause 3.1, Requirement 3</a>
                <a href='#note2'>Clause 3.1, Requirement 4</a>
@@ -96,7 +96,7 @@ RSpec.describe IsoDoc::Ogc do
                </tbody>
              </table>
              <div id='xyz'>
-               <h2>2.1.&#160; Preparatory</h2>
+               <h2>ii.1.&#160; Preparatory</h2>
                <table id='N2' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
                  <thead>
                    <tr>
@@ -288,7 +288,7 @@ OUTPUT
              <h1 class='ForewordTitle'>Preface</h1>
              <p>
                <a href='#N1'>Introduction, Requirement Test 1</a>
-               <a href='#N2'>Clause 2.1, Requirement Test (??)</a>
+               <a href='#N2'>Clause ii.1, Requirement Test (??)</a>
                <a href='#N'>Clause 1, Requirement Test 2</a>
                <a href='#note1'>Clause 3.1, Requirement Test 3</a>
                <a href='#note2'>Clause 3.1, Requirement Test 4</a>
@@ -313,7 +313,7 @@ OUTPUT
                </tbody>
              </table>
              <div id='xyz'>
-               <h2>2.1.&#160; Preparatory</h2>
+               <h2>ii.1.&#160; Preparatory</h2>
                <table id='N2' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
                  <thead>
                    <tr>
@@ -505,7 +505,7 @@ OUTPUT
              <h1 class='ForewordTitle'>Preface</h1>
              <p>
                <a href='#N1'>Introduction, Recommendation 1</a>
-               <a href='#N2'>Clause 2.1, Recommendation (??)</a>
+               <a href='#N2'>Clause ii.1, Recommendation (??)</a>
                <a href='#N'>Clause 1, Recommendation 2</a>
                <a href='#note1'>Clause 3.1, Recommendation 3</a>
                <a href='#note2'>Clause 3.1, Recommendation 4</a>
@@ -530,7 +530,7 @@ OUTPUT
                </tbody>
              </table>
              <div id='xyz'>
-               <h2>2.1.&#160; Preparatory</h2>
+               <h2>ii.1.&#160; Preparatory</h2>
                <table id='N2' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
                  <thead>
                    <tr>
@@ -721,7 +721,7 @@ OUTPUT
              <h1 class='ForewordTitle'>Preface</h1>
              <p>
                <a href='#N1'>Introduction, Recommendation Test 1</a>
-               <a href='#N2'>Clause 2.1, Recommendation Test (??)</a>
+               <a href='#N2'>Clause ii.1, Recommendation Test (??)</a>
                <a href='#N'>Clause 1, Recommendation Test 2</a>
                <a href='#note1'>Clause 3.1, Recommendation Test 3</a>
                <a href='#note2'>Clause 3.1, Recommendation Test 4</a>
@@ -746,7 +746,7 @@ OUTPUT
                </tbody>
              </table>
              <div id='xyz'>
-               <h2>2.1.&#160; Preparatory</h2>
+               <h2>ii.1.&#160; Preparatory</h2>
                <table id='N2' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
                  <thead>
                    <tr>
@@ -937,7 +937,7 @@ OUTPUT
              <h1 class='ForewordTitle'>Preface</h1>
              <p>
                <a href='#N1'>Introduction, Permission 1</a>
-               <a href='#N2'>Clause 2.1, Permission (??)</a>
+               <a href='#N2'>Clause ii.1, Permission (??)</a>
                <a href='#N'>Clause 1, Permission 2</a>
                <a href='#note1'>Clause 3.1, Permission 3</a>
                <a href='#note2'>Clause 3.1, Permission 4</a>
@@ -962,7 +962,7 @@ OUTPUT
                </tbody>
              </table>
              <div id='xyz'>
-               <h2>2.1.&#160; Preparatory</h2>
+               <h2>ii.1.&#160; Preparatory</h2>
                <table id='N2' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
                  <thead>
                    <tr>
@@ -1153,7 +1153,7 @@ OUTPUT
              <h1 class='ForewordTitle'>Preface</h1>
              <p>
                <a href='#N1'>Introduction, Permission Test 1</a>
-               <a href='#N2'>Clause 2.1, Permission Test (??)</a>
+               <a href='#N2'>Clause ii.1, Permission Test (??)</a>
                <a href='#N'>Clause 1, Permission Test 2</a>
                <a href='#note1'>Clause 3.1, Permission Test 3</a>
                <a href='#note2'>Clause 3.1, Permission Test 4</a>
@@ -1178,7 +1178,7 @@ OUTPUT
                </tbody>
              </table>
              <div id='xyz'>
-               <h2>2.1.&#160; Preparatory</h2>
+               <h2>ii.1.&#160; Preparatory</h2>
                <table id='N2' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
                  <thead>
                    <tr>
