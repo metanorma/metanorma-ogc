@@ -145,12 +145,19 @@ module IsoDoc
         word_recommend_cleanup(docxml)
         super
         word_license_cleanup(docxml)
+        word_term_cleanup(docxml)
         docxml
       end
 
       def word_license_cleanup(docxml)
         docxml.xpath("//div[@class = 'boilerplate-license']//p[not(@class)]").each do |p|
           p["class"] = "license"
+        end
+      end
+
+      def word_term_cleanup(docxml)
+        docxml.xpath("//p[@class = 'TermNum']//p[@class = 'Terms']").each do |p|
+          p.replace(p.children)
         end
       end
 

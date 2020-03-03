@@ -3,6 +3,54 @@ require "spec_helper"
 RSpec.describe IsoDoc::Ogc do
 
      it "processes permission classes" do
+       FileUtils.rm_f "test.doc"
+    IsoDoc::Ogc::WordConvert.new({}).convert("test", <<~"INPUT", false)
+    <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+    <preface/>
+    <sections>
+    <terms id="_terms_and_definitions" obligation="normative"><title>Terms and definitions</title><p id="_bf202ad0-7300-4cca-80ae-87ef7008f0fd">For the purposes of this document,
+    the following terms and definitions apply.</p>
+<term id="_bounding_volume">
+<preferred>Bounding Volume</preferred>
+<definition><p id="_5e741d88-63d0-45f2-966b-b6f9fb0a5cdb">A closed volume completely containing the union of a set of geometric objects.</p></definition>
+</term>
+</terms>
+</sections>
+</ogc-standard>
+INPUT
+expect(xmlpp(File.read("test.doc").gsub(%r{^.*<div class="WordSection3">}m, "<body><div class='WordSection3'>").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+<body>
+  <div class='WordSection3'>
+    <p class='zzSTDTitle1'/>
+    <div>
+      <a name='_terms_and_definitions' id='_terms_and_definitions'/>
+      <h1>
+        1.
+        <span style='mso-tab-count:1'>&#xA0; </span>
+        Terms and definitions
+      </h1>
+      <p class='MsoNormal'>
+        <a name='_bf202ad0-7300-4cca-80ae-87ef7008f0fd' id='_bf202ad0-7300-4cca-80ae-87ef7008f0fd'/>
+        For the purposes of this document, the following terms and definitions
+        apply.
+      </p>
+      <p class='TermNum'>
+        <a name='_bounding_volume' id='_bounding_volume'/>
+        1.1.&#xA0;Bounding Volume
+      </p>
+      <p class='MsoNormal'>
+        <a name='_5e741d88-63d0-45f2-966b-b6f9fb0a5cdb' id='_5e741d88-63d0-45f2-966b-b6f9fb0a5cdb'/>
+        A closed volume completely containing the union of a set of geometric
+        objects.
+      </p>
+    </div>
+  </div>
+  <div style='mso-element:footnote-list'/>
+</body>
+OUTPUT
+     end
+
+     it "processes permission classes" do
         FileUtils.rm_f "test.doc"
     IsoDoc::Ogc::WordConvert.new({}).convert("test", <<~"INPUT", false)
         <ogc-standard xmlns="https://standards.opengeospatial.org/document">
