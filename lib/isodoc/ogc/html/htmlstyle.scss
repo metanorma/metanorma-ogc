@@ -258,16 +258,9 @@ span.keyword {
 /* Tables */
 
 table {
-  @include table($border: none !important);
+  @include table($border: 1px solid black);
 
-  color: #010d16;
-
-  tr:nth-child(even) {
-    background: #f1f8ff
-  }
-  tr:nth-child(odd) {
-    background: #cfe6fd
-  }
+  /*color: #010d16;*/
 
   thead tr th {
     background-color: #5d99d6;
