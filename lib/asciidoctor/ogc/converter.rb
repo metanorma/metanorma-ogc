@@ -44,6 +44,7 @@ module Asciidoctor
         case ret
         when "preface" then "foreword"
         when "foreword" then "donotrecognise-foreword"
+        when "introduction" then "donotrecognise-foreword"
         else
           super
         end

@@ -229,6 +229,7 @@ RSpec.describe Asciidoctor::Ogc do
            <ogc-standard xmlns="https://www.metanorma.org/ns/ogc">
        <bibdata type="standard">
          <title language="en" format="text/plain">Main Title</title>
+         <title format='text/plain' type='abbrev'>A</title>
          <uri>http://www.example.com</uri>
          <docidentifier type='ogc-external'>http://www.opengis.net/doc/ER/A/2.0</docidentifier>
          <docidentifier type="ogc-external">http://www.opengis.net/doc/PER/t14-http://www.example2.com</docidentifier>
@@ -596,13 +597,17 @@ OUTPUT
       OUTPUT
   end
 
-        it "does not recognise 'Foreword' as a preface section" do
+        it "does not recognise 'Foreword' or 'Introduction' as a preface section" do
           expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
       #{ASCIIDOC_BLANK_HDR}
 
       == Foreword
 
       This is a prefatory paragraph
+
+      == Introduction
+
+      And so is this
 
       INPUT
       #{BLANK_HDR}
@@ -611,6 +616,10 @@ OUTPUT
         <title>Foreword</title>
         <p id='_'>This is a prefatory paragraph</p>
       </clause>
+      <clause id='_' obligation='normative'>
+  <title>Introduction</title>
+  <p id='_'>And so is this</p>
+</clause>
     </sections>
   </ogc-standard>
       OUTPUT
