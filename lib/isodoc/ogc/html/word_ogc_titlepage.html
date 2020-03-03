@@ -30,8 +30,10 @@ style='mso-no-proof:yes;font-size:10.0pt'>Version: {{ edition }}</span></span></
 <p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
 style='mso-no-proof:yes;font-size:10.0pt'>Category: {{ doctype }}</span></span></p>
 
+{% if editors %}
 <p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
 style='mso-no-proof:yes;font-size:10.0pt'>Editor: {{ editors | join: ", " }}</span></span></p>
+{% endif %}
 
 <p class="MsoNormal" align="center" style='text-align:center;line-height:18.0pt;margin-bottom:0.0pt'><b
 style='mso-bidi-font-weight:normal'><span lang="EN-GB" style='font-size:24.0pt'>OGC {{ doctitle }}</span>
