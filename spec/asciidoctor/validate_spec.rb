@@ -1,6 +1,31 @@
 require "spec_helper"
 
 RSpec.describe Asciidoctor::Ogc do
+  it "Warns of version on engineering-report" do
+    expect { Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) }.to output(/Version not permitted for engineering-report/).to_stderr
+  = Document title
+  Author
+  :edition: 1
+  :nodoc:
+  :no-isobib:
+  :doctype: engineering-report
+
+  text
+  INPUT
+end
+
+    it "Warns of missing version on document type other than engineering-report or discussion paper" do
+    expect { Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) }.to output(/Version required for standard/).to_stderr
+  = Document title
+  Author
+  :nodoc:
+  :no-isobib:
+  :doctype: standard
+
+  text
+  INPUT
+end
+
       it "Warns of illegal doctype" do
     expect { Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) }.to output(/'pizza' is not a legal document type/).to_stderr
   = Document title

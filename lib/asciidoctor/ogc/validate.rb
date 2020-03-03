@@ -12,6 +12,7 @@ module Asciidoctor
 
       def bibdata_validate(doc)
         stage_validate(doc)
+        version_validate(doc)
       end
 
       def stage_validate(xmldoc)
@@ -19,6 +20,16 @@ module Asciidoctor
         %w(swg-draft oab-review public-rfc tc-vote
         published deprecated retired).include? stage or
         warn "Document Attributes: #{stage} is not a recognised status"
+      end
+
+      def version_validate(xmldoc)
+        version = xmldoc&.at("//bibdata/edition")&.text
+        doctype = xmldoc&.at("//bibdata/ext/doctype")&.text
+        if %w(engineering-report discussion-paper).include? doctype
+          warn "Version not permitted for #{doctype}" unless version.nil?
+        else
+          warn "Version required for #{doctype}" if version.nil?
+        end
       end
 
       def section_validate(doc)

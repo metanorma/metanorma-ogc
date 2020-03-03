@@ -87,9 +87,18 @@ module Asciidoctor
         end
       end
 
+      def externalid(node)
+        return node.attr("external-id") if node.attr("external-id")
+        d = doctype(node)
+        a = node.attr("abbrev")
+        return unless d and a
+        url = "http://www.opengis.net/doc/#{IsoDoc::Ogc::DOCTYPE_ABBR[d]}/#{a}"
+        v = node.attr("edition") and url += "/#{v}"
+        url
+      end
+
       def metadata_id(node, xml)
-        node.attr("external-id") and
-          xml.docidentifier node.attr("external-id"), **{ type: "ogc-external" }
+        e = externalid(node) and xml.docidentifier e, **{ type: "ogc-external" }
         node.attr("referenceurlid") and
           xml.docidentifier externalurl(node), **{ type: "ogc-external" }
         docnumber = node.attr("docnumber") || node.attr("docreference")
@@ -162,6 +171,13 @@ module Asciidoctor
           end
         end
         s and xml.docsubtype s
+      end
+
+      def title(node, xml)
+        super
+        at = { format: "text/plain", type: "abbrev" }
+        a = node.attr("abbrev") and
+          xml.title a, **attr_code(at)
       end
 
       def metadata_ext(node, xml)

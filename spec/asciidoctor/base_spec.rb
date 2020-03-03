@@ -76,6 +76,7 @@ RSpec.describe Asciidoctor::Ogc do
       :iteration: 3
       :language: en
       :title: Main Title
+      :abbrev: MT
       :published-date: 2002-01-01
       :issued-date: 2001-01-01
       :created-date: 1999-01-01
@@ -98,6 +99,7 @@ RSpec.describe Asciidoctor::Ogc do
        <ogc-standard xmlns="https://www.metanorma.org/ns/ogc">
        <bibdata type="standard">
          <title language="en" format="text/plain">Main Title</title>
+         <title format='text/plain' type='abbrev'>MT</title>
          <uri>http://www.example.com</uri>
          <uri type="previous">PREVIOUS URI</uri>
          <docidentifier type="ogc-external">http://www.example2.com</docidentifier>
@@ -191,7 +193,7 @@ RSpec.describe Asciidoctor::Ogc do
     expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :ogc, header_footer: true)))).to be_equivalent_to output
   end
 
-    it "processes OGC synonyms for default metadata" do
+    it "processes OGC synonyms for default metadata, and default template for external-id" do
     input = <<~"INPUT"
       = Document title
       Author
@@ -213,7 +215,6 @@ RSpec.describe Asciidoctor::Ogc do
       :created-date: 1999-01-01
       :submissionDate: 1999-06-01
       :uri: http://www.example.com
-      :external-id: http://www.example2.com
       :referenceURLID: http://www.example2.com
       :fullname: Fred Flintstone
       :role: author
@@ -221,6 +222,7 @@ RSpec.describe Asciidoctor::Ogc do
       :givenname_2: Barney
       :role: editor
       :editor: Wilma Flintstone
+      :abbrev: A
     INPUT
 
     output = xmlpp(<<~"OUTPUT")
@@ -228,7 +230,7 @@ RSpec.describe Asciidoctor::Ogc do
        <bibdata type="standard">
          <title language="en" format="text/plain">Main Title</title>
          <uri>http://www.example.com</uri>
-         <docidentifier type="ogc-external">http://www.example2.com</docidentifier>
+         <docidentifier type='ogc-external'>http://www.opengis.net/doc/ER/A/2.0</docidentifier>
          <docidentifier type="ogc-external">http://www.opengis.net/doc/PER/t14-http://www.example2.com</docidentifier>
          <docidentifier type="ogc-internal">1000</docidentifier>
          <docnumber>1000</docnumber>
