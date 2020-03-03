@@ -348,7 +348,11 @@ p.Biblio, p.NormRef {
 
 /* Blocks */
 
-.Sourcecode {
+.SourceTitle {
+  @include blockTitle();
+}
+
+pre {
   @include sourceBlock(#f7f7f7);
 
   font-family: $monospacefont;
@@ -381,7 +385,7 @@ p.Biblio, p.NormRef {
   }
 }
 
-.figure, .Sourcecode, .pseudocode {
+.figure, pre, .pseudocode {
   background-color: #e1eef1;
   color: #424242;
   font-size: 0.8em;
@@ -412,7 +416,7 @@ p.Biblio, p.NormRef {
     margin-left:-1.5em;
   }
 
-  .Sourcecode, .pseudocode {
+  pre, .pseudocode {
     background: none;
   }
 }
