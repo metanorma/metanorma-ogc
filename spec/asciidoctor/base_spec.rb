@@ -352,7 +352,7 @@ OUTPUT
   </ext>
 </bibdata>
 #{BOILERPLATE}
-<preface><foreword obligation="informative"><title>Foreword</title><p id="_">This is a preamble</p></foreword>
+<preface><foreword id="_" obligation="informative"><title>Foreword</title><p id="_">This is a preamble</p></foreword>
 <acknowledgements id='_' obligation='informative'>
   <title>Acknowledgements</title>
 </acknowledgements>
@@ -427,7 +427,7 @@ OUTPUT
 
     output = xmlpp(<<~"OUTPUT")
     #{BLANK_HDR}
-             <preface><foreword obligation="informative">
+             <preface><foreword id="_" obligation="informative">
          <title>Foreword</title>
          <p id="_">This is a preamble</p>
        </foreword></preface><sections>
