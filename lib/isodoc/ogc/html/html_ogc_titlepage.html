@@ -54,13 +54,13 @@
       {% if previousuri %}
       <span class="label">Previous URI: </span> <span class="value"><a href="{{ previousuri }}">{{previousuri}}</a></span>
       {% endif %}
-      {% if edition %}
-      <span class="label">Version: </span> <span class="value">{{ edition }}</span>
-      {% endif %}
     </div>
 
-    {% if xml or pdf or doc %}
     <div class="coverpage-alt-formats">
+      {% if edition %}
+      <span class="label">Version: </span> <span class="value">{{ edition }}</span><br/>
+      {% endif %}
+    {% if xml or pdf or doc %}
       <span class="label">Additional Formats: </span>
       {% if xml %}
       <span class="value"><a href="{{ xml }}"><i class="far fa-file-code"></i>XML</a></span>
@@ -72,8 +72,8 @@
       <span class="value"><a href="{{ doc }}"><i class="far fa-file-word"></i>DOC</a></span>
       {% endif %}
       </span>
-    </div>
     {% endif %}
+    </div>
 
   </div>
 
