@@ -1,23 +1,44 @@
 $doctype-colors-list: (
-  standard: rgb(216, 236, 168),
-  governance: #750697,
-  policy-and-procedures: #750697,
+  standard: #3D9970,
+  abstract-specification-topic: #3D9970,
+  reference-model: #3D9970,
+
+  best-practice: #39CCCC,
+  discussion-paper: #39CCCC,
+  white-paper: #39CCCC,
+  engineering-report: #39CCCC,
+
+  release-notes: #FFDC00,
+  user-guide: #FFDC00,
+
+  community-practice: #FF851B,
+  community-standard: #FF851B,
+
+  other: #0074D9,
+  policy: #0074D9,
+  change-request-supporting-document: #0074D9,
+
+  test-suite: #001F3F,
+
 );
 
 
 $docstage-colors-list: (
-  rfc: #48a0e7,
-  candidate: #fd06fd,
+  candidate: #8B9EB7,
+  working-draft: #8B9EB7,
+  proposal: #8B9EB7,
+  oab-review: #8B9EB7,
+  committee-draft: #8B9EB7,
+  swg-draft: #8B9EB7,
+
+  public-rfc: #48a0e7,
+
+  tc-vote: #fd06fd,
+
   published: #9abd48,
+
   deprecated: #7e0d13,
   retired: #7e0d13,
-  working-draft: #f780ec,
-  proposal: #f780ec,
-  committee-draft: #fd06fd,
-  draft-standard: #fd06fd,
-  standard: #9abd48,
-  obsolete: #7e0d13,
-  guide: #48a0e7,
 );
 
 
