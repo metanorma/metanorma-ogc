@@ -202,7 +202,7 @@ RSpec.describe Asciidoctor::Ogc do
       :novalid:
       :docReference: 1000
       :doctype: engineering-report
-      :edition: 2.0
+      :version: 2.0
       :revdate: 2000-01-01
       :draft: 3.4
       :copyrightYear: 2001

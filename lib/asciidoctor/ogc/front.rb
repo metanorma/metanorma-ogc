@@ -93,7 +93,7 @@ module Asciidoctor
         a = node.attr("abbrev")
         return unless d and a
         url = "http://www.opengis.net/doc/#{IsoDoc::Ogc::DOCTYPE_ABBR[d]}/#{a}"
-        v = node.attr("edition") and url += "/#{v}"
+        v = (node.attr("edition") || node.attr("version")) and url += "/#{v}"
         url
       end
 
@@ -148,6 +148,11 @@ module Asciidoctor
             d.on node.attr(ogcname)
           end
         end
+      end
+
+      def metadata_version(node, xml)
+        node.set_attr("edition", node.attr("version"), false) if node.attr("version")
+        super
       end
 
       def metadata_subdoctype(node, xml)
