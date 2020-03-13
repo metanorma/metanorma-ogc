@@ -33,7 +33,7 @@ module Asciidoctor
           reference-model release-notes standard user-guide white-paper 
           test-suite}.include? d
           @warned_doctype or
-            warn "'#{d}' is not a legal document type: reverting to 'standard'"
+            @log.add("Document Attributes", nil, "'#{d}' is not a legal document type: reverting to 'standard'")
           @warned_doctype = true
           d = "standard"
         end
@@ -62,6 +62,7 @@ module Asciidoctor
           word_converter(node).convert filename unless node.attr("nodoc")
           pdf_converter(node).convert filename unless node.attr("nodoc")
         end
+        @log.write(@filename + ".err") unless @novalid
         @files_to_delete.each { |f| FileUtils.rm f }
         ret
       end

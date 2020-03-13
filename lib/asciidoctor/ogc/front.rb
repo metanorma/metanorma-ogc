@@ -163,15 +163,15 @@ module Asciidoctor
           unless %w{conceptual-model conceptual-model-and-encoding
                     conceptual-model-and-implementation encoding extension
                     implementation profile profile-with-extension}.include? s
-            warn "'#{s}' is not a permitted subtype of Standard: "\
-              "reverting to 'implementation'"
+            @log.add("Document Attributes", nil, "'#{s}' is not a permitted subtype of Standard: "\
+              "reverting to 'implementation'")
             s = "implementation"
           end
         when "best-practice"
           unless %w{general encoding extension profile
                     profile-with-extension}.include? s
-            warn "'#{s}' is not a permitted subtype of Standard: "\
-              "reverting to 'implementation'"
+            @log.add("Document Attributes", nil, "'#{s}' is not a permitted subtype of Standard: "\
+              "reverting to 'implementation'")
             s = "general"
           end
         end
