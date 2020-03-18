@@ -58,7 +58,6 @@ module IsoDoc
         out
       end
 
-
       def recommendation_attributes(node, out)
         ret = recommendation_attributes1(node)
         return if ret.empty?

@@ -142,8 +142,8 @@ module IsoDoc
       end
 
       def word_cleanup(docxml)
-        word_recommend_cleanup(docxml)
         super
+        word_recommend_cleanup(docxml)
         word_license_cleanup(docxml)
         word_term_cleanup(docxml)
         docxml
@@ -168,9 +168,10 @@ module IsoDoc
         docxml.xpath("//table[@class = 'recommend']/thead/tr").each do |tr|
           style_update(tr, "background:#A5A5A5;")
         end
-        docxml.xpath("//table[@class = 'recommend']/tbody/tr").
-          each_slice(2) do |tr1, tr2|
-          tr2 && style_update(tr2, "background:#C9C9C9;")
+        docxml.xpath("//table[@class = 'recommend']/tbody").each do |tr|
+          tr.xpath("./tr").each_slice(2) do |tr1, tr2|
+            tr2 && style_update(tr2, "background:#C9C9C9;")
+          end
         end
       end
 
