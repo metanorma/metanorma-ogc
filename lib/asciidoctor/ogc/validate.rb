@@ -19,16 +19,18 @@ module Asciidoctor
         stage = xmldoc&.at("//bibdata/status/stage")&.text
         %w(swg-draft oab-review public-rfc tc-vote
         published deprecated retired).include? stage or
-        warn "Document Attributes: #{stage} is not a recognised status"
+        @log.add("Document Attributes", nil, "#{stage} is not a recognised status")
       end
 
       def version_validate(xmldoc)
         version = xmldoc&.at("//bibdata/edition")&.text
         doctype = xmldoc&.at("//bibdata/ext/doctype")&.text
         if %w(engineering-report discussion-paper).include? doctype
-          warn "Version not permitted for #{doctype}" unless version.nil?
+          version.nil? or
+          @log.add("Document Attributes", nil, "Version not permitted for #{doctype}") 
         else
-          warn "Version required for #{doctype}" if version.nil?
+          version.nil? and
+          @log.add("Document Attributes", nil,  "Version required for #{doctype}") 
         end
       end
 
@@ -74,7 +76,7 @@ module Asciidoctor
       def seqcheck(names, msg, accepted)
         n = names.shift
         unless accepted.include? n
-          warn "OGC style: #{msg}"
+          @log.add("Style", nil, msg)
           names = []
         end
         names
@@ -93,7 +95,7 @@ module Asciidoctor
           n = names.shift
         end
         unless n
-          warn "OGC style: Document must contain at least one clause"
+          @log.add("Style", nil, "Document must contain at least one clause")
           return
         end
         root.at("//references | //clause[descendant::references]"\
@@ -103,14 +105,14 @@ module Asciidoctor
       end
 
       def preface_sequence_validate(root)
-        root.at("//preface/abstract") or warn "OGC style: Abstract is missing!"
+        root.at("//preface/abstract") or @log.add("Style", nil, "Abstract is missing!")
         root.at("//bibdata/keyword | //bibdata/ext/keyword") or
-          warn "OGC style: Keywords are missing!"
-        root.at("//foreword") or warn "OGC style: Preface is missing!"
+          @log.add("Style", nil, "Keywords are missing!")
+        root.at("//foreword") or @log.add("Style", nil,  "Preface is missing!")
         root.at("//bibdata/contributor[role/@type = 'author']/organization/"\
                 "name") or
-               warn "OGC style: Submitting Organizations is missing!"
-        root.at("//submitters") or warn "OGC style: Submitters is missing!"
+               @log.add("Style", nil, "Submitting Organizations is missing!")
+        root.at("//submitters") or @log.add("Style", nil, "Submitters is missing!")
       end
     end
   end
