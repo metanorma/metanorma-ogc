@@ -169,6 +169,13 @@ RSpec.describe IsoDoc::Ogc do
            </div>
            <br/>
            <div id='annex1' class='Section3'>
+           <h1 class='Annex'>
+  <b>Annex A</b>
+  <br/>
+  (informative)
+  <br/>
+  <b/>
+</h1>
              <div id='annex1a'>
                <h2>A.1.&#160; </h2>
                <table id='AN' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
@@ -386,6 +393,13 @@ OUTPUT
            </div>
            <br/>
            <div id='annex1' class='Section3'>
+           <h1 class='Annex'>
+  <b>Annex A</b>
+  <br/>
+  (informative)
+  <br/>
+  <b/>
+</h1>
              <div id='annex1a'>
                <h2>A.1.&#160; </h2>
                <table id='AN' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
@@ -603,6 +617,13 @@ OUTPUT
            </div>
            <br/>
            <div id='annex1' class='Section3'>
+           <h1 class='Annex'>
+  <b>Annex A</b>
+  <br/>
+  (informative)
+  <br/>
+  <b/>
+</h1>
              <div id='annex1a'>
                <h2>A.1.&#160; </h2>
                <table id='AN' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
@@ -819,6 +840,13 @@ OUTPUT
            </div>
            <br/>
            <div id='annex1' class='Section3'>
+           <h1 class='Annex'>
+  <b>Annex A</b>
+  <br/>
+  (informative)
+  <br/>
+  <b/>
+</h1>
              <div id='annex1a'>
                <h2>A.1.&#160; </h2>
                <table id='AN' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
@@ -1035,6 +1063,13 @@ OUTPUT
            </div>
            <br/>
            <div id='annex1' class='Section3'>
+           <h1 class='Annex'>
+  <b>Annex A</b>
+  <br/>
+  (informative)
+  <br/>
+  <b/>
+</h1>
              <div id='annex1a'>
                <h2>A.1.&#160; </h2>
                <table id='AN' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
@@ -1251,6 +1286,13 @@ OUTPUT
            </div>
            <br/>
            <div id='annex1' class='Section3'>
+           <h1 class='Annex'>
+  <b>Annex A</b>
+  <br/>
+  (informative)
+  <br/>
+  <b/>
+</h1>
              <div id='annex1a'>
                <h2>A.1.&#160; </h2>
                <table id='AN' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
