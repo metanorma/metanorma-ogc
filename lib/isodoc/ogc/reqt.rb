@@ -7,7 +7,9 @@ module IsoDoc
     module BaseConvert
       def recommend_class(node)
         return "recommendtest" if node["type"] == "verification"
+        return "recommendtest" if node["type"] == "abstracttest"
         return "recommendclass" if node["type"] == "class"
+        return "recommendclass" if node["type"] == "conformanceclass"
         "recommend"
       end
 
@@ -22,7 +24,7 @@ module IsoDoc
 
       def recommendation_name(node, out, type)
         label, title, lbl = recommendation_labels(node)
-        out.p **{ class: node["type"] == "verification" ?
+        out.p **{ class: %w(verification abstracttest).include?(node["type"]) ?
                   "RecommendationTestTitle" : "RecommendationTitle" }  do |b|
           lbl = anchor(node['id'], :label, false)
           b << (lbl.nil? ? l10n("#{type}:") : l10n("#{type} #{lbl}:"))
@@ -48,7 +50,8 @@ module IsoDoc
         out = []
         oblig = node["obligation"] and out << ["Obligation", oblig]
         subj = node&.at(ns("./subject"))&.text and
-          out << [node["type"] == "class" ? "Target Type" : "Subject", subj]
+          out << [%w(class conformanceclass).include?(node["type"]) ?
+          "Target Type" : "Subject", subj]
         node.xpath(ns("./inherit")).each { |i| out << ["Dependency", i.text] }
         node.xpath(ns("./classification")).each do |c|
           tag = c.at(ns("./tag")) or next
@@ -121,6 +124,8 @@ module IsoDoc
         label = case node["type"]
                 when "verification" then @labels["recommendationtest"]
                 when "class" then @labels["recommendationclass"]
+                when "abstracttest" then @labels["abstracttest"]
+                when "conformanceclass" then @labels["conformanceclass"]
                 else
                   @recommendation_lbl
                 end
@@ -131,6 +136,8 @@ module IsoDoc
         label = case node["type"]
                 when "verification" then @labels["requirementtest"]
                 when "class" then @labels["requirementclass"]
+                when "abstracttest" then @labels["abstracttest"]
+                when "conformanceclass" then @labels["conformanceclass"]
                 else
                   @requirement_lbl
                 end
@@ -141,6 +148,8 @@ module IsoDoc
         label = case node["type"]
                 when "verification" then @labels["permissiontest"]
                 when "class" then @labels["permissionclass"]
+                when "abstracttest" then @labels["abstracttest"]
+                when "conformanceclass" then @labels["conformanceclass"]
                 else
                   @permission_lbl
                 end
@@ -159,16 +168,30 @@ module IsoDoc
         end
       end
 
+      def req_class_paths
+        {  
+          "class" => "@type = 'class'", 
+          "test" => "@type = 'verification'", 
+          "" => "not(@type = 'verification' or @type = 'class' or @type = 'abstracttest' or @type = 'conformanceclass')",
+        }
+      end
+
+      def req_class_paths2
+        {
+          "abstracttest" => "@type = 'abstracttest'",
+          "conformanceclass" => "@type = 'conformanceclass'",
+        }
+      end
+
       def sequential_permission_children(t, id)
-        sequential_permission_names1(t, id, "permission[not(@type = 'verification' or @type = 'class')]", @permission_lbl)
-        sequential_permission_names1(t, id, "requirement[not(@type = 'verification' or @type = 'class')]", @requirement_lbl)
-        sequential_permission_names1(t, id, "recommendation[not(@type = 'verification' or @type = 'class')]", @recommendation_lbl)
-        sequential_permission_names1(t, id, "permission[@type = 'verification']", @labels["permissiontest"])
-        sequential_permission_names1(t, id, "requirement[@type = 'verification']", @labels["requirementtest"])
-        sequential_permission_names1(t, id, "recommendation[@type = 'verification']", @labels["recommendationtest"])
-        sequential_permission_names1(t, id, "permission[@type = 'class']", @labels["permissionclass"])
-        sequential_permission_names1(t, id, "requirement[@type = 'class']", @labels["requirementclass"])
-        sequential_permission_names1(t, id, "recommendation[@type = 'class']", @labels["recommendationclass"])
+        req_class_paths.each do |k, v|
+          sequential_permission_names1(t, id, "permission[#{v}]", @labels["permission#{k}"])
+          sequential_permission_names1(t, id, "requirement[#{v}]", @labels["requirement#{k}"])
+          sequential_permission_names1(t, id, "recommendation[#{v}]",  @labels["recommendation#{k}"])
+        end
+        req_class_paths2.each do |k, v|
+          sequential_permission_names1(t, id, "*[#{v}]", @labels[k])
+        end
       end
 
       def sequential_permission_names1(block, lbl, klass, label)
@@ -185,30 +208,28 @@ module IsoDoc
         sequential_table_names(clause)
         sequential_figure_names(clause)
         sequential_formula_names(clause)
-        sequential_permission_names(clause, "permission[not(@type = 'verification' or @type = 'class')]", @permission_lbl)
-        sequential_permission_names(clause, "requirement[not(@type = 'verification' or @type = 'class')]", @requirement_lbl)
-        sequential_permission_names(clause, "recommendation[not(@type = 'verification' or @type = 'class')]", @recommendation_lbl)
-        sequential_permission_names(clause, "permission[@type = 'verification']", @labels["permissiontest"])
-        sequential_permission_names(clause, "requirement[@type = 'verification']", @labels["requirementtest"])
-        sequential_permission_names(clause, "recommendation[@type = 'verification']", @labels["recommendationtest"])
-        sequential_permission_names(clause, "permission[@type = 'class']", @labels["permissionclass"])
-        sequential_permission_names(clause, "requirement[@type = 'class']", @labels["requirementclass"])
-        sequential_permission_names(clause, "recommendation[@type = 'class']", @labels["recommendationclass"])
+        req_class_paths.each do |k, v|
+          sequential_permission_names(clause, "permission[#{v}]", @labels["permission#{k}"])
+          sequential_permission_names(clause, "requirement[#{v}]", @labels["requirement#{k}"])
+          sequential_permission_names(clause, "recommendation[#{v}]",  @labels["recommendation#{k}"])
+        end
+        req_class_paths2.each do |k, v|
+          sequential_permission_names(clause, "*[#{v}]", @labels[k])
+        end
       end
 
       def hierarchical_asset_names(clause, num)
         hierarchical_table_names(clause, num)
         hierarchical_figure_names(clause, num)
         hierarchical_formula_names(clause, num)
-        hierarchical_permission_names(clause, num, "permission[not(@type = 'verification' or @type = 'class')]", @permission_lbl)
-        hierarchical_permission_names(clause, num, "requirement[not(@type = 'verification' or @type = 'class')]", @requirement_lbl)
-        hierarchical_permission_names(clause, num, "recommendation[not(@type = 'verification' or @type = 'class')]", @recommendation_lbl)
-        hierarchical_permission_names(clause, num, "permission[@type = 'verification']", @labels["permissiontest"])
-        hierarchical_permission_names(clause, num, "requirement[@type = 'verification']", @labels["requirementtest"])
-        hierarchical_permission_names(clause, num, "recommendation[@type = 'verification']", @labels["recommendationtest"])
-        hierarchical_permission_names(clause, num, "permission[@type = 'class']", @labels["permissionclass"])
-        hierarchical_permission_names(clause, num, "requirement[@type = 'class']", @labels["requirementclass"])
-        hierarchical_permission_names(clause, num, "recommendation[@type = 'class']", @labels["recommendationclass"])
+        req_class_paths.each do |k, v|
+          hierarchical_permission_names(clause, num, "permission[#{v}]", @labels["permission#{k}"])
+          hierarchical_permission_names(clause, num, "requirement[#{v}]", @labels["requirement#{k}"])
+          hierarchical_permission_names(clause, num, "recommendation[#{v}]",  @labels["recommendation#{k}"])
+        end
+        req_class_paths2.each do |k, v|
+          hierarchical_permission_names(clause, num, "*[#{v}]", @labels[k])
+        end
       end
 
       def hierarchical_permission_names(clause, num, klass, label)

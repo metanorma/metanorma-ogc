@@ -814,6 +814,158 @@ RSpec.describe IsoDoc::Ogc do
 OUTPUT
     end
 
+        it "processes abstract tests" do
+        expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+        <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+    <preface>
+        <foreword id="A">
+        <p id="_"><xref target="A1"/></p>
+    <permission id="A1" type="abstracttest">
+  <label>/ogc/recommendation/wfs/2</label>
+  <inherit>/ss/584/2015/level/1</inherit>
+  <subject>user</subject>
+  <classification> <tag>control-class</tag> <value>Technical</value> </classification><classification> <tag>priority</tag> <value>P0</value> </classification><classification> <tag>family</tag> <value>System and Communications Protection</value> </classification><classification> <tag>family</tag> <value>System and Communications Protocols</value> </classification>
+  <description>
+    <p id="_">I recommend <em>this</em>.</p>
+  </description>
+  <specification exclude="true" type="tabular">
+    <p id="_">This is the object of the recommendation:</p>
+    <table id="_">
+      <tbody>
+        <tr>
+          <td style="text-align:left;">Object</td>
+          <td style="text-align:left;">Value</td>
+          <td style="text-align:left;">Accomplished</td>
+        </tr>
+      </tbody>
+    </table>
+  </specification>
+  <description>
+  <dl>
+  <dt>A</dt><dd>B</dd>
+  <dt>C</dt><dd>D</dd>
+  </dl>
+  </description>
+  <measurement-target exclude="false">
+    <p id="_">The measurement target shall be measured as:</p>
+    <formula id="_">
+      <stem type="AsciiMath">r/1 = 0</stem>
+    </formula>
+  </measurement-target>
+  <verification exclude="false">
+    <p id="_">The following code will be run for verification:</p>
+    <sourcecode id="_">CoreRoot(success): HttpResponse
+      if (success)
+      recommendation(label: success-response)
+      end
+    </sourcecode>
+  </verification>
+  <import exclude="true">
+    <sourcecode id="_">success-response()</sourcecode>
+  </import>
+</permission>
+    </foreword></preface>
+    </ogc-standard>
+    INPUT
+        #{HTML_HDR}
+    <br/>
+        <div id='A'>
+      <h1 class='ForewordTitle'>i.&#160; Preface</h1>
+      <p id='_'>
+        <a href='#A1'>Abstract Test 1</a>
+      </p>
+      <table id='A1' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
+        <thead>
+          <tr>
+            <th style='vertical-align:top;' class='recommend' colspan='2'>
+              <p class='RecommendationTestTitle'>Abstract Test 1:</p>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style='vertical-align:top;' class='recommend' colspan='2'>
+              <p>/ogc/recommendation/wfs/2</p>
+            </td>
+          </tr>
+          <tr>
+            <td style='vertical-align:top;' class='recommend'>Subject</td>
+            <td style='vertical-align:top;' class='recommend'>user</td>
+          </tr>
+          <tr>
+  <td style='vertical-align:top;' class='recommend'>Dependency</td>
+  <td style='vertical-align:top;' class='recommend'>/ss/584/2015/level/1</td>
+</tr>
+          <tr>
+            <td style='vertical-align:top;' class='recommend'>Control-class</td>
+            <td style='vertical-align:top;' class='recommend'>Technical</td>
+          </tr>
+          <tr>
+            <td style='vertical-align:top;' class='recommend'>Priority</td>
+            <td style='vertical-align:top;' class='recommend'>P0</td>
+          </tr>
+          <tr>
+            <td style='vertical-align:top;' class='recommend'>Family</td>
+            <td style='vertical-align:top;' class='recommend'>System and Communications Protection</td>
+          </tr>
+          <tr>
+            <td style='vertical-align:top;' class='recommend'>Family</td>
+            <td style='vertical-align:top;' class='recommend'>System and Communications Protocols</td>
+          </tr>
+          <tr>
+            <td style='vertical-align:top;' class='recommend' colspan='2'>
+              <p id='_'>
+                I recommend
+                <i>this</i>
+                .
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td style='vertical-align:top;' class='recommend'>A</td>
+            <td style='vertical-align:top;' class='recommend'>B</td>
+          </tr>
+          <tr>
+            <td style='vertical-align:top;' class='recommend'>C</td>
+            <td style='vertical-align:top;' class='recommend'>D</td>
+          </tr>
+          <tr>
+            <td style='vertical-align:top;' class='recommend' colspan='2'>
+              <p id='_'>The measurement target shall be measured as:</p>
+              <div id='_' class='formula'>
+                <p>
+                  <span class='stem'>(#(r/1 = 0)#)</span>
+                  &#160; (1)
+                </p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td style='vertical-align:top;' class='recommend' colspan='2'>
+              <p id='_'>The following code will be run for verification:</p>
+              <pre id='_' class='prettyprint '>
+                CoreRoot(success): HttpResponse
+                <br/>
+                &#160;&#160;&#160;&#160;&#160; if (success)
+                <br/>
+                &#160;&#160;&#160;&#160;&#160; recommendation(label:
+                success-response)
+                <br/>
+                &#160;&#160;&#160;&#160;&#160; end
+                <br/>
+                &#160;&#160;&#160;
+              </pre>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class='zzSTDTitle1'/>
+  </div>
+</body>
+OUTPUT
+        end
+
       it "processes permission classes" do
         expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
         <ogc-standard xmlns="https://standards.opengeospatial.org/document">
@@ -926,6 +1078,119 @@ OUTPUT
 </body>
 OUTPUT
       end
+
+           it "processes conformance classes" do
+        expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+        <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+    <preface><foreword id="A">
+        <p id="_"><xref target="A1"/></p>
+    <permission id="A1" type="conformanceclass">
+  <label>/ogc/recommendation/wfs/2</label>
+  <inherit>/ss/584/2015/level/1</inherit>
+  <inherit>/ss/584/2015/level/2</inherit>
+  <subject>user</subject>
+  <permission id="A2">
+  <label>Permission 1</label>
+  </permission>
+  <requirement id="A3">
+  <label>Requirement 1</label>
+  </requirement>
+  <recommendation id="A4">
+  <label>Recommendation 1</label>
+  </recommendation>
+</permission>
+    </foreword></preface>
+    </ogc-standard>
+    INPUT
+                #{HTML_HDR}
+    <br/>
+    <div id='A'>
+      <h1 class='ForewordTitle'>i.&#160; Preface</h1>
+      <p id='_'>
+        <a href='#A1'>Conformance Class 1</a>
+      </p>
+      <table id='A1' class='recommendclass' style='border-collapse:collapse;border-spacing:0;'>
+        <thead>
+          <tr>
+            <th style='vertical-align:top;' class='recommend' colspan='2'>
+              <p class='RecommendationTitle'>Conformance Class 1:</p>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style='vertical-align:top;' class='recommend' colspan='2'>
+              <p>/ogc/recommendation/wfs/2</p>
+            </td>
+          </tr>
+          <tr>
+            <td style='vertical-align:top;' class='recommend'>Target Type</td>
+            <td style='vertical-align:top;' class='recommend'>user</td>
+          </tr>
+          <tr>
+            <td style='vertical-align:top;' class='recommend'>Dependency</td>
+            <td style='vertical-align:top;' class='recommend'>/ss/584/2015/level/1</td>
+          </tr>
+          <tr>
+            <td style='vertical-align:top;' class='recommend'>Dependency</td>
+            <td style='vertical-align:top;' class='recommend'>/ss/584/2015/level/2</td>
+          </tr>
+          <table id='A2' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
+            <thead>
+              <tr>
+                <th style='vertical-align:top;' class='recommend' colspan='2'>
+                  <p class='RecommendationTitle'>Permission 1-1:</p>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style='vertical-align:top;' class='recommend' colspan='2'>
+                  <p>Permission 1</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <table id='A3' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
+            <thead>
+              <tr>
+                <th style='vertical-align:top;' class='recommend' colspan='2'>
+                  <p class='RecommendationTitle'>Requirement 1-1:</p>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style='vertical-align:top;' class='recommend' colspan='2'>
+                  <p>Requirement 1</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <table id='A4' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
+            <thead>
+              <tr>
+                <th style='vertical-align:top;' class='recommend' colspan='2'>
+                  <p class='RecommendationTitle'>Recommendation 1-1:</p>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style='vertical-align:top;' class='recommend' colspan='2'>
+                  <p>Recommendation 1</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </tbody>
+      </table>
+    </div>
+    <p class='zzSTDTitle1'/>
+  </div>
+</body>
+OUTPUT
+           end
 
             it "processes requirement classes" do
         expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")

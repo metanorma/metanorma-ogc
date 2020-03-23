@@ -5,3 +5,5 @@ permissiontest: Permission Test
 recommendationclass: Recommendation Class
 requirementclass: Requirement Class
 permissionclass: Permission Class
+abstracttest: Abstract Test
+conformanceclass: Conformance Class
