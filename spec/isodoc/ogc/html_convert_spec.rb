@@ -272,8 +272,33 @@ RSpec.describe IsoDoc::Ogc do
         <br/>
       <div id="A">
         <h1 class="ForewordTitle">i.&#160; Preface</h1>
-        <p class='SourceTitle' style='text-align:center;'>Figure &#160;&#8212; Example Title</p>
-        <div id="_" class="example"><p class="example-title">EXAMPLE&#160;&#8212; Example Title</p><p id="_">This is an example</p>
+        <p class='SourceTitle' style='text-align:center;'>Example &#160;&#8212; Example Title</p>
+        <div id="_" class="example">
+<p id="_">This is an example</p>
+<p id="_">Amen</p></div>
+      </div>
+      <p class="zzSTDTitle1"/>
+    </div>
+  </body>
+    OUTPUT
+  end
+
+  it "processes examples without titles" do
+    expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword id="A">
+          <example id="_"><p id="_">This is an example</p>
+<p id="_">Amen</p></example>
+    </foreword></preface>
+    </iso-standard>
+    INPUT
+        #{HTML_HDR}
+        <br/>
+      <div id="A">
+        <h1 class="ForewordTitle">i.&#160; Preface</h1>
+        <p class='SourceTitle' style='text-align:center;'>Example </p>
+        <div id="_" class="example">
+<p id="_">This is an example</p>
 <p id="_">Amen</p></div>
       </div>
       <p class="zzSTDTitle1"/>
