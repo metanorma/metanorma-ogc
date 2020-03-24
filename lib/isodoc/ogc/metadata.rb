@@ -75,32 +75,9 @@ module IsoDoc
 
       def version(isoxml, _out)
         super
-        revdate = get[:revdate]
-        set(:revdate_monthyear, monthyr(revdate))
         set(:edition, isoxml&.at(ns("//bibdata/edition"))&.text)
         lg = ISO_639.find_by_code(isoxml&.at(ns("//bibdata/language"))&.text)
         set(:doclanguage, lg ? lg[3] : "English")
-      end
-
-      MONTHS = {
-        "01": "January",
-        "02": "February",
-        "03": "March",
-        "04": "April",
-        "05": "May",
-        "06": "June",
-        "07": "July",
-        "08": "August",
-        "09": "September",
-        "10": "October",
-        "11": "November",
-        "12": "December",
-      }.freeze
-
-      def monthyr(isodate)
-        m = /(?<yr>\d\d\d\d)-(?<mo>\d\d)/.match isodate
-        return isodate unless m && m[:yr] && m[:mo]
-        return "#{MONTHS[m[:mo].to_sym]} #{m[:yr]}"
       end
 
       def url(xml, _out)
