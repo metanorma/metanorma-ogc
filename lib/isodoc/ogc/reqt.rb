@@ -49,16 +49,32 @@ module IsoDoc
       def recommendation_attributes1(node)
         out = []
         oblig = node["obligation"] and out << ["Obligation", oblig]
-        subj = node&.at(ns("./subject"))&.text and
-          out << [%w(class conformanceclass).include?(node["type"]) ?
-          "Target Type" : "Subject", subj]
-        node.xpath(ns("./inherit")).each { |i| out << ["Dependency", i.text] }
+        subj = node&.at(ns("./subject"))&.text and out << [rec_subj(node), subj]
+        node.xpath(ns("./inherit")).each do |i|
+          out << recommendation_attr_parse(i, "Dependency")
+        end
         node.xpath(ns("./classification")).each do |c|
-          tag = c.at(ns("./tag")) or next
-          value = c.at(ns("./value")) or next
-          out << [tag.text.capitalize, value.text]
+          line = recommendation_attr_keyvalue(c, "tag", "value") and out << line
         end
         out
+      end
+
+      def rec_subj(node)
+        %w(class conformanceclass).include?(node["type"]) ?
+                  "Target Type" : "Subject"
+      end
+
+      def recommendation_attr_parse(node, label)
+        text = noko do |xml|
+          node.children.each { |n| parse(n, xml) }
+        end.join
+        [label, text]
+      end
+
+      def recommendation_attr_keyvalue(node, key, value)
+        tag = node.at(ns("./#{key}")) or return nil
+        value = node.at(ns("./#{value}")) or return nil
+        [tag.text.capitalize, value.text]
       end
 
       def recommendation_attributes(node, out)
@@ -66,8 +82,12 @@ module IsoDoc
         return if ret.empty?
         ret.each do |i|
           out.tr do |tr|
-            tr.td i[0], **REQ_TBL_ATTR
-            tr.td i[1], **REQ_TBL_ATTR
+            tr.td **REQ_TBL_ATTR do |td|
+              td << i[0]
+            end
+            tr.td **REQ_TBL_ATTR do |td|
+              td << i[1] 
+            end
           end
         end
       end
