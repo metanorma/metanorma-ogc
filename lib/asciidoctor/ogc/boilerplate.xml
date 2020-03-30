@@ -101,7 +101,6 @@
       <p>This document is not an OGC Standard. This document is distributed for review and comment. This document is subject to change without notice and may not be referred to as an OGC Standard.</p>
 
       <p>Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation.</p>
-      </p>
     </clause>
     {% endif %}
 
@@ -118,8 +117,7 @@
     {% elsif doctype == "Best Practice" %}
     <clause>
       <title>Warning</title>
-      <p>This document defines an OGC Best Practices on a particular technology or approach related to an OGC standard. This document is <em>not</em> an OGC Standard and may not be referred to as an OGC Standard. It is subject to change without notice. However, this document is an <em>official</em> position of the OGC membership on this particular technology topic.
-      </p>
+      <p>This document defines an OGC Best Practices on a particular technology or approach related to an OGC standard. This document is <em>not</em> an OGC Standard and may not be referred to as an OGC Standard. It is subject to change without notice. However, this document is an <em>official</em> position of the OGC membership on this particular technology topic.</p>
 
       <p>Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation.</p>
     </clause>
@@ -131,7 +129,6 @@
 
       <p>Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation.</p>
 
-      </p>
     </clause>
 
     {% else %}
@@ -139,7 +136,6 @@
       <title>Warning</title>
       <p>This document is not an OGC Standard. This document is an OGC {{ doctype }} and is therefore not an official position of the OGC membership. It is distributed for review and comment. It is subject to change without notice and may not be referred to as an OGC Standard.</p>
       <p>Further, an OGC {{ doctype }} should not be referenced as required or mandatory technology in procurements.</p>
-      </p>
     </clause>
     {% endif %}
 
