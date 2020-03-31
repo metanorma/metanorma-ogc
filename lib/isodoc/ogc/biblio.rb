@@ -91,7 +91,7 @@ module IsoDoc
           c = extract_city(b)
           y = extract_year(b)
           out << "#{pub_abbrev}: " if pub_abbrev
-          out << render_identifier(bibitem_ref_code(b))
+          out << render_identifier(inline_bibitem_ref_code(b))
           out << ", "
           out.i do |i|
             iso_title(b)&.children&.each { |n| parse(n, i) }
@@ -104,6 +104,16 @@ module IsoDoc
           out << "(#{y})." if y
         end
       end
+
+      def inline_bibitem_ref_code(b)
+      id = b.at(ns("./docidentifier[not(@type = 'DOI' or @type = 'metanorma' "\
+                   "or @type = 'ISSN' or @type = 'ISBN')]"))
+      id ||= b.at(ns("./docidentifier[not(@type = 'metanorma')]"))
+      return id if id
+      id = Nokogiri::XML::Node.new("docidentifier", b.document)
+      id << "(NO ID)"
+      id
+    end
     end
   end
 end
