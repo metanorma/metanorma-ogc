@@ -123,7 +123,7 @@
     {% elsif doctype == "Best Practice" %}
     <clause>
       <title>Warning</title>
-      <p>This document defines an OGC Best Practices on a particular technology or approach related to an OGC standard. This document is <em>not</em> an OGC Standard and may not be referred to as an OGC Standard. It is subject to change without notice. However, this document is an <em>official</em> position of the OGC membership on this particular technology topic.</p>
+      <p>This document defines an OGC Best Practice on a particular technology or approach related to an OGC standard. This document is <em>not</em> an OGC Standard and may not be referred to as an OGC Standard. It is subject to change without notice. However, this document is an <em>official</em> position of the OGC membership on this particular technology topic.</p>
 
       <p>Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation.</p>
     </clause>
