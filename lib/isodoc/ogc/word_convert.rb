@@ -12,13 +12,14 @@ module IsoDoc
       def initialize(options)
         @libdir = File.dirname(__FILE__)
         super
-        #FileUtils.cp html_doc_path('logo.jpg'), "logo.jpg"
       end
 
       def default_fonts(options)
         {
-          bodyfont: (options[:script] == "Hans" ? '"SimSun",serif' : '"Times New Roman",serif'),
-          headerfont: (options[:script] == "Hans" ? '"SimHei",sans-serif' : '"Times New Roman",serif'),
+          bodyfont: (options[:script] == "Hans" ? '"SimSun",serif' :
+                     '"Times New Roman",serif'),
+          headerfont: (options[:script] == "Hans" ? '"SimHei",sans-serif' :
+                       '"Times New Roman",serif'),
           monospacefont: '"Courier New",monospace'
         }
       end
@@ -34,7 +35,6 @@ module IsoDoc
           olstyle: "l2",
         }
       end
-
 
       def metadata_init(lang, script, labels)
         @meta = Metadata.new(lang, script, labels)
@@ -144,14 +144,24 @@ module IsoDoc
       def word_cleanup(docxml)
         super
         word_recommend_cleanup(docxml)
+        word_copyright_cleanup(docxml)
         word_license_cleanup(docxml)
         word_term_cleanup(docxml)
         docxml
       end
 
       def word_license_cleanup(docxml)
-        docxml.xpath("//div[@class = 'boilerplate-license']//p[not(@class)]").each do |p|
+        x = "//div[@class = 'boilerplate-license']//p[not(@class)]"
+        docxml.xpath(x).each do |p|
           p["class"] = "license"
+        end
+      end
+
+      # center only the Copyright notice
+      def word_copyright_cleanup(docxml)
+        x = "//div[@class = 'boilerplate-copyright']/div[1]/p[not(@class)]"
+        docxml.xpath(x).each do |p|
+          p["align"] = "center"
         end
       end
 

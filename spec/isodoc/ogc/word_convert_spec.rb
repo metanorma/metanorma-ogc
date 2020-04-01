@@ -1361,4 +1361,58 @@ FileUtils.rm_f "test.doc"
 OUTPUT
     end
 
+         it "processes boilerplate" do
+       FileUtils.rm_f "test.doc"
+    IsoDoc::Ogc::WordConvert.new({wordcoverpage: "lib/isodoc/ogc/html/word_ogc_titlepage.html"}).convert("test", <<~"INPUT", false)
+    <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+    <preface/>
+    <boilerplate>
+    <copyright-statement>
+    <clause>
+    <title>Copyright notice</title>
+    <p>A</p>
+    </clause>
+    <clause>
+    <title>Note</title>
+    <p>B</p>
+    </clause>
+    </copyright-statement>
+    <license-statement>
+    <clause>
+    <title>License Agreement</title>
+    <p>C</p>
+    </clause>
+    </license-statement>
+    </boilerplate>
+    <sections>
+    <terms id="_terms_and_definitions" obligation="normative"><title>Terms and definitions</title><p id="_bf202ad0-7300-4cca-80ae-87ef7008f0fd">For the purposes of this document,
+    the following terms and definitions apply.</p>
+<term id="_bounding_volume">
+<preferred>Bounding Volume</preferred>
+<definition><p id="_5e741d88-63d0-45f2-966b-b6f9fb0a5cdb">A closed volume completely containing the union of a set of geometric objects.</p></definition>
+</term>
+</terms>
+</sections>
+</ogc-standard>
+INPUT
+expect((File.read("test.doc").gsub(%r{^.*<div class="boilerplate-copyright">}m, "<div class='boilerplate-copyright'>").gsub(%r{<div class="warning">.*}m, ""))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+<div class='boilerplate-copyright'>
+    <div><p class="TitlePageSubhead">Copyright notice</p>
+
+    <p align="center" class="MsoNormal">A</p>
+    </div>
+    <div><p class="TitlePageSubhead">Note</p>
+
+    <p class="MsoNormal">B</p>
+    </div>
+    </div>
+OUTPUT
+expect((File.read("test.doc").gsub(%r{^.*<div class="boilerplate-license">}m, "<div class='boilerplate-license'>").gsub(%r{<p class="license">.*}m, '<p class="license"/></div></div>'))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+<div class='boilerplate-license'>
+    <div><p class="TitlePageSubhead">License Agreement</p>
+    <p class="license"/></div></div>
+OUTPUT
+end
+
+
 end
