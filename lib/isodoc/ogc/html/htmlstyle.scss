@@ -135,7 +135,10 @@ nav {
 }
 
 .document-type-band {
-  @include docBand($order: 2, $textLength: 150px, $offset: 180px);
+  @include docBand($order: 2, $textLength: null, $offset: 180px);
+  .document-type {
+    top: 20px;
+  }
 }
 
 #governance-band p.document-type {
@@ -293,6 +296,13 @@ table {
 
   td.header {
     font-weight: 400;
+  }
+}
+.docstage-box {
+  table,
+  table th,
+  table td {
+    border: none
   }
 }
 
