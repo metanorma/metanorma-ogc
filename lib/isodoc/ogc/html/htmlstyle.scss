@@ -135,7 +135,7 @@ nav {
 }
 
 .document-type-band {
-  @include docBand($order: 2, $textLength: null, $offset: 180px);
+  @include docBand($order: 2, $offset: 180px);
   .document-type {
     top: 20px;
   }
