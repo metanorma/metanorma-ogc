@@ -54,6 +54,7 @@ module IsoDoc
         set(:authors, extract_person_names(authors))
         editors = isoxml.xpath(ns("//bibdata/contributor[role/@type = 'editor']/person"))
         set(:editors, extract_person_names(editors))
+        agency(isoxml)
       end
 
       def docid(isoxml, _out)
