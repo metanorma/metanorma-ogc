@@ -2,6 +2,10 @@ require "metanorma/processor"
 
 module Metanorma
   module Ogc
+    def self.pdf_fonts
+      ["Arial", "Courier", "Times New Roman"]
+    end
+
     class Processor < Metanorma::Processor
 
       def initialize
