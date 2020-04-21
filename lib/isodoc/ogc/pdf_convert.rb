@@ -1,95 +1,27 @@
 require_relative "base_convert"
-require "fileutils"
 require "isodoc"
-require_relative "metadata"
 
 module IsoDoc
   module Ogc
     # A {Converter} implementation that generates PDF HTML output, and a
     # document schema encapsulation of the document for validation
-    class PdfConvert < IsoDoc::PdfConvert
+    class PdfConvert < IsoDoc::XslfoPdfConvert
       def initialize(options)
         @libdir = File.dirname(__FILE__)
         super
-        #FileUtils.cp html_doc_path('logo.jpg'), "logo.jpg"
-        #@files_to_delete << "logo.jpg"
       end
 
-      def default_fonts(options)
-        {
-          bodyfont: (options[:script] == "Hans" ? '"SimSun",serif' : '"Overpass",sans-serif'),
-          headerfont: (options[:script] == "Hans" ? '"SimHei",sans-serif' : '"Overpass",sans-serif'),
-          monospacefont: '"Space Mono",monospace'
-        }
+      def convert(filename, file = nil, debug = false)
+        file = File.read(filename, encoding: "utf-8") if file.nil?
+        docxml, outname_html, dir = convert_init(file, filename, debug)
+        doctype = docxml&.at(ns("//bibdata/ext/doctype"))&.text
+        doctype = "other" unless %w(community-standard engineering-report policy
+        reference-model release-notes standard user-guide test-suite).include? doctype
+        FileUtils.rm_rf dir
+        ::Metanorma::Output::XslfoPdf.new.convert(
+          filename, outname_html + ".pdf",
+          File.join(@libdir, "unece.#{doctype}.xsl"))
       end
-
-      def default_file_locations(_options)
-        {
-          htmlstylesheet: html_doc_path("htmlstyle.scss"),
-          htmlcoverpage: html_doc_path("html_ogc_titlepage.html"),
-          htmlintropage: html_doc_path("html_ogc_intro.html"),
-          scripts_pdf: html_doc_path("scripts.pdf.html"),
-        }
-      end
-
-      def metadata_init(lang, script, labels)
-        @meta = Metadata.new(lang, script, labels)
-      end
-
-      def googlefonts
-        <<~HEAD.freeze
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i|Space+Mono:400,700" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css?family=Overpass:300,300i,600,900" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css?family=Teko:300,400,500" rel="stylesheet">
-        HEAD
-      end
-
-      def admonition_class(node)
-        case node["type"]
-        when "important" then "Admonition.Important"
-        when "warning" then "Admonition.Warning"
-        else
-          "Admonition"
-        end
-      end
-
-      def make_body(xml, docxml)
-        body_attr = { lang: "EN-US", link: "blue", vlink: "#954F72", "xml:lang": "EN-US", class: "container" }
-        xml.body **body_attr do |body|
-          make_body1(body, docxml)
-          make_body2(body, docxml)
-          make_body3(body, docxml)
-        end
-      end
-
-      def html_toc(docxml)
-        docxml
-      end
-
-      def make_body3(body, docxml)
-        body.div **{ class: "main-section" } do |div3|
-          @prefacenum = 0
-          boilerplate docxml, div3
-          abstract docxml, div3
-          keywords docxml, div3
-          foreword docxml, div3
-          introduction docxml, div3
-          submittingorgs docxml, div3
-          submitters docxml, div3
-          preface docxml, div3
-          acknowledgements docxml, div3
-          middle docxml, div3
-          footnotes div3
-          comments div3
-        end
-      end
-
-       def authority_cleanup(docxml)
-        authority_cleanup1(docxml, "contact")
-        super
-      end
-
-      include BaseConvert
     end
   end
 end

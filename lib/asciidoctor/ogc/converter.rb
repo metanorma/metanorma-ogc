@@ -60,7 +60,7 @@ module Asciidoctor
           File.open(filename, "w") { |f| f.write(ret) }
           html_converter(node).convert filename unless node.attr("nodoc")
           word_converter(node).convert filename unless node.attr("nodoc")
-          pdf_converter(node).convert filename unless node.attr("nodoc")
+          pdf_converter(node)&.convert filename unless node.attr("nodoc")
         end
         @log.write(@localdir + @filename + ".err") unless @novalid
         @files_to_delete.each { |f| FileUtils.rm f }
@@ -129,6 +129,7 @@ module Asciidoctor
       end
 
       def pdf_converter(node)
+        return nil if node.attr("no-pdf")
         IsoDoc::Ogc::PdfConvert.new(html_extract_attributes(node))
       end
 

@@ -516,6 +516,7 @@ RSpec.describe IsoDoc::Ogc do
       Author
       :docfile: test.adoc
       :novalid:
+      :no-pdf:
     INPUT
 
     output = xmlpp(<<~"OUTPUT")
