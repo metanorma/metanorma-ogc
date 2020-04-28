@@ -17,6 +17,11 @@ module IsoDoc
         doctype = docxml&.at(ns("//bibdata/ext/doctype"))&.text
         doctype = "other" unless %w(community-standard engineering-report policy
         reference-model release-notes standard user-guide test-suite).include? doctype
+        /\.xml$/.match(filename) or
+          filename = Tempfile.open([outname_html, ".xml"], encoding: "utf-8") do |f|
+          f.write file
+          f.path
+        end
         FileUtils.rm_rf dir
         ::Metanorma::Output::XslfoPdf.new.convert(
           filename, outname_html + ".pdf",
