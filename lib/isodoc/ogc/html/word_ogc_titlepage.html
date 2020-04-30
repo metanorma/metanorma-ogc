@@ -36,7 +36,7 @@ style='mso-no-proof:yes;font-size:10.0pt'>Editor: {{ editors | join: ", " }}</sp
 {% endif %}
 
 <p class="MsoNormal" align="center" style='text-align:center;line-height:18.0pt;margin-bottom:0.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang="EN-GB" style='font-size:24.0pt'>OGC {{ doctitle }}</span>
+style='mso-bidi-font-weight:normal'><span lang="EN-GB" style='font-size:24.0pt'>{{ doctitle }}</span>
 </b></p>
 
 <p class="MsoNormal" style='margin-top:100.0pt'><span lang="EN-GB"><o:p>&nbsp;</o:p></span></p>
@@ -61,12 +61,22 @@ page;mso-element-left:39.9pt;mso-element-top:693.25pt;mso-height-rule:exactly'>
   auto;mso-element-anchor-vertical:page;mso-element-anchor-horizontal:page;
   mso-element-left:39.9pt;mso-element-top:693.25pt;mso-height-rule:exactly'><span
   lang=EN-GB style='font-size:10.0pt;mso-color-alt:windowtext;font-weight:normal'>Document
+  number:&nbsp;&nbsp;&nbsp;<span style='mso-tab-count:1'>         </span><span
+  class=SpellE><span lang=EN-GB
+  style='font-size:10.0pt;font-weight:normal'>{{ docnumber }}</span><span lang=EN-GB style='font-size:10.0pt;
+  mso-color-alt:windowtext;font-weight:normal'><o:p></o:p></span></p>
+
+  <p class=zzCover align=left style='margin-bottom:0cm;margin-bottom:.0001pt;
+  text-align:left;mso-hyphenate:none;tab-stops:99.0pt;mso-element:frame;
+  mso-element-frame-hspace:7.1pt;mso-element-frame-vspace:7.1pt;mso-element-wrap:
+  auto;mso-element-anchor-vertical:page;mso-element-anchor-horizontal:page;
+  mso-element-left:39.9pt;mso-element-top:693.25pt;mso-height-rule:exactly'><span
+  lang=EN-GB style='font-size:10.0pt;mso-color-alt:windowtext;font-weight:normal'>Document
   type:&nbsp;&nbsp;&nbsp;<span style='mso-tab-count:1'>         </span><span
   class=SpellE>OGC</span><sup>®</sup> </span><span lang=EN-GB
   style='font-size:10.0pt;font-weight:normal'>{{ doctype }}</span><span lang=EN-GB style='font-size:10.0pt;
   mso-color-alt:windowtext;font-weight:normal'><o:p></o:p></span></p>
   
-{% if docsubstatus %}  
   <p class=zzCover align=left style='margin-bottom:0cm;margin-bottom:.0001pt;
   text-align:left;mso-hyphenate:none;tab-stops:99.0pt;mso-element:frame;
   mso-element-frame-hspace:7.1pt;mso-element-frame-vspace:7.1pt;mso-element-wrap:
@@ -74,7 +84,6 @@ page;mso-element-left:39.9pt;mso-element-top:693.25pt;mso-height-rule:exactly'>
   mso-element-left:39.9pt;mso-element-top:693.25pt;mso-height-rule:exactly'><span
   lang=EN-GB style='font-size:10.0pt;mso-color-alt:windowtext;font-weight:normal'>Document
   subtype:&nbsp;&nbsp;&nbsp;<span style='mso-tab-count:1'>    </span>{{ docsubstatus }}<o:p></o:p></span></p>
-{% endif %}
 
   <p class=zzCover align=left style='margin-bottom:0cm;margin-bottom:.0001pt;
   text-align:left;mso-hyphenate:none;tab-stops:99.0pt;mso-element:frame;
@@ -89,7 +98,7 @@ page;mso-element-left:39.9pt;mso-element-top:693.25pt;mso-height-rule:exactly'>
   auto;mso-element-anchor-vertical:page;mso-element-anchor-horizontal:page;
   mso-element-left:39.9pt;mso-element-top:693.25pt;mso-height-rule:exactly'><span
   lang=EN-GB style='font-size:10.0pt;mso-color-alt:windowtext;font-weight:normal'>Document
-  language:&nbsp;<span style='mso-tab-count:1'>    </span>{{ language }}</span><span
+  language:&nbsp;<span style='mso-tab-count:1'>    </span>{{ doclanguage }}</span><span
   lang=EN-GB style='font-size:8.0pt;mso-bidi-font-size:10.0pt;mso-color-alt:
   windowtext'><o:p></o:p></span></p>
   </td>

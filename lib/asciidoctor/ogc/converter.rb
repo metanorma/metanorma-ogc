@@ -33,7 +33,8 @@ module Asciidoctor
           reference-model release-notes standard user-guide white-paper 
           test-suite}.include? d
           @warned_doctype or
-            @log.add("Document Attributes", nil, "'#{d}' is not a legal document type: reverting to 'standard'")
+            @log.add("Document Attributes", nil,
+                     "'#{d}' is not a legal document type: reverting to 'standard'")
           @warned_doctype = true
           d = "standard"
         end
