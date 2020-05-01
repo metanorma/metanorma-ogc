@@ -131,7 +131,7 @@ RSpec.describe IsoDoc::Ogc do
              </p>
            </div>
            <div id='terms'>
-             <h1>2.&#160; Terms and definitions</h1>
+             <h1>2.&#160; </h1>
            </div>
            <div id='widgets'>
              <h1>3.&#160; Widgets</h1>
@@ -355,7 +355,7 @@ OUTPUT
              </p>
            </div>
            <div id='terms'>
-             <h1>2.&#160; Terms and definitions</h1>
+             <h1>2.&#160; </h1>
            </div>
            <div id='widgets'>
              <h1>3.&#160; Widgets</h1>
@@ -579,7 +579,7 @@ OUTPUT
              </p>
            </div>
            <div id='terms'>
-             <h1>2.&#160; Terms and definitions</h1>
+             <h1>2.&#160; </h1>
            </div>
            <div id='widgets'>
              <h1>3.&#160; Widgets</h1>
@@ -802,7 +802,7 @@ OUTPUT
              </p>
            </div>
            <div id='terms'>
-             <h1>2.&#160; Terms and definitions</h1>
+             <h1>2.&#160; </h1>
            </div>
            <div id='widgets'>
              <h1>3.&#160; Widgets</h1>
@@ -1025,7 +1025,7 @@ OUTPUT
              </p>
            </div>
            <div id='terms'>
-             <h1>2.&#160; Terms and definitions</h1>
+             <h1>2.&#160; </h1>
            </div>
            <div id='widgets'>
              <h1>3.&#160; Widgets</h1>
@@ -1248,7 +1248,7 @@ OUTPUT
              </p>
            </div>
            <div id='terms'>
-             <h1>2.&#160; Terms and definitions</h1>
+             <h1>2.&#160; </h1>
            </div>
            <div id='widgets'>
              <h1>3.&#160; Widgets</h1>
@@ -1702,7 +1702,7 @@ end
              </p>
            </div>
            <div id='terms'>
-             <h1>2.&#160; Terms and definitions</h1>
+             <h1>2.&#160; </h1>
            </div>
            <div id='widgets'>
              <h1>3.&#160; Widgets</h1>
@@ -1925,7 +1925,7 @@ OUTPUT
              </p>
            </div>
            <div id='terms'>
-             <h1>2.&#160; Terms and definitions</h1>
+             <h1>2.&#160; </h1>
            </div>
            <div id='widgets'>
              <h1>3.&#160; Widgets</h1>

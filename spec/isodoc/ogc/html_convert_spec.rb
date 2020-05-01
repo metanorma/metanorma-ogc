@@ -88,7 +88,7 @@ RSpec.describe IsoDoc::Ogc do
     INPUT
 
     output = <<~"OUTPUT"
-    {:accesseddate=>"XXX", :agency=>"OGC", :authors=>["Barney Rubble"], :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"1999-01-01", :doc=>"http://www.example.com/doc", :doclanguage=>"English", :docnumber=>"1000", :docnumeric=>"1000", :docsubtype=>"Conceptual Model And Encoding", :docsubtype_abbr=>"CME", :doctitle=>"Main Title", :doctype=>"Standard",  :doctype_abbr=>"IS", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :edition=>"2.0", :editors=>["Fred Flintstone"], :externalid=>"http://www.example2.com", :html=>"http://www.example.com/html", :implementeddate=>"XXX", :issueddate=>"2001-01-01", :keywords=>["A", "B"], :obsoleteddate=>"XXX", :pdf=>"http://www.example.com/pdf", :publisheddate=>"2002-01-01", :publisher=>"OGC", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :stage=>"SWG Work", :stageabbr=>"SW", :tc=>"TC", :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>true, :updateddate=>"XXX", :url=>"http://www.example.com", :xml=>"http://www.example.com/xml"}
+    {:accesseddate=>"XXX", :agency=>"OGC", :authors=>["Barney Rubble"], :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"1999-01-01", :doc=>"http://www.example.com/doc", :doclanguage=>"English", :docnumber=>"1000", :docnumeric=>"1000", :docsubtype=>"Conceptual Model And Encoding", :docsubtype_abbr=>"CME", :doctitle=>"Main Title", :doctype=>"Standard",  :doctype_abbr=>"IS", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :edition=>"2.0", :editors=>["Fred Flintstone"], :externalid=>"http://www.example2.com", :html=>"http://www.example.com/html", :implementeddate=>"XXX", :issueddate=>"2001-01-01", :keywords=>["A", "B"], :obsoleteddate=>"XXX", :pdf=>"http://www.example.com/pdf", :publisheddate=>"2002-01-01", :publisher=>"OGC", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :stage=>"SWG Work", :stageabbr=>"SW", :tc=>"TC", :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>true, :updateddate=>"XXX", :url=>"http://www.example.com", :vote_endeddate=>"XXX", :vote_starteddate=>"XXX", :xml=>"http://www.example.com/xml"}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)
@@ -171,7 +171,7 @@ RSpec.describe IsoDoc::Ogc do
     output = xmlpp(<<~"OUTPUT")
         #{HTML_HDR}
              <p class="zzSTDTitle1"/>
-             <div id="H"><h1>1.&#160; Terms and definitions</h1>
+             <div id="H"><h1>1.&#160; Terms, Definitions, Symbols and Abbreviated Terms</h1>
        <p class="TermNum" id="J">1.1.</p>
          <p class="Terms" style="text-align:left;">Term2</p>
        </div>
@@ -357,7 +357,7 @@ RSpec.describe IsoDoc::Ogc do
          <p id="E1">Text</p>
        </clause>
 
-       <clause id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title><terms id="I" obligation="normative">
+       <clause id="H" obligation="normative"><title>Terms, definitions, symbols and abbreviated terms</title><terms id="I" obligation="normative">
          <title>Normal Terms</title>
          <term id="J">
          <preferred>Term2</preferred>
