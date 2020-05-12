@@ -46,6 +46,7 @@ module Asciidoctor
         when "preface" then "foreword"
         when "foreword" then "donotrecognise-foreword"
         when "introduction" then "donotrecognise-foreword"
+        when "references" then "normative references"
         else
           super
         end
@@ -94,14 +95,6 @@ module Asciidoctor
       def clause_parse(attrs, xml, node)
         clausetype = node&.attr("heading")&.downcase || node.title.downcase
         if clausetype == "submitters" then submitters_parse(attrs, xml, node)
-        else
-          super
-        end
-      end
-
-      def bibliography_parse(attrs, xml, node)
-        clausetype = node&.attr("heading")&.downcase || node.title.downcase
-        if clausetype == "references" then norm_ref_parse(attrs, xml, node) 
         else
           super
         end
