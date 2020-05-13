@@ -11,12 +11,18 @@ module IsoDoc
         super
       end
 
+      def pdf_stylesheet(docxml)
+        doctype = docxml&.at(ns("//bibdata/ext/doctype"))&.text
+        doctype = "other" unless %w(abstract-specification-topic best-practice
+        change-request-supporting-document community-practice community-standard 
+        discussion-paper engineering-report policy reference-model release-notes 
+        standard user-guide test-suite white-paper).include? doctype
+        "ogc.#{doctype}.xsl"
+      end
+
       def convert(filename, file = nil, debug = false)
         file = File.read(filename, encoding: "utf-8") if file.nil?
         docxml, outname_html, dir = convert_init(file, filename, debug)
-        doctype = docxml&.at(ns("//bibdata/ext/doctype"))&.text
-        doctype = "other" unless %w(community-standard engineering-report policy
-        reference-model release-notes standard user-guide test-suite).include? doctype
         /\.xml$/.match(filename) or
           filename = Tempfile.open([outname_html, ".xml"], encoding: "utf-8") do |f|
           f.write file
@@ -24,10 +30,8 @@ module IsoDoc
         end
         FileUtils.rm_rf dir
         ::Metanorma::Output::XslfoPdf.new.convert(
-          filename, outname_html + ".pdf",
-          File.join(@libdir, "unece.#{doctype}.xsl"))
+          filename, outname_html + ".pdf", File.join(@libdir, pdf_stylesheet(docxml)))
       end
     end
   end
 end
-
