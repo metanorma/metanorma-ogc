@@ -408,7 +408,7 @@ OUTPUT
 <sections>
 
 
-</sections><bibliography><references id="_" obligation="informative">
+</sections><bibliography><references id="_" obligation="informative" normative="true">
   <title>Normative References</title>
   <p id="_">There are no normative references in this document.</p>
 </references></bibliography>
