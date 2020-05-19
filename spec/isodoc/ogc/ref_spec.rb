@@ -2,7 +2,7 @@ require "spec_helper"
 
 RSpec.describe IsoDoc::Ogc do
   it "processes IsoXML bibliographies" do
-    expect((IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).sub(/^.*<body/m, "<body").sub(%r{</body>.*$}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).sub(/^.*<body/m, "<body").sub(%r{</body>.*$}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <bibdata>
     <language>en</language>
@@ -136,7 +136,7 @@ RSpec.describe IsoDoc::Ogc do
          <a href="#ISO16634">ISO 16634:-- (all parts)</a>
          <a href="#ref1">ICC 167</a>
          <a href="#ref10">[10]</a>
-         <a href="#ref12">[Citn]</a>
+         <a href="#ref12">Citn</a>
          <a href="#zip_ffs">[5]</a>
          </p>
              </div>
