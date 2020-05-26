@@ -3,7 +3,7 @@ module IsoDoc
     module BaseConvert
       def std_bibitem_entry(list, b, ordinal, biblio)
         list.p **attr_code(iso_bibitem_entry_attrs(b, biblio)) do |ref|
-          prefix_bracketed_ref(ref, ordinal) if biblio
+          prefix_bracketed_ref(ref, "[#{ordinal}]") if biblio
           standard_citation(ref, b)
         end
       end
@@ -91,7 +91,8 @@ module IsoDoc
           c = extract_city(b)
           y = extract_year(b)
           out << "#{pub_abbrev}: " if pub_abbrev
-          out << render_identifier(inline_bibitem_ref_code(b))
+          id = render_identifier(inline_bibitem_ref_code(b))
+          out << id[1] if id[1]
           out << ", "
           out.i do |i|
             iso_title(b)&.children&.each { |n| parse(n, i) }
@@ -107,12 +108,12 @@ module IsoDoc
 
       def inline_bibitem_ref_code(b)
       id = b.at(ns("./docidentifier[not(@type = 'DOI' or @type = 'metanorma' "\
-                   "or @type = 'ISSN' or @type = 'ISBN')]"))
+                   "or @type = 'ISSN' or @type = 'ISBN' or @type = 'rfc-anchor')]"))
       id ||= b.at(ns("./docidentifier[not(@type = 'metanorma')]"))
-      return id if id
+      return [nil, id, nil] if id
       id = Nokogiri::XML::Node.new("docidentifier", b.document)
       id << "(NO ID)"
-      id
+      [nil, id, nil]
     end
     end
   end
