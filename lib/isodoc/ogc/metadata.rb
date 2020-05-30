@@ -62,14 +62,6 @@ module IsoDoc
         set(:externalid, isoxml&.at(ns("//bibdata/docidentifier[@type = 'ogc-external']"))&.text)
       end
 
-      def keywords(isoxml, _out)
-        keywords = []
-        isoxml.xpath(ns("//bibdata/keyword | //bibdata/ext/keyword")).each do |kw|
-          keywords << kw.text
-        end
-        set(:keywords, keywords)
-      end
-
       def unpublished(status)
         !%w(published deprecated retired).include?(status.downcase)
       end
