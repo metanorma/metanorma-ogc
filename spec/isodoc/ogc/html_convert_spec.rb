@@ -1018,7 +1018,7 @@ OUTPUT
   <inherit>/ss/584/2015/level/2</inherit>
   <subject>user</subject>
   <permission id="A2">
-  <label>Permission 1</label>
+  <label>/ogc/recommendation/wfs/10</label>
   </permission>
   <requirement id="A3">
   <label>Requirement 1</label>
@@ -1027,6 +1027,11 @@ OUTPUT
   <label>Recommendation 1</label>
   </recommendation>
 </permission>
+
+<permission id="B1">
+  <label>/ogc/recommendation/wfs/10</label>
+</permission>
+
     </foreword></preface>
     </ogc-standard>
     INPUT
@@ -1067,14 +1072,14 @@ OUTPUT
             <thead>
               <tr>
                 <th style='vertical-align:top;' class='recommend' colspan='2'>
-                  <p class='RecommendationTitle'>Permission 1-1:</p>
+                  <p class='RecommendationTitle'>Permission:</p>
                 </th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td style='vertical-align:top;' class='recommend' colspan='2'>
-                  <p>Permission 1</p>
+                  <p>Permission 1, /ogc/recommendation/wfs/10</p>
                 </td>
               </tr>
             </tbody>
@@ -1113,6 +1118,22 @@ OUTPUT
           </table>
         </tbody>
       </table>
+      <table id='B1' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
+  <thead>
+    <tr>
+      <th style='vertical-align:top;' class='recommend' colspan='2'>
+        <p class='RecommendationTitle'>Permission 1:</p>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style='vertical-align:top;' class='recommend' colspan='2'>
+        <p>/ogc/recommendation/wfs/10</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
     </div>
     <p class='zzSTDTitle1'/>
   </div>

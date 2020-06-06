@@ -26,23 +26,38 @@ module IsoDoc
         out.p **{ class: %w(verification abstracttest).include?(node["type"]) ?
                   "RecommendationTestTitle" : "RecommendationTitle" }  do |b|
           lbl = anchor(node['id'], :label, false)
+          lbl = nil if inject_crossreference_reqt?(node, label)
           b << (lbl.nil? ? l10n("#{type}:") : l10n("#{type} #{lbl}:"))
-          if title
+          if title && !inject_crossreference_reqt?(node, label)
             b << " "
             title.children.each { |n| parse(n,b) }
           end
         end
       end
 
+      # if @reqtlabels[label.text] exists, it 
       def recommend_title(node, out)
         label = node.at(ns("./label")) or return
         out.tr do |tr|
           tr.td **REQ_TBL_ATTR.merge(colspan: 2) do |td|
             td.p do |p|
+              inject_crossreference_reqt(node, label, out)
               label.children.each { |n| parse(n, p) }
             end
           end
         end
+      end
+
+      # embedded reqts xref to top level reqts via label lookup
+      def inject_crossreference_reqt?(node, label)
+        !node.ancestors("requirement, recommendation, permission").empty? &&
+        @reqtlabels[label.text]
+      end
+
+      def inject_crossreference_reqt(node, label, out)
+        inject_crossreference_reqt?(node, label) or return
+        out << anchor(@reqtlabels[label.text], :xref, false)
+        out << ", "
       end
 
       def recommendation_attributes1(node)
@@ -173,6 +188,7 @@ module IsoDoc
           next if t["id"].nil? || t["id"].empty?
           id = c.increment(t).print
           @anchors[t["id"]] = anchor_struct(id, t, label, klass, t["unnumbered"])
+          l = t.at(ns("./label"))&.text and @reqtlabels[l] = t["id"]
           sequential_permission_children(t, id)
         end
       end
@@ -250,6 +266,7 @@ module IsoDoc
           next if t["id"].nil? || t["id"].empty?
           lbl = "#{num}#{hiersep}#{c.increment(t).print}"
           @anchors[t["id"]] = anchor_struct(lbl, t, label, klass, t["unnumbered"])
+          l = t.at(ns("./label"))&.text and @reqtlabels[l] = t["id"]
           sequential_permission_children(t, lbl)
         end
       end

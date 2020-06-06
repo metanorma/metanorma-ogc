@@ -11,6 +11,7 @@ module IsoDoc
     class WordConvert < IsoDoc::WordConvert
       def initialize(options)
         @libdir = File.dirname(__FILE__)
+        @reqtlabels = {}
         super
       end
 
@@ -18,9 +19,9 @@ module IsoDoc
         {
           bodyfont: (options[:script] == "Hans" ? '"SimSun",serif' :
                      '"Times New Roman",serif'),
-          headerfont: (options[:script] == "Hans" ? '"SimHei",sans-serif' :
-                       '"Times New Roman",serif'),
-          monospacefont: '"Courier New",monospace'
+                     headerfont: (options[:script] == "Hans" ? '"SimHei",sans-serif' :
+                                  '"Times New Roman",serif'),
+                                  monospacefont: '"Courier New",monospace'
         }
       end
 
