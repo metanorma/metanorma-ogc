@@ -154,18 +154,5 @@
       <p>Suggested additions, changes and comments on this standard are welcome and encouraged. Such suggestions may be submitted using the online change request form on OGC web site: <link target="http://portal.opengeospatial.org/public_ogc/change_request.php">http://portal.opengeospatial.org/public_ogc/change_request.php</link></p>
     </clause>
     {% endif %}
-    <clause id="boilerplate-contact">
-      <p id="boilerplate-name">Open Geospatial Consortium</p>
-  <p id="boilerplate-address" align="left">
-    35 Main Street<br />
-    Suite 5<br />
-    Wayland<br />
-    MA, 01778<br />
-    United States of America<br />
-    <br />
-    <link target="mailto:copyright@opengeospatial.org">copyright@opengeospatial.org</link><br />
-    <link target="www.opengeospatial.org">www.opengeospatial.org</link>
-  </p>
-    </clause>
   </feedback-statement>
 </boilerplate>

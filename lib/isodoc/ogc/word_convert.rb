@@ -186,11 +186,6 @@ module IsoDoc
         end
       end
 
-      def authority_cleanup(docxml)
-        docxml&.at("//div[@id = 'boilerplate-contact']")&.remove
-        super
-      end
-
       include BaseConvert
     end
   end
