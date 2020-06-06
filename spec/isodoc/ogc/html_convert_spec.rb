@@ -1072,14 +1072,14 @@ OUTPUT
             <thead>
               <tr>
                 <th style='vertical-align:top;' class='recommend' colspan='2'>
-                  <p class='RecommendationTitle'>Permission:</p>
+                  <p class='RecommendationTitle'>Permission 1:</p>
                 </th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td style='vertical-align:top;' class='recommend' colspan='2'>
-                  <p>Permission 1, /ogc/recommendation/wfs/10</p>
+                  <p>/ogc/recommendation/wfs/10</p>
                 </td>
               </tr>
             </tbody>
