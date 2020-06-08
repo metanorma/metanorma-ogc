@@ -70,6 +70,8 @@ RSpec.describe IsoDoc::Ogc do
              </organization>
            </owner>
          </copyright>
+         <keyword>A</keyword>
+         <keyword>B</keyword>
          <ext>
          <doctype>standard</doctype>
          <docsubtype>conceptual-model-and-encoding</docsubtype>
@@ -79,8 +81,6 @@ RSpec.describe IsoDoc::Ogc do
            <subcommittee type="C" number="1">SC1</committee>
            <workgroup type="D" number="2">WG1</committee>
          </editorialgroup>
-         <keyword>A</keyword>
-         <keyword>B</keyword>
          </ext>
        </bibdata>
        <sections/>
@@ -88,11 +88,54 @@ RSpec.describe IsoDoc::Ogc do
     INPUT
 
     output = <<~"OUTPUT"
-    {:accesseddate=>"XXX", :agency=>"OGC", :authors=>["Barney Rubble"], :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"1999-01-01", :doc=>"http://www.example.com/doc", :doclanguage=>"English", :docnumber=>"1000", :docnumeric=>"1000", :docsubtype=>"Conceptual Model And Encoding", :docsubtype_abbr=>"CME", :doctitle=>"Main Title", :doctype=>"Standard",  :doctype_abbr=>"IS", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :edition=>"2.0", :editors=>["Fred Flintstone"], :externalid=>"http://www.example2.com", :html=>"http://www.example.com/html", :implementeddate=>"XXX", :issueddate=>"2001-01-01", :keywords=>["A", "B"], :obsoleteddate=>"XXX", :pdf=>"http://www.example.com/pdf", :publisheddate=>"2002-01-01", :publisher=>"OGC", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :stage=>"SWG Work", :stageabbr=>"SW", :tc=>"TC", :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>true, :updateddate=>"XXX", :url=>"http://www.example.com", :vote_endeddate=>"XXX", :vote_starteddate=>"XXX", :xml=>"http://www.example.com/xml"}
+{:accesseddate=>"XXX",
+:agency=>"OGC",
+:authors=>["Barney Rubble"],
+:circulateddate=>"XXX",
+:confirmeddate=>"XXX",
+:copieddate=>"XXX",
+:createddate=>"1999-01-01",
+:doc=>"http://www.example.com/doc",
+:doclanguage=>"English",
+:docnumber=>"1000",
+:docnumeric=>"1000",
+:docsubtype=>"Conceptual Model And Encoding",
+:docsubtype_abbr=>"CME",
+:doctitle=>"Main Title",
+:doctype=>"Standard",
+:doctype_abbr=>"IS",
+:docyear=>"2001",
+:draft=>"3.4",
+:draftinfo=>" (draft 3.4, 2000-01-01)",
+:edition=>"2.0",
+:editors=>["Fred Flintstone"],
+:externalid=>"http://www.example2.com",
+:html=>"http://www.example.com/html",
+:implementeddate=>"XXX",
+:issueddate=>"2001-01-01",
+:keywords=>["A", "B"],
+:obsoleteddate=>"XXX",
+:pdf=>"http://www.example.com/pdf",
+:publisheddate=>"2002-01-01",
+:publisher=>"OGC",
+:receiveddate=>"XXX",
+:revdate=>"2000-01-01",
+:revdate_monthyear=>"January 2000",
+:stage=>"SWG Work",
+:stageabbr=>"SW",
+:tc=>"TC",
+:transmitteddate=>"XXX",
+:unchangeddate=>"XXX",
+:unpublished=>true,
+:updateddate=>"XXX",
+:url=>"http://www.example.com",
+:vote_endeddate=>"XXX",
+:vote_starteddate=>"XXX",
+:xml=>"http://www.example.com/xml"}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)
-    expect(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s)).to be_equivalent_to output
+    expect(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s).gsub(/, :/, ",\n:")).to be_equivalent_to output
   end
 
   it "processes pre" do
@@ -128,9 +171,7 @@ RSpec.describe IsoDoc::Ogc do
     input = <<~"INPUT"
 <ogc-standard xmlns="#{Metanorma::Ogc::DOCUMENT_NAMESPACE}">
 <bibdata>
-<ext>
 <keyword>ABC</keyword>
-</ext>
 </bibdata>
 </ogc-standard>
     INPUT
@@ -201,7 +242,7 @@ RSpec.describe IsoDoc::Ogc do
                <br/>
                <div id="A">
                  <h1 class="ForewordTitle">i.&#160; Preface</h1>
-                 <div class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">CAUTION</p>
+                 <div  id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">CAUTION</p>
          <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
        </div>
                </div>
@@ -225,7 +266,7 @@ RSpec.describe IsoDoc::Ogc do
                <br/>
                <div id="A">
                  <h1 class="ForewordTitle">i.&#160; Preface</h1>
-                 <div class="Admonition.Warning"><p class="AdmonitionTitle" style="text-align:center;">WARNING</p>
+                 <div id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" class="Admonition.Warning"><p class="AdmonitionTitle" style="text-align:center;">WARNING</p>
          <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
        </div>
                </div>
@@ -249,7 +290,7 @@ RSpec.describe IsoDoc::Ogc do
                <br/>
                <div id="A">
                  <h1 class="ForewordTitle">i.&#160; Preface</h1>
-                 <div class="Admonition.Important"><p class="AdmonitionTitle" style="text-align:center;">IMPORTANT</p>
+                 <div  id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" class="Admonition.Important"><p class="AdmonitionTitle" style="text-align:center;">IMPORTANT</p>
          <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
        </div>
                </div>
@@ -324,10 +365,8 @@ RSpec.describe IsoDoc::Ogc do
              <name>DEF</name>
            </organization>
          </contributor>
-         <ext>
       <keyword>A</keyword>
       <keyword>B</keyword>
-      </ext>
       </bibdata>
       <preface>
        <abstract obligation="informative" id="1">

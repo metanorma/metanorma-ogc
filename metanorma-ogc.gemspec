@@ -26,7 +26,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "htmlentities", "~> 4.3.4"
   spec.add_dependency "ruby-jing"
-  spec.add_dependency "metanorma-standoc", "~> 1.3.20"
+  spec.add_dependency "metanorma-standoc", "~> 1.4.0"
   spec.add_dependency "isodoc", "~> 1.0.20"
   spec.add_dependency "iso-639"
 
