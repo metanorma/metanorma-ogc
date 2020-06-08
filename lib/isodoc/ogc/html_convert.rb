@@ -12,6 +12,7 @@ module IsoDoc
     class HtmlConvert < IsoDoc::HtmlConvert
       def initialize(options)
         @libdir = File.dirname(__FILE__)
+        @reqtlabels = {}
         super
       end
 

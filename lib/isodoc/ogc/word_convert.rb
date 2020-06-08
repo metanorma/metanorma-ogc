@@ -11,6 +11,7 @@ module IsoDoc
     class WordConvert < IsoDoc::WordConvert
       def initialize(options)
         @libdir = File.dirname(__FILE__)
+        @reqtlabels = {}
         super
       end
 
@@ -18,9 +19,9 @@ module IsoDoc
         {
           bodyfont: (options[:script] == "Hans" ? '"SimSun",serif' :
                      '"Times New Roman",serif'),
-          headerfont: (options[:script] == "Hans" ? '"SimHei",sans-serif' :
-                       '"Times New Roman",serif'),
-          monospacefont: '"Courier New",monospace'
+                     headerfont: (options[:script] == "Hans" ? '"SimHei",sans-serif' :
+                                  '"Times New Roman",serif'),
+                                  monospacefont: '"Courier New",monospace'
         }
       end
 
@@ -183,11 +184,6 @@ module IsoDoc
             tr2 && style_update(tr2, "background:#C9C9C9;")
           end
         end
-      end
-
-      def authority_cleanup(docxml)
-        docxml&.at("//div[@id = 'boilerplate-contact']")&.remove
-        super
       end
 
       include BaseConvert

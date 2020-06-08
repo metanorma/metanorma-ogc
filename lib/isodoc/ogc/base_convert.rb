@@ -47,11 +47,6 @@ module IsoDoc
         docxml
       end
 
-      def info(isoxml, out)
-        @meta.keywords isoxml, out
-        super
-      end
-
       def load_yaml(lang, script)
         y = if @i18nyaml then YAML.load_file(@i18nyaml)
             else

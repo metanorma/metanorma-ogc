@@ -36,9 +36,8 @@
         modifications that have not been approved or adopted by LICENSOR.</p>
 
       <p>THIS LICENSE IS A COPYRIGHT LICENSE ONLY, AND DOES NOT
-        CONVEY ANY RIGHTS UNDER ANY PATENTS THAT MAY BE IN FORCE ANYWHERE IN THE WORLD.</p>
-
-      <p>THE INTELLECTUAL PROPERTY IS PROVIDED "AS
+        CONVEY ANY RIGHTS UNDER ANY PATENTS THAT MAY BE IN FORCE ANYWHERE IN THE WORLD.
+        THE INTELLECTUAL PROPERTY IS PROVIDED "AS
         IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
         LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE,
         AND NONINFRINGEMENT OF THIRD PARTY RIGHTS. THE COPYRIGHT HOLDER OR HOLDERS
@@ -77,9 +76,8 @@
         authorization of LICENSOR or such copyright holder. LICENSOR is and shall at
         all times be the sole entity that may authorize you or any third party to use
         certification marks, trademarks or other special designations to indicate
-        compliance with any LICENSOR standards or specifications.</p>
-     
-      <p> This Agreement is
+        compliance with any LICENSOR standards or specifications.
+        This Agreement is
         governed by the laws of the Commonwealth of Massachusetts. The application to
         this Agreement of the United Nations Convention on Contracts for the
         International Sale of Goods is hereby expressly excluded. In the event any
@@ -150,24 +148,11 @@
 
 
 
-  {% if doctype == "Standard" or doctype == "Community Standard" %}
   <feedback-statement>
-    <clause>
+    {% if doctype == "Standard" %}
+    <clause id="boilerplate-standard-feedback">
       <p>Suggested additions, changes and comments on this standard are welcome and encouraged. Such suggestions may be submitted using the online change request form on OGC web site: <link target="http://portal.opengeospatial.org/public_ogc/change_request.php">http://portal.opengeospatial.org/public_ogc/change_request.php</link></p>
     </clause>
-    <clause id="boilerplate-contact">
-      <p id="boilerplate-name">Open Geospatial Consortium</p>
-  <p id="boilerplate-address" align="left">
-    35 Main Street<br />
-    Suite 5<br />
-    Wayland<br />
-    MA, 01778<br />
-    United States of America<br />
-    <br />
-    <link target="mailto:copyright@opengeospatial.org">copyright@opengeospatial.org</link><br />
-    <link target="www.opengeospatial.org">www.opengeospatial.org</link>
-  </p>
-    </clause>
+    {% endif %}
   </feedback-statement>
-  {% endif %}
 </boilerplate>

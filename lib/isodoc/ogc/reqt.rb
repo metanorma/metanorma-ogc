@@ -1,6 +1,5 @@
 require "isodoc"
-require_relative "metadata"
-require "fileutils"
+require_relative "reqt_xref"
 
 module IsoDoc
   module Ogc
@@ -14,25 +13,35 @@ module IsoDoc
       end
 
       def recommend_table_attr(node)
-        attr_code(id: node["id"], 
-                  class: recommend_class(node),
+        attr_code(id: node["id"], class: recommend_class(node),
                   style: "border-collapse:collapse;border-spacing:0;")
       end
 
       REQ_TBL_ATTR =
         { style: "vertical-align:top;", class: "recommend" }.freeze
 
+      def recommendation_class(node)
+        %w(verification abstracttest).include?(node["type"]) ?
+                  "RecommendationTestTitle" : "RecommendationTitle"
+      end
+
       def recommendation_name(node, out, type)
         label, title, lbl = recommendation_labels(node)
-        out.p **{ class: %w(verification abstracttest).include?(node["type"]) ?
-                  "RecommendationTestTitle" : "RecommendationTitle" }  do |b|
-          lbl = anchor(node['id'], :label, false)
-          b << (lbl.nil? ? l10n("#{type}:") : l10n("#{type} #{lbl}:"))
-          if title
-            b << " "
-            title.children.each { |n| parse(n,b) }
+        out.p **{ class: recommendation_class(node) } do |b|
+          if inject_crossreference_reqt?(node, label)
+            lbl = anchor(@reqtlabels[label.text], :xref, false)
+            b << (lbl.nil? ? l10n("#{type}:") : l10n("#{lbl}:"))
+          else
+            b << (lbl.nil? ? l10n("#{type}:") : l10n("#{type} #{lbl}:"))
           end
+          recommendation_name1(title, node, label, b)
         end
+      end
+
+      def recommendation_name1(title, node, label, b)
+        return unless  title && !inject_crossreference_reqt?(node, label)
+        b << " "
+        title.children.each { |n| parse(n,b) }
       end
 
       def recommend_title(node, out)
@@ -44,6 +53,12 @@ module IsoDoc
             end
           end
         end
+      end
+
+      # embedded reqts xref to top level reqts via label lookup
+      def inject_crossreference_reqt?(node, label)
+        !node.ancestors("requirement, recommendation, permission").empty? &&
+          @reqtlabels[label&.text]
       end
 
       def recommendation_attributes1(node)
@@ -61,7 +76,7 @@ module IsoDoc
 
       def rec_subj(node)
         %w(class conformanceclass).include?(node["type"]) ?
-                  "Target Type" : "Subject"
+          "Target Type" : "Subject"
       end
 
       def recommendation_attr_parse(node, label)
@@ -78,9 +93,7 @@ module IsoDoc
       end
 
       def recommendation_attributes(node, out)
-        ret = recommendation_attributes1(node)
-        return if ret.empty?
-        ret.each do |i|
+        recommendation_attributes1(node).each do |i|
           out.tr do |tr|
             tr.td **REQ_TBL_ATTR do |td|
               td << i[0]
@@ -141,125 +154,31 @@ module IsoDoc
       end
 
       def recommendation_parse(node, out)
+        recommendation_parse0(node, out, "recommendation")
+      end
+
+      def recommendation_parse0(node, out, r)
         label = case node["type"]
-                when "verification" then @labels["recommendationtest"]
-                when "class" then @labels["recommendationclass"]
+                when "verification" then @labels["#{r}test"]
+                when "class" then @labels["#{r}class"]
                 when "abstracttest" then @labels["abstracttest"]
                 when "conformanceclass" then @labels["conformanceclass"]
-                else
-                  @recommendation_lbl
+                else 
+                  case r
+                  when "recommendation" then @recommendation_lbl
+                  when "requirement" then @requirement_lbl
+                  when "permission" then @permission_lbl
+                  end
                 end
         recommendation_parse1(node, out, label)
       end
 
       def requirement_parse(node, out)
-        label = case node["type"]
-                when "verification" then @labels["requirementtest"]
-                when "class" then @labels["requirementclass"]
-                when "abstracttest" then @labels["abstracttest"]
-                when "conformanceclass" then @labels["conformanceclass"]
-                else
-                  @requirement_lbl
-                end
-        recommendation_parse1(node, out, label)
+        recommendation_parse0(node, out, "requirement")
       end
 
       def permission_parse(node, out)
-        label = case node["type"]
-                when "verification" then @labels["permissiontest"]
-                when "class" then @labels["permissionclass"]
-                when "abstracttest" then @labels["abstracttest"]
-                when "conformanceclass" then @labels["conformanceclass"]
-                else
-                  @permission_lbl
-                end
-        recommendation_parse1(node, out, label)
-      end
-
-      FIRST_LVL_REQ = IsoDoc::Function::XrefGen::FIRST_LVL_REQ
-
-      def sequential_permission_names(clause, klass, label)
-        c = ::IsoDoc::Function::XrefGen::Counter.new
-        clause.xpath(ns(".//#{klass}#{FIRST_LVL_REQ}")).each do |t|
-          next if t["id"].nil? || t["id"].empty?
-          id = c.increment(t).print
-          @anchors[t["id"]] = anchor_struct(id, t, label, klass, t["unnumbered"])
-          sequential_permission_children(t, id)
-        end
-      end
-
-      def req_class_paths
-        {  
-          "class" => "@type = 'class'", 
-          "test" => "@type = 'verification'", 
-          "" => "not(@type = 'verification' or @type = 'class' or @type = 'abstracttest' or @type = 'conformanceclass')",
-        }
-      end
-
-      def req_class_paths2
-        {
-          "abstracttest" => "@type = 'abstracttest'",
-          "conformanceclass" => "@type = 'conformanceclass'",
-        }
-      end
-
-      def sequential_permission_children(t, id)
-        req_class_paths.each do |k, v|
-          sequential_permission_names1(t, id, "permission[#{v}]", @labels["permission#{k}"])
-          sequential_permission_names1(t, id, "requirement[#{v}]", @labels["requirement#{k}"])
-          sequential_permission_names1(t, id, "recommendation[#{v}]",  @labels["recommendation#{k}"])
-        end
-        req_class_paths2.each do |k, v|
-          sequential_permission_names1(t, id, "*[#{v}]", @labels[k])
-        end
-      end
-
-      def sequential_permission_names1(block, lbl, klass, label)
-        c = ::IsoDoc::Function::XrefGen::Counter.new
-        block.xpath(ns("./#{klass}")).each do |t|
-          next if t["id"].nil? || t["id"].empty?
-          id = "#{lbl}#{hierfigsep}#{c.increment(t).print}"
-          @anchors[t["id"]] = anchor_struct(id, t, label, klass, t["unnumbered"])
-          sequential_permission_children(t, id)
-        end
-      end
-
-      def sequential_asset_names(clause)
-        sequential_table_names(clause)
-        sequential_figure_names(clause)
-        sequential_formula_names(clause)
-        req_class_paths.each do |k, v|
-          sequential_permission_names(clause, "permission[#{v}]", @labels["permission#{k}"])
-          sequential_permission_names(clause, "requirement[#{v}]", @labels["requirement#{k}"])
-          sequential_permission_names(clause, "recommendation[#{v}]",  @labels["recommendation#{k}"])
-        end
-        req_class_paths2.each do |k, v|
-          sequential_permission_names(clause, "*[#{v}]", @labels[k])
-        end
-      end
-
-      def hierarchical_asset_names(clause, num)
-        hierarchical_table_names(clause, num)
-        hierarchical_figure_names(clause, num)
-        hierarchical_formula_names(clause, num)
-        req_class_paths.each do |k, v|
-          hierarchical_permission_names(clause, num, "permission[#{v}]", @labels["permission#{k}"])
-          hierarchical_permission_names(clause, num, "requirement[#{v}]", @labels["requirement#{k}"])
-          hierarchical_permission_names(clause, num, "recommendation[#{v}]",  @labels["recommendation#{k}"])
-        end
-        req_class_paths2.each do |k, v|
-          hierarchical_permission_names(clause, num, "*[#{v}]", @labels[k])
-        end
-      end
-
-      def hierarchical_permission_names(clause, num, klass, label)
-        c = ::IsoDoc::Function::XrefGen::Counter.new
-        clause.xpath(ns(".//#{klass}#{FIRST_LVL_REQ}")).each do |t|
-          next if t["id"].nil? || t["id"].empty?
-          lbl = "#{num}#{hiersep}#{c.increment(t).print}"
-          @anchors[t["id"]] = anchor_struct(lbl, t, label, klass, t["unnumbered"])
-          sequential_permission_children(t, lbl)
-        end
+        recommendation_parse0(node, out, "permission")
       end
     end
   end
