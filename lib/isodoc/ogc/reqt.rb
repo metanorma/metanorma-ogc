@@ -14,7 +14,8 @@ module IsoDoc
 
       def recommend_table_attr(node)
         attr_code(id: node["id"], class: recommend_class(node),
-                  style: "border-collapse:collapse;border-spacing:0;")
+                  style: "border-collapse:collapse;border-spacing:0;"\
+                 "#{keep_style(node}")
       end
 
       REQ_TBL_ATTR =
@@ -110,7 +111,8 @@ module IsoDoc
         node.elements.size == 1 && node.first_element_child.name == "dl" and
           return reqt_dl(node.first_element_child, out)
         out.tr do |tr|
-          tr.td **REQ_TBL_ATTR.merge(colspan: 2) do |td|
+          tr.td **REQ_TBL_ATTR.merge(colspan: 2).
+            merge(reqt_component_attrs(node)) do |td|
             node.children.each { |n| parse(n, td) }
           end
         end
