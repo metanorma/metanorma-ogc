@@ -147,7 +147,7 @@ RSpec.describe IsoDoc::Ogc do
        <p id="ISO16634" class="NormRef">ISO: ISO 16634:-- (all parts), <i>Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</i>. <span>International Organization for Standardization</span> (--).</p>
        <p id="ISO20483" class="NormRef">International Organization for Standardization: ISO 20483:2013-2014, <i>Cereals and pulses</i>. <span>International Organization for Standardization</span> (2013&#8211;2014).</p>
        <p id="ref1" class="NormRef"><span style="font-variant:small-caps;">Standard No I.C.C 167</span>. <i>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</i> (see <a href="http://www.icc.or.at">http://www.icc.or.at</a>)</p>
-       <div id="" class="Note"><p><span class="note_label">NOTE i</span>&#160; This is an annotation of ISO 20483:2013-2014</p></div>
+       <div class="Note"><p><span class="note_label">NOTE i</span>&#160; This is an annotation of ISO 20483:2013-2014</p></div>
            <p id="zip_ffs" class="NormRef">Title 5</p>
 
 
@@ -157,8 +157,8 @@ RSpec.describe IsoDoc::Ogc do
 
        <p id="ISBN" class="Biblio">[1]&#160; ISBN: ISBN ISBN, <i>Chemicals for analytical laboratory use</i>. <span>ISBN</span></p>
        <p id="ISSN" class="Biblio">[2]&#160; ISSN: ISSN ISSN, <i>Instruments for analytical laboratory use</i>. <span>ISSN</span></p>
-       <div id="" class="Note"><p><span class="note_label">NOTE i</span>&#160; This is an annotation of document ISSN.</p></div>
-       <div id="" class="Note"><p><span class="note_label">NOTE i</span>&#160; This is another annotation of document ISSN.</p></div>
+       <div class="Note"><p><span class="note_label">NOTE i</span>&#160; This is an annotation of document ISSN.</p></div>
+       <div class="Note"><p><span class="note_label">NOTE i</span>&#160; This is another annotation of document ISSN.</p></div>
        <p id="ISO3696" class="Biblio">[3]&#160; International Organization for Standardization: ISO 3696, <i>Water for analytical laboratory use</i>. <span>International Organization for Standardization</span></p>
        <p id="ref10" class="Biblio">[10]&#160; <span style="font-variant:small-caps;">Standard No I.C.C 167</span>. <i>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</i> (see <a href="http://www.icc.or.at">http://www.icc.or.at</a>)</p>
        <p id="ref11" class="Biblio">[5]&#160; IETF RFC 10, <i>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</i>. </p>

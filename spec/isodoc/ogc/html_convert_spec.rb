@@ -698,11 +698,12 @@ RSpec.describe IsoDoc::Ogc do
                  <tr>
                    <td style='vertical-align:top;' class='recommend' colspan='2'>
                      <p id='_'>The measurement target shall be measured as:</p>
-                     <div id='_' class='formula'>
+                     <div id='_'><div class='formula'>
                        <p>
                          <span class='stem'>(#(r/1 = 0)#)</span>
                          &#160; (1)
                        </p>
+                     </div>
                      </div>
                    </td>
                  </tr>
@@ -860,11 +861,12 @@ RSpec.describe IsoDoc::Ogc do
           <tr>
             <td style='vertical-align:top;' class='recommend' colspan='2'>
               <p id='_'>The measurement target shall be measured as:</p>
-              <div id='_' class='formula'>
+              <div id='_'><div class='formula'>
                 <p>
                   <span class='stem'>(#(r/1 = 0)#)</span>
                   &#160; (1)
                 </p>
+              </div>
               </div>
             </td>
           </tr>
@@ -1012,11 +1014,12 @@ OUTPUT
           <tr>
             <td style='vertical-align:top;' class='recommend' colspan='2'>
               <p id='_'>The measurement target shall be measured as:</p>
-              <div id='_' class='formula'>
+              <div id='_'><div class='formula'>
                 <p>
                   <span class='stem'>(#(r/1 = 0)#)</span>
                   &#160; (1)
                 </p>
+              </div>
               </div>
             </td>
           </tr>
@@ -1081,7 +1084,7 @@ OUTPUT
       <p id='_'>
         <a href='#A1'>Permission Class 1</a>
       </p>
-      <table id='A1' class='recommendclass' style='border-collapse:collapse;border-spacing:0;'>
+      <table id='A1' class='recommendclass' style='border-collapse:collapse;border-spacing:0;page-break-after: avoid;page-break-inside: avoid;'>
         <thead>
           <tr>
             <th style='vertical-align:top;' class='recommend' colspan='2'>
@@ -1613,11 +1616,12 @@ INPUT
                  <tr>
                    <td style='vertical-align:top;' class='recommend' colspan='2'>
                      <p id='_'>The measurement target shall be measured as:</p>
-                     <div id='B' class='formula'>
+                     <div id='B'><div class='formula'>
                        <p>
                          <span class='stem'>(#(r/1 = 0)#)</span>
                          &#160; (1)
                        </p>
+                     </div>
                      </div>
                    </td>
                  </tr>
@@ -1741,11 +1745,12 @@ INPUT
                  <tr>
                    <td style='vertical-align:top;' class='recommend' colspan='2'>
                      <p id='_'>The measurement target shall be measured as:</p>
-                     <div id='_' class='formula'>
+                     <div id='_'><div class='formula'>
                        <p>
                          <span class='stem'>(#(r/1 = 0)#)</span>
                          &#160; (1)
                        </p>
+                     </div>
                      </div>
                    </td>
                  </tr>

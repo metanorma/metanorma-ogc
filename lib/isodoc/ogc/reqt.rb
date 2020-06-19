@@ -15,7 +15,7 @@ module IsoDoc
       def recommend_table_attr(node)
         attr_code(id: node["id"], class: recommend_class(node),
                   style: "border-collapse:collapse;border-spacing:0;"\
-                 "#{keep_style(node}")
+                 "#{keep_style(node)}")
       end
 
       REQ_TBL_ATTR =
@@ -104,6 +104,10 @@ module IsoDoc
             end
           end
         end
+      end
+
+      def reqt_component_attrs(node)
+        attr_code(style: keep_style(node))
       end
 
       def requirement_component_parse(node, out)

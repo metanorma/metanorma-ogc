@@ -496,8 +496,9 @@ OUTPUT
                        <a name='_' id='_'/>
                        The measurement target shall be measured as:
                      </p>
-                     <div class='formula'>
+                     <div>
                        <a name='_' id='_'/>
+                     <div class='formula'>
                        <p class='MsoNormal'>
                          <span class='stem'>
                            <m:oMath>
@@ -524,6 +525,7 @@ OUTPUT
                          <span style='mso-tab-count:1'>&#xA0; </span>
                          (1)
                        </p>
+                     </div>
                      </div>
                    </td>
                  </tr>
@@ -690,8 +692,9 @@ OUTPUT
                        <a name='_' id='_'/>
                        The measurement target shall be measured as:
                      </p>
-                     <div class='formula'>
+                     <div>
                        <a name='_' id='_'/>
+                     <div class='formula'>
                        <p class='MsoNormal'>
                          <span class='stem'>
                            <m:oMath>
@@ -718,6 +721,7 @@ OUTPUT
                          <span style='mso-tab-count:1'>&#xA0; </span>
                          (1)
                        </p>
+                     </div>
                      </div>
                    </td>
                  </tr>
@@ -867,8 +871,9 @@ INPUT
                        <a name='_' id='_'/>
                        The measurement target shall be measured as:
                      </p>
-                     <div class='formula'>
+                     <div>
                        <a name='B' id='B'/>
+                     <div class='formula'>
                        <p class='MsoNormal'>
                          <span class='stem'>
                            <m:oMath>
@@ -895,6 +900,7 @@ INPUT
                          <span style='mso-tab-count:1'>&#xA0; </span>
                          (1)
                        </p>
+                     </div>
                      </div>
                    </td>
                  </tr>
@@ -1044,8 +1050,9 @@ INPUT
                        <a name='_' id='_'/>
                        The measurement target shall be measured as:
                      </p>
-                     <div class='formula'>
+                     <div>
                        <a name='_' id='_'/>
+                     <div class='formula'>
                        <p class='MsoNormal'>
                          <span class='stem'>
                            <m:oMath>
@@ -1072,6 +1079,7 @@ INPUT
                          <span style='mso-tab-count:1'>&#xA0; </span>
                          (1)
                        </p>
+                     </div>
                      </div>
                    </td>
                  </tr>
