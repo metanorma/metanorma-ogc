@@ -1051,7 +1051,7 @@ OUTPUT
         <ogc-standard xmlns="https://standards.opengeospatial.org/document">
     <preface><foreword id="A">
         <p id="_"><xref target="A1"/></p>
-    <permission id="A1" type="class">
+    <permission id="A1" type="class" keep-with-next="true" keep-lines-together="true">
   <label>/ogc/recommendation/wfs/2</label>
   <inherit>/ss/584/2015/level/1</inherit>
   <inherit>/ss/584/2015/level/2</inherit>
@@ -1531,7 +1531,7 @@ OUTPUT
   <description>
     <p id="_">I recommend <em>this</em>.</p>
   </description>
-  <specification exclude="true" type="tabular">
+  <specification exclude="true" type="tabular" keep-with-next="true" keep-lines-together="true">
     <p id="_">This is the object of the recommendation:</p>
     <table id="_">
       <tbody>
