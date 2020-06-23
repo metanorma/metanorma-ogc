@@ -1,5 +1,4 @@
 require "isodoc"
-require_relative "reqt_xref"
 
 module IsoDoc
   module Ogc
@@ -30,7 +29,7 @@ module IsoDoc
         label, title, lbl = recommendation_labels(node)
         out.p **{ class: recommendation_class(node) } do |b|
           if inject_crossreference_reqt?(node, label)
-            lbl = anchor(@reqtlabels[label.text], :xref, false)
+            lbl = @xrefs.anchor(@xrefs.reqtlabels[label.text], :xref, false)
             b << (lbl.nil? ? l10n("#{type}:") : l10n("#{lbl}:"))
           else
             b << (lbl.nil? ? l10n("#{type}:") : l10n("#{type} #{lbl}:"))
@@ -59,7 +58,7 @@ module IsoDoc
       # embedded reqts xref to top level reqts via label lookup
       def inject_crossreference_reqt?(node, label)
         !node.ancestors("requirement, recommendation, permission").empty? &&
-          @reqtlabels[label&.text]
+          @xrefs.reqtlabels[label&.text]
       end
 
       def recommendation_attributes1(node)

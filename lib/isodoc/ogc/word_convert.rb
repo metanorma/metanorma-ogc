@@ -11,7 +11,6 @@ module IsoDoc
     class WordConvert < IsoDoc::WordConvert
       def initialize(options)
         @libdir = File.dirname(__FILE__)
-        @reqtlabels = {}
         super
       end
 
@@ -35,10 +34,6 @@ module IsoDoc
           ulstyle: "l3",
           olstyle: "l2",
         }
-      end
-
-      def metadata_init(lang, script, labels)
-        @meta = Metadata.new(lang, script, labels)
       end
 
       def make_body(xml, docxml)
