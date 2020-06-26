@@ -12,7 +12,6 @@ module IsoDoc
     class HtmlConvert < IsoDoc::HtmlConvert
       def initialize(options)
         @libdir = File.dirname(__FILE__)
-        @reqtlabels = {}
         super
       end
 
@@ -31,10 +30,6 @@ module IsoDoc
           htmlintropage: html_doc_path("html_ogc_intro.html"),
           scripts: html_doc_path("scripts.html"),
         }
-      end
-
-      def metadata_init(lang, script, labels)
-        @meta = Metadata.new(lang, script, labels)
       end
 
       def googlefonts

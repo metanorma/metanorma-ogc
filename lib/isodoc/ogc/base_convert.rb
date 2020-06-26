@@ -8,6 +8,14 @@ require "fileutils"
 module IsoDoc
   module Ogc
     module BaseConvert
+      def metadata_init(lang, script, labels)
+        @meta = Metadata.new(lang, script, labels)
+      end
+
+      def xref_init(lang, script, klass, labels, options)
+        @xrefs = Xref.new(lang, script, klass, labels, options)
+      end
+
       def fileloc(loc)
         File.join(File.dirname(__FILE__), loc)
       end
@@ -55,19 +63,6 @@ module IsoDoc
         super.merge(y)
       end
 
-      def preface_names_numbered(clause)
-        return if clause.nil?
-        @prefacenum += 1
-        pref = RomanNumerals.to_roman(@prefacenum).downcase
-        @anchors[clause["id"]] =
-          { label: pref,
-            level: 1, xref: preface_clause_name(clause), type: "clause" }
-        clause.xpath(ns("./clause | ./terms | ./term | ./definitions | "\
-                        "./references")).each_with_index do |c, i|
-          section_names1(c, "#{pref}.#{i + 1}", 2)
-        end
-      end
-
       def example_parse(node, out)
         name = node.at(ns("./name"))
         example_name_parse(node, out, name) #if name
@@ -78,7 +73,7 @@ module IsoDoc
       end
 
       def example_name_parse(node, div, name)
-        lbl = anchor(node['id'], :label, false)
+        lbl = @xrefs.anchor(node['id'], :label, false)
         div.p **{ class: "SourceTitle", style: "text-align:center;" } do |p|
           lbl.nil? or p << l10n("#{@example_lbl} #{lbl}")
           name and !lbl.nil? and p << "&nbsp;&mdash; "
@@ -86,48 +81,9 @@ module IsoDoc
         end
       end
 
-      def initial_anchor_names(d)
-        @prefacenum = 0
-        preface_names_numbered(d.at(ns("//preface/abstract")))
-        @prefacenum += 1 if d.at(ns("//keyword"))
-        preface_names_numbered(d.at(ns("//foreword")))
-        preface_names_numbered(d.at(ns("//introduction")))
-        @prefacenum += 1 if d.at(ns(SUBMITTINGORGS))
-        preface_names_numbered(d.at(ns("//submitters")))
-        d.xpath(ns("//preface/clause")).each do |c|
-          preface_names_numbered(c)
-        end
-        preface_names_numbered(d.at(ns("//acknowledgements")))
-        sequential_asset_names(d.xpath(ns(
-          "//preface/abstract | //foreword | //introduction | "\
-          "//submitters | //acknowledgements | //preface/clause")))
-        n = section_names(d.at(ns("//clause[title = 'Scope']")), 0, 1)
-        n = section_names(d.at(ns("//clause[title = 'Conformance']")), n, 1)
-        n = section_names(d.at(ns(
-          "//references[title = 'Normative References' or "\
-          "title = 'Normative references']")), n, 1)
-        n = section_names(
-          d.at(ns("//sections/terms | //sections/clause[descendant::terms]")),
-          n, 1)
-        n = section_names(d.at(ns("//sections/definitions")), n, 1)
-        middle_section_asset_names(d)
-        clause_names(d, n)
-        termnote_anchor_names(d)
-        termexample_anchor_names(d)
-      end
-
-      MIDDLE_CLAUSE =
+      def middle_clause
         "//clause[parent::sections][not(xmlns:title = 'Scope' or "\
-        "xmlns:title = 'Conformance')][not(descendant::terms)]".freeze
-
-      def middle_section_asset_names(d)
-        middle_sections = "//clause[title = 'Scope' or title = 'Conformance'] "\
-          "| //foreword | //introduction | //preface/abstract | "\
-          "//submitters | //acknowledgements | //preface/clause | "\
-          "//references[title = 'Normative References' or title = "\
-          "'Normative references'] | //sections/terms | "\
-          "//sections/definitions | //clause[parent::sections]"
-        sequential_asset_names(d.xpath(ns(middle_sections)))
+        "xmlns:title = 'Conformance')][not(descendant::terms)]"
       end
 
       def middle(isoxml, out)
