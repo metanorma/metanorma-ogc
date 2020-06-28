@@ -1297,7 +1297,7 @@ FileUtils.rm_f "test.doc"
            <span class='MsoHyperlink'>
              <span lang='EN-GB' xml:lang='EN-GB' style='mso-no-proof:yes'>
                <a href='#_Toc'>
-                 Figure 1&#xA0;&#x2014; First figure
+                 First figure
                  <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
                    <span style='mso-tab-count:1 dotted'>. </span>
                  </span>

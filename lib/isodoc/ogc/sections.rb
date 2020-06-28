@@ -24,10 +24,6 @@ module IsoDoc
         end
       end
 
-      def submittingorgs_path
-        "//bibdata/contributor[role/@type = 'author']/organization/name"
-      end
-
       def submittingorgs(docxml, out)
         orgs = []
         docxml.xpath(ns(submittingorgs_path)).each { |org| orgs << org.text }
