@@ -300,14 +300,43 @@ RSpec.describe IsoDoc::Ogc do
     OUTPUT
   end
 
-  it "processes examples with titles" do
-    expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+         it "processes examples with titles (Presentation XML)" do
+    expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword id="A">
           <example id="_"><name>Example Title</name><p id="_">This is an example</p>
 <p id="_">Amen</p></example>
     </foreword></preface>
     </iso-standard>
+    INPUT
+    <?xml version='1.0'?>
+<iso-standard xmlns='http://riboseinc.com/isoxml'>
+  <preface>
+    <foreword id='A'>
+      <example id='_'>
+        <name>Example &#xA0;&#x2014; Example Title</name>
+        <p id='_'>This is an example</p>
+        <p id='_'>Amen</p>
+      </example>
+    </foreword>
+  </preface>
+</iso-standard>
+    OUTPUT
+         end
+
+  it "processes examples with titles (HTML)" do
+    expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+<iso-standard xmlns='http://riboseinc.com/isoxml'>
+  <preface>
+    <foreword id='A'>
+      <example id='_'>
+        <name>Example &#xA0;&#x2014; Example Title</name>
+        <p id='_'>This is an example</p>
+        <p id='_'>Amen</p>
+      </example>
+    </foreword>
+  </preface>
+</iso-standard>
     INPUT
         #{HTML_HDR}
         <br/>
@@ -324,14 +353,43 @@ RSpec.describe IsoDoc::Ogc do
     OUTPUT
   end
 
-  it "processes examples without titles" do
-    expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+   it "processes examples without titles (PresentationXML)" do
+    expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
     <iso-standard xmlns="http://riboseinc.com/isoxml">
     <preface><foreword id="A">
           <example id="_"><p id="_">This is an example</p>
 <p id="_">Amen</p></example>
     </foreword></preface>
     </iso-standard>
+    INPUT
+    <?xml version='1.0'?>
+<iso-standard xmlns='http://riboseinc.com/isoxml'>
+  <preface>
+    <foreword id='A'>
+      <example id='_'>
+        <name>Example </name>
+        <p id='_'>This is an example</p>
+        <p id='_'>Amen</p>
+      </example>
+    </foreword>
+  </preface>
+</iso-standard>
+    OUTPUT
+   end
+
+  it "processes examples without titles (HTML)" do
+    expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+<iso-standard xmlns='http://riboseinc.com/isoxml'>
+  <preface>
+    <foreword id='A'>
+      <example id='_'>
+        <name>Example </name>
+        <p id='_'>This is an example</p>
+        <p id='_'>Amen</p>
+      </example>
+    </foreword>
+  </preface>
+</iso-standard>
     INPUT
         #{HTML_HDR}
         <br/>
@@ -701,7 +759,6 @@ RSpec.describe IsoDoc::Ogc do
                      <div id='_'><div class='formula'>
                        <p>
                          <span class='stem'>(#(r/1 = 0)#)</span>
-                         &#160; (1)
                        </p>
                      </div>
                      </div>
@@ -864,7 +921,6 @@ RSpec.describe IsoDoc::Ogc do
               <div id='_'><div class='formula'>
                 <p>
                   <span class='stem'>(#(r/1 = 0)#)</span>
-                  &#160; (1)
                 </p>
               </div>
               </div>
@@ -1017,7 +1073,6 @@ OUTPUT
               <div id='_'><div class='formula'>
                 <p>
                   <span class='stem'>(#(r/1 = 0)#)</span>
-                  &#160; (1)
                 </p>
               </div>
               </div>
@@ -1619,7 +1674,6 @@ INPUT
                      <div id='B'><div class='formula'>
                        <p>
                          <span class='stem'>(#(r/1 = 0)#)</span>
-                         &#160; (1)
                        </p>
                      </div>
                      </div>
@@ -1748,7 +1802,6 @@ INPUT
                      <div id='_'><div class='formula'>
                        <p>
                          <span class='stem'>(#(r/1 = 0)#)</span>
-                         &#160; (1)
                        </p>
                      </div>
                      </div>

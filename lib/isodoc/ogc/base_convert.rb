@@ -46,14 +46,6 @@ module IsoDoc
         docxml
       end
 
-      def load_yaml(lang, script)
-        y = if @i18nyaml then YAML.load_file(@i18nyaml)
-            else
-              YAML.load_file(File.join(File.dirname(__FILE__), "i18n-en.yaml"))
-            end
-        super.merge(y)
-      end
-
       def example_parse(node, out)
         name = node.at(ns("./name"))
         example_name_parse(node, out, name) #if name
@@ -64,10 +56,7 @@ module IsoDoc
       end
 
       def example_name_parse(node, div, name)
-        lbl = @xrefs.anchor(node['id'], :label, false)
         div.p **{ class: "SourceTitle", style: "text-align:center;" } do |p|
-          lbl.nil? or p << l10n("#{@example_lbl} #{lbl}")
-          name and !lbl.nil? and p << "&nbsp;&mdash; "
           name&.children&.each { |n| parse(n, p) }
         end
       end

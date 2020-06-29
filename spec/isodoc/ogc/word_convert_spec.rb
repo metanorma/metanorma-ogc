@@ -522,8 +522,6 @@ OUTPUT
                              </m:r>
                            </m:oMath>
                          </span>
-                         <span style='mso-tab-count:1'>&#xA0; </span>
-                         (1)
                        </p>
                      </div>
                      </div>
@@ -718,8 +716,6 @@ OUTPUT
                              </m:r>
                            </m:oMath>
                          </span>
-                         <span style='mso-tab-count:1'>&#xA0; </span>
-                         (1)
                        </p>
                      </div>
                      </div>
@@ -897,8 +893,6 @@ INPUT
                              </m:r>
                            </m:oMath>
                          </span>
-                         <span style='mso-tab-count:1'>&#xA0; </span>
-                         (1)
                        </p>
                      </div>
                      </div>
@@ -1076,8 +1070,6 @@ INPUT
                              </m:r>
                            </m:oMath>
                          </span>
-                         <span style='mso-tab-count:1'>&#xA0; </span>
-                         (1)
                        </p>
                      </div>
                      </div>

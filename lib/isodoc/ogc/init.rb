@@ -13,6 +13,14 @@ module IsoDoc
         @xrefs = Xref.new(lang, script, klass, labels, options)
       end
 
+      def load_yaml(lang, script)
+        y = if @i18nyaml then YAML.load_file(@i18nyaml)
+            else
+              YAML.load_file(File.join(File.dirname(__FILE__), "i18n-en.yaml"))
+            end
+        super.merge(y)
+      end
+
       def submittingorgs_path
         "//bibdata/contributor[role/@type = 'author']/organization/name"
       end
