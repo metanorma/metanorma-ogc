@@ -2,7 +2,7 @@ require "spec_helper"
 
 RSpec.describe IsoDoc::Ogc do
     it "cross-references requirements" do
-      expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+      expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
             <iso-standard xmlns="http://riboseinc.com/isoxml">
             <preface>
     <foreword>
@@ -65,11 +65,7 @@ RSpec.describe IsoDoc::Ogc do
     </annex>
     </iso-standard>
     INPUT
-#{HTML_HDR}
-<br/>
-           <div>
-             <h1 class='ForewordTitle'>Preface</h1>
-             <p>
+    <!--
                <a href='#N1'>Introduction, Requirement 1</a>
                <a href='#N2'>Clause ii.1, Requirement (??)</a>
                <a href='#N'>Clause 1, Requirement 2</a>
@@ -78,155 +74,90 @@ RSpec.describe IsoDoc::Ogc do
                <a href='#AN'>Annex A.1, Requirement A.1</a>
                <a href='#Anote1'>Annex A.2, Requirement (??)</a>
                <a href='#Anote2'>Annex A.2, Requirement A.2</a>
-             </p>
-           </div>
-           <br/>
-           <div class='Section3' id='intro'>
-             <h1 class='IntroTitle'>Introduction</h1>
-             <table id='N1' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
-               <thead>
-                 <tr>
-                   <th style='vertical-align:top;' class='recommend' colspan='2'>
-                     <p class='RecommendationTitle'>Requirement 1:</p>
-                   </th>
-                 </tr>
-               </thead>
-               <tbody>
-                 <span class='stem'>(#(r = 1 %)#)</span>
-               </tbody>
-             </table>
-             <div id='xyz'>
-               <h2>ii.1.&#160; Preparatory</h2>
-               <table id='N2' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTitle'>Requirement:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-             </div>
-           </div>
-           <p class='zzSTDTitle1'/>
-           <div id='scope'>
-             <h1>1.&#160; Scope</h1>
-             <table id='N' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
-               <thead>
-                 <tr>
-                   <th style='vertical-align:top;' class='recommend' colspan='2'>
-                     <p class='RecommendationTitle'>Requirement 2:</p>
-                   </th>
-                 </tr>
-               </thead>
-               <tbody>
-                 <span class='stem'>(#(r = 1 %)#)</span>
-               </tbody>
-             </table>
-             <p>
-               <a href='#N'>Requirement 2</a>
-             </p>
-           </div>
-           <div id='terms'>
-             <h1>2.&#160; </h1>
-           </div>
-           <div id='widgets'>
-             <h1>3.&#160; Widgets</h1>
-             <div id='widgets1'>
-               <h2>3.1.&#160; </h2>
-               <table id='note1' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTitle'>Requirement 3:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-               <table id='note2' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTitle'>Requirement 4:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-               <p>
-                 <a href='#note1'>Requirement 3</a>
-                 <a href='#note2'>Requirement 4</a>
-               </p>
-             </div>
-           </div>
-           <br/>
-           <div id='annex1' class='Section3'>
-           <h1 class='Annex'>
-  <b>Annex A</b>
-  <br/>
-  (informative)
-  <br/>
-  <b/>
-</h1>
-             <div id='annex1a'>
-               <h2>A.1.&#160; </h2>
-               <table id='AN' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTitle'>Requirement A.1:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-             </div>
-             <div id='annex1b'>
-               <h2>A.2.&#160; </h2>
-               <table id='Anote1' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTitle'>Requirement:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-               <table id='Anote2' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTitle'>Requirement A.2:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-             </div>
-           </div>
-         </div>
-       </body>
-
+               -->
+               <?xml version='1.0'?>
+        <iso-standard xmlns='http://riboseinc.com/isoxml'>
+          <preface>
+            <foreword>
+              <p>
+                <xref target='N1'/>
+                <xref target='N2'/>
+                <xref target='N'/>
+                <xref target='note1'/>
+                <xref target='note2'/>
+                <xref target='AN'/>
+                <xref target='Anote1'/>
+                <xref target='Anote2'/>
+              </p>
+            </foreword>
+            <introduction id='intro'>
+              <requirement id='N1'>
+                <name>Requirement 1</name>
+                <stem type='AsciiMath'>r = 1 %</stem>
+              </requirement>
+              <clause id='xyz'>
+                <title>Preparatory</title>
+                <requirement id='N2' unnumbered='true'>
+                  <name>Requirement</name>
+                  <stem type='AsciiMath'>r = 1 %</stem>
+                </requirement>
+              </clause>
+            </introduction>
+          </preface>
+          <sections>
+            <clause id='scope'>
+              <title>Scope</title>
+              <requirement id='N'>
+                <name>Requirement 2</name>
+                <stem type='AsciiMath'>r = 1 %</stem>
+              </requirement>
+              <p>
+                <xref target='N'/>
+              </p>
+            </clause>
+            <terms id='terms'/>
+            <clause id='widgets'>
+              <title>Widgets</title>
+              <clause id='widgets1'>
+                <requirement id='note1'>
+                  <name>Requirement 3</name>
+                  <stem type='AsciiMath'>r = 1 %</stem>
+                </requirement>
+                <requirement id='note2'>
+                  <name>Requirement 4</name>
+                  <stem type='AsciiMath'>r = 1 %</stem>
+                </requirement>
+                <p>
+                  <xref target='note1'/>
+                  <xref target='note2'/>
+                </p>
+              </clause>
+            </clause>
+          </sections>
+          <annex id='annex1'>
+            <clause id='annex1a'>
+              <requirement id='AN'>
+                <name>Requirement A.1</name>
+                <stem type='AsciiMath'>r = 1 %</stem>
+              </requirement>
+            </clause>
+            <clause id='annex1b'>
+              <requirement id='Anote1' unnumbered='true'>
+                <name>Requirement</name>
+                <stem type='AsciiMath'>r = 1 %</stem>
+              </requirement>
+              <requirement id='Anote2'>
+                <name>Requirement A.2</name>
+                <stem type='AsciiMath'>r = 1 %</stem>
+              </requirement>
+            </clause>
+          </annex>
+        </iso-standard>
 OUTPUT
     end
 
         it "cross-references requirement tests" do
-          expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+          expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
             <iso-standard xmlns="http://riboseinc.com/isoxml">
             <preface>
     <foreword>
@@ -289,11 +220,7 @@ OUTPUT
     </annex>
     </iso-standard>
     INPUT
-    #{HTML_HDR}
-     <br/>
-           <div>
-             <h1 class='ForewordTitle'>Preface</h1>
-             <p>
+    <!--
                <a href='#N1'>Introduction, Requirement Test 1</a>
                <a href='#N2'>Clause ii.1, Requirement Test (??)</a>
                <a href='#N'>Clause 1, Requirement Test 2</a>
@@ -302,155 +229,91 @@ OUTPUT
                <a href='#AN'>Annex A.1, Requirement Test A.1</a>
                <a href='#Anote1'>Annex A.2, Requirement Test (??)</a>
                <a href='#Anote2'>Annex A.2, Requirement Test A.2</a>
-             </p>
-           </div>
-           <br/>
-           <div class='Section3' id='intro'>
-             <h1 class='IntroTitle'>Introduction</h1>
-             <table id='N1' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
-               <thead>
-                 <tr>
-                   <th style='vertical-align:top;' class='recommend' colspan='2'>
-                     <p class='RecommendationTestTitle'>Requirement Test 1:</p>
-                   </th>
-                 </tr>
-               </thead>
-               <tbody>
-                 <span class='stem'>(#(r = 1 %)#)</span>
-               </tbody>
-             </table>
-             <div id='xyz'>
-               <h2>ii.1.&#160; Preparatory</h2>
-               <table id='N2' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTestTitle'>Requirement Test:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-             </div>
-           </div>
-           <p class='zzSTDTitle1'/>
-           <div id='scope'>
-             <h1>1.&#160; Scope</h1>
-             <table id='N' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
-               <thead>
-                 <tr>
-                   <th style='vertical-align:top;' class='recommend' colspan='2'>
-                     <p class='RecommendationTestTitle'>Requirement Test 2:</p>
-                   </th>
-                 </tr>
-               </thead>
-               <tbody>
-                 <span class='stem'>(#(r = 1 %)#)</span>
-               </tbody>
-             </table>
-             <p>
-               <a href='#N'>Requirement Test 2</a>
-             </p>
-           </div>
-           <div id='terms'>
-             <h1>2.&#160; </h1>
-           </div>
-           <div id='widgets'>
-             <h1>3.&#160; Widgets</h1>
-             <div id='widgets1'>
-               <h2>3.1.&#160; </h2>
-               <table id='note1' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTestTitle'>Requirement Test 3:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-               <table id='note2' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTestTitle'>Requirement Test 4:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-               <p>
-                 <a href='#note1'>Requirement Test 3</a>
-                 <a href='#note2'>Requirement Test 4</a>
-               </p>
-             </div>
-           </div>
-           <br/>
-           <div id='annex1' class='Section3'>
-           <h1 class='Annex'>
-  <b>Annex A</b>
-  <br/>
-  (informative)
-  <br/>
-  <b/>
-</h1>
-             <div id='annex1a'>
-               <h2>A.1.&#160; </h2>
-               <table id='AN' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTestTitle'>Requirement Test A.1:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-             </div>
-             <div id='annex1b'>
-               <h2>A.2.&#160; </h2>
-               <table id='Anote1' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTestTitle'>Requirement Test:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-               <table id='Anote2' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTestTitle'>Requirement Test A.2:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-             </div>
-           </div>
-         </div>
-       </body>
+               -->
+               <?xml version='1.0'?>
+        <iso-standard xmlns='http://riboseinc.com/isoxml'>
+          <preface>
+            <foreword>
+              <p>
+                <xref target='N1'/>
+                <xref target='N2'/>
+                <xref target='N'/>
+                <xref target='note1'/>
+                <xref target='note2'/>
+                <xref target='AN'/>
+                <xref target='Anote1'/>
+                <xref target='Anote2'/>
+              </p>
+            </foreword>
+            <introduction id='intro'>
+              <requirement id='N1' type='verification'>
+                <name>Requirement Test 1</name>
+                <stem type='AsciiMath'>r = 1 %</stem>
+              </requirement>
+              <clause id='xyz'>
+                <title>Preparatory</title>
+                <requirement id='N2' unnumbered='true' type='verification'>
+                  <name>Requirement Test</name>
+                  <stem type='AsciiMath'>r = 1 %</stem>
+                </requirement>
+              </clause>
+            </introduction>
+          </preface>
+          <sections>
+            <clause id='scope'>
+              <title>Scope</title>
+              <requirement id='N' type='verification'>
+                <name>Requirement Test 2</name>
+                <stem type='AsciiMath'>r = 1 %</stem>
+              </requirement>
+              <p>
+                <xref target='N'/>
+              </p>
+            </clause>
+            <terms id='terms'/>
+            <clause id='widgets'>
+              <title>Widgets</title>
+              <clause id='widgets1'>
+                <requirement id='note1' type='verification'>
+                  <name>Requirement Test 3</name>
+                  <stem type='AsciiMath'>r = 1 %</stem>
+                </requirement>
+                <requirement id='note2' type='verification'>
+                  <name>Requirement Test 4</name>
+                  <stem type='AsciiMath'>r = 1 %</stem>
+                </requirement>
+                <p>
+                  <xref target='note1'/>
+                  <xref target='note2'/>
+                </p>
+              </clause>
+            </clause>
+          </sections>
+          <annex id='annex1'>
+            <clause id='annex1a'>
+              <requirement id='AN' type='verification'>
+                <name>Requirement Test A.1</name>
+                <stem type='AsciiMath'>r = 1 %</stem>
+              </requirement>
+            </clause>
+            <clause id='annex1b'>
+              <requirement id='Anote1' unnumbered='true' type='verification'>
+                <name>Requirement Test</name>
+                <stem type='AsciiMath'>r = 1 %</stem>
+              </requirement>
+              <requirement id='Anote2' type='verification'>
+                <name>Requirement Test A.2</name>
+                <stem type='AsciiMath'>r = 1 %</stem>
+              </requirement>
+            </clause>
+          </annex>
+        </iso-standard>
 OUTPUT
         end
 
 
         it "cross-references recommendations" do
-          expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+          expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
             <iso-standard xmlns="http://riboseinc.com/isoxml">
             <preface>
     <foreword>
@@ -513,11 +376,7 @@ OUTPUT
     </annex>
     </iso-standard>
     INPUT
-    #{HTML_HDR}
-    <br/>
-           <div>
-             <h1 class='ForewordTitle'>Preface</h1>
-             <p>
+    <!--
                <a href='#N1'>Introduction, Recommendation 1</a>
                <a href='#N2'>Clause ii.1, Recommendation (??)</a>
                <a href='#N'>Clause 1, Recommendation 2</a>
@@ -526,154 +385,90 @@ OUTPUT
                <a href='#AN'>Annex A.1, Recommendation A.1</a>
                <a href='#Anote1'>Annex A.2, Recommendation (??)</a>
                <a href='#Anote2'>Annex A.2, Recommendation A.2</a>
-             </p>
-           </div>
-           <br/>
-           <div class='Section3' id='intro'>
-             <h1 class='IntroTitle'>Introduction</h1>
-             <table id='N1' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
-               <thead>
-                 <tr>
-                   <th style='vertical-align:top;' class='recommend' colspan='2'>
-                     <p class='RecommendationTitle'>Recommendation 1:</p>
-                   </th>
-                 </tr>
-               </thead>
-               <tbody>
-                 <span class='stem'>(#(r = 1 %)#)</span>
-               </tbody>
-             </table>
-             <div id='xyz'>
-               <h2>ii.1.&#160; Preparatory</h2>
-               <table id='N2' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTitle'>Recommendation:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-             </div>
-           </div>
-           <p class='zzSTDTitle1'/>
-           <div id='scope'>
-             <h1>1.&#160; Scope</h1>
-             <table id='N' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
-               <thead>
-                 <tr>
-                   <th style='vertical-align:top;' class='recommend' colspan='2'>
-                     <p class='RecommendationTitle'>Recommendation 2:</p>
-                   </th>
-                 </tr>
-               </thead>
-               <tbody>
-                 <span class='stem'>(#(r = 1 %)#)</span>
-               </tbody>
-             </table>
-             <p>
-               <a href='#N'>Recommendation 2</a>
-             </p>
-           </div>
-           <div id='terms'>
-             <h1>2.&#160; </h1>
-           </div>
-           <div id='widgets'>
-             <h1>3.&#160; Widgets</h1>
-             <div id='widgets1'>
-               <h2>3.1.&#160; </h2>
-               <table id='note1' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTitle'>Recommendation 3:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-               <table id='note2' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTitle'>Recommendation 4:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-               <p>
-                 <a href='#note1'>Recommendation 3</a>
-                 <a href='#note2'>Recommendation 4</a>
-               </p>
-             </div>
-           </div>
-           <br/>
-           <div id='annex1' class='Section3'>
-           <h1 class='Annex'>
-  <b>Annex A</b>
-  <br/>
-  (informative)
-  <br/>
-  <b/>
-</h1>
-             <div id='annex1a'>
-               <h2>A.1.&#160; </h2>
-               <table id='AN' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTitle'>Recommendation A.1:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-             </div>
-             <div id='annex1b'>
-               <h2>A.2.&#160; </h2>
-               <table id='Anote1' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTitle'>Recommendation:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-               <table id='Anote2' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTitle'>Recommendation A.2:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-             </div>
-           </div>
-         </div>
-       </body>
+               -->
+                <?xml version='1.0'?>
+        <iso-standard xmlns='http://riboseinc.com/isoxml'>
+          <preface>
+            <foreword>
+              <p>
+                <xref target='N1'/>
+                <xref target='N2'/>
+                <xref target='N'/>
+                <xref target='note1'/>
+                <xref target='note2'/>
+                <xref target='AN'/>
+                <xref target='Anote1'/>
+                <xref target='Anote2'/>
+              </p>
+            </foreword>
+            <introduction id='intro'>
+              <recommendation id='N1'>
+                <name>Recommendation 1</name>
+                <stem type='AsciiMath'>r = 1 %</stem>
+              </recommendation>
+              <clause id='xyz'>
+                <title>Preparatory</title>
+                <recommendation id='N2' unnumbered='true'>
+                  <name>Recommendation</name>
+                  <stem type='AsciiMath'>r = 1 %</stem>
+                </recommendation>
+              </clause>
+            </introduction>
+          </preface>
+          <sections>
+            <clause id='scope'>
+              <title>Scope</title>
+              <recommendation id='N'>
+                <name>Recommendation 2</name>
+                <stem type='AsciiMath'>r = 1 %</stem>
+              </recommendation>
+              <p>
+                <xref target='N'/>
+              </p>
+            </clause>
+            <terms id='terms'/>
+            <clause id='widgets'>
+              <title>Widgets</title>
+              <clause id='widgets1'>
+                <recommendation id='note1'>
+                  <name>Recommendation 3</name>
+                  <stem type='AsciiMath'>r = 1 %</stem>
+                </recommendation>
+                <recommendation id='note2'>
+                  <name>Recommendation 4</name>
+                  <stem type='AsciiMath'>r = 1 %</stem>
+                </recommendation>
+                <p>
+                  <xref target='note1'/>
+                  <xref target='note2'/>
+                </p>
+              </clause>
+            </clause>
+          </sections>
+          <annex id='annex1'>
+            <clause id='annex1a'>
+              <recommendation id='AN'>
+                <name>Recommendation A.1</name>
+                <stem type='AsciiMath'>r = 1 %</stem>
+              </recommendation>
+            </clause>
+            <clause id='annex1b'>
+              <recommendation id='Anote1' unnumbered='true'>
+                <name>Recommendation</name>
+                <stem type='AsciiMath'>r = 1 %</stem>
+              </recommendation>
+              <recommendation id='Anote2'>
+                <name>Recommendation A.2</name>
+                <stem type='AsciiMath'>r = 1 %</stem>
+              </recommendation>
+            </clause>
+          </annex>
+        </iso-standard>
 OUTPUT
     end
 
           it "cross-references recommendation tests" do
-            expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+            expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
             <iso-standard xmlns="http://riboseinc.com/isoxml">
             <preface>
     <foreword>
@@ -736,11 +531,7 @@ OUTPUT
     </annex>
     </iso-standard>
     INPUT
-    #{HTML_HDR}
-    <br/>
-    <div>
-             <h1 class='ForewordTitle'>Preface</h1>
-             <p>
+    <!--
                <a href='#N1'>Introduction, Recommendation Test 1</a>
                <a href='#N2'>Clause ii.1, Recommendation Test (??)</a>
                <a href='#N'>Clause 1, Recommendation Test 2</a>
@@ -749,154 +540,90 @@ OUTPUT
                <a href='#AN'>Annex A.1, Recommendation Test A.1</a>
                <a href='#Anote1'>Annex A.2, Recommendation Test (??)</a>
                <a href='#Anote2'>Annex A.2, Recommendation Test A.2</a>
-             </p>
-           </div>
-           <br/>
-           <div class='Section3' id='intro'>
-             <h1 class='IntroTitle'>Introduction</h1>
-             <table id='N1' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
-               <thead>
-                 <tr>
-                   <th style='vertical-align:top;' class='recommend' colspan='2'>
-                     <p class='RecommendationTestTitle'>Recommendation Test 1:</p>
-                   </th>
-                 </tr>
-               </thead>
-               <tbody>
-                 <span class='stem'>(#(r = 1 %)#)</span>
-               </tbody>
-             </table>
-             <div id='xyz'>
-               <h2>ii.1.&#160; Preparatory</h2>
-               <table id='N2' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTestTitle'>Recommendation Test:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-             </div>
-           </div>
-           <p class='zzSTDTitle1'/>
-           <div id='scope'>
-             <h1>1.&#160; Scope</h1>
-             <table id='N' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
-               <thead>
-                 <tr>
-                   <th style='vertical-align:top;' class='recommend' colspan='2'>
-                     <p class='RecommendationTestTitle'>Recommendation Test 2:</p>
-                   </th>
-                 </tr>
-               </thead>
-               <tbody>
-                 <span class='stem'>(#(r = 1 %)#)</span>
-               </tbody>
-             </table>
-             <p>
-               <a href='#N'>Recommendation Test 2</a>
-             </p>
-           </div>
-           <div id='terms'>
-             <h1>2.&#160; </h1>
-           </div>
-           <div id='widgets'>
-             <h1>3.&#160; Widgets</h1>
-             <div id='widgets1'>
-               <h2>3.1.&#160; </h2>
-               <table id='note1' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTestTitle'>Recommendation Test 3:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-               <table id='note2' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTestTitle'>Recommendation Test 4:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-               <p>
-                 <a href='#note1'>Recommendation Test 3</a>
-                 <a href='#note2'>Recommendation Test 4</a>
-               </p>
-             </div>
-           </div>
-           <br/>
-           <div id='annex1' class='Section3'>
-           <h1 class='Annex'>
-  <b>Annex A</b>
-  <br/>
-  (informative)
-  <br/>
-  <b/>
-</h1>
-             <div id='annex1a'>
-               <h2>A.1.&#160; </h2>
-               <table id='AN' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTestTitle'>Recommendation Test A.1:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-             </div>
-             <div id='annex1b'>
-               <h2>A.2.&#160; </h2>
-               <table id='Anote1' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTestTitle'>Recommendation Test:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-               <table id='Anote2' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTestTitle'>Recommendation Test A.2:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-             </div>
-           </div>
-         </div>
-       </body>
+               -->
+               <?xml version='1.0'?>
+        <iso-standard xmlns='http://riboseinc.com/isoxml'>
+          <preface>
+            <foreword>
+              <p>
+                <xref target='N1'/>
+                <xref target='N2'/>
+                <xref target='N'/>
+                <xref target='note1'/>
+                <xref target='note2'/>
+                <xref target='AN'/>
+                <xref target='Anote1'/>
+                <xref target='Anote2'/>
+              </p>
+            </foreword>
+            <introduction id='intro'>
+              <recommendation id='N1' type='verification'>
+                <name>Recommendation Test 1</name>
+                <stem type='AsciiMath'>r = 1 %</stem>
+              </recommendation>
+              <clause id='xyz'>
+                <title>Preparatory</title>
+                <recommendation id='N2' unnumbered='true' type='verification'>
+                  <name>Recommendation Test</name>
+                  <stem type='AsciiMath'>r = 1 %</stem>
+                </recommendation>
+              </clause>
+            </introduction>
+          </preface>
+          <sections>
+            <clause id='scope'>
+              <title>Scope</title>
+              <recommendation id='N' type='verification'>
+                <name>Recommendation Test 2</name>
+                <stem type='AsciiMath'>r = 1 %</stem>
+              </recommendation>
+              <p>
+                <xref target='N'/>
+              </p>
+            </clause>
+            <terms id='terms'/>
+            <clause id='widgets'>
+              <title>Widgets</title>
+              <clause id='widgets1'>
+                <recommendation id='note1' type='verification'>
+                  <name>Recommendation Test 3</name>
+                  <stem type='AsciiMath'>r = 1 %</stem>
+                </recommendation>
+                <recommendation id='note2' type='verification'>
+                  <name>Recommendation Test 4</name>
+                  <stem type='AsciiMath'>r = 1 %</stem>
+                </recommendation>
+                <p>
+                  <xref target='note1'/>
+                  <xref target='note2'/>
+                </p>
+              </clause>
+            </clause>
+          </sections>
+          <annex id='annex1'>
+            <clause id='annex1a'>
+              <recommendation id='AN' type='verification'>
+                <name>Recommendation Test A.1</name>
+                <stem type='AsciiMath'>r = 1 %</stem>
+              </recommendation>
+            </clause>
+            <clause id='annex1b'>
+              <recommendation id='Anote1' unnumbered='true' type='verification'>
+                <name>Recommendation Test</name>
+                <stem type='AsciiMath'>r = 1 %</stem>
+              </recommendation>
+              <recommendation id='Anote2' type='verification'>
+                <name>Recommendation Test A.2</name>
+                <stem type='AsciiMath'>r = 1 %</stem>
+              </recommendation>
+            </clause>
+          </annex>
+        </iso-standard>
 OUTPUT
           end
 
         it "cross-references permissions" do
-          expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+          expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
             <iso-standard xmlns="http://riboseinc.com/isoxml">
             <preface>
     <foreword>
@@ -959,11 +686,7 @@ OUTPUT
     </annex>
     </iso-standard>
     INPUT
-    #{HTML_HDR}
-    <br/>
-           <div>
-             <h1 class='ForewordTitle'>Preface</h1>
-             <p>
+    <!--
                <a href='#N1'>Introduction, Permission 1</a>
                <a href='#N2'>Clause ii.1, Permission (??)</a>
                <a href='#N'>Clause 1, Permission 2</a>
@@ -972,154 +695,90 @@ OUTPUT
                <a href='#AN'>Annex A.1, Permission A.1</a>
                <a href='#Anote1'>Annex A.2, Permission (??)</a>
                <a href='#Anote2'>Annex A.2, Permission A.2</a>
-             </p>
-           </div>
-           <br/>
-           <div class='Section3' id='intro'>
-             <h1 class='IntroTitle'>Introduction</h1>
-             <table id='N1' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
-               <thead>
-                 <tr>
-                   <th style='vertical-align:top;' class='recommend' colspan='2'>
-                     <p class='RecommendationTitle'>Permission 1:</p>
-                   </th>
-                 </tr>
-               </thead>
-               <tbody>
-                 <span class='stem'>(#(r = 1 %)#)</span>
-               </tbody>
-             </table>
-             <div id='xyz'>
-               <h2>ii.1.&#160; Preparatory</h2>
-               <table id='N2' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTitle'>Permission:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-             </div>
-           </div>
-           <p class='zzSTDTitle1'/>
-           <div id='scope'>
-             <h1>1.&#160; Scope</h1>
-             <table id='N' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
-               <thead>
-                 <tr>
-                   <th style='vertical-align:top;' class='recommend' colspan='2'>
-                     <p class='RecommendationTitle'>Permission 2:</p>
-                   </th>
-                 </tr>
-               </thead>
-               <tbody>
-                 <span class='stem'>(#(r = 1 %)#)</span>
-               </tbody>
-             </table>
-             <p>
-               <a href='#N'>Permission 2</a>
-             </p>
-           </div>
-           <div id='terms'>
-             <h1>2.&#160; </h1>
-           </div>
-           <div id='widgets'>
-             <h1>3.&#160; Widgets</h1>
-             <div id='widgets1'>
-               <h2>3.1.&#160; </h2>
-               <table id='note1' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTitle'>Permission 3:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-               <table id='note2' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTitle'>Permission 4:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-               <p>
-                 <a href='#note1'>Permission 3</a>
-                 <a href='#note2'>Permission 4</a>
-               </p>
-             </div>
-           </div>
-           <br/>
-           <div id='annex1' class='Section3'>
-           <h1 class='Annex'>
-  <b>Annex A</b>
-  <br/>
-  (informative)
-  <br/>
-  <b/>
-</h1>
-             <div id='annex1a'>
-               <h2>A.1.&#160; </h2>
-               <table id='AN' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTitle'>Permission A.1:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-             </div>
-             <div id='annex1b'>
-               <h2>A.2.&#160; </h2>
-               <table id='Anote1' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTitle'>Permission:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-               <table id='Anote2' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTitle'>Permission A.2:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-             </div>
-           </div>
-         </div>
-       </body>
+               -->
+               <?xml version='1.0'?>
+        <iso-standard xmlns='http://riboseinc.com/isoxml'>
+          <preface>
+            <foreword>
+              <p>
+                <xref target='N1'/>
+                <xref target='N2'/>
+                <xref target='N'/>
+                <xref target='note1'/>
+                <xref target='note2'/>
+                <xref target='AN'/>
+                <xref target='Anote1'/>
+                <xref target='Anote2'/>
+              </p>
+            </foreword>
+            <introduction id='intro'>
+              <permission id='N1'>
+                <name>Permission 1</name>
+                <stem type='AsciiMath'>r = 1 %</stem>
+              </permission>
+              <clause id='xyz'>
+                <title>Preparatory</title>
+                <permission id='N2' unnumbered='true'>
+                  <name>Permission</name>
+                  <stem type='AsciiMath'>r = 1 %</stem>
+                </permission>
+              </clause>
+            </introduction>
+          </preface>
+          <sections>
+            <clause id='scope'>
+              <title>Scope</title>
+              <permission id='N'>
+                <name>Permission 2</name>
+                <stem type='AsciiMath'>r = 1 %</stem>
+              </permission>
+              <p>
+                <xref target='N'/>
+              </p>
+            </clause>
+            <terms id='terms'/>
+            <clause id='widgets'>
+              <title>Widgets</title>
+              <clause id='widgets1'>
+                <permission id='note1'>
+                  <name>Permission 3</name>
+                  <stem type='AsciiMath'>r = 1 %</stem>
+                </permission>
+                <permission id='note2'>
+                  <name>Permission 4</name>
+                  <stem type='AsciiMath'>r = 1 %</stem>
+                </permission>
+                <p>
+                  <xref target='note1'/>
+                  <xref target='note2'/>
+                </p>
+              </clause>
+            </clause>
+          </sections>
+          <annex id='annex1'>
+            <clause id='annex1a'>
+              <permission id='AN'>
+                <name>Permission A.1</name>
+                <stem type='AsciiMath'>r = 1 %</stem>
+              </permission>
+            </clause>
+            <clause id='annex1b'>
+              <permission id='Anote1' unnumbered='true'>
+                <name>Permission</name>
+                <stem type='AsciiMath'>r = 1 %</stem>
+              </permission>
+              <permission id='Anote2'>
+                <name>Permission A.2</name>
+                <stem type='AsciiMath'>r = 1 %</stem>
+              </permission>
+            </clause>
+          </annex>
+        </iso-standard>
 OUTPUT
     end
 
                it "cross-references permission tests" do
-                 expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+                 expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
             <iso-standard xmlns="http://riboseinc.com/isoxml">
             <preface>
     <foreword>
@@ -1182,11 +841,7 @@ OUTPUT
     </annex>
     </iso-standard>
     INPUT
-    #{HTML_HDR}
-    <br/>
-           <div>
-             <h1 class='ForewordTitle'>Preface</h1>
-             <p>
+    <!--
                <a href='#N1'>Introduction, Permission Test 1</a>
                <a href='#N2'>Clause ii.1, Permission Test (??)</a>
                <a href='#N'>Clause 1, Permission Test 2</a>
@@ -1195,154 +850,90 @@ OUTPUT
                <a href='#AN'>Annex A.1, Permission Test A.1</a>
                <a href='#Anote1'>Annex A.2, Permission Test (??)</a>
                <a href='#Anote2'>Annex A.2, Permission Test A.2</a>
-             </p>
-           </div>
-           <br/>
-           <div class='Section3' id='intro'>
-             <h1 class='IntroTitle'>Introduction</h1>
-             <table id='N1' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
-               <thead>
-                 <tr>
-                   <th style='vertical-align:top;' class='recommend' colspan='2'>
-                     <p class='RecommendationTestTitle'>Permission Test 1:</p>
-                   </th>
-                 </tr>
-               </thead>
-               <tbody>
-                 <span class='stem'>(#(r = 1 %)#)</span>
-               </tbody>
-             </table>
-             <div id='xyz'>
-               <h2>ii.1.&#160; Preparatory</h2>
-               <table id='N2' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTestTitle'>Permission Test:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-             </div>
-           </div>
-           <p class='zzSTDTitle1'/>
-           <div id='scope'>
-             <h1>1.&#160; Scope</h1>
-             <table id='N' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
-               <thead>
-                 <tr>
-                   <th style='vertical-align:top;' class='recommend' colspan='2'>
-                     <p class='RecommendationTestTitle'>Permission Test 2:</p>
-                   </th>
-                 </tr>
-               </thead>
-               <tbody>
-                 <span class='stem'>(#(r = 1 %)#)</span>
-               </tbody>
-             </table>
-             <p>
-               <a href='#N'>Permission Test 2</a>
-             </p>
-           </div>
-           <div id='terms'>
-             <h1>2.&#160; </h1>
-           </div>
-           <div id='widgets'>
-             <h1>3.&#160; Widgets</h1>
-             <div id='widgets1'>
-               <h2>3.1.&#160; </h2>
-               <table id='note1' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTestTitle'>Permission Test 3:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-               <table id='note2' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTestTitle'>Permission Test 4:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-               <p>
-                 <a href='#note1'>Permission Test 3</a>
-                 <a href='#note2'>Permission Test 4</a>
-               </p>
-             </div>
-           </div>
-           <br/>
-           <div id='annex1' class='Section3'>
-           <h1 class='Annex'>
-  <b>Annex A</b>
-  <br/>
-  (informative)
-  <br/>
-  <b/>
-</h1>
-             <div id='annex1a'>
-               <h2>A.1.&#160; </h2>
-               <table id='AN' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTestTitle'>Permission Test A.1:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-             </div>
-             <div id='annex1b'>
-               <h2>A.2.&#160; </h2>
-               <table id='Anote1' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTestTitle'>Permission Test:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-               <table id='Anote2' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTestTitle'>Permission Test A.2:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-             </div>
-           </div>
-         </div>
-       </body>
+               -->
+                <?xml version='1.0'?>
+        <iso-standard xmlns='http://riboseinc.com/isoxml'>
+          <preface>
+            <foreword>
+              <p>
+                <xref target='N1'/>
+                <xref target='N2'/>
+                <xref target='N'/>
+                <xref target='note1'/>
+                <xref target='note2'/>
+                <xref target='AN'/>
+                <xref target='Anote1'/>
+                <xref target='Anote2'/>
+              </p>
+            </foreword>
+            <introduction id='intro'>
+              <permission id='N1' type='verification'>
+                <name>Permission Test 1</name>
+                <stem type='AsciiMath'>r = 1 %</stem>
+              </permission>
+              <clause id='xyz'>
+                <title>Preparatory</title>
+                <permission id='N2' unnumbered='true' type='verification'>
+                  <name>Permission Test</name>
+                  <stem type='AsciiMath'>r = 1 %</stem>
+                </permission>
+              </clause>
+            </introduction>
+          </preface>
+          <sections>
+            <clause id='scope'>
+              <title>Scope</title>
+              <permission id='N' type='verification'>
+                <name>Permission Test 2</name>
+                <stem type='AsciiMath'>r = 1 %</stem>
+              </permission>
+              <p>
+                <xref target='N'/>
+              </p>
+            </clause>
+            <terms id='terms'/>
+            <clause id='widgets'>
+              <title>Widgets</title>
+              <clause id='widgets1'>
+                <permission id='note1' type='verification'>
+                  <name>Permission Test 3</name>
+                  <stem type='AsciiMath'>r = 1 %</stem>
+                </permission>
+                <permission id='note2' type='verification'>
+                  <name>Permission Test 4</name>
+                  <stem type='AsciiMath'>r = 1 %</stem>
+                </permission>
+                <p>
+                  <xref target='note1'/>
+                  <xref target='note2'/>
+                </p>
+              </clause>
+            </clause>
+          </sections>
+          <annex id='annex1'>
+            <clause id='annex1a'>
+              <permission id='AN' type='verification'>
+                <name>Permission Test A.1</name>
+                <stem type='AsciiMath'>r = 1 %</stem>
+              </permission>
+            </clause>
+            <clause id='annex1b'>
+              <permission id='Anote1' unnumbered='true' type='verification'>
+                <name>Permission Test</name>
+                <stem type='AsciiMath'>r = 1 %</stem>
+              </permission>
+              <permission id='Anote2' type='verification'>
+                <name>Permission Test A.2</name>
+                <stem type='AsciiMath'>r = 1 %</stem>
+              </permission>
+            </clause>
+          </annex>
+        </iso-standard>
 OUTPUT
 end
 
         it "labels and cross-references nested requirements" do
-          expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+          expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
             <iso-standard xmlns="http://riboseinc.com/isoxml">
             <preface>
     <foreword>
@@ -1392,11 +983,7 @@ end
     </annex>
     </iso-standard>
     INPUT
-    #{HTML_HDR}
-    <br/>
-           <div>
-             <h1 class='ForewordTitle'>Preface</h1>
-             <p>
+    <!--
                <a href='#N1'>Clause 1, Permission 1</a>
                <a href='#N2'>Clause 1, Permission Test 1-1</a>
                <a href='#N'>Clause 1, Permission 1-1-1</a>
@@ -1407,173 +994,81 @@ end
                <a href='#AN'>Annex A, Permission Test A.1-1-1</a>
                <a href='#AQ1'>Annex A, Requirement A.1-1</a>
                <a href='#AR1'>Annex A, Recommendation A.1-1</a>
-             </p>
-           </div>
-           <p class='zzSTDTitle1'/>
-           <div id='xyz'>
-             <h1>1.&#160; Preparatory</h1>
-             <table id='N1' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
-               <thead>
-                 <tr>
-                   <th style='vertical-align:top;' class='recommend' colspan='2'>
-                     <p class='RecommendationTitle'>Permission 1:</p>
-                   </th>
-                 </tr>
-               </thead>
-               <tbody>
-                 <table id='N2' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
-                   <thead>
-                     <tr>
-                       <th style='vertical-align:top;' class='recommend' colspan='2'>
-                         <p class='RecommendationTestTitle'>Permission Test 1-1:</p>
-                       </th>
-                     </tr>
-                   </thead>
-                   <tbody>
-                     <table id='N' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
-                       <thead>
-                         <tr>
-                           <th style='vertical-align:top;' class='recommend' colspan='2'>
-                             <p class='RecommendationTitle'>Permission 1-1-1:</p>
-                           </th>
-                         </tr>
-                       </thead>
-                       <tbody> </tbody>
-                     </table>
-                   </tbody>
-                 </table>
-                 <table id='Q1' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
-                   <thead>
-                     <tr>
-                       <th style='vertical-align:top;' class='recommend' colspan='2'>
-                         <p class='RecommendationTitle'>Requirement 1-1:</p>
-                       </th>
-                     </tr>
-                   </thead>
-                   <tbody> </tbody>
-                 </table>
-                 <table id='R1' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
-                   <thead>
-                     <tr>
-                       <th style='vertical-align:top;' class='recommend' colspan='2'>
-                         <p class='RecommendationTitle'>Recommendation 1-1:</p>
-                       </th>
-                     </tr>
-                   </thead>
-                   <tbody> </tbody>
-                 </table>
-                 <table id='N3' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
-                   <thead>
-                     <tr>
-                       <th style='vertical-align:top;' class='recommend' colspan='2'>
-                         <p class='RecommendationTestTitle'>Permission Test 1-2:</p>
-                       </th>
-                     </tr>
-                   </thead>
-                   <tbody/>
-                 </table>
-                 <table id='N4' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
-                   <thead>
-                     <tr>
-                       <th style='vertical-align:top;' class='recommend' colspan='2'>
-                         <p class='RecommendationTitle'>Permission 1-1:</p>
-                       </th>
-                     </tr>
-                   </thead>
-                   <tbody/>
-                 </table>
-               </tbody>
-             </table>
-           </div>
-           <br/>
-           <div id='Axyz' class='Section3'>
-             <h1 class='Annex'>
-               <b>Annex A</b>
-               <br/>
-               (informative) 
-               <br/>
-               <b>Preparatory</b>
-             </h1>
-             <table id='AN1' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
-               <thead>
-                 <tr>
-                   <th style='vertical-align:top;' class='recommend' colspan='2'>
-                     <p class='RecommendationTestTitle'>Permission Test A.1:</p>
-                   </th>
-                 </tr>
-               </thead>
-               <tbody>
-                 <table id='AN2' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
-                   <thead>
-                     <tr>
-                       <th style='vertical-align:top;' class='recommend' colspan='2'>
-                         <p class='RecommendationTitle'>Permission A.1-1:</p>
-                       </th>
-                     </tr>
-                   </thead>
-                   <tbody>
-                     <table id='AN' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
-                       <thead>
-                         <tr>
-                           <th style='vertical-align:top;' class='recommend' colspan='2'>
-                             <p class='RecommendationTestTitle'>Permission Test A.1-1-1:</p>
-                           </th>
-                         </tr>
-                       </thead>
-                       <tbody> </tbody>
-                     </table>
-                   </tbody>
-                 </table>
-                 <table id='AQ1' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
-                   <thead>
-                     <tr>
-                       <th style='vertical-align:top;' class='recommend' colspan='2'>
-                         <p class='RecommendationTitle'>Requirement A.1-1:</p>
-                       </th>
-                     </tr>
-                   </thead>
-                   <tbody> </tbody>
-                 </table>
-                 <table id='AR1' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
-                   <thead>
-                     <tr>
-                       <th style='vertical-align:top;' class='recommend' colspan='2'>
-                         <p class='RecommendationTitle'>Recommendation A.1-1:</p>
-                       </th>
-                     </tr>
-                   </thead>
-                   <tbody> </tbody>
-                 </table>
-                 <table id='AN3' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
-                   <thead>
-                     <tr>
-                       <th style='vertical-align:top;' class='recommend' colspan='2'>
-                         <p class='RecommendationTestTitle'>Permission Test A.1-1:</p>
-                       </th>
-                     </tr>
-                   </thead>
-                   <tbody/>
-                 </table>
-                 <table id='AN4' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
-                   <thead>
-                     <tr>
-                       <th style='vertical-align:top;' class='recommend' colspan='2'>
-                         <p class='RecommendationTitle'>Permission A.1-2:</p>
-                       </th>
-                     </tr>
-                   </thead>
-                   <tbody/>
-                 </table>
-               </tbody>
-             </table>
-           </div>
-         </div>
-       </body>
+               -->
+<?xml version='1.0'?>
+<iso-standard xmlns='http://riboseinc.com/isoxml'>
+  <preface>
+    <foreword>
+      <p>
+        <xref target='N1'/>
+        <xref target='N2'/>
+        <xref target='N'/>
+        <xref target='Q1'/>
+        <xref target='R1'/>
+        <xref target='AN1'/>
+        <xref target='AN2'/>
+        <xref target='AN'/>
+        <xref target='AQ1'/>
+        <xref target='AR1'/>
+      </p>
+    </foreword>
+  </preface>
+  <sections>
+    <clause id='xyz'>
+      <title>Preparatory</title>
+      <permission id='N1'>
+        <name>Permission 1</name>
+        <permission id='N2' type='verification'>
+          <name>Permission Test 1-1</name>
+          <permission id='N'>
+            <name>Permission 1-1-1</name>
+          </permission>
+        </permission>
+        <requirement id='Q1'>
+          <name>Requirement 1-1</name>
+        </requirement>
+        <recommendation id='R1'>
+          <name>Recommendation 1-1</name>
+        </recommendation>
+        <permission id='N3' type='verification'>
+          <name>Permission Test 1-2</name>
+        </permission>
+        <permission id='N4'>
+          <name>Permission 1-1</name>
+        </permission>
+      </permission>
+    </clause>
+  </sections>
+  <annex id='Axyz'>
+    <title>Preparatory</title>
+    <permission id='AN1' type='verification'>
+      <name>Permission Test A.1</name>
+      <permission id='AN2'>
+        <name>Permission A.1-1</name>
+        <permission id='AN' type='verification'>
+          <name>Permission Test A.1-1-1</name>
+        </permission>
+      </permission>
+      <requirement id='AQ1'>
+        <name>Requirement A.1-1</name>
+      </requirement>
+      <recommendation id='AR1'>
+        <name>Recommendation A.1-1</name>
+      </recommendation>
+      <permission id='AN3' type='verification'>
+        <name>Permission Test A.1-1</name>
+      </permission>
+      <permission id='AN4'>
+        <name>Permission A.1-2</name>
+      </permission>
+    </permission>
+  </annex>
+</iso-standard>
     OUTPUT
         end
 
                it "cross-references abstract tests" do
-                 expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+                 expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
             <iso-standard xmlns="http://riboseinc.com/isoxml">
             <preface>
     <foreword>
@@ -1636,11 +1131,7 @@ end
     </annex>
     </iso-standard>
     INPUT
-    #{HTML_HDR}
-    <br/>
-           <div>
-             <h1 class='ForewordTitle'>Preface</h1>
-             <p>
+    <!--
                <a href='#N1'>Introduction, Abstract Test 1</a>
                <a href='#N2'>Clause ii.1, Abstract Test (??)</a>
                <a href='#N'>Clause 1, Abstract Test 2</a>
@@ -1649,154 +1140,90 @@ end
                <a href='#AN'>Annex A.1, Abstract Test A.1</a>
                <a href='#Anote1'>Annex A.2, Abstract Test (??)</a>
                <a href='#Anote2'>Annex A.2, Abstract Test A.2</a>
-             </p>
-           </div>
-           <br/>
-           <div class='Section3' id='intro'>
-             <h1 class='IntroTitle'>Introduction</h1>
-             <table id='N1' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
-               <thead>
-                 <tr>
-                   <th style='vertical-align:top;' class='recommend' colspan='2'>
-                     <p class='RecommendationTestTitle'>Abstract Test 1:</p>
-                   </th>
-                 </tr>
-               </thead>
-               <tbody>
-                 <span class='stem'>(#(r = 1 %)#)</span>
-               </tbody>
-             </table>
-             <div id='xyz'>
-               <h2>ii.1.&#160; Preparatory</h2>
-               <table id='N2' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTestTitle'>Abstract Test:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-             </div>
-           </div>
-           <p class='zzSTDTitle1'/>
-           <div id='scope'>
-             <h1>1.&#160; Scope</h1>
-             <table id='N' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
-               <thead>
-                 <tr>
-                   <th style='vertical-align:top;' class='recommend' colspan='2'>
-                     <p class='RecommendationTestTitle'>Abstract Test 2:</p>
-                   </th>
-                 </tr>
-               </thead>
-               <tbody>
-                 <span class='stem'>(#(r = 1 %)#)</span>
-               </tbody>
-             </table>
-             <p>
-               <a href='#N'>Abstract Test 2</a>
-             </p>
-           </div>
-           <div id='terms'>
-             <h1>2.&#160; </h1>
-           </div>
-           <div id='widgets'>
-             <h1>3.&#160; Widgets</h1>
-             <div id='widgets1'>
-               <h2>3.1.&#160; </h2>
-               <table id='note1' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTestTitle'>Abstract Test 3:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-               <table id='note2' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTestTitle'>Abstract Test 4:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-               <p>
-                 <a href='#note1'>Abstract Test 3</a>
-                 <a href='#note2'>Abstract Test 4</a>
-               </p>
-             </div>
-           </div>
-           <br/>
-           <div id='annex1' class='Section3'>
-           <h1 class='Annex'>
-  <b>Annex A</b>
-  <br/>
-  (informative)
-  <br/>
-  <b/>
-</h1>
-             <div id='annex1a'>
-               <h2>A.1.&#160; </h2>
-               <table id='AN' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTestTitle'>Abstract Test A.1:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-             </div>
-             <div id='annex1b'>
-               <h2>A.2.&#160; </h2>
-               <table id='Anote1' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTestTitle'>Abstract Test:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-               <table id='Anote2' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTestTitle'>Abstract Test A.2:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-             </div>
-           </div>
-         </div>
-       </body>
+               -->
+               <?xml version='1.0'?>
+        <iso-standard xmlns='http://riboseinc.com/isoxml'>
+          <preface>
+            <foreword>
+              <p>
+                <xref target='N1'/>
+                <xref target='N2'/>
+                <xref target='N'/>
+                <xref target='note1'/>
+                <xref target='note2'/>
+                <xref target='AN'/>
+                <xref target='Anote1'/>
+                <xref target='Anote2'/>
+              </p>
+            </foreword>
+            <introduction id='intro'>
+              <permission id='N1' type='abstracttest'>
+                <name>Abstract Test 1</name>
+                <stem type='AsciiMath'>r = 1 %</stem>
+              </permission>
+              <clause id='xyz'>
+                <title>Preparatory</title>
+                <permission id='N2' unnumbered='true' type='abstracttest'>
+                  <name>Abstract Test</name>
+                  <stem type='AsciiMath'>r = 1 %</stem>
+                </permission>
+              </clause>
+            </introduction>
+          </preface>
+          <sections>
+            <clause id='scope'>
+              <title>Scope</title>
+              <permission id='N' type='abstracttest'>
+                <name>Abstract Test 2</name>
+                <stem type='AsciiMath'>r = 1 %</stem>
+              </permission>
+              <p>
+                <xref target='N'/>
+              </p>
+            </clause>
+            <terms id='terms'/>
+            <clause id='widgets'>
+              <title>Widgets</title>
+              <clause id='widgets1'>
+                <permission id='note1' type='abstracttest'>
+                  <name>Abstract Test 3</name>
+                  <stem type='AsciiMath'>r = 1 %</stem>
+                </permission>
+                <permission id='note2' type='abstracttest'>
+                  <name>Abstract Test 4</name>
+                  <stem type='AsciiMath'>r = 1 %</stem>
+                </permission>
+                <p>
+                  <xref target='note1'/>
+                  <xref target='note2'/>
+                </p>
+              </clause>
+            </clause>
+          </sections>
+          <annex id='annex1'>
+            <clause id='annex1a'>
+              <permission id='AN' type='abstracttest'>
+                <name>Abstract Test A.1</name>
+                <stem type='AsciiMath'>r = 1 %</stem>
+              </permission>
+            </clause>
+            <clause id='annex1b'>
+              <permission id='Anote1' unnumbered='true' type='abstracttest'>
+                <name>Abstract Test</name>
+                <stem type='AsciiMath'>r = 1 %</stem>
+              </permission>
+              <permission id='Anote2' type='abstracttest'>
+                <name>Abstract Test A.2</name>
+                <stem type='AsciiMath'>r = 1 %</stem>
+              </permission>
+            </clause>
+          </annex>
+        </iso-standard>
 OUTPUT
                end
 
                it "cross-references conformance classes" do
-                 expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+                 expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
             <iso-standard xmlns="http://riboseinc.com/isoxml">
             <preface>
     <foreword>
@@ -1859,11 +1286,7 @@ OUTPUT
     </annex>
     </iso-standard>
     INPUT
-    #{HTML_HDR}
-    <br/>
-           <div>
-             <h1 class='ForewordTitle'>Preface</h1>
-             <p>
+             <!--
                <a href='#N1'>Introduction, Conformance Class 1</a>
                <a href='#N2'>Clause ii.1, Conformance Class (??)</a>
                <a href='#N'>Clause 1, Conformance Class 2</a>
@@ -1872,149 +1295,85 @@ OUTPUT
                <a href='#AN'>Annex A.1, Conformance Class A.1</a>
                <a href='#Anote1'>Annex A.2, Conformance Class (??)</a>
                <a href='#Anote2'>Annex A.2, Conformance Class A.2</a>
-             </p>
-           </div>
-           <br/>
-           <div class='Section3' id='intro'>
-             <h1 class='IntroTitle'>Introduction</h1>
-             <table id='N1' class='recommendclass' style='border-collapse:collapse;border-spacing:0;'>
-               <thead>
-                 <tr>
-                   <th style='vertical-align:top;' class='recommend' colspan='2'>
-                     <p class='RecommendationTitle'>Conformance Class 1:</p>
-                   </th>
-                 </tr>
-               </thead>
-               <tbody>
-                 <span class='stem'>(#(r = 1 %)#)</span>
-               </tbody>
-             </table>
-             <div id='xyz'>
-               <h2>ii.1.&#160; Preparatory</h2>
-               <table id='N2' class='recommendclass' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTitle'>Conformance Class:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-             </div>
-           </div>
-           <p class='zzSTDTitle1'/>
-           <div id='scope'>
-             <h1>1.&#160; Scope</h1>
-             <table id='N' class='recommendclass' style='border-collapse:collapse;border-spacing:0;'>
-               <thead>
-                 <tr>
-                   <th style='vertical-align:top;' class='recommend' colspan='2'>
-                     <p class='RecommendationTitle'>Conformance Class 2:</p>
-                   </th>
-                 </tr>
-               </thead>
-               <tbody>
-                 <span class='stem'>(#(r = 1 %)#)</span>
-               </tbody>
-             </table>
-             <p>
-               <a href='#N'>Conformance Class 2</a>
-             </p>
-           </div>
-           <div id='terms'>
-             <h1>2.&#160; </h1>
-           </div>
-           <div id='widgets'>
-             <h1>3.&#160; Widgets</h1>
-             <div id='widgets1'>
-               <h2>3.1.&#160; </h2>
-               <table id='note1' class='recommendclass' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTitle'>Conformance Class 3:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-               <table id='note2' class='recommendclass' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTitle'>Conformance Class 4:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-               <p>
-                 <a href='#note1'>Conformance Class 3</a>
-                 <a href='#note2'>Conformance Class 4</a>
-               </p>
-             </div>
-           </div>
-           <br/>
-           <div id='annex1' class='Section3'>
-           <h1 class='Annex'>
-  <b>Annex A</b>
-  <br/>
-  (informative)
-  <br/>
-  <b/>
-</h1>
-             <div id='annex1a'>
-               <h2>A.1.&#160; </h2>
-               <table id='AN' class='recommendclass' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTitle'>Conformance Class A.1:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-             </div>
-             <div id='annex1b'>
-               <h2>A.2.&#160; </h2>
-               <table id='Anote1' class='recommendclass' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTitle'>Conformance Class:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-               <table id='Anote2' class='recommendclass' style='border-collapse:collapse;border-spacing:0;'>
-                 <thead>
-                   <tr>
-                     <th style='vertical-align:top;' class='recommend' colspan='2'>
-                       <p class='RecommendationTitle'>Conformance Class A.2:</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <span class='stem'>(#(r = 1 %)#)</span>
-                 </tbody>
-               </table>
-             </div>
-           </div>
-         </div>
-       </body>
+               -->
+                <?xml version='1.0'?>
+        <iso-standard xmlns='http://riboseinc.com/isoxml'>
+          <preface>
+            <foreword>
+              <p>
+                <xref target='N1'/>
+                <xref target='N2'/>
+                <xref target='N'/>
+                <xref target='note1'/>
+                <xref target='note2'/>
+                <xref target='AN'/>
+                <xref target='Anote1'/>
+                <xref target='Anote2'/>
+              </p>
+            </foreword>
+            <introduction id='intro'>
+              <permission id='N1' type='conformanceclass'>
+                <name>Conformance Class 1</name>
+                <stem type='AsciiMath'>r = 1 %</stem>
+              </permission>
+              <clause id='xyz'>
+                <title>Preparatory</title>
+                <permission id='N2' unnumbered='true' type='conformanceclass'>
+                  <name>Conformance Class</name>
+                  <stem type='AsciiMath'>r = 1 %</stem>
+                </permission>
+              </clause>
+            </introduction>
+          </preface>
+          <sections>
+            <clause id='scope'>
+              <title>Scope</title>
+              <permission id='N' type='conformanceclass'>
+                <name>Conformance Class 2</name>
+                <stem type='AsciiMath'>r = 1 %</stem>
+              </permission>
+              <p>
+                <xref target='N'/>
+              </p>
+            </clause>
+            <terms id='terms'/>
+            <clause id='widgets'>
+              <title>Widgets</title>
+              <clause id='widgets1'>
+                <permission id='note1' type='conformanceclass'>
+                  <name>Conformance Class 3</name>
+                  <stem type='AsciiMath'>r = 1 %</stem>
+                </permission>
+                <permission id='note2' type='conformanceclass'>
+                  <name>Conformance Class 4</name>
+                  <stem type='AsciiMath'>r = 1 %</stem>
+                </permission>
+                <p>
+                  <xref target='note1'/>
+                  <xref target='note2'/>
+                </p>
+              </clause>
+            </clause>
+          </sections>
+          <annex id='annex1'>
+            <clause id='annex1a'>
+              <permission id='AN' type='conformanceclass'>
+                <name>Conformance Class A.1</name>
+                <stem type='AsciiMath'>r = 1 %</stem>
+              </permission>
+            </clause>
+            <clause id='annex1b'>
+              <permission id='Anote1' unnumbered='true' type='conformanceclass'>
+                <name>Conformance Class</name>
+                <stem type='AsciiMath'>r = 1 %</stem>
+              </permission>
+              <permission id='Anote2' type='conformanceclass'>
+                <name>Conformance Class A.2</name>
+                <stem type='AsciiMath'>r = 1 %</stem>
+              </permission>
+            </clause>
+          </annex>
+        </iso-standard>
 OUTPUT
 
 end

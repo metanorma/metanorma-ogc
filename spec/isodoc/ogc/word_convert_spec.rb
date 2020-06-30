@@ -2,7 +2,7 @@ require "spec_helper"
 
 RSpec.describe IsoDoc::Ogc do
 
-     it "processes permission classes" do
+     it "processes terms and definitions" do
        FileUtils.rm_f "test.doc"
     IsoDoc::Ogc::WordConvert.new({}).convert("test", <<~"INPUT", false)
     <ogc-standard xmlns="https://standards.opengeospatial.org/document">
@@ -57,17 +57,21 @@ OUTPUT
     <preface><foreword id="A">
         <p id="_"><xref target="A1"/></p>
     <permission id="A1" type="class">
+    <name>Permission Class 1</name>
   <label>/ogc/recommendation/wfs/2</label>
   <inherit>/ss/584/2015/level/1</inherit>
   <inherit>/ss/584/2015/level/2</inherit>
   <subject>user</subject>
   <permission id="A2">
+    <name>Permission 1-1</name>
   <label>Permission 1</label>
   </permission>
   <requirement id="A3">
+    <name>Requirement 1-1</name>
   <label>Requirement 1</label>
   </requirement>
   <recommendation id="A4">
+    <name>Recommendation 1-1</name>
   <label>Recommendation 1</label>
   </recommendation>
 </permission>
@@ -162,17 +166,21 @@ OUTPUT
     <preface><foreword id="A">
         <p id="_"><xref target="A1"/></p>
     <requirement id="A1" type="class">
+    <name>Requirement Class 1</name>
   <label>/ogc/recommendation/wfs/2</label>
   <inherit>/ss/584/2015/level/1</inherit>
   <inherit>/ss/584/2015/level/2</inherit>
   <subject>user</subject>
   <permission id="A2">
+    <name>Permission 1-1</name>
   <label>Permission 1</label>
   </permission>
   <requirement id="A3">
+    <name>Requirement 1-1</name>
   <label>Requirement 1</label>
   </requirement>
   <recommendation id="A4">
+    <name>Recommendation 1-1</name>
   <label>Recommendation 1</label>
   </recommendation>
 </requirement>
@@ -267,17 +275,21 @@ OUTPUT
     <preface><foreword id="A">
         <p id="_"><xref target="A1"/></p>
     <recommendation id="A1" type="class">
+    <name>Recommendation Class 1</name>
   <label>/ogc/recommendation/wfs/2</label>
   <inherit>/ss/584/2015/level/1</inherit>
   <inherit>/ss/584/2015/level/2</inherit>
   <subject>user</subject>
   <permission id="A2">
+  <name>Permission 1-1</name>
   <label>Permission 1</label>
   </permission>
   <requirement id="A3">
+  <name>Requirement 1-1</name>
   <label>Requirement 1</label>
   </requirement>
   <recommendation id="A4">
+  <name>Recommendation 1-1</name>
   <label>Recommendation 1</label>
   </recommendation>
 </recommendation>
@@ -372,6 +384,7 @@ OUTPUT
         <ogc-standard xmlns="https://standards.opengeospatial.org/document">
     <preface><foreword id="A">
     <permission id="_">
+    <name>Permission 1</name>
   <label>/ogc/recommendation/wfs/2</label>
   <inherit>/ss/584/2015/level/1</inherit>
   <inherit>/ss/584/2015/level/2</inherit>
@@ -571,6 +584,7 @@ OUTPUT
         <ogc-standard xmlns="https://standards.opengeospatial.org/document">
     <preface><foreword id="A">
     <permission id="_" type="verification">
+    <name>Permission Test 1</name>
   <label>/ogc/recommendation/wfs/2</label>
   <inherit>/ss/584/2015/level/1</inherit>
   <subject>user</subject>
@@ -764,6 +778,7 @@ OUTPUT
           <ogc-standard xmlns="https://standards.opengeospatial.org/document">
     <preface><foreword id="A">
     <requirement id="A0" unnumbered="true">
+    <name>Requirement</name>
   <title>A New Requirement</title>
   <label>/ogc/recommendation/wfs/2</label>
   <inherit>/ss/584/2015/level/1</inherit>
@@ -942,6 +957,7 @@ INPUT
       <ogc-standard xmlns="https://standards.opengeospatial.org/document">
     <preface><foreword id="A">
     <recommendation id="_">
+    <name>Recommendation 1</name>
   <label>/ogc/recommendation/wfs/2</label>
   <inherit>/ss/584/2015/level/1</inherit>
   <subject>user</subject>
@@ -1126,6 +1142,7 @@ FileUtils.rm_f "test.doc"
        <clause id="O" inline-header="false" obligation="normative">
          <title>Clause 4.2</title>
          <recommendation id="AA">
+         <name>Recommendation 1</name<
   <label>/ogc/recommendation/wfs/2</label>
   </recommendation>
          <recommendation id="AB" type="verification">

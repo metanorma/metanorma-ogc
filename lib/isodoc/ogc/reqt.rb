@@ -28,18 +28,14 @@ module IsoDoc
       def recommendation_name(node, out, type)
         label, title, lbl = recommendation_labels(node)
         out.p **{ class: recommendation_class(node) } do |b|
-          if inject_crossreference_reqt?(node, label)
-            lbl = @xrefs.anchor(@xrefs.reqtlabels[label.text], :xref, false)
-            b << (lbl.nil? ? l10n("#{type}:") : l10n("#{lbl}:"))
-          else
-            b << (lbl.nil? ? l10n("#{type}:") : l10n("#{type} #{lbl}:"))
-          end
+          lbl and lbl.children.each { |n| parse(n, b) }
+          b << l10n(":")
           recommendation_name1(title, node, label, b)
         end
       end
 
       def recommendation_name1(title, node, label, b)
-        return unless  title && !inject_crossreference_reqt?(node, label)
+        return unless title
         b << " "
         title.children.each { |n| parse(n,b) }
       end
@@ -53,12 +49,6 @@ module IsoDoc
             end
           end
         end
-      end
-
-      # embedded reqts xref to top level reqts via label lookup
-      def inject_crossreference_reqt?(node, label)
-        !node.ancestors("requirement, recommendation, permission").empty? &&
-          @xrefs.reqtlabels[label&.text]
       end
 
       def recommendation_attributes1(node)
@@ -163,19 +153,7 @@ module IsoDoc
       end
 
       def recommendation_parse0(node, out, r)
-        label = case node["type"]
-                when "verification" then @labels["#{r}test"]
-                when "class" then @labels["#{r}class"]
-                when "abstracttest" then @labels["abstracttest"]
-                when "conformanceclass" then @labels["conformanceclass"]
-                else 
-                  case r
-                  when "recommendation" then @recommendation_lbl
-                  when "requirement" then @requirement_lbl
-                  when "permission" then @permission_lbl
-                  end
-                end
-        recommendation_parse1(node, out, label)
+        recommendation_parse1(node, out, nil)
       end
 
       def requirement_parse(node, out)

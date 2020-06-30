@@ -628,8 +628,8 @@ RSpec.describe IsoDoc::Ogc do
     expect(html).to match(%r{Overpass})
   end
 
-  it "processes permissions" do
-        expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+  it "processes permissions (Presentation XML)" do
+        expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
         <ogc-standard xmlns="https://standards.opengeospatial.org/document">
     <preface><foreword id="A">
         <p id="_"><xref target="A1"/></p>
@@ -682,8 +682,272 @@ RSpec.describe IsoDoc::Ogc do
     <bibliography><references id="_bibliography" obligation="informative" normative="false">
 <title>Bibliography</title>
 <bibitem id="rfc2616" type="standard">  <fetched>2020-03-27</fetched>  <title format="text/plain" language="en" script="Latn">Hypertext Transfer Protocol — HTTP/1.1</title>  <uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</uri>  <uri type="src">https://www.rfc-editor.org/info/rfc2616</uri>  <docidentifier type="IETF">RFC 2616</docidentifier>  <docidentifier type="rfc-anchor">RFC2616</docidentifier>  <docidentifier type="DOI">10.17487/RFC2616</docidentifier>  <date type="published">    <on>1999-06</on>  </date>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">R. Fielding</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">J. Gettys</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">J. Mogul</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">H. Frystyk</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">L. Masinter</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">P. Leach</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">T. Berners-Lee</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/plain" language="en" script="Latn">HTTP has been in use by the World-Wide Web global information initiative since 1990. This specification defines the protocol referred to as “HTTP/1.1”, and is an update to RFC 2068.  [STANDARDS-TRACK]</abstract>  <series type="main">    <title format="text/plain" language="en" script="Latn">RFC</title>    <number>2616</number>  </series>  <place>Fremont, CA</place></bibitem>
+</references></bibliography>
+    </ogc-standard>
+    INPUT
+    <ogc-standard xmlns='https://standards.opengeospatial.org/document'>
+         <preface>
+           <foreword id='A'>
+             <p id='_'>
+               <xref target='A1'/>
+             </p>
+             <permission id='A1'>
+               <name>Permission 1</name>
+               <label>/ogc/recommendation/wfs/2</label>
+               <inherit>/ss/584/2015/level/1</inherit>
+               <inherit>
+                 <eref type='inline' bibitemid='rfc2616' citeas='RFC 2616'>RFC 2616 (HTTP/1.1)</eref>
+               </inherit>
+               <subject>user</subject>
+               <classification>
+                 <tag>control-class</tag>
+                 <value>Technical</value>
+               </classification>
+               <classification>
+                 <tag>priority</tag>
+                 <value>P0</value>
+               </classification>
+               <classification>
+                 <tag>family</tag>
+                 <value>System and Communications Protection</value>
+               </classification>
+               <classification>
+                 <tag>family</tag>
+                 <value>System and Communications Protocols</value>
+               </classification>
+               <description>
+                 <p id='_'>
+                   I recommend
+                   <em>this</em>
+                   .
+                 </p>
+               </description>
+               <specification exclude='true' type='tabular'>
+                 <p id='_'>This is the object of the recommendation:</p>
+                 <table id='_'>
+                   <tbody>
+                     <tr>
+                       <td style='text-align:left;'>Object</td>
+                       <td style='text-align:left;'>Value</td>
+                       <td style='text-align:left;'>Accomplished</td>
+                     </tr>
+                   </tbody>
+                 </table>
+               </specification>
+               <description>
+                 <dl>
+                   <dt>A</dt>
+                   <dd>B</dd>
+                   <dt>C</dt>
+                   <dd>D</dd>
+                 </dl>
+               </description>
+               <measurement-target exclude='false'>
+                 <p id='_'>The measurement target shall be measured as:</p>
+                 <formula id='_'>
+                   <name>1</name>
+                   <stem type='AsciiMath'>r/1 = 0</stem>
+                 </formula>
+               </measurement-target>
+               <verification exclude='false'>
+                 <p id='_'>The following code will be run for verification:</p>
+                 <sourcecode id='_'>
+                   CoreRoot(success): HttpResponse if (success) recommendation(label:
+                   success-response) end
+                 </sourcecode>
+               </verification>
+               <import exclude='true'>
+                 <sourcecode id='_'>success-response()</sourcecode>
+               </import>
+             </permission>
+           </foreword>
+         </preface>
+         <bibliography>
+           <references id='_bibliography' obligation='informative' normative='false'>
+             <title>Bibliography</title>
+             <bibitem id='rfc2616' type='standard'>
+               <fetched>2020-03-27</fetched>
+               <title format='text/plain' language='en' script='Latn'>Hypertext Transfer Protocol&#x2009;&#x2014;&#x2009;HTTP/1.1</title>
+               <uri type='xml'>https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</uri>
+               <uri type='src'>https://www.rfc-editor.org/info/rfc2616</uri>
+               <docidentifier type='IETF'>RFC 2616</docidentifier>
+               <docidentifier type='rfc-anchor'>RFC2616</docidentifier>
+               <docidentifier type='DOI'>10.17487/RFC2616</docidentifier>
+               <date type='published'>
+                 <on>1999-06</on>
+               </date>
+               <contributor>
+                 <role type='author'/>
+                 <person>
+                   <name>
+                     <completename language='en'>R. Fielding</completename>
+                   </name>
+                   <affiliation>
+                     <organization>
+                       <name>IETF</name>
+                       <abbreviation>IETF</abbreviation>
+                     </organization>
+                   </affiliation>
+                 </person>
+               </contributor>
+               <contributor>
+                 <role type='author'/>
+                 <person>
+                   <name>
+                     <completename language='en'>J. Gettys</completename>
+                   </name>
+                   <affiliation>
+                     <organization>
+                       <name>IETF</name>
+                       <abbreviation>IETF</abbreviation>
+                     </organization>
+                   </affiliation>
+                 </person>
+               </contributor>
+               <contributor>
+                 <role type='author'/>
+                 <person>
+                   <name>
+                     <completename language='en'>J. Mogul</completename>
+                   </name>
+                   <affiliation>
+                     <organization>
+                       <name>IETF</name>
+                       <abbreviation>IETF</abbreviation>
+                     </organization>
+                   </affiliation>
+                 </person>
+               </contributor>
+               <contributor>
+                 <role type='author'/>
+                 <person>
+                   <name>
+                     <completename language='en'>H. Frystyk</completename>
+                   </name>
+                   <affiliation>
+                     <organization>
+                       <name>IETF</name>
+                       <abbreviation>IETF</abbreviation>
+                     </organization>
+                   </affiliation>
+                 </person>
+               </contributor>
+               <contributor>
+                 <role type='author'/>
+                 <person>
+                   <name>
+                     <completename language='en'>L. Masinter</completename>
+                   </name>
+                   <affiliation>
+                     <organization>
+                       <name>IETF</name>
+                       <abbreviation>IETF</abbreviation>
+                     </organization>
+                   </affiliation>
+                 </person>
+               </contributor>
+               <contributor>
+                 <role type='author'/>
+                 <person>
+                   <name>
+                     <completename language='en'>P. Leach</completename>
+                   </name>
+                   <affiliation>
+                     <organization>
+                       <name>IETF</name>
+                       <abbreviation>IETF</abbreviation>
+                     </organization>
+                   </affiliation>
+                 </person>
+               </contributor>
+               <contributor>
+                 <role type='author'/>
+                 <person>
+                   <name>
+                     <completename language='en'>T. Berners-Lee</completename>
+                   </name>
+                   <affiliation>
+                     <organization>
+                       <name>IETF</name>
+                       <abbreviation>IETF</abbreviation>
+                     </organization>
+                   </affiliation>
+                 </person>
+               </contributor>
+               <language>en</language>
+               <script>Latn</script>
+               <abstract format='text/plain' language='en' script='Latn'>
+                 HTTP has been in use by the World-Wide Web global information
+                 initiative since 1990. This specification defines the protocol
+                 referred to as &#x201C;HTTP/1.1&#x201D;, and is an update to RFC 2068.
+                 [STANDARDS-TRACK]
+               </abstract>
+               <series type='main'>
+                 <title format='text/plain' language='en' script='Latn'>RFC</title>
+                 <number>2616</number>
+               </series>
+               <place>Fremont, CA</place>
+             </bibitem>
+           </references>
+         </bibliography>
+       </ogc-standard>
+    OUTPUT
+    end
 
-
+  it "processes permissions (HTML)" do
+        expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+        <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+    <preface><foreword id="A">
+        <p id="_"><xref target="A1"/></p>
+    <permission id="A1"><name>Permission 1</name>
+  <label>/ogc/recommendation/wfs/2</label>
+  <inherit>/ss/584/2015/level/1</inherit>
+  <inherit><eref type="inline" bibitemid="rfc2616" citeas="RFC 2616">RFC 2616 (HTTP/1.1)</eref></inherit>
+  <subject>user</subject>
+  <classification> <tag>control-class</tag> <value>Technical</value> </classification><classification> <tag>priority</tag> <value>P0</value> </classification><classification> <tag>family</tag> <value>System and Communications Protection</value> </classification><classification> <tag>family</tag> <value>System and Communications Protocols</value> </classification>
+  <description>
+    <p id="_">I recommend <em>this</em>.</p>
+  </description>
+  <specification exclude="true" type="tabular">
+    <p id="_">This is the object of the recommendation:</p>
+    <table id="_">
+      <tbody>
+        <tr>
+          <td style="text-align:left;">Object</td>
+          <td style="text-align:left;">Value</td>
+          <td style="text-align:left;">Accomplished</td>
+        </tr>
+      </tbody>
+    </table>
+  </specification>
+  <description>
+  <dl>
+  <dt>A</dt><dd>B</dd>
+  <dt>C</dt><dd>D</dd>
+  </dl>
+  </description>
+  <measurement-target exclude="false">
+    <p id="_">The measurement target shall be measured as:</p>
+    <formula id="_">
+      <stem type="AsciiMath">r/1 = 0</stem>
+    </formula>
+  </measurement-target>
+  <verification exclude="false">
+    <p id="_">The following code will be run for verification:</p>
+    <sourcecode id="_">CoreRoot(success): HttpResponse
+      if (success)
+      recommendation(label: success-response)
+      end
+    </sourcecode>
+  </verification>
+  <import exclude="true">
+    <sourcecode id="_">success-response()</sourcecode>
+  </import>
+</permission>
+    </foreword></preface>
+    <bibliography><references id="_bibliography" obligation="informative" normative="false">
+<title>Bibliography</title>
+<bibitem id="rfc2616" type="standard">  <fetched>2020-03-27</fetched>  <title format="text/plain" language="en" script="Latn">Hypertext Transfer Protocol — HTTP/1.1</title>  <uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</uri>  <uri type="src">https://www.rfc-editor.org/info/rfc2616</uri>  <docidentifier type="IETF">RFC 2616</docidentifier>  <docidentifier type="rfc-anchor">RFC2616</docidentifier>  <docidentifier type="DOI">10.17487/RFC2616</docidentifier>  <date type="published">    <on>1999-06</on>  </date>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">R. Fielding</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">J. Gettys</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">J. Mogul</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">H. Frystyk</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">L. Masinter</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">P. Leach</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      <name>        <completename language="en">T. Berners-Lee</completename>      </name>      <affiliation>        <organization>          <name>IETF</name>          <abbreviation>IETF</abbreviation>        </organization>      </affiliation>    </person>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/plain" language="en" script="Latn">HTTP has been in use by the World-Wide Web global information initiative since 1990. This specification defines the protocol referred to as “HTTP/1.1”, and is an update to RFC 2068.  [STANDARDS-TRACK]</abstract>  <series type="main">    <title format="text/plain" language="en" script="Latn">RFC</title>    <number>2616</number>  </series>  <place>Fremont, CA</place></bibitem>
 </references></bibliography>
     </ogc-standard>
     INPUT
@@ -800,13 +1064,145 @@ RSpec.describe IsoDoc::Ogc do
 
   end
 
+    it "processes permission verifications (Presentation XML)" do
+        expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+        <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+    <preface>
+        <foreword id="A">
+        <p id="_"><xref target="A1"/></p>
+    <permission id="A1" type="verification">
+  <label>/ogc/recommendation/wfs/2</label>
+  <inherit>/ss/584/2015/level/1</inherit>
+  <subject>user</subject>
+  <classification> <tag>control-class</tag> <value>Technical</value> </classification><classification> <tag>priority</tag> <value>P0</value> </classification><classification> <tag>family</tag> <value>System and Communications Protection</value> </classification><classification> <tag>family</tag> <value>System and Communications Protocols</value> </classification>
+  <description>
+    <p id="_">I recommend <em>this</em>.</p>
+  </description>
+  <specification exclude="true" type="tabular">
+    <p id="_">This is the object of the recommendation:</p>
+    <table id="_">
+      <tbody>
+        <tr>
+          <td style="text-align:left;">Object</td>
+          <td style="text-align:left;">Value</td>
+          <td style="text-align:left;">Accomplished</td>
+        </tr>
+      </tbody>
+    </table>
+  </specification>
+  <description>
+  <dl>
+  <dt>A</dt><dd>B</dd>
+  <dt>C</dt><dd>D</dd>
+  </dl>
+  </description>
+  <measurement-target exclude="false">
+    <p id="_">The measurement target shall be measured as:</p>
+    <formula id="_">
+      <stem type="AsciiMath">r/1 = 0</stem>
+    </formula>
+  </measurement-target>
+  <verification exclude="false">
+    <p id="_">The following code will be run for verification:</p>
+    <sourcecode id="_">CoreRoot(success): HttpResponse
+      if (success)
+      recommendation(label: success-response)
+      end
+    </sourcecode>
+  </verification>
+  <import exclude="true">
+    <sourcecode id="_">success-response()</sourcecode>
+  </import>
+</permission>
+    </foreword></preface>
+    </ogc-standard>
+    INPUT
+     <?xml version='1.0'?>
+       <ogc-standard xmlns='https://standards.opengeospatial.org/document'>
+         <preface>
+           <foreword id='A'>
+             <p id='_'>
+               <xref target='A1'/>
+             </p>
+             <permission id='A1' type='verification'>
+               <name>Permission Test 1</name>
+               <label>/ogc/recommendation/wfs/2</label>
+               <inherit>/ss/584/2015/level/1</inherit>
+               <subject>user</subject>
+               <classification>
+                 <tag>control-class</tag>
+                 <value>Technical</value>
+               </classification>
+               <classification>
+                 <tag>priority</tag>
+                 <value>P0</value>
+               </classification>
+               <classification>
+                 <tag>family</tag>
+                 <value>System and Communications Protection</value>
+               </classification>
+               <classification>
+                 <tag>family</tag>
+                 <value>System and Communications Protocols</value>
+               </classification>
+               <description>
+                 <p id='_'>
+                   I recommend
+                   <em>this</em>
+                   .
+                 </p>
+               </description>
+               <specification exclude='true' type='tabular'>
+                 <p id='_'>This is the object of the recommendation:</p>
+                 <table id='_'>
+                   <tbody>
+                     <tr>
+                       <td style='text-align:left;'>Object</td>
+                       <td style='text-align:left;'>Value</td>
+                       <td style='text-align:left;'>Accomplished</td>
+                     </tr>
+                   </tbody>
+                 </table>
+               </specification>
+               <description>
+                 <dl>
+                   <dt>A</dt>
+                   <dd>B</dd>
+                   <dt>C</dt>
+                   <dd>D</dd>
+                 </dl>
+               </description>
+               <measurement-target exclude='false'>
+                 <p id='_'>The measurement target shall be measured as:</p>
+                 <formula id='_'>
+                   <name>1</name>
+                   <stem type='AsciiMath'>r/1 = 0</stem>
+                 </formula>
+               </measurement-target>
+               <verification exclude='false'>
+                 <p id='_'>The following code will be run for verification:</p>
+                 <sourcecode id='_'>
+                   CoreRoot(success): HttpResponse if (success) recommendation(label:
+                   success-response) end
+                 </sourcecode>
+               </verification>
+               <import exclude='true'>
+                 <sourcecode id='_'>success-response()</sourcecode>
+               </import>
+             </permission>
+           </foreword>
+         </preface>
+       </ogc-standard>
+OUTPUT
+end
+
     it "processes permission verifications" do
         expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
         <ogc-standard xmlns="https://standards.opengeospatial.org/document">
     <preface>
         <foreword id="A">
         <p id="_"><xref target="A1"/></p>
-    <permission id="A1" type="verification">
+    <permission id="A1" type="verification"><name>Permission Test 1</name>
   <label>/ogc/recommendation/wfs/2</label>
   <inherit>/ss/584/2015/level/1</inherit>
   <subject>user</subject>
@@ -952,13 +1348,146 @@ RSpec.describe IsoDoc::Ogc do
 OUTPUT
     end
 
-        it "processes abstract tests" do
+    it "processes abstract tests (Presentation XML)" do
+        expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+        <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+    <preface>
+        <foreword id="A">
+        <p id="_"><xref target="A1"/></p>
+    <permission id="A1" type="abstracttest">
+  <label>/ogc/recommendation/wfs/2</label>
+  <inherit>/ss/584/2015/level/1</inherit>
+  <subject>user</subject>
+  <classification> <tag>control-class</tag> <value>Technical</value> </classification><classification> <tag>priority</tag> <value>P0</value> </classification><classification> <tag>family</tag> <value>System and Communications Protection</value> </classification><classification> <tag>family</tag> <value>System and Communications Protocols</value> </classification>
+  <description>
+    <p id="_">I recommend <em>this</em>.</p>
+  </description>
+  <specification exclude="true" type="tabular">
+    <p id="_">This is the object of the recommendation:</p>
+    <table id="_">
+      <tbody>
+        <tr>
+          <td style="text-align:left;">Object</td>
+          <td style="text-align:left;">Value</td>
+          <td style="text-align:left;">Accomplished</td>
+        </tr>
+      </tbody>
+    </table>
+  </specification>
+  <description>
+  <dl>
+  <dt>A</dt><dd>B</dd>
+  <dt>C</dt><dd>D</dd>
+  </dl>
+  </description>
+  <measurement-target exclude="false">
+    <p id="_">The measurement target shall be measured as:</p>
+    <formula id="_">
+      <stem type="AsciiMath">r/1 = 0</stem>
+    </formula>
+  </measurement-target>
+  <verification exclude="false">
+    <p id="_">The following code will be run for verification:</p>
+    <sourcecode id="_">CoreRoot(success): HttpResponse
+      if (success)
+      recommendation(label: success-response)
+      end
+    </sourcecode>
+  </verification>
+  <import exclude="true">
+    <sourcecode id="_">success-response()</sourcecode>
+  </import>
+</permission>
+    </foreword></preface>
+    </ogc-standard>
+    INPUT
+    <?xml version='1.0'?>
+       <ogc-standard xmlns='https://standards.opengeospatial.org/document'>
+         <preface>
+           <foreword id='A'>
+             <p id='_'>
+               <xref target='A1'/>
+             </p>
+             <permission id='A1' type='abstracttest'>
+               <name>Abstract Test 1</name>
+               <label>/ogc/recommendation/wfs/2</label>
+               <inherit>/ss/584/2015/level/1</inherit>
+               <subject>user</subject>
+               <classification>
+                 <tag>control-class</tag>
+                 <value>Technical</value>
+               </classification>
+               <classification>
+                 <tag>priority</tag>
+                 <value>P0</value>
+               </classification>
+               <classification>
+                 <tag>family</tag>
+                 <value>System and Communications Protection</value>
+               </classification>
+               <classification>
+                 <tag>family</tag>
+                 <value>System and Communications Protocols</value>
+               </classification>
+               <description>
+                 <p id='_'>
+                   I recommend
+                   <em>this</em>
+                   .
+                 </p>
+               </description>
+               <specification exclude='true' type='tabular'>
+                 <p id='_'>This is the object of the recommendation:</p>
+                 <table id='_'>
+                   <tbody>
+                     <tr>
+                       <td style='text-align:left;'>Object</td>
+                       <td style='text-align:left;'>Value</td>
+                       <td style='text-align:left;'>Accomplished</td>
+                     </tr>
+                   </tbody>
+                 </table>
+               </specification>
+               <description>
+                 <dl>
+                   <dt>A</dt>
+                   <dd>B</dd>
+                   <dt>C</dt>
+                   <dd>D</dd>
+                 </dl>
+               </description>
+               <measurement-target exclude='false'>
+                 <p id='_'>The measurement target shall be measured as:</p>
+                 <formula id='_'>
+                   <name>1</name>
+                   <stem type='AsciiMath'>r/1 = 0</stem>
+                 </formula>
+               </measurement-target>
+               <verification exclude='false'>
+                 <p id='_'>The following code will be run for verification:</p>
+                 <sourcecode id='_'>
+                   CoreRoot(success): HttpResponse if (success) recommendation(label:
+                   success-response) end
+                 </sourcecode>
+               </verification>
+               <import exclude='true'>
+                 <sourcecode id='_'>success-response()</sourcecode>
+               </import>
+             </permission>
+           </foreword>
+         </preface>
+       </ogc-standard>
+OUTPUT
+end
+
+        it "processes abstract tests (HTML)" do
         expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
         <ogc-standard xmlns="https://standards.opengeospatial.org/document">
     <preface>
         <foreword id="A">
         <p id="_"><xref target="A1"/></p>
     <permission id="A1" type="abstracttest">
+    <name>Abstract Test 1</name>
   <label>/ogc/recommendation/wfs/2</label>
   <inherit>/ss/584/2015/level/1</inherit>
   <subject>user</subject>
@@ -1104,8 +1633,8 @@ OUTPUT
 OUTPUT
         end
 
-      it "processes permission classes" do
-        expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+        it "processes permission classes (Presentation XML)" do
+        expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
         <ogc-standard xmlns="https://standards.opengeospatial.org/document">
     <preface><foreword id="A">
         <p id="_"><xref target="A1"/></p>
@@ -1126,6 +1655,75 @@ OUTPUT
 </permission>
 
 <permission id="B1">
+  <label>/ogc/recommendation/wfs/10</label>
+</permission>
+
+    </foreword></preface>
+    </ogc-standard>
+    INPUT
+    <?xml version='1.0'?>
+       <ogc-standard xmlns='https://standards.opengeospatial.org/document'>
+         <preface>
+           <foreword id='A'>
+             <p id='_'>
+               <xref target='A1'/>
+             </p>
+             <permission id='A1' type='class' keep-with-next='true' keep-lines-together='true'>
+               <name>Permission Class 1</name>
+               <label>/ogc/recommendation/wfs/2</label>
+               <inherit>/ss/584/2015/level/1</inherit>
+               <inherit>/ss/584/2015/level/2</inherit>
+               <subject>user</subject>
+               <permission id='A2'>
+                 <name>Permission 1</name>
+                 <label>/ogc/recommendation/wfs/10</label>
+               </permission>
+               <requirement id='A3'>
+                 <name>Requirement 1-1</name>
+                 <label>Requirement 1</label>
+               </requirement>
+               <recommendation id='A4'>
+                 <name>Recommendation 1-1</name>
+                 <label>Recommendation 1</label>
+               </recommendation>
+             </permission>
+             <permission id='B1'>
+               <name>Permission 1</name>
+               <label>/ogc/recommendation/wfs/10</label>
+             </permission>
+           </foreword>
+         </preface>
+       </ogc-standard>
+OUTPUT
+end
+
+      it "processes permission classes (HTML)" do
+        expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+        <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+    <preface><foreword id="A">
+        <p id="_"><xref target="A1"/></p>
+    <permission id="A1" type="class" keep-with-next="true" keep-lines-together="true">
+  <name>Permission Class 1</name>
+  <label>/ogc/recommendation/wfs/2</label>
+  <inherit>/ss/584/2015/level/1</inherit>
+  <inherit>/ss/584/2015/level/2</inherit>
+  <subject>user</subject>
+  <permission id="A2">
+  <name>Permission 1</name>
+  <label>/ogc/recommendation/wfs/10</label>
+  </permission>
+  <requirement id="A3">
+  <name>Requirement 1-1</name>
+  <label>Requirement 1</label>
+  </requirement>
+  <recommendation id="A4">
+  <name>Recommendation 1-1</name>
+  <label>Recommendation 1</label>
+  </recommendation>
+</permission>
+
+<permission id="B1">
+  <name>Permission 1</name>
   <label>/ogc/recommendation/wfs/10</label>
 </permission>
 
@@ -1238,8 +1836,8 @@ OUTPUT
 OUTPUT
       end
 
-           it "processes conformance classes" do
-        expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+               it "processes conformance classes (Presentation XML)" do
+        expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
         <ogc-standard xmlns="https://standards.opengeospatial.org/document">
     <preface><foreword id="A">
         <p id="_"><xref target="A1"/></p>
@@ -1255,6 +1853,65 @@ OUTPUT
   <label>Requirement 1</label>
   </requirement>
   <recommendation id="A4">
+  <label>Recommendation 1</label>
+  </recommendation>
+</permission>
+    </foreword></preface>
+    </ogc-standard>
+    INPUT
+    <?xml version='1.0'?>
+<ogc-standard xmlns='https://standards.opengeospatial.org/document'>
+  <preface>
+    <foreword id='A'>
+      <p id='_'>
+        <xref target='A1'/>
+      </p>
+      <permission id='A1' type='conformanceclass'>
+        <name>Conformance Class 1</name>
+        <label>/ogc/recommendation/wfs/2</label>
+        <inherit>/ss/584/2015/level/1</inherit>
+        <inherit>/ss/584/2015/level/2</inherit>
+        <subject>user</subject>
+        <permission id='A2'>
+          <name>Permission 1-1</name>
+          <label>Permission 1</label>
+        </permission>
+        <requirement id='A3'>
+          <name>Requirement 1-1</name>
+          <label>Requirement 1</label>
+        </requirement>
+        <recommendation id='A4'>
+          <name>Recommendation 1-1</name>
+          <label>Recommendation 1</label>
+        </recommendation>
+      </permission>
+    </foreword>
+  </preface>
+</ogc-standard>
+OUTPUT
+               end
+
+           it "processes conformance classes (HTML)" do
+        expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+        <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+    <preface><foreword id="A">
+        <p id="_"><xref target="A1"/></p>
+    <permission id="A1" type="conformanceclass">
+    <name>Conformance Class 1</name>
+  <label>/ogc/recommendation/wfs/2</label>
+  <inherit>/ss/584/2015/level/1</inherit>
+  <inherit>/ss/584/2015/level/2</inherit>
+  <subject>user</subject>
+  <permission id="A2">
+  <name>Permission 1-1</name>
+  <label>Permission 1</label>
+  </permission>
+  <requirement id="A3">
+  <name>Requirement 1-1</name>
+  <label>Requirement 1</label>
+  </requirement>
+  <recommendation id="A4">
+  <name>Recommendation 1-1</name>
   <label>Recommendation 1</label>
   </recommendation>
 </permission>
@@ -1351,8 +2008,8 @@ OUTPUT
 OUTPUT
            end
 
-            it "processes requirement classes" do
-        expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+              it "processes requirement classes (Presentation XML)" do
+        expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
         <ogc-standard xmlns="https://standards.opengeospatial.org/document">
     <preface><foreword id="A">
         <p id="_"><xref target="A1"/></p>
@@ -1368,6 +2025,65 @@ OUTPUT
   <label>Requirement 1</label>
   </requirement>
   <recommendation id="A4">
+  <label>Recommendation 1</label>
+  </recommendation>
+</requirement>
+    </foreword></preface>
+    </ogc-standard>
+    INPUT
+    <?xml version='1.0'?>
+<ogc-standard xmlns='https://standards.opengeospatial.org/document'>
+  <preface>
+    <foreword id='A'>
+      <p id='_'>
+        <xref target='A1'/>
+      </p>
+      <requirement id='A1' type='class'>
+        <name>Requirement Class 1</name>
+        <label>/ogc/recommendation/wfs/2</label>
+        <inherit>/ss/584/2015/level/1</inherit>
+        <inherit>/ss/584/2015/level/2</inherit>
+        <subject>user</subject>
+        <permission id='A2'>
+          <name>Permission 1-1</name>
+          <label>Permission 1</label>
+        </permission>
+        <requirement id='A3'>
+          <name>Requirement 1-1</name>
+          <label>Requirement 1</label>
+        </requirement>
+        <recommendation id='A4'>
+          <name>Recommendation 1-1</name>
+          <label>Recommendation 1</label>
+        </recommendation>
+      </requirement>
+    </foreword>
+  </preface>
+</ogc-standard>
+OUTPUT
+              end
+
+            it "processes requirement classes (HTML)" do
+        expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+        <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+    <preface><foreword id="A">
+        <p id="_"><xref target="A1"/></p>
+    <requirement id="A1" type="class">
+    <name>Requirement Class 1</name>
+  <label>/ogc/recommendation/wfs/2</label>
+  <inherit>/ss/584/2015/level/1</inherit>
+  <inherit>/ss/584/2015/level/2</inherit>
+  <subject>user</subject>
+  <permission id="A2">
+  <name>Permission 1-1</name>
+  <label>Permission 1</label>
+  </permission>
+  <requirement id="A3">
+  <name>Requirement 1-1</name>
+  <label>Requirement 1</label>
+  </requirement>
+  <recommendation id="A4">
+  <name>Recommendation 1-1</name>
   <label>Recommendation 1</label>
   </recommendation>
 </requirement>
@@ -1464,8 +2180,8 @@ OUTPUT
 OUTPUT
       end
 
-                  it "processes recommendation classes" do
-        expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+               it "processes recommendation classes (Presentation XML)" do
+        expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
         <ogc-standard xmlns="https://standards.opengeospatial.org/document">
     <preface><foreword id="A">
         <p id="_"><xref target="A1"/></p>
@@ -1481,6 +2197,65 @@ OUTPUT
   <label>Requirement 1</label>
   </requirement>
   <recommendation id="A4">
+  <label>Recommendation 1</label>
+  </recommendation>
+</recommendation>
+    </foreword></preface>
+    </ogc-standard>
+    INPUT
+    <?xml version='1.0'?>
+       <ogc-standard xmlns='https://standards.opengeospatial.org/document'>
+         <preface>
+           <foreword id='A'>
+             <p id='_'>
+               <xref target='A1'/>
+             </p>
+             <recommendation id='A1' type='class'>
+               <name>Recommendation Class 1</name>
+               <label>/ogc/recommendation/wfs/2</label>
+               <inherit>/ss/584/2015/level/1</inherit>
+               <inherit>/ss/584/2015/level/2</inherit>
+               <subject>user</subject>
+               <permission id='A2'>
+                 <name>Permission 1-1</name>
+                 <label>Permission 1</label>
+               </permission>
+               <requirement id='A3'>
+                 <name>Requirement 1-1</name>
+                 <label>Requirement 1</label>
+               </requirement>
+               <recommendation id='A4'>
+                 <name>Recommendation 1-1</name>
+                 <label>Recommendation 1</label>
+               </recommendation>
+             </recommendation>
+           </foreword>
+         </preface>
+       </ogc-standard>
+OUTPUT
+               end
+
+                  it "processes recommendation classes (HTML)" do
+        expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+        <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+    <preface><foreword id="A">
+        <p id="_"><xref target="A1"/></p>
+    <recommendation id="A1" type="class">
+    <name>Recommendation Class 1</name>
+  <label>/ogc/recommendation/wfs/2</label>
+  <inherit>/ss/584/2015/level/1</inherit>
+  <inherit>/ss/584/2015/level/2</inherit>
+  <subject>user</subject>
+  <permission id="A2">
+  <name>Permission 1-1</name>
+  <label>Permission 1</label>
+  </permission>
+  <requirement id="A3">
+  <name>Requirement 1-1</name>
+  <label>Requirement 1</label>
+  </requirement>
+  <recommendation id="A4">
+  <name>Recommendation 1-1</name>
   <label>Recommendation 1</label>
   </recommendation>
 </recommendation>
@@ -1577,11 +2352,122 @@ OUTPUT
 OUTPUT
       end
 
+                  it "processes requirements (Presentation XML)" do
+        expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+          <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+    <preface><foreword id="A0">
+    <requirement id="A" unnumbered="true">
+  <title>A New Requirement</title>
+  <label>/ogc/recommendation/wfs/2</label>
+  <inherit>/ss/584/2015/level/1</inherit>
+  <subject>user</subject>
+  <description>
+    <p id="_">I recommend <em>this</em>.</p>
+  </description>
+  <specification exclude="true" type="tabular" keep-with-next="true" keep-lines-together="true">
+    <p id="_">This is the object of the recommendation:</p>
+    <table id="_">
+      <tbody>
+        <tr>
+          <td style="text-align:left;">Object</td>
+          <td style="text-align:left;">Value</td>
+        </tr>
+        <tr>
+          <td style="text-align:left;">Mission</td>
+          <td style="text-align:left;">Accomplished</td>
+        </tr>
+      </tbody>
+    </table>
+  </specification>
+  <description>
+    <p id="_">As for the measurement targets,</p>
+  </description>
+  <measurement-target exclude="false">
+    <p id="_">The measurement target shall be measured as:</p>
+    <formula id="B">
+      <stem type="AsciiMath">r/1 = 0</stem>
+    </formula>
+  </measurement-target>
+  <verification exclude="false">
+    <p id="_">The following code will be run for verification:</p>
+    <sourcecode id="_">CoreRoot(success): HttpResponse
+      if (success)
+      recommendation(label: success-response)
+      end
+    </sourcecode>
+  </verification>
+  <import exclude="true">
+    <sourcecode id="_">success-response()</sourcecode>
+  </import>
+</requirement>
+    </foreword></preface>
+    </ogc-standard>
+INPUT
+<?xml version='1.0'?>
+<ogc-standard xmlns='https://standards.opengeospatial.org/document'>
+  <preface>
+    <foreword id='A0'>
+      <requirement id='A' unnumbered='true'>
+        <name>Requirement</name>
+        <title>A New Requirement</title>
+        <label>/ogc/recommendation/wfs/2</label>
+        <inherit>/ss/584/2015/level/1</inherit>
+        <subject>user</subject>
+        <description>
+          <p id='_'>
+            I recommend
+            <em>this</em>
+            .
+          </p>
+        </description>
+        <specification exclude='true' type='tabular' keep-with-next='true' keep-lines-together='true'>
+          <p id='_'>This is the object of the recommendation:</p>
+          <table id='_'>
+            <tbody>
+              <tr>
+                <td style='text-align:left;'>Object</td>
+                <td style='text-align:left;'>Value</td>
+              </tr>
+              <tr>
+                <td style='text-align:left;'>Mission</td>
+                <td style='text-align:left;'>Accomplished</td>
+              </tr>
+            </tbody>
+          </table>
+        </specification>
+        <description>
+          <p id='_'>As for the measurement targets,</p>
+        </description>
+        <measurement-target exclude='false'>
+          <p id='_'>The measurement target shall be measured as:</p>
+          <formula id='B'>
+            <name>1</name>
+            <stem type='AsciiMath'>r/1 = 0</stem>
+          </formula>
+        </measurement-target>
+        <verification exclude='false'>
+          <p id='_'>The following code will be run for verification:</p>
+          <sourcecode id='_'>
+            CoreRoot(success): HttpResponse if (success) recommendation(label:
+            success-response) end
+          </sourcecode>
+        </verification>
+        <import exclude='true'>
+          <sourcecode id='_'>success-response()</sourcecode>
+        </import>
+      </requirement>
+    </foreword>
+  </preface>
+</ogc-standard>
+OUTPUT
+                  end
+
   it "processes requirements" do
         expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
           <ogc-standard xmlns="https://standards.opengeospatial.org/document">
     <preface><foreword id="A0">
     <requirement id="A" unnumbered="true">
+    <name>Requirement</name>
   <title>A New Requirement</title>
   <label>/ogc/recommendation/wfs/2</label>
   <inherit>/ss/584/2015/level/1</inherit>
@@ -1703,7 +2589,114 @@ INPUT
          </div>
        </body>
     OUTPUT
+  end
 
+  it "processes recommendations (Presentation XML)" do
+        expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+      <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+    <preface><foreword id="A">
+    <recommendation id="_">
+  <label>/ogc/recommendation/wfs/2</label>
+  <inherit>/ss/584/2015/level/1</inherit>
+  <subject>user</subject>
+  <description>
+    <p id="_">I recommend <em>this</em>.</p>
+  </description>
+  <specification exclude="true" type="tabular">
+    <p id="_">This is the object of the recommendation:</p>
+    <table id="_">
+      <tbody>
+        <tr>
+          <td style="text-align:left;">Object</td>
+          <td style="text-align:left;">Value</td>
+        </tr>
+        <tr>
+          <td style="text-align:left;">Mission</td>
+          <td style="text-align:left;">Accomplished</td>
+        </tr>
+      </tbody>
+    </table>
+  </specification>
+  <description>
+    <p id="_">As for the measurement targets,</p>
+  </description>
+  <measurement-target exclude="false">
+    <p id="_">The measurement target shall be measured as:</p>
+    <formula id="_">
+      <stem type="AsciiMath">r/1 = 0</stem>
+    </formula>
+  </measurement-target>
+  <verification exclude="false">
+    <p id="_">The following code will be run for verification:</p>
+    <sourcecode id="_">CoreRoot(success): HttpResponse
+      if (success)
+      recommendation(label: success-response)
+      end
+    </sourcecode>
+  </verification>
+  <import exclude="true">
+    <sourcecode id="_">success-response()</sourcecode>
+  </import>
+</recommendation>
+    </foreword></preface>
+    </ogc-standard>
+INPUT
+<?xml version='1.0'?>
+<ogc-standard xmlns='https://standards.opengeospatial.org/document'>
+  <preface>
+    <foreword id='A'>
+      <recommendation id='_'>
+        <name>Recommendation 1</name>
+        <label>/ogc/recommendation/wfs/2</label>
+        <inherit>/ss/584/2015/level/1</inherit>
+        <subject>user</subject>
+        <description>
+          <p id='_'>
+            I recommend
+            <em>this</em>
+            .
+          </p>
+        </description>
+        <specification exclude='true' type='tabular'>
+          <p id='_'>This is the object of the recommendation:</p>
+          <table id='_'>
+            <tbody>
+              <tr>
+                <td style='text-align:left;'>Object</td>
+                <td style='text-align:left;'>Value</td>
+              </tr>
+              <tr>
+                <td style='text-align:left;'>Mission</td>
+                <td style='text-align:left;'>Accomplished</td>
+              </tr>
+            </tbody>
+          </table>
+        </specification>
+        <description>
+          <p id='_'>As for the measurement targets,</p>
+        </description>
+        <measurement-target exclude='false'>
+          <p id='_'>The measurement target shall be measured as:</p>
+          <formula id='_'>
+            <name>1</name>
+            <stem type='AsciiMath'>r/1 = 0</stem>
+          </formula>
+        </measurement-target>
+        <verification exclude='false'>
+          <p id='_'>The following code will be run for verification:</p>
+          <sourcecode id='_'>
+            CoreRoot(success): HttpResponse if (success) recommendation(label:
+            success-response) end
+          </sourcecode>
+        </verification>
+        <import exclude='true'>
+          <sourcecode id='_'>success-response()</sourcecode>
+        </import>
+      </recommendation>
+    </foreword>
+  </preface>
+</ogc-standard>
+OUTPUT
   end
 
   it "processes recommendations" do
@@ -1711,6 +2704,7 @@ INPUT
       <ogc-standard xmlns="https://standards.opengeospatial.org/document">
     <preface><foreword id="A">
     <recommendation id="_">
+    <name>Recommendation 1</name>
   <label>/ogc/recommendation/wfs/2</label>
   <inherit>/ss/584/2015/level/1</inherit>
   <subject>user</subject>
