@@ -48,7 +48,6 @@ RSpec.describe IsoDoc::Ogc do
   <extent type="part">
   <referenceFrom>all</referenceFrom>
   </extent>
-
 </bibitem>
 <bibitem id="ISO20483" type="standard">
   <title format="text/plain">Cereals and pulses</title>
@@ -65,10 +64,8 @@ RSpec.describe IsoDoc::Ogc do
   <formattedref format="application/x-isodoc+xml"><smallcap>Standard No I.C.C 167</smallcap>. <em>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</em> (see <link target="http://www.icc.or.at"/>)</formattedref>
   <docidentifier type="ICC">167</docidentifier>
 </bibitem>
-<note><p>This is an annotation of ISO 20483:2013-2014</p></note>
+<note><name>NOTE i</name><p>This is an annotation of ISO 20483:2013-2014</p></note>
     <bibitem id="zip_ffs"><formattedref format="application/x-isodoc+xml">Title 5</formattedref><docidentifier type="metanorma">[5]</docidentifier></bibitem>
-
-
 </references><references id="_bibliography" obligation="informative" normative="false">
   <title>Bibliography</title>
 <bibitem id="ISBN" type="ISBN">
@@ -94,8 +91,8 @@ RSpec.describe IsoDoc::Ogc do
     </organization>
   </contributor>
 </bibitem>
-<note><p>This is an annotation of document ISSN.</p></note>
-<note><p>This is another annotation of document ISSN.</p></note>
+<note><name>NOTE i</name><p>This is an annotation of document ISSN.</p></note>
+<note><name>NOTE i</name><p>This is another annotation of document ISSN.</p></note>
 <bibitem id="ISO3696" type="standard">
   <title format="text/plain">Water for analytical laboratory use</title>
   <docidentifier type="ISO">ISO 3696</docidentifier>
@@ -119,8 +116,6 @@ RSpec.describe IsoDoc::Ogc do
   <docidentifier type="metanorma">[Citn]</docidentifier>
   <docidentifier type="IETF">RFC 20</docidentifier>
 </bibitem>
-
-
 </references>
 </bibliography>
     </iso-standard>
