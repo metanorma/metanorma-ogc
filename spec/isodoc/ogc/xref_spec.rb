@@ -65,29 +65,19 @@ RSpec.describe IsoDoc::Ogc do
     </annex>
     </iso-standard>
     INPUT
-    <!--
-               <a href='#N1'>Introduction, Requirement 1</a>
-               <a href='#N2'>Clause ii.1, Requirement (??)</a>
-               <a href='#N'>Clause 1, Requirement 2</a>
-               <a href='#note1'>Clause 3.1, Requirement 3</a>
-               <a href='#note2'>Clause 3.1, Requirement 4</a>
-               <a href='#AN'>Annex A.1, Requirement A.1</a>
-               <a href='#Anote1'>Annex A.2, Requirement (??)</a>
-               <a href='#Anote2'>Annex A.2, Requirement A.2</a>
-               -->
                <?xml version='1.0'?>
         <iso-standard xmlns='http://riboseinc.com/isoxml'>
           <preface>
             <foreword>
               <p>
-                <xref target='N1'/>
-                <xref target='N2'/>
-                <xref target='N'/>
-                <xref target='note1'/>
-                <xref target='note2'/>
-                <xref target='AN'/>
-                <xref target='Anote1'/>
-                <xref target='Anote2'/>
+                <xref target='N1'>Introduction, Requirement 1</xref>
+<xref target='N2'>Clause ii.1, Requirement (??)</xref>
+<xref target='N'>Clause 1, Requirement 2</xref>
+<xref target='note1'>Clause 3.1, Requirement 3</xref>
+<xref target='note2'>Clause 3.1, Requirement 4</xref>
+<xref target='AN'>Annex A.1, Requirement A.1</xref>
+<xref target='Anote1'>Annex A.2, Requirement (??)</xref>
+<xref target='Anote2'>Annex A.2, Requirement A.2</xref>
               </p>
             </foreword>
             <introduction id='intro'>
@@ -112,7 +102,7 @@ RSpec.describe IsoDoc::Ogc do
                 <stem type='AsciiMath'>r = 1 %</stem>
               </requirement>
               <p>
-                <xref target='N'/>
+              <xref target='N'>Requirement 2</xref>
               </p>
             </clause>
             <terms id='terms'/>
@@ -128,8 +118,8 @@ RSpec.describe IsoDoc::Ogc do
                   <stem type='AsciiMath'>r = 1 %</stem>
                 </requirement>
                 <p>
-                  <xref target='note1'/>
-                  <xref target='note2'/>
+                   <xref target='note1'>Requirement 3</xref>
+ <xref target='note2'>Requirement 4</xref>
                 </p>
               </clause>
             </clause>
@@ -220,29 +210,19 @@ OUTPUT
     </annex>
     </iso-standard>
     INPUT
-    <!--
-               <a href='#N1'>Introduction, Requirement Test 1</a>
-               <a href='#N2'>Clause ii.1, Requirement Test (??)</a>
-               <a href='#N'>Clause 1, Requirement Test 2</a>
-               <a href='#note1'>Clause 3.1, Requirement Test 3</a>
-               <a href='#note2'>Clause 3.1, Requirement Test 4</a>
-               <a href='#AN'>Annex A.1, Requirement Test A.1</a>
-               <a href='#Anote1'>Annex A.2, Requirement Test (??)</a>
-               <a href='#Anote2'>Annex A.2, Requirement Test A.2</a>
-               -->
                <?xml version='1.0'?>
         <iso-standard xmlns='http://riboseinc.com/isoxml'>
           <preface>
             <foreword>
               <p>
-                <xref target='N1'/>
-                <xref target='N2'/>
-                <xref target='N'/>
-                <xref target='note1'/>
-                <xref target='note2'/>
-                <xref target='AN'/>
-                <xref target='Anote1'/>
-                <xref target='Anote2'/>
+                <xref target='N1'>Introduction, Requirement Test 1</xref>
+<xref target='N2'>Clause ii.1, Requirement Test (??)</xref>
+<xref target='N'>Clause 1, Requirement Test 2</xref>
+<xref target='note1'>Clause 3.1, Requirement Test 3</xref>
+<xref target='note2'>Clause 3.1, Requirement Test 4</xref>
+<xref target='AN'>Annex A.1, Requirement Test A.1</xref>
+<xref target='Anote1'>Annex A.2, Requirement Test (??)</xref>
+<xref target='Anote2'>Annex A.2, Requirement Test A.2</xref>
               </p>
             </foreword>
             <introduction id='intro'>
@@ -267,7 +247,7 @@ OUTPUT
                 <stem type='AsciiMath'>r = 1 %</stem>
               </requirement>
               <p>
-                <xref target='N'/>
+               <xref target='N'>Requirement Test 2</xref>
               </p>
             </clause>
             <terms id='terms'/>
@@ -283,8 +263,8 @@ OUTPUT
                   <stem type='AsciiMath'>r = 1 %</stem>
                 </requirement>
                 <p>
-                  <xref target='note1'/>
-                  <xref target='note2'/>
+                   <xref target='note1'>Requirement Test 3</xref>
+ <xref target='note2'>Requirement Test 4</xref>
                 </p>
               </clause>
             </clause>
@@ -376,29 +356,19 @@ OUTPUT
     </annex>
     </iso-standard>
     INPUT
-    <!--
-               <a href='#N1'>Introduction, Recommendation 1</a>
-               <a href='#N2'>Clause ii.1, Recommendation (??)</a>
-               <a href='#N'>Clause 1, Recommendation 2</a>
-               <a href='#note1'>Clause 3.1, Recommendation 3</a>
-               <a href='#note2'>Clause 3.1, Recommendation 4</a>
-               <a href='#AN'>Annex A.1, Recommendation A.1</a>
-               <a href='#Anote1'>Annex A.2, Recommendation (??)</a>
-               <a href='#Anote2'>Annex A.2, Recommendation A.2</a>
-               -->
                 <?xml version='1.0'?>
         <iso-standard xmlns='http://riboseinc.com/isoxml'>
           <preface>
             <foreword>
               <p>
-                <xref target='N1'/>
-                <xref target='N2'/>
-                <xref target='N'/>
-                <xref target='note1'/>
-                <xref target='note2'/>
-                <xref target='AN'/>
-                <xref target='Anote1'/>
-                <xref target='Anote2'/>
+                 <xref target='N1'>Introduction, Recommendation 1</xref>
+ <xref target='N2'>Clause ii.1, Recommendation (??)</xref>
+ <xref target='N'>Clause 1, Recommendation 2</xref>
+ <xref target='note1'>Clause 3.1, Recommendation 3</xref>
+ <xref target='note2'>Clause 3.1, Recommendation 4</xref>
+ <xref target='AN'>Annex A.1, Recommendation A.1</xref>
+ <xref target='Anote1'>Annex A.2, Recommendation (??)</xref>
+ <xref target='Anote2'>Annex A.2, Recommendation A.2</xref>
               </p>
             </foreword>
             <introduction id='intro'>
@@ -423,7 +393,7 @@ OUTPUT
                 <stem type='AsciiMath'>r = 1 %</stem>
               </recommendation>
               <p>
-                <xref target='N'/>
+               <xref target='N'>Recommendation 2</xref>
               </p>
             </clause>
             <terms id='terms'/>
@@ -439,8 +409,8 @@ OUTPUT
                   <stem type='AsciiMath'>r = 1 %</stem>
                 </recommendation>
                 <p>
-                  <xref target='note1'/>
-                  <xref target='note2'/>
+                  <xref target='note1'>Recommendation 3</xref>
+<xref target='note2'>Recommendation 4</xref>
                 </p>
               </clause>
             </clause>
@@ -531,29 +501,19 @@ OUTPUT
     </annex>
     </iso-standard>
     INPUT
-    <!--
-               <a href='#N1'>Introduction, Recommendation Test 1</a>
-               <a href='#N2'>Clause ii.1, Recommendation Test (??)</a>
-               <a href='#N'>Clause 1, Recommendation Test 2</a>
-               <a href='#note1'>Clause 3.1, Recommendation Test 3</a>
-               <a href='#note2'>Clause 3.1, Recommendation Test 4</a>
-               <a href='#AN'>Annex A.1, Recommendation Test A.1</a>
-               <a href='#Anote1'>Annex A.2, Recommendation Test (??)</a>
-               <a href='#Anote2'>Annex A.2, Recommendation Test A.2</a>
-               -->
                <?xml version='1.0'?>
         <iso-standard xmlns='http://riboseinc.com/isoxml'>
           <preface>
             <foreword>
               <p>
-                <xref target='N1'/>
-                <xref target='N2'/>
-                <xref target='N'/>
-                <xref target='note1'/>
-                <xref target='note2'/>
-                <xref target='AN'/>
-                <xref target='Anote1'/>
-                <xref target='Anote2'/>
+                 <xref target='N1'>Introduction, Recommendation Test 1</xref>
+ <xref target='N2'>Clause ii.1, Recommendation Test (??)</xref>
+ <xref target='N'>Clause 1, Recommendation Test 2</xref>
+ <xref target='note1'>Clause 3.1, Recommendation Test 3</xref>
+ <xref target='note2'>Clause 3.1, Recommendation Test 4</xref>
+ <xref target='AN'>Annex A.1, Recommendation Test A.1</xref>
+ <xref target='Anote1'>Annex A.2, Recommendation Test (??)</xref>
+ <xref target='Anote2'>Annex A.2, Recommendation Test A.2</xref>
               </p>
             </foreword>
             <introduction id='intro'>
@@ -578,7 +538,7 @@ OUTPUT
                 <stem type='AsciiMath'>r = 1 %</stem>
               </recommendation>
               <p>
-                <xref target='N'/>
+              <xref target='N'>Recommendation Test 2</xref>
               </p>
             </clause>
             <terms id='terms'/>
@@ -594,8 +554,8 @@ OUTPUT
                   <stem type='AsciiMath'>r = 1 %</stem>
                 </recommendation>
                 <p>
-                  <xref target='note1'/>
-                  <xref target='note2'/>
+                  <xref target='note1'>Recommendation Test 3</xref>
+<xref target='note2'>Recommendation Test 4</xref>
                 </p>
               </clause>
             </clause>
@@ -686,29 +646,19 @@ OUTPUT
     </annex>
     </iso-standard>
     INPUT
-    <!--
-               <a href='#N1'>Introduction, Permission 1</a>
-               <a href='#N2'>Clause ii.1, Permission (??)</a>
-               <a href='#N'>Clause 1, Permission 2</a>
-               <a href='#note1'>Clause 3.1, Permission 3</a>
-               <a href='#note2'>Clause 3.1, Permission 4</a>
-               <a href='#AN'>Annex A.1, Permission A.1</a>
-               <a href='#Anote1'>Annex A.2, Permission (??)</a>
-               <a href='#Anote2'>Annex A.2, Permission A.2</a>
-               -->
                <?xml version='1.0'?>
         <iso-standard xmlns='http://riboseinc.com/isoxml'>
           <preface>
             <foreword>
               <p>
-                <xref target='N1'/>
-                <xref target='N2'/>
-                <xref target='N'/>
-                <xref target='note1'/>
-                <xref target='note2'/>
-                <xref target='AN'/>
-                <xref target='Anote1'/>
-                <xref target='Anote2'/>
+                <xref target='N1'>Introduction, Permission 1</xref>
+<xref target='N2'>Clause ii.1, Permission (??)</xref>
+<xref target='N'>Clause 1, Permission 2</xref>
+<xref target='note1'>Clause 3.1, Permission 3</xref>
+<xref target='note2'>Clause 3.1, Permission 4</xref>
+<xref target='AN'>Annex A.1, Permission A.1</xref>
+<xref target='Anote1'>Annex A.2, Permission (??)</xref>
+<xref target='Anote2'>Annex A.2, Permission A.2</xref>
               </p>
             </foreword>
             <introduction id='intro'>
@@ -733,7 +683,7 @@ OUTPUT
                 <stem type='AsciiMath'>r = 1 %</stem>
               </permission>
               <p>
-                <xref target='N'/>
+              <xref target='N'>Permission 2</xref>
               </p>
             </clause>
             <terms id='terms'/>
@@ -749,8 +699,8 @@ OUTPUT
                   <stem type='AsciiMath'>r = 1 %</stem>
                 </permission>
                 <p>
-                  <xref target='note1'/>
-                  <xref target='note2'/>
+                  <xref target='note1'>Permission 3</xref>
+<xref target='note2'>Permission 4</xref>
                 </p>
               </clause>
             </clause>
@@ -841,29 +791,19 @@ OUTPUT
     </annex>
     </iso-standard>
     INPUT
-    <!--
-               <a href='#N1'>Introduction, Permission Test 1</a>
-               <a href='#N2'>Clause ii.1, Permission Test (??)</a>
-               <a href='#N'>Clause 1, Permission Test 2</a>
-               <a href='#note1'>Clause 3.1, Permission Test 3</a>
-               <a href='#note2'>Clause 3.1, Permission Test 4</a>
-               <a href='#AN'>Annex A.1, Permission Test A.1</a>
-               <a href='#Anote1'>Annex A.2, Permission Test (??)</a>
-               <a href='#Anote2'>Annex A.2, Permission Test A.2</a>
-               -->
                 <?xml version='1.0'?>
         <iso-standard xmlns='http://riboseinc.com/isoxml'>
           <preface>
             <foreword>
               <p>
-                <xref target='N1'/>
-                <xref target='N2'/>
-                <xref target='N'/>
-                <xref target='note1'/>
-                <xref target='note2'/>
-                <xref target='AN'/>
-                <xref target='Anote1'/>
-                <xref target='Anote2'/>
+                 <xref target='N1'>Introduction, Permission Test 1</xref>
+ <xref target='N2'>Clause ii.1, Permission Test (??)</xref>
+ <xref target='N'>Clause 1, Permission Test 2</xref>
+ <xref target='note1'>Clause 3.1, Permission Test 3</xref>
+ <xref target='note2'>Clause 3.1, Permission Test 4</xref>
+ <xref target='AN'>Annex A.1, Permission Test A.1</xref>
+ <xref target='Anote1'>Annex A.2, Permission Test (??)</xref>
+ <xref target='Anote2'>Annex A.2, Permission Test A.2</xref>
               </p>
             </foreword>
             <introduction id='intro'>
@@ -888,7 +828,7 @@ OUTPUT
                 <stem type='AsciiMath'>r = 1 %</stem>
               </permission>
               <p>
-                <xref target='N'/>
+              <xref target='N'>Permission Test 2</xref>
               </p>
             </clause>
             <terms id='terms'/>
@@ -904,8 +844,8 @@ OUTPUT
                   <stem type='AsciiMath'>r = 1 %</stem>
                 </permission>
                 <p>
-                  <xref target='note1'/>
-                  <xref target='note2'/>
+                  <xref target='note1'>Permission Test 3</xref>
+<xref target='note2'>Permission Test 4</xref>
                 </p>
               </clause>
             </clause>
@@ -983,33 +923,21 @@ end
     </annex>
     </iso-standard>
     INPUT
-    <!--
-               <a href='#N1'>Clause 1, Permission 1</a>
-               <a href='#N2'>Clause 1, Permission Test 1-1</a>
-               <a href='#N'>Clause 1, Permission 1-1-1</a>
-               <a href='#Q1'>Clause 1, Requirement 1-1</a>
-               <a href='#R1'>Clause 1, Recommendation 1-1</a>
-               <a href='#AN1'>Annex A, Permission Test A.1</a>
-               <a href='#AN2'>Annex A, Permission A.1-1</a>
-               <a href='#AN'>Annex A, Permission Test A.1-1-1</a>
-               <a href='#AQ1'>Annex A, Requirement A.1-1</a>
-               <a href='#AR1'>Annex A, Recommendation A.1-1</a>
-               -->
 <?xml version='1.0'?>
 <iso-standard xmlns='http://riboseinc.com/isoxml'>
   <preface>
     <foreword>
       <p>
-        <xref target='N1'/>
-        <xref target='N2'/>
-        <xref target='N'/>
-        <xref target='Q1'/>
-        <xref target='R1'/>
-        <xref target='AN1'/>
-        <xref target='AN2'/>
-        <xref target='AN'/>
-        <xref target='AQ1'/>
-        <xref target='AR1'/>
+         <xref target='N1'>Clause 1, Permission 1</xref>
+ <xref target='N2'>Clause 1, Permission Test 1-1</xref>
+ <xref target='N'>Clause 1, Permission 1-1-1</xref>
+ <xref target='Q1'>Clause 1, Requirement 1-1</xref>
+ <xref target='R1'>Clause 1, Recommendation 1-1</xref>
+ <xref target='AN1'>Annex A, Permission Test A.1</xref>
+ <xref target='AN2'>Annex A, Permission A.1-1</xref>
+ <xref target='AN'>Annex A, Permission Test A.1-1-1</xref>
+ <xref target='AQ1'>Annex A, Requirement A.1-1</xref>
+ <xref target='AR1'>Annex A, Recommendation A.1-1</xref>
       </p>
     </foreword>
   </preface>
@@ -1131,29 +1059,19 @@ end
     </annex>
     </iso-standard>
     INPUT
-    <!--
-               <a href='#N1'>Introduction, Abstract Test 1</a>
-               <a href='#N2'>Clause ii.1, Abstract Test (??)</a>
-               <a href='#N'>Clause 1, Abstract Test 2</a>
-               <a href='#note1'>Clause 3.1, Abstract Test 3</a>
-               <a href='#note2'>Clause 3.1, Abstract Test 4</a>
-               <a href='#AN'>Annex A.1, Abstract Test A.1</a>
-               <a href='#Anote1'>Annex A.2, Abstract Test (??)</a>
-               <a href='#Anote2'>Annex A.2, Abstract Test A.2</a>
-               -->
                <?xml version='1.0'?>
         <iso-standard xmlns='http://riboseinc.com/isoxml'>
           <preface>
             <foreword>
               <p>
-                <xref target='N1'/>
-                <xref target='N2'/>
-                <xref target='N'/>
-                <xref target='note1'/>
-                <xref target='note2'/>
-                <xref target='AN'/>
-                <xref target='Anote1'/>
-                <xref target='Anote2'/>
+                 <xref target='N1'>Introduction, Abstract Test 1</xref>
+ <xref target='N2'>Clause ii.1, Abstract Test (??)</xref>
+ <xref target='N'>Clause 1, Abstract Test 2</xref>
+ <xref target='note1'>Clause 3.1, Abstract Test 3</xref>
+ <xref target='note2'>Clause 3.1, Abstract Test 4</xref>
+ <xref target='AN'>Annex A.1, Abstract Test A.1</xref>
+ <xref target='Anote1'>Annex A.2, Abstract Test (??)</xref>
+ <xref target='Anote2'>Annex A.2, Abstract Test A.2</xref>
               </p>
             </foreword>
             <introduction id='intro'>
@@ -1178,7 +1096,7 @@ end
                 <stem type='AsciiMath'>r = 1 %</stem>
               </permission>
               <p>
-                <xref target='N'/>
+              <xref target='N'>Abstract Test 2</xref>
               </p>
             </clause>
             <terms id='terms'/>
@@ -1194,8 +1112,8 @@ end
                   <stem type='AsciiMath'>r = 1 %</stem>
                 </permission>
                 <p>
-                  <xref target='note1'/>
-                  <xref target='note2'/>
+                  <xref target='note1'>Abstract Test 3</xref>
+<xref target='note2'>Abstract Test 4</xref>
                 </p>
               </clause>
             </clause>
@@ -1286,29 +1204,19 @@ OUTPUT
     </annex>
     </iso-standard>
     INPUT
-             <!--
-               <a href='#N1'>Introduction, Conformance Class 1</a>
-               <a href='#N2'>Clause ii.1, Conformance Class (??)</a>
-               <a href='#N'>Clause 1, Conformance Class 2</a>
-               <a href='#note1'>Clause 3.1, Conformance Class 3</a>
-               <a href='#note2'>Clause 3.1, Conformance Class 4</a>
-               <a href='#AN'>Annex A.1, Conformance Class A.1</a>
-               <a href='#Anote1'>Annex A.2, Conformance Class (??)</a>
-               <a href='#Anote2'>Annex A.2, Conformance Class A.2</a>
-               -->
                 <?xml version='1.0'?>
         <iso-standard xmlns='http://riboseinc.com/isoxml'>
           <preface>
             <foreword>
               <p>
-                <xref target='N1'/>
-                <xref target='N2'/>
-                <xref target='N'/>
-                <xref target='note1'/>
-                <xref target='note2'/>
-                <xref target='AN'/>
-                <xref target='Anote1'/>
-                <xref target='Anote2'/>
+                <xref target='N1'>Introduction, Conformance Class 1</xref>
+<xref target='N2'>Clause ii.1, Conformance Class (??)</xref>
+<xref target='N'>Clause 1, Conformance Class 2</xref>
+<xref target='note1'>Clause 3.1, Conformance Class 3</xref>
+<xref target='note2'>Clause 3.1, Conformance Class 4</xref>
+<xref target='AN'>Annex A.1, Conformance Class A.1</xref>
+<xref target='Anote1'>Annex A.2, Conformance Class (??)</xref>
+<xref target='Anote2'>Annex A.2, Conformance Class A.2</xref>
               </p>
             </foreword>
             <introduction id='intro'>
@@ -1333,7 +1241,7 @@ OUTPUT
                 <stem type='AsciiMath'>r = 1 %</stem>
               </permission>
               <p>
-                <xref target='N'/>
+              <xref target='N'>Conformance Class 2</xref>
               </p>
             </clause>
             <terms id='terms'/>
@@ -1349,8 +1257,8 @@ OUTPUT
                   <stem type='AsciiMath'>r = 1 %</stem>
                 </permission>
                 <p>
-                  <xref target='note1'/>
-                  <xref target='note2'/>
+                  <xref target='note1'>Conformance Class 3</xref>
+<xref target='note2'>Conformance Class 4</xref>
                 </p>
               </clause>
             </clause>

@@ -55,7 +55,6 @@ OUTPUT
     IsoDoc::Ogc::WordConvert.new({}).convert("test", <<~"INPUT", false)
         <ogc-standard xmlns="https://standards.opengeospatial.org/document">
     <preface><foreword id="A">
-        <p id="_"><xref target="A1"/></p>
     <permission id="A1" type="class">
     <name>Permission Class 1</name>
   <label>/ogc/recommendation/wfs/2</label>
@@ -88,10 +87,6 @@ OUTPUT
                <span style='mso-tab-count:1'>&#xA0; </span>
                Preface
              </h1>
-             <p class='MsoNormal'>
-               <a name='_' id='_'/>
-               <a href='#A1'>Permission Class 1</a>
-             </p>
              <table class='recommendclass' style='border-collapse:collapse;border-spacing:0;'>
                <a name='A1' id='A1'/>
                <thead>
@@ -164,7 +159,6 @@ OUTPUT
     IsoDoc::Ogc::WordConvert.new({}).convert("test", <<~"INPUT", false)
         <ogc-standard xmlns="https://standards.opengeospatial.org/document">
     <preface><foreword id="A">
-        <p id="_"><xref target="A1"/></p>
     <requirement id="A1" type="class">
     <name>Requirement Class 1</name>
   <label>/ogc/recommendation/wfs/2</label>
@@ -197,10 +191,6 @@ OUTPUT
                <span style='mso-tab-count:1'>&#xA0; </span>
                Preface
              </h1>
-             <p class='MsoNormal'>
-               <a name='_' id='_'/>
-               <a href='#A1'>Requirement Class 1</a>
-             </p>
              <table class='recommendclass' style='border-collapse:collapse;border-spacing:0;'>
                <a name='A1' id='A1'/>
                <thead>
@@ -273,7 +263,6 @@ OUTPUT
     IsoDoc::Ogc::WordConvert.new({}).convert("test", <<~"INPUT", false)
         <ogc-standard xmlns="https://standards.opengeospatial.org/document">
     <preface><foreword id="A">
-        <p id="_"><xref target="A1"/></p>
     <recommendation id="A1" type="class">
     <name>Recommendation Class 1</name>
   <label>/ogc/recommendation/wfs/2</label>
@@ -306,10 +295,6 @@ OUTPUT
                 <span style='mso-tab-count:1'>&#xA0; </span>
                 Preface
               </h1>
-              <p class='MsoNormal'>
-                <a name='_' id='_'/>
-                <a href='#A1'>Recommendation Class 1</a>
-              </p>
               <table class='recommendclass' style='border-collapse:collapse;border-spacing:0;'>
                 <a name='A1' id='A1'/>
                 <thead>
