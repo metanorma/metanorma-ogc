@@ -116,8 +116,8 @@ module IsoDoc
         sequential_asset_names(d.xpath(ns(
           "//preface/abstract | //foreword | //introduction | "\
           "//submitters | //acknowledgements | //preface/clause")))
-        n = section_names(d.at(ns("//clause[title = 'Scope']")), 0, 1)
-        n = section_names(d.at(ns("//clause[title = 'Conformance']")), n, 1)
+        n = section_names(d.at(ns("//clause[@type = 'scope']")), 0, 1)
+        n = section_names(d.at(ns("//clause[@type = 'conformance']")), n, 1)
         n = section_names(d.at(ns(
           "//references[title = 'Normative References' or "\
           "title = 'Normative references']")), n, 1)
@@ -132,7 +132,7 @@ module IsoDoc
       end
 
       def middle_section_asset_names(d)
-        middle_sections = "//clause[title = 'Scope' or title = 'Conformance'] "\
+        middle_sections = "//clause[@type = 'scope' or @type = 'conformance'] "\
           "| //foreword | //introduction | //preface/abstract | "\
           "//submitters | //acknowledgements | //preface/clause | "\
           "//references[title = 'Normative References' or title = "\

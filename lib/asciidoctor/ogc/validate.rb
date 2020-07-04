@@ -49,35 +49,25 @@ module Asciidoctor
         [
           {
             msg: "Prefatory material must be followed by (clause) Scope",
-            val: [{ tag: "clause", title: "Scope" }],
+            val: ["./self::clause[@type = 'scope']" ]
           },
           {
             msg: "Scope must be followed by Conformance",
-            val: [{ tag: "clause", title: "Conformance" }],
+            val: ["./self::clause[@type = 'conformance']" ]
           },
           {
             msg: "Normative References must be followed by "\
             "Terms and Definitions",
-            val: [
-              { tag: "terms", title: "Terms and definitions" },
-              { tag: "clause", title: "Terms and definitions" },
-              {
-                tag: "terms",
-                title: "Terms, definitions, symbols and abbreviated terms",
-              },
-              {
-                tag: "clause",
-                title: "Terms, definitions, symbols and abbreviated terms",
-              },
-            ],
+            val: ["./self::terms | .//terms"]
           },
       ].freeze
 
       def seqcheck(names, msg, accepted)
         n = names.shift
-        unless accepted.include? n
+        return [] if n.nil?
+        test = accepted.map { |a| n.at(a) }
+        if test.all? { |a| a.nil? }
           @log.add("Style", nil, msg)
-          names = []
         end
         names
       end
@@ -85,23 +75,21 @@ module Asciidoctor
       def sections_sequence_validate(root)
         return unless STANDARDTYPE.include?(
           root&.at("//bibdata/ext/doctype")&.text)
-        f = root.at("//sections").elements
-        names = f.map { |s| { tag: s.name, title: s&.at("./title")&.text } }
-        names = seqcheck(names, SEQ[0][:msg], SEQ[0][:val]) || return
-        names = seqcheck(names, SEQ[1][:msg], SEQ[1][:val]) || return
-        names = seqcheck(names, SEQ[2][:msg], SEQ[2][:val]) || return
+        names = root.xpath("//sections/* | //bibliography/*")
+        names = seqcheck(names, SEQ[0][:msg], SEQ[0][:val])
+        names = seqcheck(names, SEQ[1][:msg], SEQ[1][:val])
+        names = seqcheck(names, SEQ[2][:msg], SEQ[2][:val])
         n = names.shift
-        if !n.nil? && n[:tag] == "definitions"
+        if n&.at("./self::definitions")
           n = names.shift
         end
-        unless n
+        if n.nil? || n.name != "clause"
           @log.add("Style", nil, "Document must contain at least one clause")
           return
         end
         root.at("//references | //clause[descendant::references]"\
                 "[not(parent::clause)]") or
-        seqcheck([{tag: "clause"}],
-                 "Normative References are mandatory", [{tag: "references"}])
+        @log.add("Style", nil, "Normative References are mandatory")
       end
 
       def preface_sequence_validate(root)

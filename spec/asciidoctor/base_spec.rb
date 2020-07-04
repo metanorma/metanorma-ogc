@@ -600,6 +600,23 @@ OUTPUT
       OUTPUT
   end
 
+       it "processes conformance section" do
+          expect((strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)))).to be_equivalent_to (<<~"OUTPUT")
+      #{ASCIIDOC_BLANK_HDR}
+
+      == Conformance
+
+      INPUT
+      #{BLANK_HDR}
+       <sections>
+           <clause id='_' obligation='normative' type="conformance">
+             <title>Conformance</title>
+           </clause>
+         </sections>
+       </ogc-standard>
+      OUTPUT
+  end
+
         it "does not recognise 'Foreword' or 'Introduction' as a preface section" do
           expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
       #{ASCIIDOC_BLANK_HDR}

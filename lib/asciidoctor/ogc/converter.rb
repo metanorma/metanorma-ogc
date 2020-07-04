@@ -84,11 +84,11 @@ module Asciidoctor
       end
 
       def clause_parse(attrs, xml, node)
-        clausetype = node&.attr("heading")&.downcase || node.title.downcase
-        if clausetype == "submitters" then submitters_parse(attrs, xml, node)
-        else
-          super
+        case clausetype = node&.attr("heading")&.downcase || node.title.downcase
+        when "submitters" then return submitters_parse(attrs, xml, node)
+        when "conformance" then attrs = attrs.merge(type: "conformance")
         end
+        super
       end
 
       def submitters_parse(attrs, xml, node)

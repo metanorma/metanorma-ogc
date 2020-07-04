@@ -445,11 +445,11 @@ RSpec.describe IsoDoc::Ogc do
        <p>ABC</p>
        </acknowledgements>
         </preface><sections>
-       <clause id="D" obligation="normative">
+       <clause id="D" obligation="normative" type="scope">
          <title>Scope</title>
          <p id="E">Text</p>
        </clause>
-       <clause id="D1" obligation="normative">
+       <clause id="D1" obligation="normative" type="conformance">
          <title>Conformance</title>
          <p id="E1">Text</p>
        </clause>

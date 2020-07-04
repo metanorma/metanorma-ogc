@@ -95,7 +95,7 @@ module IsoDoc
       end
 
       def conformance(isoxml, out, num)
-        f = isoxml.at(ns("//clause[title = 'Conformance']")) or return num
+        f = isoxml.at(ns("//clause[@type = 'conformance']")) or return num
         out.div **attr_code(id: f["id"]) do |div|
           num = num + 1
           clause_name(num, "Conformance", div, nil)

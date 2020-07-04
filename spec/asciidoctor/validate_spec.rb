@@ -1,6 +1,7 @@
 require "spec_helper"
 
 RSpec.describe Asciidoctor::Ogc do
+
   it "Warns of version on engineering-report" do
       FileUtils.rm_f "test.err"
     Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) 

@@ -62,8 +62,8 @@ module IsoDoc
       end
 
       def middle_clause
-        "//clause[parent::sections][not(xmlns:title = 'Scope' or "\
-        "xmlns:title = 'Conformance')][not(descendant::terms)]"
+        "//clause[parent::sections][not(@type = 'scope' or "\
+        "@type = 'conformance')][not(descendant::terms)]"
       end
 
       def middle(isoxml, out)
