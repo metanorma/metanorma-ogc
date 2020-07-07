@@ -55,9 +55,12 @@ module Asciidoctor
       def outputs(node, ret)
         File.open(@filename + ".xml", "w:UTF-8") { |f| f.write(ret) }
         presentation_xml_converter(node).convert(@filename + ".xml")
-        html_converter(node).convert(@filename + ".presentation.xml", nil, false, "#{@filename}.html")
-        doc_converter(node).convert(@filename + ".presentation.xml", nil, false, "#{@filename}.doc")
-        pdf_converter(node)&.convert(@filename + ".presentation.xml", nil, false, "#{@filename}.pdf")
+        html_converter(node).convert(@filename + ".presentation.xml", 
+                                     nil, false, "#{@filename}.html")
+        doc_converter(node).convert(@filename + ".presentation.xml", 
+                                    nil, false, "#{@filename}.doc")
+        pdf_converter(node)&.convert(@filename + ".presentation.xml", 
+                                     nil, false, "#{@filename}.pdf")
       end
 
       def validate(doc)
@@ -93,6 +96,7 @@ module Asciidoctor
 
       def submitters_parse(attrs, xml, node)
         xml.submitters **attr_code(attrs) do |xml_section|
+          xml_section.title "Submitters"
           xml_section << node.content
         end
       end

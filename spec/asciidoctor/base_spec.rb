@@ -357,6 +357,7 @@ OUTPUT
   <title>Acknowledgements</title>
 </acknowledgements>
 <submitters id="_">
+<title>Submitters</title>
   <p id="_">Clause 2</p>
 </submitters>
 </preface><sections>

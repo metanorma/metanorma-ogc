@@ -104,12 +104,13 @@ module IsoDoc
       def initial_anchor_names(d)
         @prefacenum = 0
         preface_names_numbered(d.at(ns("//preface/abstract")))
-        @prefacenum += 1 if d.at(ns("//keyword"))
+        preface_names_numbered(d.at(ns("//preface/clause[@type = 'keywords']")))
         preface_names_numbered(d.at(ns("//foreword")))
         preface_names_numbered(d.at(ns("//introduction")))
-        @prefacenum += 1 if d.at(ns(@klass.submittingorgs_path))
+        preface_names_numbered(d.at(ns("//preface/clause[@type = 'submitting_orgs']")))
         preface_names_numbered(d.at(ns("//submitters")))
-        d.xpath(ns("//preface/clause")).each do |c|
+        d.xpath(ns("//preface/clause[not(@type = 'keywords' or "\
+                   "@type = 'submitting_orgs')]")).each do |c|
           preface_names_numbered(c)
         end
         preface_names_numbered(d.at(ns("//acknowledgements")))

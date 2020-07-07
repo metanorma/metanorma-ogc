@@ -45,8 +45,9 @@ RSpec.describe Metanorma::Ogc::Processor do
     input = <<~"INPUT"
     <ogc-standard xmlns="https://standards.opengeospatial.org/document">
       <sections>
-        <terms id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title>
+        <terms id="H" obligation="normative"><title>1.<tab/>Terms, Definitions, Symbols and Abbreviated Terms</title>
           <term id="J">
+          <name>1.1.</name>
             <preferred>Term2</preferred>
           </term>
         </terms>

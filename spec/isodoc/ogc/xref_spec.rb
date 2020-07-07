@@ -29,7 +29,7 @@ RSpec.describe IsoDoc::Ogc do
     </introduction>
     </preface>
     <sections>
-    <clause id="scope"><title>Scope</title>
+    <clause id="scope" type="scope"><title>Scope</title>
     <requirement id="N">
   <stem type="AsciiMath">r = 1 %</stem>
   </requirement>
@@ -65,28 +65,31 @@ RSpec.describe IsoDoc::Ogc do
     </annex>
     </iso-standard>
     INPUT
-               <?xml version='1.0'?>
-        <iso-standard xmlns='http://riboseinc.com/isoxml'>
+     <iso-standard xmlns='http://riboseinc.com/isoxml'>
           <preface>
             <foreword>
               <p>
                 <xref target='N1'>Introduction, Requirement 1</xref>
-<xref target='N2'>Clause ii.1, Requirement (??)</xref>
-<xref target='N'>Clause 1, Requirement 2</xref>
-<xref target='note1'>Clause 3.1, Requirement 3</xref>
-<xref target='note2'>Clause 3.1, Requirement 4</xref>
-<xref target='AN'>Annex A.1, Requirement A.1</xref>
-<xref target='Anote1'>Annex A.2, Requirement (??)</xref>
-<xref target='Anote2'>Annex A.2, Requirement A.2</xref>
+                <xref target='N2'>Clause ii.1, Requirement (??)</xref>
+                <xref target='N'>Clause 1, Requirement 2</xref>
+                <xref target='note1'>Clause 3.1, Requirement 3</xref>
+                <xref target='note2'>Clause 3.1, Requirement 4</xref>
+                <xref target='AN'>Annex A.1, Requirement A.1</xref>
+                <xref target='Anote1'>Annex A.2, Requirement (??)</xref>
+                <xref target='Anote2'>Annex A.2, Requirement A.2</xref>
               </p>
             </foreword>
-            <introduction id='intro'>
+            <introduction id='intro'><title>ii.</title>
               <requirement id='N1'>
                 <name>Requirement 1</name>
                 <stem type='AsciiMath'>r = 1 %</stem>
               </requirement>
               <clause id='xyz'>
-                <title>Preparatory</title>
+                <title depth='2'>
+                  ii.1.
+                  <tab/>
+                  Preparatory
+                </title>
                 <requirement id='N2' unnumbered='true'>
                   <name>Requirement</name>
                   <stem type='AsciiMath'>r = 1 %</stem>
@@ -95,20 +98,31 @@ RSpec.describe IsoDoc::Ogc do
             </introduction>
           </preface>
           <sections>
-            <clause id='scope'>
-              <title>Scope</title>
+            <clause id='scope' type='scope'>
+              <title depth='1'>
+                1.
+                <tab/>
+                Scope
+              </title>
               <requirement id='N'>
                 <name>Requirement 2</name>
                 <stem type='AsciiMath'>r = 1 %</stem>
               </requirement>
               <p>
-              <xref target='N'>Requirement 2</xref>
+                <xref target='N'>Requirement 2</xref>
               </p>
             </clause>
-            <terms id='terms'/>
+            <terms id='terms'>
+              <title>2.</title>
+            </terms>
             <clause id='widgets'>
-              <title>Widgets</title>
+              <title depth='1'>
+                3.
+                <tab/>
+                Widgets
+              </title>
               <clause id='widgets1'>
+                <title>3.1.</title>
                 <requirement id='note1'>
                   <name>Requirement 3</name>
                   <stem type='AsciiMath'>r = 1 %</stem>
@@ -118,20 +132,27 @@ RSpec.describe IsoDoc::Ogc do
                   <stem type='AsciiMath'>r = 1 %</stem>
                 </requirement>
                 <p>
-                   <xref target='note1'>Requirement 3</xref>
- <xref target='note2'>Requirement 4</xref>
+                  <xref target='note1'>Requirement 3</xref>
+                  <xref target='note2'>Requirement 4</xref>
                 </p>
               </clause>
             </clause>
           </sections>
           <annex id='annex1'>
+            <title>
+              <strong>Annex A</strong>
+              <br/>
+              (informative)
+            </title>
             <clause id='annex1a'>
+              <title>A.1.</title>
               <requirement id='AN'>
                 <name>Requirement A.1</name>
                 <stem type='AsciiMath'>r = 1 %</stem>
               </requirement>
             </clause>
             <clause id='annex1b'>
+              <title>A.2.</title>
               <requirement id='Anote1' unnumbered='true'>
                 <name>Requirement</name>
                 <stem type='AsciiMath'>r = 1 %</stem>
@@ -174,7 +195,7 @@ OUTPUT
     </introduction>
     </preface>
     <sections>
-    <clause id="scope"><title>Scope</title>
+    <clause id="scope" type="scope"><title>Scope</title>
     <requirement id="N" type="verification">
   <stem type="AsciiMath">r = 1 %</stem>
   </requirement>
@@ -210,28 +231,31 @@ OUTPUT
     </annex>
     </iso-standard>
     INPUT
-               <?xml version='1.0'?>
-        <iso-standard xmlns='http://riboseinc.com/isoxml'>
+    <iso-standard xmlns='http://riboseinc.com/isoxml'>
           <preface>
             <foreword>
               <p>
                 <xref target='N1'>Introduction, Requirement Test 1</xref>
-<xref target='N2'>Clause ii.1, Requirement Test (??)</xref>
-<xref target='N'>Clause 1, Requirement Test 2</xref>
-<xref target='note1'>Clause 3.1, Requirement Test 3</xref>
-<xref target='note2'>Clause 3.1, Requirement Test 4</xref>
-<xref target='AN'>Annex A.1, Requirement Test A.1</xref>
-<xref target='Anote1'>Annex A.2, Requirement Test (??)</xref>
-<xref target='Anote2'>Annex A.2, Requirement Test A.2</xref>
+                <xref target='N2'>Clause ii.1, Requirement Test (??)</xref>
+                <xref target='N'>Clause 1, Requirement Test 2</xref>
+                <xref target='note1'>Clause 3.1, Requirement Test 3</xref>
+                <xref target='note2'>Clause 3.1, Requirement Test 4</xref>
+                <xref target='AN'>Annex A.1, Requirement Test A.1</xref>
+                <xref target='Anote1'>Annex A.2, Requirement Test (??)</xref>
+                <xref target='Anote2'>Annex A.2, Requirement Test A.2</xref>
               </p>
             </foreword>
-            <introduction id='intro'>
+            <introduction id='intro'><title>ii.</title>
               <requirement id='N1' type='verification'>
                 <name>Requirement Test 1</name>
                 <stem type='AsciiMath'>r = 1 %</stem>
               </requirement>
               <clause id='xyz'>
-                <title>Preparatory</title>
+                <title depth='2'>
+                  ii.1.
+                  <tab/>
+                  Preparatory
+                </title>
                 <requirement id='N2' unnumbered='true' type='verification'>
                   <name>Requirement Test</name>
                   <stem type='AsciiMath'>r = 1 %</stem>
@@ -240,20 +264,31 @@ OUTPUT
             </introduction>
           </preface>
           <sections>
-            <clause id='scope'>
-              <title>Scope</title>
+            <clause id='scope' type='scope'>
+              <title depth='1'>
+                1.
+                <tab/>
+                Scope
+              </title>
               <requirement id='N' type='verification'>
                 <name>Requirement Test 2</name>
                 <stem type='AsciiMath'>r = 1 %</stem>
               </requirement>
               <p>
-               <xref target='N'>Requirement Test 2</xref>
+                <xref target='N'>Requirement Test 2</xref>
               </p>
             </clause>
-            <terms id='terms'/>
+            <terms id='terms'>
+              <title>2.</title>
+            </terms>
             <clause id='widgets'>
-              <title>Widgets</title>
+              <title depth='1'>
+                3.
+                <tab/>
+                Widgets
+              </title>
               <clause id='widgets1'>
+                <title>3.1.</title>
                 <requirement id='note1' type='verification'>
                   <name>Requirement Test 3</name>
                   <stem type='AsciiMath'>r = 1 %</stem>
@@ -263,20 +298,27 @@ OUTPUT
                   <stem type='AsciiMath'>r = 1 %</stem>
                 </requirement>
                 <p>
-                   <xref target='note1'>Requirement Test 3</xref>
- <xref target='note2'>Requirement Test 4</xref>
+                  <xref target='note1'>Requirement Test 3</xref>
+                  <xref target='note2'>Requirement Test 4</xref>
                 </p>
               </clause>
             </clause>
           </sections>
           <annex id='annex1'>
+            <title>
+              <strong>Annex A</strong>
+              <br/>
+              (informative)
+            </title>
             <clause id='annex1a'>
+              <title>A.1.</title>
               <requirement id='AN' type='verification'>
                 <name>Requirement Test A.1</name>
                 <stem type='AsciiMath'>r = 1 %</stem>
               </requirement>
             </clause>
             <clause id='annex1b'>
+              <title>A.2.</title>
               <requirement id='Anote1' unnumbered='true' type='verification'>
                 <name>Requirement Test</name>
                 <stem type='AsciiMath'>r = 1 %</stem>
@@ -320,7 +362,7 @@ OUTPUT
     </introduction>
     </preface>
     <sections>
-    <clause id="scope"><title>Scope</title>
+    <clause id="scope" type="scope"><title>Scope</title>
     <recommendation id="N">
   <stem type="AsciiMath">r = 1 %</stem>
   </recommendation>
@@ -356,28 +398,31 @@ OUTPUT
     </annex>
     </iso-standard>
     INPUT
-                <?xml version='1.0'?>
         <iso-standard xmlns='http://riboseinc.com/isoxml'>
           <preface>
             <foreword>
               <p>
-                 <xref target='N1'>Introduction, Recommendation 1</xref>
- <xref target='N2'>Clause ii.1, Recommendation (??)</xref>
- <xref target='N'>Clause 1, Recommendation 2</xref>
- <xref target='note1'>Clause 3.1, Recommendation 3</xref>
- <xref target='note2'>Clause 3.1, Recommendation 4</xref>
- <xref target='AN'>Annex A.1, Recommendation A.1</xref>
- <xref target='Anote1'>Annex A.2, Recommendation (??)</xref>
- <xref target='Anote2'>Annex A.2, Recommendation A.2</xref>
+                <xref target='N1'>Introduction, Recommendation 1</xref>
+                <xref target='N2'>Clause ii.1, Recommendation (??)</xref>
+                <xref target='N'>Clause 1, Recommendation 2</xref>
+                <xref target='note1'>Clause 3.1, Recommendation 3</xref>
+                <xref target='note2'>Clause 3.1, Recommendation 4</xref>
+                <xref target='AN'>Annex A.1, Recommendation A.1</xref>
+                <xref target='Anote1'>Annex A.2, Recommendation (??)</xref>
+                <xref target='Anote2'>Annex A.2, Recommendation A.2</xref>
               </p>
             </foreword>
-            <introduction id='intro'>
+            <introduction id='intro'><title>ii.</title>
               <recommendation id='N1'>
                 <name>Recommendation 1</name>
                 <stem type='AsciiMath'>r = 1 %</stem>
               </recommendation>
               <clause id='xyz'>
-                <title>Preparatory</title>
+                <title depth='2'>
+                  ii.1.
+                  <tab/>
+                  Preparatory
+                </title>
                 <recommendation id='N2' unnumbered='true'>
                   <name>Recommendation</name>
                   <stem type='AsciiMath'>r = 1 %</stem>
@@ -386,20 +431,31 @@ OUTPUT
             </introduction>
           </preface>
           <sections>
-            <clause id='scope'>
-              <title>Scope</title>
+            <clause id='scope' type='scope'>
+              <title depth='1'>
+                1.
+                <tab/>
+                Scope
+              </title>
               <recommendation id='N'>
                 <name>Recommendation 2</name>
                 <stem type='AsciiMath'>r = 1 %</stem>
               </recommendation>
               <p>
-               <xref target='N'>Recommendation 2</xref>
+                <xref target='N'>Recommendation 2</xref>
               </p>
             </clause>
-            <terms id='terms'/>
+            <terms id='terms'>
+              <title>2.</title>
+            </terms>
             <clause id='widgets'>
-              <title>Widgets</title>
+              <title depth='1'>
+                3.
+                <tab/>
+                Widgets
+              </title>
               <clause id='widgets1'>
+                <title>3.1.</title>
                 <recommendation id='note1'>
                   <name>Recommendation 3</name>
                   <stem type='AsciiMath'>r = 1 %</stem>
@@ -410,19 +466,26 @@ OUTPUT
                 </recommendation>
                 <p>
                   <xref target='note1'>Recommendation 3</xref>
-<xref target='note2'>Recommendation 4</xref>
+                  <xref target='note2'>Recommendation 4</xref>
                 </p>
               </clause>
             </clause>
           </sections>
           <annex id='annex1'>
+            <title>
+              <strong>Annex A</strong>
+              <br/>
+              (informative)
+            </title>
             <clause id='annex1a'>
+              <title>A.1.</title>
               <recommendation id='AN'>
                 <name>Recommendation A.1</name>
                 <stem type='AsciiMath'>r = 1 %</stem>
               </recommendation>
             </clause>
             <clause id='annex1b'>
+              <title>A.2.</title>
               <recommendation id='Anote1' unnumbered='true'>
                 <name>Recommendation</name>
                 <stem type='AsciiMath'>r = 1 %</stem>
@@ -465,7 +528,7 @@ OUTPUT
     </introduction>
     </preface>
     <sections>
-    <clause id="scope"><title>Scope</title>
+    <clause id="scope" type="scope"><title>Scope</title>
     <recommendation id="N" type="verification">
   <stem type="AsciiMath">r = 1 %</stem>
   </recommendation>
@@ -501,28 +564,31 @@ OUTPUT
     </annex>
     </iso-standard>
     INPUT
-               <?xml version='1.0'?>
         <iso-standard xmlns='http://riboseinc.com/isoxml'>
           <preface>
             <foreword>
               <p>
-                 <xref target='N1'>Introduction, Recommendation Test 1</xref>
- <xref target='N2'>Clause ii.1, Recommendation Test (??)</xref>
- <xref target='N'>Clause 1, Recommendation Test 2</xref>
- <xref target='note1'>Clause 3.1, Recommendation Test 3</xref>
- <xref target='note2'>Clause 3.1, Recommendation Test 4</xref>
- <xref target='AN'>Annex A.1, Recommendation Test A.1</xref>
- <xref target='Anote1'>Annex A.2, Recommendation Test (??)</xref>
- <xref target='Anote2'>Annex A.2, Recommendation Test A.2</xref>
+                <xref target='N1'>Introduction, Recommendation Test 1</xref>
+                <xref target='N2'>Clause ii.1, Recommendation Test (??)</xref>
+                <xref target='N'>Clause 1, Recommendation Test 2</xref>
+                <xref target='note1'>Clause 3.1, Recommendation Test 3</xref>
+                <xref target='note2'>Clause 3.1, Recommendation Test 4</xref>
+                <xref target='AN'>Annex A.1, Recommendation Test A.1</xref>
+                <xref target='Anote1'>Annex A.2, Recommendation Test (??)</xref>
+                <xref target='Anote2'>Annex A.2, Recommendation Test A.2</xref>
               </p>
             </foreword>
-            <introduction id='intro'>
+            <introduction id='intro'><title>ii.</title>
               <recommendation id='N1' type='verification'>
                 <name>Recommendation Test 1</name>
                 <stem type='AsciiMath'>r = 1 %</stem>
               </recommendation>
               <clause id='xyz'>
-                <title>Preparatory</title>
+                <title depth='2'>
+                  ii.1.
+                  <tab/>
+                  Preparatory
+                </title>
                 <recommendation id='N2' unnumbered='true' type='verification'>
                   <name>Recommendation Test</name>
                   <stem type='AsciiMath'>r = 1 %</stem>
@@ -531,20 +597,31 @@ OUTPUT
             </introduction>
           </preface>
           <sections>
-            <clause id='scope'>
-              <title>Scope</title>
+            <clause id='scope' type='scope'>
+              <title depth='1'>
+                1.
+                <tab/>
+                Scope
+              </title>
               <recommendation id='N' type='verification'>
                 <name>Recommendation Test 2</name>
                 <stem type='AsciiMath'>r = 1 %</stem>
               </recommendation>
               <p>
-              <xref target='N'>Recommendation Test 2</xref>
+                <xref target='N'>Recommendation Test 2</xref>
               </p>
             </clause>
-            <terms id='terms'/>
+            <terms id='terms'>
+              <title>2.</title>
+            </terms>
             <clause id='widgets'>
-              <title>Widgets</title>
+              <title depth='1'>
+                3.
+                <tab/>
+                Widgets
+              </title>
               <clause id='widgets1'>
+                <title>3.1.</title>
                 <recommendation id='note1' type='verification'>
                   <name>Recommendation Test 3</name>
                   <stem type='AsciiMath'>r = 1 %</stem>
@@ -555,19 +632,26 @@ OUTPUT
                 </recommendation>
                 <p>
                   <xref target='note1'>Recommendation Test 3</xref>
-<xref target='note2'>Recommendation Test 4</xref>
+                  <xref target='note2'>Recommendation Test 4</xref>
                 </p>
               </clause>
             </clause>
           </sections>
           <annex id='annex1'>
+            <title>
+              <strong>Annex A</strong>
+              <br/>
+              (informative)
+            </title>
             <clause id='annex1a'>
+              <title>A.1.</title>
               <recommendation id='AN' type='verification'>
                 <name>Recommendation Test A.1</name>
                 <stem type='AsciiMath'>r = 1 %</stem>
               </recommendation>
             </clause>
             <clause id='annex1b'>
+              <title>A.2.</title>
               <recommendation id='Anote1' unnumbered='true' type='verification'>
                 <name>Recommendation Test</name>
                 <stem type='AsciiMath'>r = 1 %</stem>
@@ -610,7 +694,7 @@ OUTPUT
     </introduction>
     </preface>
     <sections>
-    <clause id="scope"><title>Scope</title>
+    <clause id="scope" type="scope"><title>Scope</title>
     <permission id="N">
   <stem type="AsciiMath">r = 1 %</stem>
   </permission>
@@ -646,28 +730,31 @@ OUTPUT
     </annex>
     </iso-standard>
     INPUT
-               <?xml version='1.0'?>
         <iso-standard xmlns='http://riboseinc.com/isoxml'>
           <preface>
             <foreword>
               <p>
                 <xref target='N1'>Introduction, Permission 1</xref>
-<xref target='N2'>Clause ii.1, Permission (??)</xref>
-<xref target='N'>Clause 1, Permission 2</xref>
-<xref target='note1'>Clause 3.1, Permission 3</xref>
-<xref target='note2'>Clause 3.1, Permission 4</xref>
-<xref target='AN'>Annex A.1, Permission A.1</xref>
-<xref target='Anote1'>Annex A.2, Permission (??)</xref>
-<xref target='Anote2'>Annex A.2, Permission A.2</xref>
+                <xref target='N2'>Clause ii.1, Permission (??)</xref>
+                <xref target='N'>Clause 1, Permission 2</xref>
+                <xref target='note1'>Clause 3.1, Permission 3</xref>
+                <xref target='note2'>Clause 3.1, Permission 4</xref>
+                <xref target='AN'>Annex A.1, Permission A.1</xref>
+                <xref target='Anote1'>Annex A.2, Permission (??)</xref>
+                <xref target='Anote2'>Annex A.2, Permission A.2</xref>
               </p>
             </foreword>
-            <introduction id='intro'>
+            <introduction id='intro'><title>ii.</title>
               <permission id='N1'>
                 <name>Permission 1</name>
                 <stem type='AsciiMath'>r = 1 %</stem>
               </permission>
               <clause id='xyz'>
-                <title>Preparatory</title>
+                <title depth='2'>
+                  ii.1.
+                  <tab/>
+                  Preparatory
+                </title>
                 <permission id='N2' unnumbered='true'>
                   <name>Permission</name>
                   <stem type='AsciiMath'>r = 1 %</stem>
@@ -676,20 +763,31 @@ OUTPUT
             </introduction>
           </preface>
           <sections>
-            <clause id='scope'>
-              <title>Scope</title>
+            <clause id='scope' type='scope'>
+              <title depth='1'>
+                1.
+                <tab/>
+                Scope
+              </title>
               <permission id='N'>
                 <name>Permission 2</name>
                 <stem type='AsciiMath'>r = 1 %</stem>
               </permission>
               <p>
-              <xref target='N'>Permission 2</xref>
+                <xref target='N'>Permission 2</xref>
               </p>
             </clause>
-            <terms id='terms'/>
+            <terms id='terms'>
+              <title>2.</title>
+            </terms>
             <clause id='widgets'>
-              <title>Widgets</title>
+              <title depth='1'>
+                3.
+                <tab/>
+                Widgets
+              </title>
               <clause id='widgets1'>
+                <title>3.1.</title>
                 <permission id='note1'>
                   <name>Permission 3</name>
                   <stem type='AsciiMath'>r = 1 %</stem>
@@ -700,19 +798,26 @@ OUTPUT
                 </permission>
                 <p>
                   <xref target='note1'>Permission 3</xref>
-<xref target='note2'>Permission 4</xref>
+                  <xref target='note2'>Permission 4</xref>
                 </p>
               </clause>
             </clause>
           </sections>
           <annex id='annex1'>
+            <title>
+              <strong>Annex A</strong>
+              <br/>
+              (informative)
+            </title>
             <clause id='annex1a'>
+              <title>A.1.</title>
               <permission id='AN'>
                 <name>Permission A.1</name>
                 <stem type='AsciiMath'>r = 1 %</stem>
               </permission>
             </clause>
             <clause id='annex1b'>
+              <title>A.2.</title>
               <permission id='Anote1' unnumbered='true'>
                 <name>Permission</name>
                 <stem type='AsciiMath'>r = 1 %</stem>
@@ -755,7 +860,7 @@ OUTPUT
     </introduction>
     </preface>
     <sections>
-    <clause id="scope"><title>Scope</title>
+    <clause id="scope" type="scope"><title>Scope</title>
     <permission id="N" type="verification">
   <stem type="AsciiMath">r = 1 %</stem>
   </permission>
@@ -791,28 +896,31 @@ OUTPUT
     </annex>
     </iso-standard>
     INPUT
-                <?xml version='1.0'?>
         <iso-standard xmlns='http://riboseinc.com/isoxml'>
           <preface>
             <foreword>
               <p>
-                 <xref target='N1'>Introduction, Permission Test 1</xref>
- <xref target='N2'>Clause ii.1, Permission Test (??)</xref>
- <xref target='N'>Clause 1, Permission Test 2</xref>
- <xref target='note1'>Clause 3.1, Permission Test 3</xref>
- <xref target='note2'>Clause 3.1, Permission Test 4</xref>
- <xref target='AN'>Annex A.1, Permission Test A.1</xref>
- <xref target='Anote1'>Annex A.2, Permission Test (??)</xref>
- <xref target='Anote2'>Annex A.2, Permission Test A.2</xref>
+                <xref target='N1'>Introduction, Permission Test 1</xref>
+                <xref target='N2'>Clause ii.1, Permission Test (??)</xref>
+                <xref target='N'>Clause 1, Permission Test 2</xref>
+                <xref target='note1'>Clause 3.1, Permission Test 3</xref>
+                <xref target='note2'>Clause 3.1, Permission Test 4</xref>
+                <xref target='AN'>Annex A.1, Permission Test A.1</xref>
+                <xref target='Anote1'>Annex A.2, Permission Test (??)</xref>
+                <xref target='Anote2'>Annex A.2, Permission Test A.2</xref>
               </p>
             </foreword>
-            <introduction id='intro'>
+            <introduction id='intro'><title>ii.</title>
               <permission id='N1' type='verification'>
                 <name>Permission Test 1</name>
                 <stem type='AsciiMath'>r = 1 %</stem>
               </permission>
               <clause id='xyz'>
-                <title>Preparatory</title>
+                <title depth='2'>
+                  ii.1.
+                  <tab/>
+                  Preparatory
+                </title>
                 <permission id='N2' unnumbered='true' type='verification'>
                   <name>Permission Test</name>
                   <stem type='AsciiMath'>r = 1 %</stem>
@@ -821,20 +929,31 @@ OUTPUT
             </introduction>
           </preface>
           <sections>
-            <clause id='scope'>
-              <title>Scope</title>
+            <clause id='scope' type='scope'>
+              <title depth='1'>
+                1.
+                <tab/>
+                Scope
+              </title>
               <permission id='N' type='verification'>
                 <name>Permission Test 2</name>
                 <stem type='AsciiMath'>r = 1 %</stem>
               </permission>
               <p>
-              <xref target='N'>Permission Test 2</xref>
+                <xref target='N'>Permission Test 2</xref>
               </p>
             </clause>
-            <terms id='terms'/>
+            <terms id='terms'>
+              <title>2.</title>
+            </terms>
             <clause id='widgets'>
-              <title>Widgets</title>
+              <title depth='1'>
+                3.
+                <tab/>
+                Widgets
+              </title>
               <clause id='widgets1'>
+                <title>3.1.</title>
                 <permission id='note1' type='verification'>
                   <name>Permission Test 3</name>
                   <stem type='AsciiMath'>r = 1 %</stem>
@@ -845,19 +964,26 @@ OUTPUT
                 </permission>
                 <p>
                   <xref target='note1'>Permission Test 3</xref>
-<xref target='note2'>Permission Test 4</xref>
+                  <xref target='note2'>Permission Test 4</xref>
                 </p>
               </clause>
             </clause>
           </sections>
           <annex id='annex1'>
+            <title>
+              <strong>Annex A</strong>
+              <br/>
+              (informative)
+            </title>
             <clause id='annex1a'>
+              <title>A.1.</title>
               <permission id='AN' type='verification'>
                 <name>Permission Test A.1</name>
                 <stem type='AsciiMath'>r = 1 %</stem>
               </permission>
             </clause>
             <clause id='annex1b'>
+              <title>A.2.</title>
               <permission id='Anote1' unnumbered='true' type='verification'>
                 <name>Permission Test</name>
                 <stem type='AsciiMath'>r = 1 %</stem>
@@ -923,75 +1049,84 @@ end
     </annex>
     </iso-standard>
     INPUT
-<?xml version='1.0'?>
 <iso-standard xmlns='http://riboseinc.com/isoxml'>
-  <preface>
-    <foreword>
-      <p>
-         <xref target='N1'>Clause 1, Permission 1</xref>
- <xref target='N2'>Clause 1, Permission Test 1-1</xref>
- <xref target='N'>Clause 1, Permission 1-1-1</xref>
- <xref target='Q1'>Clause 1, Requirement 1-1</xref>
- <xref target='R1'>Clause 1, Recommendation 1-1</xref>
- <xref target='AN1'>Annex A, Permission Test A.1</xref>
- <xref target='AN2'>Annex A, Permission A.1-1</xref>
- <xref target='AN'>Annex A, Permission Test A.1-1-1</xref>
- <xref target='AQ1'>Annex A, Requirement A.1-1</xref>
- <xref target='AR1'>Annex A, Recommendation A.1-1</xref>
-      </p>
-    </foreword>
-  </preface>
-  <sections>
-    <clause id='xyz'>
-      <title>Preparatory</title>
-      <permission id='N1'>
-        <name>Permission 1</name>
-        <permission id='N2' type='verification'>
-          <name>Permission Test 1-1</name>
-          <permission id='N'>
-            <name>Permission 1-1-1</name>
-          </permission>
-        </permission>
-        <requirement id='Q1'>
-          <name>Requirement 1-1</name>
-        </requirement>
-        <recommendation id='R1'>
-          <name>Recommendation 1-1</name>
-        </recommendation>
-        <permission id='N3' type='verification'>
-          <name>Permission Test 1-2</name>
-        </permission>
-        <permission id='N4'>
-          <name>Permission 1-1</name>
-        </permission>
-      </permission>
-    </clause>
-  </sections>
-  <annex id='Axyz'>
-    <title>Preparatory</title>
-    <permission id='AN1' type='verification'>
-      <name>Permission Test A.1</name>
-      <permission id='AN2'>
-        <name>Permission A.1-1</name>
-        <permission id='AN' type='verification'>
-          <name>Permission Test A.1-1-1</name>
-        </permission>
-      </permission>
-      <requirement id='AQ1'>
-        <name>Requirement A.1-1</name>
-      </requirement>
-      <recommendation id='AR1'>
-        <name>Recommendation A.1-1</name>
-      </recommendation>
-      <permission id='AN3' type='verification'>
-        <name>Permission Test A.1-1</name>
-      </permission>
-      <permission id='AN4'>
-        <name>Permission A.1-2</name>
-      </permission>
-    </permission>
-  </annex>
-</iso-standard>
+          <preface>
+            <foreword>
+              <p>
+                <xref target='N1'>Clause 1, Permission 1</xref>
+                <xref target='N2'>Clause 1, Permission Test 1-1</xref>
+                <xref target='N'>Clause 1, Permission 1-1-1</xref>
+                <xref target='Q1'>Clause 1, Requirement 1-1</xref>
+                <xref target='R1'>Clause 1, Recommendation 1-1</xref>
+                <xref target='AN1'>Annex A, Permission Test A.1</xref>
+                <xref target='AN2'>Annex A, Permission A.1-1</xref>
+                <xref target='AN'>Annex A, Permission Test A.1-1-1</xref>
+                <xref target='AQ1'>Annex A, Requirement A.1-1</xref>
+                <xref target='AR1'>Annex A, Recommendation A.1-1</xref>
+              </p>
+            </foreword>
+          </preface>
+          <sections>
+            <clause id='xyz'>
+              <title depth='1'>
+                1.
+                <tab/>
+                Preparatory
+              </title>
+              <permission id='N1'>
+                <name>Permission 1</name>
+                <permission id='N2' type='verification'>
+                  <name>Permission Test 1-1</name>
+                  <permission id='N'>
+                    <name>Permission 1-1-1</name>
+                  </permission>
+                </permission>
+                <requirement id='Q1'>
+                  <name>Requirement 1-1</name>
+                </requirement>
+                <recommendation id='R1'>
+                  <name>Recommendation 1-1</name>
+                </recommendation>
+                <permission id='N3' type='verification'>
+                  <name>Permission Test 1-2</name>
+                </permission>
+                <permission id='N4'>
+                  <name>Permission 1-1</name>
+                </permission>
+              </permission>
+            </clause>
+          </sections>
+          <annex id='Axyz'>
+            <title>
+              <strong>Annex A</strong>
+              <br/>
+              (informative)
+              <br/>
+              <strong>Preparatory</strong>
+            </title>
+            <permission id='AN1' type='verification'>
+              <name>Permission Test A.1</name>
+              <permission id='AN2'>
+                <name>Permission A.1-1</name>
+                <permission id='AN' type='verification'>
+                  <name>Permission Test A.1-1-1</name>
+                </permission>
+              </permission>
+              <requirement id='AQ1'>
+                <name>Requirement A.1-1</name>
+              </requirement>
+              <recommendation id='AR1'>
+                <name>Recommendation A.1-1</name>
+              </recommendation>
+              <permission id='AN3' type='verification'>
+                <name>Permission Test A.1-1</name>
+              </permission>
+              <permission id='AN4'>
+                <name>Permission A.1-2</name>
+              </permission>
+            </permission>
+          </annex>
+        </iso-standard>
     OUTPUT
         end
 
@@ -1023,7 +1158,7 @@ end
     </introduction>
     </preface>
     <sections>
-    <clause id="scope"><title>Scope</title>
+    <clause id="scope" type="scope"><title>Scope</title>
     <permission id="N" type="abstracttest">
   <stem type="AsciiMath">r = 1 %</stem>
   </permission>
@@ -1059,28 +1194,31 @@ end
     </annex>
     </iso-standard>
     INPUT
-               <?xml version='1.0'?>
         <iso-standard xmlns='http://riboseinc.com/isoxml'>
           <preface>
             <foreword>
               <p>
-                 <xref target='N1'>Introduction, Abstract Test 1</xref>
- <xref target='N2'>Clause ii.1, Abstract Test (??)</xref>
- <xref target='N'>Clause 1, Abstract Test 2</xref>
- <xref target='note1'>Clause 3.1, Abstract Test 3</xref>
- <xref target='note2'>Clause 3.1, Abstract Test 4</xref>
- <xref target='AN'>Annex A.1, Abstract Test A.1</xref>
- <xref target='Anote1'>Annex A.2, Abstract Test (??)</xref>
- <xref target='Anote2'>Annex A.2, Abstract Test A.2</xref>
+                <xref target='N1'>Introduction, Abstract Test 1</xref>
+                <xref target='N2'>Clause ii.1, Abstract Test (??)</xref>
+                <xref target='N'>Clause 1, Abstract Test 2</xref>
+                <xref target='note1'>Clause 3.1, Abstract Test 3</xref>
+                <xref target='note2'>Clause 3.1, Abstract Test 4</xref>
+                <xref target='AN'>Annex A.1, Abstract Test A.1</xref>
+                <xref target='Anote1'>Annex A.2, Abstract Test (??)</xref>
+                <xref target='Anote2'>Annex A.2, Abstract Test A.2</xref>
               </p>
             </foreword>
-            <introduction id='intro'>
+            <introduction id='intro'><title>ii.</title>
               <permission id='N1' type='abstracttest'>
                 <name>Abstract Test 1</name>
                 <stem type='AsciiMath'>r = 1 %</stem>
               </permission>
               <clause id='xyz'>
-                <title>Preparatory</title>
+                <title depth='2'>
+                  ii.1.
+                  <tab/>
+                  Preparatory
+                </title>
                 <permission id='N2' unnumbered='true' type='abstracttest'>
                   <name>Abstract Test</name>
                   <stem type='AsciiMath'>r = 1 %</stem>
@@ -1089,20 +1227,31 @@ end
             </introduction>
           </preface>
           <sections>
-            <clause id='scope'>
-              <title>Scope</title>
+            <clause id='scope' type='scope'>
+              <title depth='1'>
+                1.
+                <tab/>
+                Scope
+              </title>
               <permission id='N' type='abstracttest'>
                 <name>Abstract Test 2</name>
                 <stem type='AsciiMath'>r = 1 %</stem>
               </permission>
               <p>
-              <xref target='N'>Abstract Test 2</xref>
+                <xref target='N'>Abstract Test 2</xref>
               </p>
             </clause>
-            <terms id='terms'/>
+            <terms id='terms'>
+              <title>2.</title>
+            </terms>
             <clause id='widgets'>
-              <title>Widgets</title>
+              <title depth='1'>
+                3.
+                <tab/>
+                Widgets
+              </title>
               <clause id='widgets1'>
+                <title>3.1.</title>
                 <permission id='note1' type='abstracttest'>
                   <name>Abstract Test 3</name>
                   <stem type='AsciiMath'>r = 1 %</stem>
@@ -1113,19 +1262,26 @@ end
                 </permission>
                 <p>
                   <xref target='note1'>Abstract Test 3</xref>
-<xref target='note2'>Abstract Test 4</xref>
+                  <xref target='note2'>Abstract Test 4</xref>
                 </p>
               </clause>
             </clause>
           </sections>
           <annex id='annex1'>
+            <title>
+              <strong>Annex A</strong>
+              <br/>
+              (informative)
+            </title>
             <clause id='annex1a'>
+              <title>A.1.</title>
               <permission id='AN' type='abstracttest'>
                 <name>Abstract Test A.1</name>
                 <stem type='AsciiMath'>r = 1 %</stem>
               </permission>
             </clause>
             <clause id='annex1b'>
+              <title>A.2.</title>
               <permission id='Anote1' unnumbered='true' type='abstracttest'>
                 <name>Abstract Test</name>
                 <stem type='AsciiMath'>r = 1 %</stem>
@@ -1168,7 +1324,7 @@ OUTPUT
     </introduction>
     </preface>
     <sections>
-    <clause id="scope"><title>Scope</title>
+    <clause id="scope" type="scope"><title>Scope</title>
     <permission id="N" type="conformanceclass">
   <stem type="AsciiMath">r = 1 %</stem>
   </permission>
@@ -1204,28 +1360,31 @@ OUTPUT
     </annex>
     </iso-standard>
     INPUT
-                <?xml version='1.0'?>
         <iso-standard xmlns='http://riboseinc.com/isoxml'>
           <preface>
             <foreword>
               <p>
                 <xref target='N1'>Introduction, Conformance Class 1</xref>
-<xref target='N2'>Clause ii.1, Conformance Class (??)</xref>
-<xref target='N'>Clause 1, Conformance Class 2</xref>
-<xref target='note1'>Clause 3.1, Conformance Class 3</xref>
-<xref target='note2'>Clause 3.1, Conformance Class 4</xref>
-<xref target='AN'>Annex A.1, Conformance Class A.1</xref>
-<xref target='Anote1'>Annex A.2, Conformance Class (??)</xref>
-<xref target='Anote2'>Annex A.2, Conformance Class A.2</xref>
+                <xref target='N2'>Clause ii.1, Conformance Class (??)</xref>
+                <xref target='N'>Clause 1, Conformance Class 2</xref>
+                <xref target='note1'>Clause 3.1, Conformance Class 3</xref>
+                <xref target='note2'>Clause 3.1, Conformance Class 4</xref>
+                <xref target='AN'>Annex A.1, Conformance Class A.1</xref>
+                <xref target='Anote1'>Annex A.2, Conformance Class (??)</xref>
+                <xref target='Anote2'>Annex A.2, Conformance Class A.2</xref>
               </p>
             </foreword>
-            <introduction id='intro'>
+            <introduction id='intro'><title>ii.</title>
               <permission id='N1' type='conformanceclass'>
                 <name>Conformance Class 1</name>
                 <stem type='AsciiMath'>r = 1 %</stem>
               </permission>
               <clause id='xyz'>
-                <title>Preparatory</title>
+                <title depth='2'>
+                  ii.1.
+                  <tab/>
+                  Preparatory
+                </title>
                 <permission id='N2' unnumbered='true' type='conformanceclass'>
                   <name>Conformance Class</name>
                   <stem type='AsciiMath'>r = 1 %</stem>
@@ -1234,20 +1393,31 @@ OUTPUT
             </introduction>
           </preface>
           <sections>
-            <clause id='scope'>
-              <title>Scope</title>
+            <clause id='scope' type='scope'>
+              <title depth='1'>
+                1.
+                <tab/>
+                Scope
+              </title>
               <permission id='N' type='conformanceclass'>
                 <name>Conformance Class 2</name>
                 <stem type='AsciiMath'>r = 1 %</stem>
               </permission>
               <p>
-              <xref target='N'>Conformance Class 2</xref>
+                <xref target='N'>Conformance Class 2</xref>
               </p>
             </clause>
-            <terms id='terms'/>
+            <terms id='terms'>
+              <title>2.</title>
+            </terms>
             <clause id='widgets'>
-              <title>Widgets</title>
+              <title depth='1'>
+                3.
+                <tab/>
+                Widgets
+              </title>
               <clause id='widgets1'>
+                <title>3.1.</title>
                 <permission id='note1' type='conformanceclass'>
                   <name>Conformance Class 3</name>
                   <stem type='AsciiMath'>r = 1 %</stem>
@@ -1258,19 +1428,26 @@ OUTPUT
                 </permission>
                 <p>
                   <xref target='note1'>Conformance Class 3</xref>
-<xref target='note2'>Conformance Class 4</xref>
+                  <xref target='note2'>Conformance Class 4</xref>
                 </p>
               </clause>
             </clause>
           </sections>
           <annex id='annex1'>
+            <title>
+              <strong>Annex A</strong>
+              <br/>
+              (informative)
+            </title>
             <clause id='annex1a'>
+              <title>A.1.</title>
               <permission id='AN' type='conformanceclass'>
                 <name>Conformance Class A.1</name>
                 <stem type='AsciiMath'>r = 1 %</stem>
               </permission>
             </clause>
             <clause id='annex1b'>
+              <title>A.2.</title>
               <permission id='Anote1' unnumbered='true' type='conformanceclass'>
                 <name>Conformance Class</name>
                 <stem type='AsciiMath'>r = 1 %</stem>
