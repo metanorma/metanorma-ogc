@@ -1252,7 +1252,7 @@ FileUtils.rm_f "test.doc"
            <span lang='EN-GB' xml:lang='EN-GB'>
              <span style='mso-element:field-begin'/>
              <span style='mso-spacerun:yes'>&#xA0;</span>
-             TOC \h \z \t "TableTitle,1"
+             TOC \h \z \t "TableTitle,tabletitle"
              <span style='mso-element:field-separator'/>
            </span>
            <span class='MsoHyperlink'>
@@ -1291,7 +1291,7 @@ FileUtils.rm_f "test.doc"
            <span lang='EN-GB' xml:lang='EN-GB'>
              <span style='mso-element:field-begin'/>
              <span style='mso-spacerun:yes'>&#xA0;</span>
-             TOC \h \z \t "FigureTitle,1"
+             TOC \h \z \t "FigureTitle,figuretitle"
              <span style='mso-element:field-separator'/>
            </span>
            <span class='MsoHyperlink'>
@@ -1330,7 +1330,7 @@ FileUtils.rm_f "test.doc"
            <span lang='EN-GB' xml:lang='EN-GB'>
              <span style='mso-element:field-begin'/>
              <span style='mso-spacerun:yes'>&#xA0;</span>
-             TOC \h \z \t "RecommendationTitle,1"
+             TOC \h \z \t "RecommendationTitle,recommendationtitle"
              <span style='mso-element:field-separator'/>
            </span>
            <span class='MsoHyperlink'>

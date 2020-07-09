@@ -67,15 +67,15 @@ module IsoDoc
                           <span lang="EN-GB"><span
         style='mso-element:field-begin'></span><span
         style='mso-spacerun:yes'>&#xA0;</span>TOC
-        \\h \\z \\t &quot;RecommendationTitle,1&quot; <span
-        style='mso-element:field-separator'></span></span>
+        \\h \\z \\t &quot;RecommendationTitle,recommendationtitle&quot; 
+        <span style='mso-element:field-separator'></span></span>
       TOC
 
       WORD_TOC_TABLE_PREFACE1 = <<~TOC.freeze
                           <span lang="EN-GB"><span
         style='mso-element:field-begin'></span><span
         style='mso-spacerun:yes'>&#xA0;</span>TOC
-        \\h \\z \\t &quot;TableTitle,1&quot; <span
+        \\h \\z \\t &quot;TableTitle,tabletitle&quot; <span
         style='mso-element:field-separator'></span></span>
       TOC
 
@@ -83,7 +83,7 @@ module IsoDoc
                                       <span lang="EN-GB"><span
         style='mso-element:field-begin'></span><span
         style='mso-spacerun:yes'>&#xA0;</span>TOC
-        \\h \\z \\t &quot;FigureTitle,1&quot; <span
+        \\h \\z \\t &quot;FigureTitle,figuretitle&quot; <span
         style='mso-element:field-separator'></span></span>
       TOC
 
