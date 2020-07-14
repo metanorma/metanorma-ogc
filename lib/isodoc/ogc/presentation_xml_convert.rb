@@ -75,7 +75,7 @@ module IsoDoc
 
       def example1(f)
         lbl = @xrefs.anchor(f['id'], :label, false) or return
-        prefix_name(f, "&nbsp;&mdash; ", l10n("#{@example_lbl} #{lbl}"), "name")
+        prefix_name(f, "&nbsp;&mdash; ", l10n("#{@i18n.example} #{lbl}"), "name")
       end
 
       def recommendation1(f, type)
@@ -100,15 +100,15 @@ module IsoDoc
 
       def recommendation_class(node)
         case node["type"]
-        when "verification" then @labels["#{node.name}test"]
-        when "class" then @labels["#{node.name}class"]
-        when "abstracttest" then @labels["abstracttest"]
-        when "conformanceclass" then @labels["conformanceclass"]
+        when "verification" then @i18n.get["#{node.name}test"]
+        when "class" then @i18n.get["#{node.name}class"]
+        when "abstracttest" then @i18n.get["abstracttest"]
+        when "conformanceclass" then @i18n.get["conformanceclass"]
         else
           case node.name
-          when "recommendation" then @recommendation_lbl
-          when "requirement" then @requirement_lbl
-          when "permission" then @permission_lbl
+          when "recommendation" then @i18n.recommendation
+          when "requirement" then @i18n.requirement
+          when "permission" then @i18n.permission
           end
         end
       end
