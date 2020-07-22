@@ -96,7 +96,7 @@ module Asciidoctor
 
       def submitters_parse(attrs, xml, node)
         xml.submitters **attr_code(attrs) do |xml_section|
-          xml_section.title "Submitters"
+          xml_section.title @i18n.submitters
           xml_section << node.content
         end
       end

@@ -7,10 +7,6 @@ require "fileutils"
 module IsoDoc
   module Ogc
     module BaseConvert
-      def fileloc(loc)
-        File.join(File.dirname(__FILE__), loc)
-      end
-
       def cleanup(docxml)
         requirement_table_cleanup(docxml)
         super

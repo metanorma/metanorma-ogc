@@ -352,7 +352,8 @@ OUTPUT
   </ext>
 </bibdata>
 #{BOILERPLATE}
-<preface><foreword id="_" obligation="informative"><title>Foreword</title><p id="_">This is a preamble</p></foreword>
+<preface><foreword id="_" obligation="informative">
+<title>Preface</title><p id="_">This is a preamble</p></foreword>
 <acknowledgements id='_' obligation='informative'>
   <title>Acknowledgements</title>
 </acknowledgements>
@@ -410,7 +411,7 @@ OUTPUT
 
 
 </sections><bibliography><references id="_" obligation="informative" normative="true">
-  <title>Normative References</title>
+  <title>Normative references</title>
   <p id="_">There are no normative references in this document.</p>
 </references></bibliography>
 </ogc-standard>
@@ -429,7 +430,7 @@ OUTPUT
     output = xmlpp(<<~"OUTPUT")
     #{BLANK_HDR}
              <preface><foreword id="_" obligation="informative">
-         <title>Foreword</title>
+         <title>Preface</title>
          <p id="_">This is a preamble</p>
        </foreword></preface><sections>
        <clause id="_" obligation="normative">

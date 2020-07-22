@@ -34,7 +34,7 @@ module IsoDoc
         }
 
     class Metadata < IsoDoc::Metadata
-      def initialize(lang, script, labels)
+      def initialize(lang, script, i18n)
         super
       end
 
