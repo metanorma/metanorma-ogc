@@ -18,7 +18,7 @@
 		<xsl:text>© </xsl:text>
 		<xsl:value-of select="/ogc:ogc-standard/ogc:bibdata/ogc:copyright/ogc:from"/>
 		<xsl:text> </xsl:text>
-		<xsl:value-of select="/ogc:ogc-standard/ogc:bibdata/ogc:contributor/ogc:organization/ogc:name"/>
+		<xsl:value-of select="/ogc:ogc-standard/ogc:bibdata/ogc:contributor[ogc:role/@type = 'publisher']/ogc:organization/ogc:name"/>
 	</xsl:variable>
 	
 	<xsl:variable name="doctitle" select="/ogc:ogc-standard/ogc:bibdata/ogc:title[@language = 'en']"/>
@@ -47,6 +47,7 @@
 			</xsl:apply-templates>
 			<xsl:apply-templates select="/ogc:ogc-standard/ogc:preface/ogc:foreword" mode="contents">
 				<xsl:with-param name="sectionNum" select="count(/ogc:ogc-standard/ogc:preface/ogc:abstract) +                                      count (/ogc:ogc-standard/ogc:bibdata/ogc:keyword[1])+ 1"/>
+																																				
 			</xsl:apply-templates>
 			<xsl:apply-templates select="/ogc:ogc-standard/ogc:preface/ogc:introduction" mode="contents"/>
 			<xsl:apply-templates select="/ogc:ogc-standard/ogc:bibdata/ogc:contributor[ogc:role/@type='author'][1]/ogc:organization/ogc:name" mode="contents">
@@ -55,6 +56,12 @@
 			<xsl:apply-templates select="/ogc:ogc-standard/ogc:preface/ogc:submitters" mode="contents">
 				<xsl:with-param name="sectionNum" select="count(/ogc:ogc-standard/ogc:preface/ogc:abstract) +                                      count (/ogc:ogc-standard/ogc:bibdata/ogc:keyword[1])+                                      count(/ogc:ogc-standard/ogc:preface/ogc:foreword) +                                     count(/ogc:ogc-standard/ogc:bibdata/ogc:contributor[ogc:role/@type='author'][1]/ogc:organization/ogc:name) + 1"/>
 			</xsl:apply-templates>
+			
+			<xsl:apply-templates select="/ogc:ogc-standard/ogc:preface/*[local-name() != 'abstract' and                                            local-name() != 'foreword' and                                            local-name() != 'introduction' and                                           local-name() != 'submitters']" mode="contents">
+				<xsl:with-param name="sectionNumSkew" select="count(/ogc:ogc-standard/ogc:preface/ogc:abstract) +                                                                          count (/ogc:ogc-standard/ogc:bibdata/ogc:keyword[1])+                                      count(/ogc:ogc-standard/ogc:preface/ogc:foreword) +                                     count(/ogc:ogc-standard/ogc:preface/ogc:introduction) +                                     count(/ogc:ogc-standard/ogc:bibdata/ogc:contributor[ogc:role/@type='author'][1]/ogc:organization/ogc:name) +                                     count(/ogc:ogc-standard/ogc:preface/ogc:submitters)"/>
+			</xsl:apply-templates>
+			
+			
 			
 			<xsl:apply-templates select="/ogc:ogc-standard/ogc:sections/ogc:clause[@id='_scope']" mode="contents">
 				<xsl:with-param name="sectionNum" select="'1'"/>
@@ -65,22 +72,22 @@
 			</xsl:apply-templates>
 			
 			<!-- Normative references  -->
-			<xsl:apply-templates select="/ogc:ogc-standard/ogc:bibliography/ogc:references[@id = '_normative_references' or @id = '_references']" mode="contents">
+			<xsl:apply-templates select="/ogc:ogc-standard/ogc:bibliography/ogc:references[@id = '_normative_references' or @id = '_references' or @id = 'references']" mode="contents">
 				<xsl:with-param name="sectionNum" select="count(/ogc:ogc-standard/ogc:sections/ogc:clause[@id='_scope']) +                                     count(/ogc:ogc-standard/ogc:sections/ogc:clause[@id='conformance' or @id='_conformance']) + 1"/>
 			</xsl:apply-templates>
 			
 			<xsl:apply-templates select="/ogc:ogc-standard/ogc:sections/ogc:terms" mode="contents"> <!-- Terms and definitions -->
-				<xsl:with-param name="sectionNum" select="count(/ogc:ogc-standard/ogc:sections/ogc:clause[@id='_scope']) +                                     count(/ogc:ogc-standard/ogc:sections/ogc:clause[@id='conformance' or @id='_conformance']) +                                      count(/ogc:ogc-standard/ogc:bibliography/ogc:references[@id = '_normative_references' or @id = '_references']) + 1"/>
+				<xsl:with-param name="sectionNum" select="count(/ogc:ogc-standard/ogc:sections/ogc:clause[@id='_scope']) +                                     count(/ogc:ogc-standard/ogc:sections/ogc:clause[@id='conformance' or @id='_conformance']) +                                      count(/ogc:ogc-standard/ogc:bibliography/ogc:references[@id = '_normative_references' or @id = '_references' or @id = 'references']) + 1"/>
 			</xsl:apply-templates>
 			
 		
 			<xsl:apply-templates select="/ogc:ogc-standard/ogc:sections/*[local-name() != 'terms' and not(@id='_scope') and not(@id='conformance') and not(@id='_conformance')]" mode="contents">
-				<xsl:with-param name="sectionNumSkew" select="count(/ogc:ogc-standard/ogc:sections/ogc:clause[@id='_scope']) +                                     count(/ogc:ogc-standard/ogc:sections/ogc:clause[@id='conformance' or @id='_conformance']) +                                      count(/ogc:ogc-standard/ogc:bibliography/ogc:references[@id = '_normative_references' or @id = '_references']) +                                     count(/ogc:ogc-standard/ogc:sections/ogc:terms)"/>	
+				<xsl:with-param name="sectionNumSkew" select="count(/ogc:ogc-standard/ogc:sections/ogc:clause[@id='_scope']) +                                     count(/ogc:ogc-standard/ogc:sections/ogc:clause[@id='conformance' or @id='_conformance']) +                                      count(/ogc:ogc-standard/ogc:bibliography/ogc:references[@id = '_normative_references' or @id = '_references' or @id = 'references']) +                                     count(/ogc:ogc-standard/ogc:sections/ogc:terms)"/>	
 			</xsl:apply-templates>
 			
 			
 			<xsl:apply-templates select="/ogc:ogc-standard/ogc:annex" mode="contents"/>
-			<xsl:apply-templates select="/ogc:ogc-standard/ogc:bibliography/ogc:references[@id != '_normative_references' and @id != '_references']" mode="contents"/> <!-- [position() &gt; 1] -->
+			<xsl:apply-templates select="/ogc:ogc-standard/ogc:bibliography/ogc:references[@id != '_normative_references' and @id != '_references' and @id != 'references']" mode="contents"/> <!-- [position() &gt; 1] -->
 			
 			
 		</contents>
@@ -91,7 +98,7 @@
 	</xsl:variable>
 	
 	<xsl:template match="/">
-		<xsl:message>INFO: Document namespace: '<xsl:value-of select="namespace-uri(/*)"/>'</xsl:message>
+		<xsl:call-template name="namespaceCheck"/>		
 		<fo:root font-family="Times New Roman, STIX2Math, HanSans" font-size="10.5pt" xml:lang="{$lang}">
 			<fo:layout-master-set>
 				<!-- Cover page -->
@@ -237,7 +244,7 @@
 						</fo:block>
 					</fo:block>
 					<fo:block font-size="24pt" font-weight="bold" text-align="center" margin-top="15pt" line-height="115%">
-						<xsl:text>OGC </xsl:text><xsl:value-of select="$doctitle"/>
+						<xsl:value-of select="$doctitle"/>
 					</fo:block>
 					<fo:block margin-bottom="12pt"> </fo:block>
 					<!-- Copyright notice -->
@@ -252,10 +259,32 @@
 							<fo:table-body>
 								<fo:table-row height="9mm">
 									<fo:table-cell>
+										<fo:block>Document number: </fo:block>
+									</fo:table-cell>
+									<fo:table-cell>
+										<fo:block>
+											<xsl:value-of select="/ogc:ogc-standard/ogc:bibdata/ogc:docnumber"/>											
+										</fo:block>
+									</fo:table-cell>
+								</fo:table-row>
+								<fo:table-row height="9mm">
+									<fo:table-cell>
 										<fo:block>Document type: </fo:block>
 									</fo:table-cell>
 									<fo:table-cell>
 										<fo:block line-height-shift-adjustment="disregard-shifts">OGC<fo:inline font-size="65%" vertical-align="super">®</fo:inline><xsl:text> </xsl:text><xsl:value-of select="$doctype"/></fo:block>
+									</fo:table-cell>
+								</fo:table-row>
+								<fo:table-row height="9mm">
+									<fo:table-cell>
+										<fo:block>Document subtype: </fo:block>
+									</fo:table-cell>
+									<fo:table-cell>
+										<fo:block>
+											<xsl:call-template name="capitalizeWords">
+												<xsl:with-param name="str" select="/ogc:ogc-standard/ogc:bibdata/ogc:ext/ogc:docsubtype"/>
+											</xsl:call-template>
+										</fo:block>
 									</fo:table-cell>
 								</fo:table-row>
 								<fo:table-row height="9mm">
@@ -276,7 +305,11 @@
 										<fo:block>Document language: </fo:block>
 									</fo:table-cell>
 									<fo:table-cell>
-										<fo:block><xsl:value-of select="$lang"/></fo:block>
+										<fo:block>
+											<xsl:call-template name="getLanguage">
+												<xsl:with-param name="lang" select="$lang"/>
+											</xsl:call-template>											
+										</fo:block>
 									</fo:table-cell>
 								</fo:table-row>
 							</fo:table-body>
@@ -312,7 +345,7 @@
 					<fo:block> </fo:block>
 					<fo:block break-after="page"/>
 					
-					<fo:block-container font-weight="bold" line-height="115%">
+					<fo:block-container font-weight="bold" line-height="115%" margin-bottom="36pt">
 						<xsl:variable name="title-toc">
 							<xsl:call-template name="getTitle">
 								<xsl:with-param name="name" select="'title-toc'"/>
@@ -437,6 +470,10 @@
 						<xsl:with-param name="sectionNum" select="count(/ogc:ogc-standard/ogc:preface/ogc:abstract) +                                        count (/ogc:ogc-standard/ogc:bibdata/ogc:keyword[1])+                                        count(/ogc:ogc-standard/ogc:preface/ogc:foreword) +                                       count(/ogc:ogc-standard/ogc:bibdata/ogc:contributor[ogc:role/@type='author'][1]/ogc:organization/ogc:name) + 1"/>
 					</xsl:apply-templates>
 					
+					<xsl:apply-templates select="/ogc:ogc-standard/ogc:preface/*[local-name() != 'abstract' and                                             local-name() != 'foreword' and                                             local-name() != 'introduction' and                                            local-name() != 'submitters']">
+						<xsl:with-param name="sectionNumSkew" select="count(/ogc:ogc-standard/ogc:preface/ogc:abstract) +                                                                            count (/ogc:ogc-standard/ogc:bibdata/ogc:keyword[1])+                                        count(/ogc:ogc-standard/ogc:preface/ogc:foreword) +                                       count(/ogc:ogc-standard/ogc:preface/ogc:introduction) +                                       count(/ogc:ogc-standard/ogc:bibdata/ogc:contributor[ogc:role/@type='author'][1]/ogc:organization/ogc:name) +                                       count(/ogc:ogc-standard/ogc:preface/ogc:submitters)"/>
+					</xsl:apply-templates>
+					
 					
 				</fo:flow>
 			</fo:page-sequence>
@@ -468,22 +505,22 @@
 						</xsl:apply-templates>
 						
 						<!-- Normative references  -->
-						<xsl:apply-templates select="/ogc:ogc-standard/ogc:bibliography/ogc:references[@id = '_normative_references' or @id = '_references']">
+						<xsl:apply-templates select="/ogc:ogc-standard/ogc:bibliography/ogc:references[@id = '_normative_references' or @id = '_references' or @id = 'references']">
 							<xsl:with-param name="sectionNum" select="count(/ogc:ogc-standard/ogc:sections/ogc:clause[@id='_scope']) +                                        count(/ogc:ogc-standard/ogc:sections/ogc:clause[@id='conformance' or @id='_conformance']) + 1"/>
 						</xsl:apply-templates>
 						
 						<xsl:apply-templates select="/ogc:ogc-standard/ogc:sections/ogc:terms"> <!-- Terms and definitions -->
-							<xsl:with-param name="sectionNum" select="count(/ogc:ogc-standard/ogc:sections/ogc:clause[@id='_scope']) +                                        count(/ogc:ogc-standard/ogc:sections/ogc:clause[@id='conformance' or @id='_conformance']) +                                         count(/ogc:ogc-standard/ogc:bibliography/ogc:references[@id = '_normative_references' or @id = '_references']) + 1"/>
+							<xsl:with-param name="sectionNum" select="count(/ogc:ogc-standard/ogc:sections/ogc:clause[@id='_scope']) +                                        count(/ogc:ogc-standard/ogc:sections/ogc:clause[@id='conformance' or @id='_conformance']) +                                         count(/ogc:ogc-standard/ogc:bibliography/ogc:references[@id = '_normative_references' or @id = '_references' or @id = 'references']) + 1"/>
 						</xsl:apply-templates>
 						
 						
 						<xsl:apply-templates select="/ogc:ogc-standard/ogc:sections/*[local-name() != 'terms' and not(@id='_scope') and not(@id='conformance') and not(@id='_conformance')]">
-							<xsl:with-param name="sectionNumSkew" select="count(/ogc:ogc-standard/ogc:sections/ogc:clause[@id='_scope']) +                                     count(/ogc:ogc-standard/ogc:sections/ogc:clause[@id='conformance' or @id='_conformance']) +                                      count(/ogc:ogc-standard/ogc:bibliography/ogc:references[@id = '_normative_references' or @id = '_references']) +                                     count(/ogc:ogc-standard/ogc:sections/ogc:terms)"/>
+							<xsl:with-param name="sectionNumSkew" select="count(/ogc:ogc-standard/ogc:sections/ogc:clause[@id='_scope']) +                                     count(/ogc:ogc-standard/ogc:sections/ogc:clause[@id='conformance' or @id='_conformance']) +                                      count(/ogc:ogc-standard/ogc:bibliography/ogc:references[@id = '_normative_references' or @id = '_references' or @id = 'references']) +                                     count(/ogc:ogc-standard/ogc:sections/ogc:terms)"/>
 						</xsl:apply-templates>
 						
 						
 						<xsl:apply-templates select="/ogc:ogc-standard/ogc:annex"/>
-						<xsl:apply-templates select="/ogc:ogc-standard/ogc:bibliography/ogc:references[@id != '_normative_references' and @id != '_references']"/> <!-- [position() &gt; 1] -->
+						<xsl:apply-templates select="/ogc:ogc-standard/ogc:bibliography/ogc:references[@id != '_normative_references' and @id != '_references' and @id != 'references']"/> <!-- [position() &gt; 1] -->
 						
 					</fo:block>
 				</fo:flow>
@@ -558,6 +595,25 @@
 		</xsl:apply-templates>
 	</xsl:template>
 	
+	<xsl:template match="ogc:ogc-standard/ogc:preface/ogc:clause" mode="contents">
+		<xsl:param name="sectionNum"/>
+		<xsl:param name="sectionNumSkew" select="0"/>
+		<xsl:variable name="sectionNum_">
+			<xsl:choose>
+				<xsl:when test="$sectionNum"><xsl:value-of select="$sectionNum"/></xsl:when>
+				<xsl:when test="$sectionNumSkew != 0">
+					<xsl:variable name="number"><xsl:number count="ogc:clause"/></xsl:variable>
+					<xsl:value-of select="$number + $sectionNumSkew"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:number count="*"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:apply-templates mode="contents">
+			<xsl:with-param name="sectionNum" select="$sectionNum_"/>
+		</xsl:apply-templates>
+	</xsl:template>
 	
 	<!-- Any node with title element - clause, definition, annex,... -->
 	<xsl:template match="ogc:title | ogc:preferred" mode="contents">
@@ -620,7 +676,7 @@
 		
 	</xsl:template>
 	
-	<xsl:template match="ogc:ogc-standard/ogc:preface/*" mode="contents">
+	<xsl:template match="ogc:ogc-standard/ogc:preface/*[not(local-name() = 'clause')]" mode="contents">
 		<xsl:param name="sectionNum" select="'1'"/>
 		<xsl:variable name="section">
 			<xsl:number format="i" value="$sectionNum"/>
@@ -727,7 +783,6 @@
 	</xsl:template>
 
 	
-	
 	<xsl:template match="ogc:table[not(@unnumbered='true')]" mode="contents">
 		<xsl:param name="sectionNum"/>
 		<xsl:variable name="annex-id" select="ancestor::ogc:annex/@id"/>
@@ -828,7 +883,7 @@
 			<xsl:attribute name="text-align">
 				<xsl:choose>
 					<xsl:when test="@align"><xsl:value-of select="@align"/></xsl:when>
-					<xsl:otherwise>left</xsl:otherwise>
+					<xsl:otherwise>center</xsl:otherwise>
 				</xsl:choose>
 			</xsl:attribute>
 			<xsl:apply-templates/>
@@ -908,7 +963,9 @@
 				</xsl:call-template>				
 			</fo:block>
 		</xsl:if>
-		<xsl:apply-templates/>
+		<xsl:apply-templates>
+			<xsl:with-param name="sectionNum" select="$sectionNum"/>
+		</xsl:apply-templates>
 	</xsl:template>
 	<!-- Keywords -->
 	<xsl:template match="/ogc:ogc-standard/ogc:bibdata/ogc:keyword">
@@ -996,6 +1053,25 @@
 		</fo:block>
 	</xsl:template>
 	
+	<xsl:template match="ogc:ogc-standard/ogc:preface/ogc:clause">
+		<xsl:param name="sectionNum"/>
+		<xsl:param name="sectionNumSkew" select="0"/>
+		<xsl:variable name="sectionNum_">
+			<xsl:choose>
+				<xsl:when test="$sectionNum"><xsl:value-of select="$sectionNum"/></xsl:when>
+				<xsl:when test="$sectionNumSkew != 0">
+					<xsl:variable name="number"><xsl:number count="ogc:clause"/></xsl:variable>
+					<xsl:value-of select="$number + $sectionNumSkew"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:number count="*"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:apply-templates>
+			<xsl:with-param name="sectionNum" select="$sectionNum_"/>
+		</xsl:apply-templates>
+	</xsl:template>
 
 	
 	<xsl:template match="ogc:clause//ogc:clause[not(ogc:title)]">
@@ -1535,7 +1611,7 @@
 
 	
 	<!-- [position() &gt; 1] -->
-	<xsl:template match="ogc:references[@id != '_normative_references' and @id != '_references']">
+	<xsl:template match="ogc:references[@id != '_normative_references' and @id != '_references'  and @id != 'references']">
 		<fo:block break-after="page"/>
 		<fo:block line-height="120%">
 			<xsl:apply-templates/>
@@ -1545,7 +1621,7 @@
 
 	<!-- Example: [1] ISO 9:1995, Information and documentation – Transliteration of Cyrillic characters into Latin characters – Slavic and non-Slavic languages -->
 	<!-- <xsl:template match="ogc:references[@id = '_bibliography']/ogc:bibitem"> [position() &gt; 1] -->
-	<xsl:template match="ogc:references[@id != '_normative_references' and @id != '_references']/ogc:bibitem">
+	<xsl:template match="ogc:references[@id != '_normative_references' and @id != '_references' and @id != 'references']/ogc:bibitem">
 		<fo:list-block margin-bottom="12pt" provisional-distance-between-starts="12mm">
 			<fo:list-item>
 				<fo:list-item-label end-indent="label-end()">
@@ -1618,10 +1694,10 @@
 	</xsl:template>
 	
 	<!-- <xsl:template match="ogc:references[@id = '_bibliography']/ogc:bibitem" mode="contents"/> [position() &gt; 1] -->
-	<xsl:template match="ogc:references[@id != '_normative_references' and @id != '_references']/ogc:bibitem" mode="contents"/>
+	<xsl:template match="ogc:references[@id != '_normative_references' and @id != '_references' and @id != 'references']/ogc:bibitem" mode="contents"/>
 	
 	<!-- <xsl:template match="ogc:references[@id = '_bibliography']/ogc:bibitem/ogc:title"> [position() &gt; 1]-->
-	<xsl:template match="ogc:references[@id != '_normative_references' and  @id != '_references']/ogc:bibitem/ogc:title">
+	<xsl:template match="ogc:references[@id != '_normative_references' and  @id != '_references' and @id != 'references']/ogc:bibitem/ogc:title">
 		<fo:inline font-style="italic">
 			<xsl:apply-templates/>
 		</fo:inline>
@@ -1747,7 +1823,7 @@
 		<xsl:template match="ogc:sourcecode/ogc:name"/>
 	
 	<xsl:template match="ogc:example">
-		<fo:block font-size="10pt" margin-top="12pt" margin-bottom="12pt" font-weight="bold" keep-with-next="always">
+		<fo:block font-size="10pt" text-align="center" margin-top="12pt" margin-bottom="12pt" font-weight="bold" keep-with-next="always">
 			<xsl:variable name="title-example">
 				<xsl:call-template name="getTitle">
 					<xsl:with-param name="name" select="'title-example'"/>
@@ -1906,7 +1982,6 @@
 		</fo:block>
 	</xsl:template>
 	
-	
 	<xsl:template match="ogc:br" priority="2">
 		<!-- <fo:block>&#xA0;</fo:block> -->
 		<xsl:value-of select="$linebreak"/>
@@ -2047,12 +2122,13 @@
 				</xsl:when>
 				<xsl:when test="ancestor::ogc:preface"> <!-- if preface and there is clause(s) -->
 					<xsl:choose>
-						<xsl:when test="$level = 1 and  ..//ogc:clause">0</xsl:when>
+						<xsl:when test="$level = 1"> <!--  and ancestor::ogc:foreword -->
+							<xsl:number format="i" value="$sectionNum"/>
+						</xsl:when>
+						<!-- <xsl:when test="$level = 1 and  ..//ogc:clause">0</xsl:when> -->
 						<xsl:when test="$level &gt;= 2">
-							<xsl:variable name="num">
-								<xsl:number format=".1" level="multiple" count="ogc:clause"/>
-							</xsl:variable>
-							<xsl:value-of select="concat('0', $num)"/>
+							<xsl:number format="i.1" level="multiple" count="ogc:clause"/>
+							<!-- <xsl:value-of select="concat('0', $num)"/> -->
 						</xsl:when>
 						<xsl:otherwise>
 							<!-- z<xsl:value-of select="$sectionNum"/>z -->
@@ -2763,6 +2839,7 @@
 				
 				
 				<fo:inline padding-right="2mm">
+					
 					
 					
 					<xsl:variable name="title-note">
@@ -3840,4 +3917,35 @@
 		</xsl:if>
 	</xsl:template><xsl:template name="getDocumentId">		
 		<xsl:call-template name="getLang"/><xsl:value-of select="//*[local-name() = 'p'][1]/@id"/>
+	</xsl:template><xsl:template name="namespaceCheck">
+		<xsl:variable name="documentNS" select="namespace-uri(/*)"/>
+		<xsl:variable name="XSLNS">			
+			
+			
+			
+			
+			
+			
+				<xsl:value-of select="document('')//*/namespace::ogc"/>
+			
+			
+			
+			
+			
+						
+						
+		</xsl:variable>
+		<xsl:if test="$documentNS != $XSLNS">
+			<xsl:message>[WARNING]: Document namespace: '<xsl:value-of select="$documentNS"/>' doesn't equal to xslt namespace '<xsl:value-of select="$XSLNS"/>'</xsl:message>
+		</xsl:if>
+	</xsl:template><xsl:template name="getLanguage">
+		<xsl:param name="lang"/>		
+		<xsl:variable name="language" select="java:toLowerCase(java:java.lang.String.new($lang))"/>
+		<xsl:choose>
+			<xsl:when test="$language = 'en'">English</xsl:when>
+			<xsl:when test="$language = 'fr'">French</xsl:when>
+			<xsl:when test="$language = 'de'">Deutsch</xsl:when>
+			<xsl:when test="$language = 'cn'">Chinese</xsl:when>
+			<xsl:otherwise><xsl:value-of select="$language"/></xsl:otherwise>
+		</xsl:choose>
 	</xsl:template></xsl:stylesheet>
