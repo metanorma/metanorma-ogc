@@ -185,7 +185,7 @@ RSpec.describe IsoDoc::Ogc do
            <keyword>DEF</keyword>
          </bibdata>
          <preface>
-           <clause id="_" type='keyword'>
+           <clause id="_" type='keywords'>
              <title depth='1'>i.<tab/>Keywords</title>
              <p>The following are keywords to be used by search engines and document catalogues.</p>
              <p>ABC, DEF</p>
@@ -240,7 +240,7 @@ RSpec.describe IsoDoc::Ogc do
          <abstract id='A'>
   <title>i.</title>
 </abstract>
-           <clause id="_" type='keyword'>
+           <clause id="_" type='keywords'>
              <title depth='1'>ii.<tab/>Keywords</title>
              <p>The following are keywords to be used by search engines and document catalogues.</p>
              <p>ABC, DEF</p>

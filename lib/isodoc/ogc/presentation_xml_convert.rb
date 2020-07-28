@@ -54,7 +54,7 @@ module IsoDoc
 
       def keyword_clause(kw)
         <<~END
-        <clause id="_#{UUIDTools::UUID.random_create}" type="keyword">
+        <clause id="_#{UUIDTools::UUID.random_create}" type="keywords">
         <title>Keywords</title>
         <p>The following are keywords to be used by search engines and
             document catalogues.</p>
