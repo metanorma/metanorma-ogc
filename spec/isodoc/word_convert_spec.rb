@@ -69,6 +69,7 @@ FileUtils.rm_f "test.doc"
   <label>/ogc/recommendation/wfs/2</label>
   </recommendation>
          <recommendation id="AB" type="verification">
+         <name>Recommendation Verification 1</name<
   <label>/ogc/recommendation/wfs/3</label>
   </recommendation>
   <figure id="BA"><name>First figure</name></figure>
@@ -268,7 +269,31 @@ FileUtils.rm_f "test.doc"
            <span class='MsoHyperlink'>
              <span lang='EN-GB' xml:lang='EN-GB' style='mso-no-proof:yes'>
                <a href='#_Toc'>
-                 Recommendation 1:
+         Recommendation 1: /ogc/recommendation/wfs/2
+         <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+           <span style='mso-tab-count:1 dotted'>. </span>
+         </span>
+         <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+           <span style='mso-element:field-begin'/>
+         </span>
+         <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'> PAGEREF _Toc \h </span>
+         <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+           <span style='mso-element:field-separator'/>
+         </span>
+         <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>1</span>
+         <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'/>
+         <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
+           <span style='mso-element:field-end'/>
+         </span>
+       </a>
+     </span>
+   </span>
+ </p>
+ <p class='MsoToc1'>
+   <span class='MsoHyperlink'>
+     <span lang='EN-GB' xml:lang='EN-GB' style='mso-no-proof:yes'>
+       <a href='#_Toc'>
+         Recommendation Verification 1: /ogc/recommendation/wfs/3
                  <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
                    <span style='mso-tab-count:1 dotted'>. </span>
                  </span>

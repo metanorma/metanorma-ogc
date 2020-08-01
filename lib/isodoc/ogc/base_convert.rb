@@ -1,5 +1,4 @@
 require "isodoc"
-require_relative "reqt"
 require_relative "biblio"
 require_relative "sections"
 require "fileutils"
@@ -8,29 +7,9 @@ module IsoDoc
   module Ogc
     module BaseConvert
       def cleanup(docxml)
-        requirement_table_cleanup(docxml)
+        #requirement_table_cleanup(docxml)
         super
         term_cleanup(docxml)
-      end
-
-      # table nested in table: merge label and caption into a single row
-      def requirement_table_cleanup(docxml)
-        docxml.xpath("//table[@class = 'recommendclass']//table").each do |t|
-          x = t.at("./thead") and x.replace(x.children)
-          x = t.at("./tbody") and x.replace(x.children)
-          x = t.at("./tfoot") and x.replace(x.children)
-          if x = t.at("./tr/th[@colspan = '2']") and
-              y = t.at("./tr/td[@colspan = '2']")
-            x["colspan"] = "1"
-            y["colspan"] = "1"
-            x.name = "td"
-            p = x.at("./p[@class = 'RecommendationTitle']") and
-              p.delete("class")
-            x << y.dup
-            y.parent.remove
-          end
-          t.replace(t.children)
-        end
       end
 
       def term_cleanup(docxml)
@@ -73,6 +52,31 @@ module IsoDoc
         clause isoxml, out
         annex isoxml, out
         bibliography isoxml, out
+      end
+
+      def table_attrs(node)
+        ret = super
+        %w(recommendation requirement permission).include?(node["class"]) and
+          ret = ret.merge(class: node["type"], style:
+                          "border-collapse:collapse;border-spacing:0;"\
+                          "#{keep_style(node)}")
+        ret
+      end
+
+      def make_tr_attr(td, row, totalrows, header)
+        ret = super
+        if td.at("./ancestor::xmlns:table[@class = 'recommendation'] | "\
+            "./ancestor::xmlns:table[@class = 'requirement'] | "\
+            "./ancestor::xmlns:table[@class = 'permission']")
+          ret[:style] = "vertical-align:top;"
+          ret[:class] = "recommend"
+        end
+        ret
+      end
+
+      def para_class(node)
+        return node["class"] if node["class"]
+        super
       end
     end
   end
