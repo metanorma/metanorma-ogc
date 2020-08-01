@@ -12,7 +12,7 @@ module IsoDoc
       end
 
       def recommendation_class(node)
-        %w(verification abstracttest).include?(node["type"]) ?
+        node["type"] == "recommendtest" ?
           "RecommendationTestTitle" : "RecommendationTitle"
       end
 

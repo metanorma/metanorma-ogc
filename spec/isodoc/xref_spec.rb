@@ -332,7 +332,7 @@ OUTPUT
                <thead>
                  <tr>
                    <th scope='colgroup' colspan='2'>
-                     <p class='RecommendationTitle'>Requirement Test 1:</p>
+                     <p class='RecommendationTestTitle'>Requirement Test 1:</p>
                    </th>
                  </tr>
                </thead>
@@ -352,7 +352,7 @@ OUTPUT
                  <thead>
                    <tr>
                      <th scope='colgroup' colspan='2'>
-                       <p class='RecommendationTitle'>Requirement Test:</p>
+                       <p class='RecommendationTestTitle'>Requirement Test:</p>
                      </th>
                    </tr>
                  </thead>
@@ -376,7 +376,7 @@ OUTPUT
                <thead>
                  <tr>
                    <th scope='colgroup' colspan='2'>
-                     <p class='RecommendationTitle'>Requirement Test 2:</p>
+                     <p class='RecommendationTestTitle'>Requirement Test 2:</p>
                    </th>
                  </tr>
                </thead>
@@ -405,7 +405,7 @@ OUTPUT
                  <thead>
                    <tr>
                      <th scope='colgroup' colspan='2'>
-                       <p class='RecommendationTitle'>Requirement Test 3:</p>
+                       <p class='RecommendationTestTitle'>Requirement Test 3:</p>
                      </th>
                    </tr>
                  </thead>
@@ -419,7 +419,7 @@ OUTPUT
                  <thead>
                    <tr>
                      <th scope='colgroup' colspan='2'>
-                       <p class='RecommendationTitle'>Requirement Test 4:</p>
+                       <p class='RecommendationTestTitle'>Requirement Test 4:</p>
                      </th>
                    </tr>
                  </thead>
@@ -448,7 +448,7 @@ OUTPUT
                <thead>
                  <tr>
                    <th scope='colgroup' colspan='2'>
-                     <p class='RecommendationTitle'>Requirement Test A.1:</p>
+                     <p class='RecommendationTestTitle'>Requirement Test A.1:</p>
                    </th>
                  </tr>
                </thead>
@@ -465,7 +465,7 @@ OUTPUT
                <thead>
                  <tr>
                    <th scope='colgroup' colspan='2'>
-                     <p class='RecommendationTitle'>Requirement Test:</p>
+                     <p class='RecommendationTestTitle'>Requirement Test:</p>
                    </th>
                  </tr>
                </thead>
@@ -479,7 +479,7 @@ OUTPUT
                <thead>
                  <tr>
                    <th scope='colgroup' colspan='2'>
-                     <p class='RecommendationTitle'>Requirement Test A.2:</p>
+                     <p class='RecommendationTestTitle'>Requirement Test A.2:</p>
                    </th>
                  </tr>
                </thead>
@@ -827,7 +827,7 @@ OUTPUT
                <thead>
                  <tr>
                    <th scope='colgroup' colspan='2'>
-                     <p class='RecommendationTitle'>Recommendation Test 1:</p>
+                     <p class='RecommendationTestTitle'>Recommendation Test 1:</p>
                    </th>
                  </tr>
                </thead>
@@ -847,7 +847,7 @@ OUTPUT
                  <thead>
                    <tr>
                      <th scope='colgroup' colspan='2'>
-                       <p class='RecommendationTitle'>Recommendation Test:</p>
+                       <p class='RecommendationTestTitle'>Recommendation Test:</p>
                      </th>
                    </tr>
                  </thead>
@@ -871,7 +871,7 @@ OUTPUT
                <thead>
                  <tr>
                    <th scope='colgroup' colspan='2'>
-                     <p class='RecommendationTitle'>Recommendation Test 2:</p>
+                     <p class='RecommendationTestTitle'>Recommendation Test 2:</p>
                    </th>
                  </tr>
                </thead>
@@ -900,7 +900,7 @@ OUTPUT
                  <thead>
                    <tr>
                      <th scope='colgroup' colspan='2'>
-                       <p class='RecommendationTitle'>Recommendation Test 3:</p>
+                       <p class='RecommendationTestTitle'>Recommendation Test 3:</p>
                      </th>
                    </tr>
                  </thead>
@@ -914,7 +914,7 @@ OUTPUT
                  <thead>
                    <tr>
                      <th scope='colgroup' colspan='2'>
-                       <p class='RecommendationTitle'>Recommendation Test 4:</p>
+                       <p class='RecommendationTestTitle'>Recommendation Test 4:</p>
                      </th>
                    </tr>
                  </thead>
@@ -943,7 +943,7 @@ OUTPUT
                <thead>
                  <tr>
                    <th scope='colgroup' colspan='2'>
-                     <p class='RecommendationTitle'>Recommendation Test A.1:</p>
+                     <p class='RecommendationTestTitle'>Recommendation Test A.1:</p>
                    </th>
                  </tr>
                </thead>
@@ -960,7 +960,7 @@ OUTPUT
                <thead>
                  <tr>
                    <th scope='colgroup' colspan='2'>
-                     <p class='RecommendationTitle'>Recommendation Test:</p>
+                     <p class='RecommendationTestTitle'>Recommendation Test:</p>
                    </th>
                  </tr>
                </thead>
@@ -974,7 +974,7 @@ OUTPUT
                <thead>
                  <tr>
                    <th scope='colgroup' colspan='2'>
-                     <p class='RecommendationTitle'>Recommendation Test A.2:</p>
+                     <p class='RecommendationTestTitle'>Recommendation Test A.2:</p>
                    </th>
                  </tr>
                </thead>
@@ -1321,7 +1321,7 @@ OUTPUT
                <thead>
                  <tr>
                    <th scope='colgroup' colspan='2'>
-                     <p class='RecommendationTitle'>Permission Test 1:</p>
+                     <p class='RecommendationTestTitle'>Permission Test 1:</p>
                    </th>
                  </tr>
                </thead>
@@ -1341,7 +1341,7 @@ OUTPUT
                  <thead>
                    <tr>
                      <th scope='colgroup' colspan='2'>
-                       <p class='RecommendationTitle'>Permission Test:</p>
+                       <p class='RecommendationTestTitle'>Permission Test:</p>
                      </th>
                    </tr>
                  </thead>
@@ -1365,7 +1365,7 @@ OUTPUT
                <thead>
                  <tr>
                    <th scope='colgroup' colspan='2'>
-                     <p class='RecommendationTitle'>Permission Test 2:</p>
+                     <p class='RecommendationTestTitle'>Permission Test 2:</p>
                    </th>
                  </tr>
                </thead>
@@ -1394,7 +1394,7 @@ OUTPUT
                  <thead>
                    <tr>
                      <th scope='colgroup' colspan='2'>
-                       <p class='RecommendationTitle'>Permission Test 3:</p>
+                       <p class='RecommendationTestTitle'>Permission Test 3:</p>
                      </th>
                    </tr>
                  </thead>
@@ -1408,7 +1408,7 @@ OUTPUT
                  <thead>
                    <tr>
                      <th scope='colgroup' colspan='2'>
-                       <p class='RecommendationTitle'>Permission Test 4:</p>
+                       <p class='RecommendationTestTitle'>Permission Test 4:</p>
                      </th>
                    </tr>
                  </thead>
@@ -1437,7 +1437,7 @@ OUTPUT
                <thead>
                  <tr>
                    <th scope='colgroup' colspan='2'>
-                     <p class='RecommendationTitle'>Permission Test A.1:</p>
+                     <p class='RecommendationTestTitle'>Permission Test A.1:</p>
                    </th>
                  </tr>
                </thead>
@@ -1454,7 +1454,7 @@ OUTPUT
                <thead>
                  <tr>
                    <th scope='colgroup' colspan='2'>
-                     <p class='RecommendationTitle'>Permission Test:</p>
+                     <p class='RecommendationTestTitle'>Permission Test:</p>
                    </th>
                  </tr>
                </thead>
@@ -1468,7 +1468,7 @@ OUTPUT
                <thead>
                  <tr>
                    <th scope='colgroup' colspan='2'>
-                     <p class='RecommendationTitle'>Permission Test A.2:</p>
+                     <p class='RecommendationTestTitle'>Permission Test A.2:</p>
                    </th>
                  </tr>
                </thead>
@@ -1574,7 +1574,7 @@ end
                        <thead>
                          <tr>
                            <th scope='colgroup' colspan='2'>
-                             <p class='RecommendationTitle'>Permission Test 1-1:</p>
+                             <p class='RecommendationTestTitle'>Permission Test 1-1:</p>
                            </th>
                          </tr>
                        </thead>
@@ -1631,7 +1631,7 @@ end
                        <thead>
                          <tr>
                            <th scope='colgroup' colspan='2'>
-                             <p class='RecommendationTitle'>Permission Test 1-2:</p>
+                             <p class='RecommendationTestTitle'>Permission Test 1-2:</p>
                            </th>
                          </tr>
                        </thead>
@@ -1669,7 +1669,7 @@ end
              <thead>
                <tr>
                  <th scope='colgroup' colspan='2'>
-                   <p class='RecommendationTitle'>Permission Test A.1:</p>
+                   <p class='RecommendationTestTitle'>Permission Test A.1:</p>
                  </th>
                </tr>
              </thead>
@@ -1691,7 +1691,7 @@ end
                              <thead>
                                <tr>
                                  <th scope='colgroup' colspan='2'>
-                                   <p class='RecommendationTitle'>Permission Test A.1-1-1:</p>
+                                   <p class='RecommendationTestTitle'>Permission Test A.1-1-1:</p>
                                  </th>
                                </tr>
                              </thead>
@@ -1737,7 +1737,7 @@ end
                      <thead>
                        <tr>
                          <th scope='colgroup' colspan='2'>
-                           <p class='RecommendationTitle'>Permission Test A.1-1:</p>
+                           <p class='RecommendationTestTitle'>Permission Test A.1-1:</p>
                          </th>
                        </tr>
                      </thead>
@@ -1850,7 +1850,7 @@ end
                <thead>
                  <tr>
                    <th scope='colgroup' colspan='2'>
-                     <p class='RecommendationTitle'>Abstract Test 1:</p>
+                     <p class='RecommendationTestTitle'>Abstract Test 1:</p>
                    </th>
                  </tr>
                </thead>
@@ -1870,7 +1870,7 @@ end
                  <thead>
                    <tr>
                      <th scope='colgroup' colspan='2'>
-                       <p class='RecommendationTitle'>Abstract Test:</p>
+                       <p class='RecommendationTestTitle'>Abstract Test:</p>
                      </th>
                    </tr>
                  </thead>
@@ -1894,7 +1894,7 @@ end
                <thead>
                  <tr>
                    <th scope='colgroup' colspan='2'>
-                     <p class='RecommendationTitle'>Abstract Test 2:</p>
+                     <p class='RecommendationTestTitle'>Abstract Test 2:</p>
                    </th>
                  </tr>
                </thead>
@@ -1923,7 +1923,7 @@ end
                  <thead>
                    <tr>
                      <th scope='colgroup' colspan='2'>
-                       <p class='RecommendationTitle'>Abstract Test 3:</p>
+                       <p class='RecommendationTestTitle'>Abstract Test 3:</p>
                      </th>
                    </tr>
                  </thead>
@@ -1937,7 +1937,7 @@ end
                  <thead>
                    <tr>
                      <th scope='colgroup' colspan='2'>
-                       <p class='RecommendationTitle'>Abstract Test 4:</p>
+                       <p class='RecommendationTestTitle'>Abstract Test 4:</p>
                      </th>
                    </tr>
                  </thead>
@@ -1966,7 +1966,7 @@ end
                <thead>
                  <tr>
                    <th scope='colgroup' colspan='2'>
-                     <p class='RecommendationTitle'>Abstract Test A.1:</p>
+                     <p class='RecommendationTestTitle'>Abstract Test A.1:</p>
                    </th>
                  </tr>
                </thead>
@@ -1983,7 +1983,7 @@ end
                <thead>
                  <tr>
                    <th scope='colgroup' colspan='2'>
-                     <p class='RecommendationTitle'>Abstract Test:</p>
+                     <p class='RecommendationTestTitle'>Abstract Test:</p>
                    </th>
                  </tr>
                </thead>
@@ -1997,7 +1997,7 @@ end
                <thead>
                  <tr>
                    <th scope='colgroup' colspan='2'>
-                     <p class='RecommendationTitle'>Abstract Test A.2:</p>
+                     <p class='RecommendationTestTitle'>Abstract Test A.2:</p>
                    </th>
                  </tr>
                </thead>

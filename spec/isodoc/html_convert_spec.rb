@@ -1407,7 +1407,7 @@ OUTPUT
          
          
          
-       <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Permission Test 1:</p></th></tr></thead><tbody><tr><td colspan="2"><p>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Subject</td><td>user</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td>Control-class</td><td>Technical</td></tr><tr><td>Priority</td><td>P0</td></tr><tr><td>Family</td><td>System and Communications Protection</td></tr><tr><td>Family</td><td>System and Communications Protocols</td></tr><tr><td colspan="2">
+       <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTestTitle">Permission Test 1:</p></th></tr></thead><tbody><tr><td colspan="2"><p>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Subject</td><td>user</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td>Control-class</td><td>Technical</td></tr><tr><td>Priority</td><td>P0</td></tr><tr><td>Family</td><td>System and Communications Protection</td></tr><tr><td>Family</td><td>System and Communications Protocols</td></tr><tr><td colspan="2">
            <p id="_">I recommend <em>this</em>.</p>
          </td></tr><tr><td>A</td><td>B</td></tr><tr><td>C</td><td>D</td></tr><tr><td colspan="2">
            <p id="_">The measurement target shall be measured as:</p>
@@ -1435,7 +1435,7 @@ OUTPUT
                <thead>
                  <tr>
                    <th colspan='2' style='vertical-align:top;' scope='colgroup' class='recommend'>
-                     <p class='RecommendationTitle'>Permission Test 1:</p>
+                     <p class='RecommendationTestTitle'>Permission Test 1:</p>
                    </th>
                  </tr>
                </thead>
@@ -1539,7 +1539,7 @@ word = <<~OUTPUT
                  <thead>
                    <tr style='background:#C9C9C9;'>
                      <th colspan='2' style='vertical-align:top;' class='recommend'>
-                       <p class='RecommendationTitle'>Permission Test 1:</p>
+                       <p class='RecommendationTestTitle'>Permission Test 1:</p>
                      </th>
                    </tr>
                  </thead>
@@ -1740,7 +1740,7 @@ OUTPUT
          
          
          
-       <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Abstract Test 1:</p></th></tr></thead><tbody><tr><td colspan="2"><p>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Subject</td><td>user</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td>Control-class</td><td>Technical</td></tr><tr><td>Priority</td><td>P0</td></tr><tr><td>Family</td><td>System and Communications Protection</td></tr><tr><td>Family</td><td>System and Communications Protocols</td></tr><tr><td colspan="2">
+       <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTestTitle">Abstract Test 1:</p></th></tr></thead><tbody><tr><td colspan="2"><p>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Subject</td><td>user</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td>Control-class</td><td>Technical</td></tr><tr><td>Priority</td><td>P0</td></tr><tr><td>Family</td><td>System and Communications Protection</td></tr><tr><td>Family</td><td>System and Communications Protocols</td></tr><tr><td colspan="2">
            <p id="_">I recommend <em>this</em>.</p>
          </td></tr><tr><td>A</td><td>B</td></tr><tr><td>C</td><td>D</td></tr><tr><td colspan="2">
            <p id="_">The measurement target shall be measured as:</p>
@@ -1768,7 +1768,7 @@ OUTPUT
                <thead>
                  <tr>
                    <th colspan='2' style='vertical-align:top;' scope='colgroup' class='recommend'>
-                     <p class='RecommendationTitle'>Abstract Test 1:</p>
+                     <p class='RecommendationTestTitle'>Abstract Test 1:</p>
                    </th>
                  </tr>
                </thead>
@@ -1872,7 +1872,7 @@ word = <<~OUTPUT
                  <thead>
                    <tr style='background:#C9C9C9;'>
                      <th colspan='2' style='vertical-align:top;' class='recommend'>
-                       <p class='RecommendationTitle'>Abstract Test 1:</p>
+                       <p class='RecommendationTestTitle'>Abstract Test 1:</p>
                      </th>
                    </tr>
                  </thead>
