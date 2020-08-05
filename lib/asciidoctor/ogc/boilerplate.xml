@@ -3,16 +3,16 @@
     <clause>
       <title>Copyright notice</title>
 
-      <p>Copyright
+      <p align="center">Copyright
         © {{ docyear }} Open Geospatial Consortium<br/>
         To obtain additional rights of use, visit 
         <link target="http://www.opengeospatial.org/legal/">http://www.opengeospatial.org/legal/</link></p>
     </clause>
     <clause>
       <title>Note</title>
-      <p>Attention is drawn to the possibility that some of the elements of this document may be the subject of patent rights. The Open Geospatial Consortium shall not be held responsible for identifying any or all such patent rights.</p>
+      <p align="left">Attention is drawn to the possibility that some of the elements of this document may be the subject of patent rights. The Open Geospatial Consortium shall not be held responsible for identifying any or all such patent rights.</p>
 
-      <p>Recipients of this document are requested to submit, with their comments, notification of any relevant patent claims or other intellectual property rights of which they may be aware that might be infringed by any implementation of the standard set forth in this document, and to provide supporting documentation.</p>
+      <p align="left">Recipients of this document are requested to submit, with their comments, notification of any relevant patent claims or other intellectual property rights of which they may be aware that might be infringed by any implementation of the standard set forth in this document, and to provide supporting documentation.</p>
     </clause>
   </copyright-statement>
   <license-statement>
