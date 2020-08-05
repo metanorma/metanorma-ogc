@@ -37,6 +37,19 @@ module IsoDoc
         }
       end
 
+      def convert1(docxml, filename, dir)
+        if docxml&.at(ns('//bibdata/ext/doctype'))&.text == "white-paper"
+          @wordstylesheet_name = html_doc_path("wordstyle_wp.scss")
+          @standardstylesheet_name = html_doc_path("ogc_wp.scss")
+          @wordcoverpage = html_doc_path("word_ogc_titlepage_wp.html")
+          @wordintropage = html_doc_path("word_ogc_intro_wp.html")
+          @header = html_doc_path("header_wp.html")
+          options[:bodyfont] = '"Arial",sans-serif'
+          options[:headerfont] = '"Segoe UI Light",sans-serif'
+        end
+        super
+      end
+
       def make_body(xml, docxml)
         body_attr = { lang: "EN-US", link: "blue", vlink: "#954F72" }
         xml.body **body_attr do |body|
