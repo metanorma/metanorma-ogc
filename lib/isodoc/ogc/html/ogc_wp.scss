@@ -333,7 +333,7 @@ p.zzContents, li.zzContents, div.zzContents, p.TOCTitle
 	mso-padding-alt:0cm 0cm 1.0pt 0cm;
 	font-size:26.0pt;
 	mso-bidi-font-size:16.0pt;
-	font-family:"Lato";
+	font-family:$headerfont;
 	mso-fareast-font-family:"MS Gothic";
 	mso-fareast-theme-font:major-fareast;
 	mso-bidi-font-family:"Times New Roman";
@@ -717,6 +717,7 @@ table.dl
 	margin-left:20.15pt;}
 div.license, p.license {
   font-size:8.0pt;
+font-family:$bodyfont;
 }
 div.warning p {
   margin-bottom:6.0pt;border:none;mso-border-alt:solid windowtext .5pt;

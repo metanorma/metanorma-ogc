@@ -22,6 +22,66 @@
 
 </div>
 
+<p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
+style='mso-no-proof:yes;font-size:10.0pt'>Submission Date: {{ receiveddate }}</span></p>
+
+<p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
+style='mso-no-proof:yes;font-size:10.0pt'>Approval Date: {{ issueddate }}</span></p>
+
+<p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
+style='mso-no-proof:yes;font-size:10.0pt'>Publication Date: {{ publisheddate }}</span></p>
+
+<p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
+style='mso-no-proof:yes;font-size:10.0pt'>External identifier of this OGC&#xAE; document: {{ externalid }}</span></p>
+
+<p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
+style='mso-no-proof:yes;font-size:10.0pt'>Internal reference number of this OGC&#xAE; document: {{ docnumber }}</span></p>
+
+{% if url or html %}
+<p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
+                                                                  style='mso-no-proof:yes;font-size:10.0pt'>URL for this OGC&#xAE; document: {{ url or html }}</span></p>
+{% endif %}
+
+{% if edition %}
+<p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
+style='mso-no-proof:yes;font-size:10.0pt'>Version: {{ edition }}</span></p>
+{% endif %}
+
+<p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
+style='mso-no-proof:yes;font-size:10.0pt'>Category: {{ doctype }}</span></p>
+
+{% if editors %}
+<p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
+style='mso-no-proof:yes;font-size:10.0pt'>Editor: {{ editors | join: ", " }}</span></p>
+{% endif %}
+
+<div style="margin-top:1.0cm;">
+
+<div id="boilerplate-copyright-destination"/>
+        <div class="warning">
+      <div id="boilerplate-legal-destination"/>
+      </div>
+</div>
+
+<v:shape id="Picture_x0020_4" o:spid="_x0000_s1026" type="#_x0000_t75"
+ alt="A close up of a sign&#10;&#10;Description automatically generated"
+ style='position:absolute;margin-left:0;margin-top:1.0cm;width:163.05pt;
+ height:70.5pt;z-index:-251658241;visibility:visible;mso-wrap-style:square;
+ mso-width-percent:0;mso-height-percent:0;mso-wrap-distance-left:9pt;
+ mso-wrap-distance-top:0;mso-wrap-distance-right:9pt;
+ mso-wrap-distance-bottom:0;mso-position-horizontal:center;
+ mso-position-horizontal-relative:margin;mso-position-vertical:absolute;
+ mso-position-vertical-relative:text;mso-width-percent:0;mso-height-percent:0;
+ mso-width-relative:page;mso-height-relative:page'>
+<v:imagedata src="{{ logo_word }}"
+  o:title="A close up of a sign&#10;&#10;Description automatically generated"
+  cropbottom="10070f"/>
+ <w:wrap anchorx="margin"/>
+</v:shape>
+
+
+
+<!--
 <p class="MsoHeading7"><v:shapetype id="_x0000_t202"
  coordsize="21600,21600" o:spt="202" path="m,l,21600r21600,l21600,xe">
  <v:stroke joinstyle="miter"/>
@@ -111,4 +171,5 @@ cmV2LnhtbFBLBQYAAAAABAAEAPMAAACJBQAAAAA=
 </v:shape>
 <span lang="EN-US"><br clear="all" style='mso-special-character:line-break;page-break-before:always'/></span>
       </p> 
+-->
 

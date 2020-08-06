@@ -1,5 +1,7 @@
 require "spec_helper"
 
+logoloc = File.expand_path(File.join(File.dirname(__FILE__), "..", "..", "lib", "isodoc", "ogc", "html"))
+
 RSpec.describe IsoDoc::Ogc do
 
   it "processes default metadata" do
@@ -114,6 +116,7 @@ RSpec.describe IsoDoc::Ogc do
 :implementeddate=>"XXX",
 :issueddate=>"2001-01-01",
 :keywords=>["A", "B"],
+:logo_word=>"#{File.join(logoloc, "logo.png")}",
 :obsoleteddate=>"XXX",
 :pdf=>"http://www.example.com/pdf",
 :publisheddate=>"2002-01-01",
