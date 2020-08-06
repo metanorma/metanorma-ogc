@@ -355,7 +355,7 @@ h1
 	mso-outline-level:1;
 	mso-list:l1 level1 lfo6;
 	mso-hyphenate:none;
-	tab-stops:20.0pt list 21.6pt left 28.0pt;
+	tab-stops:0.7cm;
 	font-size:13.0pt;
 	mso-bidi-font-size:11.0pt;
 	font-family:$headerfont;
@@ -384,7 +384,7 @@ h1.Annex
 	mso-outline-level:1;
 	mso-list:l1 level1 lfo6;
 	mso-hyphenate:none;
-	tab-stops:20.0pt list 21.6pt left 28.0pt;
+	tab-stops:1.0cm;
 	font-size:12.0pt;
 	mso-bidi-font-size:11.0pt;
 	font-family:$headerfont;
@@ -411,7 +411,7 @@ h1.Annex
         page-break-after:avoid;
         mso-outline-level:2;
         mso-hyphenate:none;
-        tab-stops:27.0pt 35.0pt;
+        tab-stops:1.0cm;
         font-size:12.0pt;
         font-weight:bold;
         mso-bidi-font-size:11.0pt;
@@ -439,7 +439,7 @@ h2
 	mso-outline-level:2;
 	mso-list:l1 level2 lfo6;
 	mso-hyphenate:none;
-	tab-stops:27.0pt 35.0pt;
+	tab-stops:1.0cm;
 	font-size:12.0pt;
 	mso-bidi-font-size:11.0pt;
 	font-family:$headerfont;
@@ -466,7 +466,7 @@ h3
 	mso-outline-level:3;
 	mso-list:l1 level3 lfo6;
 	mso-hyphenate:none;
-	tab-stops:list 36.0pt left 44.0pt;
+	tab-stops:1.3cm;
 	font-size:11.0pt;
 	font-family:$headerfont;
         color:#0E1A85;
@@ -492,7 +492,7 @@ h4
 	mso-outline-level:4;
 	mso-list:l1 level4 lfo6;
 	mso-hyphenate:none;
-	tab-stops:51.05pt 57.0pt 68.0pt;
+	tab-stops:1.6cm;
 	font-size:11.0pt;
 	font-family:$headerfont;
         color:#0E1A85;
@@ -518,7 +518,7 @@ h5
 	mso-outline-level:5;
 	mso-list:l1 level5 lfo6;
 	mso-hyphenate:none;
-	tab-stops:51.05pt list 54.0pt;
+	tab-stops:1.9cm;
 	font-size:11.0pt;
 	font-family:$headerfont;
 	mso-fareast-font-family:$headerfont;
@@ -544,7 +544,7 @@ h6
 	mso-outline-level:6;
 	mso-list:l1 level6 lfo6;
 	mso-hyphenate:none;
-	tab-stops:51.05pt list 72.0pt;
+	tab-stops:2.2cm;
 	font-size:11.0pt;
 	font-family:$headerfont;
         color:#0E1A85;
