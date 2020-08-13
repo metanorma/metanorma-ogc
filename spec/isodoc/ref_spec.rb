@@ -84,6 +84,15 @@ RSpec.describe IsoDoc::Ogc do
   <title format="text/plain">Instruments for analytical laboratory use</title>
   <docidentifier type="ISSN">ISSN</docidentifier>
   <docidentifier type="metanorma">[2]</docidentifier>
+  <uri>http://www.example.com</uri>
+  <contributor>
+  <role type='editor'/>
+  <person>
+    <name>
+      <completename>Euclid</completename>
+    </name>
+  </person>
+</contributor>
   <contributor>
     <role type="publisher"/>
     <organization>
@@ -108,6 +117,37 @@ RSpec.describe IsoDoc::Ogc do
   <docidentifier type="metanorma">[10]</docidentifier>
 </bibitem>
 <bibitem id="ref11">
+<contributor>
+            <role type="author"/>
+            <person>
+              <name><completename>Fred Johnson</completename></name>
+            </person>
+          </contributor>
+        <contributor>
+            <role type="author"/>
+            <person>
+              <name>
+              <surname>Jackson</surname>
+              <initial>K.G.</initial>
+              </name>
+            </person>
+          </contributor>
+        <contributor>
+            <role type="author"/>
+            <person>
+              <name>
+              <surname>Nixon</surname>
+              <forename>Richard</forename>
+              <forename>Milhouse</forename>
+              </name>
+            </person>
+          </contributor>
+          <contributor>
+            <role type="editor"/>
+            <person>
+              <name><completename>Euclid</completename></name>
+            </person>
+          </contributor>
   <title>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</title>
   <docidentifier type="IETF">RFC 10</docidentifier>
 </bibitem>
@@ -203,6 +243,13 @@ RSpec.describe IsoDoc::Ogc do
           <title format="text/plain">Instruments for analytical laboratory use</title>
           <docidentifier type="ISSN">ISSN</docidentifier>
           <docidentifier type="metanorma">[2]</docidentifier>
+  <uri>http://www.example.com</uri>
+          <contributor>
+            <role type="editor"/>
+            <person>
+              <name><completename>Euclid</completename></name>
+            </person>
+          </contributor>
           <contributor>
             <role type="publisher"/>
             <organization>
@@ -227,6 +274,39 @@ RSpec.describe IsoDoc::Ogc do
           <docidentifier type="metanorma">[10]</docidentifier>
         </bibitem>
         <bibitem id="ref11">
+        <contributor>
+            <role type="author"/>
+            <person>
+              <name><completename>Fred Johnson</completename></name>
+            </person>
+          </contributor>
+        <contributor>
+            <role type="author"/>
+            <person>
+              <name>
+              <surname>Jackson</surname>
+              <initial>K.G.</initial>
+              </name>
+            </person>
+          </contributor>
+        <contributor>
+            <role type="author"/>
+            <person>
+              <name>
+              <surname>Nixon</surname>
+              <forename>Richard</forename>
+              <forename>Milhouse</forename>
+              </name>
+            </person>
+          </contributor>
+          <contributor>
+            <role type="editor"/>
+            <person>
+              <name><completename>Euclid</completename></name>
+            </person>
+          </contributor>
+
+
           <title>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</title>
           <docidentifier type="IETF">RFC 10</docidentifier>
         </bibitem>
@@ -272,12 +352,12 @@ OUTPUT
              <div><h1 class="Section3">Bibliography</h1>
 
        <p id="ISBN" class="Biblio">[1]&#160; ISBN: ISBN ISBN, <i>Chemicals for analytical laboratory use</i>. <span>ISBN</span></p>
-       <p id="ISSN" class="Biblio">[2]&#160; ISSN: ISSN ISSN, <i>Instruments for analytical laboratory use</i>. <span>ISSN</span></p>
+       <p id="ISSN" class="Biblio">[2]&#160; Euclid: ISSN ISSN, <i>Instruments for analytical laboratory use</i>. <span>ISSN</span> <a href="http://www.example.com">http://www.example.com</a></p>
        <div class="Note"><p><span class="note_label">NOTE</span>&#160; This is an annotation of document ISSN.</p></div>
        <div class="Note"><p><span class="note_label">NOTE</span>&#160; This is another annotation of document ISSN.</p></div>
        <p id="ISO3696" class="Biblio">[3]&#160; International Organization for Standardization: ISO 3696, <i>Water for analytical laboratory use</i>. <span>International Organization for Standardization</span></p>
        <p id="ref10" class="Biblio">[10]&#160; <span style="font-variant:small-caps;">Standard No I.C.C 167</span>. <i>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</i> (see <a href="http://www.icc.or.at">http://www.icc.or.at</a>)</p>
-       <p id="ref11" class="Biblio">[5]&#160; IETF RFC 10, <i>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</i>. </p>
+       <p id="ref11" class="Biblio">[5]&#160; Fred Johnson, Jackson KG, Nixon RM: IETF RFC 10, <i>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</i>. </p>
        <p id="ref12" class="Biblio">[6]&#160; CitationWorks. 2019. <i>How to cite a reference</i>.</p>
 
 
