@@ -17,6 +17,9 @@ RSpec.describe IsoDoc::Ogc do
   <eref bibitemid="ref10"/>
   <eref bibitemid="ref12"/>
   <eref bibitemid="zip_ffs"/>
+  <eref bibitemid="ogc1"/>
+  <eref bibitemid="ogc2"/>
+  <eref bibitemid="ogc3"/>
   </p>
     </foreword></preface>
     <bibliography><references id="_normative_references" obligation="informative" normative="true"><title>Normative References</title>
@@ -66,6 +69,164 @@ RSpec.describe IsoDoc::Ogc do
 </bibitem>
 <note><p>This is an annotation of ISO 20483:2013-2014</p></note>
     <bibitem id="zip_ffs"><formattedref format="application/x-isodoc+xml">Title 5</formattedref><docidentifier type="metanorma">[5]</docidentifier></bibitem>
+
+
+
+<bibitem id="ogc1">
+  <title type="title-main" format="text/plain" language="en" script="Latn">Development of Spatial Data Infrastructures for Marine Data Management</title>
+  <uri type="obp">https://portal.opengeospatial.org/files/?artifact_id=88037</uri>
+  <docidentifier type="OGC">19-025r1</docidentifier>
+  <date type="published">
+    <on>2019</on>
+  </date>
+  <contributor>
+    <role type="author"/>
+    <person>
+      <name>
+        <completename>Robert Thomas</completename>
+      </name>
+    </person>
+  </contributor>
+  <contributor>
+    <role type="author"/>
+    <person>
+      <name>
+        <completename>Terry Idol</completename>
+      </name>
+    </person>
+  </contributor>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <name>Open Geospatial Consortium</name>
+    </organization>
+  </contributor>
+  <edition>1</edition>
+  <language>en</language>
+  <script>Latn</script>
+  <ext>
+    <doctype>engineering-report</doctype>
+    <editorialgroup>
+      <committee>technical</committee>
+      <subcommittee number="11" type="OGC">Subcommittee</subcommittee>
+      <workgroup number="22" type="WG">Working</workgroup>
+    </editorialgroup>
+  </ext>
+</bibitem>
+<bibitem id="ogc2">
+<title language="en" format="text/plain">Conformance Test Guidelines for OpenGIS Catalog Services Specification for CORBA</title>
+<docidentifier type="OGC">00-027</docidentifier>
+<docnumber>00-027</docnumber>
+<date type="2000-05-11">
+<on/>
+</date>
+<contributor>
+<role type="author"/>
+<organization>
+<name>Geodan Holding bv, the Netherlands</name>
+</organization>
+</contributor>
+<contributor>
+<role type="editor"/>
+<person>
+<name>
+<completename>Laura Diaz</completename>
+</name>
+</person>
+</contributor>
+<contributor>
+<role type="editor"/>
+<person>
+<name>
+<completename>Bart van der Eijnden</completename>
+</name>
+</person>
+</contributor>
+<contributor>
+<role type="editor"/>
+<person>
+<name>
+<completename>Barend Gehrels</completename>
+</name>
+</person>
+</contributor>
+<contributor>
+<role type="publisher"/>
+<organization>
+<name>OGC</name>
+</organization>
+</contributor>
+<edition>1.0</edition>
+<language>en</language>
+<script>Latn</script>
+<status>
+<stage>published</stage>
+</status>
+<copyright>
+<from>2020</from>
+<owner>
+<organization>
+<name>OGC</name>
+</organization>
+</owner>
+</copyright>
+<ext>
+<doctype>test-suite</doctype>
+<editorialgroup>
+<committee>technical</committee>
+</editorialgroup>
+</ext>
+</bibitem>
+<bibitem id="ogc3">
+<title language="en" format="text/plain">Technical Committee Policies and Procedures</title>
+<docidentifier type="OGC">05-020r27</docidentifier>
+<docnumber>05-020r27</docnumber>
+<date type="published">
+<on>2019-06-03</on>
+</date>
+<date type="issued">
+<on>2019-05-29</on>
+</date>
+<date type="received">
+<on>2019-03-28</on>
+</date>
+<contributor>
+<role type="editor"/>
+<person>
+<name>
+<completename>Scott Simmons</completename>
+</name>
+</person>
+</contributor>
+<contributor>
+<role type="publisher"/>
+<organization>
+<name>OGC</name>
+</organization>
+</contributor>
+<edition>27.0</edition>
+<language>en</language>
+<script>Latn</script>
+<status>
+<stage>draft</stage>
+</status>
+<copyright>
+<from>2019</from>
+<owner>
+<organization>
+<name>OGC</name>
+</organization>
+</owner>
+</copyright>
+<ext>
+<doctype>policy</doctype>
+<editorialgroup>
+<committee>Technical Committee</committee>
+</editorialgroup>
+</ext>
+</bibitem>
+
+
 </references><references id="_bibliography" obligation="informative" normative="false">
   <title>Bibliography</title>
 <bibitem id="ISBN" type="ISBN">
@@ -156,10 +317,13 @@ RSpec.describe IsoDoc::Ogc do
   <docidentifier type="metanorma">[Citn]</docidentifier>
   <docidentifier type="IETF">RFC 20</docidentifier>
 </bibitem>
+
 </references>
 </bibliography>
     </iso-standard>
     INPUT
+
+
     presxml = <<~OUTPUT
         <iso-standard xmlns="http://riboseinc.com/isoxml">
             <bibdata>
@@ -176,6 +340,9 @@ RSpec.describe IsoDoc::Ogc do
           <eref bibitemid="ref10">[10]</eref>
           <eref bibitemid="ref12">Citn</eref>
           <eref bibitemid="zip_ffs">[5]</eref>
+          <eref bibitemid='ogc1'>OGC 19-025r1</eref>
+<eref bibitemid='ogc2'>OGC 00-027</eref>
+<eref bibitemid='ogc3'>OGC 05-020r27</eref>
           </p>
             </foreword></preface>
             <bibliography><references id="_normative_references" obligation="informative" normative="true"><title depth="1">1.<tab/>Normative References</title>
@@ -225,6 +392,163 @@ RSpec.describe IsoDoc::Ogc do
         </bibitem>
         <note><name>NOTE</name><p>This is an annotation of ISO 20483:2013-2014</p></note>
             <bibitem id="zip_ffs"><formattedref format="application/x-isodoc+xml">Title 5</formattedref><docidentifier type="metanorma">[5]</docidentifier></bibitem>
+               <bibitem id='ogc1'>
+     <title type='title-main' format='text/plain' language='en' script='Latn'>Development of Spatial Data Infrastructures for Marine Data Management</title>
+     <uri type='obp'>https://portal.opengeospatial.org/files/?artifact_id=88037</uri>
+     <docidentifier type='OGC'>19-025r1</docidentifier>
+     <date type='published'>
+       <on>2019</on>
+     </date>
+     <contributor>
+       <role type='author'/>
+       <person>
+         <name>
+           <completename>Robert Thomas</completename>
+         </name>
+       </person>
+     </contributor>
+     <contributor>
+       <role type='author'/>
+       <person>
+         <name>
+           <completename>Terry Idol</completename>
+         </name>
+       </person>
+     </contributor>
+     <contributor>
+       <role type='publisher'/>
+       <organization>
+         <name>Open Geospatial Consortium</name>
+       </organization>
+     </contributor>
+     <edition>1</edition>
+     <language>en</language>
+     <script>Latn</script>
+     <ext>
+       <doctype>engineering-report</doctype>
+       <editorialgroup>
+         <committee>technical</committee>
+         <subcommittee number='11' type='OGC'>Subcommittee</subcommittee>
+         <workgroup number='22' type='WG'>Working</workgroup>
+       </editorialgroup>
+     </ext>
+   </bibitem>
+   <bibitem id='ogc2'>
+     <title language='en' format='text/plain'>
+       Conformance Test Guidelines for OpenGIS Catalog Services Specification
+       for CORBA
+     </title>
+     <docidentifier type='OGC'>00-027</docidentifier>
+     <docnumber>00-027</docnumber>
+     <date type='2000-05-11'>
+       <on/>
+     </date>
+     <contributor>
+       <role type='author'/>
+       <organization>
+         <name>Geodan Holding bv, the Netherlands</name>
+       </organization>
+     </contributor>
+     <contributor>
+       <role type='editor'/>
+       <person>
+         <name>
+           <completename>Laura Diaz</completename>
+         </name>
+       </person>
+     </contributor>
+     <contributor>
+       <role type='editor'/>
+       <person>
+         <name>
+           <completename>Bart van der Eijnden</completename>
+         </name>
+       </person>
+     </contributor>
+     <contributor>
+       <role type='editor'/>
+       <person>
+         <name>
+           <completename>Barend Gehrels</completename>
+         </name>
+       </person>
+     </contributor>
+     <contributor>
+       <role type='publisher'/>
+       <organization>
+         <name>OGC</name>
+       </organization>
+     </contributor>
+     <edition>1.0</edition>
+     <language>en</language>
+     <script>Latn</script>
+     <status>
+       <stage>published</stage>
+     </status>
+     <copyright>
+       <from>2020</from>
+       <owner>
+         <organization>
+           <name>OGC</name>
+         </organization>
+       </owner>
+     </copyright>
+     <ext>
+       <doctype>test-suite</doctype>
+       <editorialgroup>
+         <committee>technical</committee>
+       </editorialgroup>
+     </ext>
+   </bibitem>
+   <bibitem id='ogc3'>
+     <title language='en' format='text/plain'>Technical Committee Policies and Procedures</title>
+     <docidentifier type='OGC'>05-020r27</docidentifier>
+     <docnumber>05-020r27</docnumber>
+     <date type='published'>
+       <on>2019-06-03</on>
+     </date>
+     <date type='issued'>
+       <on>2019-05-29</on>
+     </date>
+     <date type='received'>
+       <on>2019-03-28</on>
+     </date>
+     <contributor>
+       <role type='editor'/>
+       <person>
+         <name>
+           <completename>Scott Simmons</completename>
+         </name>
+       </person>
+     </contributor>
+     <contributor>
+       <role type='publisher'/>
+       <organization>
+         <name>OGC</name>
+       </organization>
+     </contributor>
+     <edition>27.0</edition>
+     <language>en</language>
+     <script>Latn</script>
+     <status>
+       <stage>draft</stage>
+     </status>
+     <copyright>
+       <from>2019</from>
+       <owner>
+         <organization>
+           <name>OGC</name>
+         </organization>
+       </owner>
+     </copyright>
+     <ext>
+       <doctype>policy</doctype>
+       <editorialgroup>
+         <committee>Technical Committee</committee>
+       </editorialgroup>
+     </ext>
+   </bibitem>
+
         </references><references id="_bibliography" obligation="informative" normative="false">
           <title depth="1">Bibliography</title>
         <bibitem id="ISBN" type="ISBN">
@@ -334,6 +658,9 @@ OUTPUT
   <a href='#ref10'>[10]</a>
   <a href='#ref12'>Citn</a>
   <a href='#zip_ffs'>[5]</a>
+  <a href='#ogc1'>OGC 19-025r1</a>
+<a href='#ogc2'>OGC 00-027</a>
+<a href='#ogc3'>OGC 05-020r27</a>
 </p>
              </div>
              <p class="zzSTDTitle1"/>
@@ -345,6 +672,31 @@ OUTPUT
        <p id="ref1" class="NormRef"><span style="font-variant:small-caps;">Standard No I.C.C 167</span>. <i>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</i> (see <a href="http://www.icc.or.at">http://www.icc.or.at</a>)</p>
        <div class="Note"><p><span class="note_label">NOTE</span>&#160; This is an annotation of ISO 20483:2013-2014</p></div>
            <p id="zip_ffs" class="NormRef">Title 5</p>
+     <p id='ogc1' class='NormRef'>
+       Robert Thomas, Terry Idol: OGC 19-025r1, 
+       <i>Development of Spatial Data Infrastructures for Marine Data Management</i>
+       . 
+       <span>Open Geospatial Consortium</span>
+        (2019). 
+       <a href='https://portal.opengeospatial.org/files/?artifact_id=88037'>https://portal.opengeospatial.org/files/?artifact_id=88037</a>
+     </p>
+     <p id='ogc2' class='NormRef'>
+       Geodan Holding bv, the Netherlands: OGC 00-027, 
+       <i>
+          Conformance Test Guidelines for OpenGIS Catalog Services
+         Specification for CORBA 
+       </i>
+       . 
+       <span>OGC</span>
+        (). 
+     </p>
+     <p id='ogc3' class='NormRef'>
+       Scott Simmons: OGC 05-020r27, 
+       <i>Technical Committee Policies and Procedures</i>
+       . 
+       <span>OGC</span>
+        (2019-06-03). 
+     </p>
 
 
        </div>
