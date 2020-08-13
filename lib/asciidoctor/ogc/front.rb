@@ -12,8 +12,8 @@ module Asciidoctor
 
       def corporate_author(node, xml)
         return unless node.attr("submitting-organizations")
-        HTMLEntities.new.decode(node.attr("submitting-organizations")).
-          split(/;[ ]*/).each do |org|
+        csv_split(HTMLEntities.new.decode(node.attr("submitting-organizations")),
+                  ";")&.each do |org|
           xml.contributor do |c|
             c.role **{ type: "author" }
             c.organization do |a|
@@ -63,13 +63,8 @@ module Asciidoctor
         end
       end
 
-      def metadata_publisher(node, xml)
-        xml.contributor do |c|
-          c.role **{ type: "publisher" }
-          c.organization do |a|
-            a.name Metanorma::Ogc::ORGANIZATION_NAME_SHORT
-          end
-        end
+      def default_publisher
+        "Open Geospatial Consortium"
       end
 
       def metadata_committee(node, xml)
@@ -123,16 +118,9 @@ module Asciidoctor
       end
 
       def metadata_copyright(node, xml)
-        from = node.attr("copyright-year") || node.attr("copyrightyear") ||
-          Date.today.year
-        xml.copyright do |c|
-          c.from from
-          c.owner do |owner|
-            owner.organization do |o|
-              o.name Metanorma::Ogc::ORGANIZATION_NAME_SHORT
-            end
-          end
-        end
+        node.attr("copyrightyear") and
+          node.set_attr("copyright-year", node.attr("copyrightyear"))
+        super
       end
 
       def metadata_date(node, xml)
