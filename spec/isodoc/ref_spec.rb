@@ -117,8 +117,8 @@ RSpec.describe IsoDoc::Ogc do
 <title language="en" format="text/plain">Conformance Test Guidelines for OpenGIS Catalog Services Specification for CORBA</title>
 <docidentifier type="OGC">00-027</docidentifier>
 <docnumber>00-027</docnumber>
-<date type="2000-05-11">
-<on/>
+<date type="published">
+<on>2000</on>
 </date>
 <contributor>
 <role type="author"/>
@@ -153,7 +153,7 @@ RSpec.describe IsoDoc::Ogc do
 <contributor>
 <role type="publisher"/>
 <organization>
-<name>OGC</name>
+<name>Open Geospatial Consortium</name>
 </organization>
 </contributor>
 <edition>1.0</edition>
@@ -166,7 +166,7 @@ RSpec.describe IsoDoc::Ogc do
 <from>2020</from>
 <owner>
 <organization>
-<name>OGC</name>
+<name>Open Geospatial Consortium</name>
 </organization>
 </owner>
 </copyright>
@@ -201,7 +201,7 @@ RSpec.describe IsoDoc::Ogc do
 <contributor>
 <role type="publisher"/>
 <organization>
-<name>OGC</name>
+<name>Open Geospatial Consortium</name>
 </organization>
 </contributor>
 <edition>27.0</edition>
@@ -214,7 +214,7 @@ RSpec.describe IsoDoc::Ogc do
 <from>2019</from>
 <owner>
 <organization>
-<name>OGC</name>
+<name>Open Geospatial Consortium</name>
 </organization>
 </owner>
 </copyright>
@@ -342,7 +342,7 @@ RSpec.describe IsoDoc::Ogc do
           <eref bibitemid="zip_ffs">[5]</eref>
           <eref bibitemid='ogc1'>OGC 19-025r1</eref>
 <eref bibitemid='ogc2'>OGC 00-027</eref>
-<eref bibitemid='ogc3'>OGC 05-020r27</eref>
+<eref bibitemid='ogc3'>OGC 05-020r27 (draft)</eref>
           </p>
             </foreword></preface>
             <bibliography><references id="_normative_references" obligation="informative" normative="true"><title depth="1">1.<tab/>Normative References</title>
@@ -440,9 +440,9 @@ RSpec.describe IsoDoc::Ogc do
      </title>
      <docidentifier type='OGC'>00-027</docidentifier>
      <docnumber>00-027</docnumber>
-     <date type='2000-05-11'>
-       <on/>
-     </date>
+     <date type="published">
+<on>2000</on>
+</date>
      <contributor>
        <role type='author'/>
        <organization>
@@ -476,7 +476,7 @@ RSpec.describe IsoDoc::Ogc do
      <contributor>
        <role type='publisher'/>
        <organization>
-         <name>OGC</name>
+         <name>Open Geospatial Consortium</name>
        </organization>
      </contributor>
      <edition>1.0</edition>
@@ -489,7 +489,7 @@ RSpec.describe IsoDoc::Ogc do
        <from>2020</from>
        <owner>
          <organization>
-           <name>OGC</name>
+           <name>Open Geospatial Consortium</name>
          </organization>
        </owner>
      </copyright>
@@ -524,7 +524,7 @@ RSpec.describe IsoDoc::Ogc do
      <contributor>
        <role type='publisher'/>
        <organization>
-         <name>OGC</name>
+         <name>Open Geospatial Consortium</name>
        </organization>
      </contributor>
      <edition>27.0</edition>
@@ -537,7 +537,7 @@ RSpec.describe IsoDoc::Ogc do
        <from>2019</from>
        <owner>
          <organization>
-           <name>OGC</name>
+           <name>Open Geospatial Consortium</name>
          </organization>
        </owner>
      </copyright>
@@ -660,7 +660,7 @@ OUTPUT
   <a href='#zip_ffs'>[5]</a>
   <a href='#ogc1'>OGC 19-025r1</a>
 <a href='#ogc2'>OGC 00-027</a>
-<a href='#ogc3'>OGC 05-020r27</a>
+<a href='#ogc3'>OGC 05-020r27 (draft)</a>
 </p>
              </div>
              <p class="zzSTDTitle1"/>
@@ -687,14 +687,14 @@ OUTPUT
          Specification for CORBA 
        </i>
        . 
-       <span>OGC</span>
-        (). 
+       <span>Open Geospatial Consortium</span>
+        (2000). 
      </p>
      <p id='ogc3' class='NormRef'>
-       Scott Simmons: OGC 05-020r27, 
+       Scott Simmons: OGC 05-020r27 (Draft), 
        <i>Technical Committee Policies and Procedures</i>
        . 
-       <span>OGC</span>
+       <span>Open Geospatial Consortium</span>
         (2019-06-03). 
      </p>
 

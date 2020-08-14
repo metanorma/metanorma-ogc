@@ -86,8 +86,8 @@ module IsoDoc
         on = date&.at(ns("./on"))&.text
         from = date&.at(ns("./from"))&.text
         to = date&.at(ns("./to"))&.text
-        return on if on
-        return "#{from}&ndash;#{to}" if from
+        return on if on && !on.empty?
+        return "#{from}&ndash;#{to}" if from && !from.empty?
         nil
       end
 
@@ -120,6 +120,7 @@ module IsoDoc
           out << "#{author || pub_abbrev}: " if author || pub_abbrev
           id = render_identifier(inline_bibitem_ref_code(b))
           out << id[1] if id[1]
+          out << " (Draft)" if ogc_draft_ref?(b)
           out << ", "
           out.i do |i|
             iso_title(b)&.children&.each { |n| parse(n, i) }

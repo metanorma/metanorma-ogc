@@ -17,7 +17,8 @@ module IsoDoc
         clause.xpath(ns(".//#{klass}#{FIRST_LVL_REQ}")).each do |t|
           next if t["id"].nil? || t["id"].empty?
           id = c.increment(t).print
-          @anchors[t["id"]] = anchor_struct(id, t, label, klass, t["unnumbered"])
+          @anchors[t["id"]] = anchor_struct(id, t, label, klass,
+                                            t["unnumbered"])
           l = t.at(ns("./label"))&.text and @reqtlabels[l] = t["id"]
           sequential_permission_children(t, id)
         end
@@ -38,9 +39,8 @@ module IsoDoc
       def sequential_permission_children(t, id)
         req_class_paths.each do |k, v|
           %w(permission requirement recommendation).each do |r|
-            sequential_permission_names1(t, id, "#{r}[#{v}]", @labels["#{r}#{k}"])
-            sequential_permission_names1(t, id, "#{r}[#{v}]", @labels["#{r}#{k}"])
-            sequential_permission_names1(t, id, "#{r}[#{v}]", @labels["#{r}#{k}"])
+            sequential_permission_names1(t, id, "#{r}[#{v}]",
+                                         @labels["#{r}#{k}"])
           end
         end
         req_class_paths2.each do |k, v|
@@ -53,7 +53,8 @@ module IsoDoc
         block.xpath(ns("./#{klass}")).each do |t|
           next if t["id"].nil? || t["id"].empty?
           id = "#{lbl}#{hierfigsep}#{c.increment(t).print}"
-          @anchors[t["id"]] = anchor_struct(id, t, label, klass, t["unnumbered"])
+          @anchors[t["id"]] = anchor_struct(id, t, label, klass,
+                                            t["unnumbered"])
           sequential_permission_children(t, id)
         end
       end
@@ -64,9 +65,8 @@ module IsoDoc
         sequential_formula_names(clause)
         req_class_paths.each do |k, v|
           %w(permission requirement recommendation).each do |r|
-            sequential_permission_names(clause, "#{r}[#{v}]", @labels["#{r}#{k}"])
-            sequential_permission_names(clause, "#{r}[#{v}]", @labels["#{r}#{k}"])
-            sequential_permission_names(clause, "#{r}[#{v}]", @labels["#{r}#{k}"])
+            sequential_permission_names(clause, "#{r}[#{v}]",
+                                        @labels["#{r}#{k}"])
           end
         end
         req_class_paths2.each do |k, v|
@@ -80,9 +80,8 @@ module IsoDoc
         hierarchical_formula_names(clause, num)
         req_class_paths.each do |k, v|
           %w(permission requirement recommendation).each do |r|
-            hierarchical_permission_names(clause, num, "#{r}[#{v}]", @labels["#{r}#{k}"])
-            hierarchical_permission_names(clause, num, "#{r}[#{v}]", @labels["#{r}#{k}"])
-            hierarchical_permission_names(clause, num, "#{r}[#{v}]",  @labels["#{r}#{k}"])
+            hierarchical_permission_names(clause, num, "#{r}[#{v}]",
+                                          @labels["#{r}#{k}"])
           end
         end
         req_class_paths2.each do |k, v|
@@ -95,7 +94,8 @@ module IsoDoc
         clause.xpath(ns(".//#{klass}#{FIRST_LVL_REQ}")).each do |t|
           next if t["id"].nil? || t["id"].empty?
           lbl = "#{num}#{hiersep}#{c.increment(t).print}"
-          @anchors[t["id"]] = anchor_struct(lbl, t, label, klass, t["unnumbered"])
+          @anchors[t["id"]] = anchor_struct(lbl, t, label, klass,
+                                            t["unnumbered"])
           l = t.at(ns("./label"))&.text and @reqtlabels[l] = t["id"]
           sequential_permission_children(t, lbl)
         end
@@ -107,7 +107,8 @@ module IsoDoc
         preface_names_numbered(d.at(ns("//preface/clause[@type = 'keywords']")))
         preface_names_numbered(d.at(ns("//foreword")))
         preface_names_numbered(d.at(ns("//introduction")))
-        preface_names_numbered(d.at(ns("//preface/clause[@type = 'submitting_orgs']")))
+        preface_names_numbered(d.at(ns("//preface/clause"\
+                                       "[@type = 'submitting_orgs']")))
         preface_names_numbered(d.at(ns("//submitters")))
         d.xpath(ns("//preface/clause[not(@type = 'keywords' or "\
                    "@type = 'submitting_orgs')]")).each do |c|
@@ -150,6 +151,12 @@ module IsoDoc
                         "./references")).each_with_index do |c, i|
           section_names1(c, "#{pref}.#{i + 1}", 2)
         end
+      end
+
+      def reference_names(ref)
+        super
+        return unless @klass.ogc_draft_ref?(ref)
+        @anchors[ref["id"]] = { xref: @anchors[ref["id"]][:xref] + " (draft)" }
       end
     end
   end

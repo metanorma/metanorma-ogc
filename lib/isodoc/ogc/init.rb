@@ -26,6 +26,15 @@ module IsoDoc
       def submittingorgs_path
         "//bibdata/contributor[role/@type = 'author']/organization/name"
       end
+
+      def ogc_draft_ref?(ref)
+        return unless ref.at(
+          ns("./contributor[role/@type = 'publisher']/organization"\
+             "[name = 'Open Geospatial Consortium']"))
+        status = ref.at(ns("./status/stage"))&.text or return
+        return if %w(published deprecated retired).include? status
+        true
+      end
     end
   end
 end
