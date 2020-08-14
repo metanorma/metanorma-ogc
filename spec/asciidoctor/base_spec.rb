@@ -151,7 +151,7 @@ RSpec.describe Asciidoctor::Ogc do
          <contributor>
            <role type="publisher"/>
            <organization>
-             <name>OGC</name>
+             <name>Open Geospatial Consortium</name>
            </organization>
          </contributor>
          <edition>2.0</edition>
@@ -169,7 +169,7 @@ RSpec.describe Asciidoctor::Ogc do
            <from>2001</from>
            <owner>
              <organization>
-               <name>OGC</name>
+               <name>Open Geospatial Consortium</name>
              </organization>
            </owner>
          </copyright>
@@ -276,7 +276,7 @@ RSpec.describe Asciidoctor::Ogc do
          <contributor>
            <role type="publisher"/>
            <organization>
-             <name>OGC</name>
+             <name>Open Geospatial Consortium</name>
            </organization>
          </contributor>
        <edition>2.0</edition>
@@ -294,7 +294,7 @@ RSpec.describe Asciidoctor::Ogc do
            <from>2001</from>
            <owner>
              <organization>
-               <name>OGC</name>
+               <name>Open Geospatial Consortium</name>
              </organization>
            </owner>
          </copyright>
@@ -332,7 +332,7 @@ OUTPUT
   <contributor>
     <role type="publisher"/>
     <organization>
-      <name>OGC</name>
+      <name>Open Geospatial Consortium</name>
     </organization>
   </contributor>
   <language>en</language>
@@ -342,7 +342,7 @@ OUTPUT
     <from>#{Date.today.year}</from>
     <owner>
       <organization>
-        <name>OGC</name>
+        <name>Open Geospatial Consortium</name>
       </organization>
     </owner>
   </copyright>
@@ -387,7 +387,7 @@ OUTPUT
   <contributor>
     <role type="publisher"/>
     <organization>
-      <name>OGC</name>
+      <name>Open Geospatial Consortium</name>
     </organization>
   </contributor>
   <language>en</language>
@@ -397,7 +397,7 @@ OUTPUT
     <from>#{Date.today.year}</from>
     <owner>
       <organization>
-        <name>OGC</name>
+        <name>Open Geospatial Consortium</name>
       </organization>
     </owner>
   </copyright>

@@ -80,7 +80,7 @@ BLANK_HDR = <<~"HDR"
          <contributor>
            <role type="publisher"/>
            <organization>
-             <name>#{Metanorma::Ogc::ORGANIZATION_NAME_SHORT}</name>
+             <name>Open Geospatial Consortium</name>
            </organization>
          </contributor>
 
@@ -93,7 +93,7 @@ BLANK_HDR = <<~"HDR"
            <from>#{Time.new.year}</from>
            <owner>
              <organization>
-               <name>#{Metanorma::Ogc::ORGANIZATION_NAME_SHORT}</name>
+               <name>Open Geospatial Consortium</name>
              </organization>
            </owner>
          </copyright>
