@@ -37,6 +37,20 @@ module IsoDoc
         }
       end
 
+      def convert1(docxml, filename, dir)
+        if docxml&.at(ns('//bibdata/ext/doctype'))&.text == "white-paper"
+          @wordstylesheet_name = html_doc_path("wordstyle_wp.scss")
+          @standardstylesheet_name = html_doc_path("ogc_wp.scss")
+          @wordcoverpage = html_doc_path("word_ogc_titlepage_wp.html")
+          @wordintropage = html_doc_path("word_ogc_intro_wp.html")
+          @header = html_doc_path("header_wp.html")
+          @doctype = "white-paper"
+          options[:bodyfont] = '"Arial",sans-serif'
+          options[:headerfont] = '"Lato",sans-serif'
+        end
+        super
+      end
+
       def make_body(xml, docxml)
         body_attr = { lang: "EN-US", link: "blue", vlink: "#954F72" }
         xml.body **body_attr do |body|
@@ -157,9 +171,12 @@ module IsoDoc
       # center only the Copyright notice
       def word_copyright_cleanup(docxml)
         x = "//div[@class = 'boilerplate-copyright']/div[1]/p[not(@class)]"
-        docxml.xpath(x).each do |p|
-          p["align"] = "center"
-        end
+        docxml.xpath(x).each { |p| p["align"] = "center" }
+        return unless @doctype == "white-paper"
+        docxml.xpath("//div[@class = 'boilerplate-copyright']//p[not(@class)]").
+          each { |p| p["class"] = "license" }
+        docxml.xpath("//div[@class = 'boilerplate-legal']//p[not(@class)]").
+          each { |p| p["class"] = "license" }
       end
 
       def word_term_cleanup(docxml)
