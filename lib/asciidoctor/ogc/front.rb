@@ -104,7 +104,7 @@ module Asciidoctor
       end
 
       def externalurl(node)
-        if node.attr("doctype") == "engineering-report"
+        if doctype(node) == "engineering-report"
           "http://www.opengis.net/doc/PER/t14-#{node.attr('referenceurlid')}"
         else
           node.attr('referenceurlid')
