@@ -79,91 +79,172 @@ RSpec.describe IsoDoc::Ogc do
                 <xref target='Anote2'>Annex A.2, Requirement A.2</xref>
               </p>
             </foreword>
-            <introduction id='intro'><title>ii.</title>
-              <requirement id='N1'>
-                <name>Requirement 1</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </requirement>
-              <clause id='xyz'>
-                <title depth='2'>
-                  ii.1.
-                  <tab/>
-                  Preparatory
-                </title>
-                <requirement id='N2' unnumbered='true'>
-                  <name>Requirement</name>
-                  <stem type='AsciiMath'>r = 1 %</stem>
-                </requirement>
-              </clause>
-            </introduction>
-          </preface>
-          <sections>
-            <clause id='scope' type='scope'>
-              <title depth='1'>
-                1.
-                <tab/>
-                Scope
-              </title>
-              <requirement id='N'>
-                <name>Requirement 2</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </requirement>
-              <p>
-                <xref target='N'>Requirement 2</xref>
-              </p>
-            </clause>
-            <terms id='terms'>
-              <title>2.</title>
-            </terms>
-            <clause id='widgets'>
-              <title depth='1'>
-                3.
-                <tab/>
-                Widgets
-              </title>
-              <clause id='widgets1'>
-                <title>3.1.</title>
-                <requirement id='note1'>
-                  <name>Requirement 3</name>
-                  <stem type='AsciiMath'>r = 1 %</stem>
-                </requirement>
-                <requirement id='note2'>
-                  <name>Requirement 4</name>
-                  <stem type='AsciiMath'>r = 1 %</stem>
-                </requirement>
-                <p>
-                  <xref target='note1'>Requirement 3</xref>
-                  <xref target='note2'>Requirement 4</xref>
-                </p>
-              </clause>
-            </clause>
-          </sections>
-          <annex id='annex1'>
-            <title>
-              <strong>Annex A</strong>
-              <br/>
-              (informative)
-            </title>
-            <clause id='annex1a'>
-              <title>A.1.</title>
-              <requirement id='AN'>
-                <name>Requirement A.1</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </requirement>
-            </clause>
-            <clause id='annex1b'>
-              <title>A.2.</title>
-              <requirement id='Anote1' unnumbered='true'>
-                <name>Requirement</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </requirement>
-              <requirement id='Anote2'>
-                <name>Requirement A.2</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </requirement>
-            </clause>
-          </annex>
-        </iso-standard>
+       <introduction id='intro'>
+             <title>ii.</title>
+             <table id='N1' class='requirement' type='recommend'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTitle'>Requirement 1:</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>r = 1 %</td>
+                 </tr>
+               </tbody>
+             </table>
+             <clause id='xyz'>
+               <title depth='2'>
+                 ii.1.
+                 <tab/>
+                 Preparatory
+               </title>
+               <table id='N2' unnumbered='true' class='requirement' type='recommend'>
+                 <thead>
+                   <tr>
+                     <th scope='colgroup' colspan='2'>
+                       <p class='RecommendationTitle'>Requirement:</p>
+                     </th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   <tr>
+                     <td colspan='2'>r = 1 %</td>
+                   </tr>
+                 </tbody>
+               </table>
+             </clause>
+           </introduction>
+         </preface>
+         <sections>
+           <clause id='scope' type='scope'>
+             <title depth='1'>
+               1.
+               <tab/>
+               Scope
+             </title>
+             <table id='N' class='requirement' type='recommend'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTitle'>Requirement 2:</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>r = 1 %</td>
+                 </tr>
+               </tbody>
+             </table>
+             <p>
+               <xref target='N'>Requirement 2</xref>
+             </p>
+           </clause>
+           <terms id='terms'>
+             <title>2.</title>
+           </terms>
+           <clause id='widgets'>
+             <title depth='1'>
+               3.
+               <tab/>
+               Widgets
+             </title>
+             <clause id='widgets1'>
+               <title>3.1.</title>
+               <table id='note1' class='requirement' type='recommend'>
+                 <thead>
+                   <tr>
+                     <th scope='colgroup' colspan='2'>
+                       <p class='RecommendationTitle'>Requirement 3:</p>
+                     </th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   <tr>
+                     <td colspan='2'>r = 1 %</td>
+                   </tr>
+                 </tbody>
+               </table>
+               <table id='note2' class='requirement' type='recommend'>
+                 <thead>
+                   <tr>
+                     <th scope='colgroup' colspan='2'>
+                       <p class='RecommendationTitle'>Requirement 4:</p>
+                     </th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   <tr>
+                     <td colspan='2'>r = 1 %</td>
+                   </tr>
+                 </tbody>
+               </table>
+               <p>
+                 <xref target='note1'>Requirement 3</xref>
+                 <xref target='note2'>Requirement 4</xref>
+               </p>
+             </clause>
+           </clause>
+         </sections>
+         <annex id='annex1'>
+           <title>
+             <strong>Annex A</strong>
+             <br/>
+             (informative)
+           </title>
+           <clause id='annex1a'>
+             <title>A.1.</title>
+             <table id='AN' class='requirement' type='recommend'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTitle'>Requirement A.1:</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>r = 1 %</td>
+                 </tr>
+               </tbody>
+             </table>
+           </clause>
+           <clause id='annex1b'>
+             <title>A.2.</title>
+             <table id='Anote1' unnumbered='true' class='requirement' type='recommend'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTitle'>Requirement:</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>r = 1 %</td>
+                 </tr>
+               </tbody>
+             </table>
+             <table id='Anote2' class='requirement' type='recommend'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTitle'>Requirement A.2:</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>r = 1 %</td>
+                 </tr>
+               </tbody>
+             </table>
+           </clause>
+         </annex>
+       </iso-standard>
 OUTPUT
     end
 
@@ -245,91 +326,172 @@ OUTPUT
                 <xref target='Anote2'>Annex A.2, Requirement Test A.2</xref>
               </p>
             </foreword>
-            <introduction id='intro'><title>ii.</title>
-              <requirement id='N1' type='verification'>
-                <name>Requirement Test 1</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </requirement>
-              <clause id='xyz'>
-                <title depth='2'>
-                  ii.1.
-                  <tab/>
-                  Preparatory
-                </title>
-                <requirement id='N2' unnumbered='true' type='verification'>
-                  <name>Requirement Test</name>
-                  <stem type='AsciiMath'>r = 1 %</stem>
-                </requirement>
-              </clause>
-            </introduction>
-          </preface>
-          <sections>
-            <clause id='scope' type='scope'>
-              <title depth='1'>
-                1.
-                <tab/>
-                Scope
-              </title>
-              <requirement id='N' type='verification'>
-                <name>Requirement Test 2</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </requirement>
-              <p>
-                <xref target='N'>Requirement Test 2</xref>
-              </p>
-            </clause>
-            <terms id='terms'>
-              <title>2.</title>
-            </terms>
-            <clause id='widgets'>
-              <title depth='1'>
-                3.
-                <tab/>
-                Widgets
-              </title>
-              <clause id='widgets1'>
-                <title>3.1.</title>
-                <requirement id='note1' type='verification'>
-                  <name>Requirement Test 3</name>
-                  <stem type='AsciiMath'>r = 1 %</stem>
-                </requirement>
-                <requirement id='note2' type='verification'>
-                  <name>Requirement Test 4</name>
-                  <stem type='AsciiMath'>r = 1 %</stem>
-                </requirement>
-                <p>
-                  <xref target='note1'>Requirement Test 3</xref>
-                  <xref target='note2'>Requirement Test 4</xref>
-                </p>
-              </clause>
-            </clause>
-          </sections>
-          <annex id='annex1'>
-            <title>
-              <strong>Annex A</strong>
-              <br/>
-              (informative)
-            </title>
-            <clause id='annex1a'>
-              <title>A.1.</title>
-              <requirement id='AN' type='verification'>
-                <name>Requirement Test A.1</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </requirement>
-            </clause>
-            <clause id='annex1b'>
-              <title>A.2.</title>
-              <requirement id='Anote1' unnumbered='true' type='verification'>
-                <name>Requirement Test</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </requirement>
-              <requirement id='Anote2' type='verification'>
-                <name>Requirement Test A.2</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </requirement>
-            </clause>
-          </annex>
-        </iso-standard>
+        <introduction id='intro'>
+             <title>ii.</title>
+             <table id='N1' type='recommendtest' class='requirement'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTestTitle'>Requirement Test 1:</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>r = 1 %</td>
+                 </tr>
+               </tbody>
+             </table>
+             <clause id='xyz'>
+               <title depth='2'>
+                 ii.1.
+                 <tab/>
+                 Preparatory
+               </title>
+               <table id='N2' unnumbered='true' type='recommendtest' class='requirement'>
+                 <thead>
+                   <tr>
+                     <th scope='colgroup' colspan='2'>
+                       <p class='RecommendationTestTitle'>Requirement Test:</p>
+                     </th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   <tr>
+                     <td colspan='2'>r = 1 %</td>
+                   </tr>
+                 </tbody>
+               </table>
+             </clause>
+           </introduction>
+         </preface>
+         <sections>
+           <clause id='scope' type='scope'>
+             <title depth='1'>
+               1.
+               <tab/>
+               Scope
+             </title>
+             <table id='N' type='recommendtest' class='requirement'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTestTitle'>Requirement Test 2:</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>r = 1 %</td>
+                 </tr>
+               </tbody>
+             </table>
+             <p>
+               <xref target='N'>Requirement Test 2</xref>
+             </p>
+           </clause>
+           <terms id='terms'>
+             <title>2.</title>
+           </terms>
+           <clause id='widgets'>
+             <title depth='1'>
+               3.
+               <tab/>
+               Widgets
+             </title>
+             <clause id='widgets1'>
+               <title>3.1.</title>
+               <table id='note1' type='recommendtest' class='requirement'>
+                 <thead>
+                   <tr>
+                     <th scope='colgroup' colspan='2'>
+                       <p class='RecommendationTestTitle'>Requirement Test 3:</p>
+                     </th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   <tr>
+                     <td colspan='2'>r = 1 %</td>
+                   </tr>
+                 </tbody>
+               </table>
+               <table id='note2' type='recommendtest' class='requirement'>
+                 <thead>
+                   <tr>
+                     <th scope='colgroup' colspan='2'>
+                       <p class='RecommendationTestTitle'>Requirement Test 4:</p>
+                     </th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   <tr>
+                     <td colspan='2'>r = 1 %</td>
+                   </tr>
+                 </tbody>
+               </table>
+               <p>
+                 <xref target='note1'>Requirement Test 3</xref>
+                 <xref target='note2'>Requirement Test 4</xref>
+               </p>
+             </clause>
+           </clause>
+         </sections>
+         <annex id='annex1'>
+           <title>
+             <strong>Annex A</strong>
+             <br/>
+             (informative)
+           </title>
+           <clause id='annex1a'>
+             <title>A.1.</title>
+             <table id='AN' type='recommendtest' class='requirement'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTestTitle'>Requirement Test A.1:</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>r = 1 %</td>
+                 </tr>
+               </tbody>
+             </table>
+           </clause>
+           <clause id='annex1b'>
+             <title>A.2.</title>
+             <table id='Anote1' unnumbered='true' type='recommendtest' class='requirement'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTestTitle'>Requirement Test:</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>r = 1 %</td>
+                 </tr>
+               </tbody>
+             </table>
+             <table id='Anote2' type='recommendtest' class='requirement'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTestTitle'>Requirement Test A.2:</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>r = 1 %</td>
+                 </tr>
+               </tbody>
+             </table>
+           </clause>
+         </annex>
+       </iso-standard>
 OUTPUT
         end
 
@@ -412,91 +574,172 @@ OUTPUT
                 <xref target='Anote2'>Annex A.2, Recommendation A.2</xref>
               </p>
             </foreword>
-            <introduction id='intro'><title>ii.</title>
-              <recommendation id='N1'>
-                <name>Recommendation 1</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </recommendation>
-              <clause id='xyz'>
-                <title depth='2'>
-                  ii.1.
-                  <tab/>
-                  Preparatory
-                </title>
-                <recommendation id='N2' unnumbered='true'>
-                  <name>Recommendation</name>
-                  <stem type='AsciiMath'>r = 1 %</stem>
-                </recommendation>
-              </clause>
-            </introduction>
-          </preface>
-          <sections>
-            <clause id='scope' type='scope'>
-              <title depth='1'>
-                1.
-                <tab/>
-                Scope
-              </title>
-              <recommendation id='N'>
-                <name>Recommendation 2</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </recommendation>
-              <p>
-                <xref target='N'>Recommendation 2</xref>
-              </p>
-            </clause>
-            <terms id='terms'>
-              <title>2.</title>
-            </terms>
-            <clause id='widgets'>
-              <title depth='1'>
-                3.
-                <tab/>
-                Widgets
-              </title>
-              <clause id='widgets1'>
-                <title>3.1.</title>
-                <recommendation id='note1'>
-                  <name>Recommendation 3</name>
-                  <stem type='AsciiMath'>r = 1 %</stem>
-                </recommendation>
-                <recommendation id='note2'>
-                  <name>Recommendation 4</name>
-                  <stem type='AsciiMath'>r = 1 %</stem>
-                </recommendation>
-                <p>
-                  <xref target='note1'>Recommendation 3</xref>
-                  <xref target='note2'>Recommendation 4</xref>
-                </p>
-              </clause>
-            </clause>
-          </sections>
-          <annex id='annex1'>
-            <title>
-              <strong>Annex A</strong>
-              <br/>
-              (informative)
-            </title>
-            <clause id='annex1a'>
-              <title>A.1.</title>
-              <recommendation id='AN'>
-                <name>Recommendation A.1</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </recommendation>
-            </clause>
-            <clause id='annex1b'>
-              <title>A.2.</title>
-              <recommendation id='Anote1' unnumbered='true'>
-                <name>Recommendation</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </recommendation>
-              <recommendation id='Anote2'>
-                <name>Recommendation A.2</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </recommendation>
-            </clause>
-          </annex>
-        </iso-standard>
+        <introduction id='intro'>
+             <title>ii.</title>
+             <table id='N1' class='recommendation' type='recommend'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTitle'>Recommendation 1:</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>r = 1 %</td>
+                 </tr>
+               </tbody>
+             </table>
+             <clause id='xyz'>
+               <title depth='2'>
+                 ii.1.
+                 <tab/>
+                 Preparatory
+               </title>
+               <table id='N2' unnumbered='true' class='recommendation' type='recommend'>
+                 <thead>
+                   <tr>
+                     <th scope='colgroup' colspan='2'>
+                       <p class='RecommendationTitle'>Recommendation:</p>
+                     </th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   <tr>
+                     <td colspan='2'>r = 1 %</td>
+                   </tr>
+                 </tbody>
+               </table>
+             </clause>
+           </introduction>
+         </preface>
+         <sections>
+           <clause id='scope' type='scope'>
+             <title depth='1'>
+               1.
+               <tab/>
+               Scope
+             </title>
+             <table id='N' class='recommendation' type='recommend'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTitle'>Recommendation 2:</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>r = 1 %</td>
+                 </tr>
+               </tbody>
+             </table>
+             <p>
+               <xref target='N'>Recommendation 2</xref>
+             </p>
+           </clause>
+           <terms id='terms'>
+             <title>2.</title>
+           </terms>
+           <clause id='widgets'>
+             <title depth='1'>
+               3.
+               <tab/>
+               Widgets
+             </title>
+             <clause id='widgets1'>
+               <title>3.1.</title>
+               <table id='note1' class='recommendation' type='recommend'>
+                 <thead>
+                   <tr>
+                     <th scope='colgroup' colspan='2'>
+                       <p class='RecommendationTitle'>Recommendation 3:</p>
+                     </th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   <tr>
+                     <td colspan='2'>r = 1 %</td>
+                   </tr>
+                 </tbody>
+               </table>
+               <table id='note2' class='recommendation' type='recommend'>
+                 <thead>
+                   <tr>
+                     <th scope='colgroup' colspan='2'>
+                       <p class='RecommendationTitle'>Recommendation 4:</p>
+                     </th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   <tr>
+                     <td colspan='2'>r = 1 %</td>
+                   </tr>
+                 </tbody>
+               </table>
+               <p>
+                 <xref target='note1'>Recommendation 3</xref>
+                 <xref target='note2'>Recommendation 4</xref>
+               </p>
+             </clause>
+           </clause>
+         </sections>
+         <annex id='annex1'>
+           <title>
+             <strong>Annex A</strong>
+             <br/>
+             (informative)
+           </title>
+           <clause id='annex1a'>
+             <title>A.1.</title>
+             <table id='AN' class='recommendation' type='recommend'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTitle'>Recommendation A.1:</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>r = 1 %</td>
+                 </tr>
+               </tbody>
+             </table>
+           </clause>
+           <clause id='annex1b'>
+             <title>A.2.</title>
+             <table id='Anote1' unnumbered='true' class='recommendation' type='recommend'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTitle'>Recommendation:</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>r = 1 %</td>
+                 </tr>
+               </tbody>
+             </table>
+             <table id='Anote2' class='recommendation' type='recommend'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTitle'>Recommendation A.2:</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>r = 1 %</td>
+                 </tr>
+               </tbody>
+             </table>
+           </clause>
+         </annex>
+       </iso-standard>
 OUTPUT
     end
 
@@ -578,91 +821,172 @@ OUTPUT
                 <xref target='Anote2'>Annex A.2, Recommendation Test A.2</xref>
               </p>
             </foreword>
-            <introduction id='intro'><title>ii.</title>
-              <recommendation id='N1' type='verification'>
-                <name>Recommendation Test 1</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </recommendation>
-              <clause id='xyz'>
-                <title depth='2'>
-                  ii.1.
-                  <tab/>
-                  Preparatory
-                </title>
-                <recommendation id='N2' unnumbered='true' type='verification'>
-                  <name>Recommendation Test</name>
-                  <stem type='AsciiMath'>r = 1 %</stem>
-                </recommendation>
-              </clause>
-            </introduction>
-          </preface>
-          <sections>
-            <clause id='scope' type='scope'>
-              <title depth='1'>
-                1.
-                <tab/>
-                Scope
-              </title>
-              <recommendation id='N' type='verification'>
-                <name>Recommendation Test 2</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </recommendation>
-              <p>
-                <xref target='N'>Recommendation Test 2</xref>
-              </p>
-            </clause>
-            <terms id='terms'>
-              <title>2.</title>
-            </terms>
-            <clause id='widgets'>
-              <title depth='1'>
-                3.
-                <tab/>
-                Widgets
-              </title>
-              <clause id='widgets1'>
-                <title>3.1.</title>
-                <recommendation id='note1' type='verification'>
-                  <name>Recommendation Test 3</name>
-                  <stem type='AsciiMath'>r = 1 %</stem>
-                </recommendation>
-                <recommendation id='note2' type='verification'>
-                  <name>Recommendation Test 4</name>
-                  <stem type='AsciiMath'>r = 1 %</stem>
-                </recommendation>
-                <p>
-                  <xref target='note1'>Recommendation Test 3</xref>
-                  <xref target='note2'>Recommendation Test 4</xref>
-                </p>
-              </clause>
-            </clause>
-          </sections>
-          <annex id='annex1'>
-            <title>
-              <strong>Annex A</strong>
-              <br/>
-              (informative)
-            </title>
-            <clause id='annex1a'>
-              <title>A.1.</title>
-              <recommendation id='AN' type='verification'>
-                <name>Recommendation Test A.1</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </recommendation>
-            </clause>
-            <clause id='annex1b'>
-              <title>A.2.</title>
-              <recommendation id='Anote1' unnumbered='true' type='verification'>
-                <name>Recommendation Test</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </recommendation>
-              <recommendation id='Anote2' type='verification'>
-                <name>Recommendation Test A.2</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </recommendation>
-            </clause>
-          </annex>
-        </iso-standard>
+        <introduction id='intro'>
+             <title>ii.</title>
+             <table id='N1' type='recommendtest' class='recommendation'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTestTitle'>Recommendation Test 1:</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>r = 1 %</td>
+                 </tr>
+               </tbody>
+             </table>
+             <clause id='xyz'>
+               <title depth='2'>
+                 ii.1.
+                 <tab/>
+                 Preparatory
+               </title>
+               <table id='N2' unnumbered='true' type='recommendtest' class='recommendation'>
+                 <thead>
+                   <tr>
+                     <th scope='colgroup' colspan='2'>
+                       <p class='RecommendationTestTitle'>Recommendation Test:</p>
+                     </th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   <tr>
+                     <td colspan='2'>r = 1 %</td>
+                   </tr>
+                 </tbody>
+               </table>
+             </clause>
+           </introduction>
+         </preface>
+         <sections>
+           <clause id='scope' type='scope'>
+             <title depth='1'>
+               1.
+               <tab/>
+               Scope
+             </title>
+             <table id='N' type='recommendtest' class='recommendation'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTestTitle'>Recommendation Test 2:</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>r = 1 %</td>
+                 </tr>
+               </tbody>
+             </table>
+             <p>
+               <xref target='N'>Recommendation Test 2</xref>
+             </p>
+           </clause>
+           <terms id='terms'>
+             <title>2.</title>
+           </terms>
+           <clause id='widgets'>
+             <title depth='1'>
+               3.
+               <tab/>
+               Widgets
+             </title>
+             <clause id='widgets1'>
+               <title>3.1.</title>
+               <table id='note1' type='recommendtest' class='recommendation'>
+                 <thead>
+                   <tr>
+                     <th scope='colgroup' colspan='2'>
+                       <p class='RecommendationTestTitle'>Recommendation Test 3:</p>
+                     </th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   <tr>
+                     <td colspan='2'>r = 1 %</td>
+                   </tr>
+                 </tbody>
+               </table>
+               <table id='note2' type='recommendtest' class='recommendation'>
+                 <thead>
+                   <tr>
+                     <th scope='colgroup' colspan='2'>
+                       <p class='RecommendationTestTitle'>Recommendation Test 4:</p>
+                     </th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   <tr>
+                     <td colspan='2'>r = 1 %</td>
+                   </tr>
+                 </tbody>
+               </table>
+               <p>
+                 <xref target='note1'>Recommendation Test 3</xref>
+                 <xref target='note2'>Recommendation Test 4</xref>
+               </p>
+             </clause>
+           </clause>
+         </sections>
+         <annex id='annex1'>
+           <title>
+             <strong>Annex A</strong>
+             <br/>
+             (informative)
+           </title>
+           <clause id='annex1a'>
+             <title>A.1.</title>
+             <table id='AN' type='recommendtest' class='recommendation'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTestTitle'>Recommendation Test A.1:</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>r = 1 %</td>
+                 </tr>
+               </tbody>
+             </table>
+           </clause>
+           <clause id='annex1b'>
+             <title>A.2.</title>
+             <table id='Anote1' unnumbered='true' type='recommendtest' class='recommendation'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTestTitle'>Recommendation Test:</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>r = 1 %</td>
+                 </tr>
+               </tbody>
+             </table>
+             <table id='Anote2' type='recommendtest' class='recommendation'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTestTitle'>Recommendation Test A.2:</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>r = 1 %</td>
+                 </tr>
+               </tbody>
+             </table>
+           </clause>
+         </annex>
+       </iso-standard>
 OUTPUT
           end
 
@@ -744,91 +1068,172 @@ OUTPUT
                 <xref target='Anote2'>Annex A.2, Permission A.2</xref>
               </p>
             </foreword>
-            <introduction id='intro'><title>ii.</title>
-              <permission id='N1'>
-                <name>Permission 1</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </permission>
-              <clause id='xyz'>
-                <title depth='2'>
-                  ii.1.
-                  <tab/>
-                  Preparatory
-                </title>
-                <permission id='N2' unnumbered='true'>
-                  <name>Permission</name>
-                  <stem type='AsciiMath'>r = 1 %</stem>
-                </permission>
-              </clause>
-            </introduction>
-          </preface>
-          <sections>
-            <clause id='scope' type='scope'>
-              <title depth='1'>
-                1.
-                <tab/>
-                Scope
-              </title>
-              <permission id='N'>
-                <name>Permission 2</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </permission>
-              <p>
-                <xref target='N'>Permission 2</xref>
-              </p>
-            </clause>
-            <terms id='terms'>
-              <title>2.</title>
-            </terms>
-            <clause id='widgets'>
-              <title depth='1'>
-                3.
-                <tab/>
-                Widgets
-              </title>
-              <clause id='widgets1'>
-                <title>3.1.</title>
-                <permission id='note1'>
-                  <name>Permission 3</name>
-                  <stem type='AsciiMath'>r = 1 %</stem>
-                </permission>
-                <permission id='note2'>
-                  <name>Permission 4</name>
-                  <stem type='AsciiMath'>r = 1 %</stem>
-                </permission>
-                <p>
-                  <xref target='note1'>Permission 3</xref>
-                  <xref target='note2'>Permission 4</xref>
-                </p>
-              </clause>
-            </clause>
-          </sections>
-          <annex id='annex1'>
-            <title>
-              <strong>Annex A</strong>
-              <br/>
-              (informative)
-            </title>
-            <clause id='annex1a'>
-              <title>A.1.</title>
-              <permission id='AN'>
-                <name>Permission A.1</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </permission>
-            </clause>
-            <clause id='annex1b'>
-              <title>A.2.</title>
-              <permission id='Anote1' unnumbered='true'>
-                <name>Permission</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </permission>
-              <permission id='Anote2'>
-                <name>Permission A.2</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </permission>
-            </clause>
-          </annex>
-        </iso-standard>
+        <introduction id='intro'>
+             <title>ii.</title>
+             <table id='N1' class='permission' type='recommend'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTitle'>Permission 1:</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>r = 1 %</td>
+                 </tr>
+               </tbody>
+             </table>
+             <clause id='xyz'>
+               <title depth='2'>
+                 ii.1.
+                 <tab/>
+                 Preparatory
+               </title>
+               <table id='N2' unnumbered='true' class='permission' type='recommend'>
+                 <thead>
+                   <tr>
+                     <th scope='colgroup' colspan='2'>
+                       <p class='RecommendationTitle'>Permission:</p>
+                     </th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   <tr>
+                     <td colspan='2'>r = 1 %</td>
+                   </tr>
+                 </tbody>
+               </table>
+             </clause>
+           </introduction>
+         </preface>
+         <sections>
+           <clause id='scope' type='scope'>
+             <title depth='1'>
+               1.
+               <tab/>
+               Scope
+             </title>
+             <table id='N' class='permission' type='recommend'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTitle'>Permission 2:</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>r = 1 %</td>
+                 </tr>
+               </tbody>
+             </table>
+             <p>
+               <xref target='N'>Permission 2</xref>
+             </p>
+           </clause>
+           <terms id='terms'>
+             <title>2.</title>
+           </terms>
+           <clause id='widgets'>
+             <title depth='1'>
+               3.
+               <tab/>
+               Widgets
+             </title>
+             <clause id='widgets1'>
+               <title>3.1.</title>
+               <table id='note1' class='permission' type='recommend'>
+                 <thead>
+                   <tr>
+                     <th scope='colgroup' colspan='2'>
+                       <p class='RecommendationTitle'>Permission 3:</p>
+                     </th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   <tr>
+                     <td colspan='2'>r = 1 %</td>
+                   </tr>
+                 </tbody>
+               </table>
+               <table id='note2' class='permission' type='recommend'>
+                 <thead>
+                   <tr>
+                     <th scope='colgroup' colspan='2'>
+                       <p class='RecommendationTitle'>Permission 4:</p>
+                     </th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   <tr>
+                     <td colspan='2'>r = 1 %</td>
+                   </tr>
+                 </tbody>
+               </table>
+               <p>
+                 <xref target='note1'>Permission 3</xref>
+                 <xref target='note2'>Permission 4</xref>
+               </p>
+             </clause>
+           </clause>
+         </sections>
+         <annex id='annex1'>
+           <title>
+             <strong>Annex A</strong>
+             <br/>
+             (informative)
+           </title>
+           <clause id='annex1a'>
+             <title>A.1.</title>
+             <table id='AN' class='permission' type='recommend'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTitle'>Permission A.1:</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>r = 1 %</td>
+                 </tr>
+               </tbody>
+             </table>
+           </clause>
+           <clause id='annex1b'>
+             <title>A.2.</title>
+             <table id='Anote1' unnumbered='true' class='permission' type='recommend'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTitle'>Permission:</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>r = 1 %</td>
+                 </tr>
+               </tbody>
+             </table>
+             <table id='Anote2' class='permission' type='recommend'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTitle'>Permission A.2:</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>r = 1 %</td>
+                 </tr>
+               </tbody>
+             </table>
+           </clause>
+         </annex>
+       </iso-standard>
 OUTPUT
     end
 
@@ -910,91 +1315,172 @@ OUTPUT
                 <xref target='Anote2'>Annex A.2, Permission Test A.2</xref>
               </p>
             </foreword>
-            <introduction id='intro'><title>ii.</title>
-              <permission id='N1' type='verification'>
-                <name>Permission Test 1</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </permission>
-              <clause id='xyz'>
-                <title depth='2'>
-                  ii.1.
-                  <tab/>
-                  Preparatory
-                </title>
-                <permission id='N2' unnumbered='true' type='verification'>
-                  <name>Permission Test</name>
-                  <stem type='AsciiMath'>r = 1 %</stem>
-                </permission>
-              </clause>
-            </introduction>
-          </preface>
-          <sections>
-            <clause id='scope' type='scope'>
-              <title depth='1'>
-                1.
-                <tab/>
-                Scope
-              </title>
-              <permission id='N' type='verification'>
-                <name>Permission Test 2</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </permission>
-              <p>
-                <xref target='N'>Permission Test 2</xref>
-              </p>
-            </clause>
-            <terms id='terms'>
-              <title>2.</title>
-            </terms>
-            <clause id='widgets'>
-              <title depth='1'>
-                3.
-                <tab/>
-                Widgets
-              </title>
-              <clause id='widgets1'>
-                <title>3.1.</title>
-                <permission id='note1' type='verification'>
-                  <name>Permission Test 3</name>
-                  <stem type='AsciiMath'>r = 1 %</stem>
-                </permission>
-                <permission id='note2' type='verification'>
-                  <name>Permission Test 4</name>
-                  <stem type='AsciiMath'>r = 1 %</stem>
-                </permission>
-                <p>
-                  <xref target='note1'>Permission Test 3</xref>
-                  <xref target='note2'>Permission Test 4</xref>
-                </p>
-              </clause>
-            </clause>
-          </sections>
-          <annex id='annex1'>
-            <title>
-              <strong>Annex A</strong>
-              <br/>
-              (informative)
-            </title>
-            <clause id='annex1a'>
-              <title>A.1.</title>
-              <permission id='AN' type='verification'>
-                <name>Permission Test A.1</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </permission>
-            </clause>
-            <clause id='annex1b'>
-              <title>A.2.</title>
-              <permission id='Anote1' unnumbered='true' type='verification'>
-                <name>Permission Test</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </permission>
-              <permission id='Anote2' type='verification'>
-                <name>Permission Test A.2</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </permission>
-            </clause>
-          </annex>
-        </iso-standard>
+         <introduction id='intro'>
+             <title>ii.</title>
+             <table id='N1' type='recommendtest' class='permission'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTestTitle'>Permission Test 1:</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>r = 1 %</td>
+                 </tr>
+               </tbody>
+             </table>
+             <clause id='xyz'>
+               <title depth='2'>
+                 ii.1.
+                 <tab/>
+                 Preparatory
+               </title>
+               <table id='N2' unnumbered='true' type='recommendtest' class='permission'>
+                 <thead>
+                   <tr>
+                     <th scope='colgroup' colspan='2'>
+                       <p class='RecommendationTestTitle'>Permission Test:</p>
+                     </th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   <tr>
+                     <td colspan='2'>r = 1 %</td>
+                   </tr>
+                 </tbody>
+               </table>
+             </clause>
+           </introduction>
+         </preface>
+         <sections>
+           <clause id='scope' type='scope'>
+             <title depth='1'>
+               1.
+               <tab/>
+               Scope
+             </title>
+             <table id='N' type='recommendtest' class='permission'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTestTitle'>Permission Test 2:</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>r = 1 %</td>
+                 </tr>
+               </tbody>
+             </table>
+             <p>
+               <xref target='N'>Permission Test 2</xref>
+             </p>
+           </clause>
+           <terms id='terms'>
+             <title>2.</title>
+           </terms>
+           <clause id='widgets'>
+             <title depth='1'>
+               3.
+               <tab/>
+               Widgets
+             </title>
+             <clause id='widgets1'>
+               <title>3.1.</title>
+               <table id='note1' type='recommendtest' class='permission'>
+                 <thead>
+                   <tr>
+                     <th scope='colgroup' colspan='2'>
+                       <p class='RecommendationTestTitle'>Permission Test 3:</p>
+                     </th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   <tr>
+                     <td colspan='2'>r = 1 %</td>
+                   </tr>
+                 </tbody>
+               </table>
+               <table id='note2' type='recommendtest' class='permission'>
+                 <thead>
+                   <tr>
+                     <th scope='colgroup' colspan='2'>
+                       <p class='RecommendationTestTitle'>Permission Test 4:</p>
+                     </th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   <tr>
+                     <td colspan='2'>r = 1 %</td>
+                   </tr>
+                 </tbody>
+               </table>
+               <p>
+                 <xref target='note1'>Permission Test 3</xref>
+                 <xref target='note2'>Permission Test 4</xref>
+               </p>
+             </clause>
+           </clause>
+         </sections>
+         <annex id='annex1'>
+           <title>
+             <strong>Annex A</strong>
+             <br/>
+             (informative)
+           </title>
+           <clause id='annex1a'>
+             <title>A.1.</title>
+             <table id='AN' type='recommendtest' class='permission'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTestTitle'>Permission Test A.1:</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>r = 1 %</td>
+                 </tr>
+               </tbody>
+             </table>
+           </clause>
+           <clause id='annex1b'>
+             <title>A.2.</title>
+             <table id='Anote1' unnumbered='true' type='recommendtest' class='permission'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTestTitle'>Permission Test:</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>r = 1 %</td>
+                 </tr>
+               </tbody>
+             </table>
+             <table id='Anote2' type='recommendtest' class='permission'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTestTitle'>Permission Test A.2:</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>r = 1 %</td>
+                 </tr>
+               </tbody>
+             </table>
+           </clause>
+         </annex>
+       </iso-standard>
 OUTPUT
 end
 
@@ -1067,66 +1553,216 @@ end
             </foreword>
           </preface>
           <sections>
-            <clause id='xyz'>
-              <title depth='1'>
-                1.
-                <tab/>
-                Preparatory
-              </title>
-              <permission id='N1'>
-                <name>Permission 1</name>
-                <permission id='N2' type='verification'>
-                  <name>Permission Test 1-1</name>
-                  <permission id='N'>
-                    <name>Permission 1-1-1</name>
-                  </permission>
-                </permission>
-                <requirement id='Q1'>
-                  <name>Requirement 1-1</name>
-                </requirement>
-                <recommendation id='R1'>
-                  <name>Recommendation 1-1</name>
-                </recommendation>
-                <permission id='N3' type='verification'>
-                  <name>Permission Test 1-2</name>
-                </permission>
-                <permission id='N4'>
-                  <name>Permission 1-1</name>
-                </permission>
-              </permission>
-            </clause>
-          </sections>
-          <annex id='Axyz'>
-            <title>
-              <strong>Annex A</strong>
-              <br/>
-              (informative)
-              <br/>
-              <strong>Preparatory</strong>
-            </title>
-            <permission id='AN1' type='verification'>
-              <name>Permission Test A.1</name>
-              <permission id='AN2'>
-                <name>Permission A.1-1</name>
-                <permission id='AN' type='verification'>
-                  <name>Permission Test A.1-1-1</name>
-                </permission>
-              </permission>
-              <requirement id='AQ1'>
-                <name>Requirement A.1-1</name>
-              </requirement>
-              <recommendation id='AR1'>
-                <name>Recommendation A.1-1</name>
-              </recommendation>
-              <permission id='AN3' type='verification'>
-                <name>Permission Test A.1-1</name>
-              </permission>
-              <permission id='AN4'>
-                <name>Permission A.1-2</name>
-              </permission>
-            </permission>
-          </annex>
-        </iso-standard>
+           <clause id='xyz'>
+             <title depth='1'>
+               1.
+               <tab/>
+               Preparatory
+             </title>
+             <table id='N1' class='permission' type='recommend'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTitle'>Permission 1:</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>
+                     <table id='N2' type='recommendtest' class='permission'>
+                       <thead>
+                         <tr>
+                           <th scope='colgroup' colspan='2'>
+                             <p class='RecommendationTestTitle'>Permission Test 1-1:</p>
+                           </th>
+                         </tr>
+                       </thead>
+                       <tbody>
+                         <tr>
+                           <td colspan='2'>
+                             <table id='N' class='permission' type='recommend'>
+                               <thead>
+                                 <tr>
+                                   <th scope='colgroup' colspan='2'>
+                                     <p class='RecommendationTitle'>Permission 1-1-1:</p>
+                                   </th>
+                                 </tr>
+                               </thead>
+                               <tbody/>
+                             </table>
+                           </td>
+                         </tr>
+                       </tbody>
+                     </table>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td colspan='2'>
+                     <table id='Q1' class='requirement' type='recommend'>
+                       <thead>
+                         <tr>
+                           <th scope='colgroup' colspan='2'>
+                             <p class='RecommendationTitle'>Requirement 1-1:</p>
+                           </th>
+                         </tr>
+                       </thead>
+                       <tbody/>
+                     </table>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td colspan='2'>
+                     <table id='R1' class='recommendation' type='recommend'>
+                       <thead>
+                         <tr>
+                           <th scope='colgroup' colspan='2'>
+                             <p class='RecommendationTitle'>Recommendation 1-1:</p>
+                           </th>
+                         </tr>
+                       </thead>
+                       <tbody/>
+                     </table>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td colspan='2'>
+                     <table id='N3' type='recommendtest' class='permission'>
+                       <thead>
+                         <tr>
+                           <th scope='colgroup' colspan='2'>
+                             <p class='RecommendationTestTitle'>Permission Test 1-2:</p>
+                           </th>
+                         </tr>
+                       </thead>
+                       <tbody/>
+                     </table>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td colspan='2'>
+                     <table id='N4' class='permission' type='recommend'>
+                       <thead>
+                         <tr>
+                           <th scope='colgroup' colspan='2'>
+                             <p class='RecommendationTitle'>Permission 1-1:</p>
+                           </th>
+                         </tr>
+                       </thead>
+                       <tbody/>
+                     </table>
+                   </td>
+                 </tr>
+               </tbody>
+             </table>
+           </clause>
+         </sections>
+         <annex id='Axyz'>
+           <title>
+             <strong>Annex A</strong>
+             <br/>
+             (informative)
+             <br/>
+             <strong>Preparatory</strong>
+           </title>
+           <table id='AN1' type='recommendtest' class='permission'>
+             <thead>
+               <tr>
+                 <th scope='colgroup' colspan='2'>
+                   <p class='RecommendationTestTitle'>Permission Test A.1:</p>
+                 </th>
+               </tr>
+             </thead>
+             <tbody>
+               <tr>
+                 <td colspan='2'>
+                   <table id='AN2' class='permission' type='recommend'>
+                     <thead>
+                       <tr>
+                         <th scope='colgroup' colspan='2'>
+                           <p class='RecommendationTitle'>Permission A.1-1:</p>
+                         </th>
+                       </tr>
+                     </thead>
+                     <tbody>
+                       <tr>
+                         <td colspan='2'>
+                           <table id='AN' type='recommendtest' class='permission'>
+                             <thead>
+                               <tr>
+                                 <th scope='colgroup' colspan='2'>
+                                   <p class='RecommendationTestTitle'>Permission Test A.1-1-1:</p>
+                                 </th>
+                               </tr>
+                             </thead>
+                             <tbody/>
+                           </table>
+                         </td>
+                       </tr>
+                     </tbody>
+                   </table>
+                 </td>
+               </tr>
+               <tr>
+                 <td colspan='2'>
+                   <table id='AQ1' class='requirement' type='recommend'>
+                     <thead>
+                       <tr>
+                         <th scope='colgroup' colspan='2'>
+                           <p class='RecommendationTitle'>Requirement A.1-1:</p>
+                         </th>
+                       </tr>
+                     </thead>
+                     <tbody/>
+                   </table>
+                 </td>
+               </tr>
+               <tr>
+                 <td colspan='2'>
+                   <table id='AR1' class='recommendation' type='recommend'>
+                     <thead>
+                       <tr>
+                         <th scope='colgroup' colspan='2'>
+                           <p class='RecommendationTitle'>Recommendation A.1-1:</p>
+                         </th>
+                       </tr>
+                     </thead>
+                     <tbody/>
+                   </table>
+                 </td>
+               </tr>
+               <tr>
+                 <td colspan='2'>
+                   <table id='AN3' type='recommendtest' class='permission'>
+                     <thead>
+                       <tr>
+                         <th scope='colgroup' colspan='2'>
+                           <p class='RecommendationTestTitle'>Permission Test A.1-1:</p>
+                         </th>
+                       </tr>
+                     </thead>
+                     <tbody/>
+                   </table>
+                 </td>
+               </tr>
+               <tr>
+                 <td colspan='2'>
+                   <table id='AN4' class='permission' type='recommend'>
+                     <thead>
+                       <tr>
+                         <th scope='colgroup' colspan='2'>
+                           <p class='RecommendationTitle'>Permission A.1-2:</p>
+                         </th>
+                       </tr>
+                     </thead>
+                     <tbody/>
+                   </table>
+                 </td>
+               </tr>
+             </tbody>
+           </table>
+         </annex>
+       </iso-standard>
     OUTPUT
         end
 
@@ -1208,91 +1844,172 @@ end
                 <xref target='Anote2'>Annex A.2, Abstract Test A.2</xref>
               </p>
             </foreword>
-            <introduction id='intro'><title>ii.</title>
-              <permission id='N1' type='abstracttest'>
-                <name>Abstract Test 1</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </permission>
-              <clause id='xyz'>
-                <title depth='2'>
-                  ii.1.
-                  <tab/>
-                  Preparatory
-                </title>
-                <permission id='N2' unnumbered='true' type='abstracttest'>
-                  <name>Abstract Test</name>
-                  <stem type='AsciiMath'>r = 1 %</stem>
-                </permission>
-              </clause>
-            </introduction>
-          </preface>
-          <sections>
-            <clause id='scope' type='scope'>
-              <title depth='1'>
-                1.
-                <tab/>
-                Scope
-              </title>
-              <permission id='N' type='abstracttest'>
-                <name>Abstract Test 2</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </permission>
-              <p>
-                <xref target='N'>Abstract Test 2</xref>
-              </p>
-            </clause>
-            <terms id='terms'>
-              <title>2.</title>
-            </terms>
-            <clause id='widgets'>
-              <title depth='1'>
-                3.
-                <tab/>
-                Widgets
-              </title>
-              <clause id='widgets1'>
-                <title>3.1.</title>
-                <permission id='note1' type='abstracttest'>
-                  <name>Abstract Test 3</name>
-                  <stem type='AsciiMath'>r = 1 %</stem>
-                </permission>
-                <permission id='note2' type='abstracttest'>
-                  <name>Abstract Test 4</name>
-                  <stem type='AsciiMath'>r = 1 %</stem>
-                </permission>
-                <p>
-                  <xref target='note1'>Abstract Test 3</xref>
-                  <xref target='note2'>Abstract Test 4</xref>
-                </p>
-              </clause>
-            </clause>
-          </sections>
-          <annex id='annex1'>
-            <title>
-              <strong>Annex A</strong>
-              <br/>
-              (informative)
-            </title>
-            <clause id='annex1a'>
-              <title>A.1.</title>
-              <permission id='AN' type='abstracttest'>
-                <name>Abstract Test A.1</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </permission>
-            </clause>
-            <clause id='annex1b'>
-              <title>A.2.</title>
-              <permission id='Anote1' unnumbered='true' type='abstracttest'>
-                <name>Abstract Test</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </permission>
-              <permission id='Anote2' type='abstracttest'>
-                <name>Abstract Test A.2</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </permission>
-            </clause>
-          </annex>
-        </iso-standard>
+        <introduction id='intro'>
+             <title>ii.</title>
+             <table id='N1' type='recommendtest' class='permission'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTestTitle'>Abstract Test 1:</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>r = 1 %</td>
+                 </tr>
+               </tbody>
+             </table>
+             <clause id='xyz'>
+               <title depth='2'>
+                 ii.1.
+                 <tab/>
+                 Preparatory
+               </title>
+               <table id='N2' unnumbered='true' type='recommendtest' class='permission'>
+                 <thead>
+                   <tr>
+                     <th scope='colgroup' colspan='2'>
+                       <p class='RecommendationTestTitle'>Abstract Test:</p>
+                     </th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   <tr>
+                     <td colspan='2'>r = 1 %</td>
+                   </tr>
+                 </tbody>
+               </table>
+             </clause>
+           </introduction>
+         </preface>
+         <sections>
+           <clause id='scope' type='scope'>
+             <title depth='1'>
+               1.
+               <tab/>
+               Scope
+             </title>
+             <table id='N' type='recommendtest' class='permission'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTestTitle'>Abstract Test 2:</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>r = 1 %</td>
+                 </tr>
+               </tbody>
+             </table>
+             <p>
+               <xref target='N'>Abstract Test 2</xref>
+             </p>
+           </clause>
+           <terms id='terms'>
+             <title>2.</title>
+           </terms>
+           <clause id='widgets'>
+             <title depth='1'>
+               3.
+               <tab/>
+               Widgets
+             </title>
+             <clause id='widgets1'>
+               <title>3.1.</title>
+               <table id='note1' type='recommendtest' class='permission'>
+                 <thead>
+                   <tr>
+                     <th scope='colgroup' colspan='2'>
+                       <p class='RecommendationTestTitle'>Abstract Test 3:</p>
+                     </th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   <tr>
+                     <td colspan='2'>r = 1 %</td>
+                   </tr>
+                 </tbody>
+               </table>
+               <table id='note2' type='recommendtest' class='permission'>
+                 <thead>
+                   <tr>
+                     <th scope='colgroup' colspan='2'>
+                       <p class='RecommendationTestTitle'>Abstract Test 4:</p>
+                     </th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   <tr>
+                     <td colspan='2'>r = 1 %</td>
+                   </tr>
+                 </tbody>
+               </table>
+               <p>
+                 <xref target='note1'>Abstract Test 3</xref>
+                 <xref target='note2'>Abstract Test 4</xref>
+               </p>
+             </clause>
+           </clause>
+         </sections>
+         <annex id='annex1'>
+           <title>
+             <strong>Annex A</strong>
+             <br/>
+             (informative)
+           </title>
+           <clause id='annex1a'>
+             <title>A.1.</title>
+             <table id='AN' type='recommendtest' class='permission'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTestTitle'>Abstract Test A.1:</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>r = 1 %</td>
+                 </tr>
+               </tbody>
+             </table>
+           </clause>
+           <clause id='annex1b'>
+             <title>A.2.</title>
+             <table id='Anote1' unnumbered='true' type='recommendtest' class='permission'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTestTitle'>Abstract Test:</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>r = 1 %</td>
+                 </tr>
+               </tbody>
+             </table>
+             <table id='Anote2' type='recommendtest' class='permission'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTestTitle'>Abstract Test A.2:</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>r = 1 %</td>
+                 </tr>
+               </tbody>
+             </table>
+           </clause>
+         </annex>
+       </iso-standard>
 OUTPUT
                end
 
@@ -1374,91 +2091,172 @@ OUTPUT
                 <xref target='Anote2'>Annex A.2, Conformance Class A.2</xref>
               </p>
             </foreword>
-            <introduction id='intro'><title>ii.</title>
-              <permission id='N1' type='conformanceclass'>
-                <name>Conformance Class 1</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </permission>
-              <clause id='xyz'>
-                <title depth='2'>
-                  ii.1.
-                  <tab/>
-                  Preparatory
-                </title>
-                <permission id='N2' unnumbered='true' type='conformanceclass'>
-                  <name>Conformance Class</name>
-                  <stem type='AsciiMath'>r = 1 %</stem>
-                </permission>
-              </clause>
-            </introduction>
-          </preface>
-          <sections>
-            <clause id='scope' type='scope'>
-              <title depth='1'>
-                1.
-                <tab/>
-                Scope
-              </title>
-              <permission id='N' type='conformanceclass'>
-                <name>Conformance Class 2</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </permission>
-              <p>
-                <xref target='N'>Conformance Class 2</xref>
-              </p>
-            </clause>
-            <terms id='terms'>
-              <title>2.</title>
-            </terms>
-            <clause id='widgets'>
-              <title depth='1'>
-                3.
-                <tab/>
-                Widgets
-              </title>
-              <clause id='widgets1'>
-                <title>3.1.</title>
-                <permission id='note1' type='conformanceclass'>
-                  <name>Conformance Class 3</name>
-                  <stem type='AsciiMath'>r = 1 %</stem>
-                </permission>
-                <permission id='note2' type='conformanceclass'>
-                  <name>Conformance Class 4</name>
-                  <stem type='AsciiMath'>r = 1 %</stem>
-                </permission>
-                <p>
-                  <xref target='note1'>Conformance Class 3</xref>
-                  <xref target='note2'>Conformance Class 4</xref>
-                </p>
-              </clause>
-            </clause>
-          </sections>
-          <annex id='annex1'>
-            <title>
-              <strong>Annex A</strong>
-              <br/>
-              (informative)
-            </title>
-            <clause id='annex1a'>
-              <title>A.1.</title>
-              <permission id='AN' type='conformanceclass'>
-                <name>Conformance Class A.1</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </permission>
-            </clause>
-            <clause id='annex1b'>
-              <title>A.2.</title>
-              <permission id='Anote1' unnumbered='true' type='conformanceclass'>
-                <name>Conformance Class</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </permission>
-              <permission id='Anote2' type='conformanceclass'>
-                <name>Conformance Class A.2</name>
-                <stem type='AsciiMath'>r = 1 %</stem>
-              </permission>
-            </clause>
-          </annex>
-        </iso-standard>
+         <introduction id='intro'>
+             <title>ii.</title>
+             <table id='N1' type='recommendclass' class='permission'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTitle'>Conformance Class 1:</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>r = 1 %</td>
+                 </tr>
+               </tbody>
+             </table>
+             <clause id='xyz'>
+               <title depth='2'>
+                 ii.1.
+                 <tab/>
+                 Preparatory
+               </title>
+               <table id='N2' unnumbered='true' type='recommendclass' class='permission'>
+                 <thead>
+                   <tr>
+                     <th scope='colgroup' colspan='2'>
+                       <p class='RecommendationTitle'>Conformance Class:</p>
+                     </th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   <tr>
+                     <td colspan='2'>r = 1 %</td>
+                   </tr>
+                 </tbody>
+               </table>
+             </clause>
+           </introduction>
+         </preface>
+         <sections>
+           <clause id='scope' type='scope'>
+             <title depth='1'>
+               1.
+               <tab/>
+               Scope
+             </title>
+             <table id='N' type='recommendclass' class='permission'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTitle'>Conformance Class 2:</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>r = 1 %</td>
+                 </tr>
+               </tbody>
+             </table>
+             <p>
+               <xref target='N'>Conformance Class 2</xref>
+             </p>
+           </clause>
+           <terms id='terms'>
+             <title>2.</title>
+           </terms>
+           <clause id='widgets'>
+             <title depth='1'>
+               3.
+               <tab/>
+               Widgets
+             </title>
+             <clause id='widgets1'>
+               <title>3.1.</title>
+               <table id='note1' type='recommendclass' class='permission'>
+                 <thead>
+                   <tr>
+                     <th scope='colgroup' colspan='2'>
+                       <p class='RecommendationTitle'>Conformance Class 3:</p>
+                     </th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   <tr>
+                     <td colspan='2'>r = 1 %</td>
+                   </tr>
+                 </tbody>
+               </table>
+               <table id='note2' type='recommendclass' class='permission'>
+                 <thead>
+                   <tr>
+                     <th scope='colgroup' colspan='2'>
+                       <p class='RecommendationTitle'>Conformance Class 4:</p>
+                     </th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   <tr>
+                     <td colspan='2'>r = 1 %</td>
+                   </tr>
+                 </tbody>
+               </table>
+               <p>
+                 <xref target='note1'>Conformance Class 3</xref>
+                 <xref target='note2'>Conformance Class 4</xref>
+               </p>
+             </clause>
+           </clause>
+         </sections>
+         <annex id='annex1'>
+           <title>
+             <strong>Annex A</strong>
+             <br/>
+             (informative)
+           </title>
+           <clause id='annex1a'>
+             <title>A.1.</title>
+             <table id='AN' type='recommendclass' class='permission'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTitle'>Conformance Class A.1:</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>r = 1 %</td>
+                 </tr>
+               </tbody>
+             </table>
+           </clause>
+           <clause id='annex1b'>
+             <title>A.2.</title>
+             <table id='Anote1' unnumbered='true' type='recommendclass' class='permission'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTitle'>Conformance Class:</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>r = 1 %</td>
+                 </tr>
+               </tbody>
+             </table>
+             <table id='Anote2' type='recommendclass' class='permission'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTitle'>Conformance Class A.2:</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>r = 1 %</td>
+                 </tr>
+               </tbody>
+             </table>
+           </clause>
+         </annex>
+       </iso-standard>
 OUTPUT
 
 end

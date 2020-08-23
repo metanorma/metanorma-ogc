@@ -1,4 +1,5 @@
 require_relative "init"
+require_relative "reqt"
 require "isodoc"
 require "uuidtools"
 
@@ -79,7 +80,7 @@ module IsoDoc
       end
 
       def recommendation1(f, type)
-        type = recommendation_class(f)
+        type = recommendation_class_label(f)
         label = f&.at(ns("./label"))&.text
         if inject_crossreference_reqt?(f, label)
           n = @xrefs.anchor(@xrefs.reqtlabels[label], :xref, false)
@@ -98,7 +99,7 @@ module IsoDoc
           @xrefs.reqtlabels[label]
       end
 
-      def recommendation_class(node)
+      def recommendation_class_label(node)
         case node["type"]
         when "verification" then @i18n.get["#{node.name}test"]
         when "class" then @i18n.get["#{node.name}class"]
@@ -128,6 +129,11 @@ module IsoDoc
                        each do |f|
           clause1(f)
         end
+      end
+
+      def block(docxml)
+        super
+        recommendation_to_table(docxml)
       end
 
       include Init

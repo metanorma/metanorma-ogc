@@ -2,7 +2,7 @@ require "isodoc"
 
 module IsoDoc
   module Ogc
-    module BaseConvert
+    class PresentationXMLConvert < IsoDoc::PresentationXMLConvert
       def recommend_class(node)
         return "recommendtest" if node["type"] == "verification"
         return "recommendtest" if node["type"] == "abstracttest"
@@ -11,52 +11,41 @@ module IsoDoc
         "recommend"
       end
 
-      def recommend_table_attr(node)
-        attr_code(id: node["id"], class: recommend_class(node),
-                  style: "border-collapse:collapse;border-spacing:0;"\
-                 "#{keep_style(node)}")
-      end
-
-      REQ_TBL_ATTR =
-        { style: "vertical-align:top;", class: "recommend" }.freeze
-
       def recommendation_class(node)
-        %w(verification abstracttest).include?(node["type"]) ?
-                  "RecommendationTestTitle" : "RecommendationTitle"
+        node["type"] == "recommendtest" ?
+          "RecommendationTestTitle" : "RecommendationTitle"
       end
 
-      def recommendation_name(node, out, type)
-        label, title, lbl = recommendation_labels(node)
-        out.p **{ class: recommendation_class(node) } do |b|
-          lbl and lbl.children.each { |n| parse(n, b) }
+      def recommendation_header(r)
+        h = r.add_child("<thead><tr><th scope='colgroup' colspan='2'></th></tr></thead>")
+        recommendation_name(r, h.at(ns(".//th")))
+      end
+
+      def recommendation_name(node, out)
+        b = out.add_child("<p class='#{recommendation_class(node)}'></p>").first
+        if name = node&.at(ns("./name"))&.remove
+          name.children.each { |n| b << n }
           b << l10n(":")
-          recommendation_name1(title, node, label, b)
         end
-      end
-
-      def recommendation_name1(title, node, label, b)
-        return unless title
-        b << " "
-        title.children.each { |n| parse(n,b) }
+        if title =  node&.at(ns("./title"))&.remove
+          b << l10n(" ") if name
+          title.children.each { |n| b << n }
+        end
       end
 
       def recommend_title(node, out)
-        label = node.at(ns("./label")) or return
-        out.tr do |tr|
-          tr.td **REQ_TBL_ATTR.merge(colspan: 2) do |td|
-            td.p do |p|
-              label.children.each { |n| parse(n, p) }
-            end
-          end
-        end
+        label = node&.at(ns("./label"))&.remove or return
+        b = out.add_child("<tr><td colspan='2'><p></p></td></tr>")
+        p = b.at(ns(".//p"))
+        p << label.children
       end
 
       def recommendation_attributes1(node)
         out = []
         oblig = node["obligation"] and out << ["Obligation", oblig]
-        subj = node&.at(ns("./subject"))&.text and out << [rec_subj(node), subj]
+        subj = node&.at(ns("./subject"))&.remove&.children and out << [rec_subj(node), subj]
         node.xpath(ns("./inherit")).each do |i|
-          out << recommendation_attr_parse(i, "Dependency")
+          out << ["Dependency", i.remove.children]
         end
         node.xpath(ns("./classification")).each do |c|
           line = recommendation_attr_keyvalue(c, "tag", "value") and out << line
@@ -65,103 +54,103 @@ module IsoDoc
       end
 
       def rec_subj(node)
-        %w(class conformanceclass).include?(node["type"]) ?
-          "Target Type" : "Subject"
-      end
-
-      def recommendation_attr_parse(node, label)
-        text = noko do |xml|
-          node.children.each { |n| parse(n, xml) }
-        end.join
-        [label, text]
+        node["type"] == "recommendclass" ?  "Target Type" : "Subject"
       end
 
       def recommendation_attr_keyvalue(node, key, value)
-        tag = node.at(ns("./#{key}")) or return nil
-        value = node.at(ns("./#{value}")) or return nil
-        [tag.text.capitalize, value.text]
+        tag = node&.at(ns("./#{key}"))&.remove
+        value = node.at(ns("./#{value}"))&.remove
+        tag && value or return nil
+        node.remove
+        [tag.text.capitalize, value.children]
       end
 
       def recommendation_attributes(node, out)
         recommendation_attributes1(node).each do |i|
-          out.tr do |tr|
-            tr.td **REQ_TBL_ATTR do |td|
-              td << i[0]
-            end
-            tr.td **REQ_TBL_ATTR do |td|
-              td << i[1] 
-            end
-          end
+          out.add_child("<tr><td>#{i[0]}</td><td>#{i[1]}</td></tr>")
         end
       end
 
-      def reqt_component_attrs(node)
-        attr_code(style: keep_style(node))
+      def preserve_in_nested_table?(node)
+        return true if %w(recommendation requirement permission table).include?(node.name)
+        false
       end
 
       def requirement_component_parse(node, out)
+        node.remove
         return if node["exclude"] == "true"
         node.elements.size == 1 && node.first_element_child.name == "dl" and
           return reqt_dl(node.first_element_child, out)
-        out.tr do |tr|
-          tr.td **REQ_TBL_ATTR.merge(colspan: 2).
-            merge(reqt_component_attrs(node)) do |td|
-            node.children.each { |n| parse(n, td) }
-          end
-        end
+        b = out.add_child("<tr><td colspan='2'></td></tr>").first
+        b.at(ns(".//td")) << (preserve_in_nested_table?(node) ? node : node.children)
       end
 
       def reqt_dl(node, out)
         node.xpath(ns("./dt")).each do |dt|
-          out.tr do |tr|
-            tr.td **REQ_TBL_ATTR do |td|
-              dt.children.each { |n| parse(n, td) }
-            end
-            dd = dt&.next_element and dd.name == "dd" or next
-            tr.td **REQ_TBL_ATTR do |td|
-              dd.children.each { |n| parse(n, td) }
-            end
-          end
+          dd = dt&.next_element
+          dt.remove
+          dd&.name == "dd" or next
+          b = out.add_child("<tr><td></td><td></td></tr>")
+          b.at(ns(".//td[1]")) << dt.children
+          b.at(ns(".//td[2]")) << dd.remove.children
         end
       end
 
-      def recommendation_header(node, out, label)
-        out.thead do |h|
-          h.tr do |tr|
-            tr.th **REQ_TBL_ATTR.merge(colspan: 2) do |td|
-              recommendation_name(node, td, label)
-            end
-          end
+      def recommendation_base(node, klass)
+        node.name = "table"
+        node["class"] = klass
+        node["type"] = recommend_class(node)
+      end
+
+      def recommendation_parse1(node, klass)
+        recommendation_base(node, klass)
+        recommendation_header(node)
+        b = node.add_child("<tbody></tbody>").first
+        recommend_title(node, b)
+        recommendation_attributes(node, b)
+        node.elements.each do |n|
+          next if %w(thead tbody).include?(n.name)
+          requirement_component_parse(n, b)
         end
       end
 
-      def recommendation_parse1(node, out, label)
-        out.table **recommend_table_attr(node) do |t|
-          recommendation_header(node, out, label)
-          t.tbody do |b|
-            recommend_title(node, b)
-            recommendation_attributes(node, b)
-            node.children.each do |n|
-              parse(n, t) unless reqt_metadata_node(n)
-            end
-          end
+      def recommendation_to_table(docxml)
+        docxml.xpath(ns("//recommendation")).each do |r|
+          recommendation_parse1(r, "recommendation")
         end
+        docxml.xpath(ns("//requirement")).each do |r|
+          recommendation_parse1(r, "requirement")
+        end
+        docxml.xpath(ns("//permission")).each do |r|
+          recommendation_parse1(r, "permission")
+        end
+        requirement_table_cleanup(docxml)
       end
 
-      def recommendation_parse(node, out)
-        recommendation_parse0(node, out, "recommendation")
+      # table nested in table: merge label and caption into a single row
+      def requirement_table_cleanup1(x, y)
+        x.delete("colspan")
+        x.delete("scope")
+        y.delete("colspan")
+        y.delete("scope")
+        x.name = "td"
+        p = x.at(ns("./p[@class = 'RecommendationTitle']")) and
+          p.delete("class")
+        x.parent << y.dup
+        y.parent.remove
       end
 
-      def recommendation_parse0(node, out, r)
-        recommendation_parse1(node, out, nil)
-      end
-
-      def requirement_parse(node, out)
-        recommendation_parse0(node, out, "requirement")
-      end
-
-      def permission_parse(node, out)
-        recommendation_parse0(node, out, "permission")
+      def requirement_table_cleanup(docxml)
+        docxml.xpath(ns("//table[@type = 'recommendclass']/tbody/tr/td/table")).each do |t|
+          x = t.at(ns("./thead")) and x.replace(x.children)
+          x = t.at(ns("./tbody")) and x.replace(x.children)
+          x = t.at(ns("./tfoot")) and x.replace(x.children)
+          if x = t.at(ns("./tr/th[@colspan = '2']")) and
+              y = t.at(ns("./tr/td[@colspan = '2']"))
+            requirement_table_cleanup1(x, y)
+          end
+          t.parent.parent.replace(t.children)
+        end
       end
     end
   end
