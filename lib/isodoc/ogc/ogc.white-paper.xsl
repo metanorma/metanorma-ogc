@@ -21,6 +21,7 @@
 	</xsl:attribute-set>
 	
 	<xsl:attribute-set name="title-depth1-style" use-attribute-sets="title-toc-style">		
+		<xsl:attribute name="font-family">Lato</xsl:attribute>
 		<xsl:attribute name="color">rgb(59, 56, 56)</xsl:attribute>
 		<xsl:attribute name="margin-top">18pt</xsl:attribute>
 		<xsl:attribute name="margin-bottom">18pt</xsl:attribute>
@@ -28,6 +29,7 @@
 	</xsl:attribute-set>
 	
 	<xsl:attribute-set name="title-depth2-style">
+		<xsl:attribute name="font-family">Lato</xsl:attribute>
 		<xsl:attribute name="font-size">18pt</xsl:attribute>
 		<xsl:attribute name="color">rgb(21, 43, 77)</xsl:attribute>
 		<xsl:attribute name="margin-top">12pt</xsl:attribute>
@@ -37,6 +39,7 @@
 	</xsl:attribute-set>
 	
 	<xsl:attribute-set name="title-depth3-style">
+		<xsl:attribute name="font-family">Lato</xsl:attribute>
 		<xsl:attribute name="font-size">12pt</xsl:attribute>
 		<xsl:attribute name="font-weight">bold</xsl:attribute>
 		<xsl:attribute name="color">rgb(21, 43, 77)</xsl:attribute>
@@ -51,26 +54,32 @@
 	<xsl:variable name="contents">
 		<contents>
 		
-			<!-- Abstract, Keywords, Preface, Submitting Organizations, Submitters -->
+			<!-- Abstract, Keywords, Preface, Submitting Organizations, Submitters -->			
+			<!-- <xsl:apply-templates select="/ogc:ogc-standard/ogc:preface/*" mode="contents"/> -->			
+			<xsl:apply-templates select="/ogc:ogc-standard/ogc:preface/ogc:abstract" mode="contents"/>
+			<xsl:apply-templates select="/ogc:ogc-standard/ogc:preface/ogc:clause[@type = 'keyword']" mode="contents"/>
+			<xsl:apply-templates select="/ogc:ogc-standard/ogc:preface/ogc:foreword" mode="contents"/>
+			<xsl:apply-templates select="/ogc:ogc-standard/ogc:preface/ogc:introduction" mode="contents"/>
+			<xsl:apply-templates select="/ogc:ogc-standard/ogc:preface/ogc:clause[@type = 'submitting_orgs']" mode="contents"/>
+			<xsl:apply-templates select="/ogc:ogc-standard/ogc:preface/ogc:submitters" mode="contents"/>
+			<xsl:apply-templates select="/ogc:ogc-standard/ogc:preface/ogc:clause[not(@type = 'submitting_orgs') and not(@type = 'keyword')]" mode="contents"/>
+			<xsl:apply-templates select="/ogc:ogc-standard/ogc:preface/ogc:acknowledgements" mode="contents"/>
 			
-			<xsl:apply-templates select="/ogc:ogc-standard/ogc:preface/*" mode="contents"/>
 			
-			<xsl:apply-templates select="/ogc:ogc-standard/ogc:sections/ogc:clause[@id='_scope']" mode="contents"/>
-				
-			<xsl:apply-templates select="/ogc:ogc-standard/ogc:sections/ogc:clause[@id='conformance' or @id='_conformance']" mode="contents"/>
-				
+			<xsl:apply-templates select="/ogc:ogc-standard/ogc:sections/ogc:clause[@type='scope']" mode="contents"/>				
+			<xsl:apply-templates select="/ogc:ogc-standard/ogc:sections/ogc:clause[@type='conformance']" mode="contents"/>				
 			<!-- Normative references  -->
-			<xsl:apply-templates select="/ogc:ogc-standard/ogc:bibliography/ogc:references[@id = '_normative_references' or @id = '_references' or @id = 'references']" mode="contents"/>
-			
+			<xsl:apply-templates select="/ogc:ogc-standard/ogc:bibliography/ogc:references[@normative='true']" mode="contents"/>			
 			<!-- Terms and definitions -->
 			<xsl:apply-templates select="/ogc:ogc-standard/ogc:sections/ogc:terms" mode="contents"/>
+			<xsl:apply-templates select="/ogc:ogc-standard/ogc:sections/ogc:definitions" mode="contents"/>
 		
-			<xsl:apply-templates select="/ogc:ogc-standard/ogc:sections/*[local-name() != 'terms' and not(@id='_scope') and not(@id='conformance') and not(@id='_conformance')]" mode="contents"/>
+			<xsl:apply-templates select="/ogc:ogc-standard/ogc:sections/ogc:clause[not(@type='scope') and not(@type='conformance')]" mode="contents"/>
 
 			<xsl:apply-templates select="/ogc:ogc-standard/ogc:annex" mode="contents"/>
 			
 			<!-- Bibliography -->
-			<xsl:apply-templates select="/ogc:ogc-standard/ogc:bibliography/ogc:references[@id != '_normative_references' and @id != '_references' and @id != 'references']" mode="contents"/> <!-- [position() &gt; 1] -->
+			<xsl:apply-templates select="/ogc:ogc-standard/ogc:bibliography/ogc:references[not(@normative='true')]" mode="contents"/>
 			
 			
 		</contents>
@@ -111,7 +120,7 @@
 						</fo:block-container>
 					</fo:block-container>
 					
-					<fo:block font-size="14pt" font-style="italic" margin-top="6pt" color="rgb(21, 43, 77)">
+					<fo:block font-family="Lato Light" font-size="14pt" font-style="italic" margin-top="6pt" color="rgb(21, 43, 77)">
 						<xsl:text>Additional context, inspirational quote, etc. fits into this subheading area</xsl:text>
 					</fo:block>
 					
@@ -154,7 +163,7 @@
 					
 					<fo:block break-after="page"/>
 					
-					<fo:block-container line-height="1.08">
+					<fo:block-container line-height="1.08" font-family="Lato">
 						<fo:block xsl:use-attribute-sets="title-toc-style">
 							<xsl:text>Table of Contents</xsl:text>
 						</fo:block>
@@ -193,7 +202,25 @@
 				
 					
 					<!-- Abstract, Keywords, Preface, Submitting Organizations, Submitters -->
-					<xsl:apply-templates select="/ogc:ogc-standard/ogc:preface/*" mode="preface"/>
+					<!-- <xsl:apply-templates select="/ogc:ogc-standard/ogc:preface/*" mode="preface"/> -->
+					<xsl:if test="/ogc:ogc-standard/ogc:preface/ogc:abstract">
+						<fo:block break-after="page"/>
+					</xsl:if>
+					<xsl:apply-templates select="/ogc:ogc-standard/ogc:preface/ogc:abstract"/>
+					<xsl:apply-templates select="/ogc:ogc-standard/ogc:preface/ogc:clause[@type = 'keyword']"/>
+					<xsl:if test="/ogc:ogc-standard/ogc:preface/ogc:foreword">
+						<fo:block break-after="page"/>
+					</xsl:if>
+					<xsl:apply-templates select="/ogc:ogc-standard/ogc:preface/ogc:foreword"/>					
+					<xsl:if test="/ogc:ogc-standard/ogc:preface/ogc:introduction">
+						<fo:block break-after="page"/>
+					</xsl:if>
+					<xsl:apply-templates select="/ogc:ogc-standard/ogc:preface/ogc:introduction"/>
+					
+					<xsl:apply-templates select="/ogc:ogc-standard/ogc:preface/ogc:clause[@type = 'submitting_orgs']"/>
+					<xsl:apply-templates select="/ogc:ogc-standard/ogc:preface/ogc:submitters"/>
+					<xsl:apply-templates select="/ogc:ogc-standard/ogc:preface/ogc:clause[not(@type = 'submitting_orgs') and not(@type = 'keyword')]"/>
+					<xsl:apply-templates select="/ogc:ogc-standard/ogc:preface/ogc:acknowledgements"/>
 						
 				</fo:flow>
 			</fo:page-sequence>
@@ -208,22 +235,23 @@
 					
 					<fo:block line-height="125%">
 					
-						<xsl:apply-templates select="/ogc:ogc-standard/ogc:sections/ogc:clause[@id='_scope']"/>
+						<xsl:apply-templates select="/ogc:ogc-standard/ogc:sections/ogc:clause[@type='scope']"/>
 						
-						<xsl:apply-templates select="/ogc:ogc-standard/ogc:sections/ogc:clause[@id='conformance' or @id='_conformance']"/>
+						<xsl:apply-templates select="/ogc:ogc-standard/ogc:sections/ogc:clause[@type='conformance']"/>
 						
 						<!-- Normative references  -->
-						<xsl:apply-templates select="/ogc:ogc-standard/ogc:bibliography/ogc:references[@id = '_normative_references' or @id = '_references' or @id = 'references']"/>
+						<xsl:apply-templates select="/ogc:ogc-standard/ogc:bibliography/ogc:references[@normative='true']"/>
 
 						<!-- Terms and definitions -->
-						<xsl:apply-templates select="/ogc:ogc-standard/ogc:sections/ogc:terms"/>
+						<xsl:apply-templates select="/ogc:ogc-standard/ogc:sections/ogc:terms"/>						
+						<xsl:apply-templates select="/ogc:ogc-standard/ogc:sections/ogc:definitions"/>
 						
-						<xsl:apply-templates select="/ogc:ogc-standard/ogc:sections/*[local-name() != 'terms' and not(@id='_scope') and not(@id='conformance') and not(@id='_conformance')]"/>
+						<xsl:apply-templates select="/ogc:ogc-standard/ogc:sections/ogc:clause[not(@type='scope') and not(@type='conformance')]"/>
 						
 						<xsl:apply-templates select="/ogc:ogc-standard/ogc:annex"/>
 						
 						<!-- Bibliography -->
-						<xsl:apply-templates select="/ogc:ogc-standard/ogc:bibliography/ogc:references[@id != '_normative_references' and @id != '_references' and @id != 'references']"/> <!-- [position() &gt; 1] -->
+						<xsl:apply-templates select="/ogc:ogc-standard/ogc:bibliography/ogc:references[not(@normative='true')]"/>
 						
 					</fo:block>
 				</fo:flow>
@@ -307,7 +335,7 @@
 	</xsl:template>
 	
 	<xsl:template match="ogc:license-statement//ogc:title">
-		<fo:block text-align="center" font-weight="bold" margin-top="4pt">
+		<fo:block font-family="Lato" text-align="center" font-weight="bold" margin-top="4pt">
 			<xsl:apply-templates/>
 		</fo:block>
 	</xsl:template>
@@ -340,7 +368,7 @@
 	</xsl:template>
 		
 	<xsl:template match="ogc:copyright-statement//ogc:title | ogc:legal-statement//ogc:title">
-		<fo:block text-align="center" font-weight="bold">
+		<fo:block font-family="Lato" text-align="center" font-weight="bold">
 			<xsl:apply-templates/>
 		</fo:block>
 	</xsl:template>
@@ -410,7 +438,7 @@
 						</fo:inline>
 					</xsl:when>
 					<xsl:otherwise>
-						<fo:inline>
+						<fo:inline font-family="Lato">
 							<xsl:apply-templates/>
 						</fo:inline>
 					</xsl:otherwise>
@@ -434,7 +462,7 @@
 						</fo:block>
 					</xsl:when>
 					<xsl:otherwise>
-						<fo:block>
+						<fo:block font-family="Lato">
 							<xsl:apply-templates/>
 						</fo:block>
 					</xsl:otherwise>
@@ -691,7 +719,7 @@
 
 	
 	<!-- [position() &gt; 1] -->
-	<xsl:template match="ogc:references[@id != '_normative_references' and @id != '_references'  and @id != 'references']">
+	<xsl:template match="ogc:references[not(@normative='true')]">
 		<fo:block break-after="page"/>
 		<fo:block id="{@id}" line-height="120%">
 			<xsl:apply-templates/>
@@ -706,7 +734,7 @@
 
 	<!-- Example: [1] ISO 9:1995, Information and documentation – Transliteration of Cyrillic characters into Latin characters – Slavic and non-Slavic languages -->
 	<!-- <xsl:template match="ogc:references[@id = '_bibliography']/ogc:bibitem"> [position() &gt; 1] -->
-	<xsl:template match="ogc:references[@id != '_normative_references' and @id != '_references' and @id != 'references']/ogc:bibitem">
+	<xsl:template match="ogc:references[not(@normative='true')]/ogc:bibitem">
 		<fo:list-block id="{@id}" margin-bottom="12pt" provisional-distance-between-starts="12mm">
 			<fo:list-item>
 				<fo:list-item-label end-indent="label-end()">
@@ -779,10 +807,10 @@
 	</xsl:template>
 	
 	<!-- <xsl:template match="ogc:references[@id = '_bibliography']/ogc:bibitem" mode="contents"/> [position() &gt; 1] -->
-	<xsl:template match="ogc:references[@id != '_normative_references' and @id != '_references' and @id != 'references']/ogc:bibitem" mode="contents"/>
+	<xsl:template match="ogc:references[not(@normative='true')]/ogc:bibitem" mode="contents"/>
 	
 	<!-- <xsl:template match="ogc:references[@id = '_bibliography']/ogc:bibitem/ogc:title"> [position() &gt; 1]-->
-	<xsl:template match="ogc:references[@id != '_normative_references' and  @id != '_references' and @id != 'references']/ogc:bibitem/ogc:title">
+	<xsl:template match="ogc:references[not(@normative='true')]/ogc:bibitem/ogc:title">
 		<fo:inline font-style="italic">
 			<xsl:apply-templates/>
 		</fo:inline>
@@ -1112,6 +1140,7 @@
 	</xsl:attribute-set><xsl:attribute-set name="example-body-style">
 		
 		
+		
 	</xsl:attribute-set><xsl:attribute-set name="example-name-style">
 		
 		
@@ -1133,6 +1162,8 @@
 		
 		
 		
+				
+		
 		
 		
 	</xsl:attribute-set><xsl:attribute-set name="example-p-style">
@@ -1145,6 +1176,8 @@
 		
 					
 			<xsl:attribute name="margin-bottom">14pt</xsl:attribute>
+		
+		
 		
 		
 		
@@ -1176,6 +1209,7 @@
 			<xsl:attribute name="keep-with-previous">always</xsl:attribute>
 		
 				
+		
 		
 	</xsl:attribute-set><xsl:attribute-set name="appendix-style">
 				
@@ -1327,7 +1361,7 @@
 		
 		
 		
-		
+			
 	</xsl:attribute-set><xsl:attribute-set name="formula-style">
 		
 	</xsl:attribute-set><xsl:attribute-set name="image-style">
@@ -1377,7 +1411,43 @@
 			<xsl:attribute name="space-after">6pt</xsl:attribute>
 		
 		
-	</xsl:attribute-set><xsl:template match="text()">
+	</xsl:attribute-set><xsl:template name="processPrefaceSectionsDefault_Contents">
+		<xsl:apply-templates select="/*/*[local-name()='preface']/*[local-name()='abstract']" mode="contents"/>
+		<xsl:apply-templates select="/*/*[local-name()='preface']/*[local-name()='foreword']" mode="contents"/>
+		<xsl:apply-templates select="/*/*[local-name()='preface']/*[local-name()='introduction']" mode="contents"/>
+		<xsl:apply-templates select="/*/*[local-name()='preface']/*[local-name() != 'abstract' and local-name() != 'foreword' and local-name() != 'introduction' and local-name() != 'acknowledgements']" mode="contents"/>
+		<xsl:apply-templates select="/*/*[local-name()='preface']/*[local-name()='acknowledgements']" mode="contents"/>
+	</xsl:template><xsl:template name="processMainSectionsDefault_Contents">
+		<xsl:apply-templates select="/*/*[local-name()='sections']/*[local-name()='clause'][@type='scope']" mode="contents"/>			
+		
+		<!-- Normative references  -->
+		<xsl:apply-templates select="/*/*[local-name()='bibliography']/*[local-name()='references'][@normative='true']" mode="contents"/>	
+		<!-- Terms and definitions -->
+		<xsl:apply-templates select="/*/*[local-name()='sections']/*[local-name()='terms'] |                        /*/*[local-name()='sections']/*[local-name()='clause'][.//*[local-name()='terms']] |                       /*/*[local-name()='sections']/*[local-name()='definitions'] |                        /*/*[local-name()='sections']/*[local-name()='clause'][.//*[local-name()='definitions']]" mode="contents"/>		
+		<!-- Another main sections -->
+		<xsl:apply-templates select="/*/*[local-name()='sections']/*[local-name() != 'terms' and                                                local-name() != 'definitions' and                                                not(@type='scope') and                                               not(local-name() = 'clause' and .//*[local-name()='terms']) and                                               not(local-name() = 'clause' and .//*[local-name()='definitions'])]" mode="contents"/>
+		<xsl:apply-templates select="/*/*[local-name()='annex']" mode="contents"/>		
+		<!-- Bibliography -->
+		<xsl:apply-templates select="/*/*[local-name()='bibliography']/*[local-name()='references'][not(@normative='true')]" mode="contents"/>
+	</xsl:template><xsl:template name="processPrefaceSectionsDefault">
+		<xsl:apply-templates select="/*/*[local-name()='preface']/*[local-name()='abstract']"/>
+		<xsl:apply-templates select="/*/*[local-name()='preface']/*[local-name()='foreword']"/>
+		<xsl:apply-templates select="/*/*[local-name()='preface']/*[local-name()='introduction']"/>
+		<xsl:apply-templates select="/*/*[local-name()='preface']/*[local-name() != 'abstract' and local-name() != 'foreword' and local-name() != 'introduction' and local-name() != 'acknowledgements']"/>
+		<xsl:apply-templates select="/*/*[local-name()='preface']/*[local-name()='acknowledgements']"/>
+	</xsl:template><xsl:template name="processMainSectionsDefault">			
+		<xsl:apply-templates select="/*/*[local-name()='sections']/*[local-name()='clause'][@type='scope']"/>
+		
+		<!-- Normative references  -->
+		<xsl:apply-templates select="/*/*[local-name()='bibliography']/*[local-name()='references'][@normative='true']"/>
+		<!-- Terms and definitions -->
+		<xsl:apply-templates select="/*/*[local-name()='sections']/*[local-name()='terms'] |                        /*/*[local-name()='sections']/*[local-name()='clause'][.//*[local-name()='terms']] |                       /*/*[local-name()='sections']/*[local-name()='definitions'] |                        /*/*[local-name()='sections']/*[local-name()='clause'][.//*[local-name()='definitions']]"/>
+		<!-- Another main sections -->
+		<xsl:apply-templates select="/*/*[local-name()='sections']/*[local-name() != 'terms' and                                                local-name() != 'definitions' and                                                not(@type='scope') and                                               not(local-name() = 'clause' and .//*[local-name()='terms']) and                                               not(local-name() = 'clause' and .//*[local-name()='definitions'])]"/>
+		<xsl:apply-templates select="/*/*[local-name()='annex']"/>
+		<!-- Bibliography -->
+		<xsl:apply-templates select="/*/*[local-name()='bibliography']/*[local-name()='references'][not(@normative='true')]"/>
+	</xsl:template><xsl:template match="text()">
 		<xsl:value-of select="."/>
 	</xsl:template><xsl:template match="*[local-name()='br']">
 		<xsl:value-of select="$linebreak"/>
@@ -1458,6 +1528,7 @@
 			
 			
 			
+			
 			<fo:table id="{@id}" table-layout="fixed" width="100%" margin-left="{$margin-left}mm" margin-right="{$margin-left}mm" table-omit-footer-at-break="true">
 				
 				
@@ -1472,6 +1543,7 @@
 				
 				
 					<xsl:attribute name="font-size">10pt</xsl:attribute>
+				
 				
 				
 				
@@ -1727,6 +1799,14 @@
 		</fo:table-row>
 	</xsl:template><xsl:template match="*[local-name()='th']">
 		<fo:table-cell text-align="{@align}" font-weight="bold" border="solid black 1pt" padding-left="1mm" display-align="center">
+			<xsl:attribute name="text-align">
+				<xsl:choose>
+					<xsl:when test="@align">
+						<xsl:value-of select="@align"/>
+					</xsl:when>
+					<xsl:otherwise>center</xsl:otherwise>
+				</xsl:choose>
+			</xsl:attribute>
 			
 			
 			
@@ -1737,6 +1817,7 @@
 				<xsl:attribute name="color">white</xsl:attribute>
 				<xsl:attribute name="border">solid 0.5pt rgb(153, 153, 153)</xsl:attribute>
 				<xsl:attribute name="height">5mm</xsl:attribute>
+			
 			
 			
 			
@@ -1757,6 +1838,14 @@
 		</fo:table-cell>
 	</xsl:template><xsl:template match="*[local-name()='td']">
 		<fo:table-cell text-align="{@align}" display-align="center" border="solid black 1pt" padding-left="1mm">
+			<xsl:attribute name="text-align">
+				<xsl:choose>
+					<xsl:when test="@align">
+						<xsl:value-of select="@align"/>
+					</xsl:when>
+					<xsl:otherwise>left</xsl:otherwise>
+				</xsl:choose>
+			</xsl:attribute>
 			
 			
 			
@@ -2984,6 +3073,117 @@
 		<fo:block xsl:use-attribute-sets="recommendation-label-style">
 			<xsl:apply-templates/>
 		</fo:block>
+	</xsl:template><xsl:template match="*[local-name() = 'table'][@class = 'recommendation' or @class='requirement' or @class='permission']">
+		<fo:block-container margin-left="0mm" margin-right="0mm" margin-bottom="12pt">
+			<fo:block-container margin-left="0mm" margin-right="0mm">
+				<fo:table id="{@id}" table-layout="fixed" width="100%" border="0pt solid black">					
+					<xsl:variable name="simple-table">	
+						<xsl:call-template name="getSimpleTable"/>			
+					</xsl:variable>					
+					<xsl:variable name="cols-count" select="count(xalan:nodeset($simple-table)//tr[1]/td)"/>
+					<xsl:if test="$cols-count = 2 and not(ancestor::*[local-name()='table'])">
+						<fo:table-column column-width="35mm"/>
+						<fo:table-column column-width="115mm"/>
+					</xsl:if>
+					<xsl:apply-templates mode="requirement"/>
+				</fo:table>
+				<!-- fn processing -->
+				<xsl:if test=".//*[local-name() = 'fn']">
+					<xsl:for-each select="*[local-name() = 'tbody']">
+						<fo:block font-size="90%" border-bottom="1.pt solid black">
+							<xsl:call-template name="fn_display"/>
+						</fo:block>
+					</xsl:for-each>
+				</xsl:if>
+			</fo:block-container>
+		</fo:block-container>
+	</xsl:template><xsl:template match="*[local-name()='thead']" mode="requirement">		
+		<fo:table-header>			
+			<xsl:apply-templates mode="requirement"/>
+		</fo:table-header>
+	</xsl:template><xsl:template match="*[local-name()='tbody']" mode="requirement">		
+		<fo:table-body>
+			<xsl:apply-templates mode="requirement"/>
+		</fo:table-body>
+	</xsl:template><xsl:template match="*[local-name()='tr']" mode="requirement">
+		<fo:table-row>			
+			<xsl:apply-templates mode="requirement"/>
+		</fo:table-row>
+	</xsl:template><xsl:template match="*[local-name()='th']" mode="requirement">
+		<fo:table-cell text-align="{@align}">
+			<xsl:attribute name="text-align">
+				<xsl:choose>
+					<xsl:when test="@align">
+						<xsl:value-of select="@align"/>
+					</xsl:when>
+					<xsl:otherwise>center</xsl:otherwise>
+				</xsl:choose>
+			</xsl:attribute>
+			<xsl:if test="@colspan">
+				<xsl:attribute name="number-columns-spanned">
+					<xsl:value-of select="@colspan"/>
+				</xsl:attribute>
+			</xsl:if>
+			<xsl:if test="@rowspan">
+				<xsl:attribute name="number-rows-spanned">
+					<xsl:value-of select="@rowspan"/>
+				</xsl:attribute>
+			</xsl:if>
+			
+			<xsl:if test="ancestor::*[local-name()='table']/@type = 'recommend'">
+				<xsl:attribute name="padding-top">0.5mm</xsl:attribute>
+				<xsl:attribute name="background-color">rgb(165, 165, 165)</xsl:attribute>				
+			</xsl:if>
+			<xsl:if test="ancestor::*[local-name()='table']/@type = 'recommendtest'">
+				<xsl:attribute name="padding-top">0.5mm</xsl:attribute>
+				<xsl:attribute name="background-color">rgb(201, 201, 201)</xsl:attribute>				
+			</xsl:if>
+			
+			<fo:block>
+				<xsl:apply-templates/>
+			</fo:block>
+		</fo:table-cell>
+	</xsl:template><xsl:template match="*[local-name()='td']" mode="requirement">
+		<fo:table-cell text-align="{@align}">
+			<xsl:attribute name="text-align">
+				<xsl:choose>
+					<xsl:when test="@align">
+						<xsl:value-of select="@align"/>
+					</xsl:when>
+					<xsl:otherwise>left</xsl:otherwise>
+				</xsl:choose>
+			</xsl:attribute>
+			<xsl:if test="@colspan">
+				<xsl:attribute name="number-columns-spanned">
+					<xsl:value-of select="@colspan"/>
+				</xsl:attribute>
+			</xsl:if>
+			<xsl:if test="@rowspan">
+				<xsl:attribute name="number-rows-spanned">
+					<xsl:value-of select="@rowspan"/>
+				</xsl:attribute>
+			</xsl:if>
+			
+			<xsl:if test="ancestor::*[local-name()='table']/@type = 'recommend'">
+				<xsl:attribute name="padding-left">0.5mm</xsl:attribute>
+				<xsl:attribute name="padding-top">0.5mm</xsl:attribute>
+				<xsl:if test="parent::*[local-name()='tr']/preceding-sibling::*[local-name()='tr'] and not(*[local-name()='table'])"> <!-- 2nd line and below -->
+					<xsl:attribute name="background-color">rgb(201, 201, 201)</xsl:attribute>					
+				</xsl:if>
+			</xsl:if>
+			
+			<fo:block>			
+				<xsl:apply-templates/>
+			</fo:block>			
+		</fo:table-cell>
+	</xsl:template><xsl:template match="*[local-name() = 'p'][@class='RecommendationTitle' or @class = 'RecommendationTestTitle']" priority="2">
+		<fo:block font-size="11pt" font-weight="bold" text-align="center" margin-bottom="4pt">
+			<xsl:apply-templates/>
+		</fo:block>
+	</xsl:template><xsl:template match="*[local-name() = 'p'][ancestor::*[local-name() = 'table'][@class = 'recommendation' or @class='requirement' or @class='permission']]">
+		<fo:block margin-bottom="10pt">
+			<xsl:apply-templates/>
+		</fo:block>
 	</xsl:template><xsl:template match="*[local-name() = 'termexample']">
 		<fo:block id="{@id}" xsl:use-attribute-sets="termexample-style">			
 			<xsl:apply-templates select="*[local-name()='name']" mode="presentation"/>
@@ -3245,7 +3445,7 @@
 						
 			
 			
-				<xsl:variable name="pos"><xsl:number count="ogc:sections/ogc:clause[not(@id='_scope') and not(@id='conformance') and not(@id='_conformance')]"/></xsl:variable> <!--  | ogc:sections/ogc:terms -->
+				<xsl:variable name="pos"><xsl:number count="ogc:sections/ogc:clause[not(@type='scope') and not(@type='conformance')]"/></xsl:variable> <!--  | ogc:sections/ogc:terms -->
 				<xsl:if test="$pos &gt;= 2">
 					<xsl:attribute name="space-before">18pt</xsl:attribute>
 				</xsl:if>
@@ -3273,7 +3473,7 @@
 		<fo:block id="{@id}">
 			<xsl:apply-templates/>
 		</fo:block>
-	</xsl:template><xsl:template match="/*/*[local-name() = 'bibliography']/*[local-name() = 'references'][@id = '_normative_references' or @id = '_references']">
+	</xsl:template><xsl:template match="/*/*[local-name() = 'bibliography']/*[local-name() = 'references'][@normative='true']">
 		
 		<fo:block id="{@id}">
 			<xsl:apply-templates/>
@@ -3525,7 +3725,8 @@
 			
 			
 						
-						
+			
+			
 		</xsl:variable>
 		<xsl:if test="$documentNS != $XSLNS">
 			<xsl:message>[WARNING]: Document namespace: '<xsl:value-of select="$documentNS"/>' doesn't equal to xslt namespace '<xsl:value-of select="$XSLNS"/>'</xsl:message>

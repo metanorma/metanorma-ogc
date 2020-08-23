@@ -49,80 +49,40 @@ p.Biblio, li.Biblio, div.Biblio, p.NormRef, li.NormRef, div.NormRef
 	mso-bidi-font-family:$bodyfont;
 	mso-ansi-language:EN-GB;}
 p.FigureTitle
-	{mso-style-unhide:no;
-	mso-style-qformat:yes;
-	mso-style-parent:"";
-	margin-top:0cm;
-	margin-right:0cm;
-	margin-bottom:6.0pt;
-	margin-left:0cm;
-	text-align:center;
-	line-height:12.0pt;
+	{
 	page-break-before:avoid;
-	mso-pagination:widow-orphan;
-	tab-stops:20.15pt;
-	font-size:11.0pt;
-	font-weight:bold;
-	font-family:$bodyfont;
-	mso-fareast-font-family:$bodyfont;
-	mso-bidi-font-family:$bodyfont;
-	mso-ansi-language:EN-GB;}
+      }
 p.SourceTitle
-        {mso-style-unhide:no;
-        mso-style-qformat:yes;
-        mso-style-parent:"";
-        margin-top:0cm;
-        margin-right:0cm;
-        margin-bottom:6.0pt;
-        margin-left:0cm;
-        text-align:center;
-        line-height:12.0pt;
+        {
         page-break-before:avoid;
-        mso-pagination:widow-orphan;
-        tab-stops:20.15pt;
-        font-size:11.0pt;
-        font-weight:bold;
-        font-family:$bodyfont;
-        mso-fareast-font-family:$bodyfont;
-        mso-bidi-font-family:$bodyfont;
-        mso-ansi-language:EN-GB;}
+        }
 p.AdmonitionTitle, p.RecommendationTitle, p.RecommendationTestTitle
-        {mso-style-unhide:no;
-        mso-style-qformat:yes;
-        mso-style-parent:"";
-        margin-top:0cm;
-        margin-right:0cm;
-        margin-bottom:6.0pt;
-        margin-left:0cm;
-        text-align:center;
-        line-height:12.0pt;
+        {
         page-break-after:avoid;
-        mso-pagination:widow-orphan;
-        tab-stops:20.15pt;
-        font-size:11.0pt;
-        font-weight:bold;
-        font-family:$bodyfont;
-        mso-fareast-font-family:$bodyfont;
-        mso-bidi-font-family:$bodyfont;
-        mso-ansi-language:EN-GB;}
-p.TableTitle
+      }
+p.TableTitle, p.FigureTitle, p.SourceTitle, p.AdmonitionTitle, p.RecommendationTitle, p.RecommendationTestTitle, p.example-title
 	{mso-style-unhide:no;
 	mso-style-qformat:yes;
 	mso-style-parent:"";
 	margin-top:0cm;
 	margin-right:0cm;
-	margin-bottom:6.0pt;
+	margin-bottom:10.0pt;
 	margin-left:0cm;
-	text-align:center;
 	page-break-after:avoid;
 	line-height:12.0pt;
 	mso-pagination:widow-orphan;
 	tab-stops:20.15pt;
 	font-size:11.0pt;
 	font-family:$bodyfont;
+        color:#44546A;
+	mso-themecolor:text2;
 	mso-fareast-font-family:$bodyfont;
 	mso-bidi-font-family:$bodyfont;
-	mso-ansi-language:EN-GB;}
+	mso-ansi-language:EN-GB;
+        font-style:italic;}
+p.TableTitle, p.example-title {
+	page-break-after:avoid;
+}
 p.Note, div.Note, li.Note, p.TableFootnote, div.TableFootnote, li.TableFootnote
 	{mso-style-unhide:no;
 	mso-style-qformat:yes;
@@ -352,53 +312,36 @@ p.TermNum, li.TermNum, div.TermNum
         mso-ansi-language:EN-GB;
         font-weight:bold;
         mso-bidi-font-weight:normal;}
-p.zzContents, li.zzContents, div.zzContents
+p.zzContents, li.zzContents, div.zzContents, p.TOCTitle
 	{mso-style-name:zzContents;
 	mso-style-noshow:yes;
 	mso-style-unhide:no;
 	mso-style-next:"TOC 1";
-	margin-top:48.0pt;
+        margin-top:18.0pt;
 	margin-right:0cm;
-	margin-bottom:15.5pt;
+	margin-bottom:12.0pt;
 	margin-left:0cm;
-	line-height:15.5pt;
-	mso-line-height-rule:exactly;
-	page-break-before:always;
-	mso-pagination:widow-orphan;
+	mso-add-space:auto;
+	mso-pagination:widow-orphan lines-together;
 	page-break-after:avoid;
-	mso-hyphenate:none;
-	tab-stops:20.15pt;
-	font-size:14.0pt;
-	mso-bidi-font-size:11.0pt;
+	border:none;
+	mso-border-bottom-alt:solid #152B4D 2.25pt;
+	mso-border-bottom-themecolor:accent5;
+	mso-border-bottom-themeshade:128;
+	padding:0cm;
+	mso-padding-alt:0cm 0cm 1.0pt 0cm;
+	font-size:26.0pt;
+	mso-bidi-font-size:16.0pt;
 	font-family:$headerfont;
-	mso-fareast-font-family:$headerfont;
-	mso-bidi-font-family:$headerfont;
-	mso-ansi-language:EN-GB;
-	font-weight:bold;
-	mso-bidi-font-weight:normal;}
-p.TOCTitle, li.TOCTitle, div.TOCTitle
-        {mso-style-name:zzContents;
-        mso-style-noshow:yes;
-        mso-style-unhide:no;
-        mso-style-next:"TOC 1";
-        margin-top:48.0pt;
-        margin-right:0cm;
-        margin-bottom:15.5pt;
-        margin-left:0cm;
-        line-height:15.5pt;
-        mso-line-height-rule:exactly;
-        mso-pagination:widow-orphan;
-        page-break-after:avoid;
-        mso-hyphenate:none;
-        tab-stops:20.15pt;
-        font-size:14.0pt;
-        mso-bidi-font-size:11.0pt;
-        font-family:$headerfont;
-        mso-fareast-font-family:$headerfont;
-        mso-bidi-font-family:$headerfont;
-        mso-ansi-language:EN-GB;
-        font-weight:bold;
-        mso-bidi-font-weight:normal;}
+	mso-fareast-font-family:"MS Gothic";
+	mso-fareast-theme-font:major-fareast;
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:major-bidi;
+	color:#3B3838;
+	mso-themecolor:background2;
+	mso-themeshade:64;
+	mso-ansi-language:EN-US;
+	mso-fareast-language:EN-US;}
 p.zzCopyright, li.zzCopyright
 	{mso-style-name:zzCopyright;
 	mso-style-noshow:yes;
@@ -495,7 +438,7 @@ p.Quote, li.Quote, div.Quote
 	line-height:12.0pt;
 	mso-pagination:widow-orphan;
 	tab-stops:20.15pt;
-	font-size:10.5pt;
+	font-size:11.0pt;
 	font-family:$bodyfont;
 	mso-fareast-font-family:$bodyfont;
 	mso-bidi-font-family:$bodyfont;
@@ -510,7 +453,7 @@ p.QuoteAttribution
         line-height:12.0pt;
         mso-pagination:widow-orphan;
         tab-stops:20.15pt;
-        font-size:10.5pt;
+        font-size:11.0pt;
         font-family:$bodyfont;
         mso-fareast-font-family:$bodyfont;
         mso-bidi-font-family:$bodyfont;
@@ -529,7 +472,7 @@ p.Admonition, li.Admonition, div.Admonition
 	mso-border-themecolor:accent1;
 	padding:0cm;
 	mso-padding-alt:10.0pt 10.0pt 10.0pt 10.0pt;
-	font-size:12.0pt;
+	font-size:11.0pt;
 	font-family:$bodyfont;
 	mso-ascii-font-family:$bodyfont;
 	mso-ascii-theme-font:minor-latin;
@@ -570,123 +513,115 @@ p.Formula, li.Formula, div.Formula
 	line-height:12.0pt;
 	mso-pagination:widow-orphan;
 	tab-stops:right 487.45pt;
-	font-size:10.5pt;
+	font-size:11.0pt;
 	font-family:$bodyfont;
 	mso-fareast-font-family:$bodyfont;
 	mso-bidi-font-family:$bodyfont;
 	mso-ansi-language:EN-GB;}
-@page {
-  mso-facing-pages:yes;
-}
 @page WordSection1
-	{size:595.3pt 841.9pt;
-	margin:39.7pt 53.85pt 1.0cm 53.85pt;
-	mso-header-margin:35.45pt;
-	mso-footer-margin:14.2pt;
-	mso-even-header:url("file:///C:/Doc/FILENAME_files/header.html") eh1;
+	{
+        size:612.0pt 792.0pt;
+	margin:72.0pt 72.0pt 72.0pt 72.0pt;
+	mso-header-margin:7.2pt;
+	mso-footer-margin:21.6pt;
+	mso-page-numbers:1;
 	mso-header:url("file:///C:/Doc/FILENAME_files/header.html") h1;
-	mso-even-footer:url("file:///C:/Doc/FILENAME_files/header.html") ef1;
+	mso-footer:url("file:///C:/Doc/FILENAME_files/header.html") f1;
 	mso-paper-source:0;}
 div.WordSection1
 	{page:WordSection1;}
 @page WordSection2
-	{size:595.3pt 841.9pt;
-	margin:39.7pt 53.85pt 1.0cm 53.85pt;
-	mso-header-margin:35.45pt;
-	mso-footer-margin:14.2pt;
-	mso-page-numbers:roman-lower;
-	mso-even-header:url("file:///C:/Doc/FILENAME_files/header.html") eh2;
-	mso-header:url("file:///C:/Doc/FILENAME_files/header.html") h2;
-	mso-even-footer:url("file:///C:/Doc/FILENAME_files/header.html") ef2;
-	mso-footer:url("file:///C:/Doc/FILENAME_files/header.html") f2;
-	mso-paper-source:0;}
+        {
+        size:612.0pt 792.0pt;
+        margin:72.0pt 72.0pt 72.0pt 72.0pt;
+        mso-header-margin:7.2pt;
+        mso-footer-margin:21.6pt;
+        mso-page-numbers:1;
+	mso-header:url("file:///C:/Doc/FILENAME_files/header.html") h1;
+	mso-footer:url("file:///C:/Doc/FILENAME_files/header.html") f1;
+        mso-paper-source:0;}
 @page WordSection2L
-        {size:841.9pt 595.3pt;
+        {size:792.0pt 612.0pt;
         margin:39.7pt 53.85pt 1.0cm 53.85pt;
-        mso-header-margin:35.45pt;
-        mso-footer-margin:14.2pt;
-        mso-even-header:url("file:///C:/Doc/FILENAME_files/header.html") eh2l;
-        mso-header:url("file:///C:/Doc/FILENAME_files/header.html") h2l;
-        mso-even-footer:url("file:///C:/Doc/FILENAME_files/header.html") ef2l;
-        mso-footer:url("file:///C:/Doc/FILENAME_files/header.html") f2l;
+        mso-header-margin:7.2pt;
+        mso-footer-margin:21.6pt;
+	mso-header:url("file:///C:/Doc/FILENAME_files/header.html") h1;
+	mso-footer:url("file:///C:/Doc/FILENAME_files/header.html") f1;
         mso-paper-source:0;}
 @page WordSection2P
-        {size:595.3pt 841.9pt;
-        margin:39.7pt 53.85pt 1.0cm 53.85pt;
-        mso-header-margin:35.45pt;
-        mso-footer-margin:14.2pt;
-        mso-even-header:url("file:///C:/Doc/FILENAME_files/header.html") eh2;
-        mso-header:url("file:///C:/Doc/FILENAME_files/header.html") h2;
-        mso-even-footer:url("file:///C:/Doc/FILENAME_files/header.html") ef2;
-        mso-footer:url("file:///C:/Doc/FILENAME_files/header.html") f2;
+        {size:612.0pt 792.0pt;
+        margin:72.0pt 72.0pt 72.0pt 72.0pt;
+        mso-header-margin:7.2pt;
+        mso-footer-margin:21.6pt;
+	mso-header:url("file:///C:/Doc/FILENAME_files/header.html") h1;
+	mso-footer:url("file:///C:/Doc/FILENAME_files/header.html") f1;
         mso-paper-source:0;}
 div.WordSection2
 	{page:WordSection2;}
 @page WordSection3
-	{size:595.3pt 841.9pt;
-	margin:39.7pt 53.85pt 1.0cm 53.85pt;
-	mso-header-margin:35.45pt;
-	mso-footer-margin:14.2pt;
-	mso-page-numbers:1;
-	mso-even-header:url("file:///C:/Doc/FILENAME_files/header.html") eh2;
-	mso-header:url("file:///C:/Doc/FILENAME_files/header.html") h2;
-	mso-even-footer:url("file:///C:/Doc/FILENAME_files/header.html") ef3;
-	mso-footer:url("file:///C:/Doc/FILENAME_files/header.html") f3;
-	mso-paper-source:0;}
+        {
+        size:612.0pt 792.0pt;
+        margin:72.0pt 72.0pt 72.0pt 72.0pt;
+        mso-header-margin:7.2pt;
+        mso-footer-margin:21.6pt;
+        mso-page-numbers:1;
+        mso-header:url("file:///C:/Doc/FILENAME_files/header.html") h1;
+        mso-footer:url("file:///C:/Doc/FILENAME_files/header.html") f1;
+        mso-paper-source:0;}
 @page WordSection3L
-        {size:841.9pt 595.3pt;
+        {size:792.0pt 612.0pt;
         margin:39.7pt 53.85pt 1.0cm 53.85pt;
-        mso-header-margin:35.45pt;
-        mso-footer-margin:14.2pt;
-        mso-even-header:url("file:///C:/Doc/FILENAME_files/header.html") eh2l;
-        mso-header:url("file:///C:/Doc/FILENAME_files/header.html") h2l;
-        mso-even-footer:url("file:///C:/Doc/FILENAME_files/header.html") ef3l;
-        mso-footer:url("file:///C:/Doc/FILENAME_files/header.html") f3l;
+        mso-header-margin:7.2pt;
+        mso-footer-margin:21.6pt;
+        mso-header:url("file:///C:/Doc/FILENAME_files/header.html") h1;
+        mso-footer:url("file:///C:/Doc/FILENAME_files/header.html") f1;
         mso-paper-source:0;}
 @page WordSection3P
-        {size:595.3pt 841.9pt;
-        margin:39.7pt 53.85pt 1.0cm 53.85pt;
-        mso-header-margin:35.45pt;
-        mso-footer-margin:14.2pt;
-        mso-even-header:url("file:///C:/Doc/FILENAME_files/header.html") eh2;
-        mso-header:url("file:///C:/Doc/FILENAME_files/header.html") h2;
-        mso-even-footer:url("file:///C:/Doc/FILENAME_files/header.html") ef3;
-        mso-footer:url("file:///C:/Doc/FILENAME_files/header.html") f3;
+        {size:612.0pt 792.0pt;
+        margin:72.0pt 72.0pt 72.0pt 72.0pt;
+        mso-header-margin:7.2pt;
+        mso-footer-margin:21.6pt;
+        mso-header:url("file:///C:/Doc/FILENAME_files/header.html") h1;
+        mso-footer:url("file:///C:/Doc/FILENAME_files/header.html") f1;
         mso-paper-source:0;}
 div.WordSection3
 	{page:WordSection3;}
 table.MsoISOTable
 	{mso-style-name:"Table ISO";
-	mso-tstyle-rowband-size:0;
-	mso-tstyle-colband-size:0;
-	mso-style-noshow:yes;
-	mso-style-priority:99;
-	mso-style-parent:"";
-	mso-padding-alt:0cm 2.85pt 0cm 2.85pt;
-	mso-para-margin:0cm;
-	mso-para-margin-bottom:.0001pt;
+          mso-tstyle-rowband-size:1;
+	mso-tstyle-colband-size:1;
+	mso-style-priority:46;
+	mso-style-unhide:no;
+	border:solid #999999 1.0pt;
+	mso-border-themecolor:text1;
+	mso-border-themetint:102;
+	mso-border-alt:solid #999999 .5pt;
+	mso-border-themecolor:text1;
+	mso-border-themetint:102;
+	mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+	mso-border-insideh:.5pt solid #999999;
+	mso-border-insideh-themecolor:text1;
+	mso-border-insideh-themetint:102;
+	mso-border-insidev:.5pt solid #999999;
+	mso-border-insidev-themecolor:text1;
+	mso-border-insidev-themetint:102;
+	mso-para-margin-top:8.0pt;
+	mso-para-margin-right:0cm;
+	mso-para-margin-bottom:0cm;
+	mso-para-margin-left:0cm;
 	mso-pagination:widow-orphan;
-	border-collapse:collapse;
-	mso-table-layout-alt:fixed;
-	border:solid windowtext 2pt;
-	mso-border-alt:solid windowtext 2pt;
-	mso-yfti-tbllook:480;
-	mso-border-insideh:.75pt solid windowtext;
-	mso-border-insidev:.75pt solid windowtext;
-	font-size:10.0pt;
-	font-family:$bodyfont;}
+	font-size:11.0pt;
+	font-family:$headerfont;}
 table.MsoISOTable th
     {border:solid windowtext 1pt;
-    mso-border-alt:solid windowtext 1pt;
-    padding:0cm 2.85pt 0cm 2.85pt;}
+    background:#003366;
+    padding:0cm 5.4pt 0cm 5.4pt;}
 table.MsoISOTable td
     {border:solid windowtext 1pt;
-    mso-border-alt:solid windowtext 1pt;
-    padding:0cm 2.85pt 0cm 2.85pt;}
+    mso-border-alt:solid #999999 .5pt;
+    padding:0cm 5.4pt 0cm 5.4pt;}
 table.MsoISOTable p
-{font-size:10.0pt; }
-table.recommendclass, table.recommendclass p
-{font-size:10.0pt; }
+{font-size:11.0pt; }
 table.MsoTableGrid
 	{mso-style-name:"Table Grid";
 	mso-tstyle-rowband-size:0;
@@ -737,11 +672,6 @@ div.coverpage_warning
 
         aside {
           font-size:10.0pt;
-}
-
-.example-title {
-font-weight: bold;
-margin-left: -36.0pt;
 }
 
 p.example, li.example, td.example {

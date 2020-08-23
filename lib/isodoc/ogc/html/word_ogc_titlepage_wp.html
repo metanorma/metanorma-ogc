@@ -1,0 +1,175 @@
+<div style='mso-element:frame;mso-element-wrap:around;mso-height-rule:exactly'>
+
+<table cellspacing="0" cellpadding="0" hspace="0" vspace="0" align="left">
+ <tr>
+  <td valign="top" align="left" style='padding-top:0cm;padding-right:0cm;padding-bottom:0cm;padding-left:0cm'>
+  <p class="MsoTitleCxSpFirst"><span lang="EN-US" style='color:red'><o:p>&#xA0;</o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+</div>
+
+<div style='mso-element:frame;mso-element-frame-width:525.8pt;mso-element-wrap:around;mso-element-anchor-horizontal:page;mso-element-left:39.05pt;mso-height-rule:exactly'>
+
+<table cellspacing="0" cellpadding="0" hspace="0" vspace="0" width="701" align="left">
+ <tr>
+  <td valign="top" align="left" style='padding-top:0cm;padding-right:0cm;padding-bottom:0cm;padding-left:0cm'>
+  <p class="MsoTitleCxSpLast" style='mso-element:frame;mso-element-frame-width:525.8pt;mso-element-wrap:around;mso-element-anchor-horizontal:page;mso-element-left:39.05pt;mso-height-rule:exactly'><span lang="EN-US">{{ doctitle }}</span></p>
+  </td>
+ </tr>
+</table>
+
+</div>
+
+<p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
+style='mso-no-proof:yes;font-size:10.0pt'>Submission Date: {{ receiveddate }}</span></p>
+
+<p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
+style='mso-no-proof:yes;font-size:10.0pt'>Approval Date: {{ issueddate }}</span></p>
+
+<p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
+style='mso-no-proof:yes;font-size:10.0pt'>Publication Date: {{ publisheddate }}</span></p>
+
+<p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
+style='mso-no-proof:yes;font-size:10.0pt'>External identifier of this OGC&#xAE; document: {{ externalid }}</span></p>
+
+<p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
+style='mso-no-proof:yes;font-size:10.0pt'>Internal reference number of this OGC&#xAE; document: {{ docnumber }}</span></p>
+
+{% if url or html %}
+<p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
+                                                                  style='mso-no-proof:yes;font-size:10.0pt'>URL for this OGC&#xAE; document: {{ url or html }}</span></p>
+{% endif %}
+
+{% if edition %}
+<p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
+style='mso-no-proof:yes;font-size:10.0pt'>Version: {{ edition }}</span></p>
+{% endif %}
+
+<p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
+style='mso-no-proof:yes;font-size:10.0pt'>Category: {{ doctype }}</span></p>
+
+{% if editors %}
+<p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
+style='mso-no-proof:yes;font-size:10.0pt'>Editor: {{ editors | join: ", " }}</span></p>
+{% endif %}
+
+<div style="margin-top:1.0cm;">
+
+<div id="boilerplate-copyright-destination"/>
+        <div class="warning">
+      <div id="boilerplate-legal-destination"/>
+      </div>
+</div>
+
+<v:shape id="Picture_x0020_4" o:spid="_x0000_s1026" type="#_x0000_t75"
+ alt="A close up of a sign&#10;&#10;Description automatically generated"
+ style='position:absolute;margin-left:0;margin-top:1.0cm;width:163.05pt;
+ height:70.5pt;z-index:-251658241;visibility:visible;mso-wrap-style:square;
+ mso-width-percent:0;mso-height-percent:0;mso-wrap-distance-left:9pt;
+ mso-wrap-distance-top:0;mso-wrap-distance-right:9pt;
+ mso-wrap-distance-bottom:0;mso-position-horizontal:center;
+ mso-position-horizontal-relative:margin;mso-position-vertical:absolute;
+ mso-position-vertical-relative:text;mso-width-percent:0;mso-height-percent:0;
+ mso-width-relative:page;mso-height-relative:page'>
+<v:imagedata src="{{ logo_word }}"
+  o:title="A close up of a sign&#10;&#10;Description automatically generated"
+  cropbottom="10070f"/>
+ <w:wrap anchorx="margin"/>
+</v:shape>
+
+
+
+<!--
+<p class="MsoHeading7"><v:shapetype id="_x0000_t202"
+ coordsize="21600,21600" o:spt="202" path="m,l,21600r21600,l21600,xe">
+ <v:stroke joinstyle="miter"/>
+ <v:path gradientshapeok="t" o:connecttype="rect"/>
+</v:shapetype><v:shape id="Text_x0020_Box_x0020_2" o:spid="_x0000_s1027"
+ type="#_x0000_t202" style='position:absolute;margin-left:-24.75pt;
+ margin-top:81.8pt;width:512.3pt;height:189.75pt;z-index:251659264;
+ visibility:visible;mso-wrap-style:square;mso-width-percent:0;
+ mso-height-percent:0;mso-wrap-distance-left:9pt;mso-wrap-distance-top:3.6pt;
+ mso-wrap-distance-right:9pt;mso-wrap-distance-bottom:3.6pt;
+ mso-position-horizontal:absolute;mso-position-horizontal-relative:text;
+ mso-position-vertical:absolute;mso-position-vertical-relative:text;
+ mso-width-percent:0;mso-height-percent:0;mso-width-relative:margin;
+ mso-height-relative:margin;v-text-anchor:top' o:gfxdata="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
+" stroked="f">
+ <v:textbox>
+      <div id="boilerplate-copyright-destination"/>
+        <div class="warning">
+      <div id="boilerplate-legal-destination"/>
+      </div>
+  </v:textbox>
+ <w:wrap type="square"/>
+</v:shape>
+<v:shapetype
+ id="_x0000_t75" coordsize="21600,21600" o:spt="75" o:preferrelative="t"
+ path="m@4@5l@4@11@9@11@9@5xe" filled="f" stroked="f">
+ <v:stroke joinstyle="miter"/>
+ <v:formulas>
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+  <v:f eqn="sum @0 1 0"/>
+  <v:f eqn="sum 0 0 @1"/>
+  <v:f eqn="prod @2 1 2"/>
+  <v:f eqn="prod @3 21600 pixelWidth"/>
+  <v:f eqn="prod @3 21600 pixelHeight"/>
+  <v:f eqn="sum @0 0 1"/>
+  <v:f eqn="prod @6 1 2"/>
+  <v:f eqn="prod @7 21600 pixelWidth"/>
+  <v:f eqn="sum @8 21600 0"/>
+  <v:f eqn="prod @7 21600 pixelHeight"/>
+  <v:f eqn="sum @10 21600 0"/>
+ </v:formulas>
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+ <o:lock v:ext="edit" aspectratio="t"/>
+</v:shapetype><v:shape id="Picture_x0020_4" o:spid="_x0000_s1026" type="#_x0000_t75"
+ alt="A close up of a sign&#10;&#10;Description automatically generated"
+ style='position:absolute;margin-left:0;margin-top:300.7pt;width:163.05pt;
+ height:70.5pt;z-index:-251658241;visibility:visible;mso-wrap-style:square;
+ mso-width-percent:0;mso-height-percent:0;mso-wrap-distance-left:9pt;
+ mso-wrap-distance-top:0;mso-wrap-distance-right:9pt;
+ mso-wrap-distance-bottom:0;mso-position-horizontal:center;
+ mso-position-horizontal-relative:margin;mso-position-vertical:absolute;
+ mso-position-vertical-relative:text;mso-width-percent:0;mso-height-percent:0;
+ mso-width-relative:page;mso-height-relative:page'>
+<v:imagedata src="{{ logo_word }}"
+  o:title="A close up of a sign&#10;&#10;Description automatically generated"
+  cropbottom="10070f"/>
+ <w:wrap anchorx="margin"/>
+</v:shape>
+<span lang="EN-US"><br clear="all" style='mso-special-character:line-break;page-break-before:always'/></span>
+      </p> 
+-->
+

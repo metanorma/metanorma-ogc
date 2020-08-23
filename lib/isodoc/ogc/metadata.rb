@@ -4,38 +4,41 @@ require "iso-639"
 module IsoDoc
   module Ogc
     DOCTYPE_ABBR = {
-          "standard" => "IS",
-          "abstract-specification-topic" => "AST",
-          "best-practice" => "BP",
-          "change-request-supporting-document" => "CRSD",
-          "community-practice" => "CP",
-          "community-standard" => "CS",
-          "discussion-paper" => "DP",
-          "engineering-report" => "ER",
-          "policy" => "POL",
-          "reference-model" => "RM",
-          "release-notes" => "RN",
-          "test-suite" => "TS",
-          "user-guide" => "UG",
-          "white-paper" => "WP",
-          "other" => "other",
-        }
+      "standard" => "IS",
+      "abstract-specification-topic" => "AST",
+      "best-practice" => "BP",
+      "change-request-supporting-document" => "CRSD",
+      "community-practice" => "CP",
+      "community-standard" => "CS",
+      "discussion-paper" => "DP",
+      "engineering-report" => "ER",
+      "policy" => "POL",
+      "reference-model" => "RM",
+      "release-notes" => "RN",
+      "test-suite" => "TS",
+      "user-guide" => "UG",
+      "white-paper" => "WP",
+      "other" => "other",
+    }
 
-        DOCSUBTYPE_ABBR = {
-          "implementation" => "IMP",
-          "conceptual-model" => "CM",
-          "conceptual-model-and-encoding" => "CME",
-          "conceptual-model-and-implementation" => "CMI",
-          "encoding" => "EN",
-          "extension" => "EXT",
-          "profile" => "PF",
-          "profile-with-extension" => "PFE",
-          "general" => "GE",
-        }
+    DOCSUBTYPE_ABBR = {
+      "implementation" => "IMP",
+      "conceptual-model" => "CM",
+      "conceptual-model-and-encoding" => "CME",
+      "conceptual-model-and-implementation" => "CMI",
+      "encoding" => "EN",
+      "extension" => "EXT",
+      "profile" => "PF",
+      "profile-with-extension" => "PFE",
+      "general" => "GE",
+    }
 
     class Metadata < IsoDoc::Metadata
       def initialize(lang, script, i18n)
         super
+        here = File.dirname(__FILE__)
+        set(:logo_word,
+            File.expand_path(File.join(here, "html", "logo.png")))
       end
 
       def title(isoxml, _out)

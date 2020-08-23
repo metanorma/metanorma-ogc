@@ -25,7 +25,7 @@ module Asciidoctor
       end
 
       def doctype(node)
-        d = node.attr("doctype")
+        d = super
         d1 = ::IsoDoc::Ogc::DOCTYPE_ABBR.invert[d] and d = d1
         unless %w{abstract-specification-topic best-practice 
           change-request-supporting-document community-practice 

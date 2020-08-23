@@ -60,13 +60,34 @@ module IsoDoc
         return [multiplenames_and(names), (abbrs.map { |x| x.text }).join("/")]
       end
 
+      def extract_author(b)
+        c = b.xpath(ns("./contributor[role/@type = 'author']"))
+        c = b.xpath(ns("./contributor[role/@type = 'editor']")) if c.empty?
+        return nil if c.empty?
+        c.map do |c1|
+          c1&.at(ns("./organization/name"))&.text || extract_person_name(c1)
+        end.reject { |e| e.nil? || e.empty? }.join(", ")
+      end
+
+      def extract_person_name(b)
+        p = b.at(ns("./person/name")) or return
+        c = p.at(ns("./completename")) and return c.text
+        s = p&.at(ns("./surname"))&.text or return
+        i = p.xpath(ns("./initial")) and
+          front = i.map { |e| e.text.gsub(/[^[:upper:]]/, "") }.join("")
+        i.empty? and f = p.xpath(ns("./forename")) and
+          front = f.map { |e| e.text[0].upcase }.join("")
+        front ? "#{s} #{front}" : s
+      end
+
+
       def date_render(date)
         return nil if date.nil?
         on = date&.at(ns("./on"))&.text
         from = date&.at(ns("./from"))&.text
         to = date&.at(ns("./to"))&.text
-        return on if on
-        return "#{from}&ndash;#{to}" if from
+        return on if on && !on.empty?
+        return "#{from}&ndash;#{to}" if from && !from.empty?
         nil
       end
 
@@ -82,17 +103,24 @@ module IsoDoc
         b.at(ns("./place"))
       end
 
+      def extract_uri(b)
+        b.at(ns("./uri"))
+      end
+
       # {author}: {document identifier}, {title}. {publisher}, {city} ({year})
       def standard_citation(out, b)
         if ftitle = b.at(ns("./formattedref"))
           ftitle&.children&.each { |n| parse(n, out) }
         else
           pub, pub_abbrev = extract_publisher(b)
+          author = extract_author(b)
           c = extract_city(b)
           y = extract_year(b)
-          out << "#{pub_abbrev}: " if pub_abbrev
+          u = extract_uri(b)
+          out << "#{author || pub_abbrev}: " if author || pub_abbrev
           id = render_identifier(inline_bibitem_ref_code(b))
           out << id[1] if id[1]
+          out << " (Draft)" if ogc_draft_ref?(b)
           out << ", "
           out.i do |i|
             iso_title(b)&.children&.each { |n| parse(n, i) }
@@ -102,7 +130,8 @@ module IsoDoc
           out << ", " if pub && c
           c&.children&.each { |n| parse(n, out) }
           out << " " if (pub || c) && y
-          out << "(#{y})." if y
+          out << "(#{y}). " if y
+          u and out << "<a href='#{u.text}'>#{u.text}</a>"
         end
       end
 

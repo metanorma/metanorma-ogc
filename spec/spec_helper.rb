@@ -66,6 +66,7 @@ BOILERPLATE =
   gsub(/\{\{ docyear \}\}/, Date.today.year.to_s).
   gsub(/<p>/, '<p id="_">').
   gsub(/<p align="center">/, '<p align="center" id="_">').
+  gsub(/<p align="left">/, '<p align="left" id="_">').
   gsub(/"Licensor"/, "“Licensor”").gsub(/"AS/, "“AS").gsub(/IS"/, "IS”").
   gsub(/\{% if unpublished %\}.+?\{% endif %\}/m, "").
   gsub(/\{% if ip_notice_received %\}\{% else %\}not\{% endif %\}/m, ""))
@@ -79,7 +80,7 @@ BLANK_HDR = <<~"HDR"
          <contributor>
            <role type="publisher"/>
            <organization>
-             <name>#{Metanorma::Ogc::ORGANIZATION_NAME_SHORT}</name>
+             <name>Open Geospatial Consortium</name>
            </organization>
          </contributor>
 
@@ -92,7 +93,7 @@ BLANK_HDR = <<~"HDR"
            <from>#{Time.new.year}</from>
            <owner>
              <organization>
-               <name>#{Metanorma::Ogc::ORGANIZATION_NAME_SHORT}</name>
+               <name>Open Geospatial Consortium</name>
              </organization>
            </owner>
          </copyright>

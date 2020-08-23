@@ -1,5 +1,7 @@
 require "spec_helper"
 
+logoloc = File.expand_path(File.join(File.dirname(__FILE__), "..", "..", "lib", "isodoc", "ogc", "html"))
+
 RSpec.describe IsoDoc::Ogc do
 
   it "processes default metadata" do
@@ -114,6 +116,7 @@ RSpec.describe IsoDoc::Ogc do
 :implementeddate=>"XXX",
 :issueddate=>"2001-01-01",
 :keywords=>["A", "B"],
+:logo_word=>"#{File.join(logoloc, "logo.png")}",
 :obsoleteddate=>"XXX",
 :pdf=>"http://www.example.com/pdf",
 :publisheddate=>"2002-01-01",
@@ -1156,9 +1159,9 @@ OUTPUT
            <div>
              <h1 class='Section3'>Bibliography</h1>
              <p id='rfc2616' class='Biblio'>
-               [1]&#160; IETF RFC 2616, 
+               [1]&#160; R. Fielding, J. Gettys, J. Mogul, H. Frystyk, L. Masinter, P. Leach, T. Berners-Lee: IETF RFC 2616,
                <i>Hypertext Transfer Protocol&#8201;&#8212;&#8201;HTTP/1.1</i>
-               . Fremont, CA (1999-06).
+               . Fremont, CA (1999-06). <a href='https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml'>https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</a>
              </p>
            </div>
          </div>
@@ -1319,9 +1322,9 @@ OUTPUT
                <a name='rfc2616' id='rfc2616'/>
                [1]
                <span style='mso-tab-count:1'>&#xA0; </span>
-               IETF RFC 2616, 
+               R. Fielding, J. Gettys, J. Mogul, H. Frystyk, L. Masinter, P. Leach, T. Berners-Lee: IETF RFC 2616, 
                <i>Hypertext Transfer Protocol&#x2009;&#x2014;&#x2009;HTTP/1.1</i>
-               . Fremont, CA (1999-06).
+               . Fremont, CA (1999-06).  <a href='https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml'>https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</a>
              </p>
            </div>
          </div>
