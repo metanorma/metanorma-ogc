@@ -41,6 +41,11 @@ module IsoDoc
         "@type = 'conformance')][not(descendant::terms)]"
       end
 
+      def is_clause?(name)
+        return true if name == "submitters"
+        super
+      end
+
       def middle(isoxml, out)
         middle_title(out)
         middle_admonitions(isoxml, out)

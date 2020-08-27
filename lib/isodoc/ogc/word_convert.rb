@@ -139,6 +139,7 @@ module IsoDoc
           @prefacenum = 0
           info docxml, div2
           boilerplate docxml, div2
+          preface_block docxml, div2
           abstract docxml, div2
           keywords docxml, div2
           foreword docxml, div2
