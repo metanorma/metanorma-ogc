@@ -560,43 +560,8 @@
 		<fo:block id="{@id}" margin-bottom="12pt" start-indent="12mm" text-indent="-12mm" line-height="115%">
 			<xsl:if test=".//ogc:fn">
 				<xsl:attribute name="line-height-shift-adjustment">disregard-shifts</xsl:attribute>
-			</xsl:if>
-			<xsl:choose>
-				<xsl:when test="ogc:formattedref">
-					<xsl:apply-templates select="ogc:formattedref"/>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:for-each select="ogc:contributor[ogc:role/@type='publisher']/ogc:organization/ogc:name">
-						<xsl:apply-templates/>
-						<xsl:if test="position() != last()">, </xsl:if>
-						<xsl:if test="position() = last()">: </xsl:if>
-					</xsl:for-each>
-						<!-- ogc:docidentifier -->
-					<xsl:if test="ogc:docidentifier">
-						<xsl:value-of select="ogc:docidentifier/@type"/><xsl:text> </xsl:text>
-						<xsl:value-of select="ogc:docidentifier"/>
-					</xsl:if>
-					<xsl:apply-templates select="ogc:note"/>
-					<xsl:if test="ogc:docidentifier">, </xsl:if>
-					<fo:inline font-style="italic">
-						<xsl:choose>
-							<xsl:when test="ogc:title[@type = 'main' and @language = 'en']">
-								<xsl:value-of select="ogc:title[@type = 'main' and @language = 'en']"/><xsl:text>. </xsl:text>
-							</xsl:when>
-							<xsl:otherwise>
-								<xsl:value-of select="ogc:title"/><xsl:text>. </xsl:text>
-							</xsl:otherwise>
-						</xsl:choose>
-					</fo:inline>
-					<xsl:for-each select="ogc:contributor[ogc:role/@type='publisher']/ogc:organization/ogc:name">
-						<xsl:apply-templates/>
-						<xsl:if test="position() != last()">, </xsl:if>
-					</xsl:for-each>
-					<xsl:if test="ogc:date[@type='published']/ogc:on">
-						<xsl:text>(</xsl:text><xsl:value-of select="ogc:date[@type='published']/ogc:on"/><xsl:text>)</xsl:text>
-					</xsl:if>
-			</xsl:otherwise>
-			</xsl:choose>
+			</xsl:if>			
+			<xsl:call-template name="processBibitem"/>			
 		</fo:block>
 	</xsl:template>
 	
@@ -716,8 +681,6 @@
 	
 
 	
-
-	
 	<!-- [position() &gt; 1] -->
 	<xsl:template match="ogc:references[not(@normative='true')]">
 		<fo:block break-after="page"/>
@@ -733,7 +696,6 @@
 	</xsl:template>
 
 	<!-- Example: [1] ISO 9:1995, Information and documentation – Transliteration of Cyrillic characters into Latin characters – Slavic and non-Slavic languages -->
-	<!-- <xsl:template match="ogc:references[@id = '_bibliography']/ogc:bibitem"> [position() &gt; 1] -->
 	<xsl:template match="ogc:references[not(@normative='true')]/ogc:bibitem">
 		<fo:list-block id="{@id}" margin-bottom="12pt" provisional-distance-between-starts="12mm">
 			<fo:list-item>
@@ -746,71 +708,16 @@
 				</fo:list-item-label>
 				<fo:list-item-body start-indent="body-start()">
 					<fo:block>
-						
-						<xsl:if test="not(ogc:formattedref)">
-							<xsl:choose>
-								<xsl:when test="ogc:contributor[ogc:role/@type='publisher']/ogc:organization/ogc:abbreviation">
-									<xsl:for-each select="ogc:contributor[ogc:role/@type='publisher']/ogc:organization/ogc:abbreviation">
-										<xsl:value-of select="."/>
-										<xsl:if test="position() != last()">/</xsl:if>
-									</xsl:for-each>
-									<xsl:text>: </xsl:text>
-								</xsl:when>
-								<xsl:when test="ogc:contributor[ogc:role/@type='publisher']/ogc:organization/ogc:name">
-									<xsl:value-of select="ogc:contributor[ogc:role/@type='publisher']/ogc:organization/ogc:name"/>
-									<xsl:text>: </xsl:text>
-								</xsl:when>
-							</xsl:choose>
-							
-						</xsl:if>
-						
-						<xsl:if test="ogc:docidentifier">
-							<xsl:choose>
-								<xsl:when test="ogc:docidentifier/@type = 'ISO' and ogc:formattedref"/>
-								<xsl:when test="ogc:docidentifier/@type = 'OGC' and ogc:formattedref"/>
-								<xsl:otherwise><fo:inline>
-									<xsl:if test="ogc:docidentifier/@type = 'OGC'">OGC </xsl:if>
-									<xsl:value-of select="ogc:docidentifier"/><xsl:apply-templates select="ogc:note"/>, </fo:inline></xsl:otherwise>
-							</xsl:choose>
-						</xsl:if>
-						
-					
-						
-						<xsl:choose>
-							<xsl:when test="ogc:title[@type = 'main' and @language = 'en']">
-								<xsl:apply-templates select="ogc:title[@type = 'main' and @language = 'en']"/>
-							</xsl:when>
-							<xsl:otherwise>
-								<xsl:apply-templates select="ogc:title"/>
-							</xsl:otherwise>
-						</xsl:choose>
-						<xsl:if test="ogc:contributor[ogc:role/@type='publisher']/ogc:organization/ogc:name">
-							<xsl:text>, </xsl:text>
-							<xsl:for-each select="ogc:contributor[ogc:role/@type='publisher']/ogc:organization/ogc:name">
-								<xsl:if test="position() != last()">and </xsl:if>
-								<xsl:value-of select="."/>
-							</xsl:for-each>
-							
-						</xsl:if>
-						<xsl:if test="ogc:place">
-							<xsl:text>, </xsl:text>
-							<xsl:value-of select="ogc:place"/>
-						</xsl:if>
-						<xsl:if test="ogc:date[@type='published']/ogc:on">
-							<xsl:text> (</xsl:text><xsl:value-of select="ogc:date[@type='published']/ogc:on"/><xsl:text>).</xsl:text>
-						</xsl:if>
-						<xsl:apply-templates select="ogc:formattedref"/>
+						<xsl:call-template name="processBibitem"/>
 					</fo:block>
 				</fo:list-item-body>
 			</fo:list-item>
 		</fo:list-block>
 	</xsl:template>
 	
-	<!-- <xsl:template match="ogc:references[@id = '_bibliography']/ogc:bibitem" mode="contents"/> [position() &gt; 1] -->
 	<xsl:template match="ogc:references[not(@normative='true')]/ogc:bibitem" mode="contents"/>
 	
-	<!-- <xsl:template match="ogc:references[@id = '_bibliography']/ogc:bibitem/ogc:title"> [position() &gt; 1]-->
-	<xsl:template match="ogc:references[not(@normative='true')]/ogc:bibitem/ogc:title">
+	<xsl:template match="ogc:bibitem/ogc:title">
 		<fo:inline font-style="italic">
 			<xsl:apply-templates/>
 		</fo:inline>
@@ -2306,14 +2213,36 @@
 			<fo:table-cell>
 				<fo:block>
 					
-					
+					<!-- <xsl:if test="$namespace = 'nist-cswp'  or $namespace = 'nist-sp'">
+						<xsl:if test="local-name(*[1]) != 'stem'">
+							<xsl:apply-templates select="following-sibling::*[local-name()='dd'][1]" mode="process"/>
+						</xsl:if>
+					</xsl:if> -->
 					
 						<xsl:apply-templates select="following-sibling::*[local-name()='dd'][1]" mode="process"/>
 					
 				</fo:block>
 			</fo:table-cell>
 		</fo:table-row>
-		
+		<!-- <xsl:if test="$namespace = 'nist-cswp'  or $namespace = 'nist-sp'">
+			<xsl:if test="local-name(*[1]) = 'stem'">
+				<fo:table-row>
+				<fo:table-cell>
+					<fo:block margin-top="6pt">
+						<xsl:if test="normalize-space($key_iso) = 'true'">
+							<xsl:attribute name="margin-top">0</xsl:attribute>
+						</xsl:if>
+						<xsl:text>&#xA0;</xsl:text>
+					</fo:block>
+				</fo:table-cell>
+				<fo:table-cell>
+					<fo:block>
+						<xsl:apply-templates select="following-sibling::*[local-name()='dd'][1]" mode="process"/>
+					</fo:block>
+				</fo:table-cell>
+			</fo:table-row>
+			</xsl:if>
+		</xsl:if> -->
 	</xsl:template><xsl:template match="*[local-name()='dd']" mode="dl"/><xsl:template match="*[local-name()='dd']" mode="dl_process">
 		<xsl:apply-templates/>
 	</xsl:template><xsl:template match="*[local-name()='dd']"/><xsl:template match="*[local-name()='dd']" mode="process">
@@ -3075,22 +3004,30 @@
 		</fo:block>
 	</xsl:template><xsl:template match="*[local-name() = 'table'][@class = 'recommendation' or @class='requirement' or @class='permission']">
 		<fo:block-container margin-left="0mm" margin-right="0mm" margin-bottom="12pt">
+			<xsl:if test="ancestor::*[local-name() = 'table'][@class = 'recommendation' or @class='requirement' or @class='permission']">
+				<xsl:attribute name="margin-bottom">0pt</xsl:attribute>
+			</xsl:if>
 			<fo:block-container margin-left="0mm" margin-right="0mm">
-				<fo:table id="{@id}" table-layout="fixed" width="100%" border="0pt solid black">					
+				<fo:table id="{@id}" table-layout="fixed" width="100%" border="1pt solid black">
+					<xsl:if test="ancestor::*[local-name() = 'table'][@class = 'recommendation' or @class='requirement' or @class='permission']">
+						<xsl:attribute name="border">0.5pt solid black</xsl:attribute>
+					</xsl:if>
 					<xsl:variable name="simple-table">	
 						<xsl:call-template name="getSimpleTable"/>			
 					</xsl:variable>					
 					<xsl:variable name="cols-count" select="count(xalan:nodeset($simple-table)//tr[1]/td)"/>
 					<xsl:if test="$cols-count = 2 and not(ancestor::*[local-name()='table'])">
-						<fo:table-column column-width="35mm"/>
-						<fo:table-column column-width="115mm"/>
+						<!-- <fo:table-column column-width="35mm"/>
+						<fo:table-column column-width="115mm"/> -->
+						<fo:table-column column-width="25%"/>
+						<fo:table-column column-width="75%"/>
 					</xsl:if>
 					<xsl:apply-templates mode="requirement"/>
 				</fo:table>
 				<!-- fn processing -->
 				<xsl:if test=".//*[local-name() = 'fn']">
 					<xsl:for-each select="*[local-name() = 'tbody']">
-						<fo:block font-size="90%" border-bottom="1.pt solid black">
+						<fo:block font-size="90%" border-bottom="1pt solid black">
 							<xsl:call-template name="fn_display"/>
 						</fo:block>
 					</xsl:for-each>
@@ -3106,45 +3043,14 @@
 			<xsl:apply-templates mode="requirement"/>
 		</fo:table-body>
 	</xsl:template><xsl:template match="*[local-name()='tr']" mode="requirement">
-		<fo:table-row>			
+		<fo:table-row height="7mm">
+			<xsl:if test="parent::*[local-name()='thead'] and not(ancestor::*[local-name() = 'table'][@class = 'recommendation' or @class='requirement' or @class='permission'])">
+				<xsl:attribute name="border">1pt solid black</xsl:attribute>
+			</xsl:if>
 			<xsl:apply-templates mode="requirement"/>
 		</fo:table-row>
 	</xsl:template><xsl:template match="*[local-name()='th']" mode="requirement">
-		<fo:table-cell text-align="{@align}">
-			<xsl:attribute name="text-align">
-				<xsl:choose>
-					<xsl:when test="@align">
-						<xsl:value-of select="@align"/>
-					</xsl:when>
-					<xsl:otherwise>center</xsl:otherwise>
-				</xsl:choose>
-			</xsl:attribute>
-			<xsl:if test="@colspan">
-				<xsl:attribute name="number-columns-spanned">
-					<xsl:value-of select="@colspan"/>
-				</xsl:attribute>
-			</xsl:if>
-			<xsl:if test="@rowspan">
-				<xsl:attribute name="number-rows-spanned">
-					<xsl:value-of select="@rowspan"/>
-				</xsl:attribute>
-			</xsl:if>
-			
-			<xsl:if test="ancestor::*[local-name()='table']/@type = 'recommend'">
-				<xsl:attribute name="padding-top">0.5mm</xsl:attribute>
-				<xsl:attribute name="background-color">rgb(165, 165, 165)</xsl:attribute>				
-			</xsl:if>
-			<xsl:if test="ancestor::*[local-name()='table']/@type = 'recommendtest'">
-				<xsl:attribute name="padding-top">0.5mm</xsl:attribute>
-				<xsl:attribute name="background-color">rgb(201, 201, 201)</xsl:attribute>				
-			</xsl:if>
-			
-			<fo:block>
-				<xsl:apply-templates/>
-			</fo:block>
-		</fo:table-cell>
-	</xsl:template><xsl:template match="*[local-name()='td']" mode="requirement">
-		<fo:table-cell text-align="{@align}">
+		<fo:table-cell text-align="{@align}" display-align="center" padding="1mm" padding-left="2mm" border="0.5pt solid black">
 			<xsl:attribute name="text-align">
 				<xsl:choose>
 					<xsl:when test="@align">
@@ -3164,24 +3070,63 @@
 				</xsl:attribute>
 			</xsl:if>
 			
-			<xsl:if test="ancestor::*[local-name()='table']/@type = 'recommend'">
-				<xsl:attribute name="padding-left">0.5mm</xsl:attribute>
+			<!-- <xsl:if test="ancestor::*[local-name()='table']/@type = 'recommend'">
 				<xsl:attribute name="padding-top">0.5mm</xsl:attribute>
-				<xsl:if test="parent::*[local-name()='tr']/preceding-sibling::*[local-name()='tr'] and not(*[local-name()='table'])"> <!-- 2nd line and below -->
+				<xsl:attribute name="background-color">rgb(165, 165, 165)</xsl:attribute>				
+			</xsl:if>
+			<xsl:if test="ancestor::*[local-name()='table']/@type = 'recommendtest'">
+				<xsl:attribute name="padding-top">0.5mm</xsl:attribute>
+				<xsl:attribute name="background-color">rgb(201, 201, 201)</xsl:attribute>				
+			</xsl:if> -->
+			
+			<fo:block>
+				<xsl:apply-templates/>
+			</fo:block>
+		</fo:table-cell>
+	</xsl:template><xsl:template match="*[local-name()='td']" mode="requirement">
+		<fo:table-cell text-align="{@align}" display-align="center" padding="1mm" padding-left="2mm" border="0.5pt solid black">
+			<xsl:if test="*[local-name() = 'table'][@class = 'recommendation' or @class='requirement' or @class='permission']">
+				<xsl:attribute name="padding">0mm</xsl:attribute>
+				<xsl:attribute name="padding-left">0mm</xsl:attribute>
+			</xsl:if>
+			<xsl:attribute name="text-align">
+				<xsl:choose>
+					<xsl:when test="@align">
+						<xsl:value-of select="@align"/>
+					</xsl:when>
+					<xsl:otherwise>left</xsl:otherwise>
+				</xsl:choose>
+			</xsl:attribute>
+			<xsl:if test="@colspan">
+				<xsl:attribute name="number-columns-spanned">
+					<xsl:value-of select="@colspan"/>
+				</xsl:attribute>
+			</xsl:if>
+			<xsl:if test="@rowspan">
+				<xsl:attribute name="number-rows-spanned">
+					<xsl:value-of select="@rowspan"/>
+				</xsl:attribute>
+			</xsl:if>
+			
+			<!-- <xsl:if test="ancestor::*[local-name()='table']/@type = 'recommend'">
+				<xsl:attribute name="padding-left">0.5mm</xsl:attribute>
+				<xsl:attribute name="padding-top">0.5mm</xsl:attribute>				 
+				<xsl:if test="parent::*[local-name()='tr']/preceding-sibling::*[local-name()='tr'] and not(*[local-name()='table'])">
 					<xsl:attribute name="background-color">rgb(201, 201, 201)</xsl:attribute>					
 				</xsl:if>
-			</xsl:if>
+			</xsl:if> -->
+			<!-- 2nd line and below -->
 			
 			<fo:block>			
 				<xsl:apply-templates/>
 			</fo:block>			
 		</fo:table-cell>
 	</xsl:template><xsl:template match="*[local-name() = 'p'][@class='RecommendationTitle' or @class = 'RecommendationTestTitle']" priority="2">
-		<fo:block font-size="11pt" font-weight="bold" text-align="center" margin-bottom="4pt">
+		<fo:block font-size="11pt" font-weight="bold"> <!-- margin-bottom="4pt" text-align="center"  -->
 			<xsl:apply-templates/>
 		</fo:block>
-	</xsl:template><xsl:template match="*[local-name() = 'p'][ancestor::*[local-name() = 'table'][@class = 'recommendation' or @class='requirement' or @class='permission']]">
-		<fo:block margin-bottom="10pt">
+	</xsl:template><xsl:template match="*[local-name() = 'p2'][ancestor::*[local-name() = 'table'][@class = 'recommendation' or @class='requirement' or @class='permission']]">
+		<fo:block> <!-- margin-bottom="10pt" -->
 			<xsl:apply-templates/>
 		</fo:block>
 	</xsl:template><xsl:template match="*[local-name() = 'termexample']">
@@ -3522,6 +3467,195 @@
 		<fo:table-cell border="1pt solid black" padding-left="1mm" padding-top="0.5mm">
 			<fo:block><xsl:apply-templates/></fo:block>
 		</fo:table-cell>
+	</xsl:template><xsl:template name="processBibitem">
+		
+			<xsl:choose>
+				<xsl:when test="*[local-name() = 'formattedref']">
+					<xsl:apply-templates select="*[local-name() = 'formattedref']"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:variable name="personalAuthors">
+						<xsl:for-each select="*[local-name() = 'contributor'][*[local-name() = 'role']/@type='author']/*[local-name() = 'person']">
+							<xsl:call-template name="processPersonalAuthor"/>
+						</xsl:for-each>
+						<xsl:if test="not(*[local-name() = 'contributor'][*[local-name() = 'role']/@type='author']/*[local-name() = 'person'])">
+							<xsl:for-each select="*[local-name() = 'contributor'][*[local-name() = 'role']/@type='editor']/*[local-name() = 'person']">
+								<xsl:call-template name="processPersonalAuthor"/>
+							</xsl:for-each>
+						</xsl:if>
+					</xsl:variable>
+					
+					<xsl:variable name="city" select="*[local-name() = 'place']"/>
+					<xsl:variable name="year">
+						<xsl:choose>
+							<xsl:when test="*[local-name() = 'date'][@type = 'published']">
+								<xsl:for-each select="*[local-name() = 'date'][@type = 'published']">
+									<xsl:call-template name="renderDate"/>									
+								</xsl:for-each>								
+							</xsl:when>
+							<xsl:when test="*[local-name() = 'date'][@type = 'issued']">
+								<xsl:for-each select="*[local-name() = 'date'][@type = 'issued']">
+									<xsl:call-template name="renderDate"/>									
+								</xsl:for-each>
+							</xsl:when>
+							<xsl:when test="*[local-name() = 'date'][@type = 'circulated']">
+								<xsl:for-each select="*[local-name() = 'date'][@type = 'circulated']">
+									<xsl:call-template name="renderDate"/>									
+								</xsl:for-each>								
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:for-each select="*[local-name() = 'date']">
+									<xsl:call-template name="renderDate"/>
+								</xsl:for-each>
+							</xsl:otherwise>
+						</xsl:choose>
+					</xsl:variable>
+					
+					<xsl:variable name="uri" select="*[local-name() = 'uri']"/>
+					
+					
+					<!-- citation structure:
+					{personal names | organisation}: {document identifier}, {title}. {publisher}, {city} ({year})
+					-->
+					
+					<!-- Author(s) -->
+					<xsl:choose>
+						<xsl:when test="xalan:nodeset($personalAuthors)//author">
+							<xsl:for-each select="xalan:nodeset($personalAuthors)//author">
+								<xsl:apply-templates/>
+								<xsl:if test="position() != last()">, </xsl:if>
+							</xsl:for-each>
+							<xsl:text>: </xsl:text>
+						</xsl:when>
+						<xsl:when test="*[local-name() = 'contributor'][*[local-name() = 'role']/@type = 'publisher']/*[local-name() = 'organization']/*[local-name() = 'abbreviation']">
+							<xsl:for-each select="*[local-name() = 'contributor'][*[local-name() = 'role']/@type = 'publisher']/*[local-name() = 'organization']/*[local-name() = 'abbreviation']">
+								<xsl:value-of select="."/>
+								<xsl:if test="position() != last()">/</xsl:if>
+							</xsl:for-each>
+							<xsl:text>: </xsl:text>
+						</xsl:when>
+						<xsl:when test="*[local-name() = 'contributor'][*[local-name() = 'role']/@type = 'publisher']/*[local-name() = 'organization']/*[local-name() = 'name']">									
+							<xsl:for-each select="*[local-name() = 'contributor'][*[local-name() = 'role']/@type = 'publisher']/*[local-name() = 'organization']/*[local-name() = 'name']">
+								<xsl:value-of select="."/>
+								<xsl:if test="position() != last()">, </xsl:if>
+							</xsl:for-each>
+							<xsl:text>: </xsl:text>
+						</xsl:when>
+					</xsl:choose>
+					
+					
+					<xsl:variable name="document_identifier">
+						<xsl:variable name="_doc_ident" select="*[local-name() = 'docidentifier'][not(@type = 'DOI' or @type = 'metanorma' or @type = 'ISSN' or @type = 'ISBN' or @type = 'rfc-anchor')]"/>
+						<xsl:choose>
+							<xsl:when test="normalize-space($_doc_ident) != ''">
+								<xsl:variable name="type" select="*[local-name() = 'docidentifier'][not(@type = 'DOI' or @type = 'metanorma' or @type = 'ISSN' or @type = 'ISBN' or @type = 'rfc-anchor')]/@type"/>
+								<xsl:if test="$type != '' and not(contains($_doc_ident, $type))">
+									<xsl:value-of select="$type"/><xsl:text> </xsl:text>
+								</xsl:if>
+								<xsl:value-of select="$_doc_ident"/>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:variable name="type" select="*[local-name() = 'docidentifier'][not(@type = 'metanorma')]/@type"/>
+								<xsl:if test="$type != ''">
+									<xsl:value-of select="$type"/><xsl:text> </xsl:text>
+								</xsl:if>
+								<xsl:value-of select="*[local-name() = 'docidentifier'][not(@type = 'metanorma')]"/>
+							</xsl:otherwise>
+						</xsl:choose>								
+					</xsl:variable>
+					
+					<xsl:value-of select="$document_identifier"/>
+					
+					<xsl:apply-templates select="*[local-name() = 'note']"/>
+					
+					<xsl:variable name="isDraft">
+						<xsl:variable name="stage" select="normalize-space(*[local-name() = 'status']/*[local-name() = 'stage'])"/>						
+						<xsl:if test="*[local-name() = 'contributor'][*[local-name() = 'role']/@type = 'publisher']/*[local-name() = 'organization'][*[local-name() = 'name']/text() = 'Open Geospatial Consortium'] and            $stage != '' and            $stage != 'published' and $stage != 'deprecated' and $stage != 'retired'">true</xsl:if>
+					</xsl:variable>	 
+					
+					<xsl:if test="$isDraft = 'true'">
+						<xsl:text> (Draft)</xsl:text>
+					</xsl:if>
+					
+					<xsl:text>, </xsl:text>
+					
+					<xsl:choose>
+						<xsl:when test="*[local-name() = 'title'][@type = 'main' and @language = 'en']">
+							<xsl:apply-templates select="*[local-name() = 'title'][@type = 'main' and @language = 'en']"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:apply-templates select="*[local-name() = 'title']"/>
+						</xsl:otherwise>
+					</xsl:choose>
+					
+					<xsl:text>. </xsl:text>
+					
+					<xsl:if test="*[local-name() = 'contributor'][*[local-name() = 'role']/@type = 'publisher']/*[local-name() = 'organization']/*[local-name() = 'name']">									
+						<xsl:for-each select="*[local-name() = 'contributor'][*[local-name() = 'role']/@type = 'publisher']/*[local-name() = 'organization']/*[local-name() = 'name']">
+							<xsl:value-of select="."/>
+							<xsl:if test="position() != last()">, </xsl:if>
+						</xsl:for-each>
+						<xsl:if test="normalize-space($city) != ''">, </xsl:if>
+					</xsl:if>
+					
+					<xsl:value-of select="$city"/>
+					
+					<xsl:if test="(*[local-name() = 'contributor'][*[local-name() = 'role']/@type = 'publisher']/*[local-name() = 'organization']/*[local-name() = 'name'] or normalize-space($city) != '') and normalize-space($year) != ''">
+						<xsl:text> </xsl:text>
+					</xsl:if>
+					
+					<xsl:if test="normalize-space($year) != ''">
+						<xsl:text>(</xsl:text>
+						<xsl:value-of select="$year"/>
+						<xsl:text>). </xsl:text>
+					</xsl:if>
+					
+					<xsl:if test="normalize-space($uri) != ''">
+						<xsl:text> </xsl:text>
+						<fo:basic-link external-destination="{$uri}" fox:alt-text="{$uri}">
+							<xsl:value-of select="$uri"/>
+						</fo:basic-link>
+					</xsl:if>
+					
+				</xsl:otherwise>
+			</xsl:choose>
+		
+	</xsl:template><xsl:template name="processPersonalAuthor">
+		<xsl:choose>
+			<xsl:when test="*[local-name() = 'name']/*[local-name() = 'completename']">
+				<author>
+					<xsl:apply-templates select="*[local-name() = 'name']/*[local-name() = 'completename']"/>
+				</author>
+			</xsl:when>
+			<xsl:when test="*[local-name() = 'name']/*[local-name() = 'surname'] and *[local-name() = 'name']/*[local-name() = 'initial']">
+				<author>
+					<xsl:apply-templates select="*[local-name() = 'name']/*[local-name() = 'surname']"/>
+					<xsl:text> </xsl:text>
+					<xsl:apply-templates select="*[local-name() = 'name']/*[local-name() = 'initial']" mode="strip"/>
+				</author>
+			</xsl:when>
+			<xsl:when test="*[local-name() = 'name']/*[local-name() = 'surname'] and *[local-name() = 'name']/*[local-name() = 'forename']">
+				<author>
+					<xsl:apply-templates select="*[local-name() = 'name']/*[local-name() = 'surname']"/>
+					<xsl:text> </xsl:text>
+					<xsl:apply-templates select="*[local-name() = 'name']/*[local-name() = 'forename']" mode="strip"/>
+				</author>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:apply-templates/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template><xsl:template name="renderDate">		
+			<xsl:if test="normalize-space(*[local-name() = 'on']) != ''">
+				<xsl:value-of select="*[local-name() = 'on']"/>
+			</xsl:if>
+			<xsl:if test="normalize-space(*[local-name() = 'from']) != ''">
+				<xsl:value-of select="concat(*[local-name() = 'from'], '–', *[local-name() = 'to'])"/>
+			</xsl:if>
+	</xsl:template><xsl:template match="*[local-name() = 'name']/*[local-name() = 'initial']/text()" mode="strip">
+		<xsl:value-of select="translate(.,'. ','')"/>
+	</xsl:template><xsl:template match="*[local-name() = 'name']/*[local-name() = 'forename']/text()" mode="strip">
+		<xsl:value-of select="substring(.,1,1)"/>
 	</xsl:template><xsl:template name="convertDate">
 		<xsl:param name="date"/>
 		<xsl:param name="format" select="'short'"/>
