@@ -586,7 +586,7 @@ div.WordSection2
         mso-paper-source:0;}
 div.WordSection3
 	{page:WordSection3;}
-table.MsoISOTable
+table.MsoISOTable, table.MsoISOTableBig
 	{mso-style-name:"Table ISO";
           mso-tstyle-rowband-size:1;
 	mso-tstyle-colband-size:1;
@@ -612,15 +612,15 @@ table.MsoISOTable
 	mso-pagination:widow-orphan;
 	font-size:11.0pt;
 	font-family:$headerfont;}
-table.MsoISOTable th
+table.MsoISOTable th, table.MsoISOTableBig th
     {border:solid windowtext 1pt;
     background:#003366;
     padding:0cm 5.4pt 0cm 5.4pt;}
-table.MsoISOTable td
+table.MsoISOTable td, table.MsoISOTableBig td
     {border:solid windowtext 1pt;
     mso-border-alt:solid #999999 .5pt;
     padding:0cm 5.4pt 0cm 5.4pt;}
-table.MsoISOTable p
+table.MsoISOTable p, table.MsoISOTableBig p
 {font-size:11.0pt; }
 table.MsoTableGrid
 	{mso-style-name:"Table Grid";
