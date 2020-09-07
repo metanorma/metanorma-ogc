@@ -136,14 +136,14 @@ module IsoDoc
       end
 
       def inline_bibitem_ref_code(b)
-      id = b.at(ns("./docidentifier[not(@type = 'DOI' or @type = 'metanorma' "\
-                   "or @type = 'ISSN' or @type = 'ISBN' or @type = 'rfc-anchor')]"))
-      id ||= b.at(ns("./docidentifier[not(@type = 'metanorma')]"))
-      return [nil, id, nil] if id
-      id = Nokogiri::XML::Node.new("docidentifier", b.document)
-      id << "(NO ID)"
-      [nil, id, nil]
-    end
+        id = b.at(ns("./docidentifier[not(@type = 'DOI' or @type = 'metanorma' "\
+                     "or @type = 'ISSN' or @type = 'ISBN' or @type = 'rfc-anchor')]"))
+        id ||= b.at(ns("./docidentifier[not(@type = 'metanorma')]"))
+        return [nil, id, nil] if id
+        id = Nokogiri::XML::Node.new("docidentifier", b.document)
+        id << "(NO ID)"
+        [nil, id, nil]
+      end
     end
   end
 end
