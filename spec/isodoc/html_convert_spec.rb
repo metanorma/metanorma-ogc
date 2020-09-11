@@ -1269,8 +1269,16 @@ OUTPUT
                                      </m:r>
                                    </m:den>
                                  </m:f>
+                                 <span style='font-style:normal;'>
+  <m:r>
+    <m:rPr>
+      <m:sty m:val='p'/>
+    </m:rPr>
+    <m:t>=</m:t>
+  </m:r>
+</span>
                                  <m:r>
-                                   <m:t>=0</m:t>
+                                   <m:t>0</m:t>
                                  </m:r>
                                </m:oMath>
                              </span>
@@ -1621,8 +1629,16 @@ word = <<~OUTPUT
                                      </m:r>
                                    </m:den>
                                  </m:f>
+                                 <span style='font-style:normal;'>
+  <m:r>
+    <m:rPr>
+      <m:sty m:val='p'/>
+    </m:rPr>
+    <m:t>=</m:t>
+  </m:r>
+</span>
                                  <m:r>
-                                   <m:t>=0</m:t>
+                                   <m:t>0</m:t>
                                  </m:r>
                                </m:oMath>
                              </span>
@@ -1954,8 +1970,16 @@ word = <<~OUTPUT
                                      </m:r>
                                    </m:den>
                                  </m:f>
+                                 <span style='font-style:normal;'>
+  <m:r>
+    <m:rPr>
+      <m:sty m:val='p'/>
+    </m:rPr>
+    <m:t>=</m:t>
+  </m:r>
+</span>
                                  <m:r>
-                                   <m:t>=0</m:t>
+                                   <m:t>0</m:t>
                                  </m:r>
                                </m:oMath>
                              </span>
@@ -3072,8 +3096,16 @@ html = <<~OUTPUT
                                      </m:r>
                                    </m:den>
                                  </m:f>
+                                 <span style='font-style:normal;'>
+  <m:r>
+    <m:rPr>
+      <m:sty m:val='p'/>
+    </m:rPr>
+    <m:t>=</m:t>
+  </m:r>
+</span>
                                  <m:r>
-                                   <m:t>=0</m:t>
+                                   <m:t>0</m:t>
                                  </m:r>
                                </m:oMath>
                              </span>
@@ -3353,7 +3385,7 @@ html = <<~OUTPUT
                          <div class='formula'>
                            <p class='MsoNormal'>
                              <span class='stem'>
-                               <m:oMath>
+                             <m:oMath>
                                  <m:f>
                                    <m:fPr>
                                      <m:type m:val='bar'/>
@@ -3369,8 +3401,16 @@ html = <<~OUTPUT
                                      </m:r>
                                    </m:den>
                                  </m:f>
+                                 <span style='font-style:normal;'>
+                                   <m:r>
+                                     <m:rPr>
+                                       <m:sty m:val='p'/>
+                                     </m:rPr>
+                                     <m:t>=</m:t>
+                                   </m:r>
+                                 </span>
                                  <m:r>
-                                   <m:t>=0</m:t>
+                                   <m:t>0</m:t>
                                  </m:r>
                                </m:oMath>
                              </span>
