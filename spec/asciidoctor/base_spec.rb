@@ -97,7 +97,7 @@ RSpec.describe Asciidoctor::Ogc do
 
     output = xmlpp(<<~"OUTPUT")
     <?xml version='1.0' encoding='UTF-8'?>
-       <ogc-standard xmlns="https://www.metanorma.org/ns/ogc">
+       <ogc-standard xmlns="https://www.metanorma.org/ns/ogc" type="semantic" version="#{Metanorma::Ogc::VERSION}">
        <bibdata type="standard">
          <title language="en" format="text/plain">Main Title</title>
          <title format='text/plain' type='abbrev'>MT</title>
@@ -227,7 +227,7 @@ RSpec.describe Asciidoctor::Ogc do
     INPUT
 
     output = xmlpp(<<~"OUTPUT")
-           <ogc-standard xmlns="https://www.metanorma.org/ns/ogc">
+           <ogc-standard xmlns="https://www.metanorma.org/ns/ogc" type="semantic" version="#{Metanorma::Ogc::VERSION}">
        <bibdata type="standard">
          <title language="en" format="text/plain">Main Title</title>
          <title format='text/plain' type='abbrev'>A</title>
@@ -326,7 +326,7 @@ OUTPUT
     INPUT
 
     output = xmlpp(<<~"OUTPUT")
-    <ogc-standard xmlns="https://www.metanorma.org/ns/ogc">
+    <ogc-standard xmlns="https://www.metanorma.org/ns/ogc" type="semantic" version="#{Metanorma::Ogc::VERSION}">
 <bibdata type="standard">
  <title language="en" format="text/plain">Document title</title>
   <contributor>
@@ -381,7 +381,7 @@ OUTPUT
       INPUT
 
           output = xmlpp(<<~"OUTPUT")
-          <ogc-standard xmlns="https://www.metanorma.org/ns/ogc">
+          <ogc-standard xmlns="https://www.metanorma.org/ns/ogc" type="semantic" version="#{Metanorma::Ogc::VERSION}">
 <bibdata type="standard">
 <title language="en" format="text/plain">Document title</title>
   <contributor>

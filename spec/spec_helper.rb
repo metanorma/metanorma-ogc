@@ -73,7 +73,7 @@ BOILERPLATE =
 
 BLANK_HDR = <<~"HDR"
        <?xml version="1.0" encoding="UTF-8"?>
-       <ogc-standard xmlns="https://www.metanorma.org/ns/ogc">
+       <ogc-standard xmlns="https://www.metanorma.org/ns/ogc" type="semantic" version="#{Metanorma::Ogc::VERSION}">
        <bibdata type="standard">
 
         <title language="en" format="text/plain">Document title</title>

@@ -54,7 +54,7 @@
     <define name="preface">
       <element name="preface">
         <optional>
-          <ref name="preface_abstract"/>
+          <ref name="abstract"/>
         </optional>
         <ref name="foreword"/>
         <optional>
@@ -104,6 +104,13 @@
   </define>
   <define name="ogc-standard">
     <element name="ogc-standard">
+      <attribute name="version"/>
+      <attribute name="type">
+        <choice>
+          <value>semantic</value>
+          <value>presentation</value>
+        </choice>
+      </attribute>
       <ref name="bibdata"/>
       <zeroOrMore>
         <ref name="termdocsource"/>

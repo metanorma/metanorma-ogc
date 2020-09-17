@@ -182,7 +182,7 @@ RSpec.describe IsoDoc::Ogc do
     INPUT
 
     presxml = <<~OUTPUT
-    <ogc-standard xmlns='https://standards.opengeospatial.org/document'>
+    <ogc-standard xmlns='https://standards.opengeospatial.org/document' type="presentation">
          <bibdata>
            <keyword>ABC</keyword>
            <keyword>DEF</keyword>
@@ -234,7 +234,7 @@ RSpec.describe IsoDoc::Ogc do
     INPUT
 
     presxml = <<~OUTPUT
-    <ogc-standard xmlns='https://standards.opengeospatial.org/document'>
+    <ogc-standard xmlns='https://standards.opengeospatial.org/document' type="presentation">
          <bibdata>
            <keyword>ABC</keyword>
            <keyword>DEF</keyword>
@@ -303,7 +303,7 @@ RSpec.describe IsoDoc::Ogc do
     INPUT
 
     presxml = <<~OUTPUT
-    <ogc-standard xmlns='https://standards.opengeospatial.org/document'>
+    <ogc-standard xmlns='https://standards.opengeospatial.org/document' type="presentation">
     <bibdata>
          <contributor>
            <role type="author"/>
@@ -378,7 +378,7 @@ Geospatial Consortium (OGC):</p>
     INPUT
 
     presxml = <<~OUTPUT
-    <ogc-standard xmlns='https://standards.opengeospatial.org/document'>
+    <ogc-standard xmlns='https://standards.opengeospatial.org/document' type="presentation">
     <bibdata>
          <contributor>
            <role type="author"/>
@@ -496,7 +496,7 @@ Geospatial Consortium (OGC):</p>
     INPUT
 
     presxml = <<~OUTPUT
-    <iso-standard xmlns='http://riboseinc.com/isoxml'>
+    <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
          <preface>
            <foreword id='A'>
              <title depth='1'>i.<tab/>Preface</title>
@@ -537,7 +537,7 @@ OUTPUT
     INPUT
 
     presxml = <<~OUTPUT
-    <iso-standard xmlns='http://riboseinc.com/isoxml'>
+    <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
          <preface>
            <foreword id='A'>
              <title depth='1'>i.<tab/>Preface</title>
@@ -578,7 +578,7 @@ OUTPUT
     INPUT
 
     presxml = <<~OUTPUT
-    <iso-standard xmlns='http://riboseinc.com/isoxml'>
+    <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
          <preface>
            <foreword id='A'>
              <title depth='1'>i.<tab/>Preface</title>
@@ -617,7 +617,7 @@ OUTPUT
     </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-<iso-standard xmlns='http://riboseinc.com/isoxml'>
+<iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
   <preface>
     <foreword id='A'><title depth='1'>i.<tab/>Preface</title>
 
@@ -659,7 +659,7 @@ OUTPUT
     </iso-standard>
     INPUT
      presxml = <<~OUTPUT
-<iso-standard xmlns='http://riboseinc.com/isoxml'>
+<iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
   <preface>
     <foreword id='A'><title>i.</title>
       <example id='_'>
@@ -769,7 +769,7 @@ OUTPUT
     INPUT
 
     presxml = <<~OUTPUT
-    <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+    <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
          <preface>
           <abstract obligation="informative" id="1"><title depth="1">i.<tab/>Abstract</title>
           <p>XYZ</p>
@@ -1018,7 +1018,7 @@ OUTPUT
     INPUT
 
     presxml = <<~OUTPUT
-           <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+           <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
            <preface><foreword id="A"><title depth="1">i.<tab/>Preface</title>
            <table id="A1" class="permission" type="recommend">
          
@@ -1404,7 +1404,7 @@ OUTPUT
     INPUT
 
     presxml = <<~OUTPUT
-            <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+            <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
            <preface>
                <foreword id="A"><title depth="1">i.<tab/>Preface</title>
            <table id="A1" type="recommendtest" class="permission">
@@ -1745,7 +1745,7 @@ OUTPUT
     </ogc-standard>
     INPUT
     presxml = <<~OUTPUT
-           <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+           <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
            <preface>
                <foreword id="A"><title depth="1">i.<tab/>Preface</title>
            <table id="A1" type="recommendtest" class="permission">
@@ -2062,7 +2062,7 @@ OUTPUT
     INPUT
 
     presxml = <<~OUTPUT
-    <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+    <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
            <preface><foreword id="A"><title depth="1">i.<tab/>Preface</title>
            <table id="A1" type="recommendclass" keep-with-next="true" keep-lines-together="true" class="permission">
 
@@ -2296,7 +2296,7 @@ word = %Q{
     INPUT
 
     presxml = <<~OUTPUT
-    <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+    <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
            <preface><foreword id="A"><title depth="1">i.<tab/>Preface</title>
            <table id="A1" type="recommendclass" class="permission">
 
@@ -2489,7 +2489,7 @@ OUTPUT
     INPUT
 
     presxml = <<~OUTPUT
-    <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+    <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
            <preface><foreword id="A"><title depth="1">i.<tab/>Preface</title>
            <table id="A1" type="recommendclass" class="requirement">
 
@@ -2683,7 +2683,7 @@ OUTPUT
     INPUT
 
     presxml = <<~OUTPUT
-            <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+            <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
            <preface><foreword id="A"><title depth="1">i.<tab/>Preface</title>
            <table id="A1" type="recommendclass" class="recommendation">
          
@@ -2905,7 +2905,7 @@ it "processes requirements" do
     </ogc-standard>
 INPUT
 presxml = <<~OUTPUT
-            <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+            <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
            <preface><foreword id="A0"><title depth="1">i.<tab/>Preface</title>
            <table id="A" unnumbered="true" class="requirement" type="recommend">
          
@@ -3211,7 +3211,7 @@ html = <<~OUTPUT
 INPUT
 
 presxml = <<~OUTPUT
-            <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+            <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
            <preface><foreword id="A"><title depth="1">i.<tab/>Preface</title>
            <table id="_" class="recommendation" type="recommend">
          

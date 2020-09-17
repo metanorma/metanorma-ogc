@@ -65,7 +65,7 @@ RSpec.describe IsoDoc::Ogc do
     </annex>
     </iso-standard>
     INPUT
-     <iso-standard xmlns='http://riboseinc.com/isoxml'>
+     <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
           <preface>
             <foreword>
               <p>
@@ -312,7 +312,7 @@ OUTPUT
     </annex>
     </iso-standard>
     INPUT
-    <iso-standard xmlns='http://riboseinc.com/isoxml'>
+    <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
           <preface>
             <foreword>
               <p>
@@ -560,7 +560,7 @@ OUTPUT
     </annex>
     </iso-standard>
     INPUT
-        <iso-standard xmlns='http://riboseinc.com/isoxml'>
+        <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
           <preface>
             <foreword>
               <p>
@@ -807,7 +807,7 @@ OUTPUT
     </annex>
     </iso-standard>
     INPUT
-        <iso-standard xmlns='http://riboseinc.com/isoxml'>
+        <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
           <preface>
             <foreword>
               <p>
@@ -1054,7 +1054,7 @@ OUTPUT
     </annex>
     </iso-standard>
     INPUT
-        <iso-standard xmlns='http://riboseinc.com/isoxml'>
+        <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
           <preface>
             <foreword>
               <p>
@@ -1301,7 +1301,7 @@ OUTPUT
     </annex>
     </iso-standard>
     INPUT
-        <iso-standard xmlns='http://riboseinc.com/isoxml'>
+        <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
           <preface>
             <foreword>
               <p>
@@ -1535,7 +1535,7 @@ end
     </annex>
     </iso-standard>
     INPUT
-<iso-standard xmlns='http://riboseinc.com/isoxml'>
+<iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
           <preface>
             <foreword>
               <p>
@@ -1830,7 +1830,7 @@ end
     </annex>
     </iso-standard>
     INPUT
-        <iso-standard xmlns='http://riboseinc.com/isoxml'>
+        <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
           <preface>
             <foreword>
               <p>
@@ -2077,7 +2077,7 @@ OUTPUT
     </annex>
     </iso-standard>
     INPUT
-        <iso-standard xmlns='http://riboseinc.com/isoxml'>
+        <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
           <preface>
             <foreword>
               <p>
