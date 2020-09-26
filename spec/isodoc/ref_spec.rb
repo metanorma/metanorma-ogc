@@ -329,6 +329,9 @@ RSpec.describe IsoDoc::Ogc do
             <bibdata>
             <language>en</language>
             </bibdata>
+            <local_bibdata>
+            <language>en</language>
+            </local_bibdata>
             <preface><foreword id="A">
             <title depth='1'>i.<tab/>Preface</title>
           <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">

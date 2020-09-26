@@ -187,6 +187,10 @@ RSpec.describe IsoDoc::Ogc do
            <keyword>ABC</keyword>
            <keyword>DEF</keyword>
          </bibdata>
+          <local_bibdata>
+           <keyword>ABC</keyword>
+           <keyword>DEF</keyword>
+         </local_bibdata>
          <preface>
            <clause id="_" type='keywords'>
              <title depth='1'>i.<tab/>Keywords</title>
@@ -239,6 +243,10 @@ RSpec.describe IsoDoc::Ogc do
            <keyword>ABC</keyword>
            <keyword>DEF</keyword>
          </bibdata>
+         <local_bibdata>
+           <keyword>ABC</keyword>
+           <keyword>DEF</keyword>
+         </local_bibdata>
          <preface>
          <abstract id='A'>
   <title>i.</title>
@@ -318,6 +326,20 @@ RSpec.describe IsoDoc::Ogc do
            </organization>
          </contributor>
       </bibdata>
+      <local_bibdata>
+         <contributor>
+           <role type="author"/>
+           <organization>
+             <name>OGC</name>
+           </organization>
+         </contributor>
+         <contributor>
+           <role type="author"/>
+           <organization>
+             <name>DEF</name>
+           </organization>
+         </contributor>
+      </local_bibdata>
       <preface>
   <clause id='_' type='submitting_orgs'>
     <title depth='1'>i.<tab/>Submitting Organizations</title>
@@ -393,6 +415,20 @@ Geospatial Consortium (OGC):</p>
            </organization>
          </contributor>
       </bibdata>
+      <local_bibdata>
+         <contributor>
+           <role type="author"/>
+           <organization>
+             <name>OGC</name>
+           </organization>
+         </contributor>
+         <contributor>
+           <role type="author"/>
+           <organization>
+             <name>DEF</name>
+           </organization>
+         </contributor>
+      </local_bibdata>
       <preface>
            <abstract id='A'>
              <title>i.</title>

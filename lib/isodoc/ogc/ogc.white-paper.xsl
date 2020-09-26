@@ -107,6 +107,10 @@
 			
 			<xsl:call-template name="addPDFUAmeta"/>
 			
+			<xsl:call-template name="addBookmarks">
+				<xsl:with-param name="contents" select="$contents"/>
+			</xsl:call-template>
+			
 			<!-- Cover Page -->
 			<fo:page-sequence master-reference="document" force-page-count="no-force">				
 				<xsl:call-template name="insertHeaderFooter"/>					
@@ -168,10 +172,13 @@
 							<xsl:text>Table of Contents</xsl:text>
 						</fo:block>
 						<xsl:variable name="margin-left">3.9</xsl:variable>
-						<xsl:for-each select="xalan:nodeset($contents)//item">
+						<xsl:for-each select="xalan:nodeset($contents)//item[@display = 'true']">
 							<fo:block margin-top="8pt" margin-bottom="5pt" margin-left="{(@level - 1) * $margin-left}mm" text-align-last="justify">
-								<fo:basic-link internal-destination="{@id}" fox:alt-text="{text()}">									
-									<xsl:apply-templates/>
+								<fo:basic-link internal-destination="{@id}" fox:alt-text="{title}">
+									<xsl:if test="@section != ''">
+										<xsl:value-of select="@section"/><xsl:text> </xsl:text>
+									</xsl:if>
+									<xsl:apply-templates select="title"/>
 									<fo:inline keep-together.within-line="always">
 										<fo:leader leader-pattern="dots"/>
 										<fo:inline><fo:page-number-citation ref-id="{@id}"/></fo:inline>
@@ -282,15 +289,21 @@
 		</xsl:variable>
 		
 		<xsl:variable name="display">
-			<xsl:choose>
-				<xsl:when test="ancestor-or-self::ogc:bibitem">false</xsl:when>
-				<xsl:when test="ancestor-or-self::ogc:term">false</xsl:when>				
+			<xsl:choose>				
 				<xsl:when test="$level &gt; 3">false</xsl:when>
 				<xsl:otherwise>true</xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>
 		
-		<xsl:if test="$display = 'true'">		
+		<xsl:variable name="skip">
+			<xsl:choose>
+				<xsl:when test="ancestor-or-self::ogc:bibitem">true</xsl:when>
+				<xsl:when test="ancestor-or-self::ogc:term">true</xsl:when>				
+				<xsl:otherwise>false</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		
+		<xsl:if test="$skip = 'false'">		
 		
 			<xsl:variable name="section">
 				<xsl:call-template name="getSection"/>
@@ -304,10 +317,12 @@
 				<xsl:value-of select="local-name()"/>
 			</xsl:variable>
 			
-			<item id="{@id}" level="{$level}" section="{$section}" type="{$type}">
-				<xsl:apply-templates select="ogc:title" mode="contents_item"/>
+			<item id="{@id}" level="{$level}" section="{$section}" type="{$type}" display="{$display}">
+				<title>
+					<xsl:apply-templates select="xalan:nodeset($title)" mode="contents_item"/>
+				</title>
+				<xsl:apply-templates mode="contents"/>
 			</item>
-			<xsl:apply-templates mode="contents"/>
 		</xsl:if>	
 		
 	</xsl:template>
@@ -835,6 +850,12 @@
 			
 		</title-edition>
 		
+		<title-edition lang="fr">
+			
+				<xsl:text>Édition </xsl:text>
+			
+		</title-edition>
+		
 
 		<title-toc lang="en">
 			
@@ -943,7 +964,9 @@
 				<xsl:value-of select="$titles/*[local-name() = $name][@lang = 'en']"/>
 			</xsl:otherwise>
 		</xsl:choose>
-	</xsl:template><xsl:variable name="lower">abcdefghijklmnopqrstuvwxyz</xsl:variable><xsl:variable name="upper">ABCDEFGHIJKLMNOPQRSTUVWXYZ</xsl:variable><xsl:variable name="en_chars" select="concat($lower,$upper,',.`1234567890-=~!@#$%^*()_+[]{}\|?/')"/><xsl:variable name="linebreak" select="'&#8232;'"/><xsl:attribute-set name="link-style">
+	</xsl:template><xsl:variable name="lower">abcdefghijklmnopqrstuvwxyz</xsl:variable><xsl:variable name="upper">ABCDEFGHIJKLMNOPQRSTUVWXYZ</xsl:variable><xsl:variable name="en_chars" select="concat($lower,$upper,',.`1234567890-=~!@#$%^*()_+[]{}\|?/')"/><xsl:variable name="linebreak" select="'&#8232;'"/><xsl:attribute-set name="root-style">
+		
+	</xsl:attribute-set><xsl:attribute-set name="link-style">
 		
 			<xsl:attribute name="color">blue</xsl:attribute>
 			<xsl:attribute name="text-decoration">underline</xsl:attribute>
@@ -2969,12 +2992,112 @@
 			
 			<fo:external-graphic src="{$src}" fox:alt-text="Image {@alt}" xsl:use-attribute-sets="image-graphic-style"/>
 		</fo:block>
-	</xsl:template><xsl:template match="*[local-name() = 'figure']/*[local-name() = 'name']"/><xsl:template match="*[local-name() = 'figure']/*[local-name() = 'name'] |                *[local-name() = 'table']/*[local-name() = 'name'] |               *[local-name() = 'permission']/*[local-name() = 'name'] |               *[local-name() = 'recommendation']/*[local-name() = 'name'] |               *[local-name() = 'requirement']/*[local-name() = 'name']" mode="contents">
+	</xsl:template><xsl:template match="*[local-name() = 'figure']/*[local-name() = 'name']"/><xsl:template match="*[local-name() = 'figure']/*[local-name() = 'name'] |                *[local-name() = 'table']/*[local-name() = 'name'] |               *[local-name() = 'permission']/*[local-name() = 'name'] |               *[local-name() = 'recommendation']/*[local-name() = 'name'] |               *[local-name() = 'requirement']/*[local-name() = 'name']" mode="contents">		
 		<xsl:apply-templates mode="contents"/>
 		<xsl:text> </xsl:text>
-	</xsl:template><xsl:template match="text()" mode="contents">
+	</xsl:template><xsl:template match="*[local-name() = 'figure']/*[local-name() = 'name'] |                *[local-name() = 'table']/*[local-name() = 'name'] |               *[local-name() = 'permission']/*[local-name() = 'name'] |               *[local-name() = 'recommendation']/*[local-name() = 'name'] |               *[local-name() = 'requirement']/*[local-name() = 'name']" mode="bookmarks">		
+		<xsl:apply-templates mode="bookmarks"/>
+		<xsl:text> </xsl:text>
+	</xsl:template><xsl:template match="*[local-name() = 'name']/text()" mode="contents" priority="2">
 		<xsl:value-of select="."/>
-	</xsl:template><xsl:template match="*[local-name() = 'figure']/*[local-name() = 'name'] |         *[local-name() = 'image']/*[local-name() = 'name']" mode="presentation">
+	</xsl:template><xsl:template match="*[local-name() = 'name']/text()" mode="bookmarks" priority="2">
+		<xsl:value-of select="."/>
+	</xsl:template><xsl:template match="node()" mode="contents">
+		<xsl:apply-templates mode="contents"/>
+	</xsl:template><xsl:template match="node()" mode="bookmarks">
+		<xsl:apply-templates mode="bookmarks"/>
+	</xsl:template><xsl:template match="*[local-name() = 'stem']" mode="contents">
+		<xsl:apply-templates select="."/>
+	</xsl:template><xsl:template match="*[local-name() = 'stem']" mode="bookmarks">
+		<xsl:apply-templates mode="bookmarks"/>
+	</xsl:template><xsl:template name="addBookmarks">
+		<xsl:param name="contents"/>
+		<xsl:if test="xalan:nodeset($contents)//item">
+			<fo:bookmark-tree>
+				<xsl:choose>
+					<xsl:when test="xalan:nodeset($contents)/doc">
+						<xsl:choose>
+							<xsl:when test="count(xalan:nodeset($contents)/doc) &gt; 1">
+								<xsl:for-each select="xalan:nodeset($contents)/doc">
+									<fo:bookmark internal-destination="{contents/item[1]/@id}" starting-state="hide">
+										<fo:bookmark-title>
+											<xsl:variable name="bookmark-title_">
+												<xsl:choose>
+													<xsl:when test="@lang = 'en'">
+														
+														
+														</xsl:when>
+													<xsl:when test="@lang = 'fr'">
+														
+														
+													</xsl:when>
+													<xsl:when test="@lang = 'de'">Deutsche</xsl:when>
+													<xsl:otherwise><xsl:value-of select="@lang"/> version</xsl:otherwise>
+												</xsl:choose>
+											</xsl:variable>
+											<xsl:choose>
+												<xsl:when test="normalize-space($bookmark-title_) != ''">
+													<xsl:value-of select="normalize-space($bookmark-title_)"/>
+												</xsl:when>
+												<xsl:otherwise>
+													<xsl:choose>
+														<xsl:when test="@lang = 'en'">English</xsl:when>
+														<xsl:when test="@lang = 'fr'">Français</xsl:when>
+														<xsl:when test="@lang = 'de'">Deutsche</xsl:when>
+														<xsl:otherwise><xsl:value-of select="@lang"/> version</xsl:otherwise>
+													</xsl:choose>
+												</xsl:otherwise>
+											</xsl:choose>
+										</fo:bookmark-title>
+										<xsl:apply-templates select="contents/item" mode="bookmark"/>
+									</fo:bookmark>
+									
+								</xsl:for-each>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:for-each select="xalan:nodeset($contents)/doc">
+									<xsl:apply-templates select="contents/item" mode="bookmark"/>
+								</xsl:for-each>
+							</xsl:otherwise>
+						</xsl:choose>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:apply-templates select="xalan:nodeset($contents)/contents/item" mode="bookmark"/>				
+					</xsl:otherwise>
+				</xsl:choose>
+				
+				
+				
+					<xsl:if test="//*[local-name() = 'figure'][@id and *[local-name() = 'name']]">					
+						<fo:bookmark internal-destination="{//*[local-name() = 'figure'][@id and *[local-name() = 'name']][1]/@id}" starting-state="hide">
+							<fo:bookmark-title>Figures</fo:bookmark-title>
+							<xsl:for-each select="//*[local-name() = 'figure'][@id and *[local-name() = 'name']]">
+								<fo:bookmark internal-destination="{@id}">
+									<fo:bookmark-title><xsl:apply-templates select="*[local-name() = 'name']/text()" mode="bookmarks"/></fo:bookmark-title>
+								</fo:bookmark>
+							</xsl:for-each>
+						</fo:bookmark>					
+					</xsl:if>
+				
+				
+				
+				
+				
+				
+			</fo:bookmark-tree>
+		</xsl:if>
+	</xsl:template><xsl:template match="item" mode="bookmark">
+		<fo:bookmark internal-destination="{@id}" starting-state="hide">
+				<fo:bookmark-title>
+					<xsl:if test="@section != ''">
+						<xsl:value-of select="@section"/> 
+						<xsl:text> </xsl:text>
+					</xsl:if>
+					<xsl:value-of select="normalize-space(title)"/>
+				</fo:bookmark-title>
+				<xsl:apply-templates mode="bookmark"/>				
+		</fo:bookmark>
+	</xsl:template><xsl:template match="title" mode="bookmark"/><xsl:template match="text()" mode="bookmark"/><xsl:template match="*[local-name() = 'figure']/*[local-name() = 'name'] |         *[local-name() = 'image']/*[local-name() = 'name']" mode="presentation">
 		<xsl:if test="normalize-space() != ''">			
 			<fo:block xsl:use-attribute-sets="figure-name-style">
 								
@@ -3032,7 +3155,7 @@
 					<xsl:apply-templates/>
 				</xsl:otherwise>
 			</xsl:choose>
-	</xsl:template><xsl:template match="*[local-name() = 'fn']" mode="contents"/><xsl:template match="*[local-name() = 'fn']" mode="contents_item"/><xsl:template match="*[local-name() = 'tab']" mode="contents_item">
+	</xsl:template><xsl:template match="*[local-name() = 'fn']" mode="contents"/><xsl:template match="*[local-name() = 'fn']" mode="bookmarks"/><xsl:template match="*[local-name() = 'fn']" mode="contents_item"/><xsl:template match="*[local-name() = 'tab']" mode="contents_item">
 		<xsl:text> </xsl:text>
 	</xsl:template><xsl:template match="*[local-name() = 'strong']" mode="contents_item">
 		<xsl:copy>
@@ -3654,20 +3777,29 @@
 		<!-- 0xA0 to space replacement -->
 		<xsl:value-of select="java:replaceAll(java:java.lang.String.new(.),' ',' ')"/>
 	</xsl:template><xsl:template match="*[local-name() = 'ul'] | *[local-name() = 'ol']">
-		<fo:block-container margin-left="0mm">
-			<xsl:if test="parent::*[local-name() = 'note']">
-				<xsl:attribute name="margin-left">
-					<xsl:choose>
-						<xsl:when test="not(ancestor::*[local-name() = 'table'])"><xsl:value-of select="$note-body-indent"/></xsl:when>
-						<xsl:otherwise><xsl:value-of select="$note-body-indent-table"/></xsl:otherwise>
-					</xsl:choose>
-				</xsl:attribute>
-				
-			</xsl:if>
-			<fo:block-container margin-left="0mm">
-				<xsl:apply-templates select="." mode="ul_ol"/>
-			</fo:block-container>
-		</fo:block-container>
+		<xsl:choose>
+			<xsl:when test="parent::*[local-name() = 'note']">
+				<fo:block-container>
+					<xsl:attribute name="margin-left">
+						<xsl:choose>
+							<xsl:when test="not(ancestor::*[local-name() = 'table'])"><xsl:value-of select="$note-body-indent"/></xsl:when>
+							<xsl:otherwise><xsl:value-of select="$note-body-indent-table"/></xsl:otherwise>
+						</xsl:choose>
+					</xsl:attribute>
+					
+					<fo:block-container margin-left="0mm">
+						<fo:block>
+							<xsl:apply-templates select="." mode="ul_ol"/>
+						</fo:block>
+					</fo:block-container>
+				</fo:block-container>
+			</xsl:when>
+			<xsl:otherwise>
+				<fo:block>
+					<xsl:apply-templates select="." mode="ul_ol"/>
+				</fo:block>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template><xsl:template match="*[local-name() = 'errata']">
 		<!-- <row>
 					<date>05-07-2013</date>
@@ -4103,6 +4235,7 @@
 						
 			
 			
+			
 		</xsl:variable>
 		<xsl:if test="$documentNS != $XSLNS">
 			<xsl:message>[WARNING]: Document namespace: '<xsl:value-of select="$documentNS"/>' doesn't equal to xslt namespace '<xsl:value-of select="$XSLNS"/>'</xsl:message>
@@ -4128,4 +4261,21 @@
 				</xsl:otherwise>
 			</xsl:choose>					
 		</xsl:attribute>
+	</xsl:template><xsl:template name="add-letter-spacing">
+		<xsl:param name="text"/>
+		<xsl:param name="letter-spacing" select="'0.15'"/>
+		<xsl:if test="string-length($text) &gt; 0">
+			<xsl:variable name="char" select="substring($text, 1, 1)"/>
+			<fo:inline padding-right="{$letter-spacing}mm">
+				<xsl:if test="$char = '®'">
+					<xsl:attribute name="font-size">58%</xsl:attribute>
+					<xsl:attribute name="baseline-shift">30%</xsl:attribute>
+				</xsl:if>				
+				<xsl:value-of select="$char"/>
+			</fo:inline>
+			<xsl:call-template name="add-letter-spacing">
+				<xsl:with-param name="text" select="substring($text, 2)"/>
+				<xsl:with-param name="letter-spacing" select="$letter-spacing"/>
+			</xsl:call-template>
+		</xsl:if>
 	</xsl:template></xsl:stylesheet>
