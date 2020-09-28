@@ -27,6 +27,14 @@
   position: absolute;
 }
 
+.document-type-band {
+  top: 260px;
+}
+
+.document-stage-band > :first-child {
+  height: 240px;
+}
+
 .coverpage-metadata {
   margin-top: 35px;
   padding-top: 15px;

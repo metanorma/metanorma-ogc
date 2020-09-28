@@ -9,3 +9,12 @@ permissionclass: Permission Class
 abstracttest: Abstract Test
 conformanceclass: Conformance Class
 example: Example
+stage_dict:
+  swg-draft: Candidate SWG Draft
+  oab-review: Candidate OAB Review Draft
+  public-rfc: Candidate Public RFC Draft
+  tc-vote: Candidate TC Vote Draft
+  approved: Approved
+  published: Approved
+  deprecated: Deprecated
+  retired: Retired
