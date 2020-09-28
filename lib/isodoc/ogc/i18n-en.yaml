@@ -9,3 +9,5 @@ permissionclass: Permission Class
 abstracttest: Abstract Test
 conformanceclass: Conformance Class
 example: Example
+security_empty: No security considerations have been made for this standard.
+

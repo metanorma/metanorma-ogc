@@ -19,6 +19,7 @@ RSpec.describe Asciidoctor::Ogc do
 
     output = xmlpp(<<~"OUTPUT")
     #{BLANK_HDR}
+    <preface>#{SECURITY}</preface>
 <sections/>
 </ogc-standard>
     OUTPUT
@@ -37,6 +38,7 @@ RSpec.describe Asciidoctor::Ogc do
 
     output = xmlpp(<<~"OUTPUT")
     #{BLANK_HDR}
+    <preface>#{SECURITY}</preface>
 <sections/>
 </ogc-standard>
     OUTPUT
@@ -187,6 +189,7 @@ RSpec.describe Asciidoctor::Ogc do
         </ext>
        </bibdata>
     #{BOILERPLATE.sub(/#{Date.today.year} Open Geospatial Consortium/, "2001 Open Geospatial Consortium").sub(%r{<title>Warning</title>}, "<title>Warning for Drafts</title>").sub(/This document is an OGC Member approved international standard. This document is available on a royalty free, non-discriminatory basis\. Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation\.\s*/, "This document is not an OGC Standard. This document is distributed for review and comment. This document is subject to change without notice and may not be referred to as an OGC Standard.</p><p id='_'>Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation.")}
+    <preface>#{SECURITY}</preface>
        <sections/>
        </ogc-standard>
     OUTPUT
@@ -302,6 +305,7 @@ RSpec.describe Asciidoctor::Ogc do
          <doctype>engineering-report</doctype>
          </ext>
        </bibdata>
+       <preface>#{SECURITY}</preface>
        <sections/>
        </ogc-standard>
 OUTPUT
@@ -357,6 +361,7 @@ OUTPUT
 <acknowledgements id='_' obligation='informative'>
   <title>Acknowledgements</title>
 </acknowledgements>
+#{SECURITY}
 <submitters id="_">
 <title>Submitters</title>
   <p id="_">Clause 2</p>
@@ -407,6 +412,7 @@ OUTPUT
   </ext>
 </bibdata>
 #{BOILERPLATE}
+<preface>#{SECURITY}</preface>
 <sections>
 
 
@@ -432,7 +438,9 @@ OUTPUT
              <preface><foreword id="_" obligation="informative">
          <title>Preface</title>
          <p id="_">This is a preamble</p>
-       </foreword></preface><sections>
+       </foreword>
+       #{SECURITY}</preface>
+        <sections>
        <clause id="_" obligation="normative">
          <title>Section 1</title>
        </clause></sections>
@@ -520,6 +528,7 @@ OUTPUT
 
     output = xmlpp(<<~"OUTPUT")
             #{BLANK_HDR}
+    <preface>#{SECURITY}</preface>
        <sections>
         <p id="_"><em>emphasis</em>
        <strong>strong</strong>
@@ -559,6 +568,7 @@ OUTPUT
       ====
       INPUT
       #{BLANK_HDR}
+    <preface>#{SECURITY}</preface>
        <sections>
          <example id="_"><name>Example Title</name><p id="_">This is an example</p>
        <p id="_">Amen</p></example>
@@ -577,6 +587,7 @@ OUTPUT
 
       INPUT
       #{BLANK_HDR}
+    <preface>#{SECURITY}</preface>
         <sections><terms id="_" obligation="normative">
          <title>Terms and definitions</title><p id="_">No terms and definitions are listed in this document.</p>
      
@@ -602,6 +613,7 @@ OUTPUT
              <title>Preface</title>
              <p id='_'>This is a prefatory paragraph</p>
            </foreword>
+           #{SECURITY}
          </preface>
          <sections> </sections>
        </ogc-standard>
@@ -609,18 +621,40 @@ OUTPUT
   end
 
        it "processes conformance section" do
-          expect((strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)))).to be_equivalent_to (<<~"OUTPUT")
+          expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
       #{ASCIIDOC_BLANK_HDR}
 
       == Conformance
 
       INPUT
       #{BLANK_HDR}
+    <preface>#{SECURITY}</preface>
        <sections>
            <clause id='_' obligation='normative' type="conformance">
              <title>Conformance</title>
            </clause>
          </sections>
+       </ogc-standard>
+      OUTPUT
+  end
+
+   it "processes security consideration section" do
+          expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+      #{ASCIIDOC_BLANK_HDR}
+
+      == Security Considerations
+
+      This is a security consideration
+
+      INPUT
+      #{BLANK_HDR}
+       <preface>
+           <clause id='_' obligation='informative' type="security">
+             <title>Security Considerations</title>
+             <p id="_">This is a security consideration</p>
+           </clause>
+         </preface>
+         <sections/>
        </ogc-standard>
       OUTPUT
   end
@@ -639,6 +673,7 @@ OUTPUT
 
       INPUT
       #{BLANK_HDR}
+      <preface>#{SECURITY}</preface>
            <sections>
       <clause id='_' obligation='normative'>
         <title>Foreword</title>

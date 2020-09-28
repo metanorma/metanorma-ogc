@@ -33,6 +33,7 @@ RSpec.describe Metanorma::Ogc::Processor do
 
     output = <<~"OUTPUT"
     #{BLANK_HDR}
+    <preface>#{SECURITY}</preface>
 <sections/>
 </ogc-standard>
     OUTPUT
