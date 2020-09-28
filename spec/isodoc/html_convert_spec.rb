@@ -394,6 +394,7 @@ Geospatial Consortium (OGC):</p>
       </bibdata>
 <preface>
 <abstract id="A"/>
+<clause type="security" id="B"/>
 </preface>
 <sections/>
 </ogc-standard>
@@ -433,9 +434,12 @@ Geospatial Consortium (OGC):</p>
            <abstract id='A'>
              <title>i.</title>
            </abstract>
+           <clause type='security' id='B'>
+  <title>ii.</title>
+</clause>
            <clause id='_' type='submitting_orgs'>
              <title depth='1'>
-               ii.
+               iii.
                <tab/>
                Submitting Organizations
              </title>
@@ -466,8 +470,11 @@ Geospatial Consortium (OGC):</p>
     <div id='A'>
       <h1 class='AbstractTitle'>i.</h1>
     </div>
+    <div class='Section3' id='B'>
+  <h1 class='IntroTitle'>ii.</h1>
+</div>
     <div class='Section3' id='_'>
-      <h1 class='IntroTitle'> ii. &#160; Submitting Organizations </h1>
+      <h1 class='IntroTitle'> iii. &#160; Submitting Organizations </h1>
       <p>
         The following organizations submitted this Document to the Open
         Geospatial Consortium (OGC):
@@ -726,7 +733,6 @@ OUTPUT
     expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", presxml, true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(html)
   end
 
-
   it "processes section names" do
     input = <<~"INPUT"
     <ogc-standard xmlns="https://standards.opengeospatial.org/document">
@@ -737,6 +743,18 @@ OUTPUT
       <foreword obligation="informative" id="2"><title>Preface</title>
          <p id="A">This is a preamble</p>
        </foreword>
+       <clause id="DD2" obligation="normative" type="keywords">
+       <title>Keywords</title>
+       </clause>
+       <clause id="DD1" obligation="normative" type="security">
+         <title>Security</title>
+         <p id="EE1">Text</p>
+       </clause>
+       <clause id="SUBORG" type="submitting_orgs">
+        <title>Submitting Organizations</title>
+        <p>The following organizations submitted this Document to the
+           Open Geospatial Consortium (OGC):</p>
+           </clause>
        <submitters obligation="informative" id="3">
        <title>Submitters</title>
        <p>ABC</p>
@@ -810,18 +828,28 @@ OUTPUT
           <abstract obligation="informative" id="1"><title depth="1">i.<tab/>Abstract</title>
           <p>XYZ</p>
           </abstract>
-         <foreword obligation="informative" id="2"><title depth="1">ii.<tab/>Preface</title>
-            <p id="A">This is a preamble</p>
-          </foreword>
-          <submitters obligation="informative" id="3">
-          <title depth="1">iii.<tab/>Submitters</title>
-          <p>ABC</p>
-          </submitters>
-          <clause id="5"><title depth="1">iv.<tab/>Dedication</title>
-          <clause id="6"><title depth="2">iv.1.<tab/>Note to readers</title></clause>
+          <clause id='DD2' obligation='normative' type='keywords'>
+  <title depth='1'>ii.<tab/>Keywords</title>
+</clause>
+          <foreword obligation="informative" id="2"><title depth="1">iii.<tab/>Preface</title>
+   <p id="A">This is a preamble</p>
+ </foreword><clause id="DD1" obligation="normative" type="security">
+   <title depth="1">iv.<tab/>Security</title>
+   <p id="EE1">Text</p>
+ </clause>
+ <clause id='SUBORG' type='submitting_orgs'>
+  <title depth='1'>v.<tab/>Submitting Organizations</title>
+<p>The following organizations submitted this Document to the Open Geospatial Consortium (OGC):</p>
+ </clause>
+ <submitters obligation="informative" id="3">
+ <title depth="1">vi.<tab/>Submitters</title>
+ <p>ABC</p>
+ </submitters>
+          <clause id="5"><title depth="1">vii.<tab/>Dedication</title>
+          <clause id="6"><title depth="2">vii.1.<tab/>Note to readers</title></clause>
            </clause>
           <acknowledgements obligation="informative" id="4">
-          <title depth='1'>v.<tab/>Acknowlegements</title>
+          <title depth='1'>viii.<tab/>Acknowlegements</title>
           <p>ABC</p>
           </acknowledgements>
            </preface><sections>
@@ -887,23 +915,37 @@ OUTPUT
                <h1 class="AbstractTitle">i.&#160; Abstract</h1>
                <p>XYZ</p>
              </div>
+             <div class='Section3' id='DD2'>
+  <h1 class='IntroTitle'>ii.&#160; Keywords</h1>
+</div>
              <br/>
              <div id="2">
-               <h1 class="ForewordTitle">ii.&#160; Preface</h1>
+               <h1 class="ForewordTitle">iii.&#160; Preface</h1>
                <p id="A">This is a preamble</p>
              </div>
+             <div class='Section3' id='DD1'>
+  <h1 class='IntroTitle'>iv.&#160; Security</h1>
+  <p id='EE1'>Text</p>
+</div>
+             <div class='Section3' id='SUBORG'>
+  <h1 class='IntroTitle'>v.&#160; Submitting Organizations</h1>
+  <p>
+    The following organizations submitted this Document to the Open
+    Geospatial Consortium (OGC):
+  </p>
+</div>
              <div class="Section3" id="3">
-               <h1 class="IntroTitle">iii.&#160; Submitters</h1>
+               <h1 class="IntroTitle">vi.&#160; Submitters</h1>
                <p>ABC</p>
              </div>
              <div class='Section3' id='5'>
-  <h1 class='IntroTitle'>iv.&#160; Dedication</h1>
+  <h1 class='IntroTitle'>vii.&#160; Dedication</h1>
       <div id='6'>
-      <h2>iv.1.&#160; Note to readers</h2>
+      <h2>vii.1.&#160; Note to readers</h2>
     </div>
 </div>
 <div class='Section3' id='4'>
-  <h1 class='IntroTitle'>v.&#160; Acknowlegements</h1>
+  <h1 class='IntroTitle'>viii.&#160; Acknowlegements</h1>
   <p>ABC</p>
 </div>
              <p class="zzSTDTitle1"/>
@@ -986,6 +1028,7 @@ OUTPUT
 
     output = xmlpp(<<~"OUTPUT")
     #{BLANK_HDR}
+    <preface>#{SECURITY}</preface>
 <sections/>
 </ogc-standard>
     OUTPUT

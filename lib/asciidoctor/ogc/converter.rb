@@ -78,6 +78,25 @@ module Asciidoctor
 
       def make_preface(x, s)
         super
+        insert_security(x, s)
+        insert_submitters(x, s)
+      end
+
+      def add_id
+        %(id="_#{UUIDTools::UUID.random_create}")
+      end
+
+      def insert_security(x, s)
+        preface = s.at("//preface") ||
+          s.add_previous_sibling("<preface/>").first
+        s = x&.at("//clause[@type = 'security']")&.remove ||
+          "<clause type='security' #{add_id}>"\
+          "<title>Security Considerations</title>"\
+          "<p>#{@i18n.security_empty}</p></clause>"
+        preface.add_child s
+      end
+
+      def insert_submitters(x, s)
         if x.at("//submitters")
           preface = s.at("//preface") || 
             s.add_previous_sibling("<preface/>").first
@@ -90,6 +109,8 @@ module Asciidoctor
         case clausetype = node&.attr("heading")&.downcase || node.title.downcase
         when "submitters" then return submitters_parse(attrs, xml, node)
         when "conformance" then attrs = attrs.merge(type: "conformance")
+        when "security considerations" then attrs = 
+          attrs.merge(type: "security")
         end
         super
       end

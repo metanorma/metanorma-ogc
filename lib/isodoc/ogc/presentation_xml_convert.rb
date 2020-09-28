@@ -15,6 +15,7 @@ module IsoDoc
       def insert_preface_sections(docxml)
         insert_keywords(docxml)
         insert_submitting_orgs(docxml)
+        insert_security(docxml)
       end
 
       def preface_init_insert_pt(docxml)
@@ -28,6 +29,17 @@ module IsoDoc
         docxml.at(ns("//foreword")) ||
         docxml.at(ns("//preface/clause[@type = 'keywords']")) ||
         docxml.at(ns("//preface/abstract"))
+      end
+
+      def insert_security(docxml)
+        s = docxml&.at(ns("//preface/clause[@type = 'security']"))&.remove or
+          return
+        if a = submit_orgs_append_pt(docxml)
+          a.next = s
+        else
+          preface_init_insert_pt(docxml)&.children&.first&.
+            add_previous_sibling(s)
+        end
       end
 
       def insert_submitting_orgs(docxml)

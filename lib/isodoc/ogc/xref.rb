@@ -107,11 +107,12 @@ module IsoDoc
         preface_names_numbered(d.at(ns("//preface/clause[@type = 'keywords']")))
         preface_names_numbered(d.at(ns("//foreword")))
         preface_names_numbered(d.at(ns("//introduction")))
+        preface_names_numbered(d.at(ns("//preface/clause[@type = 'security']")))
         preface_names_numbered(d.at(ns("//preface/clause"\
                                        "[@type = 'submitting_orgs']")))
         preface_names_numbered(d.at(ns("//submitters")))
         d.xpath(ns("//preface/clause[not(@type = 'keywords' or "\
-                   "@type = 'submitting_orgs')]")).each do |c|
+                   "@type = 'submitting_orgs' or @type = 'security')]")).each do |c|
           preface_names_numbered(c)
         end
         preface_names_numbered(d.at(ns("//acknowledgements")))
