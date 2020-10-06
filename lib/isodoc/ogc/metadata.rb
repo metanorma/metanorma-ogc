@@ -66,7 +66,7 @@ module IsoDoc
       end
 
       def unpublished(status)
-        !%w(published deprecated retired).include?(status.downcase)
+        !%w(approved deprecated retired).include?(status.downcase)
       end
 
       def version(isoxml, _out)

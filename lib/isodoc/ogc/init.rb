@@ -32,7 +32,7 @@ module IsoDoc
           ns("./contributor[role/@type = 'publisher']/organization"\
              "[name = 'Open Geospatial Consortium']"))
         status = ref.at(ns("./status/stage"))&.text or return
-        return if %w(published deprecated retired).include? status
+        return if %w(approved published deprecated retired).include? status
         true
       end
     end

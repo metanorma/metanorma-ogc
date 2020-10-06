@@ -130,8 +130,11 @@ module Asciidoctor
         return
       end
 
-      def cleanup(xmldoc)
+      def bibdata_cleanup(xmldoc)
         super
+        a = xmldoc.at("//bibdata/status/stage")
+        a.text == "published" and
+          a.children = "approved"
       end
 
       def presentation_xml_converter(node)

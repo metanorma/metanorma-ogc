@@ -18,7 +18,7 @@ module Asciidoctor
       def stage_validate(xmldoc)
         stage = xmldoc&.at("//bibdata/status/stage")&.text
         %w(swg-draft oab-review public-rfc tc-vote
-        published deprecated retired).include? stage or
+        approved deprecated retired).include? stage or
         @log.add("Document Attributes", nil, "#{stage} is not a recognised status")
       end
 
