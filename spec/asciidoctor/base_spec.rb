@@ -207,7 +207,7 @@ RSpec.describe Asciidoctor::Ogc do
       :revdate: 2000-01-01
       :draft: 3.4
       :copyrightYear: 2001
-      :status: SWG Work
+      :status: published
       :iteration: 3
       :language: en
       :title: Main Title
@@ -287,7 +287,7 @@ RSpec.describe Asciidoctor::Ogc do
          <language>en</language>
          <script>Latn</script>
          <status>
-           <stage>SWG Work</stage>
+           <stage>approved</stage>
            <iteration>3</iteration>
          </status>
          <copyright>
@@ -337,7 +337,7 @@ OUTPUT
   </contributor>
   <language>en</language>
   <script>Latn</script>
-  <status><stage>published</stage></status>
+  <status><stage>approved</stage></status>
   <copyright>
     <from>#{Date.today.year}</from>
     <owner>
@@ -392,7 +392,7 @@ OUTPUT
   </contributor>
   <language>en</language>
   <script>Latn</script>
-  <status><stage>published</stage></status>
+  <status><stage>approved</stage></status>
   <copyright>
     <from>#{Date.today.year}</from>
     <owner>
