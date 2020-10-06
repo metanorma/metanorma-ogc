@@ -144,6 +144,7 @@ module IsoDoc
           keywords docxml, div2
           foreword docxml, div2
           introduction docxml, div2
+          security docxml, div2
           submittingorgs docxml, div2
           submitters docxml, div2
           preface docxml, div2

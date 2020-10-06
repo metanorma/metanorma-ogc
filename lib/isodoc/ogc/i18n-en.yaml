@@ -9,6 +9,7 @@ permissionclass: Permission Class
 abstracttest: Abstract Test
 conformanceclass: Conformance Class
 example: Example
+security_empty: No security considerations have been made for this standard.
 stage_dict:
   swg-draft: Candidate SWG Draft
   oab-review: Candidate OAB Review Draft

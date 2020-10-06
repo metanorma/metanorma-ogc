@@ -103,6 +103,13 @@ BLANK_HDR = <<~"HDR"
          </ext>
        </bibdata>
        #{BOILERPLATE}
+       HDR
+
+SECURITY = <<~"HDR"
+  <clause type='security' id='_' obligation='informative'>
+    <title>Security Considerations</title>
+    <p id='_'>No security considerations have been made for this standard.</p>
+  </clause>
 HDR
 
 HTML_HDR = <<~"HDR"
