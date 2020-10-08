@@ -193,7 +193,7 @@ RSpec.describe IsoDoc::Ogc do
          </local_bibdata>
          <preface>
            <clause id="_" type='keywords'>
-             <title depth='1'>i.<tab/>Keywords</title>
+             <title depth='1'>I.<tab/>Keywords</title>
              <p>The following are keywords to be used by search engines and document catalogues.</p>
              <p>ABC, DEF</p>
            </clause>
@@ -205,7 +205,7 @@ RSpec.describe IsoDoc::Ogc do
     output = (<<~"OUTPUT")
         #{HTML_HDR}
         <div class="Section3" id="_">
-        <h1 class="IntroTitle">i.&#160; Keywords</h1>
+        <h1 class="IntroTitle">I.&#160; Keywords</h1>
         <p>The following are keywords to be used by search engines and document catalogues.</p>
         <p>ABC, DEF</p>
       </div>
@@ -249,10 +249,10 @@ RSpec.describe IsoDoc::Ogc do
          </local_bibdata>
          <preface>
          <abstract id='A'>
-  <title>i.</title>
+  <title>I.</title>
 </abstract>
            <clause id="_" type='keywords'>
-             <title depth='1'>ii.<tab/>Keywords</title>
+             <title depth='1'>II.<tab/>Keywords</title>
              <p>The following are keywords to be used by search engines and document catalogues.</p>
              <p>ABC, DEF</p>
            </clause>
@@ -265,10 +265,10 @@ RSpec.describe IsoDoc::Ogc do
         #{HTML_HDR}
            <br/>
            <div id='A'>
-             <h1 class='AbstractTitle'>i.</h1>
+             <h1 class='AbstractTitle'>I.</h1>
            </div>
            <div class='Section3' id='_'>
-             <h1 class='IntroTitle'>ii.&#160; Keywords</h1>
+             <h1 class='IntroTitle'>II.&#160; Keywords</h1>
              <p>
                The following are keywords to be used by search engines and document
                catalogues.
@@ -342,7 +342,7 @@ RSpec.describe IsoDoc::Ogc do
       </local_bibdata>
       <preface>
   <clause id='_' type='submitting_orgs'>
-    <title depth='1'>i.<tab/>Submitting Organizations</title>
+    <title depth='1'>I.<tab/>Submitting Organizations</title>
     <p>The following organizations submitted this Document to the Open
       Geospatial Consortium (OGC):</p>
     <ul>
@@ -358,7 +358,7 @@ RSpec.describe IsoDoc::Ogc do
     output = (<<~"OUTPUT")
         #{HTML_HDR}
         <div class="Section3" id="_">
-        <h1 class="IntroTitle">i.&#160; Submitting Organizations</h1>
+        <h1 class="IntroTitle">I.&#160; Submitting Organizations</h1>
         <p>The following organizations submitted this Document to the Open
 Geospatial Consortium (OGC):</p>
 <ul>
@@ -432,14 +432,14 @@ Geospatial Consortium (OGC):</p>
       </local_bibdata>
       <preface>
            <abstract id='A'>
-             <title>i.</title>
+             <title>I.</title>
            </abstract>
            <clause type='security' id='B'>
-  <title>ii.</title>
+  <title>II.</title>
 </clause>
            <clause id='_' type='submitting_orgs'>
              <title depth='1'>
-               iii.
+               III.
                <tab/>
                Submitting Organizations
              </title>
@@ -468,13 +468,13 @@ Geospatial Consortium (OGC):</p>
   <div class='main-section'>
     <br/>
     <div id='A'>
-      <h1 class='AbstractTitle'>i.</h1>
+      <h1 class='AbstractTitle'>I.</h1>
     </div>
     <div class='Section3' id='B'>
-  <h1 class='IntroTitle'>ii.</h1>
+  <h1 class='IntroTitle'>II.</h1>
 </div>
     <div class='Section3' id='_'>
-      <h1 class='IntroTitle'> iii. &#160; Submitting Organizations </h1>
+      <h1 class='IntroTitle'> III. &#160; Submitting Organizations </h1>
       <p>
         The following organizations submitted this Document to the Open
         Geospatial Consortium (OGC):
@@ -542,7 +542,7 @@ Geospatial Consortium (OGC):</p>
     <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
          <preface>
            <foreword id='A'>
-             <title depth='1'>i.<tab/>Preface</title>
+             <title depth='1'>I.<tab/>Preface</title>
              <admonition id='_70234f78-64e5-4dfc-8b6f-f3f037348b6a' type='caution'>
                <p id='_e94663cc-2473-4ccc-9a72-983a74d989f2'>Only use paddy or parboiled rice for the determination of husked rice yield.</p>
              </admonition>
@@ -555,7 +555,7 @@ OUTPUT
         #{HTML_HDR}
                <br/>
                <div id="A">
-                 <h1 class="ForewordTitle">i.&#160; Preface</h1>
+                 <h1 class="ForewordTitle">I.&#160; Preface</h1>
                  <div  id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">CAUTION</p>
          <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
        </div>
@@ -583,7 +583,7 @@ OUTPUT
     <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
          <preface>
            <foreword id='A'>
-             <title depth='1'>i.<tab/>Preface</title>
+             <title depth='1'>I.<tab/>Preface</title>
              <admonition id='_70234f78-64e5-4dfc-8b6f-f3f037348b6a' type='warning'>
                <p id='_e94663cc-2473-4ccc-9a72-983a74d989f2'>Only use paddy or parboiled rice for the determination of husked rice yield.</p>
              </admonition>
@@ -596,7 +596,7 @@ OUTPUT
         #{HTML_HDR}
                <br/>
                <div id="A">
-                 <h1 class="ForewordTitle">i.&#160; Preface</h1>
+                 <h1 class="ForewordTitle">I.&#160; Preface</h1>
                  <div id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" class="Admonition.Warning"><p class="AdmonitionTitle" style="text-align:center;">WARNING</p>
          <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
        </div>
@@ -624,7 +624,7 @@ OUTPUT
     <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
          <preface>
            <foreword id='A'>
-             <title depth='1'>i.<tab/>Preface</title>
+             <title depth='1'>I.<tab/>Preface</title>
              <admonition id='_70234f78-64e5-4dfc-8b6f-f3f037348b6a' type='important'>
                <p id='_e94663cc-2473-4ccc-9a72-983a74d989f2'>Only use paddy or parboiled rice for the determination of husked rice yield.</p>
              </admonition>
@@ -637,7 +637,7 @@ OUTPUT
         #{HTML_HDR}
                <br/>
                <div id="A">
-                 <h1 class="ForewordTitle">i.&#160; Preface</h1>
+                 <h1 class="ForewordTitle">I.&#160; Preface</h1>
                  <div  id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" class="Admonition.Important"><p class="AdmonitionTitle" style="text-align:center;">IMPORTANT</p>
          <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
        </div>
@@ -662,7 +662,7 @@ OUTPUT
     presxml = <<~OUTPUT
 <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
   <preface>
-    <foreword id='A'><title depth='1'>i.<tab/>Preface</title>
+    <foreword id='A'><title depth='1'>I.<tab/>Preface</title>
 
       <example id='_'>
         <name>Example &#xA0;&#x2014; Example Title</name>
@@ -678,7 +678,7 @@ OUTPUT
         #{HTML_HDR}
         <br/>
       <div id="A">
-        <h1 class="ForewordTitle">i.&#160; Preface</h1>
+        <h1 class="ForewordTitle">I.&#160; Preface</h1>
         <p class='SourceTitle' style='text-align:center;'>Example &#160;&#8212; Example Title</p>
         <div id="_" class="example">
 <p id="_">This is an example</p>
@@ -704,7 +704,7 @@ OUTPUT
      presxml = <<~OUTPUT
 <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
   <preface>
-    <foreword id='A'><title>i.</title>
+    <foreword id='A'><title>I.</title>
       <example id='_'>
         <name>Example </name>
         <p id='_'>This is an example</p>
@@ -719,7 +719,7 @@ OUTPUT
         #{HTML_HDR}
         <br/>
       <div id="A">
-        <h1 class="ForewordTitle">i.</h1>
+        <h1 class="ForewordTitle">I.</h1>
         <p class='SourceTitle' style='text-align:center;'>Example </p>
         <div id="_" class="example">
 <p id="_">This is an example</p>
@@ -825,31 +825,31 @@ OUTPUT
     presxml = <<~OUTPUT
     <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
          <preface>
-          <abstract obligation="informative" id="1"><title depth="1">i.<tab/>Abstract</title>
+          <abstract obligation="informative" id="1"><title depth="1">I.<tab/>Abstract</title>
           <p>XYZ</p>
           </abstract>
           <clause id='DD2' obligation='normative' type='keywords'>
-  <title depth='1'>ii.<tab/>Keywords</title>
+  <title depth='1'>II.<tab/>Keywords</title>
 </clause>
-          <foreword obligation="informative" id="2"><title depth="1">iii.<tab/>Preface</title>
+          <foreword obligation="informative" id="2"><title depth="1">III.<tab/>Preface</title>
    <p id="A">This is a preamble</p>
  </foreword><clause id="DD1" obligation="normative" type="security">
-   <title depth="1">iv.<tab/>Security</title>
+   <title depth="1">IV.<tab/>Security</title>
    <p id="EE1">Text</p>
  </clause>
  <clause id='SUBORG' type='submitting_orgs'>
-  <title depth='1'>v.<tab/>Submitting Organizations</title>
+  <title depth='1'>V.<tab/>Submitting Organizations</title>
 <p>The following organizations submitted this Document to the Open Geospatial Consortium (OGC):</p>
  </clause>
  <submitters obligation="informative" id="3">
- <title depth="1">vi.<tab/>Submitters</title>
+ <title depth="1">VI.<tab/>Submitters</title>
  <p>ABC</p>
  </submitters>
-          <clause id="5"><title depth="1">vii.<tab/>Dedication</title>
-          <clause id="6"><title depth="2">vii.1.<tab/>Note to readers</title></clause>
+          <clause id="5"><title depth="1">VII.<tab/>Dedication</title>
+          <clause id="6"><title depth="2">VII.A.<tab/>Note to readers</title></clause>
            </clause>
           <acknowledgements obligation="informative" id="4">
-          <title depth='1'>viii.<tab/>Acknowlegements</title>
+          <title depth='1'>VIII.<tab/>Acknowlegements</title>
           <p>ABC</p>
           </acknowledgements>
            </preface><sections>
@@ -912,40 +912,40 @@ OUTPUT
         #{HTML_HDR}
         <br/>
              <div id="1">
-               <h1 class="AbstractTitle">i.&#160; Abstract</h1>
+               <h1 class="AbstractTitle">I.&#160; Abstract</h1>
                <p>XYZ</p>
              </div>
              <div class='Section3' id='DD2'>
-  <h1 class='IntroTitle'>ii.&#160; Keywords</h1>
+  <h1 class='IntroTitle'>II.&#160; Keywords</h1>
 </div>
              <br/>
              <div id="2">
-               <h1 class="ForewordTitle">iii.&#160; Preface</h1>
+               <h1 class="ForewordTitle">III.&#160; Preface</h1>
                <p id="A">This is a preamble</p>
              </div>
              <div class='Section3' id='DD1'>
-  <h1 class='IntroTitle'>iv.&#160; Security</h1>
+  <h1 class='IntroTitle'>IV.&#160; Security</h1>
   <p id='EE1'>Text</p>
 </div>
              <div class='Section3' id='SUBORG'>
-  <h1 class='IntroTitle'>v.&#160; Submitting Organizations</h1>
+  <h1 class='IntroTitle'>V.&#160; Submitting Organizations</h1>
   <p>
     The following organizations submitted this Document to the Open
     Geospatial Consortium (OGC):
   </p>
 </div>
              <div class="Section3" id="3">
-               <h1 class="IntroTitle">vi.&#160; Submitters</h1>
+               <h1 class="IntroTitle">VI.&#160; Submitters</h1>
                <p>ABC</p>
              </div>
              <div class='Section3' id='5'>
-  <h1 class='IntroTitle'>vii.&#160; Dedication</h1>
+  <h1 class='IntroTitle'>VII.&#160; Dedication</h1>
       <div id='6'>
-      <h2>vii.1.&#160; Note to readers</h2>
+      <h2>VII.A.&#160; Note to readers</h2>
     </div>
 </div>
 <div class='Section3' id='4'>
-  <h1 class='IntroTitle'>viii.&#160; Acknowlegements</h1>
+  <h1 class='IntroTitle'>VIII.&#160; Acknowlegements</h1>
   <p>ABC</p>
 </div>
              <p class="zzSTDTitle1"/>
@@ -1098,7 +1098,7 @@ OUTPUT
 
     presxml = <<~OUTPUT
            <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
-           <preface><foreword id="A"><title depth="1">i.<tab/>Preface</title>
+           <preface><foreword id="A"><title depth="1">I.<tab/>Preface</title>
            <table id="A1" class="permission" type="recommend">
          
          
@@ -1138,7 +1138,7 @@ OUTPUT
     #{HTML_HDR}
         <br/>
            <div id='A'>
-             <h1 class='ForewordTitle'>i.&#160; Preface</h1>
+             <h1 class='ForewordTitle'>I.&#160; Preface</h1>
              <table id='A1' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
                <thead>
                  <tr>
@@ -1253,7 +1253,7 @@ OUTPUT
            <div>
              <a name='A' id='A'/>
              <h1 class='ForewordTitle'>
-               i.
+               I.
                <span style='mso-tab-count:1'>&#xA0; </span>
                Preface
              </h1>
@@ -1485,7 +1485,7 @@ OUTPUT
     presxml = <<~OUTPUT
             <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
            <preface>
-               <foreword id="A"><title depth="1">i.<tab/>Preface</title>
+               <foreword id="A"><title depth="1">I.<tab/>Preface</title>
            <table id="A1" type="recommendtest" class="permission">
          
          
@@ -1520,7 +1520,7 @@ OUTPUT
     #{HTML_HDR}
         <br/>
            <div id='A'>
-             <h1 class='ForewordTitle'>i.&#160; Preface</h1>
+             <h1 class='ForewordTitle'>I.&#160; Preface</h1>
              <table id='A1' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
                <thead>
                  <tr>
@@ -1619,7 +1619,7 @@ word = <<~OUTPUT
            <div>
              <a name='A' id='A'/>
              <h1 class='ForewordTitle'>
-               i.
+               I.
                <span style='mso-tab-count:1'>&#xA0; </span>
                Preface
              </h1>
@@ -1826,7 +1826,7 @@ OUTPUT
     presxml = <<~OUTPUT
            <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
            <preface>
-               <foreword id="A"><title depth="1">i.<tab/>Preface</title>
+               <foreword id="A"><title depth="1">I.<tab/>Preface</title>
            <table id="A1" type="recommendtest" class="permission">
          
          
@@ -1861,7 +1861,7 @@ OUTPUT
         #{HTML_HDR}
         <br/>
            <div id='A'>
-             <h1 class='ForewordTitle'>i.&#160; Preface</h1>
+             <h1 class='ForewordTitle'>I.&#160; Preface</h1>
              <table id='A1' class='recommendtest' style='border-collapse:collapse;border-spacing:0;'>
                <thead>
                  <tr>
@@ -1960,7 +1960,7 @@ word = <<~OUTPUT
            <div>
              <a name='A' id='A'/>
              <h1 class='ForewordTitle'>
-               i.
+               I.
                <span style='mso-tab-count:1'>&#xA0; </span>
                Preface
              </h1>
@@ -2142,7 +2142,7 @@ OUTPUT
 
     presxml = <<~OUTPUT
     <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
-           <preface><foreword id="A"><title depth="1">i.<tab/>Preface</title>
+           <preface><foreword id="A"><title depth="1">I.<tab/>Preface</title>
            <table id="A1" type="recommendclass" keep-with-next="true" keep-lines-together="true" class="permission">
 
 
@@ -2171,7 +2171,7 @@ html = <<~OUTPUT
 #{HTML_HDR}
 <br/>
            <div id='A'>
-             <h1 class='ForewordTitle'>i.&#160; Preface</h1>
+             <h1 class='ForewordTitle'>I.&#160; Preface</h1>
              <table id='A1' class='recommendclass' style='border-collapse:collapse;border-spacing:0;page-break-after: avoid;page-break-inside: avoid;'>
                <thead>
                  <tr>
@@ -2252,7 +2252,7 @@ word = %Q{
            <div>
              <a name='A' id='A'/>
              <h1 class='ForewordTitle'>
-               i.
+               I.
                <span style='mso-tab-count:1'>&#xA0; </span>
                Preface
              </h1>
@@ -2376,7 +2376,7 @@ word = %Q{
 
     presxml = <<~OUTPUT
     <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
-           <preface><foreword id="A"><title depth="1">i.<tab/>Preface</title>
+           <preface><foreword id="A"><title depth="1">I.<tab/>Preface</title>
            <table id="A1" type="recommendclass" class="permission">
 
 
@@ -2400,7 +2400,7 @@ html = <<~OUTPUT
                 #{HTML_HDR}
                 <br/>
            <div id='A'>
-             <h1 class='ForewordTitle'>i.&#160; Preface</h1>
+             <h1 class='ForewordTitle'>I.&#160; Preface</h1>
              <table id='A1' class='recommendclass' style='border-collapse:collapse;border-spacing:0;'>
                <thead>
                  <tr>
@@ -2465,7 +2465,7 @@ word = <<~OUTPUT
            <div>
              <a name='A' id='A'/>
              <h1 class='ForewordTitle'>
-               i.
+               I.
                <span style='mso-tab-count:1'>&#xA0; </span>
                Preface
              </h1>
@@ -2569,7 +2569,7 @@ OUTPUT
 
     presxml = <<~OUTPUT
     <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
-           <preface><foreword id="A"><title depth="1">i.<tab/>Preface</title>
+           <preface><foreword id="A"><title depth="1">I.<tab/>Preface</title>
            <table id="A1" type="recommendclass" class="requirement">
 
 
@@ -2593,7 +2593,7 @@ html = <<~OUTPUT
         #{HTML_HDR}
 <br/>
            <div id='A'>
-             <h1 class='ForewordTitle'>i.&#160; Preface</h1>
+             <h1 class='ForewordTitle'>I.&#160; Preface</h1>
              <table id='A1' class='recommendclass' style='border-collapse:collapse;border-spacing:0;'>
                <thead>
                  <tr>
@@ -2658,7 +2658,7 @@ word = <<~OUTPUT
            <div>
              <a name='A' id='A'/>
              <h1 class='ForewordTitle'>
-               i.
+               I.
                <span style='mso-tab-count:1'>&#xA0; </span>
                Preface
              </h1>
@@ -2763,7 +2763,7 @@ OUTPUT
 
     presxml = <<~OUTPUT
             <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
-           <preface><foreword id="A"><title depth="1">i.<tab/>Preface</title>
+           <preface><foreword id="A"><title depth="1">I.<tab/>Preface</title>
            <table id="A1" type="recommendclass" class="recommendation">
          
          
@@ -2787,7 +2787,7 @@ OUTPUT
         #{HTML_HDR}
 <br/>
            <div id='A'>
-             <h1 class='ForewordTitle'>i.&#160; Preface</h1>
+             <h1 class='ForewordTitle'>I.&#160; Preface</h1>
              <table id='A1' class='recommendclass' style='border-collapse:collapse;border-spacing:0;'>
                <thead>
                  <tr>
@@ -2852,7 +2852,7 @@ word = <<~OUTPUT
            <div>
              <a name='A' id='A'/>
              <h1 class='ForewordTitle'>
-               i.
+               I.
                <span style='mso-tab-count:1'>&#xA0; </span>
                Preface
              </h1>
@@ -2985,7 +2985,7 @@ it "processes requirements" do
 INPUT
 presxml = <<~OUTPUT
             <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
-           <preface><foreword id="A0"><title depth="1">i.<tab/>Preface</title>
+           <preface><foreword id="A0"><title depth="1">I.<tab/>Preface</title>
            <table id="A" unnumbered="true" class="requirement" type="recommend">
          
          
@@ -3022,7 +3022,7 @@ html = <<~OUTPUT
     #{HTML_HDR}
     <br/>
            <div id='A0'>
-             <h1 class='ForewordTitle'>i.&#160; Preface</h1>
+             <h1 class='ForewordTitle'>I.&#160; Preface</h1>
              <table id='A' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
                <thead>
                  <tr>
@@ -3102,7 +3102,7 @@ html = <<~OUTPUT
            <div>
              <a name='A0' id='A0'/>
              <h1 class='ForewordTitle'>
-               i.
+               I.
                <span style='mso-tab-count:1'>&#xA0; </span>
                Preface
              </h1>
@@ -3291,7 +3291,7 @@ INPUT
 
 presxml = <<~OUTPUT
             <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
-           <preface><foreword id="A"><title depth="1">i.<tab/>Preface</title>
+           <preface><foreword id="A"><title depth="1">I.<tab/>Preface</title>
            <table id="_" class="recommendation" type="recommend">
          
          
@@ -3327,7 +3327,7 @@ html = <<~OUTPUT
     #{HTML_HDR}
     <br/>
            <div id='A'>
-             <h1 class='ForewordTitle'>i.&#160; Preface</h1>
+             <h1 class='ForewordTitle'>I.&#160; Preface</h1>
              <table id='_' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
                <thead>
                  <tr>
@@ -3407,7 +3407,7 @@ html = <<~OUTPUT
            <div>
              <a name='A' id='A'/>
              <h1 class='ForewordTitle'>
-               i.
+               I.
                <span style='mso-tab-count:1'>&#xA0; </span>
                Preface
              </h1>

@@ -144,13 +144,37 @@ module IsoDoc
       def preface_names_numbered(clause)
         return if clause.nil?
         @prefacenum += 1
-        pref = RomanNumerals.to_roman(@prefacenum).downcase
+        pref = preface_number(@prefacenum, 1)
         @anchors[clause["id"]] =
           { label: pref,
             level: 1, xref: preface_clause_name(clause), type: "clause" }
-        clause.xpath(ns("./clause | ./terms | ./term | ./definitions | "\
-                        "./references")).each_with_index do |c, i|
-          section_names1(c, "#{pref}.#{i + 1}", 2)
+        clause.xpath(ns(SUBCLAUSES)).each_with_index do |c, i|
+          preface_names_numbered1(c, "#{pref}.#{preface_number(i + 1, 2)}", 2)
+        end
+      end
+
+      def preface_names_numbered1(clause, num, level)
+        @anchors[clause["id"]] =
+          { label: num, level: level, xref: l10n("#{@labels["clause"]} #{num}"),
+            type: "clause" }
+        clause.xpath(ns(SUBCLAUSES)).each_with_index do |c, i|
+          lbl = "#{num}.#{preface_number(i + 1, level + 1)}"
+          preface_names_numbered1(c, lbl, level + 1)
+        end
+      end
+
+      def preface_number(num, level)
+        case level
+        when 1 then RomanNumerals.to_roman(num).upcase
+        when 2 then (64 + num).chr.to_s
+        when 3 then num.to_s
+        when 4 then (96 + num).chr.to_s
+        when 5 then RomanNumerals.to_roman(num).downcase
+        when 6 then "(#{num.to_s})"
+        when 7 then "(#{(96 + num).chr.to_s})"
+        when 8 then "(#{RomanNumerals.to_roman(num).downcase})"
+        else
+          num.to_s
         end
       end
 
