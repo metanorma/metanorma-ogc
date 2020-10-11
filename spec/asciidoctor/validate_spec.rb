@@ -1,10 +1,30 @@
 require "spec_helper"
 
 RSpec.describe Asciidoctor::Ogc do
+  context "when xref_error.adoc compilation" do
+    around do |example|
+      FileUtils.rm_f "spec/assets/xref_error.err"
+      example.run
+      Dir["spec/assets/xref_error*"].each do |file|
+        next if file.match?(/adoc$/)
+
+        FileUtils.rm_f(file)
+      end
+    end
+
+    it "generates error file" do
+      expect do
+        Metanorma::Compile
+          .new
+          .compile("spec/assets/xref_error.adoc", type: "ogc")
+      end.to(change { File.exist?("spec/assets/xref_error.err") }
+              .from(false).to(true))
+    end
+  end
 
   it "Warns of version on engineering-report" do
       FileUtils.rm_f "test.err"
-    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) 
+    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
   = Document title
   Author
   :edition: 1
@@ -20,7 +40,7 @@ end
 
     it "Warns of missing version on document type other than engineering-report or discussion paper" do
       FileUtils.rm_f "test.err"
-    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) 
+    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
   = Document title
   Author
   :nodoc:
@@ -35,7 +55,7 @@ end
 
       it "Warns of illegal doctype" do
       FileUtils.rm_f "test.err"
-    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) 
+    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
   = Document title
   Author
   :docfile: test.adoc
@@ -50,7 +70,7 @@ end
 
       it "Warns of illegal doc subtype" do
       FileUtils.rm_f "test.err"
-    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) 
+    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
   = Document title
   Author
   :docfile: test.adoc
@@ -66,7 +86,7 @@ end
 
  it "Warns of illegal status" do
       FileUtils.rm_f "test.err"
-    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) 
+    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
   = Document title
   Author
   :docfile: test.adoc
@@ -82,7 +102,7 @@ end
 
   it "does not issue section order warnings unless document is a standard" do
       FileUtils.rm_f "test.err"
-  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) 
+  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
     = Document title
     Author
     :docfile: test.adoc
@@ -96,7 +116,7 @@ end
 
   it "Warning if do not start with scope or introduction" do
       FileUtils.rm_f "test.err"
-  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) 
+  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
   #{VALIDATING_BLANK_HDR}
 
   == Symbols and Abbreviated Terms
@@ -108,10 +128,10 @@ end
 
 it "Warning if introduction not followed by scope" do
       FileUtils.rm_f "test.err"
-  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) 
+  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
   #{VALIDATING_BLANK_HDR}
 
-  .Foreword 
+  .Foreword
   Foreword
 
   == Symbols and Abbreviated Terms
@@ -123,7 +143,7 @@ end
 
 it "Warning if scope not followed by conformance" do
       FileUtils.rm_f "test.err"
-  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) 
+  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
   #{VALIDATING_BLANK_HDR}
 
   .Foreword
@@ -140,10 +160,10 @@ end
 
 it "Warning if normative references not followed by terms and definitions" do
       FileUtils.rm_f "test.err"
-  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) 
+  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
   #{VALIDATING_BLANK_HDR}
 
-  .Foreword 
+  .Foreword
   Foreword
 
   == Scope
@@ -160,7 +180,7 @@ end
 
 it "Warning if there are no clauses in the document" do
       FileUtils.rm_f "test.err"
-  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) 
+  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
   #{VALIDATING_BLANK_HDR}
 
   .Foreword
@@ -183,7 +203,7 @@ end
 
 it "Warning if no normative references" do
       FileUtils.rm_f "test.err"
-  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) 
+  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
   #{VALIDATING_BLANK_HDR}
 
   .Foreword
@@ -212,7 +232,7 @@ end
 
   it "Warning if missing abstract" do
       FileUtils.rm_f "test.err"
-  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) 
+  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
   #{VALIDATING_BLANK_HDR}
 
   == Symbols and Abbreviated Terms
@@ -224,7 +244,7 @@ end
 
   it "Warning if missing keywords" do
       FileUtils.rm_f "test.err"
-  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) 
+  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
   #{VALIDATING_BLANK_HDR}
 
   == Symbols and Abbreviated Terms
@@ -236,7 +256,7 @@ end
 
   it "Warning if missing preface" do
       FileUtils.rm_f "test.err"
-  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) 
+  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
   #{VALIDATING_BLANK_HDR}
 
   == Symbols and Abbreviated Terms
@@ -248,7 +268,7 @@ end
 
   it "Warning if missing submitting organizations" do
       FileUtils.rm_f "test.err"
-  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) 
+  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
   #{VALIDATING_BLANK_HDR}
 
   == Symbols and Abbreviated Terms
@@ -260,7 +280,7 @@ end
 
   it "Warning if missing submitters" do
       FileUtils.rm_f "test.err"
-  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) 
+  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
   #{VALIDATING_BLANK_HDR}
 
   == Symbols and Abbreviated Terms
@@ -272,7 +292,7 @@ end
 
     it "does not warn if not missing abstract" do
       FileUtils.rm_f "test.err"
-  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) 
+  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
   #{VALIDATING_BLANK_HDR}
 
   [abstract]
@@ -289,7 +309,7 @@ end
 
   it "does not warn if not missing keywords" do
       FileUtils.rm_f "test.err"
-  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) 
+  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
   = Document title
   Author
   :docfile: test.adoc
@@ -305,9 +325,9 @@ end
 
   it "does not warn if not missing preface" do
       FileUtils.rm_f "test.err"
-  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) 
+  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
   #{VALIDATING_BLANK_HDR}
-  
+
   .Title
 
   Preface
@@ -321,7 +341,7 @@ end
 
   it "does not warn if not missing submitting organizations" do
       FileUtils.rm_f "test.err"
-  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) 
+  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
   = Document title
   Author
   :docfile: test.adoc
@@ -337,7 +357,7 @@ end
 
   it "does not warn if not missing submitters" do
       FileUtils.rm_f "test.err"
-  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true) 
+  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
   #{VALIDATING_BLANK_HDR}
 
   == Submitters
