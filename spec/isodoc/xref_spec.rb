@@ -70,7 +70,7 @@ RSpec.describe IsoDoc::Ogc do
             <foreword>
               <p>
                 <xref target='N1'>Introduction, Requirement 1</xref>
-                <xref target='N2'>Clause ii.1, Requirement (??)</xref>
+                <xref target='N2'>Clause II.A, Requirement (??)</xref>
                 <xref target='N'>Clause 1, Requirement 2</xref>
                 <xref target='note1'>Clause 3.1, Requirement 3</xref>
                 <xref target='note2'>Clause 3.1, Requirement 4</xref>
@@ -80,7 +80,7 @@ RSpec.describe IsoDoc::Ogc do
               </p>
             </foreword>
        <introduction id='intro'>
-             <title>ii.</title>
+             <title>II.</title>
              <table id='N1' class='requirement' type='recommend'>
                <thead>
                  <tr>
@@ -97,7 +97,7 @@ RSpec.describe IsoDoc::Ogc do
              </table>
              <clause id='xyz'>
                <title depth='2'>
-                 ii.1.
+                 II.A.
                  <tab/>
                  Preparatory
                </title>
@@ -317,7 +317,7 @@ OUTPUT
             <foreword>
               <p>
                 <xref target='N1'>Introduction, Requirement Test 1</xref>
-                <xref target='N2'>Clause ii.1, Requirement Test (??)</xref>
+                <xref target='N2'>Clause II.A, Requirement Test (??)</xref>
                 <xref target='N'>Clause 1, Requirement Test 2</xref>
                 <xref target='note1'>Clause 3.1, Requirement Test 3</xref>
                 <xref target='note2'>Clause 3.1, Requirement Test 4</xref>
@@ -327,7 +327,7 @@ OUTPUT
               </p>
             </foreword>
         <introduction id='intro'>
-             <title>ii.</title>
+             <title>II.</title>
              <table id='N1' type='recommendtest' class='requirement'>
                <thead>
                  <tr>
@@ -344,7 +344,7 @@ OUTPUT
              </table>
              <clause id='xyz'>
                <title depth='2'>
-                 ii.1.
+                 II.A.
                  <tab/>
                  Preparatory
                </title>
@@ -565,7 +565,7 @@ OUTPUT
             <foreword>
               <p>
                 <xref target='N1'>Introduction, Recommendation 1</xref>
-                <xref target='N2'>Clause ii.1, Recommendation (??)</xref>
+                <xref target='N2'>Clause II.A, Recommendation (??)</xref>
                 <xref target='N'>Clause 1, Recommendation 2</xref>
                 <xref target='note1'>Clause 3.1, Recommendation 3</xref>
                 <xref target='note2'>Clause 3.1, Recommendation 4</xref>
@@ -575,7 +575,7 @@ OUTPUT
               </p>
             </foreword>
         <introduction id='intro'>
-             <title>ii.</title>
+             <title>II.</title>
              <table id='N1' class='recommendation' type='recommend'>
                <thead>
                  <tr>
@@ -592,7 +592,7 @@ OUTPUT
              </table>
              <clause id='xyz'>
                <title depth='2'>
-                 ii.1.
+                 II.A.
                  <tab/>
                  Preparatory
                </title>
@@ -812,7 +812,7 @@ OUTPUT
             <foreword>
               <p>
                 <xref target='N1'>Introduction, Recommendation Test 1</xref>
-                <xref target='N2'>Clause ii.1, Recommendation Test (??)</xref>
+                <xref target='N2'>Clause II.A, Recommendation Test (??)</xref>
                 <xref target='N'>Clause 1, Recommendation Test 2</xref>
                 <xref target='note1'>Clause 3.1, Recommendation Test 3</xref>
                 <xref target='note2'>Clause 3.1, Recommendation Test 4</xref>
@@ -822,7 +822,7 @@ OUTPUT
               </p>
             </foreword>
         <introduction id='intro'>
-             <title>ii.</title>
+             <title>II.</title>
              <table id='N1' type='recommendtest' class='recommendation'>
                <thead>
                  <tr>
@@ -839,7 +839,7 @@ OUTPUT
              </table>
              <clause id='xyz'>
                <title depth='2'>
-                 ii.1.
+                 II.A.
                  <tab/>
                  Preparatory
                </title>
@@ -1059,7 +1059,7 @@ OUTPUT
             <foreword>
               <p>
                 <xref target='N1'>Introduction, Permission 1</xref>
-                <xref target='N2'>Clause ii.1, Permission (??)</xref>
+                <xref target='N2'>Clause II.A, Permission (??)</xref>
                 <xref target='N'>Clause 1, Permission 2</xref>
                 <xref target='note1'>Clause 3.1, Permission 3</xref>
                 <xref target='note2'>Clause 3.1, Permission 4</xref>
@@ -1069,7 +1069,7 @@ OUTPUT
               </p>
             </foreword>
         <introduction id='intro'>
-             <title>ii.</title>
+             <title>II.</title>
              <table id='N1' class='permission' type='recommend'>
                <thead>
                  <tr>
@@ -1086,7 +1086,7 @@ OUTPUT
              </table>
              <clause id='xyz'>
                <title depth='2'>
-                 ii.1.
+                 II.A.
                  <tab/>
                  Preparatory
                </title>
@@ -1306,7 +1306,7 @@ OUTPUT
             <foreword>
               <p>
                 <xref target='N1'>Introduction, Permission Test 1</xref>
-                <xref target='N2'>Clause ii.1, Permission Test (??)</xref>
+                <xref target='N2'>Clause II.A, Permission Test (??)</xref>
                 <xref target='N'>Clause 1, Permission Test 2</xref>
                 <xref target='note1'>Clause 3.1, Permission Test 3</xref>
                 <xref target='note2'>Clause 3.1, Permission Test 4</xref>
@@ -1316,7 +1316,7 @@ OUTPUT
               </p>
             </foreword>
          <introduction id='intro'>
-             <title>ii.</title>
+             <title>II.</title>
              <table id='N1' type='recommendtest' class='permission'>
                <thead>
                  <tr>
@@ -1333,7 +1333,7 @@ OUTPUT
              </table>
              <clause id='xyz'>
                <title depth='2'>
-                 ii.1.
+                 II.A.
                  <tab/>
                  Preparatory
                </title>
@@ -1835,7 +1835,7 @@ end
             <foreword>
               <p>
                 <xref target='N1'>Introduction, Abstract Test 1</xref>
-                <xref target='N2'>Clause ii.1, Abstract Test (??)</xref>
+                <xref target='N2'>Clause II.A, Abstract Test (??)</xref>
                 <xref target='N'>Clause 1, Abstract Test 2</xref>
                 <xref target='note1'>Clause 3.1, Abstract Test 3</xref>
                 <xref target='note2'>Clause 3.1, Abstract Test 4</xref>
@@ -1845,7 +1845,7 @@ end
               </p>
             </foreword>
         <introduction id='intro'>
-             <title>ii.</title>
+             <title>II.</title>
              <table id='N1' type='recommendtest' class='permission'>
                <thead>
                  <tr>
@@ -1862,7 +1862,7 @@ end
              </table>
              <clause id='xyz'>
                <title depth='2'>
-                 ii.1.
+                 II.A.
                  <tab/>
                  Preparatory
                </title>
@@ -2082,7 +2082,7 @@ OUTPUT
             <foreword>
               <p>
                 <xref target='N1'>Introduction, Conformance Class 1</xref>
-                <xref target='N2'>Clause ii.1, Conformance Class (??)</xref>
+                <xref target='N2'>Clause II.A, Conformance Class (??)</xref>
                 <xref target='N'>Clause 1, Conformance Class 2</xref>
                 <xref target='note1'>Clause 3.1, Conformance Class 3</xref>
                 <xref target='note2'>Clause 3.1, Conformance Class 4</xref>
@@ -2092,7 +2092,7 @@ OUTPUT
               </p>
             </foreword>
          <introduction id='intro'>
-             <title>ii.</title>
+             <title>II.</title>
              <table id='N1' type='recommendclass' class='permission'>
                <thead>
                  <tr>
@@ -2109,7 +2109,7 @@ OUTPUT
              </table>
              <clause id='xyz'>
                <title depth='2'>
-                 ii.1.
+                 II.A.
                  <tab/>
                  Preparatory
                </title>
@@ -2260,4 +2260,91 @@ OUTPUT
 OUTPUT
 
 end
+
+it "cross-references preface subclauses" do
+expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+            <iso-standard xmlns="http://riboseinc.com/isoxml">
+<preface>
+<foreword>
+<p>
+<xref target="A"/>
+<xref target="B"/>
+<xref target="C"/>
+<xref target="D"/>
+<xref target="E"/>
+<xref target="F"/>
+<xref target="G"/>
+<xref target="H"/>
+<xref target="I"/>
+</p>
+</foreword>
+<introduction id="A">
+<clause id="B">
+<clause id="C">
+<clause id="D">
+<clause id="E">
+<clause id="F">
+<clause id="G">
+<clause id="H">
+<clause id="I">
+</clause>
+</clause>
+</clause>
+</clause>
+</clause>
+</clause>
+</clause>
+</clause>
+</introduction>
+</preface>
+</sections/>
+</iso-standard>
+INPUT
+<iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+  <preface>
+    <foreword>
+      <p>
+        <xref target='A'>Introduction</xref>
+        <xref target='B'>Clause II.A</xref>
+        <xref target='C'>Clause II.A.1</xref>
+        <xref target='D'>Clause II.A.1.a</xref>
+        <xref target='E'>Clause II.A.1.a.i</xref>
+        <xref target='F'>Clause II.A.1.a.i.(1)</xref>
+        <xref target='G'>Clause II.A.1.a.i.(1).(a)</xref>
+        <xref target='H'>Clause II.A.1.a.i.(1).(a).(i)</xref>
+        <xref target='I'>Clause II.A.1.a.i.(1).(a).(i).1</xref>
+      </p>
+    </foreword>
+    <introduction id='A'>
+      <title>II.</title>
+      <clause id='B'>
+        <title>II.A.</title>
+        <clause id='C'>
+          <title>II.A.1.</title>
+          <clause id='D'>
+            <title>II.A.1.a.</title>
+            <clause id='E'>
+              <title>II.A.1.a.i.</title>
+              <clause id='F'>
+                <title>II.A.1.a.i.(1).</title>
+                <clause id='G'>
+                  <title>II.A.1.a.i.(1).(a).</title>
+                  <clause id='H'>
+                    <title>II.A.1.a.i.(1).(a).(i).</title>
+                    <clause id='I'>
+                      <title>II.A.1.a.i.(1).(a).(i).1.</title>
+                    </clause>
+                  </clause>
+                </clause>
+              </clause>
+            </clause>
+          </clause>
+        </clause>
+      </clause>
+    </introduction>
+  </preface>
+</iso-standard>
+OUTPUT
+end
+
                end

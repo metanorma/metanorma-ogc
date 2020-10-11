@@ -333,7 +333,7 @@ RSpec.describe IsoDoc::Ogc do
             <language>en</language>
             </local_bibdata>
             <preface><foreword id="A">
-            <title depth='1'>i.<tab/>Preface</title>
+            <title depth='1'>I.<tab/>Preface</title>
           <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">
           <eref bibitemid="ISO712">[110]</eref>
           <eref bibitemid="ISBN">[1]</eref>
@@ -651,7 +651,7 @@ OUTPUT
     #{HTML_HDR}
     <br/>
              <div id="A">
-               <h1 class="ForewordTitle">i.&#160; Preface</h1>
+               <h1 class="ForewordTitle">I.&#160; Preface</h1>
                <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
   <a href='#ISO712'>[110]</a>
   <a href='#ISBN'>[1]</a>
