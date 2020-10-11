@@ -36,10 +36,11 @@
 			<xsl:apply-templates select="/ogc:ogc-standard/ogc:preface/ogc:abstract" mode="contents"/>
 			<xsl:apply-templates select="/ogc:ogc-standard/ogc:preface/ogc:clause[@type = 'keywords']" mode="contents"/>
 			<xsl:apply-templates select="/ogc:ogc-standard/ogc:preface/ogc:foreword" mode="contents"/>
+			<xsl:apply-templates select="/ogc:ogc-standard/ogc:preface/ogc:clause[@type = 'security']" mode="contents"/>
 			<xsl:apply-templates select="/ogc:ogc-standard/ogc:preface/ogc:clause[@type = 'submitting_orgs']" mode="contents"/>
 			<xsl:apply-templates select="/ogc:ogc-standard/ogc:preface/ogc:submitters" mode="contents"/>
 			<xsl:apply-templates select="/ogc:ogc-standard/ogc:preface/ogc:introduction" mode="contents"/>			
-			<xsl:apply-templates select="/ogc:ogc-standard/ogc:preface/ogc:clause[not(@type = 'submitting_orgs') and not(@type = 'keywords')]" mode="contents"/>
+			<xsl:apply-templates select="/ogc:ogc-standard/ogc:preface/ogc:clause[not(@type = 'security') and not(@type = 'submitting_orgs') and not(@type = 'keywords')]" mode="contents"/>
 			<xsl:apply-templates select="/ogc:ogc-standard/ogc:preface/ogc:acknowledgements" mode="contents"/>
 			
 			
@@ -186,8 +187,9 @@
 									</xsl:call-template>									
 								</fo:block>
 								<fo:block font-size="12pt" font-weight="bold">
+									<xsl:variable name="stage" select="java:toUpperCase(java:java.lang.String.new(//ogc:local_bibdata/ogc:status/ogc:stage))"/>
 									<xsl:call-template name="addLetterSpacing">
-										<xsl:with-param name="text" select="'APPROVED'"/>
+										<xsl:with-param name="text" select="$stage"/>
 									</xsl:call-template>
 								</fo:block>
 							</fo:block>
@@ -494,10 +496,17 @@
 							<fo:block break-after="page"/>
 						</xsl:if>
 						<xsl:apply-templates select="/ogc:ogc-standard/ogc:preface/ogc:foreword"/>
+						
+						<xsl:if test="/ogc:ogc-standard/ogc:preface/ogc:clause[@type = 'security']">
+							<fo:block break-after="page"/>
+						</xsl:if>
+						<xsl:apply-templates select="/ogc:ogc-standard/ogc:preface/ogc:clause[@type = 'security']"/>
+						
 						<xsl:if test="/ogc:ogc-standard/ogc:preface/ogc:clause[@type = 'submitting_orgs']">
 							<fo:block break-after="page"/>
 						</xsl:if>
 						<xsl:apply-templates select="/ogc:ogc-standard/ogc:preface/ogc:clause[@type = 'submitting_orgs']"/>
+						
 						<xsl:apply-templates select="/ogc:ogc-standard/ogc:preface/ogc:submitters"/>
 						<xsl:if test="/ogc:ogc-standard/ogc:preface/ogc:introduction">
 							<fo:block break-after="page"/>
@@ -506,7 +515,7 @@
 						
 						
 						
-						<xsl:apply-templates select="/ogc:ogc-standard/ogc:preface/ogc:clause[not(@type = 'submitting_orgs') and not(@type = 'keywords')]"/>
+						<xsl:apply-templates select="/ogc:ogc-standard/ogc:preface/ogc:clause[not(@type = 'security') and not(@type = 'submitting_orgs') and not(@type = 'keywords')]"/>
 						<xsl:apply-templates select="/ogc:ogc-standard/ogc:preface/ogc:acknowledgements"/>
 					</fo:block>
 				</fo:flow>
@@ -547,7 +556,7 @@
 		<xsl:value-of select="translate(., $thinspace, ' ')"/>
 	</xsl:template>
 	
-	<xsl:template match="text()" priority="1" mode="contents">
+	<xsl:template match="text()" priority="3" mode="contents">
 		<xsl:value-of select="translate(., $thinspace, ' ')"/>
 	</xsl:template>
 
@@ -853,11 +862,20 @@
 			<xsl:when test="$level = 2">
 				<fo:block space-before="24pt" margin-bottom="10pt">
 					<xsl:attribute name="keep-with-next">always</xsl:attribute>		
-					<!-- <xsl:variable name="title">
-						<xsl:apply-templates/>
-					</xsl:variable> -->
+					<xsl:variable name="title">							
+						<xsl:choose>
+							<xsl:when test="*[local-name() = 'tab']">
+								<xsl:copy-of select="*[local-name() = 'tab'][1]/following-sibling::node()"/>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:copy-of select="."/>
+							</xsl:otherwise>
+						</xsl:choose>
+					</xsl:variable>
+					<xsl:variable name="section" select="*[local-name() = 'tab'][1]/preceding-sibling::node()"/>					
 					<xsl:call-template name="insertSectionTitle">
-						<xsl:with-param name="title" select="."/>
+						<xsl:with-param name="section" select="$section"/>
+						<xsl:with-param name="title" select="$title"/>
 					</xsl:call-template>
 				</fo:block>
 			</xsl:when>
@@ -1002,8 +1020,14 @@
 	
 	<xsl:template match="ogc:ul | ogc:ol" mode="ul_ol">
 		<fo:block-container margin-left="13mm">
+			<xsl:if test="ancestor::ogc:table">
+				<xsl:attribute name="margin-left">1.5mm</xsl:attribute>
+			</xsl:if>
 			<fo:block-container margin-left="0mm">
 				<fo:list-block provisional-distance-between-starts="12mm" space-after="12pt" line-height="115%">
+					<xsl:if test="ancestor::ogc:table">
+						<xsl:attribute name="provisional-distance-between-starts">5mm</xsl:attribute>
+					</xsl:if>
 					<xsl:if test="ancestor::ogc:ul | ancestor::ogc:ol">
 						<xsl:attribute name="margin-bottom">0pt</xsl:attribute>
 					</xsl:if>
@@ -1363,9 +1387,18 @@
 	</xsl:template>
 	
 	<xsl:template name="insertSectionTitle">
+		<xsl:param name="section"/>
 		<xsl:param name="title"/>
 		<fo:block>
 			<fo:block font-size="18pt" color="{$color_blue}" keep-with-next="always" line-height="150%">
+				<xsl:if test="$section != ''">
+					<fo:inline padding-right="2mm">
+						<xsl:call-template name="addLetterSpacing">
+							<xsl:with-param name="text" select="$section"/>
+							<xsl:with-param name="letter-spacing" select="0.6"/>
+						</xsl:call-template>						
+					</fo:inline>
+				</xsl:if>
 				<xsl:apply-templates select="xalan:nodeset($title)" mode="titlesmall"/>
 			</fo:block>
 			<xsl:call-template name="insertOrangeHorizontalLine"/>
@@ -1374,9 +1407,9 @@
 	
 	<xsl:template match="text()" mode="titlesmall">
 		<xsl:call-template name="addLetterSpacing">
-				<xsl:with-param name="text" select="java:toUpperCase(java:java.lang.String.new(.))"/>
-				<xsl:with-param name="letter-spacing" select="0.6"/>
-			</xsl:call-template>
+			<xsl:with-param name="text" select="java:toUpperCase(java:java.lang.String.new(.))"/>
+			<xsl:with-param name="letter-spacing" select="0.6"/>
+		</xsl:call-template>
 	</xsl:template>
 	
 	<xsl:template match="ogc:strong" mode="titlesmall">
@@ -2424,7 +2457,18 @@
 								<xsl:apply-templates select="../*[local-name()='note']" mode="process"/>
 							
 							
-							
+							<!-- <xsl:if test="$namespace = 'bipm'">
+								<xsl:choose>
+									<xsl:when test="ancestor::*[local-name()='preface']">
+										show Note under table in preface (ex. abstract) sections
+										<xsl:apply-templates select="../*[local-name()='note']" mode="process"/>
+									</xsl:when>
+									<xsl:otherwise>
+										empty, because notes show at page side in main sections
+									<fo:block/>
+									</xsl:otherwise>
+								</xsl:choose>
+							</xsl:if> -->
 							
 							
 							<!-- horizontal row separator -->
@@ -4553,6 +4597,7 @@
 	</xsl:template><xsl:template match="*[local-name() = 'clause']">
 		<fo:block>
 			<xsl:call-template name="setId"/>			
+			
 			<xsl:apply-templates/>
 		</fo:block>
 	</xsl:template><xsl:template match="*[local-name() = 'definitions']">

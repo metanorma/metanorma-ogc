@@ -269,6 +269,25 @@
 		</fo:root>
 	</xsl:template> 
 
+
+	<xsl:variable name="thinspace" select="' '"/>	
+	
+	<!-- Lato font doesn't contain 'thin space' glyph -->
+	<xsl:template match="text()" priority="1">
+		<xsl:value-of select="translate(., $thinspace, ' ')"/>
+	</xsl:template>
+	
+	<xsl:template match="text()" priority="3" mode="contents">
+		<xsl:value-of select="translate(., $thinspace, ' ')"/>
+	</xsl:template>
+
+	<xsl:template match="*[local-name()='td']//text() | *[local-name()='th']//text()" priority="2">
+		<xsl:variable name="content">
+			<xsl:call-template name="add-zero-spaces"/>
+		</xsl:variable>
+		<xsl:value-of select="translate($content, $thinspace, ' ')"/>
+	</xsl:template>
+
 	<xsl:template match="node()">		
 		<xsl:apply-templates/>			
 	</xsl:template>
@@ -1856,7 +1875,18 @@
 								<xsl:apply-templates select="../*[local-name()='note']" mode="process"/>
 							
 							
-							
+							<!-- <xsl:if test="$namespace = 'bipm'">
+								<xsl:choose>
+									<xsl:when test="ancestor::*[local-name()='preface']">
+										show Note under table in preface (ex. abstract) sections
+										<xsl:apply-templates select="../*[local-name()='note']" mode="process"/>
+									</xsl:when>
+									<xsl:otherwise>
+										empty, because notes show at page side in main sections
+									<fo:block/>
+									</xsl:otherwise>
+								</xsl:choose>
+							</xsl:if> -->
 							
 							
 							<!-- horizontal row separator -->
@@ -3952,6 +3982,7 @@
 	</xsl:template><xsl:template match="*[local-name() = 'clause']">
 		<fo:block>
 			<xsl:call-template name="setId"/>			
+			
 			<xsl:apply-templates/>
 		</fo:block>
 	</xsl:template><xsl:template match="*[local-name() = 'definitions']">
