@@ -40,7 +40,11 @@ RSpec.describe Asciidoctor::Ogc do
     output = xmlpp(<<~"OUTPUT")
     #{BLANK_HDR}
     <preface>#{SECURITY}</preface>
-<sections/>
+<sections>
+<clause id='_' obligation='normative'>
+       <title>Clause</title>
+       </clause>
+       </sections>
 </ogc-standard>
     OUTPUT
 
