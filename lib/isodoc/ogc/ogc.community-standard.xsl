@@ -181,8 +181,22 @@
 										<xsl:with-param name="text" select="java:toUpperCase(java:java.lang.String.new($doctype))"/>
 									</xsl:call-template>									
 									<xsl:value-of select="$linebreak"/>
+									<xsl:variable name="docsubtype" select="normalize-space(/ogc:ogc-standard/ogc:bibdata/ogc:ext/ogc:docsubtype)"/>
+									<xsl:variable name="docsubtype_str">
+										<xsl:choose>
+											<xsl:when test="$docsubtype = 'implementation'">Implementation</xsl:when>
+											<xsl:when test="$docsubtype = 'conceptual-model'">Conceptual model</xsl:when>
+											<xsl:when test="$docsubtype = 'conceptual-model-and-encoding'">Conceptual model &amp; encoding</xsl:when>
+											<xsl:when test="$docsubtype = 'conceptual-model-and-implementation'">Conceptual model &amp; implementation</xsl:when>
+											<xsl:when test="$docsubtype = 'encoding'">Encoding</xsl:when>
+											<xsl:when test="$docsubtype = 'extension'">Extension</xsl:when>
+											<xsl:when test="$docsubtype = 'profile'">Profile</xsl:when>
+											<xsl:when test="$docsubtype = 'profile-with-extension'">Profile with extension</xsl:when>
+											<xsl:when test="$docsubtype = 'general'">General</xsl:when>
+										</xsl:choose>
+									</xsl:variable>									
 									<xsl:call-template name="addLetterSpacing">
-										<xsl:with-param name="text" select="'Conceptual model &amp; encoding'"/>
+										<xsl:with-param name="text" select="$docsubtype_str"/>
 										<xsl:with-param name="letter-spacing" select="0.25"/>
 									</xsl:call-template>									
 								</fo:block>
@@ -1815,6 +1829,7 @@
 		
 		
 		
+		
 	</xsl:attribute-set><xsl:variable name="note-body-indent">10mm</xsl:variable><xsl:variable name="note-body-indent-table">5mm</xsl:variable><xsl:attribute-set name="note-name-style">
 		
 		
@@ -2382,12 +2397,26 @@
 								<xsl:attribute name="border">solid black 0pt</xsl:attribute>
 							
 							
-							<!-- except gb and bipm -->
+							
+							
+							
+							<!-- except gb -->
 							
 								<xsl:apply-templates select="../*[local-name()='note']" mode="process"/>
 							
 							
-							
+							<!-- show Note under table in preface (ex. abstract) sections -->
+							<!-- empty, because notes show at page side in main sections -->
+							<!-- <xsl:if test="$namespace = 'bipm'">
+								<xsl:choose>
+									<xsl:when test="ancestor::*[local-name()='preface']">										
+										<xsl:apply-templates select="../*[local-name()='note']" mode="process"/>
+									</xsl:when>
+									<xsl:otherwise>										
+									<fo:block/>
+									</xsl:otherwise>
+								</xsl:choose>
+							</xsl:if> -->
 							
 							
 							<!-- horizontal row separator -->
@@ -2452,7 +2481,11 @@
 								<xsl:attribute name="border">solid black 0pt</xsl:attribute>
 							
 							
-							<!-- except gb and bipm -->
+							
+							
+							
+							
+							<!-- except gb  -->
 							
 								<xsl:apply-templates select="../*[local-name()='note']" mode="process"/>
 							
@@ -2547,9 +2580,11 @@
 						<xsl:if test="$number mod 2 = 0">
 							<xsl:attribute name="background-color">rgb(252, 246, 222)</xsl:attribute>
 						</xsl:if>
-					</xsl:if>
-					
+					</xsl:if>					
 				
+				<!-- <xsl:if test="$namespace = 'bipm'">
+					<xsl:attribute name="height">8mm</xsl:attribute>
+				</xsl:if> -->
 				
 			<xsl:apply-templates/>
 		</fo:table-row>
@@ -3676,6 +3711,8 @@
 
 				
 					<fo:block>
+						
+						
 						
 						
 						

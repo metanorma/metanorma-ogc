@@ -214,7 +214,7 @@ RSpec.describe IsoDoc::Ogc do
   </body>
     OUTPUT
 
-      expect(xmlpp(strip_guid(IsoDoc::Ogc::PresentationXMLConvert.new({}).convert("test", input, true)))).to be_equivalent_to xmlpp(presxml)
+      expect(xmlpp(strip_guid(IsoDoc::Ogc::PresentationXMLConvert.new({}).convert("test", input, true).sub(%r{<i18nyaml>.*</i18nyaml>}m, "")))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(
       IsoDoc::Ogc::HtmlConvert.new({}).
       convert("test", presxml, true).
@@ -280,7 +280,7 @@ RSpec.describe IsoDoc::Ogc do
        </body>
     OUTPUT
 
-      expect(xmlpp(strip_guid(IsoDoc::Ogc::PresentationXMLConvert.new({}).convert("test", input, true)))).to be_equivalent_to xmlpp(presxml)
+      expect(xmlpp(strip_guid(IsoDoc::Ogc::PresentationXMLConvert.new({}).convert("test", input, true).sub(%r{<i18nyaml>.*</i18nyaml>}m, "")))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(
       IsoDoc::Ogc::HtmlConvert.new({}).
       convert("test", presxml, true).
@@ -371,7 +371,7 @@ Geospatial Consortium (OGC):</p>
   </body>
     OUTPUT
 
-      expect(xmlpp(strip_guid(IsoDoc::Ogc::PresentationXMLConvert.new({}).convert("test", input, true)))).to be_equivalent_to xmlpp(presxml)
+      expect(xmlpp(strip_guid(IsoDoc::Ogc::PresentationXMLConvert.new({}).convert("test", input, true).sub(%r{<i18nyaml>.*</i18nyaml>}m, "")))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", presxml, true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(output)
   end
 
@@ -489,7 +489,7 @@ Geospatial Consortium (OGC):</p>
 </body>
     OUTPUT
 
-      expect(xmlpp(strip_guid(IsoDoc::Ogc::PresentationXMLConvert.new({}).convert("test", input, true)))).to be_equivalent_to xmlpp(presxml)
+      expect(xmlpp(strip_guid(IsoDoc::Ogc::PresentationXMLConvert.new({}).convert("test", input, true).sub(%r{<i18nyaml>.*</i18nyaml>}m, "")))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", presxml, true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(output)
   end
 
