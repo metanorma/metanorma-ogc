@@ -720,7 +720,7 @@ OUTPUT
            </div>
          </body>
     OUTPUT
-    expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({}).convert("test", input, true).sub(/^.*<body/m, "<body").sub(%r{</body>.*$}m, "</body>"))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({}).convert("test", input, true).sub(%r{<i18nyaml>.*</i18nyaml>}m, ""))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", presxml, true).sub(/^.*<body/m, "<body").sub(%r{</body>.*$}m, "</body>"))).to be_equivalent_to xmlpp(html)
   end
 
