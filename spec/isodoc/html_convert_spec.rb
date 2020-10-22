@@ -127,6 +127,7 @@ RSpec.describe IsoDoc::Ogc do
 :revdate_monthyear=>"January 2000",
 :script=>"Latn",
 :stage=>"SWG Work",
+:stage_display=>"SWG Work",
 :stageabbr=>"SW",
 :tc=>"TC",
 :transmitteddate=>"XXX",
@@ -189,10 +190,6 @@ RSpec.describe IsoDoc::Ogc do
            <keyword>ABC</keyword>
            <keyword>DEF</keyword>
          </bibdata>
-          <local_bibdata>
-           <keyword>ABC</keyword>
-           <keyword>DEF</keyword>
-         </local_bibdata>
          <preface>
            <clause id="_" type='keywords'>
              <title depth='1'>I.<tab/>Keywords</title>
@@ -216,7 +213,7 @@ RSpec.describe IsoDoc::Ogc do
   </body>
     OUTPUT
 
-      expect(xmlpp(strip_guid(IsoDoc::Ogc::PresentationXMLConvert.new({}).convert("test", input, true).sub(%r{<i18nyaml>.*</i18nyaml>}m, "")))).to be_equivalent_to xmlpp(presxml)
+      expect(xmlpp(strip_guid(IsoDoc::Ogc::PresentationXMLConvert.new({}).convert("test", input, true).sub(%r{<localized-strings>.*</localized-strings>}m, "")))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(
       IsoDoc::Ogc::HtmlConvert.new({}).
       convert("test", presxml, true).
@@ -245,10 +242,6 @@ RSpec.describe IsoDoc::Ogc do
            <keyword>ABC</keyword>
            <keyword>DEF</keyword>
          </bibdata>
-         <local_bibdata>
-           <keyword>ABC</keyword>
-           <keyword>DEF</keyword>
-         </local_bibdata>
          <preface>
          <abstract id='A'>
   <title>I.</title>
@@ -282,7 +275,7 @@ RSpec.describe IsoDoc::Ogc do
        </body>
     OUTPUT
 
-      expect(xmlpp(strip_guid(IsoDoc::Ogc::PresentationXMLConvert.new({}).convert("test", input, true).sub(%r{<i18nyaml>.*</i18nyaml>}m, "")))).to be_equivalent_to xmlpp(presxml)
+      expect(xmlpp(strip_guid(IsoDoc::Ogc::PresentationXMLConvert.new({}).convert("test", input, true).sub(%r{<localized-strings>.*</localized-strings>}m, "")))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(
       IsoDoc::Ogc::HtmlConvert.new({}).
       convert("test", presxml, true).
@@ -328,20 +321,6 @@ RSpec.describe IsoDoc::Ogc do
            </organization>
          </contributor>
       </bibdata>
-      <local_bibdata>
-         <contributor>
-           <role type="author"/>
-           <organization>
-             <name>OGC</name>
-           </organization>
-         </contributor>
-         <contributor>
-           <role type="author"/>
-           <organization>
-             <name>DEF</name>
-           </organization>
-         </contributor>
-      </local_bibdata>
       <preface>
   <clause id='_' type='submitting_orgs'>
     <title depth='1'>I.<tab/>Submitting Organizations</title>
@@ -373,7 +352,7 @@ Geospatial Consortium (OGC):</p>
   </body>
     OUTPUT
 
-      expect(xmlpp(strip_guid(IsoDoc::Ogc::PresentationXMLConvert.new({}).convert("test", input, true).sub(%r{<i18nyaml>.*</i18nyaml>}m, "")))).to be_equivalent_to xmlpp(presxml)
+      expect(xmlpp(strip_guid(IsoDoc::Ogc::PresentationXMLConvert.new({}).convert("test", input, true).sub(%r{<localized-strings>.*</localized-strings>}m, "")))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", presxml, true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(output)
   end
 
@@ -418,20 +397,6 @@ Geospatial Consortium (OGC):</p>
            </organization>
          </contributor>
       </bibdata>
-      <local_bibdata>
-         <contributor>
-           <role type="author"/>
-           <organization>
-             <name>OGC</name>
-           </organization>
-         </contributor>
-         <contributor>
-           <role type="author"/>
-           <organization>
-             <name>DEF</name>
-           </organization>
-         </contributor>
-      </local_bibdata>
       <preface>
            <abstract id='A'>
              <title>I.</title>
@@ -491,7 +456,7 @@ Geospatial Consortium (OGC):</p>
 </body>
     OUTPUT
 
-      expect(xmlpp(strip_guid(IsoDoc::Ogc::PresentationXMLConvert.new({}).convert("test", input, true).sub(%r{<i18nyaml>.*</i18nyaml>}m, "")))).to be_equivalent_to xmlpp(presxml)
+      expect(xmlpp(strip_guid(IsoDoc::Ogc::PresentationXMLConvert.new({}).convert("test", input, true).sub(%r{<localized-strings>.*</localized-strings>}m, "")))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", presxml, true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(output)
   end
 
