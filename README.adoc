@@ -10,7 +10,8 @@ image:https://img.shields.io/github/commits-since/metanorma/metanorma-ogc/latest
 
 == Functionality
 
-This gem processes Metanorma documents into the OGC document class.
+This gem processes https://www.metanorma.com[Metanorma documents] following
+a template for generating OGC standards and documents.
 
 It provides the following functions:
 

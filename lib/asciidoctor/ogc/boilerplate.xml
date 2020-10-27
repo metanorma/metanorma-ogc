@@ -92,7 +92,7 @@
   </license-statement>
 
   <legal-statement>
-    {% if doctype == "Standard" or doctype == "Community Standard" %}
+    {% if doctype == "Standard" or doctype == "Community Standard" or doctype == "Abstract Specification" %}
     {% if stage == "Approved" or stage == "Withdrawn" %}
     <clause>
       <title>Warning</title>
