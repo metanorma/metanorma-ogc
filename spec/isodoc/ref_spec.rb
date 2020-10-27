@@ -277,6 +277,10 @@ RSpec.describe IsoDoc::Ogc do
   <formattedref format="application/x-isodoc+xml"><smallcap>Standard No I.C.C 167</smallcap>. <em>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</em> (see <link target="http://www.icc.or.at"/>)</formattedref>
   <docidentifier type="metanorma">[10]</docidentifier>
 </bibitem>
+<bibitem id="ref10a">
+  <formattedref format="application/x-isodoc+xml"><em>Appelation of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</em> (see <link target="http://www.icc.or.at"/>)</formattedref>
+  <docidentifier>ABC</docidentifier>
+</bibitem>
 <bibitem id="ref11">
 <contributor>
             <role type="author"/>
@@ -597,6 +601,10 @@ RSpec.describe IsoDoc::Ogc do
           <formattedref format="application/x-isodoc+xml"><smallcap>Standard No I.C.C 167</smallcap>. <em>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</em> (see <link target="http://www.icc.or.at"/>)</formattedref>
           <docidentifier type="metanorma">[10]</docidentifier>
         </bibitem>
+        <bibitem id='ref10a'>
+  <formattedref format='application/x-isodoc+xml'><em>Appelation of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</em> (see <link target='http://www.icc.or.at'/>)</formattedref>
+  <docidentifier>ABC</docidentifier>
+</bibitem>
         <bibitem id="ref11">
         <contributor>
             <role type="author"/>
@@ -709,8 +717,19 @@ OUTPUT
        <div class="Note"><p><span class="note_label">NOTE</span>&#160; This is another annotation of document ISSN.</p></div>
        <p id="ISO3696" class="Biblio">[3]&#160; International Organization for Standardization: ISO 3696, <i>Water for analytical laboratory use</i>. <span>International Organization for Standardization</span></p>
        <p id="ref10" class="Biblio">[10]&#160; <span style="font-variant:small-caps;">Standard No I.C.C 167</span>. <i>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</i> (see <a href="http://www.icc.or.at">http://www.icc.or.at</a>)</p>
-       <p id="ref11" class="Biblio">[5]&#160; Fred Johnson, Jackson KG, Nixon RM: IETF RFC 10, <i>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</i>. </p>
-       <p id="ref12" class="Biblio">[6]&#160; CitationWorks. 2019. <i>How to cite a reference</i>.</p>
+       <p id='ref10a' class='Biblio'>
+  [5]&#160;
+  <i>
+    Appelation of the protein content in cereal and cereal products for
+    food and animal feeding stuffs according to the Dumas combustion
+    method
+  </i>
+   (see
+  <a href='http://www.icc.or.at'>http://www.icc.or.at</a>
+  )
+</p>
+       <p id="ref11" class="Biblio">[6]&#160; Fred Johnson, Jackson KG, Nixon RM: IETF RFC 10, <i>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</i>. </p>
+       <p id="ref12" class="Biblio">[7]&#160; CitationWorks. 2019. <i>How to cite a reference</i>.</p>
 
 
        </div>

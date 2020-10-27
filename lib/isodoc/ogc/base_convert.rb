@@ -7,7 +7,6 @@ module IsoDoc
   module Ogc
     module BaseConvert
       def cleanup(docxml)
-        #requirement_table_cleanup(docxml)
         super
         term_cleanup(docxml)
       end
