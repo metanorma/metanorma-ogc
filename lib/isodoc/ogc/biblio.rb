@@ -12,6 +12,7 @@ module IsoDoc
         list.p **attr_code(iso_bibitem_entry_attrs(b, bibliography)) do |r|
           id = bibitem_ref_code(b)
           identifier = render_identifier(id)
+          identifier[1] = nil
           if bibliography
             ref_entry_code(r, ordinal, identifier, id)
           end
