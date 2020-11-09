@@ -43,6 +43,7 @@ $docstage-colors-list: (
 
 
 @import 'base_style/all';
+@import 'coverpage';
 
 
 body {
@@ -165,7 +166,6 @@ nav {
 }
 
 
-@import 'coverpage';
 
 p {
   margin-top: 1em;
