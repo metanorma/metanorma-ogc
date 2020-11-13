@@ -77,7 +77,7 @@ RSpec.describe IsoDoc::Ogc do
   <uri type="obp">https://portal.opengeospatial.org/files/?artifact_id=88037</uri>
   <docidentifier type="OGC">19-025r1</docidentifier>
   <date type="published">
-    <on>2019</on>
+    <on>2019-05</on>
   </date>
   <contributor>
     <role type="author"/>
@@ -509,13 +509,13 @@ RSpec.describe IsoDoc::Ogc do
      <docidentifier type='OGC'>05-020r27</docidentifier>
      <docnumber>05-020r27</docnumber>
      <date type='published'>
-       <on>2019-06-03</on>
+       <on>2019</on>
      </date>
      <date type='issued'>
-       <on>2019-05-29</on>
+       <on>2019</on>
      </date>
      <date type='received'>
-       <on>2019-03-28</on>
+       <on>2019</on>
      </date>
      <contributor>
        <role type='editor'/>
@@ -703,7 +703,7 @@ OUTPUT
        <i>Technical Committee Policies and Procedures</i>
        . 
        <span>Open Geospatial Consortium</span>
-        (2019-06-03). 
+        (2019). 
      </p>
 
 
