@@ -3637,6 +3637,7 @@
 			</xsl:choose>
 		</xsl:variable>
 		<fo:inline xsl:use-attribute-sets="link-style">
+			
 			<xsl:choose>
 				<xsl:when test="$target = ''">
 					<xsl:apply-templates/>
