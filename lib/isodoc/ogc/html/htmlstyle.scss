@@ -48,7 +48,7 @@ $docstage-colors-list: (
 
 body {
   @include bodyStyle1(
-    $fontSize: 16px, $lineHeight: 1.5,
+    $fontSize: $normalfontsize, $lineHeight: 1.5,
     $colorText: #00335b, $colorBackground: #f6f8fa,
     $fontWeight: 300);
 
@@ -419,7 +419,7 @@ pre {
 .figure, pre, .pseudocode {
   background-color: #e1eef1;
   color: #424242;
-  font-size: 0.8em;
+  font-size: $monospacefontsize;
 }
 
 .Note {
@@ -595,5 +595,5 @@ a.footnote-number {
 }
 
 .footnote {
-  font-size: 0.9em;
+  font-size: $footnotefontsize;
 }

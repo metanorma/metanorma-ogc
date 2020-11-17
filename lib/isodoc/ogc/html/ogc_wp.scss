@@ -9,7 +9,7 @@ p.Sourcecode, li.Sourcecode, div.Sourcecode, pre.Sourcecode, pre
 	text-align:left;
 	mso-pagination:widow-orphan;
 	tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
-	font-size:10.0pt;
+	font-size:$monospacefontsize;
 	font-family:$monospacefont;
 	mso-fareast-font-family:Calibri;
 	mso-bidi-font-family:"Courier New";
@@ -72,7 +72,7 @@ p.TableTitle, p.FigureTitle, p.SourceTitle, p.AdmonitionTitle, p.RecommendationT
 	line-height:12.0pt;
 	mso-pagination:widow-orphan;
 	tab-stops:20.15pt;
-	font-size:11.0pt;
+	font-size:$normalfontsize;
 	font-family:$bodyfont;
         color:#44546A;
 	mso-themecolor:text2;
@@ -95,8 +95,8 @@ p.Note, div.Note, li.Note, p.TableFootnote, div.TableFootnote, li.TableFootnote
 	line-height:12.0pt;
 	mso-pagination:widow-orphan;
 	tab-stops:2.0cm;
-	font-size:10.0pt;
-	mso-bidi-font-size:11.0pt;
+	font-size:$smallerfontsize;
+	mso-bidi-font-size:$normalfontsize;
 	font-family:$bodyfont;
 	mso-fareast-font-family:$bodyfont;
 	mso-bidi-font-family:$bodyfont;
@@ -121,7 +121,7 @@ p.ANNEX, li.ANNEX, div.ANNEX
 	mso-list:l0 level1 lfo12;
 	tab-stops:20.15pt;
 	font-size:14.0pt;
-	mso-bidi-font-size:11.0pt;
+	mso-bidi-font-size:$normalfontsize;
 	font-family:$headerfont;
 	mso-fareast-font-family:$headerfont;
 	mso-bidi-font-family:$headerfont;
@@ -143,7 +143,7 @@ p.BiblioTitle, li.BiblioTitle, div.BiblioTitle
 	mso-outline-level:1;
 	tab-stops:20.15pt;
 	font-size:14.0pt;
-	mso-bidi-font-size:11.0pt;
+	mso-bidi-font-size:$normalfontsize;
 	font-family:$headerfont;
 	mso-fareast-font-family:$headerfont;
 	mso-bidi-font-family:$headerfont;
@@ -162,7 +162,7 @@ p.Definition, li.Definition, div.Definition
 	line-height:12.0pt;
 	mso-pagination:widow-orphan;
 	tab-stops:20.15pt;
-	font-size:11.0pt;
+	font-size:$normalfontsize;
 	font-family:$bodyfont;
 	mso-fareast-font-family:$bodyfont;
 	mso-bidi-font-family:$bodyfont;
@@ -184,7 +184,7 @@ p.ForewordTitle, li.ForewordTitle, div.ForewordTitle
 	mso-hyphenate:none;
 	tab-stops:20.15pt;
 	font-size:14.0pt;
-	mso-bidi-font-size:11.0pt;
+	mso-bidi-font-size:$normalfontsize;
 	font-family:$headerfont;
 	mso-fareast-font-family:$headerfont;
 	mso-bidi-font-family:$headerfont;
@@ -208,7 +208,7 @@ p.IntroTitle, li.IntroTitle, div.IntroTitle
 	mso-hyphenate:none;
 	tab-stops:20.15pt;
 	font-size:14.0pt;
-	mso-bidi-font-size:11.0pt;
+	mso-bidi-font-size:$normalfontsize;
 	font-family:$headerfont;
 	mso-fareast-font-family:$headerfont;
 	mso-bidi-font-family:$headerfont;
@@ -231,7 +231,7 @@ mso-style-noshow:yes;
         mso-hyphenate:none;
         tab-stops:20.15pt;
         font-size:10.5pt;
-        mso-bidi-font-size:11.0pt;
+        mso-bidi-font-size:$normalfontsize;
         font-family:$headerfont;
         mso-fareast-font-family:$headerfont;
         mso-bidi-font-family:$headerfont;
@@ -251,7 +251,7 @@ p.Terms, li.Terms, div.Terms
         page-break-after:avoid;
         mso-hyphenate:none;
         tab-stops:20.15pt;
-        font-size:11.0pt;
+        font-size:$normalfontsize;
         font-family:$headerfont;
         mso-fareast-font-family:$headerfont;
         mso-bidi-font-family:$headerfont;
@@ -270,7 +270,7 @@ p.AltTerms, li.AltTerms, div.AltTerms
         page-break-after:avoid;
         mso-hyphenate:none;
         tab-stops:20.15pt;
-        font-size:11.0pt;
+        font-size:$normalfontsize;
         font-family:$bodyfont;
         mso-fareast-font-family:$bodyfont;
         mso-bidi-font-family:$bodyfont;
@@ -288,7 +288,7 @@ p.DeprecatedTerms, li.DeprecatedTerms, div.DeprecatedTerms
         page-break-after:avoid;
         mso-hyphenate:none;
         tab-stops:20.15pt;
-        font-size:11.0pt;
+        font-size:$normalfontsize;
         font-family:$bodyfont;
         mso-fareast-font-family:$bodyfont;
         mso-bidi-font-family:$bodyfont;
@@ -305,7 +305,7 @@ p.TermNum, li.TermNum, div.TermNum
         mso-pagination:widow-orphan;
         page-break-after:avoid;
         tab-stops:20.15pt;
-        font-size:11.0pt;
+        font-size:$normalfontsize;
         font-family:$headerfont;
         mso-fareast-font-family:$headerfont;
         mso-bidi-font-family:$headerfont;
@@ -383,7 +383,7 @@ p.zzCopyright_address
 	mso-padding-alt-left:20pt;
     font-size:10.0pt;
 	text-align:left;
-    mso-bidi-font-size:11.0pt;}
+    mso-bidi-font-size:$normalfontsize;}
 p.zzSTDTitle, li.zzSTDTitle, div.zzSTDTitle
 	{mso-style-name:zzSTDTitle;
 	mso-style-noshow:yes;
@@ -399,7 +399,7 @@ p.zzSTDTitle, li.zzSTDTitle, div.zzSTDTitle
 	mso-hyphenate:none;
 	tab-stops:20.15pt;
 	font-size:16.0pt;
-	mso-bidi-font-size:11.0pt;
+	mso-bidi-font-size:$normalfontsize;
 	font-family:$headerfont;
 	mso-fareast-font-family:$headerfont;
 	mso-bidi-font-family:$headerfont;
@@ -421,7 +421,7 @@ p.zzSTDTitle1, li.zzSTDTitle1, div.zzSTDTitle1
 	mso-hyphenate:none;
 	tab-stops:20.15pt;
 	font-size:16.0pt;
-	mso-bidi-font-size:11.0pt;
+	mso-bidi-font-size:$normalfontsize;
 	font-family:$headerfont;
 	mso-fareast-font-family:$headerfont;
 	mso-bidi-font-family:$headerfont;
@@ -438,7 +438,7 @@ p.Quote, li.Quote, div.Quote
 	line-height:12.0pt;
 	mso-pagination:widow-orphan;
 	tab-stops:20.15pt;
-	font-size:11.0pt;
+	font-size:$normalfontsize;
 	font-family:$bodyfont;
 	mso-fareast-font-family:$bodyfont;
 	mso-bidi-font-family:$bodyfont;
@@ -453,7 +453,7 @@ p.QuoteAttribution
         line-height:12.0pt;
         mso-pagination:widow-orphan;
         tab-stops:20.15pt;
-        font-size:11.0pt;
+        font-size:$normalfontsize;
         font-family:$bodyfont;
         mso-fareast-font-family:$bodyfont;
         mso-bidi-font-family:$bodyfont;
@@ -472,7 +472,7 @@ p.Admonition, li.Admonition, div.Admonition
 	mso-border-themecolor:accent1;
 	padding:0cm;
 	mso-padding-alt:10.0pt 10.0pt 10.0pt 10.0pt;
-	font-size:11.0pt;
+	font-size:$normalfontsize;
 	font-family:$bodyfont;
 	mso-ascii-font-family:$bodyfont;
 	mso-ascii-theme-font:minor-latin;
@@ -497,7 +497,7 @@ p.Code, li.Code, div.Code
 	mso-pagination:widow-orphan;
 	tab-stops:20.15pt;
 	font-size:9.0pt;
-	mso-bidi-font-size:11.0pt;
+	mso-bidi-font-size:$normalfontsize;
 	font-family:$monospacefont;
 	mso-fareast-font-family:Calibri;
 	mso-bidi-font-family:"Source Sans Pro";
@@ -508,12 +508,12 @@ p.Formula, li.Formula, div.Formula
 	mso-style-unhide:no;
 	margin-top:0cm;
 	margin-right:0cm;
-	margin-bottom:11.0pt;
+	margin-bottom:$normalfontsize;
 	margin-left:20.15pt;
 	line-height:12.0pt;
 	mso-pagination:widow-orphan;
 	tab-stops:right 487.45pt;
-	font-size:11.0pt;
+	font-size:$normalfontsize;
 	font-family:$bodyfont;
 	mso-fareast-font-family:$bodyfont;
 	mso-bidi-font-family:$bodyfont;
@@ -610,7 +610,7 @@ table.MsoISOTable, table.MsoISOTableBig
 	mso-para-margin-bottom:0cm;
 	mso-para-margin-left:0cm;
 	mso-pagination:widow-orphan;
-	font-size:11.0pt;
+	font-size:$normalfontsize;
 	font-family:$headerfont;}
 table.MsoISOTable th, table.MsoISOTableBig th
     {border:solid windowtext 1pt;
@@ -621,7 +621,7 @@ table.MsoISOTable td, table.MsoISOTableBig td
     mso-border-alt:solid #999999 .5pt;
     padding:0cm 5.4pt 0cm 5.4pt;}
 table.MsoISOTable p, table.MsoISOTableBig p
-{font-size:11.0pt; }
+{font-size:$normalfontsize; }
 table.MsoTableGrid
 	{mso-style-name:"Table Grid";
 	mso-tstyle-rowband-size:0;
@@ -636,7 +636,7 @@ table.MsoTableGrid
 	mso-para-margin:0cm;
 	mso-para-margin-bottom:.0001pt;
 	mso-pagination:widow-orphan;
-	font-size:10.0pt;
+	font-size:$smallerfontsize;
 	font-family:$bodyfont;}
 div.formula
     {tab-stops:right 487.45pt;}
@@ -671,7 +671,7 @@ div.coverpage_warning
         vertical-align:super;}
 
         aside {
-          font-size:10.0pt;
+          font-size:$footnotefontsize;
 }
 
 p.example, li.example, td.example {
@@ -688,24 +688,24 @@ div.example {
 
 p.example, li.example, div.example, td.example {
         mso-pagination:none;
-        font-size:10.0pt;
+        font-size:$smallerfontsize;
         font-family:$bodyfont;}
 
 td.example p.MsoListParagraph {
-  font-size: 10.0pt;
+  font-size: $smallerfontsize;
 }
 
 div.example p.MsoListParagraph {
-  font-size: 10.0pt;
+  font-size: $smallerfontsize;
 }
 
 div.Note p.MsoListParagraph {
-  font-size: 10.0pt;
+  font-size: $smallerfontsize;
   margin-left: 1.0cm;
 }
 
 div.Note span.stem {
-  font-size: 10.0pt; }
+  font-size: $smallerfontsize; }
 
 div.Note p.Sourcecode, div.Note pre.Sourcecode  {
   font-size: 8.0pt;
@@ -713,20 +713,20 @@ div.Note p.Sourcecode, div.Note pre.Sourcecode  {
 }
 
 div.Note table.dl  {
-  font-size: 10.0pt;
+  font-size: $smallerfontsize;
   margin-left: 1.0cm;
 }
 
 span.note_label, span.example_label, td.example_label, td.note_label
 {
-font-size: 10.0pt;
+font-size: $smallerfontsize;
 font-family:$bodyfont;
 }
 
 table.dl
 	{margin-top:0cm;
 	margin-right:0cm;
-	margin-bottom:11.0pt;
+	margin-bottom:$normalfontsize;
 	margin-left:20.15pt;}
 div.license, p.license {
   font-size:8.0pt;
