@@ -2,14 +2,6 @@ require "metanorma/processor"
 
 module Metanorma
   module Ogc
-    def self.fonts_used
-      {
-        doc: ["Arial", "Courier New", "Times New Roman"],
-        pdf: ["Arial", "Courier New", "Times New Roman"],
-        html: ["Overpass", "Space Mono"]
-      }
-    end
-
     class Processor < Metanorma::Processor
 
       def initialize
