@@ -21,7 +21,11 @@ module IsoDoc
                      '"Times New Roman",serif'),
                      headerfont: (options[:script] == "Hans" ? '"SimHei",sans-serif' :
                                   '"Times New Roman",serif'),
-                                  monospacefont: '"Courier New",monospace'
+                                  monospacefont: '"Courier New",monospace',
+                                  normalfontsize: "10.5pt",
+                                  monospacefontsize: "10.0pt",
+                                  footnotefontsize: "10.0pt",
+                                  smallerfontsize: "10.0pt",
         }
       end
 
@@ -47,6 +51,8 @@ module IsoDoc
           @doctype = "white-paper"
           options[:bodyfont] = '"Arial",sans-serif'
           options[:headerfont] = '"Lato",sans-serif'
+          options[:normalfontsize] = "11.0pt"
+          options[:footnotefontsize] = "11.0pt"
         end
         super
       end

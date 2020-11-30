@@ -20,7 +20,10 @@ module IsoDoc
         {
           bodyfont: (options[:script] == "Hans" ? '"SimSun",serif' : '"Overpass",sans-serif'),
           headerfont: (options[:script] == "Hans" ? '"SimHei",sans-serif' : '"Overpass",sans-serif'),
-          monospacefont: '"Space Mono",monospace'
+          monospacefont: '"Space Mono",monospace',
+          normalfontsize: "16px",
+          monospacefontsize: "0.8em",
+          footnotefontsize: "0.9em",
         }
       end
 
