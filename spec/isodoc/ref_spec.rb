@@ -711,8 +711,8 @@ OUTPUT
              <br/>
              <div><h1 class="Section3">Bibliography</h1>
 
-       <p id="ISBN" class="Biblio">[1]&#160; ISBN: ISBN ISBN, <i>Chemicals for analytical laboratory use</i>. <span>ISBN</span></p>
-       <p id="ISSN" class="Biblio">[2]&#160; Euclid: ISSN ISSN, <i>Instruments for analytical laboratory use</i>. <span>ISSN</span> <a href="http://www.example.com">http://www.example.com</a></p>
+       <p id="ISBN" class="Biblio">[1]&#160; ISBN: ISBN, <i>Chemicals for analytical laboratory use</i>. <span>ISBN</span></p>
+       <p id="ISSN" class="Biblio">[2]&#160; Euclid: ISSN, <i>Instruments for analytical laboratory use</i>. <span>ISSN</span> <a href="http://www.example.com">http://www.example.com</a></p>
        <div class="Note"><p><span class="note_label">NOTE</span>&#160; This is an annotation of document ISSN.</p></div>
        <div class="Note"><p><span class="note_label">NOTE</span>&#160; This is another annotation of document ISSN.</p></div>
        <p id="ISO3696" class="Biblio">[3]&#160; International Organization for Standardization: ISO 3696, <i>Water for analytical laboratory use</i>. <span>International Organization for Standardization</span></p>

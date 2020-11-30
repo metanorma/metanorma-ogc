@@ -91,7 +91,7 @@
 	
 	<xsl:template match="/">
 		<xsl:call-template name="namespaceCheck"/>
-		<fo:root font-family="Arial, STIX Two Math, HanSans" font-size="11pt" xml:lang="{$lang}">
+		<fo:root font-family="Arial, STIX Two Math, Source Han Sans" font-size="11pt" xml:lang="{$lang}">
 			<fo:layout-master-set>
 				
 				<!-- Document pages -->
@@ -124,7 +124,7 @@
 						</fo:block-container>
 					</fo:block-container>
 					
-					<fo:block font-family="Lato Light" font-size="14pt" font-style="italic" margin-top="6pt" color="rgb(21, 43, 77)">
+					<fo:block font-family="Lato" font-weight="300" font-size="14pt" font-style="italic" margin-top="6pt" color="rgb(21, 43, 77)">
 						<xsl:text>Additional context, inspirational quote, etc. fits into this subheading area</xsl:text>
 					</fo:block>
 					
@@ -1328,6 +1328,7 @@
 	</xsl:attribute-set><xsl:attribute-set name="term-style">
 		
 	</xsl:attribute-set><xsl:attribute-set name="figure-name-style">
+		
 				
 		
 		
@@ -2631,6 +2632,7 @@
 		</fo:inline>
 	</xsl:template><xsl:template match="*[local-name()='strong'] | *[local-name()='b']">
 		<fo:inline font-weight="bold">
+			
 			<xsl:apply-templates/>
 		</fo:inline>
 	</xsl:template><xsl:template match="*[local-name()='sup']">
@@ -3253,7 +3255,8 @@
 			</fo:inline>
 		</xsl:if>
 	</xsl:template><xsl:template match="*[local-name() = 'figure']">
-		<fo:block-container id="{@id}">
+		<fo:block-container id="{@id}">			
+			
 			<fo:block>
 				<xsl:apply-templates/>
 			</fo:block>
@@ -3304,7 +3307,7 @@
 		<xsl:apply-templates mode="bookmarks"/>
 	</xsl:template><xsl:template match="*[local-name() = 'stem']" mode="contents">
 		<xsl:apply-templates select="."/>
-	</xsl:template><xsl:template match="*[local-name() = 'stem']" mode="bookmarks">
+	</xsl:template><xsl:template match="*[local-name() = 'references'][@hidden='true']" mode="contents" priority="3"/><xsl:template match="*[local-name() = 'stem']" mode="bookmarks">
 		<xsl:apply-templates mode="bookmarks"/>
 	</xsl:template><xsl:template name="addBookmarks">
 		<xsl:param name="contents"/>
@@ -4068,7 +4071,7 @@
 		<fo:block id="{@id}">
 			<xsl:apply-templates/>
 		</fo:block>
-	</xsl:template><xsl:template match="/*/*[local-name() = 'bibliography']/*[local-name() = 'references'][@normative='true']">
+	</xsl:template><xsl:template match="*[local-name() = 'references'][@hidden='true']" priority="3"/><xsl:template match="*[local-name() = 'bibitem'][@hidden='true']" priority="3"/><xsl:template match="/*/*[local-name() = 'bibliography']/*[local-name() = 'references'][@normative='true']">
 		
 		<fo:block id="{@id}">
 			<xsl:apply-templates/>
