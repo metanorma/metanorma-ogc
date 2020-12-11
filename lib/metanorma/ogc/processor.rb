@@ -18,6 +18,22 @@ module Metanorma
         )
       end
 
+
+      def fonts_manifest
+        {
+          "Lato" => nil,
+          "Arial" => nil,
+          "STIX Two Math" => nil,
+          "Source Han Sans" => nil,
+          "Fira Code" => nil,
+          "Courier" => nil,
+          "Courier New" => nil,
+          "Times New Roman" => nil,
+          "Overpass" => nil,
+          "Space Mono" => nil,
+        }
+      end
+
       def version
         "Metanorma::Ogc #{Metanorma::Ogc::VERSION}"
       end
