@@ -127,7 +127,6 @@ module Asciidoctor
       end
 
       def termdef_boilerplate_cleanup(xmldoc)
-        return
       end
 
       def bibdata_cleanup(xmldoc)

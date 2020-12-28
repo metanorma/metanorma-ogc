@@ -35,7 +35,7 @@ module IsoDoc
         end
       end
 
-      def middle_clause
+      def middle_clause(_docxml)
         "//clause[parent::sections][not(@type = 'scope' or "\
         "@type = 'conformance')][not(descendant::terms)]"
       end
