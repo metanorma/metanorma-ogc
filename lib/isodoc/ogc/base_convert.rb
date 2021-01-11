@@ -46,7 +46,7 @@ module IsoDoc
       end
 
       def middle(isoxml, out)
-        middle_title(out)
+        middle_title(isoxml, out)
         middle_admonitions(isoxml, out)
         i = scope isoxml, out, 0
         i = conformance isoxml, out, i

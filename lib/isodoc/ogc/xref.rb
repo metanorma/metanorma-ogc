@@ -1,5 +1,8 @@
 module IsoDoc
   module Ogc
+    class Counter < IsoDoc::XrefGen::Counter
+    end
+
     class Xref < IsoDoc::Xref
       def initialize(lang, script, klass, labels, options)
         @reqtlabels = {}
@@ -13,7 +16,7 @@ module IsoDoc
       FIRST_LVL_REQ = IsoDoc::XrefGen::Blocks::FIRST_LVL_REQ
 
       def sequential_permission_names(clause, klass, label)
-        c = ::IsoDoc::XrefGen::Counter.new
+        c = Counter.new
         clause.xpath(ns(".//#{klass}#{FIRST_LVL_REQ}")).each do |t|
           next if t["id"].nil? || t["id"].empty?
           id = c.increment(t).print
@@ -49,7 +52,7 @@ module IsoDoc
       end
 
       def sequential_permission_names1(block, lbl, klass, label)
-        c = ::IsoDoc::XrefGen::Counter.new
+        c = Counter.new
         block.xpath(ns("./#{klass}")).each do |t|
           next if t["id"].nil? || t["id"].empty?
           id = "#{lbl}#{hierfigsep}#{c.increment(t).print}"
@@ -90,7 +93,7 @@ module IsoDoc
       end
 
       def hierarchical_permission_names(clause, num, klass, label)
-        c = ::IsoDoc::XrefGen::Counter.new
+        c = Counter.new
         clause.xpath(ns(".//#{klass}#{FIRST_LVL_REQ}")).each do |t|
           next if t["id"].nil? || t["id"].empty?
           lbl = "#{num}#{hiersep}#{c.increment(t).print}"
@@ -119,7 +122,8 @@ module IsoDoc
         sequential_asset_names(d.xpath(ns(
           "//preface/abstract | //foreword | //introduction | "\
           "//submitters | //acknowledgements | //preface/clause")))
-        n = section_names(d.at(ns("//clause[@type = 'scope']")), 0, 1)
+        n = Counter.new
+        n = section_names(d.at(ns("//clause[@type = 'scope']")), n, 1)
         n = section_names(d.at(ns("//clause[@type = 'conformance']")), n, 1)
         n = section_names(d.at(ns(@klass.norm_ref_xpath)), n, 1)
         n = section_names(
