@@ -18,8 +18,8 @@ module IsoDoc
 
       def default_fonts(options)
         {
-          bodyfont: (options[:script] == "Hans" ? '"SimSun",serif' : '"Overpass",sans-serif'),
-          headerfont: (options[:script] == "Hans" ? '"SimHei",sans-serif' : '"Overpass",sans-serif'),
+          bodyfont: '"Overpass",sans-serif',
+          headerfont: '"Overpass",sans-serif',
           monospacefont: '"Space Mono",monospace',
           normalfontsize: "16px",
           monospacefontsize: "0.8em",

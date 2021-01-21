@@ -16,7 +16,7 @@ RSpec.describe Asciidoctor::Ogc do
       expect do
         Metanorma::Compile
           .new
-          .compile("spec/assets/xref_error.adoc", type: "ogc")
+          .compile("spec/assets/xref_error.adoc", type: "ogc", :"agree-to-terms" => true)
       end.to(change { File.exist?("spec/assets/xref_error.err") }
               .from(false).to(true))
     end

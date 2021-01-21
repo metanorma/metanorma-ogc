@@ -17,15 +17,13 @@ module IsoDoc
 
       def default_fonts(options)
         {
-          bodyfont: (options[:script] == "Hans" ? '"SimSun",serif' :
-                     '"Times New Roman",serif'),
-                     headerfont: (options[:script] == "Hans" ? '"SimHei",sans-serif' :
-                                  '"Times New Roman",serif'),
-                                  monospacefont: '"Courier New",monospace',
-                                  normalfontsize: "10.5pt",
-                                  monospacefontsize: "10.0pt",
-                                  footnotefontsize: "10.0pt",
-                                  smallerfontsize: "10.0pt",
+          bodyfont: '"Times New Roman",serif',
+          headerfont: '"Times New Roman",serif',
+          monospacefont: '"Courier New",monospace',
+          normalfontsize: "10.5pt",
+          monospacefontsize: "10.0pt",
+          footnotefontsize: "10.0pt",
+          smallerfontsize: "10.0pt",
         }
       end
 
