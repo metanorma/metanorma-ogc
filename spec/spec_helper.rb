@@ -143,3 +143,8 @@ WORD_HDR = <<~"HDR"
            </p>
 HDR
 
+def mock_pdf
+  allow(::Mn2pdf).to receive(:convert) do |url, output, c, d|
+    FileUtils.cp(url.gsub(/"/, ""), output.gsub(/"/, ""))
+  end
+end
