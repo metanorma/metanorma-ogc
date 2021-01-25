@@ -1303,6 +1303,7 @@
 		
 		
 		
+		
 	</xsl:attribute-set><xsl:attribute-set name="quote-source-style">		
 		
 			<xsl:attribute name="text-align">right</xsl:attribute>
@@ -1450,7 +1451,7 @@
 	</xsl:template><xsl:template match="*[local-name()='td']//text() | *[local-name()='th']//text() | *[local-name()='dt']//text() | *[local-name()='dd']//text()" priority="1">
 		<!-- <xsl:call-template name="add-zero-spaces"/> -->
 		<xsl:call-template name="add-zero-spaces-java"/>
-	</xsl:template><xsl:template match="*[local-name()='table']">
+	</xsl:template><xsl:template match="*[local-name()='table']" name="table">
 	
 		<xsl:variable name="simple-table">	
 			<xsl:call-template name="getSimpleTable"/>			
@@ -2718,6 +2719,7 @@
 				
 				
 				
+				
 				10
 				
 						
@@ -3319,7 +3321,7 @@
 				</xsl:if> -->
 			</fo:inline>
 		</xsl:if>
-	</xsl:template><xsl:template match="*[local-name() = 'figure']">
+	</xsl:template><xsl:template match="*[local-name() = 'figure']" name="figure">
 		<fo:block-container id="{@id}">			
 			
 			<fo:block>
@@ -3537,6 +3539,12 @@
 		<!-- <xsl:text> </xsl:text> -->
 	</xsl:template><xsl:template name="getSection">
 		<xsl:value-of select="*[local-name() = 'title']/*[local-name() = 'tab'][1]/preceding-sibling::node()"/>
+		<!-- 
+		<xsl:for-each select="*[local-name() = 'title']/*[local-name() = 'tab'][1]/preceding-sibling::node()">
+			<xsl:value-of select="."/>
+		</xsl:for-each>
+		-->
+		
 	</xsl:template><xsl:template name="getName">
 		<xsl:choose>
 			<xsl:when test="*[local-name() = 'title']/*[local-name() = 'tab']">
@@ -3589,6 +3597,10 @@
 		<xsl:copy>
 			<xsl:apply-templates mode="contents_item"/>
 		</xsl:copy>		
+	</xsl:template><xsl:template match="*[local-name() = 'em']" mode="contents_item">
+		<xsl:copy>
+			<xsl:apply-templates mode="contents_item"/>
+		</xsl:copy>		
 	</xsl:template><xsl:template match="*[local-name() = 'br']" mode="contents_item">
 		<xsl:text> </xsl:text>
 	</xsl:template><xsl:template match="*[local-name()='sourcecode']" name="sourcecode">
@@ -3609,6 +3621,7 @@
 					<xsl:variable name="_font-size">
 						
 												
+						
 						
 						
 						
@@ -4164,6 +4177,7 @@
 			
 			
 			
+			
 						
 			
 			
@@ -4180,7 +4194,7 @@
 		
 		
 		
-	</xsl:template><xsl:template match="/*/*[local-name() = 'preface']/*" priority="2">
+	</xsl:template><xsl:template match="//*[contains(local-name(), '-standard')]/*[local-name() = 'preface']/*" priority="2"> <!-- /*/*[local-name() = 'preface']/* -->
 		<fo:block break-after="page"/>
 		<fo:block>
 			<xsl:call-template name="setId"/>
@@ -4188,7 +4202,8 @@
 		</fo:block>
 	</xsl:template><xsl:template match="*[local-name() = 'clause']">
 		<fo:block>
-			<xsl:call-template name="setId"/>			
+			<xsl:call-template name="setId"/>
+			
 			
 			<xsl:apply-templates/>
 		</fo:block>
@@ -4500,6 +4515,57 @@
 		</xsl:variable>
 		<xsl:variable name="result">
 			<xsl:choose>
+				<xsl:when test="$format = 'ddMMyyyy'">
+					<xsl:if test="$day != ''"><xsl:value-of select="number($day)"/></xsl:if>
+					<xsl:text> </xsl:text>
+					<xsl:value-of select="normalize-space(concat($monthStr, ' ' , $year))"/>
+				</xsl:when>
+				<xsl:when test="$format = 'ddMM'">
+					<xsl:if test="$day != ''"><xsl:value-of select="number($day)"/></xsl:if>
+					<xsl:text> </xsl:text><xsl:value-of select="$monthStr"/>
+				</xsl:when>
+				<xsl:when test="$format = 'short' or $day = ''">
+					<xsl:value-of select="normalize-space(concat($monthStr, ' ', $year))"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="normalize-space(concat($monthStr, ' ', $day, ', ' , $year))"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:value-of select="$result"/>
+	</xsl:template><xsl:template name="convertDateLocalized">
+		<xsl:param name="date"/>
+		<xsl:param name="format" select="'short'"/>
+		<xsl:variable name="year" select="substring($date, 1, 4)"/>
+		<xsl:variable name="month" select="substring($date, 6, 2)"/>
+		<xsl:variable name="day" select="substring($date, 9, 2)"/>
+		<xsl:variable name="monthStr">
+			<xsl:choose>
+				<xsl:when test="$month = '01'"><xsl:call-template name="getLocalizedString"><xsl:with-param name="key">month_january</xsl:with-param></xsl:call-template></xsl:when>
+				<xsl:when test="$month = '02'"><xsl:call-template name="getLocalizedString"><xsl:with-param name="key">month_february</xsl:with-param></xsl:call-template></xsl:when>
+				<xsl:when test="$month = '03'"><xsl:call-template name="getLocalizedString"><xsl:with-param name="key">month_march</xsl:with-param></xsl:call-template></xsl:when>
+				<xsl:when test="$month = '04'"><xsl:call-template name="getLocalizedString"><xsl:with-param name="key">month_april</xsl:with-param></xsl:call-template></xsl:when>
+				<xsl:when test="$month = '05'"><xsl:call-template name="getLocalizedString"><xsl:with-param name="key">month_may</xsl:with-param></xsl:call-template></xsl:when>
+				<xsl:when test="$month = '06'"><xsl:call-template name="getLocalizedString"><xsl:with-param name="key">month_june</xsl:with-param></xsl:call-template></xsl:when>
+				<xsl:when test="$month = '07'"><xsl:call-template name="getLocalizedString"><xsl:with-param name="key">month_july</xsl:with-param></xsl:call-template></xsl:when>
+				<xsl:when test="$month = '08'"><xsl:call-template name="getLocalizedString"><xsl:with-param name="key">month_august</xsl:with-param></xsl:call-template></xsl:when>
+				<xsl:when test="$month = '09'"><xsl:call-template name="getLocalizedString"><xsl:with-param name="key">month_september</xsl:with-param></xsl:call-template></xsl:when>
+				<xsl:when test="$month = '10'"><xsl:call-template name="getLocalizedString"><xsl:with-param name="key">month_october</xsl:with-param></xsl:call-template></xsl:when>
+				<xsl:when test="$month = '11'"><xsl:call-template name="getLocalizedString"><xsl:with-param name="key">month_november</xsl:with-param></xsl:call-template></xsl:when>
+				<xsl:when test="$month = '12'"><xsl:call-template name="getLocalizedString"><xsl:with-param name="key">month_december</xsl:with-param></xsl:call-template></xsl:when>
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:variable name="result">
+			<xsl:choose>
+				<xsl:when test="$format = 'ddMMyyyy'">
+					<xsl:if test="$day != ''"><xsl:value-of select="number($day)"/></xsl:if>
+					<xsl:text> </xsl:text>
+					<xsl:value-of select="normalize-space(concat($monthStr, ' ' , $year))"/>
+				</xsl:when>
+				<xsl:when test="$format = 'ddMM'">
+					<xsl:if test="$day != ''"><xsl:value-of select="number($day)"/></xsl:if>
+					<xsl:text> </xsl:text><xsl:value-of select="$monthStr"/>
+				</xsl:when>
 				<xsl:when test="$format = 'short' or $day = ''">
 					<xsl:value-of select="normalize-space(concat($monthStr, ' ', $year))"/>
 				</xsl:when>
@@ -4691,6 +4757,7 @@
 			
 			
 						
+			
 			
 			
 			
