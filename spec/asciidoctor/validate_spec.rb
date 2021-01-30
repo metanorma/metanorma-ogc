@@ -16,360 +16,358 @@ RSpec.describe Asciidoctor::Ogc do
       expect do
         Metanorma::Compile
           .new
-          .compile("spec/assets/xref_error.adoc", type: "ogc", :"agree-to-terms" => true)
+          .compile("spec/assets/xref_error.adoc", type: "ogc", no_install_fonts: true)
       end.to(change { File.exist?("spec/assets/xref_error.err") }
               .from(false).to(true))
     end
   end
 
   it "Warns of version on engineering-report" do
-      FileUtils.rm_f "test.err"
+    FileUtils.rm_f "test.err"
     Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
-  = Document title
-  Author
-  :edition: 1
-  :nodoc:
-  :no-isobib:
-  :docfile: test.adoc
-  :doctype: engineering-report
+      = Document title
+      Author
+      :edition: 1
+      :nodoc:
+      :no-isobib:
+      :docfile: test.adoc
+      :doctype: engineering-report
 
-  text
-  INPUT
+      text
+    INPUT
     expect(File.read("test.err")).to include "Version not permitted for engineering-report"
-end
+  end
 
-    it "Warns of missing version on document type other than engineering-report or discussion paper" do
-      FileUtils.rm_f "test.err"
+  it "Warns of missing version on document type other than engineering-report or discussion paper" do
+    FileUtils.rm_f "test.err"
     Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
-  = Document title
-  Author
-  :nodoc:
-  :no-isobib:
-  :docfile: test.adoc
-  :doctype: standard
+      = Document title
+      Author
+      :nodoc:
+      :no-isobib:
+      :docfile: test.adoc
+      :doctype: standard
 
-  text
-  INPUT
+      text
+    INPUT
     expect(File.read("test.err")).to include "Version required for standard"
-end
+  end
 
-      it "Warns of illegal doctype" do
-      FileUtils.rm_f "test.err"
+  it "Warns of illegal doctype" do
+    FileUtils.rm_f "test.err"
     Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
-  = Document title
-  Author
-  :docfile: test.adoc
-  :nodoc:
-  :no-isobib:
-  :doctype: pizza
+      = Document title
+      Author
+      :docfile: test.adoc
+      :nodoc:
+      :no-isobib:
+      :doctype: pizza
 
-  text
-  INPUT
+      text
+    INPUT
     expect(File.read("test.err")).to include "'pizza' is not a legal document type"
-end
+  end
 
-      it "Warns of illegal doc subtype" do
-      FileUtils.rm_f "test.err"
+  it "Warns of illegal doc subtype" do
+    FileUtils.rm_f "test.err"
     Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
-  = Document title
-  Author
-  :docfile: test.adoc
-  :nodoc:
-  :no-isobib:
-  :doctype: standard
-  :docsubtype: pizza
+      = Document title
+      Author
+      :docfile: test.adoc
+      :nodoc:
+      :no-isobib:
+      :doctype: standard
+      :docsubtype: pizza
 
-  text
-  INPUT
-    expect(File.read("test.err")).to include "'pizza' is not a permitted subtype of Standard: reverting to 'implementation'"
-end
+      text
+    INPUT
+    expect(File.read("test.err")).to include \
+      "'pizza' is not a permitted subtype of Standard: reverting to 'implementation'"
+  end
 
- it "Warns of illegal status" do
-      FileUtils.rm_f "test.err"
+  it "Warns of illegal status" do
+    FileUtils.rm_f "test.err"
     Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
-  = Document title
-  Author
-  :docfile: test.adoc
-  :nodoc:
-  :no-isobib:
-  :status: pizza
+      = Document title
+      Author
+      :docfile: test.adoc
+      :nodoc:
+      :no-isobib:
+      :status: pizza
 
-  text
-  INPUT
+      text
+    INPUT
     expect(File.read("test.err")).to include "pizza is not a recognised status"
-end
-
+  end
 
   it "does not issue section order warnings unless document is a standard" do
-      FileUtils.rm_f "test.err"
-  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
-    = Document title
-    Author
-    :docfile: test.adoc
-    :nodoc:
-    :doctype: engineering-report
+    FileUtils.rm_f "test.err"
+    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
+      = Document title
+      Author
+      :docfile: test.adoc
+      :nodoc:
+      :doctype: engineering-report
 
-    == Symbols and Abbreviated Terms
-  INPUT
+      == Symbols and Abbreviated Terms
+    INPUT
     expect(File.read("test.err")).not_to include "Prefatory material must be followed by (clause) Scope"
   end
 
   it "Warning if do not start with scope or introduction" do
-      FileUtils.rm_f "test.err"
-  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
-  #{VALIDATING_BLANK_HDR}
+    FileUtils.rm_f "test.err"
+    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
+      #{VALIDATING_BLANK_HDR}
 
-  == Symbols and Abbreviated Terms
+      == Symbols and Abbreviated Terms
 
-  Paragraph
-  INPUT
+      Paragraph
+    INPUT
     expect(File.read("test.err")).to include "Prefatory material must be followed by (clause) Scope"
-end
+  end
 
-it "Warning if introduction not followed by scope" do
-      FileUtils.rm_f "test.err"
-  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
-  #{VALIDATING_BLANK_HDR}
+  it "Warning if introduction not followed by scope" do
+    FileUtils.rm_f "test.err"
+    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
+      #{VALIDATING_BLANK_HDR}
 
-  .Foreword
-  Foreword
+      .Foreword
+      Foreword
 
-  == Symbols and Abbreviated Terms
+      == Symbols and Abbreviated Terms
 
-  Paragraph
-  INPUT
+      Paragraph
+    INPUT
     expect(File.read("test.err")).to include "Prefatory material must be followed by (clause) Scope"
-end
+  end
 
-it "Warning if scope not followed by conformance" do
-      FileUtils.rm_f "test.err"
-  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
-  #{VALIDATING_BLANK_HDR}
+  it "Warning if scope not followed by conformance" do
+    FileUtils.rm_f "test.err"
+    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
+      #{VALIDATING_BLANK_HDR}
 
-  .Foreword
-  Foreword
+      .Foreword
+      Foreword
 
-  == Scope
+      == Scope
 
-  == Symbols and Abbreviated Terms
+      == Symbols and Abbreviated Terms
 
-  Paragraph
-  INPUT
+      Paragraph
+    INPUT
     expect(File.read("test.err")).to include "Scope must be followed by Conformance"
-end
+  end
 
-it "Warning if normative references not followed by terms and definitions" do
-      FileUtils.rm_f "test.err"
-  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
-  #{VALIDATING_BLANK_HDR}
+  it "Warning if normative references not followed by terms and definitions" do
+    FileUtils.rm_f "test.err"
+    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
+      #{VALIDATING_BLANK_HDR}
 
-  .Foreword
-  Foreword
+      .Foreword
+      Foreword
 
-  == Scope
+      == Scope
 
-  [bibliography]
-  == Normative References
+      [bibliography]
+      == Normative References
 
-  == Symbols and Abbreviated Terms
+      == Symbols and Abbreviated Terms
 
-  Paragraph
-  INPUT
+      Paragraph
+    INPUT
     expect(File.read("test.err")).to include "Normative References must be followed by Terms and Definitions"
-end
+  end
 
-it "Warning if there are no clauses in the document" do
-      FileUtils.rm_f "test.err"
-  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
-  #{VALIDATING_BLANK_HDR}
+  it "Warning if there are no clauses in the document" do
+    FileUtils.rm_f "test.err"
+    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
+      #{VALIDATING_BLANK_HDR}
 
-  .Foreword
-  Foreword
+      .Foreword
+      Foreword
 
-  == Scope
+      == Scope
 
-  == Conformance
+      == Conformance
 
-  [bibliography]
-  == Normative References
+      [bibliography]
+      == Normative References
 
-  == Terms and Definitions
+      == Terms and Definitions
 
-  == Symbols and Abbreviated Terms
+      == Symbols and Abbreviated Terms
 
-  INPUT
+    INPUT
     expect(File.read("test.err")).to include "Document must contain at least one clause"
-end
+  end
 
-it "Warning if no normative references" do
-      FileUtils.rm_f "test.err"
-  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
-  #{VALIDATING_BLANK_HDR}
+  it "Warning if no normative references" do
+    FileUtils.rm_f "test.err"
+    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
+      #{VALIDATING_BLANK_HDR}
 
-  .Foreword
-  Foreword
+      .Foreword
+      Foreword
 
-  == Scope
+      == Scope
 
-  == Conformance
+      == Conformance
 
-  == Terms and Definitions
+      == Terms and Definitions
 
-  == Clause
+      == Clause
 
-  [appendix]
-  == Appendix A
+      [appendix]
+      == Appendix A
 
-  [appendix]
-  == Appendix B
+      [appendix]
+      == Appendix B
 
-  [appendix]
-  == Appendix C
+      [appendix]
+      == Appendix C
 
-  INPUT
+    INPUT
     expect(File.read("test.err")).to include "Normative References are mandatory"
-end
+  end
 
   it "Warning if missing abstract" do
-      FileUtils.rm_f "test.err"
-  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
-  #{VALIDATING_BLANK_HDR}
+    FileUtils.rm_f "test.err"
+    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
+      #{VALIDATING_BLANK_HDR}
 
-  == Symbols and Abbreviated Terms
+      == Symbols and Abbreviated Terms
 
-  Paragraph
-  INPUT
+      Paragraph
+    INPUT
     expect(File.read("test.err")).to include "Abstract is missing"
-end
+  end
 
   it "Warning if missing keywords" do
-      FileUtils.rm_f "test.err"
-  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
-  #{VALIDATING_BLANK_HDR}
+    FileUtils.rm_f "test.err"
+    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
+      #{VALIDATING_BLANK_HDR}
 
-  == Symbols and Abbreviated Terms
+      == Symbols and Abbreviated Terms
 
-  Paragraph
-  INPUT
+      Paragraph
+    INPUT
     expect(File.read("test.err")).to include "Keywords are missing"
-end
+  end
 
   it "Warning if missing preface" do
-      FileUtils.rm_f "test.err"
-  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
-  #{VALIDATING_BLANK_HDR}
+    FileUtils.rm_f "test.err"
+    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
+      #{VALIDATING_BLANK_HDR}
 
-  == Symbols and Abbreviated Terms
+      == Symbols and Abbreviated Terms
 
-  Paragraph
-  INPUT
+      Paragraph
+    INPUT
     expect(File.read("test.err")).to include "Preface is missing"
-end
+  end
 
   it "Warning if missing submitting organizations" do
-      FileUtils.rm_f "test.err"
-  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
-  #{VALIDATING_BLANK_HDR}
+    FileUtils.rm_f "test.err"
+    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
+      #{VALIDATING_BLANK_HDR}
 
-  == Symbols and Abbreviated Terms
+      == Symbols and Abbreviated Terms
 
-  Paragraph
-  INPUT
+      Paragraph
+    INPUT
     expect(File.read("test.err")).to include "Submitting Organizations is missing"
-end
+  end
 
   it "Warning if missing submitters" do
-      FileUtils.rm_f "test.err"
-  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
-  #{VALIDATING_BLANK_HDR}
+    FileUtils.rm_f "test.err"
+    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
+      #{VALIDATING_BLANK_HDR}
 
-  == Symbols and Abbreviated Terms
+      == Symbols and Abbreviated Terms
 
-  Paragraph
-  INPUT
+      Paragraph
+    INPUT
     expect(File.read("test.err")).to include "Submitters is missing"
-end
+  end
 
-    it "does not warn if not missing abstract" do
-      FileUtils.rm_f "test.err"
-  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
-  #{VALIDATING_BLANK_HDR}
+  it "does not warn if not missing abstract" do
+    FileUtils.rm_f "test.err"
+    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
+      #{VALIDATING_BLANK_HDR}
 
-  [abstract]
-  == Abstract
+      [abstract]
+      == Abstract
 
-  X
+      X
 
-  == Symbols and Abbreviated Terms
+      == Symbols and Abbreviated Terms
 
-  Paragraph
-  INPUT
+      Paragraph
+    INPUT
     expect(File.read("test.err")).not_to include "Abstract is missing"
-end
+  end
 
   it "does not warn if not missing keywords" do
-      FileUtils.rm_f "test.err"
-  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
-  = Document title
-  Author
-  :docfile: test.adoc
-  :nodoc:
-  :keywords: A
+    FileUtils.rm_f "test.err"
+    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
+      = Document title
+      Author
+      :docfile: test.adoc
+      :nodoc:
+      :keywords: A
 
-  == Symbols and Abbreviated Terms
+      == Symbols and Abbreviated Terms
 
-  Paragraph
-  INPUT
+      Paragraph
+    INPUT
     expect(File.read("test.err")).not_to include "Keywords are missing"
-end
+  end
 
   it "does not warn if not missing preface" do
-      FileUtils.rm_f "test.err"
-  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
-  #{VALIDATING_BLANK_HDR}
+    FileUtils.rm_f "test.err"
+    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
+      #{VALIDATING_BLANK_HDR}
 
-  .Title
+      .Title
 
-  Preface
+      Preface
 
-  == Symbols and Abbreviated Terms
+      == Symbols and Abbreviated Terms
 
-  Paragraph
-  INPUT
+      Paragraph
+    INPUT
     expect(File.read("test.err")).not_to include "Preface is missing"
-end
+  end
 
   it "does not warn if not missing submitting organizations" do
-      FileUtils.rm_f "test.err"
-  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
-  = Document title
-  Author
-  :docfile: test.adoc
-  :nodoc:
-  :submitting-organizations: University of Bern, Switzerland; Amazon, USA
+    FileUtils.rm_f "test.err"
+    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
+      = Document title
+      Author
+      :docfile: test.adoc
+      :nodoc:
+      :submitting-organizations: University of Bern, Switzerland; Amazon, USA
 
-  == Symbols and Abbreviated Terms
+      == Symbols and Abbreviated Terms
 
-  Paragraph
-  INPUT
+      Paragraph
+    INPUT
     expect(File.read("test.err")).not_to include "Submitting Organizations is missing"
-end
+  end
 
   it "does not warn if not missing submitters" do
-      FileUtils.rm_f "test.err"
-  Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
-  #{VALIDATING_BLANK_HDR}
+    FileUtils.rm_f "test.err"
+    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
+      #{VALIDATING_BLANK_HDR}
 
-  == Submitters
+      == Submitters
 
-  X
+      X
 
-  == Symbols and Abbreviated Terms
+      == Symbols and Abbreviated Terms
 
-  Paragraph
-  INPUT
+      Paragraph
+    INPUT
     expect(File.read("test.err")).not_to include "Submitters is missing"
-end
-
-
+  end
 end
