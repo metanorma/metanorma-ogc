@@ -314,7 +314,7 @@ RSpec.describe Asciidoctor::Ogc do
          <doctype>engineering-report</doctype>
          </ext>
        </bibdata>
-       <preface>#{SECURITY}</preface>
+       <preface>#{SECURITY.sub(/standard/, "document")}</preface>
        <sections/>
        </ogc-standard>
 OUTPUT
