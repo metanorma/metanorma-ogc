@@ -87,19 +87,19 @@ module Asciidoctor
       end
 
       def insert_security(x, s)
-        preface = s.at("//preface") ||
-          s.add_previous_sibling("<preface/>").first
+        doctype = s&.at("//bibdata/ext/doctype")&.text
+        description = %w(standard community-standard).include?(doctype) ? "standard" : "document"
+        preface = s.at("//preface") || s.add_previous_sibling("<preface/>").first
         s = x&.at("//clause[@type = 'security']")&.remove ||
           "<clause type='security' #{add_id}>"\
           "<title>Security Considerations</title>"\
-          "<p>#{@i18n.security_empty}</p></clause>"
+          "<p>#{@i18n.security_empty.sub(/%/, description)}</p></clause>"
         preface.add_child s
       end
 
       def insert_submitters(x, s)
         if x.at("//submitters")
-          preface = s.at("//preface") || 
-            s.add_previous_sibling("<preface/>").first
+          preface = s.at("//preface") || s.add_previous_sibling("<preface/>").first
           submitters = x.at("//submitters").remove
           preface.add_child submitters.remove
         end
