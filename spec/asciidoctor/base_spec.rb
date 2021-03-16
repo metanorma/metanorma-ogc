@@ -678,5 +678,24 @@ OUTPUT
       OUTPUT
   end
 
+  it "processes highlight text" do
+      expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+      #{ASCIIDOC_BLANK_HDR}
+      
+      This is #highlihgted text# inline.
+      INPUT
+      #{BLANK_HDR}
+    <preface>#{SECURITY}</preface>
+       <sections>
+       <p id='_'>
+  This is 
+  <hi>highlihgted text</hi>
+   inline.
+</p>
+       </sections>
+       </ogc-standard>
+      OUTPUT
+    end
+
 
 end

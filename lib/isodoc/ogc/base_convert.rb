@@ -6,6 +6,20 @@ require "fileutils"
 module IsoDoc
   module Ogc
     module BaseConvert
+      def error_parse(node, out)
+        case node.name
+        when "hi" then hi_parse(node, out)
+        else
+          super
+        end
+      end
+
+      def hi_parse(node, out)
+        out.span **{class: "hi"} do |e|
+          node.children.each { |n| parse(n, e) }
+        end
+      end
+
       def cleanup(docxml)
         super
         term_cleanup(docxml)
@@ -37,7 +51,7 @@ module IsoDoc
 
       def middle_clause(_docxml)
         "//clause[parent::sections][not(@type = 'scope' or "\
-        "@type = 'conformance')][not(descendant::terms)]"
+          "@type = 'conformance')][not(descendant::terms)]"
       end
 
       def is_clause?(name)

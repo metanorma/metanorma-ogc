@@ -55,18 +55,14 @@ module Asciidoctor
       def outputs(node, ret)
         File.open(@filename + ".xml", "w:UTF-8") { |f| f.write(ret) }
         presentation_xml_converter(node).convert(@filename + ".xml")
-        html_converter(node).convert(@filename + ".presentation.xml", 
-                                     nil, false, "#{@filename}.html")
-        doc_converter(node).convert(@filename + ".presentation.xml", 
-                                    nil, false, "#{@filename}.doc")
-        pdf_converter(node)&.convert(@filename + ".presentation.xml", 
-                                     nil, false, "#{@filename}.pdf")
+        html_converter(node).convert(@filename + ".presentation.xml", nil, false, "#{@filename}.html")
+        doc_converter(node).convert(@filename + ".presentation.xml", nil, false, "#{@filename}.doc")
+        pdf_converter(node)&.convert(@filename + ".presentation.xml", nil, false, "#{@filename}.pdf")
       end
 
       def validate(doc)
         content_validate(doc)
-        schema_validate(formattedstr_strip(doc.dup),
-                        File.join(File.dirname(__FILE__), "ogc.rng"))
+        schema_validate(formattedstr_strip(doc.dup), File.join(File.dirname(__FILE__), "ogc.rng"))
       end
 
       def sections_cleanup(x)
@@ -132,8 +128,11 @@ module Asciidoctor
       def bibdata_cleanup(xmldoc)
         super
         a = xmldoc.at("//bibdata/status/stage")
-        a.text == "published" and
-          a.children = "approved"
+        a.text == "published" and a.children = "approved"
+      end
+
+      def highlight_parse(text, xml)
+        xml.hi { |s| s << text }
       end
 
       def presentation_xml_converter(node)

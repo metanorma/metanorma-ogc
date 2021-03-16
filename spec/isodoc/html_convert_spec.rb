@@ -983,6 +983,65 @@ OUTPUT
     )).to be_equivalent_to output
   end
 
+  it "processes hi" do
+    presxml = <<~INPUT
+    <iso-standard xmlns="http://riboseinc.com/isoxml">
+    <preface><foreword id="A"><title>Preface</title>
+<p id="_">Amen <hi>highlight</hi> Amen</p>
+    </foreword></preface>
+    </iso-standard>
+    INPUT
+
+    html = <<~OUTPUT
+        #{HTML_HDR}
+        <br/>
+      <div id="A">
+      <h1 class='ForewordTitle'>Preface</h1>
+<p id='_'>
+  Amen
+  <span class='hi'>highlight</span>
+   Amen
+</p>
+      </div>
+      <p class="zzSTDTitle1"/>
+    </div>
+  </body>
+    OUTPUT
+
+    doc = <<~OUTPUT
+    <body lang='EN-US' link='blue' vlink='#954F72'>
+         <div class='WordSection1'>
+           <p>&#160;</p>
+         </div>
+         <p>
+           <br clear='all' class='section'/>
+         </p>
+         <div class='WordSection2'>
+           <p>
+             <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+           </p>
+           <div id='A'>
+             <h1 class='ForewordTitle'>Preface</h1>
+             <p id='_'>
+               Amen
+               <span class='hi'>highlight</span>
+                Amen
+             </p>
+           </div>
+           <p>&#160;</p>
+         </div>
+         <p>
+           <br clear='all' class='section'/>
+         </p>
+         <div class='WordSection3'>
+           <p class='zzSTDTitle1'/>
+         </div>
+       </body>
+    OUTPUT
+    expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({}).convert("test", presxml, true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(html)
+    expect(xmlpp(IsoDoc::Ogc::WordConvert.new({}).convert("test", presxml, true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(doc)
+  end
+
   it "injects JS into blank html" do
     system "rm -f test.html"
     input = <<~"INPUT"
