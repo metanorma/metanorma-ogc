@@ -1445,7 +1445,7 @@
 		
 			<xsl:attribute name="font-size">11pt</xsl:attribute>
 		
-	
+		
 	</xsl:attribute-set><xsl:attribute-set name="deprecates-style">
 		
 	</xsl:attribute-set><xsl:attribute-set name="definition-style">
