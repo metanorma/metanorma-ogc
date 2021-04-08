@@ -32,7 +32,6 @@ module IsoDoc
           htmlstylesheet: html_doc_path("htmlstyle.scss"),
           htmlcoverpage: html_doc_path("html_ogc_titlepage.html"),
           htmlintropage: html_doc_path("html_ogc_intro.html"),
-          scripts: html_doc_path("scripts.html"),
         }
       end
 
