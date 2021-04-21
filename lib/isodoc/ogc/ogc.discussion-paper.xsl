@@ -1620,6 +1620,7 @@
 		</xsl:choose>
 	</xsl:template><xsl:variable name="lower">abcdefghijklmnopqrstuvwxyz</xsl:variable><xsl:variable name="upper">ABCDEFGHIJKLMNOPQRSTUVWXYZ</xsl:variable><xsl:variable name="en_chars" select="concat($lower,$upper,',.`1234567890-=~!@#$%^*()_+[]{}\|?/')"/><xsl:variable name="linebreak" select="'&#8232;'"/><xsl:attribute-set name="root-style">
 		
+		
 	</xsl:attribute-set><xsl:attribute-set name="link-style">
 		
 		
@@ -2738,7 +2739,8 @@
 			<xsl:attribute name="text-align">
 				<xsl:choose>
 					<xsl:when test="@align">
-						<xsl:value-of select="@align"/>
+						<xsl:call-template name="setAlignment"/>
+						<!-- <xsl:value-of select="@align"/> -->
 					</xsl:when>
 					<xsl:otherwise>center</xsl:otherwise>
 				</xsl:choose>
@@ -2756,6 +2758,9 @@
 			
 			
 			
+			<xsl:if test="$lang = 'ar'">
+				<xsl:attribute name="padding-right">1mm</xsl:attribute>
+			</xsl:if>
 			<xsl:if test="@colspan">
 				<xsl:attribute name="number-columns-spanned">
 					<xsl:value-of select="@colspan"/>
@@ -2787,11 +2792,15 @@
 			<xsl:attribute name="text-align">
 				<xsl:choose>
 					<xsl:when test="@align">
-						<xsl:value-of select="@align"/>
+						<xsl:call-template name="setAlignment"/>
+						<!-- <xsl:value-of select="@align"/> -->
 					</xsl:when>
 					<xsl:otherwise>left</xsl:otherwise>
 				</xsl:choose>
 			</xsl:attribute>
+			<xsl:if test="$lang = 'ar'">
+				<xsl:attribute name="padding-right">1mm</xsl:attribute>
+			</xsl:if>
 			
 			
 			
@@ -5077,7 +5086,9 @@
 				</fo:inline>
 			</xsl:when>
 			<xsl:otherwise>
-				<fo:inline padding-right="{$padding-right}mm">​</fo:inline>
+				<xsl:if test="$lang != 'ar'">
+					<fo:inline padding-right="{$padding-right}mm">​</fo:inline>
+				</xsl:if>
 			</xsl:otherwise>
 		</xsl:choose>
 		
@@ -5959,5 +5970,17 @@
 				</xsl:if>
 			</xsl:otherwise>
 		</xsl:choose>
-		
+	</xsl:template><xsl:variable name="LRM" select="'‎'"/><xsl:template name="setWritingMode">
+		<xsl:if test="$lang = 'ar'">
+			<xsl:attribute name="writing-mode">rl-tb</xsl:attribute>
+		</xsl:if>
+	</xsl:template><xsl:template name="setAlignment">
+		<xsl:param name="align" select="normalize-space(@align)"/>
+		<xsl:choose>
+			<xsl:when test="$lang = 'ar' and $align = 'left'">start</xsl:when>
+			<xsl:when test="$lang = 'ar' and $align = 'right'">end</xsl:when>
+			<xsl:when test="$align != ''">
+				<xsl:value-of select="$align"/>
+			</xsl:when>
+		</xsl:choose>
 	</xsl:template></xsl:stylesheet>
