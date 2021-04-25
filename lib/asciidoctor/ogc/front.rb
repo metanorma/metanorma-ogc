@@ -12,8 +12,9 @@ module Asciidoctor
 
       def corporate_author(node, xml)
         return unless node.attr("submitting-organizations")
-        csv_split(HTMLEntities.new.decode(node.attr("submitting-organizations")),
-                  ";")&.each do |org|
+
+        csv_split(HTMLEntities.new
+          .decode(node.attr("submitting-organizations")), ";")&.each do |org|
           xml.contributor do |c|
             c.role **{ type: "author" }
             c.organization do |a|
@@ -37,6 +38,7 @@ module Asciidoctor
 
       def ogc_editor(node, xml)
         return unless node.attr("editor")
+
         xml.contributor do |c|
           c.role **{ type: "editor" }
           c.person do |p|
@@ -69,6 +71,7 @@ module Asciidoctor
 
       def metadata_committee(node, xml)
         return unless node.attr("committee")
+
         xml.editorialgroup do |a|
           a.committee(node.attr("committee") || "technical")
           node.attr("subcommittee") and
@@ -84,9 +87,11 @@ module Asciidoctor
 
       def externalid(node)
         return node.attr("external-id") if node.attr("external-id")
+
         d = doctype(node)
         a = node.attr("abbrev")
-        return unless d and a
+        return unless d && a
+
         url = "http://www.opengis.net/doc/#{IsoDoc::Ogc::DOCTYPE_ABBR[d]}/#{a}"
         v = (node.attr("edition") || node.attr("version")) and url += "/#{v}"
         url
@@ -107,7 +112,7 @@ module Asciidoctor
         if doctype(node) == "engineering-report"
           "http://www.opengis.net/doc/PER/t14-#{node.attr('referenceurlid')}"
         else
-          node.attr('referenceurlid')
+          node.attr("referenceurlid")
         end
       end
 
@@ -125,9 +130,9 @@ module Asciidoctor
 
       def metadata_date(node, xml)
         super
-        ogc_date(node, xml, "submissiondate", "received" )
-        ogc_date(node, xml, "publicationdate", "published" )
-        ogc_date(node, xml, "approvaldate", "issued" )
+        ogc_date(node, xml, "submissiondate", "received")
+        ogc_date(node, xml, "publicationdate", "published")
+        ogc_date(node, xml, "approvaldate", "issued")
       end
 
       def ogc_date(node, xml, ogcname, metanormaname)
@@ -139,27 +144,30 @@ module Asciidoctor
       end
 
       def metadata_version(node, xml)
-        node.set_attr("edition", node.attr("version"), false) if node.attr("version")
+        node.attr("version") and
+          node.set_attr("edition", node.attr("version"), false)
         super
       end
 
       def metadata_subdoctype(node, xml)
-        s = node.attr("docsubtype") 
+        s = node.attr("docsubtype")
         s1 = ::IsoDoc::Ogc::DOCSUBTYPE_ABBR.invert[s] and s = s1
         case doctype(node)
         when "standard"
           unless %w{conceptual-model conceptual-model-and-encoding
                     conceptual-model-and-implementation encoding extension
                     implementation profile profile-with-extension}.include? s
-            @log.add("Document Attributes", nil, "'#{s}' is not a permitted subtype of Standard: "\
-              "reverting to 'implementation'")
+            @log.add("Document Attributes", nil,
+                     "'#{s}' is not a permitted subtype of Standard: "\
+                     "reverting to 'implementation'")
             s = "implementation"
           end
         when "best-practice"
           unless %w{general encoding extension profile
                     profile-with-extension}.include? s
-            @log.add("Document Attributes", nil, "'#{s}' is not a permitted subtype of Standard: "\
-              "reverting to 'implementation'")
+            @log.add("Document Attributes", nil,
+                     "'#{s}' is not a permitted subtype of Standard: "\
+                     "reverting to 'implementation'")
             s = "general"
           end
         end
