@@ -1628,6 +1628,7 @@
 		
 		
 		
+		
 			<!-- <xsl:attribute name="color">rgb(33, 55, 92)</xsl:attribute> -->
 			<xsl:attribute name="text-decoration">underline</xsl:attribute>
 		
@@ -1735,6 +1736,7 @@
 		
 		
 		
+		
 	</xsl:attribute-set><xsl:attribute-set name="example-body-style">
 		
 		
@@ -1754,9 +1756,7 @@
 			<xsl:attribute name="keep-with-next">always</xsl:attribute>			 
 		
 		
-		
-		
-		
+				
 				
 		
 		
@@ -1805,6 +1805,7 @@
 		
 		
 		
+		
 	</xsl:attribute-set><xsl:attribute-set name="appendix-style">
 				
 			<xsl:attribute name="font-size">12pt</xsl:attribute>
@@ -1828,7 +1829,9 @@
 		
 		
 		
+		
 	</xsl:attribute-set><xsl:attribute-set name="eref-style">
+		
 		
 		
 		
@@ -1933,7 +1936,9 @@
 		
 		
 		
+		
 	</xsl:attribute-set><xsl:attribute-set name="origin-style">
+		
 		
 		
 		
@@ -2010,7 +2015,9 @@
 			<xsl:attribute name="font-size">11pt</xsl:attribute>
 		
 		
+		
 	</xsl:attribute-set><xsl:attribute-set name="deprecates-style">
+		
 		
 	</xsl:attribute-set><xsl:attribute-set name="definition-style">
 		
@@ -2790,6 +2797,7 @@
 			
 			
 			
+			
 			<xsl:if test="$lang = 'ar'">
 				<xsl:attribute name="padding-right">1mm</xsl:attribute>
 			</xsl:if>
@@ -3166,6 +3174,7 @@
 							
 							
 							
+							
 							<xsl:variable name="title-key">
 								
 								
@@ -3452,6 +3461,8 @@
 			
 			<xsl:apply-templates/>
 		</fo:inline>
+	</xsl:template><xsl:template match="*[local-name()='padding']">
+		<fo:inline padding-right="{@value}"> </fo:inline>
 	</xsl:template><xsl:template match="*[local-name()='sup']">
 		<fo:inline font-size="80%" vertical-align="super">
 			<xsl:apply-templates/>
@@ -3945,6 +3956,16 @@
 	</xsl:template><xsl:template match="mathml:math/*[local-name()='unit']" mode="mathml"/><xsl:template match="mathml:math/*[local-name()='prefix']" mode="mathml"/><xsl:template match="mathml:math/*[local-name()='dimension']" mode="mathml"/><xsl:template match="mathml:math/*[local-name()='quantity']" mode="mathml"/><xsl:template match="*[local-name()='localityStack']"/><xsl:template match="*[local-name()='link']" name="link">
 		<xsl:variable name="target">
 			<xsl:choose>
+				<xsl:when test="@updatetype = 'true'">
+					<xsl:value-of select="concat(normalize-space(@target), '.pdf')"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="normalize-space(@target)"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:variable name="target_text">
+			<xsl:choose>
 				<xsl:when test="starts-with(normalize-space(@target), 'mailto:')">
 					<xsl:value-of select="normalize-space(substring-after(@target, 'mailto:'))"/>
 				</xsl:when>
@@ -3956,19 +3977,19 @@
 		<fo:inline xsl:use-attribute-sets="link-style">
 			
 			<xsl:choose>
-				<xsl:when test="$target = ''">
+				<xsl:when test="$target_text = ''">
 					<xsl:apply-templates/>
 				</xsl:when>
 				<xsl:otherwise>
-					<fo:basic-link external-destination="{@target}" fox:alt-text="{@target}">
+					<fo:basic-link external-destination="{$target}" fox:alt-text="{$target}">
 						<xsl:choose>
 							<xsl:when test="normalize-space(.) = ''">
-								<!-- <xsl:value-of select="$target"/> -->
 								<xsl:call-template name="add-zero-spaces-link-java">
-									<xsl:with-param name="text" select="$target"/>
+									<xsl:with-param name="text" select="$target_text"/>
 								</xsl:call-template>
 							</xsl:when>
 							<xsl:otherwise>
+								<!-- output text from <link>text</link> -->
 								<xsl:apply-templates/>
 							</xsl:otherwise>
 						</xsl:choose>
@@ -4593,6 +4614,7 @@
 	</xsl:template><xsl:template match="*[local-name()='sourcecode']" name="sourcecode">
 	
 		<fo:block-container margin-left="0mm">
+			<xsl:copy-of select="@id"/>
 			<xsl:if test="parent::*[local-name() = 'note']">
 				<xsl:attribute name="margin-left">
 					<xsl:choose>
@@ -4878,6 +4900,7 @@
 	</xsl:template><xsl:template match="*[local-name() = 'example']">
 		<fo:block id="{@id}" xsl:use-attribute-sets="example-style">
 			
+			
 			<xsl:apply-templates select="*[local-name()='name']" mode="presentation"/>
 			
 			<xsl:variable name="element">
@@ -4986,12 +5009,13 @@
 					
 					
 					
+					
 						<xsl:call-template name="getTitle">
 							<xsl:with-param name="name" select="'title-source'"/>
 						</xsl:call-template>
+						<xsl:text>: </xsl:text>
 					
 					
-					<xsl:text>: </xsl:text>
 				</fo:inline>
 			
 			<fo:inline xsl:use-attribute-sets="origin-style">
@@ -5092,6 +5116,7 @@
 		</xsl:variable>
 		
 		<xsl:variable name="padding">
+			
 			
 			
 			
@@ -5927,6 +5952,9 @@
 						<xsl:when test="parent::*[local-name() = 'preface']">
 							<xsl:value-of select="$level_total - 1"/>
 						</xsl:when>
+						<xsl:when test="ancestor::*[local-name() = 'preface'] and not(ancestor::*[local-name() = 'foreword']) and not(ancestor::*[local-name() = 'introduction'])"> <!-- for preface/clause -->
+							<xsl:value-of select="$level_total - 1"/>
+						</xsl:when>
 						<xsl:when test="ancestor::*[local-name() = 'preface']">
 							<xsl:value-of select="$level_total - 2"/>
 						</xsl:when>
@@ -6067,7 +6095,14 @@
 			<xsl:when test="/*/*[local-name() = 'localized-strings']/*[local-name() = 'localized-string'][@key = $key and @language = $curr_lang]">
 				<xsl:value-of select="/*/*[local-name() = 'localized-strings']/*[local-name() = 'localized-string'][@key = $key and @language = $curr_lang]"/>
 			</xsl:when>
-			<xsl:otherwise><xsl:value-of select="$key"/></xsl:otherwise>
+			<xsl:otherwise>
+				<xsl:variable name="key_">
+					<xsl:call-template name="capitalize">
+						<xsl:with-param name="str" select="translate($key, '_', ' ')"/>
+					</xsl:call-template>
+				</xsl:variable>
+				<xsl:value-of select="$key_"/>
+			</xsl:otherwise>
 		</xsl:choose>
 		
 	</xsl:template><xsl:template name="setTrackChangesStyles">
