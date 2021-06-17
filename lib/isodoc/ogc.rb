@@ -7,6 +7,5 @@ require "isodoc/ogc/xref"
 
 module IsoDoc
   module Ogc
-
   end
 end

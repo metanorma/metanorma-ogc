@@ -19,7 +19,7 @@ module IsoDoc
       "user-guide" => "UG",
       "white-paper" => "WP",
       "other" => "other",
-    }
+    }.freeze
 
     DOCSUBTYPE_ABBR = {
       "implementation" => "IMP",
@@ -31,7 +31,7 @@ module IsoDoc
       "profile" => "PF",
       "profile-with-extension" => "PFE",
       "general" => "GE",
-    }
+    }.freeze
 
     class Metadata < IsoDoc::Metadata
       def initialize(lang, script, i18n)
@@ -53,16 +53,20 @@ module IsoDoc
       def author(isoxml, _out)
         tc = isoxml.at(ns("//bibdata/ext/editorialgroup/committee"))
         set(:tc, tc.text) if tc
-        authors = isoxml.xpath(ns("//bibdata/contributor[role/@type = 'author']/person"))
+        authors = isoxml.xpath(ns("//bibdata/contributor"\
+                                  "[role/@type = 'author']/person"))
         set(:authors, extract_person_names(authors))
-        editors = isoxml.xpath(ns("//bibdata/contributor[role/@type = 'editor']/person"))
+        editors = isoxml.xpath(ns("//bibdata/contributor"\
+                                  "[role/@type = 'editor']/person"))
         set(:editors, extract_person_names(editors))
         agency(isoxml)
       end
 
       def docid(isoxml, _out)
-        set(:docnumber, isoxml&.at(ns("//bibdata/docidentifier[@type = 'ogc-internal']"))&.text)
-        set(:externalid, isoxml&.at(ns("//bibdata/docidentifier[@type = 'ogc-external']"))&.text)
+        set(:docnumber, isoxml&.at(ns("//bibdata/docidentifier"\
+                                      "[@type = 'ogc-internal']"))&.text)
+        set(:externalid, isoxml&.at(ns("//bibdata/docidentifier"\
+                                       "[@type = 'ogc-external']"))&.text)
       end
 
       def unpublished(status)
@@ -78,11 +82,12 @@ module IsoDoc
 
       def url(xml, _out)
         super
-        a = xml.at(ns("//bibdata/uri[@type = 'previous']")) and set(:previousuri, a.text)
+        a = xml.at(ns("//bibdata/uri[@type = 'previous']")) and
+          set(:previousuri, a.text)
       end
 
-      def type_capitalise(b)
-        b.split(/[- ]/).map do |w|
+      def type_capitalise(type)
+        type.split(/[- ]/).map do |w|
           %w(SWG).include?(w) ? w : w.capitalize
         end.join(" ")
       end
@@ -98,12 +103,12 @@ module IsoDoc
         end
       end
 
-      def doctype_abbr(b)
-        IsoDoc::Ogc::DOCTYPE_ABBR[b] || b
+      def doctype_abbr(type)
+        IsoDoc::Ogc::DOCTYPE_ABBR[type] || type
       end
 
-      def docsubtype_abbr(st, t)
-        IsoDoc::Ogc::DOCSUBTYPE_ABBR[st] || st
+      def docsubtype_abbr(subtype, _type)
+        IsoDoc::Ogc::DOCSUBTYPE_ABBR[subtype] || st
       end
 
       def status_print(status)

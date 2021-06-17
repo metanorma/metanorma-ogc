@@ -11,9 +11,8 @@ module Metanorma
       }
     end
 
-    ORGANIZATION_NAME_SHORT = "OGC"
-    ORGANIZATION_NAME_LONG = "Open Geospatial Consortium"
-    DOCUMENT_NAMESPACE = "https://standards.opengeospatial.org/document"
-
+    ORGANIZATION_NAME_SHORT = "OGC".freeze
+    ORGANIZATION_NAME_LONG = "Open Geospatial Consortium".freeze
+    DOCUMENT_NAMESPACE = "https://standards.opengeospatial.org/document".freeze
   end
 end

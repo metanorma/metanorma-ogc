@@ -1,10 +1,10 @@
 module IsoDoc
   module Ogc
     module BaseConvert
-      def intro_clause(f, out)
-        out.div **{ class: "Section3", id: f["id"] } do |div|
-          clause_name(nil, f&.at(ns("./title")), div, class: "IntroTitle")
-          f.elements.each { |e| parse(e, div) unless e.name == "title" }
+      def intro_clause(elem, out)
+        out.div **{ class: "Section3", id: elem["id"] } do |div|
+          clause_name(nil, elem&.at(ns("./title")), div, class: "IntroTitle")
+          elem.elements.each { |e| parse(e, div) unless e.name == "title" }
         end
       end
 
@@ -14,7 +14,8 @@ module IsoDoc
       end
 
       def submittingorgs(docxml, out)
-        f = docxml.at(ns("//preface/clause[@type = 'submitting_orgs']")) || return
+        f = docxml.at(ns("//preface/clause[@type = 'submitting_orgs']")) or
+          return
         intro_clause(f, out)
       end
 
@@ -30,7 +31,8 @@ module IsoDoc
 
       def preface(isoxml, out)
         isoxml.xpath(ns("//preface/clause[not(@type = 'keywords' or "\
-                        "@type = 'submitting_orgs' or @type = 'security')]")).each do |f|
+                        "@type = 'submitting_orgs' or @type = 'security')]"))
+          .each do |f|
           intro_clause(f, out)
         end
       end
