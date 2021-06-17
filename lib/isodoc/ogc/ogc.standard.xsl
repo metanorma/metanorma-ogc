@@ -1720,7 +1720,7 @@
 		
 		
 		
-		
+
 	</xsl:attribute-set><xsl:attribute-set name="example-style">
 		
 		
@@ -1785,6 +1785,7 @@
 		
 		
 				
+				
 	</xsl:attribute-set><xsl:attribute-set name="table-name-style">
 		<xsl:attribute name="keep-with-next">always</xsl:attribute>
 			
@@ -1805,6 +1806,8 @@
 		
 		
 		
+		
+	</xsl:attribute-set><xsl:attribute-set name="table-footer-cell-style">
 		
 	</xsl:attribute-set><xsl:attribute-set name="appendix-style">
 				
@@ -1856,6 +1859,7 @@
 		
 		
 		
+		
 	</xsl:attribute-set><xsl:variable name="note-body-indent">10mm</xsl:variable><xsl:variable name="note-body-indent-table">5mm</xsl:variable><xsl:attribute-set name="note-name-style">
 		
 		
@@ -1900,12 +1904,14 @@
 			<xsl:attribute name="margin-top">12pt</xsl:attribute>			
 			<xsl:attribute name="margin-bottom">12pt</xsl:attribute>						
 		
+		
 	</xsl:attribute-set><xsl:attribute-set name="termnote-name-style">		
 		
 		
 			<xsl:attribute name="font-weight">bold</xsl:attribute>
 			<xsl:attribute name="padding-right">1mm</xsl:attribute>
 				
+		
 		
 	</xsl:attribute-set><xsl:attribute-set name="quote-style">		
 		
@@ -1965,6 +1971,7 @@
 		
 		
 		
+
 		
 		
 		
@@ -2043,6 +2050,8 @@
 		<xsl:attribute name="font-family">STIX Two Math</xsl:attribute>
 		
 		
+	</xsl:attribute-set><xsl:attribute-set name="list-style">
+		
 	</xsl:attribute-set><xsl:variable name="border-block-added">2.5pt solid rgb(0, 176, 80)</xsl:variable><xsl:variable name="border-block-deleted">2.5pt solid rgb(255, 0, 0)</xsl:variable><xsl:template name="processPrefaceSectionsDefault_Contents">
 		<xsl:apply-templates select="/*/*[local-name()='preface']/*[local-name()='abstract']" mode="contents"/>
 		<xsl:apply-templates select="/*/*[local-name()='preface']/*[local-name()='foreword']" mode="contents"/>
@@ -2091,18 +2100,18 @@
 		<xsl:variable name="table-preamble">
 			
 			
-				<fo:block> </fo:block>				
+				<fo:block> </fo:block>
 			
 		</xsl:variable>
 		
 		<xsl:variable name="table">
 	
 			<xsl:variable name="simple-table">	
-				<xsl:call-template name="getSimpleTable"/>			
+				<xsl:call-template name="getSimpleTable"/>
 			</xsl:variable>
 		
 			<!-- <xsl:if test="$namespace = 'bipm'">
-				<fo:block>&#xA0;</fo:block>				
+				<fo:block>&#xA0;</fo:block>
 			</xsl:if> -->
 			
 			<!-- $namespace = 'iso' or  -->
@@ -2219,6 +2228,7 @@
 									
 					
 									
+					
 					
 				</xsl:variable>
 				
@@ -2505,6 +2515,7 @@
 		<!-- font-weight="bold" -->
 		<fo:table-header>
 			
+			
 			<xsl:apply-templates/>
 		</fo:table-header>
 	</xsl:template><xsl:template name="table-header-title">
@@ -2766,6 +2777,7 @@
 					</xsl:if>					
 				
 				
+				
 				<!-- <xsl:if test="$namespace = 'bipm'">
 					<xsl:attribute name="height">8mm</xsl:attribute>
 				</xsl:if> -->
@@ -2849,6 +2861,7 @@
 			
 			
 				<xsl:attribute name="border">solid 0pt white</xsl:attribute>
+			
 			
 			
 			
@@ -3074,6 +3087,7 @@
 			
 			
 				<xsl:attribute name="vertical-align">super</xsl:attribute>
+			
 			
 			
 			
@@ -3387,6 +3401,7 @@
 			
 				<xsl:attribute name="min-height">8.5mm</xsl:attribute>
 			
+			
 			<fo:table-cell>
 				
 				<fo:block margin-top="6pt">
@@ -3403,6 +3418,7 @@
 					
 						<xsl:attribute name="margin-top">0pt</xsl:attribute>
 						<xsl:attribute name="margin-bottom">6pt</xsl:attribute>
+					
 					
 					
 					<xsl:apply-templates/>
@@ -3952,7 +3968,15 @@
 		<xsl:copy>
 			<xsl:apply-templates select="@*|node()" mode="mathml"/>
 		</xsl:copy>
-		<mathml:mspace width="0.5ex"/>
+		<xsl:choose>
+			<!-- if in msub, then don't add space -->
+			<xsl:when test="ancestor::mathml:mrow[parent::mathml:msub and preceding-sibling::*[1][self::mathml:mrow]]"/>
+			<!-- if next char in digit,  don't add space -->
+			<xsl:when test="translate(substring(following-sibling::*[1]/text(),1,1),'0123456789','') = ''"/>
+			<xsl:otherwise>
+				<mathml:mspace width="0.5ex"/>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template><xsl:template match="mathml:math/*[local-name()='unit']" mode="mathml"/><xsl:template match="mathml:math/*[local-name()='prefix']" mode="mathml"/><xsl:template match="mathml:math/*[local-name()='dimension']" mode="mathml"/><xsl:template match="mathml:math/*[local-name()='quantity']" mode="mathml"/><xsl:template match="*[local-name()='localityStack']"/><xsl:template match="*[local-name()='link']" name="link">
 		<xsl:variable name="target">
 			<xsl:choose>
@@ -3975,6 +3999,7 @@
 			</xsl:choose>
 		</xsl:variable>
 		<fo:inline xsl:use-attribute-sets="link-style">
+			
 			
 			<xsl:choose>
 				<xsl:when test="$target_text = ''">
@@ -4131,6 +4156,7 @@
 		</xsl:choose>
 	</xsl:template><xsl:template match="*[local-name() = 'termnote']">
 		<fo:block id="{@id}" xsl:use-attribute-sets="termnote-style">			
+			
 			<fo:inline xsl:use-attribute-sets="termnote-name-style">
 				
 				<xsl:apply-templates select="*[local-name() = 'name']" mode="presentation"/>
@@ -4208,6 +4234,7 @@
 			</xsl:call-template>
 			
 			<fo:block>
+				
 				<xsl:apply-templates/>
 			</fo:block>
 			<xsl:call-template name="fn_display_figure"/>
@@ -4615,6 +4642,7 @@
 	
 		<fo:block-container margin-left="0mm">
 			<xsl:copy-of select="@id"/>
+			
 			<xsl:if test="parent::*[local-name() = 'note']">
 				<xsl:attribute name="margin-left">
 					<xsl:choose>
@@ -4625,7 +4653,9 @@
 				
 			</xsl:if>
 			<fo:block-container margin-left="0mm">
-	
+		
+				
+				
 				<fo:block xsl:use-attribute-sets="sourcecode-style">
 					<xsl:variable name="_font-size">
 						
@@ -4654,9 +4684,13 @@
 						</xsl:choose>
 					</xsl:attribute>
 				</xsl:if>
-					<xsl:apply-templates/>			
-				</fo:block>
+				
+				<xsl:apply-templates/>			
+			</fo:block>
+				
+			
 				<xsl:apply-templates select="*[local-name()='name']" mode="presentation"/>
+				
 				
 			</fo:block-container>
 		</fo:block-container>
@@ -5010,6 +5044,8 @@
 					
 					
 					
+					
+					
 						<xsl:call-template name="getTitle">
 							<xsl:with-param name="name" select="'title-source'"/>
 						</xsl:call-template>
@@ -5239,6 +5275,7 @@
 	</xsl:template><xsl:template match="*[local-name() = 'clause']">
 		<fo:block>
 			<xsl:call-template name="setId"/>
+			
 			
 			
 			<xsl:apply-templates/>
@@ -6145,4 +6182,14 @@
 				<xsl:value-of select="$align"/>
 			</xsl:when>
 		</xsl:choose>
+	</xsl:template><xsl:template name="setTextAlignment">
+		<xsl:param name="default">left</xsl:param>
+		<xsl:attribute name="text-align">
+			<xsl:choose>
+				<xsl:when test="@align"><xsl:value-of select="@align"/></xsl:when>
+				<xsl:when test="ancestor::*[local-name() = 'td']/@align"><xsl:value-of select="ancestor::*[local-name() = 'td']/@align"/></xsl:when>
+				<xsl:when test="ancestor::*[local-name() = 'th']/@align"><xsl:value-of select="ancestor::*[local-name() = 'th']/@align"/></xsl:when>
+				<xsl:otherwise><xsl:value-of select="$default"/></xsl:otherwise>
+			</xsl:choose>
+		</xsl:attribute>
 	</xsl:template></xsl:stylesheet>
