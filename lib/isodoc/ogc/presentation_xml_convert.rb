@@ -154,6 +154,7 @@ module IsoDoc
       end
 
       def references(docxml)
+        super
         docxml.xpath(ns("//bibitem/date")).each do |d|
           d.xpath(ns("./on | ./from | ./to")).each do |d1|
             d1.children = d1.text.sub(/^(\d\d\d\d).*$/, "\\1")
