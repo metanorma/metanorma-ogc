@@ -60,7 +60,7 @@ RSpec.describe IsoDoc::Ogc do
 
     presxml = <<~OUTPUT
           <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
-          <preface><foreword id="A"><title depth="1">I.<tab/>Preface</title>
+          <preface><foreword id="A" displayorder="1"><title depth="1">I.<tab/>Preface</title>
           <table id="A1" class="permission" type="recommend">
       <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Permission 1:</p></th></tr></thead><tbody><tr><td colspan="2"><p>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Subject</td><td>user</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td>Dependency</td><td><eref type="inline" bibitemid="rfc2616" citeas="RFC 2616">RFC 2616 (HTTP/1.1)</eref></td></tr><tr><td>Control-class</td><td>Technical</td></tr><tr><td>Priority</td><td>P0</td></tr><tr><td>Family</td><td>System and Communications Protection</td></tr><tr><td>Family</td><td>System and Communications Protocols</td></tr><tr><td colspan="2">
           <p id="_">I recommend <em>this</em>.</p>
@@ -78,9 +78,9 @@ RSpec.describe IsoDoc::Ogc do
           </sourcecode>
         </td></tr></tbody></table>
           </foreword></preface>
-          <bibliography><references id="_bibliography" obligation="informative" normative="false">
+          <bibliography><references id="_bibliography" obligation="informative" normative="false" displayorder="2">
       <title depth="1">Bibliography</title>
-      <bibitem id="rfc2616" type="standard"> <fetched>2020-03-27</fetched> <title format="text/plain" language="en" script="Latn">Hypertext Transfer Protocol&#x2009;&#x2014;&#x2009;HTTP/1.1</title> <uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</uri> <uri type="src">https://www.rfc-editor.org/info/rfc2616</uri> <docidentifier type="IETF">RFC 2616</docidentifier> <docidentifier type="rfc-anchor">RFC2616</docidentifier> <docidentifier type="DOI">10.17487/RFC2616</docidentifier> <date type="published">  <on>1999</on> </date> <contributor>  <role type="author"/>  <person>   <name>    <completename language="en">R. Fielding</completename>   </name>   <affiliation>    <organization>     <name>IETF</name>     <abbreviation>IETF</abbreviation>    </organization>   </affiliation>  </person> </contributor> <contributor>  <role type="author"/>  <person>   <name>    <completename language="en">J. Gettys</completename>   </name>   <affiliation>    <organization>     <name>IETF</name>     <abbreviation>IETF</abbreviation>    </organization>   </affiliation>  </person> </contributor> <contributor>  <role type="author"/>  <person>   <name>    <completename language="en">J. Mogul</completename>   </name>   <affiliation>    <organization>     <name>IETF</name>     <abbreviation>IETF</abbreviation>    </organization>   </affiliation>  </person> </contributor> <contributor>  <role type="author"/>  <person>   <name>    <completename language="en">H. Frystyk</completename>   </name>   <affiliation>    <organization>     <name>IETF</name>     <abbreviation>IETF</abbreviation>    </organization>   </affiliation>  </person> </contributor> <contributor>  <role type="author"/>  <person>   <name>    <completename language="en">L. Masinter</completename>   </name>   <affiliation>    <organization>     <name>IETF</name>     <abbreviation>IETF</abbreviation>    </organization>   </affiliation>  </person> </contributor> <contributor>  <role type="author"/>  <person>   <name>    <completename language="en">P. Leach</completename>   </name>   <affiliation>    <organization>     <name>IETF</name>     <abbreviation>IETF</abbreviation>    </organization>   </affiliation>  </person> </contributor> <contributor>  <role type="author"/>  <person>   <name>    <completename language="en">T. Berners-Lee</completename>   </name>   <affiliation>    <organization>     <name>IETF</name>     <abbreviation>IETF</abbreviation>    </organization>   </affiliation>  </person> </contributor> <language>en</language> <script>Latn</script> <abstract format="text/plain" language="en" script="Latn">HTTP has been in use by the World-Wide Web global information initiative since 1990. This specification defines the protocol referred to as &#x201C;HTTP/1.1&#x201D;, and is an update to RFC 2068. [STANDARDS-TRACK]</abstract> <series type="main">  <title format="text/plain" language="en" script="Latn">RFC</title>  <number>2616</number> </series> <place>Fremont, CA</place></bibitem>
+      <bibitem id="rfc2616" type="standard"> <fetched>2020-03-27</fetched> <title format="text/plain" language="en" script="Latn">Hypertext Transfer Protocol&#x2009;&#x2014;&#x2009;HTTP/1.1</title> <uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</uri> <uri type="src">https://www.rfc-editor.org/info/rfc2616</uri> <docidentifier type="IETF">IETF RFC 2616</docidentifier> <docidentifier type="rfc-anchor">RFC2616</docidentifier> <docidentifier type="DOI">DOI 10.17487/RFC2616</docidentifier> <date type="published">  <on>1999</on> </date> <contributor>  <role type="author"/>  <person>   <name>    <completename language="en">R. Fielding</completename>   </name>   <affiliation>    <organization>     <name>IETF</name>     <abbreviation>IETF</abbreviation>    </organization>   </affiliation>  </person> </contributor> <contributor>  <role type="author"/>  <person>   <name>    <completename language="en">J. Gettys</completename>   </name>   <affiliation>    <organization>     <name>IETF</name>     <abbreviation>IETF</abbreviation>    </organization>   </affiliation>  </person> </contributor> <contributor>  <role type="author"/>  <person>   <name>    <completename language="en">J. Mogul</completename>   </name>   <affiliation>    <organization>     <name>IETF</name>     <abbreviation>IETF</abbreviation>    </organization>   </affiliation>  </person> </contributor> <contributor>  <role type="author"/>  <person>   <name>    <completename language="en">H. Frystyk</completename>   </name>   <affiliation>    <organization>     <name>IETF</name>     <abbreviation>IETF</abbreviation>    </organization>   </affiliation>  </person> </contributor> <contributor>  <role type="author"/>  <person>   <name>    <completename language="en">L. Masinter</completename>   </name>   <affiliation>    <organization>     <name>IETF</name>     <abbreviation>IETF</abbreviation>    </organization>   </affiliation>  </person> </contributor> <contributor>  <role type="author"/>  <person>   <name>    <completename language="en">P. Leach</completename>   </name>   <affiliation>    <organization>     <name>IETF</name>     <abbreviation>IETF</abbreviation>    </organization>   </affiliation>  </person> </contributor> <contributor>  <role type="author"/>  <person>   <name>    <completename language="en">T. Berners-Lee</completename>   </name>   <affiliation>    <organization>     <name>IETF</name>     <abbreviation>IETF</abbreviation>    </organization>   </affiliation>  </person> </contributor> <language>en</language> <script>Latn</script> <abstract format="text/plain" language="en" script="Latn">HTTP has been in use by the World-Wide Web global information initiative since 1990. This specification defines the protocol referred to as &#x201C;HTTP/1.1&#x201D;, and is an update to RFC 2068. [STANDARDS-TRACK]</abstract> <series type="main">  <title format="text/plain" language="en" script="Latn">RFC</title>  <number>2616</number> </series> <place>Fremont, CA</place></bibitem>
       </references></bibliography>
           </ogc-standard>
     OUTPUT
@@ -445,7 +445,7 @@ RSpec.describe IsoDoc::Ogc do
     presxml = <<~OUTPUT
            <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
           <preface>
-              <foreword id="A"><title depth="1">I.<tab/>Preface</title>
+              <foreword id="A" displayorder="1"><title depth="1">I.<tab/>Preface</title>
           <table id="A1" type="recommendtest" class="permission">
       <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTestTitle">Permission Test 1:</p></th></tr></thead><tbody><tr><td colspan="2"><p>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Subject</td><td>user</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td>Control-class</td><td>Technical</td></tr><tr><td>Priority</td><td>P0</td></tr><tr><td>Family</td><td>System and Communications Protection</td></tr><tr><td>Family</td><td>System and Communications Protocols</td></tr><tr><td colspan="2">
           <p id="_">I recommend <em>this</em>.</p>
@@ -788,7 +788,7 @@ RSpec.describe IsoDoc::Ogc do
     presxml = <<~OUTPUT
           <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
           <preface>
-              <foreword id="A"><title depth="1">I.<tab/>Preface</title>
+              <foreword id="A" displayorder="1"><title depth="1">I.<tab/>Preface</title>
           <table id="A1" type="recommendtest" class="permission">
       <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTestTitle">Abstract Test 1:</p></th></tr></thead><tbody><tr><td colspan="2"><p>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Subject</td><td>user</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td>Control-class</td><td>Technical</td></tr><tr><td>Priority</td><td>P0</td></tr><tr><td>Family</td><td>System and Communications Protection</td></tr><tr><td>Family</td><td>System and Communications Protocols</td></tr><tr><td colspan="2">
           <p id="_">I recommend <em>this</em>.</p>
@@ -1104,7 +1104,7 @@ RSpec.describe IsoDoc::Ogc do
 
     presxml = <<~OUTPUT
       <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
-             <preface><foreword id="A"><title depth="1">I.<tab/>Preface</title>
+             <preface><foreword id="A" displayorder="1"><title depth="1">I.<tab/>Preface</title>
              <table id="A1" type="recommendclass" keep-with-next="true" keep-lines-together="true" class="permission">
 
 
@@ -1349,7 +1349,7 @@ RSpec.describe IsoDoc::Ogc do
 
     presxml = <<~OUTPUT
       <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
-             <preface><foreword id="A"><title depth="1">I.<tab/>Preface</title>
+             <preface><foreword id="A" displayorder="1"><title depth="1">I.<tab/>Preface</title>
              <table id="A1" type="recommendclass" class="permission">
          <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Conformance Class 1:</p></th></tr></thead><tbody><tr><td colspan="2"><p>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Target Type</td><td>user</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/2</td></tr>
            <tr><td><p>Permission 1-1:</p></td><td><p>Permission 1</p></td></tr>
@@ -1544,7 +1544,7 @@ RSpec.describe IsoDoc::Ogc do
 
     presxml = <<~OUTPUT
       <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
-             <preface><foreword id="A"><title depth="1">I.<tab/>Preface</title>
+             <preface><foreword id="A" displayorder="1"><title depth="1">I.<tab/>Preface</title>
              <table id="A1" type="recommendclass" class="requirement">
          <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Requirement Class 1:</p></th></tr></thead><tbody><tr><td colspan="2"><p>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Target Type</td><td>user</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/2</td></tr>
            <tr><td><p>Permission 1-1:</p></td><td><p>Permission 1</p></td></tr>
@@ -1739,7 +1739,7 @@ RSpec.describe IsoDoc::Ogc do
 
     presxml = <<~OUTPUT
            <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
-          <preface><foreword id="A"><title depth="1">I.<tab/>Preface</title>
+          <preface><foreword id="A" displayorder="1"><title depth="1">I.<tab/>Preface</title>
           <table id="A1" type="recommendclass" class="recommendation">
       <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Recommendation Class 1:</p></th></tr></thead><tbody><tr><td colspan="2"><p>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Target Type</td><td>user</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/2</td></tr>
         <tr><td><p>Permission 1-1:</p></td><td><p>Permission 1</p></td></tr>
@@ -1962,7 +1962,7 @@ RSpec.describe IsoDoc::Ogc do
     INPUT
     presxml = <<~OUTPUT
            <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
-          <preface><foreword id="A0"><title depth="1">I.<tab/>Preface</title>
+          <preface><foreword id="A0" displayorder="1"><title depth="1">I.<tab/>Preface</title>
           <table id="A" unnumbered="true" class="requirement" type="recommend">
       <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Requirement: A New Requirement</p></th></tr></thead><tbody><tr><td colspan="2"><p>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Subject</td><td>user</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td colspan="2">
           <p id="_">I recommend <em>this</em>.</p>
@@ -2270,7 +2270,7 @@ RSpec.describe IsoDoc::Ogc do
 
     presxml = <<~OUTPUT
            <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
-          <preface><foreword id="A"><title depth="1">I.<tab/>Preface</title>
+          <preface><foreword id="A" displayorder="1"><title depth="1">I.<tab/>Preface</title>
           <table id="_" class="recommendation" type="recommend">
       <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Recommendation 1:</p></th></tr></thead><tbody><tr><td colspan="2"><p>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Subject</td><td>user</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td colspan="2">
           <p id="_">I recommend <em>this</em>.</p>

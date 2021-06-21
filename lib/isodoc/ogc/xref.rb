@@ -19,6 +19,7 @@ module IsoDoc
         c = Counter.new
         clause.xpath(ns(".//#{klass}#{FIRST_LVL_REQ}")).each do |t|
           next if t["id"].nil? || t["id"].empty?
+
           id = c.increment(t).print
           @anchors[t["id"]] = anchor_struct(id, t, label, klass,
                                             t["unnumbered"])
@@ -28,15 +29,15 @@ module IsoDoc
       end
 
       def req_class_paths
-        { "class" => "@type = 'class'", 
-          "test" => "@type = 'verification'", 
+        { "class" => "@type = 'class'",
+          "test" => "@type = 'verification'",
           "" => "not(@type = 'verification' or @type = 'class' or "\
-          "@type = 'abstracttest' or @type = 'conformanceclass')", }
+          "@type = 'abstracttest' or @type = 'conformanceclass')" }
       end
 
       def req_class_paths2
         { "abstracttest" => "@type = 'abstracttest'",
-          "conformanceclass" => "@type = 'conformanceclass'", }
+          "conformanceclass" => "@type = 'conformanceclass'" }
       end
 
       def sequential_permission_children(t, id)
@@ -55,6 +56,7 @@ module IsoDoc
         c = Counter.new
         block.xpath(ns("./#{klass}")).each do |t|
           next if t["id"].nil? || t["id"].empty?
+
           id = "#{lbl}#{hierfigsep}#{c.increment(t).print}"
           @anchors[t["id"]] = anchor_struct(id, t, label, klass,
                                             t["unnumbered"])
@@ -96,6 +98,7 @@ module IsoDoc
         c = Counter.new
         clause.xpath(ns(".//#{klass}#{FIRST_LVL_REQ}")).each do |t|
           next if t["id"].nil? || t["id"].empty?
+
           lbl = "#{num}#{hiersep}#{c.increment(t).print}"
           @anchors[t["id"]] = anchor_struct(lbl, t, label, klass,
                                             t["unnumbered"])
@@ -120,15 +123,17 @@ module IsoDoc
         end
         preface_names_numbered(d.at(ns("//acknowledgements")))
         sequential_asset_names(d.xpath(ns(
-          "//preface/abstract | //foreword | //introduction | "\
-          "//submitters | //acknowledgements | //preface/clause")))
+                                         "//preface/abstract | //foreword | //introduction | "\
+                                         "//submitters | //acknowledgements | //preface/clause",
+                                       )))
         n = Counter.new
         n = section_names(d.at(ns("//clause[@type = 'scope']")), n, 1)
         n = section_names(d.at(ns("//clause[@type = 'conformance']")), n, 1)
         n = section_names(d.at(ns(@klass.norm_ref_xpath)), n, 1)
         n = section_names(
           d.at(ns("//sections/terms | //sections/clause[descendant::terms]")),
-          n, 1)
+          n, 1
+        )
         n = section_names(d.at(ns("//sections/definitions")), n, 1)
         middle_section_asset_names(d)
         clause_names(d, n)
@@ -147,6 +152,7 @@ module IsoDoc
 
       def preface_names_numbered(clause)
         return if clause.nil?
+
         @prefacenum += 1
         pref = preface_number(@prefacenum, 1)
         @anchors[clause["id"]] =
@@ -159,7 +165,7 @@ module IsoDoc
 
       def preface_names_numbered1(clause, num, level)
         @anchors[clause["id"]] =
-          { label: num, level: level, xref: l10n("#{@labels["clause"]} #{num}"),
+          { label: num, level: level, xref: l10n("#{@labels['clause']} #{num}"),
             type: "clause" }
         clause.xpath(ns(SUBCLAUSES)).each_with_index do |c, i|
           lbl = "#{num}.#{preface_number(i + 1, level + 1)}"
@@ -174,8 +180,8 @@ module IsoDoc
         when 3 then num.to_s
         when 4 then (96 + num).chr.to_s
         when 5 then RomanNumerals.to_roman(num).downcase
-        when 6 then "(#{num.to_s})"
-        when 7 then "(#{(96 + num).chr.to_s})"
+        when 6 then "(#{num})"
+        when 7 then "(#{(96 + num).chr})"
         when 8 then "(#{RomanNumerals.to_roman(num).downcase})"
         else
           num.to_s
@@ -185,6 +191,7 @@ module IsoDoc
       def reference_names(ref)
         super
         return unless @klass.ogc_draft_ref?(ref)
+
         @anchors[ref["id"]] = { xref: @anchors[ref["id"]][:xref] + " (draft)" }
       end
     end

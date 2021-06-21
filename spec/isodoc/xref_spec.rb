@@ -68,7 +68,7 @@ RSpec.describe IsoDoc::Ogc do
     output = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
            <preface>
-             <foreword>
+             <foreword displayorder="1">
                <p>
                  <xref target='N1'>Introduction, Requirement 1</xref>
                  <xref target='N2'>Clause II.A, Requirement (??)</xref>
@@ -80,7 +80,7 @@ RSpec.describe IsoDoc::Ogc do
                  <xref target='Anote2'>Annex A.2, Requirement A.2</xref>
                </p>
              </foreword>
-        <introduction id='intro'>
+        <introduction id='intro' displayorder="2">
               <title>II.</title>
               <table id='N1' class='requirement' type='recommend'>
                 <thead>
@@ -120,7 +120,7 @@ RSpec.describe IsoDoc::Ogc do
             </introduction>
           </preface>
           <sections>
-            <clause id='scope' type='scope'>
+            <clause id='scope' type='scope' displayorder="3">
               <title depth='1'>
                 1.
                 <tab/>
@@ -144,10 +144,10 @@ RSpec.describe IsoDoc::Ogc do
                 <xref target='N'>Requirement 2</xref>
               </p>
             </clause>
-            <terms id='terms'>
+            <terms id='terms' displayorder='4'>
               <title>2.</title>
             </terms>
-            <clause id='widgets'>
+            <clause id='widgets' displayorder='5'>
               <title depth='1'>
                 3.
                 <tab/>
@@ -190,7 +190,7 @@ RSpec.describe IsoDoc::Ogc do
               </clause>
             </clause>
           </sections>
-          <annex id='annex1'>
+          <annex id='annex1' displayorder='6'>
             <title>
               <strong>Annex A</strong>
               <br/>
@@ -320,7 +320,7 @@ RSpec.describe IsoDoc::Ogc do
     output = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
             <preface>
-              <foreword>
+              <foreword displayorder="1">
                 <p>
                   <xref target='N1'>Introduction, Requirement Test 1</xref>
                   <xref target='N2'>Clause II.A, Requirement Test (??)</xref>
@@ -332,7 +332,7 @@ RSpec.describe IsoDoc::Ogc do
                   <xref target='Anote2'>Annex A.2, Requirement Test A.2</xref>
                 </p>
               </foreword>
-          <introduction id='intro'>
+          <introduction id='intro' displayorder="2">
                <title>II.</title>
                <table id='N1' type='recommendtest' class='requirement'>
                  <thead>
@@ -372,7 +372,7 @@ RSpec.describe IsoDoc::Ogc do
              </introduction>
            </preface>
            <sections>
-             <clause id='scope' type='scope'>
+             <clause id='scope' type='scope' displayorder="3">
                <title depth='1'>
                  1.
                  <tab/>
@@ -396,10 +396,10 @@ RSpec.describe IsoDoc::Ogc do
                  <xref target='N'>Requirement Test 2</xref>
                </p>
              </clause>
-             <terms id='terms'>
+             <terms id='terms' displayorder='4'>
                <title>2.</title>
              </terms>
-             <clause id='widgets'>
+             <clause id='widgets' displayorder='5'>
                <title depth='1'>
                  3.
                  <tab/>
@@ -442,7 +442,7 @@ RSpec.describe IsoDoc::Ogc do
                </clause>
              </clause>
            </sections>
-           <annex id='annex1'>
+           <annex id='annex1' displayorder='6'>
              <title>
                <strong>Annex A</strong>
                <br/>
@@ -572,7 +572,7 @@ RSpec.describe IsoDoc::Ogc do
     output = <<~OUTPUT
        <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
          <preface>
-           <foreword>
+           <foreword displayorder="1">
              <p>
                <xref target='N1'>Introduction, Recommendation 1</xref>
                <xref target='N2'>Clause II.A, Recommendation (??)</xref>
@@ -584,7 +584,7 @@ RSpec.describe IsoDoc::Ogc do
                <xref target='Anote2'>Annex A.2, Recommendation A.2</xref>
              </p>
            </foreword>
-       <introduction id='intro'>
+       <introduction id='intro' displayorder="2">
             <title>II.</title>
             <table id='N1' class='recommendation' type='recommend'>
               <thead>
@@ -624,7 +624,7 @@ RSpec.describe IsoDoc::Ogc do
           </introduction>
         </preface>
         <sections>
-          <clause id='scope' type='scope'>
+          <clause id='scope' type='scope' displayorder="3">
             <title depth='1'>
               1.
               <tab/>
@@ -648,10 +648,10 @@ RSpec.describe IsoDoc::Ogc do
               <xref target='N'>Recommendation 2</xref>
             </p>
           </clause>
-          <terms id='terms'>
+          <terms id='terms' displayorder='4'>
             <title>2.</title>
           </terms>
-          <clause id='widgets'>
+          <clause id='widgets' displayorder='5'>
             <title depth='1'>
               3.
               <tab/>
@@ -694,7 +694,7 @@ RSpec.describe IsoDoc::Ogc do
             </clause>
           </clause>
         </sections>
-        <annex id='annex1'>
+        <annex id='annex1' displayorder='6'>
           <title>
             <strong>Annex A</strong>
             <br/>
@@ -824,7 +824,7 @@ RSpec.describe IsoDoc::Ogc do
     output = <<~OUTPUT
        <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
          <preface>
-           <foreword>
+           <foreword displayorder="1">
              <p>
                <xref target='N1'>Introduction, Recommendation Test 1</xref>
                <xref target='N2'>Clause II.A, Recommendation Test (??)</xref>
@@ -836,7 +836,7 @@ RSpec.describe IsoDoc::Ogc do
                <xref target='Anote2'>Annex A.2, Recommendation Test A.2</xref>
              </p>
            </foreword>
-       <introduction id='intro'>
+       <introduction id='intro' displayorder="2">
             <title>II.</title>
             <table id='N1' type='recommendtest' class='recommendation'>
               <thead>
@@ -876,7 +876,7 @@ RSpec.describe IsoDoc::Ogc do
           </introduction>
         </preface>
         <sections>
-          <clause id='scope' type='scope'>
+          <clause id='scope' type='scope' displayorder="3">
             <title depth='1'>
               1.
               <tab/>
@@ -900,10 +900,10 @@ RSpec.describe IsoDoc::Ogc do
               <xref target='N'>Recommendation Test 2</xref>
             </p>
           </clause>
-          <terms id='terms'>
+          <terms id='terms' displayorder='4'>
             <title>2.</title>
           </terms>
-          <clause id='widgets'>
+          <clause id='widgets' displayorder='5'>
             <title depth='1'>
               3.
               <tab/>
@@ -946,7 +946,7 @@ RSpec.describe IsoDoc::Ogc do
             </clause>
           </clause>
         </sections>
-        <annex id='annex1'>
+        <annex id='annex1' displayorder='6'>
           <title>
             <strong>Annex A</strong>
             <br/>
@@ -1076,7 +1076,7 @@ RSpec.describe IsoDoc::Ogc do
     output = <<~OUTPUT
        <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
          <preface>
-           <foreword>
+           <foreword displayorder="1">
              <p>
                <xref target='N1'>Introduction, Permission 1</xref>
                <xref target='N2'>Clause II.A, Permission (??)</xref>
@@ -1088,7 +1088,7 @@ RSpec.describe IsoDoc::Ogc do
                <xref target='Anote2'>Annex A.2, Permission A.2</xref>
              </p>
            </foreword>
-       <introduction id='intro'>
+       <introduction id='intro' displayorder="2">
             <title>II.</title>
             <table id='N1' class='permission' type='recommend'>
               <thead>
@@ -1128,7 +1128,7 @@ RSpec.describe IsoDoc::Ogc do
           </introduction>
         </preface>
         <sections>
-          <clause id='scope' type='scope'>
+          <clause id='scope' type='scope' displayorder="3">
             <title depth='1'>
               1.
               <tab/>
@@ -1152,10 +1152,10 @@ RSpec.describe IsoDoc::Ogc do
               <xref target='N'>Permission 2</xref>
             </p>
           </clause>
-          <terms id='terms'>
+          <terms id='terms' displayorder='4'>
             <title>2.</title>
           </terms>
-          <clause id='widgets'>
+          <clause id='widgets' displayorder='5'>
             <title depth='1'>
               3.
               <tab/>
@@ -1198,7 +1198,7 @@ RSpec.describe IsoDoc::Ogc do
             </clause>
           </clause>
         </sections>
-        <annex id='annex1'>
+        <annex id='annex1' displayorder='6'>
           <title>
             <strong>Annex A</strong>
             <br/>
@@ -1328,7 +1328,7 @@ RSpec.describe IsoDoc::Ogc do
     output = <<~OUTPUT
        <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
          <preface>
-           <foreword>
+           <foreword displayorder="1">
              <p>
                <xref target='N1'>Introduction, Permission Test 1</xref>
                <xref target='N2'>Clause II.A, Permission Test (??)</xref>
@@ -1340,7 +1340,7 @@ RSpec.describe IsoDoc::Ogc do
                <xref target='Anote2'>Annex A.2, Permission Test A.2</xref>
              </p>
            </foreword>
-        <introduction id='intro'>
+        <introduction id='intro' displayorder="2">
             <title>II.</title>
             <table id='N1' type='recommendtest' class='permission'>
               <thead>
@@ -1380,7 +1380,7 @@ RSpec.describe IsoDoc::Ogc do
           </introduction>
         </preface>
         <sections>
-          <clause id='scope' type='scope'>
+          <clause id='scope' type='scope' displayorder="3">
             <title depth='1'>
               1.
               <tab/>
@@ -1404,10 +1404,10 @@ RSpec.describe IsoDoc::Ogc do
               <xref target='N'>Permission Test 2</xref>
             </p>
           </clause>
-          <terms id='terms'>
+          <terms id='terms' displayorder='4'>
             <title>2.</title>
           </terms>
-          <clause id='widgets'>
+          <clause id='widgets' displayorder='5'>
             <title depth='1'>
               3.
               <tab/>
@@ -1450,7 +1450,7 @@ RSpec.describe IsoDoc::Ogc do
             </clause>
           </clause>
         </sections>
-        <annex id='annex1'>
+        <annex id='annex1' displayorder='6'>
           <title>
             <strong>Annex A</strong>
             <br/>
@@ -1567,7 +1567,7 @@ RSpec.describe IsoDoc::Ogc do
     output = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
                 <preface>
-                  <foreword>
+                  <foreword displayorder="1">
                     <p>
                       <xref target='N1'>Clause 1, Permission 1</xref>
                       <xref target='N2'>Clause 1, Permission Test 1-1</xref>
@@ -1583,7 +1583,7 @@ RSpec.describe IsoDoc::Ogc do
                   </foreword>
                 </preface>
                 <sections>
-                 <clause id='xyz'>
+                 <clause id='xyz' displayorder="2">
                    <title depth='1'>
                      1.
                      <tab/>
@@ -1687,7 +1687,7 @@ RSpec.describe IsoDoc::Ogc do
                    </table>
                  </clause>
                </sections>
-               <annex id='Axyz'>
+               <annex id='Axyz' displayorder='3'>
                  <title>
                    <strong>Annex A</strong>
                    <br/>
@@ -1867,7 +1867,7 @@ RSpec.describe IsoDoc::Ogc do
     output = <<~OUTPUT
        <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
          <preface>
-           <foreword>
+           <foreword displayorder="1">
              <p>
                <xref target='N1'>Introduction, Abstract Test 1</xref>
                <xref target='N2'>Clause II.A, Abstract Test (??)</xref>
@@ -1879,7 +1879,7 @@ RSpec.describe IsoDoc::Ogc do
                <xref target='Anote2'>Annex A.2, Abstract Test A.2</xref>
              </p>
            </foreword>
-       <introduction id='intro'>
+       <introduction id='intro' displayorder="2">
             <title>II.</title>
             <table id='N1' type='recommendtest' class='permission'>
               <thead>
@@ -1919,7 +1919,7 @@ RSpec.describe IsoDoc::Ogc do
           </introduction>
         </preface>
         <sections>
-          <clause id='scope' type='scope'>
+          <clause id='scope' type='scope' displayorder="3">
             <title depth='1'>
               1.
               <tab/>
@@ -1943,10 +1943,10 @@ RSpec.describe IsoDoc::Ogc do
               <xref target='N'>Abstract Test 2</xref>
             </p>
           </clause>
-          <terms id='terms'>
+          <terms id='terms' displayorder='4'>
             <title>2.</title>
           </terms>
-          <clause id='widgets'>
+          <clause id='widgets' displayorder='5'>
             <title depth='1'>
               3.
               <tab/>
@@ -1989,7 +1989,7 @@ RSpec.describe IsoDoc::Ogc do
             </clause>
           </clause>
         </sections>
-        <annex id='annex1'>
+        <annex id='annex1' displayorder='6'>
           <title>
             <strong>Annex A</strong>
             <br/>
@@ -2119,7 +2119,7 @@ RSpec.describe IsoDoc::Ogc do
     output = <<~OUTPUT
        <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
          <preface>
-           <foreword>
+           <foreword displayorder="1">
              <p>
                <xref target='N1'>Introduction, Conformance Class 1</xref>
                <xref target='N2'>Clause II.A, Conformance Class (??)</xref>
@@ -2131,7 +2131,7 @@ RSpec.describe IsoDoc::Ogc do
                <xref target='Anote2'>Annex A.2, Conformance Class A.2</xref>
              </p>
            </foreword>
-        <introduction id='intro'>
+        <introduction id='intro' displayorder="2">
             <title>II.</title>
             <table id='N1' type='recommendclass' class='permission'>
               <thead>
@@ -2171,7 +2171,7 @@ RSpec.describe IsoDoc::Ogc do
           </introduction>
         </preface>
         <sections>
-          <clause id='scope' type='scope'>
+          <clause id='scope' type='scope' displayorder="3">
             <title depth='1'>
               1.
               <tab/>
@@ -2195,10 +2195,10 @@ RSpec.describe IsoDoc::Ogc do
               <xref target='N'>Conformance Class 2</xref>
             </p>
           </clause>
-          <terms id='terms'>
+          <terms id='terms' displayorder='4'>
             <title>2.</title>
           </terms>
-          <clause id='widgets'>
+          <clause id='widgets'  displayorder='5'>
             <title depth='1'>
               3.
               <tab/>
@@ -2241,7 +2241,7 @@ RSpec.describe IsoDoc::Ogc do
             </clause>
           </clause>
         </sections>
-        <annex id='annex1'>
+        <annex id='annex1' displayorder='6'>
           <title>
             <strong>Annex A</strong>
             <br/>
@@ -2321,7 +2321,7 @@ RSpec.describe IsoDoc::Ogc do
       <xref target="I"/>
       </p>
       </foreword>
-      <introduction id="A">
+      <introduction id="A"><title>Introduction</title>
       <clause id="B">
       <clause id="C">
       <clause id="D">
@@ -2346,7 +2346,7 @@ RSpec.describe IsoDoc::Ogc do
     output = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
         <preface>
-          <foreword>
+          <foreword displayorder="1">
             <p>
               <xref target='A'>Introduction</xref>
               <xref target='B'>Clause II.A</xref>
@@ -2359,8 +2359,8 @@ RSpec.describe IsoDoc::Ogc do
               <xref target='I'>Clause II.A.1.a.i.(1).(a).(i).1</xref>
             </p>
           </foreword>
-          <introduction id='A'>
-            <title>II.</title>
+          <introduction id='A' displayorder="2">
+             <title depth='1'>II.<tab/>Introduction</title>
             <clause id='B'>
               <title>II.A.</title>
               <clause id='C'>
