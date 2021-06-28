@@ -7,8 +7,12 @@
 	<xsl:variable name="images" select="document($svg_images)"/>
 	<xsl:param name="basepath"/>
 	
-	<xsl:variable name="pageWidth" select="'215.9mm'"/>
-	<xsl:variable name="pageHeight" select="'279.4mm'"/>
+	<xsl:variable name="pageWidth" select="215.9"/>
+	<xsl:variable name="pageHeight" select="279.4"/>
+	<xsl:variable name="marginLeftRight1" select="35"/>
+	<xsl:variable name="marginLeftRight2" select="17"/>
+	<xsl:variable name="marginTop" select="16.5"/>
+	<xsl:variable name="marginBottom" select="22.5"/>
 
 	
 
@@ -74,7 +78,7 @@
 		<fo:root font-family="Lato, STIX Two Math, Source Han Sans" font-size="11pt" color="{$color_main}" xml:lang="{$lang}">
 			<fo:layout-master-set>
 				<!-- Cover page -->
-				<fo:simple-page-master master-name="cover-page" page-width="{$pageWidth}" page-height="{$pageHeight}">
+				<fo:simple-page-master master-name="cover-page" page-width="{$pageWidth}mm" page-height="{$pageHeight}mm">
 					<fo:region-body margin-top="16.5mm" margin-bottom="10mm" margin-left="16.5mm" margin-right="14mm"/>
 					<fo:region-before region-name="cover-page-header" extent="16.5mm"/>
 					<fo:region-after extent="10mm"/>
@@ -83,7 +87,7 @@
 				</fo:simple-page-master>
 
 				<!-- Preface pages -->
-				<fo:simple-page-master master-name="preface" page-width="{$pageWidth}" page-height="{$pageHeight}">
+				<fo:simple-page-master master-name="preface" page-width="{$pageWidth}mm" page-height="{$pageHeight}mm">
 					<fo:region-body margin-top="16.5mm" margin-bottom="22.5mm" margin-left="16.5mm" margin-right="16.5mm"/>
 					<fo:region-before region-name="header" extent="16.5mm"/> 
 					<fo:region-after region-name="footer" extent="22.5mm"/>
@@ -93,12 +97,12 @@
 
 				
 				<!-- Document pages -->
-				<fo:simple-page-master master-name="document" page-width="{$pageWidth}" page-height="{$pageHeight}">
-					<fo:region-body margin-top="16.5mm" margin-bottom="22.5mm" margin-left="35mm" margin-right="17mm"/>
-					<fo:region-before region-name="header" extent="16.5mm"/> 
-					<fo:region-after region-name="footer" extent="22.5mm"/>
+				<fo:simple-page-master master-name="document" page-width="{$pageWidth}mm" page-height="{$pageHeight}mm">
+					<fo:region-body margin-top="{$marginTop}mm" margin-bottom="{$marginBottom}mm" margin-left="{$marginLeftRight1}mm" margin-right="{$marginLeftRight2}mm"/>
+					<fo:region-before region-name="header" extent="{$marginTop}mm"/> 
+					<fo:region-after region-name="footer" extent="{$marginBottom}mm"/>
 					<fo:region-start region-name="left-region" extent="16.5mm"/>
-					<fo:region-end region-name="right-region" extent="17mm"/>
+					<fo:region-end region-name="right-region" extent="{$marginLeftRight2}mm"/>
 				</fo:simple-page-master>				
 				
 			</fo:layout-master-set>
@@ -124,16 +128,16 @@
 					<!-- background image -->
 					<fo:block-container absolute-position="fixed" left="0mm" top="0mm" font-size="0">
 						<fo:block>
-							<fo:external-graphic src="{concat('data:image/png;base64,', normalize-space($Image-Cover-Background))}" width="{$pageWidth}" content-height="scale-to-fit" scaling="uniform" fox:alt-text="Image Front"/>
+							<fo:external-graphic src="{concat('data:image/png;base64,', normalize-space($Image-Cover-Background))}" width="{$pageWidth}mm" content-height="scale-to-fit" scaling="uniform" fox:alt-text="Image Front"/>
 						</fo:block>
 					</fo:block-container>
 					
 					<!-- background color -->
 					<fo:block-container absolute-position="fixed" left="0" top="0" font-size="0">
             <fo:block>
-              <fo:instream-foreign-object content-height="{$pageHeight}" fox:alt-text="Background color">
-                <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="215.9mm" height="279.4mm">
-                  <rect width="215.9mm" height="279.4mm" style="fill:rgb(33,55,92);stroke-width:0;fill-opacity:0.85"/>
+              <fo:instream-foreign-object content-height="{$pageHeight}mm" fox:alt-text="Background color">
+                <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="{$pageWidth}mm" height="{$pageHeight}mm">
+                  <rect width="{$pageWidth}mm" height="{$pageHeight}mm" style="fill:rgb(33,55,92);stroke-width:0;fill-opacity:0.85"/>
                 </svg>
               </fo:instream-foreign-object>
             </fo:block>
@@ -272,10 +276,10 @@
 					</xsl:if>
 
 					<!-- crossing lines -->					
-					<fo:block-container absolute-position="fixed" width="{$pageWidth}" height="{$pageHeight}" font-size="0">
+					<fo:block-container absolute-position="fixed" width="{$pageWidth}mm" height="{$pageHeight}mm" font-size="0">
 						<fo:block>
-							<fo:instream-foreign-object content-height="{$pageHeight}" content-width="{$pageWidth}" fox:alt-text="Crossing lines">
-								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2159 2794" width="{$pageWidth}" height="{$pageHeight}">
+							<fo:instream-foreign-object content-height="{$pageHeight}mm" content-width="{$pageWidth}mm" fox:alt-text="Crossing lines">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2159 2794" width="{$pageWidth}mm" height="{$pageHeight}mm">
 									<line x1="230" y1="0" x2="2159" y2="490" stroke="{$color_lightorange}"/>
 									<line x1="0" y1="395" x2="820" y2="0" stroke="{$color_lightorange}"/>
 									<circle style="fill:{$color_lightorange};" cx="614" cy="100" r="15"/>
@@ -305,10 +309,10 @@
 				<fo:flow flow-name="xsl-region-body">
 				
 					<!-- crossing lines -->					
-					<fo:block-container absolute-position="fixed" width="{$pageWidth}" height="{$pageHeight}" font-size="0">
+					<fo:block-container absolute-position="fixed" width="{$pageWidth}mm" height="{$pageHeight}mm" font-size="0">
 						<fo:block>
-							<fo:instream-foreign-object content-height="{$pageHeight}" content-width="{$pageWidth}" fox:alt-text="Crossing lines">
-								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2159 2794" width="{$pageWidth}" height="{$pageHeight}">
+							<fo:instream-foreign-object content-height="{$pageHeight}mm" content-width="{$pageWidth}mm" fox:alt-text="Crossing lines">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2159 2794" width="{$pageWidth}mm" height="{$pageHeight}mm">
 									<line x1="0" y1="545" x2="2084" y2="0" stroke="{$color_lightorange}"/>
 									<line x1="0" y1="1374" x2="355" y2="0" stroke="{$color_lightorange}"/>
 									<circle style="fill:{$color_lightorange};" cx="227" cy="487" r="15"/>
@@ -601,9 +605,9 @@
 				<!-- background color -->
 				<fo:block-container absolute-position="fixed" left="0" top="0" font-size="0">
 					<fo:block>
-						<fo:instream-foreign-object content-height="{$pageHeight}" fox:alt-text="Background color">
-							<svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="{$pageWidth}" height="{$pageHeight}">
-								<rect width="215.9mm" height="279.4mm" style="fill:rgb(33,55,92);stroke-width:0;fill-opacity:1"/>
+						<fo:instream-foreign-object content-height="{$pageHeight}mm" fox:alt-text="Background color">
+							<svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="{$pageWidth}mm" height="{$pageHeight}mm">
+								<rect width="{$pageWidth}mm" height="{$pageHeight}mm" style="fill:rgb(33,55,92);stroke-width:0;fill-opacity:1"/>
 							</svg>
 						</fo:instream-foreign-object>
 					</fo:block>
@@ -1355,10 +1359,10 @@
 	</xsl:template>
 
 	<xsl:template name="insertCrossingLines">
-		<fo:block-container absolute-position="fixed" width="{$pageWidth}" height="{$pageHeight}" font-size="0">
+		<fo:block-container absolute-position="fixed" width="{$pageWidth}mm" height="{$pageHeight}mm" font-size="0">
 			<fo:block>
-				<fo:instream-foreign-object content-height="{$pageHeight}" content-width="{$pageWidth}" fox:alt-text="Crossing lines">
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2159 2794" width="{$pageWidth}" height="{$pageHeight}">
+				<fo:instream-foreign-object content-height="{$pageHeight}mm" content-width="{$pageWidth}mm" fox:alt-text="Crossing lines">
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2159 2794" width="{$pageWidth}mm" height="{$pageHeight}mm">
 						<line x1="0" y1="300" x2="2159" y2="675" stroke="{$color_orange}"/>
 						<line x1="1215" y1="0" x2="2159" y2="1380" stroke="{$color_orange}"/>
 						<line x1="0" y1="1850" x2="2159" y2="2390" stroke="{$color_orange}"/>
@@ -4373,6 +4377,234 @@
 		<xsl:param name="height"/>
 		<line xmlns="http://www.w3.org/2000/svg" x1="0" y1="0" x2="{$width}" y2="{$height}" style="stroke: rgb(255, 0, 0); stroke-width:4px; "/>
 		<line xmlns="http://www.w3.org/2000/svg" x1="0" y1="{$height}" x2="{$width}" y2="0" style="stroke: rgb(255, 0, 0); stroke-width:4px; "/>
+	</xsl:template><xsl:variable name="figure_name_height">14</xsl:variable><xsl:variable name="width_effective" select="$pageWidth - $marginLeftRight1 - $marginLeftRight2"/><xsl:variable name="height_effective" select="$pageHeight - $marginTop - $marginBottom - $figure_name_height"/><xsl:variable name="image_dpi" select="96"/><xsl:variable name="width_effective_px" select="$width_effective div 25.4 * $image_dpi"/><xsl:variable name="height_effective_px" select="$height_effective div 25.4 * $image_dpi"/><xsl:template match="*[local-name() = 'figure'][not(*[local-name() = 'image']) and *[local-name() = 'svg']]/*[local-name() = 'name']/*[local-name() = 'bookmark']" priority="2"/><xsl:template match="*[local-name() = 'figure'][not(*[local-name() = 'image'])]/*[local-name() = 'svg']" priority="2" name="image_svg">
+		<xsl:param name="name"/>
+		
+		<xsl:variable name="svg_content">
+			<xsl:apply-templates select="." mode="svg_update"/>
+		</xsl:variable>
+		
+		<xsl:variable name="alt-text">
+			<xsl:choose>
+				<xsl:when test="normalize-space(../*[local-name() = 'name']) != ''">
+					<xsl:value-of select="../*[local-name() = 'name']"/>
+				</xsl:when>
+				<xsl:when test="normalize-space($name) != ''">
+					<xsl:value-of select="$name"/>
+				</xsl:when>
+				<xsl:otherwise>Figure</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		
+		<xsl:choose>
+			<xsl:when test=".//*[local-name() = 'a'][*[local-name() = 'rect'] or *[local-name() = 'polygon'] or *[local-name() = 'circle'] or *[local-name() = 'ellipse']]">
+				<fo:block>
+					<xsl:variable name="width" select="@width"/>
+					<xsl:variable name="height" select="@height"/>
+					
+					<xsl:variable name="scale_x">
+						<xsl:choose>
+							<xsl:when test="$width &gt; $width_effective_px">
+								<xsl:value-of select="$width_effective_px div $width"/>
+							</xsl:when>
+							<xsl:otherwise>1</xsl:otherwise>
+						</xsl:choose>
+					</xsl:variable>
+					
+					<xsl:variable name="scale_y">
+						<xsl:choose>
+							<xsl:when test="$height * $scale_x &gt; $height_effective_px">
+								<xsl:value-of select="$height_effective_px div ($height * $scale_x)"/>
+							</xsl:when>
+							<xsl:otherwise>1</xsl:otherwise>
+						</xsl:choose>
+					</xsl:variable>
+					
+					<xsl:variable name="scale">
+						<xsl:choose>
+							<xsl:when test="$scale_y != 1">
+								<xsl:value-of select="$scale_x * $scale_y"/>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="$scale_x"/>
+							</xsl:otherwise>
+						</xsl:choose>
+					</xsl:variable>
+					 
+					<xsl:variable name="width_scale" select="round($width * $scale)"/>
+					<xsl:variable name="height_scale" select="round($height * $scale)"/>
+					
+					<fo:table table-layout="fixed" width="100%">
+						<fo:table-column column-width="proportional-column-width(1)"/>
+						<fo:table-column column-width="{$width_scale}px"/>
+						<fo:table-column column-width="proportional-column-width(1)"/>
+						<fo:table-body>
+							<fo:table-row>
+								<fo:table-cell column-number="2">
+									<fo:block>
+										<fo:block-container width="{$width_scale}px" height="{$height_scale}px">
+											<xsl:if test="../*[local-name() = 'name']/*[local-name() = 'bookmark']">
+												<fo:block line-height="0" font-size="0">
+													<xsl:for-each select="../*[local-name() = 'name']/*[local-name() = 'bookmark']">
+														<xsl:call-template name="bookmark"/>
+													</xsl:for-each>
+												</fo:block>
+											</xsl:if>
+											<fo:block text-depth="0" line-height="0" font-size="0">
+
+												<fo:instream-foreign-object fox:alt-text="{$alt-text}">
+													<xsl:attribute name="width">100%</xsl:attribute>
+													<xsl:attribute name="content-height">100%</xsl:attribute>
+													<xsl:attribute name="content-width">scale-down-to-fit</xsl:attribute>
+													<xsl:attribute name="scaling">uniform</xsl:attribute>
+
+													<xsl:apply-templates select="xalan:nodeset($svg_content)" mode="svg_remove_a"/>
+												</fo:instream-foreign-object>
+											</fo:block>
+											
+											<xsl:apply-templates select=".//*[local-name() = 'a'][*[local-name() = 'rect'] or *[local-name() = 'polygon'] or *[local-name() = 'circle'] or *[local-name() = 'ellipse']]" mode="svg_imagemap_links">
+												<xsl:with-param name="scale" select="$scale"/>
+											</xsl:apply-templates>
+										</fo:block-container>
+									</fo:block>
+								</fo:table-cell>
+							</fo:table-row>
+						</fo:table-body>
+					</fo:table>
+				</fo:block>
+				
+			</xsl:when>
+			<xsl:otherwise>
+				<fo:block xsl:use-attribute-sets="image-style">
+					<fo:instream-foreign-object fox:alt-text="{$alt-text}">
+						<xsl:attribute name="width">100%</xsl:attribute>
+						<xsl:attribute name="content-height">100%</xsl:attribute>
+						<xsl:attribute name="content-width">scale-down-to-fit</xsl:attribute>
+						<!-- effective height 297 - 27.4 - 13 =  256.6 -->
+						<!-- effective width 210 - 12.5 - 25 = 172.5 -->
+						<!-- effective height / width = 1.48, 1.4 - with title -->
+						<xsl:if test="@height &gt; (@width * 1.4)"> <!-- for images with big height -->
+							<xsl:variable name="width" select="((@width * 1.4) div @height) * 100"/>
+							<xsl:attribute name="width"><xsl:value-of select="$width"/>%</xsl:attribute>
+						</xsl:if>
+						<xsl:attribute name="scaling">uniform</xsl:attribute>
+						<xsl:copy-of select="$svg_content"/>
+					</fo:instream-foreign-object>
+				</fo:block>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template><xsl:template match="@*|node()" mode="svg_update">
+		<xsl:copy>
+				<xsl:apply-templates select="@*|node()" mode="svg_update"/>
+		</xsl:copy>
+	</xsl:template><xsl:template match="*[local-name() = 'image']/@href" mode="svg_update">
+		<xsl:attribute name="href" namespace="http://www.w3.org/1999/xlink">
+			<xsl:value-of select="."/>
+		</xsl:attribute>
+	</xsl:template><xsl:template match="*[local-name() = 'figure']/*[local-name() = 'image'][@mimetype = 'image/svg+xml' and @src[not(starts-with(., 'data:image/'))]]" priority="2">
+		<xsl:variable name="svg_content" select="document(@src)"/>
+		<xsl:variable name="name" select="ancestor::*[local-name() = 'figure']/*[local-name() = 'name']"/>
+		<xsl:for-each select="xalan:nodeset($svg_content)/node()">
+			<xsl:call-template name="image_svg">
+				<xsl:with-param name="name" select="$name"/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template><xsl:template match="@*|node()" mode="svg_remove_a">
+		<xsl:copy>
+				<xsl:apply-templates select="@*|node()" mode="svg_remove_a"/>
+		</xsl:copy>
+	</xsl:template><xsl:template match="*[local-name() = 'a']" mode="svg_remove_a">
+		<xsl:apply-templates mode="svg_remove_a"/>
+	</xsl:template><xsl:template match="*[local-name() = 'a']" mode="svg_imagemap_links">
+		<xsl:param name="scale"/>
+		<xsl:variable name="dest">
+			<xsl:choose>
+				<xsl:when test="starts-with(@href, '#')">
+					<xsl:value-of select="substring-after(@href, '#')"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="@href"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:for-each select="./*[local-name() = 'rect']">
+			<xsl:call-template name="insertSVGMapLink">
+				<xsl:with-param name="left" select="floor(@x * $scale)"/>
+				<xsl:with-param name="top" select="floor(@y * $scale)"/>
+				<xsl:with-param name="width" select="floor(@width * $scale)"/>
+				<xsl:with-param name="height" select="floor(@height * $scale)"/>
+				<xsl:with-param name="dest" select="$dest"/>
+			</xsl:call-template>
+		</xsl:for-each>
+		
+		<xsl:for-each select="./*[local-name() = 'polygon']">
+			<xsl:variable name="points">
+				<xsl:call-template name="split">
+					<xsl:with-param name="pText" select="@points"/>
+				</xsl:call-template>
+			</xsl:variable>
+			<xsl:variable name="x_coords">
+				<xsl:for-each select="xalan:nodeset($points)//item[position() mod 2 = 1]">
+					<xsl:sort select="." data-type="number"/>
+					<x><xsl:value-of select="."/></x>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:variable name="y_coords">
+				<xsl:for-each select="xalan:nodeset($points)//item[position() mod 2 = 0]">
+					<xsl:sort select="." data-type="number"/>
+					<y><xsl:value-of select="."/></y>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:variable name="x" select="xalan:nodeset($x_coords)//x[1]"/>
+			<xsl:variable name="y" select="xalan:nodeset($y_coords)//y[1]"/>
+			<xsl:variable name="width" select="xalan:nodeset($x_coords)//x[last()] - $x"/>
+			<xsl:variable name="height" select="xalan:nodeset($y_coords)//y[last()] - $y"/>
+			<xsl:call-template name="insertSVGMapLink">
+				<xsl:with-param name="left" select="floor($x * $scale)"/>
+				<xsl:with-param name="top" select="floor($y * $scale)"/>
+				<xsl:with-param name="width" select="floor($width * $scale)"/>
+				<xsl:with-param name="height" select="floor($height * $scale)"/>
+				<xsl:with-param name="dest" select="$dest"/>
+			</xsl:call-template>
+		</xsl:for-each>
+		
+		<xsl:for-each select="./*[local-name() = 'circle']">
+			<xsl:call-template name="insertSVGMapLink">
+				<xsl:with-param name="left" select="floor((@cx - @r) * $scale)"/>
+				<xsl:with-param name="top" select="floor((@cy - @r) * $scale)"/>
+				<xsl:with-param name="width" select="floor(@r * 2 * $scale)"/>
+				<xsl:with-param name="height" select="floor(@r * 2 * $scale)"/>
+				<xsl:with-param name="dest" select="$dest"/>
+			</xsl:call-template>
+		</xsl:for-each>
+		<xsl:for-each select="./*[local-name() = 'ellipse']">
+			<xsl:call-template name="insertSVGMapLink">
+				<xsl:with-param name="left" select="floor((@cx - @rx) * $scale)"/>
+				<xsl:with-param name="top" select="floor((@cy - @ry) * $scale)"/>
+				<xsl:with-param name="width" select="floor(@rx * 2 * $scale)"/>
+				<xsl:with-param name="height" select="floor(@ry * 2 * $scale)"/>
+				<xsl:with-param name="dest" select="$dest"/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template><xsl:template name="insertSVGMapLink">
+		<xsl:param name="left"/>
+		<xsl:param name="top"/>
+		<xsl:param name="width"/>
+		<xsl:param name="height"/>
+		<xsl:param name="dest"/>
+		<fo:block-container position="absolute" left="{$left}px" top="{$top}px" width="{$width}px" height="{$height}px">
+		 <fo:block font-size="1pt">
+			<fo:basic-link internal-destination="{$dest}" fox:alt-text="svg link">
+				<fo:inline-container inline-progression-dimension="100%">
+					<fo:block-container height="{$height - 1}px" width="100%">
+						<!-- DEBUG <xsl:if test="local-name()='polygon'">
+							<xsl:attribute name="background-color">magenta</xsl:attribute>
+						</xsl:if> -->
+					<fo:block> </fo:block></fo:block-container>
+				</fo:inline-container>
+			</fo:basic-link>
+		 </fo:block>
+	  </fo:block-container>
 	</xsl:template><xsl:template match="*[local-name() = 'figure']/*[local-name() = 'name']"/><xsl:template match="*[local-name() = 'figure']/*[local-name() = 'name'] |                *[local-name() = 'table']/*[local-name() = 'name'] |               *[local-name() = 'permission']/*[local-name() = 'name'] |               *[local-name() = 'recommendation']/*[local-name() = 'name'] |               *[local-name() = 'requirement']/*[local-name() = 'name']" mode="contents">		
 		<xsl:apply-templates mode="contents"/>
 		<xsl:text> </xsl:text>
