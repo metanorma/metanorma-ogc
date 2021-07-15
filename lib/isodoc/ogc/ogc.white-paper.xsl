@@ -2122,12 +2122,17 @@
 							
 							
 							
+							
 							<!-- fn will be processed inside 'note' processing -->
 							
 							
 							
 							
 							
+							
+							
+							
+							<!-- for BSI (not PAS) display Notes before footnotes -->
 							
 							
 							<!-- except gb  -->
@@ -2154,6 +2159,10 @@
 							
 							<!-- fn processing -->
 							<xsl:call-template name="fn_display"/>
+							
+							
+							<!-- for PAS display Notes after footnotes -->
+							
 							
 						</fo:table-cell>
 					</fo:table-row>
@@ -2210,6 +2219,7 @@
 					
 				</xsl:if>
 				<xsl:if test="$parent-name = 'tfoot'">
+					
 					
 					
 				</xsl:if>
@@ -2350,7 +2360,12 @@
 				
 				
 				
+				
+				<!-- Table's note name (NOTE, for example) -->
+
 				<fo:inline padding-right="2mm">
+					
+				
 					
 					
 					
@@ -2358,6 +2373,8 @@
 					<xsl:apply-templates select="*[local-name() = 'name']" mode="presentation"/>
 						
 				</fo:inline>
+				
+				
 				
 				<xsl:apply-templates mode="process"/>
 			</fo:block>
@@ -2384,6 +2401,8 @@
 			<xsl:variable name="reference" select="@reference"/>
 			<xsl:if test="not(preceding-sibling::*[@reference = $reference])"> <!-- only unique reference puts in note-->
 				<fo:block margin-bottom="12pt">
+				
+					
 					
 					
 					
@@ -2401,6 +2420,7 @@
 						
 						
 						<xsl:value-of select="@reference"/>
+						
 						
 						
 					</fo:inline>
@@ -2561,6 +2581,7 @@
 				
 				
 				<xsl:value-of select="@reference"/>
+				
 				
 			</fo:basic-link>
 		</fo:inline>
