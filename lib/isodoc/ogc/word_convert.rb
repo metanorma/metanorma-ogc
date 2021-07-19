@@ -15,7 +15,7 @@ module IsoDoc
         super
       end
 
-      def default_fonts(options)
+      def default_fonts(_options)
         {
           bodyfont: '"Times New Roman",serif',
           headerfont: '"Times New Roman",serif',
@@ -27,7 +27,7 @@ module IsoDoc
         }
       end
 
-      def default_file_locations(options)
+      def default_file_locations(_options)
         {
           wordstylesheet: html_doc_path("wordstyle.scss"),
           standardstylesheet: html_doc_path("ogc.scss"),
@@ -40,7 +40,7 @@ module IsoDoc
       end
 
       def convert1(docxml, filename, dir)
-        if docxml&.at(ns('//bibdata/ext/doctype'))&.text == "white-paper"
+        if docxml&.at(ns("//bibdata/ext/doctype"))&.text == "white-paper"
           @wordstylesheet_name = html_doc_path("wordstyle_wp.scss")
           @standardstylesheet_name = html_doc_path("ogc_wp.scss")
           @wordcoverpage = html_doc_path("word_ogc_titlepage_wp.html")
@@ -86,7 +86,7 @@ module IsoDoc
                           <span lang="EN-GB"><span
         style='mso-element:field-begin'></span><span
         style='mso-spacerun:yes'>&#xA0;</span>TOC
-        \\h \\z \\t &quot;RecommendationTitle,recommendationtitle&quot; 
+        \\h \\z \\t &quot;RecommendationTitle,recommendationtitle&quot;#{' '}
         <span style='mso-element:field-separator'></span></span>
       TOC
 
@@ -117,7 +117,7 @@ module IsoDoc
           toc += word_toc_entry(1, header_strip(h))
         end
         toc.sub(/(<p class="MsoToc1">)/,
-                %{\\1#{WORD_TOC_TABLE_PREFACE1}}) +  WORD_TOC_SUFFIX1
+                %{\\1#{WORD_TOC_TABLE_PREFACE1}}) + WORD_TOC_SUFFIX1
       end
 
       def make_FigureWordToC(docxml)
@@ -126,7 +126,7 @@ module IsoDoc
           toc += word_toc_entry(1, header_strip(h))
         end
         toc.sub(/(<p class="MsoToc1">)/,
-                %{\\1#{WORD_TOC_FIGURE_PREFACE1}}) +  WORD_TOC_SUFFIX1
+                %{\\1#{WORD_TOC_FIGURE_PREFACE1}}) + WORD_TOC_SUFFIX1
       end
 
       def make_RecommendationWordToC(docxml)
@@ -135,7 +135,7 @@ module IsoDoc
           toc += word_toc_entry(1, header_strip(h))
         end
         toc.sub(/(<p class="MsoToc1">)/,
-                %{\\1#{WORD_TOC_RECOMMENDATION_PREFACE1}}) +  WORD_TOC_SUFFIX1
+                %{\\1#{WORD_TOC_RECOMMENDATION_PREFACE1}}) + WORD_TOC_SUFFIX1
       end
 
       def make_body2(body, docxml)
@@ -179,10 +179,11 @@ module IsoDoc
         x = "//div[@class = 'boilerplate-copyright']/div[1]/p[not(@class)]"
         docxml.xpath(x).each { |p| p["align"] = "center" }
         return unless @doctype == "white-paper"
-        docxml.xpath("//div[@class = 'boilerplate-copyright']//p[not(@class)]").
-          each { |p| p["class"] = "license" }
-        docxml.xpath("//div[@class = 'boilerplate-legal']//p[not(@class)]").
-          each { |p| p["class"] = "license" }
+
+        docxml.xpath("//div[@class = 'boilerplate-copyright']//p[not(@class)]")
+          .each { |p| p["class"] = "license" }
+        docxml.xpath("//div[@class = 'boilerplate-legal']//p[not(@class)]")
+          .each { |p| p["class"] = "license" }
       end
 
       def word_term_cleanup(docxml)
@@ -199,7 +200,7 @@ module IsoDoc
           style_update(tr, "background:#A5A5A5;")
         end
         docxml.xpath("//table[@class = 'recommend']/tbody").each do |tr|
-          tr.xpath("./tr").each_slice(2) do |tr1, tr2|
+          tr.xpath("./tr").each_slice(2) do |_tr1, tr2|
             tr2 && style_update(tr2, "background:#C9C9C9;")
           end
         end
