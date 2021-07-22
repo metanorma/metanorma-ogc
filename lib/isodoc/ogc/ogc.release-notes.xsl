@@ -2206,6 +2206,8 @@
 				
 				
 				
+				
+				
 				<!-- display table's name before table for PAS inside block-container (2-columnn layout) -->
 				
 				
@@ -2657,6 +2659,8 @@
 					</xsl:choose>
 				</xsl:for-each>
 				
+				
+				
 				<xsl:choose>
 					<xsl:when test="xalan:nodeset($colgroup)//*[local-name()='col']">
 						<xsl:for-each select="xalan:nodeset($colgroup)//*[local-name()='col']">
@@ -2688,6 +2692,7 @@
 							
 							
 								<xsl:attribute name="border">solid black 0pt</xsl:attribute>
+							
 							
 							
 							
@@ -2780,6 +2785,8 @@
 					
 					
 					
+					
+					
 				</xsl:if>
 				<xsl:if test="$parent-name = 'tfoot'">
 					
@@ -2800,6 +2807,8 @@
 							<xsl:attribute name="background-color">rgb(252, 246, 222)</xsl:attribute>
 						</xsl:if>
 					</xsl:if>					
+				
+				
 				
 				
 				
@@ -6452,20 +6461,40 @@
 			</xsl:call-template>
 		</xsl:if>
 	</xsl:template><xsl:template name="getLocalizedString">
-		<xsl:param name="key"/>	
+		<xsl:param name="key"/>
+		<xsl:param name="formatted">false</xsl:param>
 		
 		<xsl:variable name="curr_lang">
 			<xsl:call-template name="getLang"/>
 		</xsl:variable>
 		
-		<xsl:variable name="data_value" select="normalize-space(xalan:nodeset($bibdata)//*[local-name() = 'localized-string'][@key = $key and @language = $curr_lang])"/>
+		<xsl:variable name="data_value">
+			<xsl:choose>
+				<xsl:when test="$formatted = 'true'">
+					<xsl:apply-templates select="xalan:nodeset($bibdata)//*[local-name() = 'localized-string'][@key = $key and @language = $curr_lang]"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="normalize-space(xalan:nodeset($bibdata)//*[local-name() = 'localized-string'][@key = $key and @language = $curr_lang])"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
 		
 		<xsl:choose>
-			<xsl:when test="$data_value != ''">
-				<xsl:value-of select="$data_value"/>
+			<xsl:when test="normalize-space($data_value) != ''">
+				<xsl:choose>
+					<xsl:when test="$formatted = 'true'"><xsl:copy-of select="$data_value"/></xsl:when>
+					<xsl:otherwise><xsl:value-of select="$data_value"/></xsl:otherwise>
+				</xsl:choose>
 			</xsl:when>
 			<xsl:when test="/*/*[local-name() = 'localized-strings']/*[local-name() = 'localized-string'][@key = $key and @language = $curr_lang]">
-				<xsl:value-of select="/*/*[local-name() = 'localized-strings']/*[local-name() = 'localized-string'][@key = $key and @language = $curr_lang]"/>
+				<xsl:choose>
+					<xsl:when test="$formatted = 'true'">
+						<xsl:apply-templates select="/*/*[local-name() = 'localized-strings']/*[local-name() = 'localized-string'][@key = $key and @language = $curr_lang]"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="/*/*[local-name() = 'localized-strings']/*[local-name() = 'localized-string'][@key = $key and @language = $curr_lang]"/>
+					</xsl:otherwise>
+				</xsl:choose>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:variable name="key_">
@@ -6476,7 +6505,7 @@
 				<xsl:value-of select="$key_"/>
 			</xsl:otherwise>
 		</xsl:choose>
-		
+			
 	</xsl:template><xsl:template name="setTrackChangesStyles">
 		<xsl:param name="isAdded"/>
 		<xsl:param name="isDeleted"/>
