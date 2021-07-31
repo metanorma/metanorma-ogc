@@ -22,11 +22,12 @@ module Metanorma
       def fonts_manifest
         {
           "Lato" => nil,
+          "Lato Light" => nil,
           "Arial" => nil,
           "STIX Two Math" => nil,
           "Source Han Sans" => nil,
+          "Source Han Sans Normal" => nil,
           "Fira Code" => nil,
-          "Courier" => nil,
           "Courier New" => nil,
           "Times New Roman" => nil,
           "Overpass" => nil,
