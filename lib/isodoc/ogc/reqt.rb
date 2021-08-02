@@ -8,12 +8,16 @@ module IsoDoc
         return "recommendtest" if node["type"] == "abstracttest"
         return "recommendclass" if node["type"] == "class"
         return "recommendclass" if node["type"] == "conformanceclass"
+
         "recommend"
       end
 
       def recommendation_class(node)
-        node["type"] == "recommendtest" ?
-          "RecommendationTestTitle" : "RecommendationTitle"
+        if node["type"] == "recommendtest"
+          "RecommendationTestTitle"
+        else
+          "RecommendationTitle"
+        end
       end
 
       def recommendation_header(r)
@@ -27,7 +31,7 @@ module IsoDoc
           name.children.each { |n| b << n }
           b << l10n(":")
         end
-        if title =  node&.at(ns("./title"))&.remove
+        if title = node&.at(ns("./title"))&.remove
           b << l10n(" ") if name
           title.children.each { |n| b << n }
         end
@@ -54,7 +58,7 @@ module IsoDoc
       end
 
       def rec_subj(node)
-        node["type"] == "recommendclass" ?  "Target Type" : "Subject"
+        node["type"] == "recommendclass" ? "Target Type" : "Subject"
       end
 
       def recommendation_attr_keyvalue(node, key, value)
@@ -73,12 +77,14 @@ module IsoDoc
 
       def preserve_in_nested_table?(node)
         return true if %w(recommendation requirement permission table).include?(node.name)
+
         false
       end
 
       def requirement_component_parse(node, out)
         node.remove
         return if node["exclude"] == "true"
+
         node.elements.size == 1 && node.first_element_child.name == "dl" and
           return reqt_dl(node.first_element_child, out)
         b = out.add_child("<tr><td colspan='2'></td></tr>").first
@@ -110,6 +116,7 @@ module IsoDoc
         recommendation_attributes(node, b)
         node.elements.each do |n|
           next if %w(thead tbody).include?(n.name)
+
           requirement_component_parse(n, b)
         end
       end
@@ -145,8 +152,8 @@ module IsoDoc
           x = t.at(ns("./thead")) and x.replace(x.children)
           x = t.at(ns("./tbody")) and x.replace(x.children)
           x = t.at(ns("./tfoot")) and x.replace(x.children)
-          if x = t.at(ns("./tr/th[@colspan = '2']")) and
-              y = t.at(ns("./tr/td[@colspan = '2']"))
+          if (x = t.at(ns("./tr/th[@colspan = '2']"))) &&
+              (y = t.at(ns("./tr/td[@colspan = '2']")))
             requirement_table_cleanup1(x, y)
           end
           t.parent.parent.replace(t.children)
