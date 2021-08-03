@@ -1080,7 +1080,7 @@
 				
 		
 		
-			<xsl:attribute name="font-family">Courier</xsl:attribute>			
+			<xsl:attribute name="font-family">Courier New</xsl:attribute>			
 			<xsl:attribute name="margin-bottom">6pt</xsl:attribute>
 			<xsl:attribute name="keep-with-next">always</xsl:attribute>
 			<xsl:attribute name="line-height">113%</xsl:attribute>
@@ -1463,7 +1463,7 @@
 	</xsl:attribute-set><xsl:attribute-set name="tt-style">
 		
 		
-			<xsl:attribute name="font-family">Courier</xsl:attribute>			
+			<xsl:attribute name="font-family">Courier New</xsl:attribute>			
 		
 		
 	</xsl:attribute-set><xsl:attribute-set name="sourcecode-name-style">
