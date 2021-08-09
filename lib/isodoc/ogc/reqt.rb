@@ -20,9 +20,10 @@ module IsoDoc
         end
       end
 
-      def recommendation_header(r)
-        h = r.add_child("<thead><tr><th scope='colgroup' colspan='2'></th></tr></thead>")
-        recommendation_name(r, h.at(ns(".//th")))
+      def recommendation_header(recommend)
+        h = recommend.add_child("<thead><tr><th scope='colgroup' colspan='2'>"\
+                                "</th></tr></thead>")
+        recommendation_name(recommend, h.at(ns(".//th")))
       end
 
       def recommendation_name(node, out)
@@ -45,14 +46,34 @@ module IsoDoc
       end
 
       def recommendation_attributes1(node)
-        out = []
+        out = recommendation_attributes1_head(node, [])
+        out = recommendation_attributes1_component(node, out)
+        node.xpath(ns("./classification")).each do |c|
+          line = recommendation_attr_keyvalue(c, "tag", "value") and out << line
+        end
+        out
+      end
+
+      def recommendation_attributes1_head(node, out)
         oblig = node["obligation"] and out << ["Obligation", oblig]
-        subj = node&.at(ns("./subject"))&.remove&.children and out << [rec_subj(node), subj]
+        subj = node&.at(ns("./subject"))&.remove&.children and
+          out << [rec_subj(node), subj]
         node.xpath(ns("./inherit")).each do |i|
           out << ["Dependency", i.remove.children]
         end
-        node.xpath(ns("./classification")).each do |c|
-          line = recommendation_attr_keyvalue(c, "tag", "value") and out << line
+        out
+      end
+
+      def recommendation_attributes1_component(node, out)
+        node.xpath(ns("./component[not(@class = 'part')]")).each do |c|
+          case c["class"]
+          when "conditions" then out << ["Conditions", c.remove.children]
+          when "test-purpose" then out << ["Test Purpose", c.remove.children]
+          when "test-method" then out << ["Test Method", c.remove.children]
+          end
+        end
+        node.xpath(ns("./component[@class = 'part']")).each_with_index do |c, i|
+          out << [(i + "A".ord).chr.to_s, c.remove.children]
         end
         out
       end
@@ -76,7 +97,8 @@ module IsoDoc
       end
 
       def preserve_in_nested_table?(node)
-        return true if %w(recommendation requirement permission table).include?(node.name)
+        return true if %w(recommendation requirement permission
+                          table).include?(node.name)
 
         false
       end
