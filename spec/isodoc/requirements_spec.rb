@@ -49,6 +49,12 @@ RSpec.describe IsoDoc::Ogc do
         <import exclude="true">
           <sourcecode id="_">success-response()</sourcecode>
         </import>
+        <component class="test-purpose"><p>TEST PURPOSE</p></component>
+        <component class="test-method"><p>TEST METHOD</p></component>
+        <component class="conditions"><p>CONDITIONS</p></component>
+        <component class="part"><p>FIRST PART</p></component>
+        <component class="part"><p>SECOND PART</p></component>
+        <component class="part"><p>THIRD PART</p></component>
       </permission>
           </foreword></preface>
           <bibliography><references id="_bibliography" obligation="informative" normative="false">
@@ -62,7 +68,44 @@ RSpec.describe IsoDoc::Ogc do
           <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
           <preface><foreword id="A" displayorder="1"><title depth="1">I.<tab/>Preface</title>
           <table id="A1" class="permission" type="recommend">
-      <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Permission 1:</p></th></tr></thead><tbody><tr><td colspan="2"><p>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Subject</td><td>user</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td>Dependency</td><td><eref type="inline" bibitemid="rfc2616" citeas="RFC 2616">RFC 2616 (HTTP/1.1)</eref></td></tr><tr><td>Control-class</td><td>Technical</td></tr><tr><td>Priority</td><td>P0</td></tr><tr><td>Family</td><td>System and Communications Protection</td></tr><tr><td>Family</td><td>System and Communications Protocols</td></tr><tr><td colspan="2">
+      <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Permission 1:</p></th></tr></thead><tbody><tr><td colspan="2"><p>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Subject</td><td>user</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td>Dependency</td><td><eref type="inline" bibitemid="rfc2616" citeas="RFC 2616">RFC 2616 (HTTP/1.1)</eref></td></tr>
+       <tr>
+             <td>Test Purpose</td>
+             <td>
+               <p>TEST PURPOSE</p>
+             </td>
+           </tr>
+           <tr>
+             <td>Test Method</td>
+             <td>
+               <p>TEST METHOD</p>
+             </td>
+           </tr>
+           <tr>
+             <td>Conditions</td>
+             <td>
+               <p>CONDITIONS</p>
+             </td>
+           </tr>
+           <tr>
+             <td>A</td>
+             <td>
+               <p>FIRST PART</p>
+             </td>
+           </tr>
+           <tr>
+             <td>B</td>
+             <td>
+               <p>SECOND PART</p>
+             </td>
+           </tr>
+           <tr>
+             <td>C</td>
+             <td>
+               <p>THIRD PART</p>
+             </td>
+           </tr>
+          <tr><td>Control-class</td><td>Technical</td></tr><tr><td>Priority</td><td>P0</td></tr><tr><td>Family</td><td>System and Communications Protection</td></tr><tr><td>Family</td><td>System and Communications Protocols</td></tr><tr><td colspan="2">
           <p id="_">I recommend <em>this</em>.</p>
         </td></tr><tr><td>A</td><td>B</td></tr><tr><td>C</td><td>D</td></tr><tr><td colspan="2">
           <p id="_">The measurement target shall be measured as:</p>
@@ -118,6 +161,42 @@ RSpec.describe IsoDoc::Ogc do
                        <a href='#rfc2616'>RFC 2616 (HTTP/1.1)</a>
                      </td>
                    </tr>
+                   <tr>
+  <td style='vertical-align:top;' class='recommend'>Test Purpose</td>
+  <td style='vertical-align:top;' class='recommend'>
+    <p>TEST PURPOSE</p>
+  </td>
+</tr>
+<tr>
+  <td style='vertical-align:top;' class='recommend'>Test Method</td>
+  <td style='vertical-align:top;' class='recommend'>
+    <p>TEST METHOD</p>
+  </td>
+</tr>
+<tr>
+  <td style='vertical-align:top;' class='recommend'>Conditions</td>
+  <td style='vertical-align:top;' class='recommend'>
+    <p>CONDITIONS</p>
+  </td>
+</tr>
+<tr>
+  <td style='vertical-align:top;' class='recommend'>A</td>
+  <td style='vertical-align:top;' class='recommend'>
+    <p>FIRST PART</p>
+  </td>
+</tr>
+<tr>
+  <td style='vertical-align:top;' class='recommend'>B</td>
+  <td style='vertical-align:top;' class='recommend'>
+    <p>SECOND PART</p>
+  </td>
+</tr>
+<tr>
+  <td style='vertical-align:top;' class='recommend'>C</td>
+  <td style='vertical-align:top;' class='recommend'>
+    <p>THIRD PART</p>
+  </td>
+</tr>
                    <tr>
                      <td style='vertical-align:top;' class='recommend'>Control-class</td>
                      <td style='vertical-align:top;' class='recommend'>Technical</td>
@@ -238,6 +317,42 @@ RSpec.describe IsoDoc::Ogc do
                              <a href='#rfc2616'>RFC 2616 (HTTP/1.1)</a>
                            </td>
                          </tr>
+                         <tr>
+  <td style='vertical-align:top;' class='recommend'>Test Purpose</td>
+  <td style='vertical-align:top;' class='recommend'>
+    <p class='MsoNormal'>TEST PURPOSE</p>
+  </td>
+</tr>
+<tr style='background:#C9C9C9;'>
+  <td style='vertical-align:top;' class='recommend'>Test Method</td>
+  <td style='vertical-align:top;' class='recommend'>
+    <p class='MsoNormal'>TEST METHOD</p>
+  </td>
+</tr>
+<tr>
+  <td style='vertical-align:top;' class='recommend'>Conditions</td>
+  <td style='vertical-align:top;' class='recommend'>
+    <p class='MsoNormal'>CONDITIONS</p>
+  </td>
+</tr>
+<tr style='background:#C9C9C9;'>
+  <td style='vertical-align:top;' class='recommend'>A</td>
+  <td style='vertical-align:top;' class='recommend'>
+    <p class='MsoNormal'>FIRST PART</p>
+  </td>
+</tr>
+<tr>
+  <td style='vertical-align:top;' class='recommend'>B</td>
+  <td style='vertical-align:top;' class='recommend'>
+    <p class='MsoNormal'>SECOND PART</p>
+  </td>
+</tr>
+<tr style='background:#C9C9C9;'>
+  <td style='vertical-align:top;' class='recommend'>C</td>
+  <td style='vertical-align:top;' class='recommend'>
+    <p class='MsoNormal'>THIRD PART</p>
+  </td>
+</tr>
                          <tr>
                            <td style='vertical-align:top;' class='recommend'>Control-class</td>
                            <td style='vertical-align:top;' class='recommend'>Technical</td>
