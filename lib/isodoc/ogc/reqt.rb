@@ -87,7 +87,12 @@ module IsoDoc
       end
 
       def rec_subj(node)
-        node["type"] == "recommendclass" ? "Target Type" : "Subject"
+        case node["type_original"]
+        when "class" then "Target Type"
+        when "conformanceclass" then "Requirement Class"
+        when "verification", "abstracttest" then "Requirement"
+        else "Subject"
+        end
       end
 
       def recommendation_attr_keyvalue(node, key, value)
@@ -135,6 +140,7 @@ module IsoDoc
       def recommendation_base(node, klass)
         node.name = "table"
         node["class"] = klass
+        node["type_original"] = node["type"]
         node["type"] = recommend_class(node)
       end
 
@@ -149,6 +155,7 @@ module IsoDoc
 
           requirement_component_parse(n, b)
         end
+        node.delete("type_original")
       end
 
       def recommendation_to_table(docxml)
