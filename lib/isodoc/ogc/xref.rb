@@ -24,6 +24,7 @@ module IsoDoc
           @anchors[t["id"]] = anchor_struct(id, t, label, klass,
                                             t["unnumbered"])
           l = t.at(ns("./label"))&.text and @reqtlabels[l] = t["id"]
+          permission_parts(t, label, klass)
           sequential_permission_children(t, id)
         end
       end
@@ -32,7 +33,7 @@ module IsoDoc
         { "class" => "@type = 'class'",
           "test" => "@type = 'verification'",
           "" => "not(@type = 'verification' or @type = 'class' or "\
-          "@type = 'abstracttest' or @type = 'conformanceclass')" }
+                "@type = 'abstracttest' or @type = 'conformanceclass')" }
       end
 
       def req_class_paths2
@@ -40,15 +41,27 @@ module IsoDoc
           "conformanceclass" => "@type = 'conformanceclass'" }
       end
 
-      def sequential_permission_children(t, id)
+      def permission_parts(block, label, klass)
+        block.xpath(ns("./component[@class = 'part']"))
+          .each_with_index do |c, i|
+          next if c["id"].nil? || c["id"].empty?
+
+          @anchors[c["id"]] = anchor_struct((i + "A".ord).chr.to_s, c, label,
+                                            klass, c["unnumbered"])
+        end
+      end
+
+      REQS = %w(permission requirement recommendation).freeze
+
+      def sequential_permission_children(block, idx)
         req_class_paths.each do |k, v|
-          %w(permission requirement recommendation).each do |r|
-            sequential_permission_names1(t, id, "#{r}[#{v}]",
+          REQS.each do |r|
+            sequential_permission_names1(block, idx, "#{r}[#{v}]",
                                          @labels["#{r}#{k}"])
           end
         end
         req_class_paths2.each do |k, v|
-          sequential_permission_names1(t, id, "*[#{v}]", @labels[k])
+          sequential_permission_names1(block, idx, "*[#{v}]", @labels[k])
         end
       end
 
@@ -60,6 +73,7 @@ module IsoDoc
           id = "#{lbl}#{hierfigsep}#{c.increment(t).print}"
           @anchors[t["id"]] = anchor_struct(id, t, label, klass,
                                             t["unnumbered"])
+          permission_parts(t, label, klass)
           sequential_permission_children(t, id)
         end
       end
@@ -69,7 +83,7 @@ module IsoDoc
         sequential_figure_names(clause)
         sequential_formula_names(clause)
         req_class_paths.each do |k, v|
-          %w(permission requirement recommendation).each do |r|
+          REQS.each do |r|
             sequential_permission_names(clause, "#{r}[#{v}]",
                                         @labels["#{r}#{k}"])
           end
@@ -84,7 +98,7 @@ module IsoDoc
         hierarchical_figure_names(clause, num)
         hierarchical_formula_names(clause, num)
         req_class_paths.each do |k, v|
-          %w(permission requirement recommendation).each do |r|
+          REQS.each do |r|
             hierarchical_permission_names(clause, num, "#{r}[#{v}]",
                                           @labels["#{r}#{k}"])
           end
@@ -103,51 +117,54 @@ module IsoDoc
           @anchors[t["id"]] = anchor_struct(lbl, t, label, klass,
                                             t["unnumbered"])
           l = t.at(ns("./label"))&.text and @reqtlabels[l] = t["id"]
+          permission_parts(t, label, klass)
           sequential_permission_children(t, lbl)
         end
       end
 
-      def initial_anchor_names(d)
-        @prefacenum = 0
-        preface_names_numbered(d.at(ns("//preface/abstract")))
-        preface_names_numbered(d.at(ns("//preface/clause[@type = 'keywords']")))
-        preface_names_numbered(d.at(ns("//foreword")))
-        preface_names_numbered(d.at(ns("//introduction")))
-        preface_names_numbered(d.at(ns("//preface/clause[@type = 'security']")))
-        preface_names_numbered(d.at(ns("//preface/clause"\
-                                       "[@type = 'submitting_orgs']")))
-        preface_names_numbered(d.at(ns("//submitters")))
-        d.xpath(ns("//preface/clause[not(@type = 'keywords' or "\
-                   "@type = 'submitting_orgs' or @type = 'security')]")).each do |c|
-          preface_names_numbered(c)
-        end
-        preface_names_numbered(d.at(ns("//acknowledgements")))
-        sequential_asset_names(d.xpath(ns(
-                                         "//preface/abstract | //foreword | //introduction | "\
-                                         "//submitters | //acknowledgements | //preface/clause",
-                                       )))
+      def initial_anchor_names(doc)
+        preface_anchor_names(doc)
         n = Counter.new
-        n = section_names(d.at(ns("//clause[@type = 'scope']")), n, 1)
-        n = section_names(d.at(ns("//clause[@type = 'conformance']")), n, 1)
-        n = section_names(d.at(ns(@klass.norm_ref_xpath)), n, 1)
+        n = section_names(doc.at(ns("//clause[@type = 'scope']")), n, 1)
+        n = section_names(doc.at(ns("//clause[@type = 'conformance']")), n, 1)
+        n = section_names(doc.at(ns(@klass.norm_ref_xpath)), n, 1)
         n = section_names(
-          d.at(ns("//sections/terms | //sections/clause[descendant::terms]")),
+          doc.at(ns("//sections/terms | //sections/clause[descendant::terms]")),
           n, 1
         )
-        n = section_names(d.at(ns("//sections/definitions")), n, 1)
-        middle_section_asset_names(d)
-        clause_names(d, n)
-        termnote_anchor_names(d)
-        termexample_anchor_names(d)
+        n = section_names(doc.at(ns("//sections/definitions")), n, 1)
+        middle_section_asset_names(doc)
+        clause_names(doc, n)
+        termnote_anchor_names(doc)
+        termexample_anchor_names(doc)
       end
 
-      def middle_section_asset_names(d)
-        middle_sections = "//clause[@type = 'scope' or @type = 'conformance'] "\
-          "| //foreword | //introduction | //preface/abstract | "\
-          "//submitters | //acknowledgements | //preface/clause | "\
+      def preface_anchor_names(doc)
+        @prefacenum = 0
+        ["//preface/abstract", "//preface/clause[@type = 'keywords']",
+         "//foreword", "//introduction", "//preface/clause[@type = 'security']",
+         "//preface/clause[@type = 'submitting_orgs']",
+         "//submitters"].each do |path|
+          preface_names_numbered(doc.at(ns(path)))
+        end
+        doc.xpath(ns("//preface/clause[not(@type = 'keywords' or "\
+                     "@type = 'submitting_orgs' or @type = 'security')]"))
+          .each { |c| preface_names_numbered(c) }
+        preface_names_numbered(doc.at(ns("//acknowledgements")))
+        sequential_asset_names(
+          doc.xpath(ns("//preface/abstract | //foreword | //introduction | "\
+                       "//submitters | //acknowledgements | //preface/clause")),
+        )
+      end
+
+      def middle_section_asset_names(doc)
+        middle_sections =
+          "//clause[@type = 'scope' or @type = 'conformance'] | //foreword | "\
+          "//introduction | //preface/abstract | //submitters | "\
+          "//acknowledgements | //preface/clause | "\
           " #{@klass.norm_ref_xpath} | //sections/terms | "\
           "//sections/definitions | //clause[parent::sections]"
-        sequential_asset_names(d.xpath(ns(middle_sections)))
+        sequential_asset_names(doc.xpath(ns(middle_sections)))
       end
 
       def preface_names_numbered(clause)
@@ -192,7 +209,7 @@ module IsoDoc
         super
         return unless @klass.ogc_draft_ref?(ref)
 
-        @anchors[ref["id"]] = { xref: @anchors[ref["id"]][:xref] + " (draft)" }
+        @anchors[ref["id"]] = { xref: "#{@anchors[ref['id']][:xref]}  (draft)" }
       end
     end
   end

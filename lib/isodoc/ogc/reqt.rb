@@ -64,13 +64,21 @@ module IsoDoc
         out
       end
 
+      def strict_capitalize_phrase(str)
+        str.split(/ /).map do |w|
+          letters = w.chars
+          letters.first.upcase!
+          letters.join
+        end.join(" ")
+      end
+
       def recommendation_attributes1_component(node, out)
         node.xpath(ns("./component[not(@class = 'part')]")).each do |c|
-          case c["class"]
-          when "conditions" then out << ["Conditions", c.remove.children]
-          when "test-purpose" then out << ["Test Purpose", c.remove.children]
-          when "test-method" then out << ["Test Method", c.remove.children]
-          end
+          out << case c["class"]
+                 when "test-purpose" then ["Test Purpose", c.remove.children]
+                 when "test-method" then ["Test Method", c.remove.children]
+                 else [strict_capitalize_phrase(c["class"]), c.remove.children]
+                 end
         end
         node.xpath(ns("./component[@class = 'part']")).each_with_index do |c, i|
           out << [(i + "A".ord).chr.to_s, c.remove.children]
@@ -79,7 +87,12 @@ module IsoDoc
       end
 
       def rec_subj(node)
-        node["type"] == "recommendclass" ? "Target Type" : "Subject"
+        case node["type_original"]
+        when "class" then "Target Type"
+        when "conformanceclass" then "Requirement Class"
+        when "verification", "abstracttest" then "Requirement"
+        else "Subject"
+        end
       end
 
       def recommendation_attr_keyvalue(node, key, value)
@@ -127,6 +140,7 @@ module IsoDoc
       def recommendation_base(node, klass)
         node.name = "table"
         node["class"] = klass
+        node["type_original"] = node["type"]
         node["type"] = recommend_class(node)
       end
 
@@ -141,6 +155,7 @@ module IsoDoc
 
           requirement_component_parse(n, b)
         end
+        node.delete("type_original")
       end
 
       def recommendation_to_table(docxml)
