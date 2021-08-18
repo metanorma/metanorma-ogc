@@ -89,7 +89,7 @@ module IsoDoc
       def rec_subj(node)
         case node["type_original"]
         when "class" then "Target Type"
-        when "conformanceclass" then "Requirement Class"
+        when "conformanceclass" then "Requirements Class"
         when "verification", "abstracttest" then "Requirement"
         else "Subject"
         end
@@ -172,20 +172,21 @@ module IsoDoc
       end
 
       # table nested in table: merge label and caption into a single row
-      def requirement_table_cleanup1(x, y)
-        x.delete("colspan")
-        x.delete("scope")
-        y.delete("colspan")
-        y.delete("scope")
-        x.name = "td"
-        p = x.at(ns("./p[@class = 'RecommendationTitle']")) and
+      def requirement_table_cleanup1(outer, inner)
+        outer.delete("colspan")
+        outer.delete("scope")
+        inner.delete("colspan")
+        inner.delete("scope")
+        outer.name = "td"
+        p = outer.at(ns("./p[@class = 'RecommendationTitle']")) and
           p.delete("class")
-        x.parent << y.dup
-        y.parent.remove
+        outer.parent << inner.dup
+        inner.parent.remove
       end
 
       def requirement_table_cleanup(docxml)
-        docxml.xpath(ns("//table[@type = 'recommendclass']/tbody/tr/td/table")).each do |t|
+        docxml.xpath(ns("//table[@type = 'recommendclass']/tbody/tr/td/table"))
+          .each do |t|
           x = t.at(ns("./thead")) and x.replace(x.children)
           x = t.at(ns("./tbody")) and x.replace(x.children)
           x = t.at(ns("./tfoot")) and x.replace(x.children)

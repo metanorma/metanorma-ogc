@@ -3,9 +3,9 @@ submitters: Submitters
 recommendationtest: Recommendation Test
 requirementtest: Requirement Test
 permissiontest: Permission Test
-recommendationclass: Recommendation Class
-requirementclass: Requirement Class
-permissionclass: Permission Class
+recommendationclass: Recommendations Class
+requirementclass: Requirements Class
+permissionclass: Permissions Class
 abstracttest: Abstract Test
 conformanceclass: Conformance Class
 example: Example
