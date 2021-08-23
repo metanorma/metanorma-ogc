@@ -96,7 +96,7 @@ module IsoDoc
         if t = isoxml&.at(ns("//bibdata/ext/doctype"))&.text
           set(:doctype, type_capitalise(t))
           set(:doctype_abbr, doctype_abbr(t))
-          if st = isoxml&.at(ns("//bibdata/ext/docsubtype"))&.text
+          if st = isoxml&.at(ns("//bibdata/ext/subdoctype"))&.text
             set(:docsubtype, type_capitalise(st))
             set(:docsubtype_abbr, docsubtype_abbr(st, t))
           end

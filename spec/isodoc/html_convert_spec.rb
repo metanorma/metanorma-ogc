@@ -78,7 +78,7 @@ RSpec.describe IsoDoc::Ogc do
         <keyword>B</keyword>
         <ext>
         <doctype>standard</doctype>
-        <docsubtype>conceptual-model-and-encoding</docsubtype>
+        <subdoctype>conceptual-model-and-encoding</subdoctype>
         <editorialgroup>
           <committee type="A">TC</committee>
           <committee type="B">TC1</committee>

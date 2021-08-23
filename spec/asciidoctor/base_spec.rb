@@ -179,7 +179,7 @@ RSpec.describe Asciidoctor::Ogc do
           <keyword>c</keyword>
            <ext>
            <doctype>standard</doctype>
-           <docsubtype>conceptual-model</docsubtype>
+           <subdoctype>conceptual-model</subdoctype>
            <editorialgroup>
              <committee>TC</committee>
              <subcommittee type="B" number="2">SC</subcommittee>
@@ -351,7 +351,7 @@ RSpec.describe Asciidoctor::Ogc do
         </copyright>
         <ext>
         <doctype>standard</doctype>
-        <docsubtype>implementation</docsubtype>
+        <subdoctype>implementation</subdoctype>
         </ext>
       </bibdata>
       #{BOILERPLATE}
@@ -407,7 +407,7 @@ RSpec.describe Asciidoctor::Ogc do
         </copyright>
         <ext>
         <doctype>standard</doctype>
-        <docsubtype>implementation</docsubtype>
+        <subdoctype>implementation</subdoctype>
         </ext>
       </bibdata>
       #{BOILERPLATE}

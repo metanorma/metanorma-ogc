@@ -103,7 +103,7 @@ BLANK_HDR = <<~"HDR"
          </copyright>
          <ext>
          <doctype>standard</doctype>
-         <docsubtype>implementation</docsubtype>
+         <subdoctype>implementation</subdoctype>
          </ext>
        </bibdata>
        #{BOILERPLATE}

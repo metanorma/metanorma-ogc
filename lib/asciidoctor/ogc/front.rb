@@ -171,7 +171,7 @@ module Asciidoctor
             s = "general"
           end
         end
-        s and xml.docsubtype s
+        s and xml.subdoctype s
       end
 
       def title(node, xml)
