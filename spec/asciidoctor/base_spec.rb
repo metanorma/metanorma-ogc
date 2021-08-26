@@ -331,6 +331,12 @@ RSpec.describe Asciidoctor::Ogc do
 
       == Submitters
       Clause 2
+
+      |===
+      |Name |Affiliation |OGC member
+
+      |Steve Liang | University of Calgary, Canada / SensorUp Inc. | Yes
+      |===
     INPUT
 
     output = xmlpp(<<~"OUTPUT")
@@ -369,6 +375,22 @@ RSpec.describe Asciidoctor::Ogc do
       <submitters id="_">
       <title>Submitters</title>
         <p id="_">Clause 2</p>
+        <table id='_' unnumbered='true'>
+          <thead>
+            <tr>
+              <th valign='top' align='left'>Name</th>
+              <th valign='top' align='left'>Affiliation</th>
+              <th valign='top' align='left'>OGC member</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td valign='top' align='left'>Steve Liang</td>
+              <td valign='top' align='left'>University of Calgary, Canada / SensorUp Inc.</td>
+              <td valign='top' align='left'>Yes</td>
+            </tr>
+          </tbody>
+        </table>
       </submitters>
       </preface><sections>
       <clause id="_" obligation="normative">
