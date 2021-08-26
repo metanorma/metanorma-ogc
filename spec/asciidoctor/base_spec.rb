@@ -14,7 +14,8 @@ RSpec.describe Asciidoctor::Ogc do
       </ogc-standard>
     OUTPUT
 
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :ogc, header_footer: true)))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+      .to be_equivalent_to output
   end
 
   it "converts a blank document" do
@@ -41,7 +42,8 @@ RSpec.describe Asciidoctor::Ogc do
     FileUtils.rm_f "test.html"
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.pdf"
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :ogc, header_footer: true)))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+      .to be_equivalent_to output
     expect(File.exist?("test.html")).to be true
     expect(File.exist?("test.doc")).to be true
     expect(File.exist?("test.pdf")).to be true
@@ -187,13 +189,14 @@ RSpec.describe Asciidoctor::Ogc do
            </editorialgroup>
           </ext>
          </bibdata>
-      #{BOILERPLATE.sub(/#{Date.today.year} Open Geospatial Consortium/, '2001 Open Geospatial Consortium').sub(%r{<title>Warning</title>}, '<title>Warning for Drafts</title>').sub(/This document is an OGC Member approved international standard. This document is available on a royalty free, non-discriminatory basis\. Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation\.\s*/, "This document is not an OGC Standard. This document is distributed for review and comment. This document is subject to change without notice and may not be referred to as an OGC Standard.</p><p id='_'>Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation.")}
+      #{BOILERPLATE.sub(/#{Date.today.year} Open Geospatial Consortium/, '2001 Open Geospatial Consortium').sub(%r{<title>Notice</title>}, '<title>Notice for Drafts</title>').sub(/This document is an OGC Member approved international standard. This document is available on a royalty free, non-discriminatory basis\. Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation\.\s*/, "This document is not an OGC Standard. This document is distributed for review and comment. This document is subject to change without notice and may not be referred to as an OGC Standard.</p><p id='_'>Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation.")}
       <preface>#{SECURITY}</preface>
          <sections/>
          </ogc-standard>
     OUTPUT
 
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :ogc, header_footer: true)))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+      .to be_equivalent_to output
   end
 
   it "processes OGC synonyms for default metadata, and default template for external-id" do
@@ -308,7 +311,9 @@ RSpec.describe Asciidoctor::Ogc do
       <sections/>
       </ogc-standard>
     OUTPUT
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :ogc, header_footer: true).sub(%r{<boilerplate.*</boilerplate>}m, "")))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS)
+      .sub(%r{<boilerplate.*</boilerplate>}m, ""))))
+      .to be_equivalent_to output
   end
 
   it "processes submitters" do
@@ -373,7 +378,8 @@ RSpec.describe Asciidoctor::Ogc do
       </ogc-standard>
     OUTPUT
 
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :ogc, header_footer: true)))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+      .to be_equivalent_to output
   end
 
   it "processes References" do
@@ -419,7 +425,8 @@ RSpec.describe Asciidoctor::Ogc do
       </references></bibliography>
       </ogc-standard>
     OUTPUT
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :ogc, header_footer: true)))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+      .to be_equivalent_to output
   end
 
   it "strips inline header" do
@@ -444,7 +451,8 @@ RSpec.describe Asciidoctor::Ogc do
          </ogc-standard>
     OUTPUT
 
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :ogc, header_footer: true)))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+      .to be_equivalent_to output
   end
 
   it "uses default fonts" do
@@ -457,12 +465,15 @@ RSpec.describe Asciidoctor::Ogc do
     INPUT
 
     FileUtils.rm_f "test.html"
-    Asciidoctor.convert(input, backend: :ogc, header_footer: true)
+    Asciidoctor.convert(input, *OPTIONS)
 
     html = File.read("test.html", encoding: "utf-8")
-    expect(html).to match(%r[\bpre[^{]+\{[^}]+font-family: "Space Mono", monospace;]m)
-    expect(html).to match(%r[ div[^{]+\{[^}]+font-family: "Overpass", sans-serif;]m)
-    expect(html).to match(%r[h1, h2, h3, h4, h5, h6 \{[^}]+font-family: "Overpass", sans-serif;]m)
+    expect(html)
+      .to match(%r[\bpre[^{]+\{[^}]+font-family: "Space Mono", monospace;]m)
+    expect(html)
+      .to match(%r[ div[^{]+\{[^}]+font-family: "Overpass", sans-serif;]m)
+    expect(html)
+      .to match(%r[h1, h2, h3, h4, h5, h6 \{[^}]+font-family: "Overpass", sans-serif;]m)
   end
 
   it "uses specified fonts" do
@@ -479,12 +490,13 @@ RSpec.describe Asciidoctor::Ogc do
     INPUT
 
     FileUtils.rm_f "test.html"
-    Asciidoctor.convert(input, backend: :ogc, header_footer: true)
+    Asciidoctor.convert(input, *OPTIONS)
 
     html = File.read("test.html", encoding: "utf-8")
     expect(html).to match(%r[\bpre[^{]+\{[^{]+font-family: Andale Mono;]m)
     expect(html).to match(%r[ div[^{]+\{[^}]+font-family: Zapf Chancery;]m)
-    expect(html).to match(%r[h1, h2, h3, h4, h5, h6 \{[^}]+font-family: Comic Sans;]m)
+    expect(html)
+      .to match(%r[h1, h2, h3, h4, h5, h6 \{[^}]+font-family: Comic Sans;]m)
   end
 
   it "processes inline_quoted formatting" do
@@ -530,11 +542,12 @@ RSpec.describe Asciidoctor::Ogc do
              </ogc-standard>
     OUTPUT
 
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :ogc, header_footer: true)))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+      .to be_equivalent_to output
   end
 
   it "processes examples" do
-    expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    input = <<~INPUT
       #{ASCIIDOC_BLANK_HDR}
 
       [example]
@@ -545,6 +558,7 @@ RSpec.describe Asciidoctor::Ogc do
       Amen
       ====
     INPUT
+    output = <<~OUTPUT
         #{BLANK_HDR}
       <preface>#{SECURITY}</preface>
          <sections>
@@ -553,10 +567,12 @@ RSpec.describe Asciidoctor::Ogc do
          </sections>
          </ogc-standard>
     OUTPUT
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+      .to be_equivalent_to xmlpp(output)
   end
 
   it "leaves user boilerplate alone in terms & definitions" do
-    expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    input = <<~INPUT
       #{ASCIIDOC_BLANK_HDR}
 
       == Terms and Definitions
@@ -564,6 +580,7 @@ RSpec.describe Asciidoctor::Ogc do
       This is a prefatory paragraph
 
     INPUT
+    output = <<~OUTPUT
         #{BLANK_HDR}
       <preface>#{SECURITY}</preface>
           <sections><terms id="_" obligation="normative">
@@ -573,10 +590,12 @@ RSpec.describe Asciidoctor::Ogc do
          </sections>
          </ogc-standard>
     OUTPUT
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+      .to be_equivalent_to xmlpp(output)
   end
 
   it "processes preface section" do
-    expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    input = <<~INPUT
       #{ASCIIDOC_BLANK_HDR}
 
       == Preface
@@ -584,6 +603,7 @@ RSpec.describe Asciidoctor::Ogc do
       This is a prefatory paragraph
 
     INPUT
+    output = <<~OUTPUT
       #{BLANK_HDR}
        <preface>
            <foreword id='_' obligation='informative'>
@@ -595,15 +615,18 @@ RSpec.describe Asciidoctor::Ogc do
          <sections> </sections>
        </ogc-standard>
     OUTPUT
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+      .to be_equivalent_to xmlpp(output)
   end
 
   it "processes conformance section" do
-    expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    input = <<~INPUT
       #{ASCIIDOC_BLANK_HDR}
 
       == Conformance
 
     INPUT
+    output = <<~OUTPUT
         #{BLANK_HDR}
       <preface>#{SECURITY}</preface>
          <sections>
@@ -613,10 +636,12 @@ RSpec.describe Asciidoctor::Ogc do
            </sections>
          </ogc-standard>
     OUTPUT
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+      .to be_equivalent_to xmlpp(output)
   end
 
   it "processes security consideration section" do
-    expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    input = <<~INPUT
       #{ASCIIDOC_BLANK_HDR}
 
       == Security Considerations
@@ -624,6 +649,7 @@ RSpec.describe Asciidoctor::Ogc do
       This is a security consideration
 
     INPUT
+    output = <<~OUTPUT
       #{BLANK_HDR}
        <preface>
            <clause id='_' obligation='informative' type="security">
@@ -634,10 +660,12 @@ RSpec.describe Asciidoctor::Ogc do
          <sections/>
        </ogc-standard>
     OUTPUT
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+      .to be_equivalent_to xmlpp(output)
   end
 
   it "does not recognise 'Foreword' or 'Introduction' as a preface section" do
-    expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    input = <<~INPUT
       #{ASCIIDOC_BLANK_HDR}
 
       == Foreword
@@ -649,6 +677,7 @@ RSpec.describe Asciidoctor::Ogc do
       And so is this
 
     INPUT
+    output = <<~OUTPUT
             #{BLANK_HDR}
             <preface>#{SECURITY}</preface>
                  <sections>
@@ -663,14 +692,17 @@ RSpec.describe Asciidoctor::Ogc do
           </sections>
         </ogc-standard>
     OUTPUT
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+      .to be_equivalent_to xmlpp(output)
   end
 
   it "processes highlight text" do
-    expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    input = <<~INPUT
       #{ASCIIDOC_BLANK_HDR}
 
       This is #highlihgted text# inline.
     INPUT
+    output = <<~OUTPUT
             #{BLANK_HDR}
           <preface>#{SECURITY}</preface>
              <sections>
@@ -682,5 +714,7 @@ RSpec.describe Asciidoctor::Ogc do
              </sections>
              </ogc-standard>
     OUTPUT
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+      .to be_equivalent_to xmlpp(output)
   end
 end
