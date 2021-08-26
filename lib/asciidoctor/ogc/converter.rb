@@ -16,8 +16,7 @@ module Asciidoctor
       register_for "ogc"
 
       # ignore, we generate ToC outside of asciidoctor
-      def toc(value)
-      end
+      def toc(value); end
 
       def makexml(node)
         @draft = node.attributes.has_key?("draft")
@@ -27,11 +26,11 @@ module Asciidoctor
       def doctype(node)
         d = super
         d1 = ::IsoDoc::Ogc::DOCTYPE_ABBR.invert[d] and d = d1
-        unless %w{abstract-specification-topic best-practice 
-          change-request-supporting-document community-practice 
-          community-standard discussion-paper engineering-report other policy 
-          reference-model release-notes standard user-guide white-paper 
-          test-suite}.include? d
+        unless %w{abstract-specification-topic best-practice other policy
+                  change-request-supporting-document community-practice
+                  community-standard discussion-paper engineering-report
+                  reference-model release-notes standard user-guide white-paper
+                  test-suite}.include? d
           @warned_doctype or
             @log.add("Document Attributes", nil,
                      "'#{d}' is not a legal document type: reverting to 'standard'")
@@ -44,8 +43,7 @@ module Asciidoctor
       def sectiontype_streamline(ret)
         case ret
         when "preface" then "foreword"
-        when "foreword" then "donotrecognise-foreword"
-        when "introduction" then "donotrecognise-foreword"
+        when "foreword", "introduction" then "donotrecognise-foreword"
         when "references" then "normative references"
         else
           super
@@ -53,60 +51,71 @@ module Asciidoctor
       end
 
       def outputs(node, ret)
-        File.open(@filename + ".xml", "w:UTF-8") { |f| f.write(ret) }
-        presentation_xml_converter(node).convert(@filename + ".xml")
-        html_converter(node).convert(@filename + ".presentation.xml", nil, false, "#{@filename}.html")
-        doc_converter(node).convert(@filename + ".presentation.xml", nil, false, "#{@filename}.doc")
-        pdf_converter(node)&.convert(@filename + ".presentation.xml", nil, false, "#{@filename}.pdf")
+        File.open("#{@filename}.xml", "w:UTF-8") { |f| f.write(ret) }
+        presentation_xml_converter(node).convert("#{@filename}.xml")
+        html_converter(node).convert("#{@filename}.presentation.xml", nil,
+                                     false, "#{@filename}.html")
+        doc_converter(node).convert("#{@filename}.presentation.xml", nil,
+                                    false, "#{@filename}.doc")
+        pdf_converter(node)&.convert("#{@filename}.presentation.xml", nil,
+                                     false, "#{@filename}.pdf")
       end
 
       def validate(doc)
         content_validate(doc)
-        schema_validate(formattedstr_strip(doc.dup), File.join(File.dirname(__FILE__), "ogc.rng"))
+        schema_validate(formattedstr_strip(doc.dup),
+                        File.join(File.dirname(__FILE__), "ogc.rng"))
       end
 
-      def sections_cleanup(x)
+      def sections_cleanup(xml)
         super
-        x.xpath("//*[@inline-header]").each do |h|
+        xml.xpath("//*[@inline-header]").each do |h|
           h.delete("inline-header")
         end
       end
 
-      def make_preface(x, s)
+      def make_preface(xml, sect)
         super
-        insert_security(x, s)
-        insert_submitters(x, s)
+        insert_security(xml, sect)
+        insert_submitters(xml, sect)
       end
 
       def add_id
         %(id="_#{UUIDTools::UUID.random_create}")
       end
 
-      def insert_security(x, s)
-        doctype = s&.at("//bibdata/ext/doctype")&.text
-        description = %w(standard community-standard).include?(doctype) ? "standard" : "document"
-        preface = s.at("//preface") || s.add_previous_sibling("<preface/>").first
-        s = x&.at("//clause[@type = 'security']")&.remove ||
+      def insert_security(xml, sect)
+        doctype = sect&.at("//bibdata/ext/doctype")&.text
+        description = if %w(standard
+                            community-standard).include?(doctype)
+                        "standard"
+                      else
+                        "document"
+                      end
+        preface = sect.at("//preface") ||
+          sect.add_previous_sibling("<preface/>").first
+        sect = xml&.at("//clause[@type = 'security']")&.remove ||
           "<clause type='security' #{add_id}>"\
           "<title>Security Considerations</title>"\
           "<p>#{@i18n.security_empty.sub(/%/, description)}</p></clause>"
-        preface.add_child s
+        preface.add_child sect
       end
 
-      def insert_submitters(x, s)
-        if x.at("//submitters")
-          preface = s.at("//preface") || s.add_previous_sibling("<preface/>").first
-          submitters = x.at("//submitters").remove
+      def insert_submitters(xml, sect)
+        if xml.at("//submitters")
+          preface = sect.at("//preface") ||
+            sect.add_previous_sibling("<preface/>").first
+          submitters = xml.at("//submitters").remove
           preface.add_child submitters.remove
         end
       end
 
       def clause_parse(attrs, xml, node)
-        case clausetype = node&.attr("heading")&.downcase || node.title.downcase
+        case node&.attr("heading")&.downcase || node.title.downcase
         when "submitters" then return submitters_parse(attrs, xml, node)
         when "conformance" then attrs = attrs.merge(type: "conformance")
-        when "security considerations" then attrs = 
-          attrs.merge(type: "security")
+        when "security considerations" then attrs =
+                                              attrs.merge(type: "security")
         end
         super
       end
@@ -118,12 +127,11 @@ module Asciidoctor
         end
       end
 
-      def style(n, t)
-        return
+      def style(_node, _text)
+        nil
       end
 
-      def termdef_boilerplate_cleanup(xmldoc)
-      end
+      def termdef_boilerplate_cleanup(xmldoc); end
 
       def bibdata_cleanup(xmldoc)
         super
@@ -145,6 +153,7 @@ module Asciidoctor
 
       def pdf_converter(node)
         return nil if node.attr("no-pdf")
+
         IsoDoc::Ogc::PdfConvert.new(html_extract_attributes(node))
       end
 
