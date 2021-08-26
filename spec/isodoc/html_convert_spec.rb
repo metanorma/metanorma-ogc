@@ -827,7 +827,16 @@ RSpec.describe IsoDoc::Ogc do
            <title>Annex A.1a</title>
            </clause>
          </clause>
-         </annex><bibliography><references id="R" obligation="informative" normative="true">
+         </annex>
+         <annex id='_' obligation='normative'>
+        <title>Glossary</title>
+        <terms id='_' obligation='normative'>
+          <term id='term-glossary'>
+            <preferred>Glossary</preferred>
+          </term>
+        </terms>
+      </annex>
+          <bibliography><references id="R" obligation="informative" normative="true">
            <title>Normative References</title>
          </references><clause id="S" obligation="informative">
            <title>Bibliography</title>
@@ -854,7 +863,6 @@ RSpec.describe IsoDoc::Ogc do
            <clause id="DD2" obligation="normative" type="keywords" displayorder="4">
            <title depth="1">II.<tab/>Keywords</title>
            </clause>
-           
            <clause id="SUBORG" type="submitting_orgs" displayorder="5">
             <title depth="1">V.<tab/>Submitting Organizations</title>
             <p>The following organizations submitted this Document to the
@@ -880,7 +888,6 @@ RSpec.describe IsoDoc::Ogc do
              <title depth="1">2.<tab/>Conformance</title>
              <p id="E1">Text</p>
            </clause>
-      
            <clause id="H" obligation="normative" displayorder="11"><title depth="1">4.<tab/>Terms, definitions, symbols and abbreviated terms</title><terms id="I" obligation="normative">
              <title depth="2">4.1.<tab/>Normal Terms</title>
              <term id="J"><name>4.1.1.</name>
@@ -906,7 +913,6 @@ RSpec.describe IsoDoc::Ogc do
            <clause id="O" inline-header="false" obligation="normative">
              <title depth="2">6.2.<tab/>Clause 4.2</title>
            </clause></clause>
-      
            </sections><annex id="P" inline-header="false" obligation="normative" displayorder="14">
              <title><strong>Annex A</strong><br/>(normative)<br/><strong>Annex</strong></title>
              <clause id="Q" inline-header="false" obligation="normative">
@@ -915,9 +921,19 @@ RSpec.describe IsoDoc::Ogc do
              <title depth="3">A.1.1.<tab/>Annex A.1a</title>
              </clause>
            </clause>
-           </annex><bibliography><references id="R" obligation="informative" normative="true" displayorder="10">
+           </annex>
+         <annex id='_' obligation='normative' displayorder='15'>
+           <title>B<br/><strong>Glossary</strong></title>
+           <terms id='_' obligation='normative'>
+             <term id='term-glossary'>
+               <name>B.1.</name>
+               <preferred>Glossary</preferred>
+             </term>
+           </terms>
+         </annex>
+           <bibliography><references id="R" obligation="informative" normative="true" displayorder="10">
              <title depth="1">3.<tab/>Normative References</title>
-           </references><clause id="S" obligation="informative" displayorder="15">
+           </references><clause id="S" obligation="informative" displayorder="16">
              <title depth="1">Bibliography</title>
              <references id="T" obligation="informative" normative="false">
              <title depth="2">Bibliography Subsection</title>
@@ -1016,6 +1032,18 @@ RSpec.describe IsoDoc::Ogc do
               </div>
                    </div>
                    <br/>
+           <div id='_' class='Section3'>
+             <h1 class='Annex'>
+               B
+               <br/>
+               <b>Glossary</b>
+             </h1>
+             <div id='_'>
+               <p class='TermNum' id='term-glossary'>B.1.</p>
+               <p class='Terms' style='text-align:left;'>Glossary</p>
+             </div>
+           </div>
+           <br/>
                    <div>
                      <h1 class="Section3">Bibliography</h1>
                      <div>
