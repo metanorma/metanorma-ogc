@@ -20,15 +20,15 @@ module IsoDoc
 
       def preface_init_insert_pt(docxml)
         docxml.at(ns("//preface")) ||
-          docxml.at(ns("//sections")).
-          add_previous_sibling("<preface> </preface>").first
+          docxml.at(ns("//sections"))
+            .add_previous_sibling("<preface> </preface>").first
       end
 
       def submit_orgs_append_pt(docxml)
         docxml.at(ns("//introduction")) ||
-        docxml.at(ns("//foreword")) ||
-        docxml.at(ns("//preface/clause[@type = 'keywords']")) ||
-        docxml.at(ns("//preface/abstract"))
+          docxml.at(ns("//foreword")) ||
+          docxml.at(ns("//preface/clause[@type = 'keywords']")) ||
+          docxml.at(ns("//preface/abstract"))
       end
 
       def insert_security(docxml)
@@ -37,8 +37,8 @@ module IsoDoc
         if a = submit_orgs_append_pt(docxml)
           a.next = s
         else
-          preface_init_insert_pt(docxml)&.children&.first&.
-            add_previous_sibling(s)
+          preface_init_insert_pt(docxml)&.children&.first
+            &.add_previous_sibling(s)
         end
       end
 
@@ -46,33 +46,34 @@ module IsoDoc
         orgs = []
         docxml.xpath(ns(submittingorgs_path)).each { |org| orgs << org.text }
         return if orgs.empty?
+
         if a = submit_orgs_append_pt(docxml)
           a.next = submitting_orgs_clause(orgs)
         else
-          preface_init_insert_pt(docxml)&.children&.first&.
-            add_previous_sibling(submitting_orgs_clause(orgs))
+          preface_init_insert_pt(docxml)&.children&.first
+            &.add_previous_sibling(submitting_orgs_clause(orgs))
         end
       end
 
       def submitting_orgs_clause(orgs)
-        <<~END
-        <clause id="_#{UUIDTools::UUID.random_create}" type="submitting_orgs">
-        <title>Submitting Organizations</title>
-        <p>The following organizations submitted this Document to the
-           Open Geospatial Consortium (OGC):</p>
-         <ul>#{orgs.map { |m| "<li>#{m}</li>" }.join("\n")}</ul>
-         </clause>
-        END
+        <<~SUBMITTING
+          <clause id="_#{UUIDTools::UUID.random_create}" type="submitting_orgs">
+          <title>Submitting Organizations</title>
+          <p>The following organizations submitted this Document to the
+             Open Geospatial Consortium (OGC):</p>
+           <ul>#{orgs.map { |m| "<li>#{m}</li>" }.join("\n")}</ul>
+           </clause>
+        SUBMITTING
       end
 
-      def keyword_clause(kw)
-        <<~END
-        <clause id="_#{UUIDTools::UUID.random_create}" type="keywords">
-        <title>Keywords</title>
-        <p>The following are keywords to be used by search engines and
-            document catalogues.</p>
-        <p>#{kw.join(", ")}</p></clause>
-        END
+      def keyword_clause(kwords)
+        <<~KEYWORDS
+          <clause id="_#{UUIDTools::UUID.random_create}" type="keywords">
+          <title>Keywords</title>
+          <p>The following are keywords to be used by search engines and
+              document catalogues.</p>
+          <p>#{kwords.join(', ')}</p></clause>
+        KEYWORDS
       end
 
       def insert_keywords(docxml)
@@ -81,28 +82,29 @@ module IsoDoc
         if abstract = docxml.at(ns("//preface/abstract"))
           abstract.next = keyword_clause(kw)
         else
-          preface_init_insert_pt(docxml)&.children&.first&.
-            add_previous_sibling(keyword_clause(kw))
+          preface_init_insert_pt(docxml)&.children&.first
+            &.add_previous_sibling(keyword_clause(kw))
         end
       end
 
-      def example1(f)
-        lbl = @xrefs.anchor(f['id'], :label, false) or return
-        prefix_name(f, "&nbsp;&mdash; ", l10n("#{@i18n.example} #{lbl}"), "name")
+      def example1(elem)
+        lbl = @xrefs.anchor(elem["id"], :label, false) or return
+        prefix_name(elem, "&nbsp;&mdash; ", l10n("#{@i18n.example} #{lbl}"),
+                    "name")
       end
 
-      def recommendation1(f, type)
-        type = recommendation_class_label(f)
-        label = f&.at(ns("./label"))&.text
-        if inject_crossreference_reqt?(f, label)
+      def recommendation1(elem, _type)
+        type = recommendation_class_label(elem)
+        label = elem&.at(ns("./label"))&.text
+        if inject_crossreference_reqt?(elem, label)
           n = @xrefs.anchor(@xrefs.reqtlabels[label], :xref, false)
           lbl = (n.nil? ? type : n)
-          f&.at(ns("./title"))&.remove # suppress from display if embedded
+          elem&.at(ns("./title"))&.remove # suppress from display if embedded
         else
-          n = @xrefs.anchor(f['id'], :label, false)
+          n = @xrefs.anchor(elem["id"], :label, false)
           lbl = (n.nil? ? type : l10n("#{type} #{n}"))
         end
-        prefix_name(f, "", lbl, "name")
+        prefix_name(elem, "", lbl, "name")
       end
 
       # embedded reqts xref to top level reqts via label lookup
@@ -126,21 +128,27 @@ module IsoDoc
         end
       end
 
-      def annex1(f)
-        lbl = @xrefs.anchor(f['id'], :label)
-        if t = f.at(ns("./title"))
+      def annex1(elem)
+        lbl = @xrefs.anchor(elem["id"], :label)
+        if t = elem.at(ns("./title"))
           t.children = "<strong>#{t.children.to_xml}</strong>"
         end
-        prefix_name(f, "<br/>", lbl, "title")
+        prefix_name(elem, "<br/>", lbl, "title")
       end
 
       def clause(docxml)
         super
         docxml.xpath(ns("//foreword | //preface/abstract | "\
-                        "//submitters | //introduction | //acknowledgements")).
-                       each do |f|
+                        "//submitters | //introduction | //acknowledgements"))
+          .each do |f|
           clause1(f)
         end
+      end
+
+      def clause1(elem)
+        return if elem.name == "terms" && elem.parent.name == "annex"
+
+        super
       end
 
       def block(docxml)
@@ -166,4 +174,3 @@ module IsoDoc
     end
   end
 end
-

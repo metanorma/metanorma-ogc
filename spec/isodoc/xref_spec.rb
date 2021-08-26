@@ -3,8 +3,8 @@ require "spec_helper"
 RSpec.describe IsoDoc::Ogc do
   it "cross-references requirements" do
     input = <<~INPUT
-                  <iso-standard xmlns="http://riboseinc.com/isoxml">
-                  <preface>
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <preface>
           <foreword>
           <p>
           <xref target="N1"/>
@@ -2735,6 +2735,66 @@ RSpec.describe IsoDoc::Ogc do
             </clause>
           </introduction>
         </preface>
+      </iso-standard>
+    OUTPUT
+    expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({})
+      .convert("test", input, true)
+      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
+      .to be_equivalent_to xmlpp(output)
+  end
+
+  it "cross-references preface subclauses" do
+    input = <<~INPUT
+                  <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <preface>
+      <foreword>
+      <p>
+      <xref target="A"/>
+      <xref target="B"/>
+      <xref target="C"/>
+      </p>
+      </foreword>
+      </preface>
+      <annex id="A">
+      <title>Glossary</title>
+      <terms>
+      <term id="B"><preferred>Term B</preferred></term>
+      <term id="C"><preferred>Term C</preferred></term>
+      </terms>
+      </annex>
+      <iso-standard>
+    INPUT
+    output = <<~OUTPUT
+      <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+        <preface>
+          <foreword displayorder='1'>
+            <p>
+              <xref target='A'>Annex A</xref>
+              <xref target='B'>Annex A.1</xref>
+              <xref target='C'>Annex A.2</xref>
+            </p>
+          </foreword>
+        </preface>
+        <annex id='A' displayorder='2'>
+          <title>
+            <strong>Annex A</strong>
+            <br/>
+            (informative)
+            <br/>
+            <strong>Glossary</strong>
+          </title>
+          <terms>
+            <term id='B'>
+              <name>A.1.</name>
+              <preferred>Term B</preferred>
+            </term>
+            <term id='C'>
+              <name>A.2.</name>
+              <preferred>Term C</preferred>
+            </term>
+          </terms>
+        </annex>
+        <iso-standard> </iso-standard>
       </iso-standard>
     OUTPUT
     expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({})

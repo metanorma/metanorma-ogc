@@ -45,6 +45,7 @@ module Asciidoctor
         when "preface" then "foreword"
         when "foreword", "introduction" then "donotrecognise-foreword"
         when "references" then "normative references"
+        when "glossary" then "terms and definitions"
         else
           super
         end
@@ -133,10 +134,50 @@ module Asciidoctor
 
       def termdef_boilerplate_cleanup(xmldoc); end
 
+      def term_def_parse(attrs, xml, node, _toplevel)
+        if node.attr("style") == "appendix" && node.level == 1
+          terms_annex_parse(attrs, xml, node)
+        else
+          super
+        end
+      end
+
+      def terms_annex_parse(attrs, xml, node)
+        attrs1 = attrs.merge(id: "_#{UUIDTools::UUID.random_create}")
+        xml.annex **attr_code(attrs1) do |xml_section|
+          xml_section.title { |name| name << node.title }
+          xml_section.terms **attr_code(attrs) do |terms|
+            (s = node.attr("source")) && s.split(",").each do |s1|
+              terms.termdocsource(nil, **attr_code(bibitemid: s1))
+            end
+            terms << node.content
+          end
+        end
+      end
+
       def bibdata_cleanup(xmldoc)
         super
         a = xmldoc.at("//bibdata/status/stage")
         a.text == "published" and a.children = "approved"
+      end
+
+      def section_names_terms_cleanup(xml)
+        replace_title(xml, "//definitions[@type = 'symbols']", @i18n&.symbols)
+        replace_title(xml, "//definitions[@type = 'abbreviated_terms']",
+                      @i18n&.abbrev)
+        replace_title(xml, "//definitions[not(@type)]", @i18n&.symbolsabbrev)
+        replace_title(xml, "//sections//terms#{SYMnoABBR} | //sections//clause[.//terms]#{SYMnoABBR}",
+                      @i18n&.termsdefsymbols, true)
+        replace_title(xml, "//sections//terms#{ABBRnoSYM} | //sections//clause[.//terms]#{ABBRnoSYM}",
+                      @i18n&.termsdefabbrev, true)
+        replace_title(xml, "//sections//terms#{SYMABBR} | //sections//clause[.//terms]#{SYMABBR}",
+                      @i18n&.termsdefsymbolsabbrev, true)
+        replace_title(xml, "//sections//terms#{NO_SYMABBR} | //sections//clause[.//terms]#{NO_SYMABBR}",
+                      @i18n&.termsdefsymbolsabbrev, true)
+        replace_title(
+          xml, "//sections//terms[not(.//definitions)] | //sections//clause[.//terms][not(.//definitions)]",
+          @i18n&.termsdef, true
+        )
       end
 
       def highlight_parse(text, xml)

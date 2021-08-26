@@ -717,4 +717,72 @@ RSpec.describe Asciidoctor::Ogc do
     expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
       .to be_equivalent_to xmlpp(output)
   end
+
+  it "processes glossary annex" do
+    input = <<~INPUT
+      #{ASCIIDOC_BLANK_HDR}
+
+      [appendix]
+      == Glossary
+
+      === Glossary
+
+      [appendix]
+      == Appendix
+
+      term:[Glossary]
+    INPUT
+    output = <<~OUTPUT
+      #{BLANK_HDR}
+      <preface>#{SECURITY}</preface>
+      <sections> </sections>
+      <annex id='_' obligation='normative'>
+        <title>Glossary</title>
+        <terms id='_' obligation='normative'>
+          <term id='term-glossary'>
+            <preferred>Glossary</preferred>
+          </term>
+        </terms>
+      </annex>
+      <annex id='_' obligation='normative'>
+        <title>Appendix</title>
+        <p id='_'>
+          <concept>
+            <refterm>Glossary</refterm>
+            <renderterm>Glossary</renderterm>
+            <xref target='term-glossary'/>
+          </concept>
+        </p>
+      </annex>
+      </ogc-standard>
+    OUTPUT
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+      .to be_equivalent_to xmlpp(output)
+
+    input = <<~INPUT
+      #{ASCIIDOC_BLANK_HDR}
+
+      [appendix,heading=glossary]
+      == Glossarium
+
+      === Glossaire
+
+    INPUT
+    output = <<~OUTPUT
+            #{BLANK_HDR}
+          <preface>#{SECURITY}</preface>
+          <sections> </sections>
+      <annex id='_' obligation='normative'>
+        <title>Glossarium</title>
+        <terms id='_' obligation='normative'>
+          <term id='term-glossaire'>
+            <preferred>Glossaire</preferred>
+          </term>
+        </terms>
+      </annex>
+      </ogc-standard>
+    OUTPUT
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+      .to be_equivalent_to xmlpp(output)
+  end
 end
