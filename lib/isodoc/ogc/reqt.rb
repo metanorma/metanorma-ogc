@@ -12,6 +12,10 @@ module IsoDoc
         "recommend"
       end
 
+      def recommend_class?(node)
+        %w(recommendtest recommendclass recommend).include? node["type"]
+      end
+
       def recommendation_class(node)
         if node["type"] == "recommendtest"
           "RecommendationTestTitle"
