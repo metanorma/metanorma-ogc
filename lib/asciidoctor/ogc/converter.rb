@@ -142,6 +142,11 @@ module Asciidoctor
         end
       end
 
+      def table_cell(node, xml_tr, tblsec)
+        node.set_attr("valign", "middle")
+        super
+      end
+
       def terms_annex_parse(attrs, xml, node)
         attrs1 = attrs.merge(id: "_#{UUIDTools::UUID.random_create}")
         xml.annex **attr_code(attrs1) do |xml_section|

@@ -785,4 +785,39 @@ RSpec.describe Asciidoctor::Ogc do
     expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
       .to be_equivalent_to xmlpp(output)
   end
+
+  it "overrides table valign" do
+    input = <<~INPUT
+      #{ASCIIDOC_BLANK_HDR}
+
+      |===
+      <.<|a |b
+
+      ^.^|c >.>|d
+      |===
+    INPUT
+    output = <<~OUTPUT
+      #{BLANK_HDR}
+      <preface>#{SECURITY}</preface>
+      <sections>
+        <table id='_'>
+          <thead>
+            <tr>
+              <th valign='middle' align='left'>a</th>
+              <th valign='middle' align='left'>b</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td valign='middle' align='center'>c</td>
+              <td valign='middle' align='right'>d</td>
+            </tr>
+          </tbody>
+        </table>
+      </sections>
+      </ogc-standard>
+    OUTPUT
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+      .to be_equivalent_to xmlpp(output)
+  end
 end
