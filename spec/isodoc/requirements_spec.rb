@@ -2660,4 +2660,389 @@ RSpec.describe IsoDoc::Ogc do
       .gsub(%r{</body>.*}m, "</body>")))
       .to be_equivalent_to xmlpp(word)
   end
+
+  it "processes requirement components" do
+    input = <<~INPUT
+              <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+        <preface><foreword id="A"><title>Preface</title>
+        <recommendation id="_">
+      <label>/ogc/recommendation/wfs/2</label>
+      <inherit>/ss/584/2015/level/1</inherit>
+      <subject>user</subject>
+      <description><p id="_">I recommend <em>1</em>.</p></description>
+      <component class="test-purpose"><p>TEST PURPOSE</p></component>
+      <description><p id="_">I recommend <em>2</em>.</p></description>
+      <component class="conditions"><p>CONDITIONS</p></component>
+      <description><p id="_">I recommend <em>3</em>.</p></description>
+      <component class="part"><p>FIRST PART</p></component>
+      <description><p id="_">I recommend <em>4</em>.</p></description>
+      <component class="part"><p>SECOND PART</p></component>
+      <description><p id="_">I recommend <em>5</em>.</p></description>
+      <component class="test-method"><p>TEST METHOD</p></component>
+      <description><p id="_">I recommend <em>6</em>.</p></description>
+      <component class="part"><p>THIRD PART</p></component>
+      <description><p id="_">I recommend <em>7</em>.</p></description>
+      <component class="panda GHz express"><p>PANDA PART</p></component>
+      <description><p id="_">I recommend <em>8</em>.</p></description>
+      </recommendation>
+      </foreword>
+      </preface>
+      </ogc-standard>
+    INPUT
+    presxml = <<~OUTPUT
+      <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
+           <preface><foreword id="A" displayorder="1"><title depth="1">I.<tab/>Preface</title>
+           <table id="_" class="recommendation" type="recommend">
+         <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Recommendation 1:</p></th></tr></thead><tbody><tr><td colspan="2"><p>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Subject</td><td>user</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td colspan="2"><p id="_">I recommend <em>1</em>.</p></td></tr><tr><td>Test Purpose</td><td><p>TEST PURPOSE</p></td></tr><tr><td colspan="2"><p id="_">I recommend <em>2</em>.</p></td></tr><tr><td>Conditions</td><td><p>CONDITIONS</p></td></tr><tr><td colspan="2"><p id="_">I recommend <em>3</em>.</p></td></tr><tr><td>A</td><td><p>FIRST PART</p></td></tr><tr><td colspan="2"><p id="_">I recommend <em>4</em>.</p></td></tr><tr><td>B</td><td><p>SECOND PART</p></td></tr><tr><td colspan="2"><p id="_">I recommend <em>5</em>.</p></td></tr><tr><td>Test Method</td><td><p>TEST METHOD</p></td></tr><tr><td colspan="2"><p id="_">I recommend <em>6</em>.</p></td></tr><tr><td>C</td><td><p>THIRD PART</p></td></tr><tr><td colspan="2"><p id="_">I recommend <em>7</em>.</p></td></tr><tr><td>Panda GHz Express</td><td><p>PANDA PART</p></td></tr><tr><td colspan="2"><p id="_">I recommend <em>8</em>.</p></td></tr></tbody></table>
+         </foreword>
+         </preface>
+         </ogc-standard>
+    OUTPUT
+    html = <<~OUTPUT
+    <body lang='EN-US' xml:lang='EN-US' link='blue' vlink='#954F72' class='container'>
+         <div class='title-section'>
+           <p>&#160;</p>
+         </div>
+         <br/>
+         <div class='prefatory-section'>
+           <p>&#160;</p>
+         </div>
+         <br/>
+         <div class='main-section'>
+           <br/>
+           <div id='A'>
+             <h1 class='ForewordTitle'>I.&#160; Preface</h1>
+             <table id='_' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
+               <thead>
+                 <tr>
+                   <th colspan='2' style='vertical-align:top;' scope='colgroup' class='recommend'>
+                     <p class='RecommendationTitle'>Recommendation 1:</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2' style='vertical-align:top;' class='recommend'>
+                     <p>/ogc/recommendation/wfs/2</p>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend'>Subject</td>
+                   <td style='vertical-align:top;' class='recommend'>user</td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend'>Dependency</td>
+                   <td style='vertical-align:top;' class='recommend'>/ss/584/2015/level/1</td>
+                 </tr>
+                 <tr>
+                   <td colspan='2' style='vertical-align:top;' class='recommend'>
+                     <p id='_'>
+                       I recommend
+                       <i>1</i>
+                       .
+                     </p>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend'>Test Purpose</td>
+                   <td style='vertical-align:top;' class='recommend'>
+                     <p>TEST PURPOSE</p>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td colspan='2' style='vertical-align:top;' class='recommend'>
+                     <p id='_'>
+                       I recommend
+                       <i>2</i>
+                       .
+                     </p>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend'>Conditions</td>
+                   <td style='vertical-align:top;' class='recommend'>
+                     <p>CONDITIONS</p>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td colspan='2' style='vertical-align:top;' class='recommend'>
+                     <p id='_'>
+                       I recommend
+                       <i>3</i>
+                       .
+                     </p>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend'>A</td>
+                   <td style='vertical-align:top;' class='recommend'>
+                     <p>FIRST PART</p>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td colspan='2' style='vertical-align:top;' class='recommend'>
+                     <p id='_'>
+                       I recommend
+                       <i>4</i>
+                       .
+                     </p>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend'>B</td>
+                   <td style='vertical-align:top;' class='recommend'>
+                     <p>SECOND PART</p>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td colspan='2' style='vertical-align:top;' class='recommend'>
+                     <p id='_'>
+                       I recommend
+                       <i>5</i>
+                       .
+                     </p>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend'>Test Method</td>
+                   <td style='vertical-align:top;' class='recommend'>
+                     <p>TEST METHOD</p>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td colspan='2' style='vertical-align:top;' class='recommend'>
+                     <p id='_'>
+                       I recommend
+                       <i>6</i>
+                       .
+                     </p>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend'>C</td>
+                   <td style='vertical-align:top;' class='recommend'>
+                     <p>THIRD PART</p>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td colspan='2' style='vertical-align:top;' class='recommend'>
+                     <p id='_'>
+                       I recommend
+                       <i>7</i>
+                       .
+                     </p>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend'>Panda GHz Express</td>
+                   <td style='vertical-align:top;' class='recommend'>
+                     <p>PANDA PART</p>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td colspan='2' style='vertical-align:top;' class='recommend'>
+                     <p id='_'>
+                       I recommend
+                       <i>8</i>
+                       .
+                     </p>
+                   </td>
+                 </tr>
+               </tbody>
+             </table>
+           </div>
+           <p class='zzSTDTitle1'/>
+         </div>
+       </body>
+    OUTPUT
+    word = <<~OUTPUT
+           <body xmlns:m=''>
+         <div>
+           <div>
+             <a name='A' id='A'/>
+             <h1 class='ForewordTitle'>
+               I.
+               <span style='mso-tab-count:1'>&#xA0; </span>
+               Preface
+             </h1>
+             <div align='center' class='table_container'>
+               <table class='recommend' style='border-collapse:collapse;border-spacing:0;'>
+                 <a name='_' id='_'/>
+                 <thead>
+                   <tr style='background:#A5A5A5;'>
+                     <th colspan='2' style='vertical-align:top;' class='recommend'>
+                       <p class='RecommendationTitle'>Recommendation 1:</p>
+                     </th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   <tr>
+                     <td colspan='2' style='vertical-align:top;' class='recommend'>
+                       <p class='MsoNormal'>/ogc/recommendation/wfs/2</p>
+                     </td>
+                   </tr>
+                   <tr style='background:#C9C9C9;'>
+                     <td style='vertical-align:top;' class='recommend'>Subject</td>
+                     <td style='vertical-align:top;' class='recommend'>user</td>
+                   </tr>
+                   <tr>
+                     <td style='vertical-align:top;' class='recommend'>Dependency</td>
+                     <td style='vertical-align:top;' class='recommend'>/ss/584/2015/level/1</td>
+                   </tr>
+                   <tr style='background:#C9C9C9;'>
+                     <td colspan='2' style='vertical-align:top;' class='recommend'>
+                       <p class='MsoNormal'>
+                         <a name='_' id='_'/>
+                         I recommend
+                         <i>1</i>
+                         .
+                       </p>
+                     </td>
+                   </tr>
+                   <tr>
+                     <td style='vertical-align:top;' class='recommend'>Test Purpose</td>
+                     <td style='vertical-align:top;' class='recommend'>
+                       <p class='MsoNormal'>TEST PURPOSE</p>
+                     </td>
+                   </tr>
+                   <tr style='background:#C9C9C9;'>
+                     <td colspan='2' style='vertical-align:top;' class='recommend'>
+                       <p class='MsoNormal'>
+                         <a name='_' id='_'/>
+                         I recommend
+                         <i>2</i>
+                         .
+                       </p>
+                     </td>
+                   </tr>
+                   <tr>
+                     <td style='vertical-align:top;' class='recommend'>Conditions</td>
+                     <td style='vertical-align:top;' class='recommend'>
+                       <p class='MsoNormal'>CONDITIONS</p>
+                     </td>
+                   </tr>
+                   <tr style='background:#C9C9C9;'>
+                     <td colspan='2' style='vertical-align:top;' class='recommend'>
+                       <p class='MsoNormal'>
+                         <a name='_' id='_'/>
+                         I recommend
+                         <i>3</i>
+                         .
+                       </p>
+                     </td>
+                   </tr>
+                   <tr>
+                     <td style='vertical-align:top;' class='recommend'>A</td>
+                     <td style='vertical-align:top;' class='recommend'>
+                       <p class='MsoNormal'>FIRST PART</p>
+                     </td>
+                   </tr>
+                   <tr style='background:#C9C9C9;'>
+                     <td colspan='2' style='vertical-align:top;' class='recommend'>
+                       <p class='MsoNormal'>
+                         <a name='_' id='_'/>
+                         I recommend
+                         <i>4</i>
+                         .
+                       </p>
+                     </td>
+                   </tr>
+                   <tr>
+                     <td style='vertical-align:top;' class='recommend'>B</td>
+                     <td style='vertical-align:top;' class='recommend'>
+                       <p class='MsoNormal'>SECOND PART</p>
+                     </td>
+                   </tr>
+                   <tr style='background:#C9C9C9;'>
+                     <td colspan='2' style='vertical-align:top;' class='recommend'>
+                       <p class='MsoNormal'>
+                         <a name='_' id='_'/>
+                         I recommend
+                         <i>5</i>
+                         .
+                       </p>
+                     </td>
+                   </tr>
+                   <tr>
+                     <td style='vertical-align:top;' class='recommend'>Test Method</td>
+                     <td style='vertical-align:top;' class='recommend'>
+                       <p class='MsoNormal'>TEST METHOD</p>
+                     </td>
+                   </tr>
+                   <tr style='background:#C9C9C9;'>
+                     <td colspan='2' style='vertical-align:top;' class='recommend'>
+                       <p class='MsoNormal'>
+                         <a name='_' id='_'/>
+                         I recommend
+                         <i>6</i>
+                         .
+                       </p>
+                     </td>
+                   </tr>
+                   <tr>
+                     <td style='vertical-align:top;' class='recommend'>C</td>
+                     <td style='vertical-align:top;' class='recommend'>
+                       <p class='MsoNormal'>THIRD PART</p>
+                     </td>
+                   </tr>
+                   <tr style='background:#C9C9C9;'>
+                     <td colspan='2' style='vertical-align:top;' class='recommend'>
+                       <p class='MsoNormal'>
+                         <a name='_' id='_'/>
+                         I recommend
+                         <i>7</i>
+                         .
+                       </p>
+                     </td>
+                   </tr>
+                   <tr>
+                     <td style='vertical-align:top;' class='recommend'>Panda GHz Express</td>
+                     <td style='vertical-align:top;' class='recommend'>
+                       <p class='MsoNormal'>PANDA PART</p>
+                     </td>
+                   </tr>
+                   <tr style='background:#C9C9C9;'>
+                     <td colspan='2' style='vertical-align:top;' class='recommend'>
+                       <p class='MsoNormal'>
+                         <a name='_' id='_'/>
+                         I recommend
+                         <i>8</i>
+                         .
+                       </p>
+                     </td>
+                   </tr>
+                 </tbody>
+               </table>
+             </div>
+           </div>
+           <p class='MsoNormal'>&#xA0;</p>
+         </div>
+         <p class='MsoNormal'>
+           <br clear='all' class='section'/>
+         </p>
+         <div class='WordSection3'>
+           <p class='zzSTDTitle1'/>
+         </div>
+         <div style='mso-element:footnote-list'/>
+       </body>
+    OUTPUT
+
+    expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({})
+      .convert("test", input, true)
+      .gsub(%r{^.*<body}m, "<body")
+      .gsub(%r{</body>.*}m, "</body>")))
+      .to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({})
+      .convert("test", presxml, true)
+      .gsub(%r{^.*<body}m, "<body")
+      .gsub(%r{</body>.*}m, "</body>")))
+      .to be_equivalent_to xmlpp(html)
+    FileUtils.rm_f "test.doc"
+    IsoDoc::Ogc::WordConvert.new({}).convert("test", presxml, false)
+    expect(xmlpp(File.read("test.doc")
+      .gsub(%r{^.*<a name="A" id="A">}m,
+            "<body xmlns:m=''><div><div><a name='A' id='A'>")
+              .gsub(%r{</body>.*}m, "</body>")))
+      .to be_equivalent_to xmlpp(word)
+  end
 end

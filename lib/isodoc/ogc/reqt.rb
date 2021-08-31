@@ -51,7 +51,6 @@ module IsoDoc
 
       def recommendation_attributes1(node)
         out = recommendation_attributes1_head(node, [])
-        out = recommendation_attributes1_component(node, out)
         node.xpath(ns("./classification")).each do |c|
           line = recommendation_attr_keyvalue(c, "tag", "value") and out << line
         end
@@ -77,17 +76,7 @@ module IsoDoc
       end
 
       def recommendation_attributes1_component(node, out)
-        node.xpath(ns("./component[not(@class = 'part')]")).each do |c|
-          out << case c["class"]
-                 when "test-purpose" then ["Test Purpose", c.remove.children]
-                 when "test-method" then ["Test Method", c.remove.children]
-                 else [strict_capitalize_phrase(c["class"]), c.remove.children]
-                 end
-        end
-        node.xpath(ns("./component[@class = 'part']")).each_with_index do |c, i|
-          out << [(i + "A".ord).chr.to_s, c.remove.children]
-        end
-        out
+        out << "<tr><td>#{node['label']}</td><td>#{node.children}</td></tr>"
       end
 
       def rec_subj(node)
@@ -108,6 +97,7 @@ module IsoDoc
       end
 
       def recommendation_attributes(node, out)
+        recommend_title(node, out)
         recommendation_attributes1(node).each do |i|
           out.add_child("<tr><td>#{i[0]}</td><td>#{i[1]}</td></tr>")
         end
@@ -126,8 +116,11 @@ module IsoDoc
 
         node.elements.size == 1 && node.first_element_child.name == "dl" and
           return reqt_dl(node.first_element_child, out)
+        node.name == "component" and
+          return recommendation_attributes1_component(node, out)
         b = out.add_child("<tr><td colspan='2'></td></tr>").first
-        b.at(ns(".//td")) << (preserve_in_nested_table?(node) ? node : node.children)
+        b.at(ns(".//td")) <<
+          (preserve_in_nested_table?(node) ? node : node.children)
       end
 
       def reqt_dl(node, out)
@@ -146,19 +139,31 @@ module IsoDoc
         node["class"] = klass
         node["type_original"] = node["type"]
         node["type"] = recommend_class(node)
+        recommendation_component_labels(node)
+      end
+
+      def recommendation_component_labels(node)
+        node.xpath(ns("./component[@class = 'part']")).each_with_index do |c, i|
+          c["label"] = (i + "A".ord).chr.to_s
+        end
+        node.xpath(ns("./component[not(@class = 'part')]")).each do |c|
+          c["label"] = case c["class"]
+                       when "test-purpose" then "Test Purpose"
+                       when "test-method" then "Test Method"
+                       else strict_capitalize_phrase(c["class"])
+                       end
+        end
       end
 
       def recommendation_parse1(node, klass)
         recommendation_base(node, klass)
         recommendation_header(node)
         b = node.add_child("<tbody></tbody>").first
-        recommend_title(node, b)
         recommendation_attributes(node, b)
-        node.elements.each do |n|
-          next if %w(thead tbody).include?(n.name)
-
-          requirement_component_parse(n, b)
-        end
+        node.elements.reject do |n|
+          %w(thead tbody classification subject
+             inherit).include?(n.name)
+        end.each { |n| requirement_component_parse(n, b) }
         node.delete("type_original")
       end
 
@@ -191,13 +196,12 @@ module IsoDoc
       def requirement_table_cleanup(docxml)
         docxml.xpath(ns("//table[@type = 'recommendclass']/tbody/tr/td/table"))
           .each do |t|
-          x = t.at(ns("./thead")) and x.replace(x.children)
-          x = t.at(ns("./tbody")) and x.replace(x.children)
-          x = t.at(ns("./tfoot")) and x.replace(x.children)
-          if (x = t.at(ns("./tr/th[@colspan = '2']"))) &&
-              (y = t.at(ns("./tr/td[@colspan = '2']")))
-            requirement_table_cleanup1(x, y)
+          t.xpath(ns("./thead | ./tbody |./tfoot")).each do |x|
+            x.replace(x.children)
           end
+          (x = t.at(ns("./tr/th[@colspan = '2']"))) &&
+            (y = t.at(ns("./tr/td[@colspan = '2']"))) and
+            requirement_table_cleanup1(x, y)
           t.parent.parent.replace(t.children)
         end
       end
