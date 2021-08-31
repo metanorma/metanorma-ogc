@@ -271,7 +271,7 @@ RSpec.describe IsoDoc::Ogc do
                                  <span class='MsoHyperlink'>
                                    <span lang='EN-GB' xml:lang='EN-GB' style='mso-no-proof:yes'>
                                      <a href='#_Toc'>
-                                       Recommendation 1:
+                                       Recommendation 1
                                        <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
                                          <span style='mso-tab-count:1 dotted'>. </span>
                                        </span>
