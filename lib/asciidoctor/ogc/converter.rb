@@ -185,6 +185,21 @@ module Asciidoctor
         )
       end
 
+      def requirement_metadata1_tags
+        super + %w(test-purpose test-method conditions part)
+      end
+
+      def requirement_metadata(xmldoc)
+        super
+        xmldoc.xpath(REQRECPER).each do |r|
+          r.xpath("./test-method | ./test-purpose | ./conditions | ./part")
+            .each do |c|
+            c["class"] = c.name
+            c.name = "component"
+          end
+        end
+      end
+
       def highlight_parse(text, xml)
         xml.hi { |s| s << text }
       end
