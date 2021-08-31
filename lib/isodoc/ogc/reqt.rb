@@ -34,10 +34,9 @@ module IsoDoc
         b = out.add_child("<p class='#{recommendation_class(node)}'></p>").first
         if name = node&.at(ns("./name"))&.remove
           name.children.each { |n| b << n }
-          b << l10n(":")
         end
         if title = node&.at(ns("./title"))&.remove
-          b << l10n(" ") if name
+          b << l10n(": ") if name
           title.children.each { |n| b << n }
         end
       end
