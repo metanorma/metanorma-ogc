@@ -80,11 +80,20 @@ module Asciidoctor
         dlist.xpath("./dt").each do |e|
           next unless requirement_metadata_component_tags.include? e.text
 
-          val = e.at("./following::dd")
-          val.name = e.text
-          ins.next = val
+          ins.next = requirement_metadata1_component(e)
           ins = ins.next
         end
+      end
+
+      def requirement_metadata1_component(term)
+        val = term.at("./following::dd")
+        val.name = term.text
+        if %w(requirement permission
+              recommendation).include?(term.text) && !val.text.empty?
+          val["label"] = val.text.strip
+          val.children.remove
+        end
+        val
       end
 
       def requirement_metadata(xmldoc)

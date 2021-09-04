@@ -915,11 +915,7 @@ RSpec.describe Asciidoctor::Ogc do
              <description>
                  <p id='_'>Interpolated description</p>
              </description>
-             <recommendation id='_'>
-               <description>
-                 <p id='_'>Interpolated Recommendation</p>
-               </description>
-             </recommendation>
+             <recommendation id='_' label="Interpolated Recommendation"/>
              <component class='part'>
                  <p id='_'>Widget has been suitably calibrated for aerodynamics</p>
              </component>
