@@ -71,7 +71,7 @@ module Asciidoctor
       end
 
       def requirement_metadata_component_tags
-        %w(test-purpose test-method conditions part description
+        %w(test-purpose test-method conditions part description reference
            requirement permission recommendation)
       end
 
@@ -106,7 +106,8 @@ module Asciidoctor
       end
 
       def requirement_metadata_to_component(reqt)
-        reqt.xpath("./test-method | ./test-purpose | ./conditions | ./part")
+        reqt.xpath("./test-method | ./test-purpose | ./conditions | ./part | "\
+                   "./reference")
           .each do |c|
           c["class"] = c.name
           c.name = "component"

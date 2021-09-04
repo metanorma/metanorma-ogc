@@ -852,6 +852,7 @@ RSpec.describe Asciidoctor::Ogc do
       part:: Widget has been suitably calibrated for aerodynamics
       test-method:: Method
       test-purpose:: Purpose
+      reference:: <<ref2>>
 
       Logical models encoded as XSDs should be faithful to the original UML conceptual
       models.
@@ -924,6 +925,9 @@ RSpec.describe Asciidoctor::Ogc do
              </component>
              <component class='test-purpose'>
                  <p id='_'>Purpose</p>
+             </component>
+             <component class='reference'>
+                 <p id='_'><xref target='ref2'/></p>
              </component>
              <description>
                <p id='_'>
