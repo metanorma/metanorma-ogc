@@ -502,16 +502,16 @@ RSpec.describe IsoDoc::Ogc do
     output = xmlpp(<<~"OUTPUT")
         <div id='H'>
           <h1 id='toc0'>1.&#xA0; Terms, Definitions, Symbols and Abbreviated Terms</h1>
-          <p class='Terms' style='text-align:left;'>
-      1.1.&#xA0;Term2 Term2A&#xA0;
-      <span class='AdmittedLabel'>ADMITTED</span>
-       Term2B&#xA0;
-      <span class='AdmittedLabel'>ADMITTED</span>
-       Term2C&#xA0;
-      <span class='AdmittedLabel'>DEPRECATED</span>
-       Term2D&#xA0;
-      <span class='AdmittedLabel'>DEPRECATED</span>
-          </p>
+                   <h2 class='TermNum' style='text-align:left;' id='J'>
+           1.1.&#xA0;Term2 Term2A&#xA0;
+           <span class='AdmittedLabel'>ADMITTED</span>
+            Term2B&#xA0;
+           <span class='AdmittedLabel'>ADMITTED</span>
+            Term2C&#xA0;
+           <span class='AdmittedLabel'>DEPRECATED</span>
+            Term2D&#xA0;
+           <span class='AdmittedLabel'>DEPRECATED</span>
+         </h2>
         </div>
     OUTPUT
 

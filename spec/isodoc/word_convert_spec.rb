@@ -36,7 +36,7 @@ RSpec.describe IsoDoc::Ogc do
                            For the purposes of this document, the following terms and definitions
                            apply.
                          </p>
-                         <p class='TermNum'>
+                         <p class='TermNum' style='text-align:left;'>
                            <a name='_bounding_volume' id='_bounding_volume'/>
                            1.1.&#xA0;Bounding Volume
                          </p>
