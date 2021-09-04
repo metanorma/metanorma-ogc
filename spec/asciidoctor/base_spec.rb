@@ -847,6 +847,8 @@ RSpec.describe Asciidoctor::Ogc do
       . Candidate test subject is a witch
       . Widget has been suitably calibrated for aerodynamics
       part:: Determine travel distance by flight path
+      description:: Interpolated description
+      recommendation:: Interpolated Recommendation
       part:: Widget has been suitably calibrated for aerodynamics
       test-method:: Method
       test-purpose:: Purpose
@@ -881,36 +883,61 @@ RSpec.describe Asciidoctor::Ogc do
         <inherit>
           <xref target='ref3'/>
         </inherit>
-        <component class='test-purpose'>Purpose</component>
-        <component class='test-method'>Method</component>
-        <component class='conditions'>Determine travel distance by flight path</component>
-        <component class='part'>Widget has been suitably calibrated for aerodynamics</component>
-        <component class='part'> </component>
         <classification>
-          <tag>control-class</tag>
-          <value>Technical</value>
-        </classification>
-        <classification>
-          <tag>domain</tag>
-          <value>Groundwater</value>
+          <tag>priority</tag>
+          <value>P0</value>
         </classification>
         <classification>
           <tag>domain</tag>
           <value>Hydrology</value>
         </classification>
         <classification>
-          <tag>priority</tag>
-          <value>P0</value>
+          <tag>domain</tag>
+          <value>Groundwater</value>
         </classification>
-        <description>
-          <p id='_'>
-            Logical models encoded as XSDs should be faithful to the original UML
-            conceptual models.
-          </p>
-        </description>
-      </requirement>
-      </sections>
-      </ogc-standard>
+        <classification>
+          <tag>control-class</tag>
+          <value>Technical</value>
+        </classification>
+           <component class='conditions'>
+                 <ol id='_' type='arabic'>
+                   <li>
+                     <p id='_'>Candidate test subject is a witch</p>
+                   </li>
+                   <li>
+                     <p id='_'>Widget has been suitably calibrated for aerodynamics</p>
+                   </li>
+                 </ol>
+             </component>
+             <component class='part'>
+                 <p id='_'>Determine travel distance by flight path</p>
+             </component>
+             <description>
+                 <p id='_'>Interpolated description</p>
+             </description>
+             <recommendation id='_'>
+               <description>
+                 <p id='_'>Interpolated Recommendation</p>
+               </description>
+             </recommendation>
+             <component class='part'>
+                 <p id='_'>Widget has been suitably calibrated for aerodynamics</p>
+             </component>
+             <component class='test-method'>
+                 <p id='_'>Method</p>
+             </component>
+             <component class='test-purpose'>
+                 <p id='_'>Purpose</p>
+             </component>
+             <description>
+               <p id='_'>
+                 Logical models encoded as XSDs should be faithful to the original UML
+                 conceptual models.
+               </p>
+             </description>
+           </requirement>
+         </sections>
+       </ogc-standard>
     OUTPUT
     expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
       .to be_equivalent_to xmlpp(output)
