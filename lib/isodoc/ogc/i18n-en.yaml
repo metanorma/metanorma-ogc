@@ -25,6 +25,7 @@ internal_external_terms_boilerplate: |
         <p>This document also uses terms defined in the OGC Standard for Modular specifications (<link target="https://portal.opengeospatial.org/files/?artifact_id=34762">OGC 08-131r3</link>), also known as the 'ModSpec'. The definitions of terms such as standard, specification, requirement, and conformance test are provided in the ModSpec.</p>
           <p>For the purposes of this document, the terms and definitions
             given in % and the following additionally apply.</p>
+term_defined_in: "(%)"
 stage_dict:
   swg-draft: Candidate SWG Draft
   oab-review: Candidate OAB Review Draft
