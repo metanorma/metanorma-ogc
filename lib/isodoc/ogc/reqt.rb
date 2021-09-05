@@ -74,14 +74,22 @@ module IsoDoc
         end.join(" ")
       end
 
+      def strict_capitalize_first(str)
+        str.split(/ /).each_with_index.map do |w, i|
+          letters = w.chars
+          letters.first.upcase! if i.zero?
+          letters.join
+        end.join(" ")
+      end
+
       def recommendation_attributes1_component(node, out)
         out << "<tr><td>#{node['label']}</td><td>#{node.children}</td></tr>"
       end
 
       def rec_subj(node)
         case node["type_original"]
-        when "class" then "Target Type"
-        when "conformanceclass" then "Requirements Class"
+        when "class" then "Target type"
+        when "conformanceclass" then "Requirements class"
         when "verification", "abstracttest" then "Requirement"
         else "Subject"
         end
@@ -147,9 +155,9 @@ module IsoDoc
         end
         node.xpath(ns("./component[not(@class = 'part')]")).each do |c|
           c["label"] = case c["class"]
-                       when "test-purpose" then "Test Purpose"
-                       when "test-method" then "Test Method"
-                       else strict_capitalize_phrase(c["class"])
+                       when "test-purpose" then "Test purpose"
+                       when "test-method" then "Test method"
+                       else strict_capitalize_first(c["class"])
                        end
         end
       end

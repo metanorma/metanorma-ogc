@@ -97,7 +97,7 @@ module Asciidoctor
           sect.add_previous_sibling("<preface/>").first
         sect = xml&.at("//clause[@type = 'security']")&.remove ||
           "<clause type='security' #{add_id}>"\
-          "<title>Security Considerations</title>"\
+          "<title>Security considerations</title>"\
           "<p>#{@i18n.security_empty.sub(/%/, description)}</p></clause>"
         preface.add_child sect
       end

@@ -119,7 +119,7 @@ HDR
 
 SECURITY = <<~"HDR".freeze
   <clause type='security' id='_' obligation='informative'>
-    <title>Security Considerations</title>
+    <title>Security considerations</title>
     <p id='_'>No security considerations have been made for this standard.</p>
   </clause>
 HDR

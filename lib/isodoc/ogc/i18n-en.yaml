@@ -1,14 +1,14 @@
 admitted: ADMITTED
 foreword: Preface
 submitters: Submitters
-recommendationtest: Recommendation Test
-requirementtest: Requirement Test
-permissiontest: Permission Test
-recommendationclass: Recommendations Class
-requirementclass: Requirements Class
-permissionclass: Permissions Class
-abstracttest: Abstract Test
-conformanceclass: Conformance Class
+recommendationtest: Recommendation test
+requirementtest: Requirement test
+permissiontest: Permission test
+recommendationclass: Recommendations class
+requirementclass: Requirements class
+permissionclass: Permissions class
+abstracttest: Abstract test
+conformanceclass: Conformance class
 example: Example
 security_empty: No security considerations have been made for this %.
 internal_terms_boilerplate: |
