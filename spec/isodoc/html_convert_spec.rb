@@ -489,6 +489,10 @@ RSpec.describe IsoDoc::Ogc do
           <term id="J">
           <name>1.1.</name>
           <preferred>Term2</preferred>
+          <admitted>Term2A</admitted>
+          <admitted>Term2B</admitted>
+          <deprecates>Term2C</deprecates>
+          <deprecates>Term2D</deprecates>
         </term>
          </terms>
          </sections>
@@ -496,21 +500,27 @@ RSpec.describe IsoDoc::Ogc do
     INPUT
 
     output = xmlpp(<<~"OUTPUT")
-       #{HTML_HDR}
-            <p class="zzSTDTitle1"/>
-            <div id="H"><h1>1.&#160; Terms, Definitions, Symbols and Abbreviated Terms</h1>
-      <p class="TermNum" id="J">1.1.</p>
-        <p class="Terms" style="text-align:left;">Term2</p>
-      </div>
-          </div>
-        </body>
+        <div id='H'>
+          <h1 id='toc0'>1.&#xA0; Terms, Definitions, Symbols and Abbreviated Terms</h1>
+                   <h2 class='TermNum' style='text-align:left;' id='J'>
+           1.1.&#xA0;Term2 Term2A&#xA0;
+           <span class='AdmittedLabel'>ADMITTED</span>
+            Term2B&#xA0;
+           <span class='AdmittedLabel'>ADMITTED</span>
+            Term2C&#xA0;
+           <span class='AdmittedLabel'>DEPRECATED</span>
+            Term2D&#xA0;
+           <span class='AdmittedLabel'>DEPRECATED</span>
+         </h2>
+        </div>
     OUTPUT
 
+    IsoDoc::Ogc::HtmlConvert.new({ filename: "test" })
+      .convert("test", input, false)
     expect(xmlpp(
-             IsoDoc::Ogc::HtmlConvert.new({})
-             .convert("test", input, true)
-             .gsub(%r{^.*<body}m, "<body")
-             .gsub(%r{</body>.*}m, "</body>"),
+             File.read("test.html")
+          .gsub(%r{^.*<div id="H">}m, '<div id="H">')
+          .gsub(%r{</div>.*}m, "</div>"),
            )).to be_equivalent_to output
   end
 
@@ -849,98 +859,98 @@ RSpec.describe IsoDoc::Ogc do
     INPUT
 
     presxml = <<~OUTPUT
-        <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
-          <preface>
-           <abstract obligation="informative" id="1" displayorder="1"><title depth="1">I.<tab/>Abstract</title>
-           <p>XYZ</p>
-           </abstract>
-          <foreword obligation="informative" id="2" displayorder="2"><title depth="1">III.<tab/>Preface</title>
-             <p id="A">This is a preamble</p>
-           </foreword><clause id="DD1" obligation="normative" type="security" displayorder="3">
-             <title depth="1">IV.<tab/>Security</title>
-             <p id="EE1">Text</p>
-           </clause>
-           <clause id="DD2" obligation="normative" type="keywords" displayorder="4">
-           <title depth="1">II.<tab/>Keywords</title>
-           </clause>
-           <clause id="SUBORG" type="submitting_orgs" displayorder="5">
-            <title depth="1">V.<tab/>Submitting Organizations</title>
-            <p>The following organizations submitted this Document to the
-               Open Geospatial Consortium (OGC):</p>
-               </clause>
-           <submitters obligation="informative" id="3" displayorder="6">
-           <title depth="1">VI.<tab/>Submitters</title>
-           <p>ABC</p>
-           </submitters>
-           <clause id="5" displayorder="7"><title depth="1">VII.<tab/>Dedication</title>
-           <clause id="6"><title depth="2">VII.A.<tab/>Note to readers</title></clause>
-            </clause>
-           <acknowledgements obligation="informative" id="4" displayorder="8">
-           <title depth="1">VIII.<tab/>Acknowlegements</title>
-           <p>ABC</p>
-           </acknowledgements>
-            </preface><sections>
-           <clause id="D" obligation="normative" type="scope" displayorder="9">
-             <title depth="1">1.<tab/>Scope</title>
-             <p id="E">Text</p>
-           </clause>
-           <clause id="D1" obligation="normative" type="conformance">
-             <title depth="1">2.<tab/>Conformance</title>
-             <p id="E1">Text</p>
-           </clause>
-           <clause id="H" obligation="normative" displayorder="11"><title depth="1">4.<tab/>Terms, definitions, symbols and abbreviated terms</title><terms id="I" obligation="normative">
-             <title depth="2">4.1.<tab/>Normal Terms</title>
-             <term id="J"><name>4.1.1.</name>
-             <preferred>Term2</preferred>
-           </term>
-           </terms>
-           <definitions id="K"><title>4.2.</title>
-             <dl>
-             <dt>Symbol</dt>
-             <dd>Definition</dd>
-             </dl>
-           </definitions>
-           </clause>
-           <definitions id="L" displayorder="12"><title>5.</title>
-             <dl>
-             <dt>Symbol</dt>
-             <dd>Definition</dd>
-             </dl>
-           </definitions>
-           <clause id="M" inline-header="false" obligation="normative" displayorder="13"><title depth="1">6.<tab/>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
-             <title depth="2">6.1.<tab/>Introduction</title>
-           </clause>
-           <clause id="O" inline-header="false" obligation="normative">
-             <title depth="2">6.2.<tab/>Clause 4.2</title>
-           </clause></clause>
-           </sections><annex id="P" inline-header="false" obligation="normative" displayorder="14">
-             <title><strong>Annex A</strong><br/>(normative)<br/><strong>Annex</strong></title>
-             <clause id="Q" inline-header="false" obligation="normative">
-             <title depth="2">A.1.<tab/>Annex A.1</title>
-             <clause id="Q1" inline-header="false" obligation="normative">
-             <title depth="3">A.1.1.<tab/>Annex A.1a</title>
+      <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
+        <preface>
+         <abstract obligation="informative" id="1" displayorder="1"><title depth="1">I.<tab/>Abstract</title>
+         <p>XYZ</p>
+         </abstract>
+        <foreword obligation="informative" id="2" displayorder="2"><title depth="1">III.<tab/>Preface</title>
+           <p id="A">This is a preamble</p>
+         </foreword><clause id="DD1" obligation="normative" type="security" displayorder="3">
+           <title depth="1">IV.<tab/>Security</title>
+           <p id="EE1">Text</p>
+         </clause>
+         <clause id="DD2" obligation="normative" type="keywords" displayorder="4">
+         <title depth="1">II.<tab/>Keywords</title>
+         </clause>
+         <clause id="SUBORG" type="submitting_orgs" displayorder="5">
+          <title depth="1">V.<tab/>Submitting Organizations</title>
+          <p>The following organizations submitted this Document to the
+             Open Geospatial Consortium (OGC):</p>
              </clause>
+         <submitters obligation="informative" id="3" displayorder="6">
+         <title depth="1">VI.<tab/>Submitters</title>
+         <p>ABC</p>
+         </submitters>
+         <clause id="5" displayorder="7"><title depth="1">VII.<tab/>Dedication</title>
+         <clause id="6"><title depth="2">VII.A.<tab/>Note to readers</title></clause>
+          </clause>
+         <acknowledgements obligation="informative" id="4" displayorder="8">
+         <title depth="1">VIII.<tab/>Acknowlegements</title>
+         <p>ABC</p>
+         </acknowledgements>
+          </preface><sections>
+         <clause id="D" obligation="normative" type="scope" displayorder="9">
+           <title depth="1">1.<tab/>Scope</title>
+           <p id="E">Text</p>
+         </clause>
+         <clause id="D1" obligation="normative" type="conformance">
+           <title depth="1">2.<tab/>Conformance</title>
+           <p id="E1">Text</p>
+         </clause>
+         <clause id="H" obligation="normative" displayorder="11"><title depth="1">4.<tab/>Terms, definitions, symbols and abbreviated terms</title><terms id="I" obligation="normative">
+           <title depth="2">4.1.<tab/>Normal Terms</title>
+           <term id="J"><name>4.1.1.</name>
+           <preferred>Term2</preferred>
+         </term>
+         </terms>
+         <definitions id="K"><title>4.2.</title>
+           <dl>
+           <dt>Symbol</dt>
+           <dd>Definition</dd>
+           </dl>
+         </definitions>
+         </clause>
+         <definitions id="L" displayorder="12"><title>5.</title>
+           <dl>
+           <dt>Symbol</dt>
+           <dd>Definition</dd>
+           </dl>
+         </definitions>
+         <clause id="M" inline-header="false" obligation="normative" displayorder="13"><title depth="1">6.<tab/>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
+           <title depth="2">6.1.<tab/>Introduction</title>
+         </clause>
+         <clause id="O" inline-header="false" obligation="normative">
+           <title depth="2">6.2.<tab/>Clause 4.2</title>
+         </clause></clause>
+         </sections><annex id="P" inline-header="false" obligation="normative" displayorder="14">
+           <title><strong>Annex A</strong><br/>(normative)<br/><strong>Annex</strong></title>
+           <clause id="Q" inline-header="false" obligation="normative">
+           <title depth="2">A.1.<tab/>Annex A.1</title>
+           <clause id="Q1" inline-header="false" obligation="normative">
+           <title depth="3">A.1.1.<tab/>Annex A.1a</title>
            </clause>
-           </annex>
-         <annex id='_' obligation='normative' displayorder='15'>
-           <title>B<br/><strong>Glossary</strong></title>
-           <terms id='_' obligation='normative'>
-             <term id='term-glossary'>
-               <name>B.1.</name>
-               <preferred>Glossary</preferred>
-             </term>
-           </terms>
+         </clause>
          </annex>
-           <bibliography><references id="R" obligation="informative" normative="true" displayorder="10">
-             <title depth="1">3.<tab/>Normative References</title>
-           </references><clause id="S" obligation="informative" displayorder="16">
-             <title depth="1">Bibliography</title>
-             <references id="T" obligation="informative" normative="false">
-             <title depth="2">Bibliography Subsection</title>
-           </references>
-           </clause>
-           </bibliography>
-           </ogc-standard>
+       <annex id='_' obligation='normative' displayorder='15'>
+         <title>B<br/><strong>Glossary</strong></title>
+         <terms id='_' obligation='normative'>
+           <term id='term-glossary'>
+             <name>B.1.</name>
+             <preferred>Glossary</preferred>
+           </term>
+         </terms>
+       </annex>
+         <bibliography><references id="R" obligation="informative" normative="true" displayorder="10">
+           <title depth="1">3.<tab/>Normative References</title>
+         </references><clause id="S" obligation="informative" displayorder="16">
+           <title depth="1">Bibliography</title>
+           <references id="T" obligation="informative" normative="false">
+           <title depth="2">Bibliography Subsection</title>
+         </references>
+         </clause>
+         </bibliography>
+         </ogc-standard>
     OUTPUT
 
     output = xmlpp(<<~"OUTPUT")
