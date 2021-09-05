@@ -670,14 +670,14 @@ RSpec.describe IsoDoc::Ogc do
             <preface>
               <foreword displayorder="1">
                 <p>
-                  <xref target='N1'>Introduction, Requirement Test 1</xref>
-                  <xref target='N2'>Clause II.A, Requirement Test (??)</xref>
-                  <xref target='N'>Clause 1, Requirement Test 2</xref>
-                  <xref target='note1'>Clause 3.1, Requirement Test 3</xref>
-                  <xref target='note2'>Clause 3.1, Requirement Test 4</xref>
-                  <xref target='AN'>Annex A.1, Requirement Test A.1</xref>
-                  <xref target='Anote1'>Annex A.2, Requirement Test (??)</xref>
-                  <xref target='Anote2'>Annex A.2, Requirement Test A.2</xref>
+                  <xref target='N1'>Introduction, Requirement test 1</xref>
+                  <xref target='N2'>Clause II.A, Requirement test (??)</xref>
+                  <xref target='N'>Clause 1, Requirement test 2</xref>
+                  <xref target='note1'>Clause 3.1, Requirement test 3</xref>
+                  <xref target='note2'>Clause 3.1, Requirement test 4</xref>
+                  <xref target='AN'>Annex A.1, Requirement test A.1</xref>
+                  <xref target='Anote1'>Annex A.2, Requirement test (??)</xref>
+                  <xref target='Anote2'>Annex A.2, Requirement test A.2</xref>
                 </p>
               </foreword>
           <introduction id='intro' displayorder="2">
@@ -686,7 +686,7 @@ RSpec.describe IsoDoc::Ogc do
                  <thead>
                    <tr>
                      <th scope='colgroup' colspan='2'>
-                       <p class='RecommendationTestTitle'>Requirement Test 1</p>
+                       <p class='RecommendationTestTitle'>Requirement test 1</p>
                      </th>
                    </tr>
                  </thead>
@@ -706,7 +706,7 @@ RSpec.describe IsoDoc::Ogc do
                    <thead>
                      <tr>
                        <th scope='colgroup' colspan='2'>
-                         <p class='RecommendationTestTitle'>Requirement Test</p>
+                         <p class='RecommendationTestTitle'>Requirement test</p>
                        </th>
                      </tr>
                    </thead>
@@ -730,7 +730,7 @@ RSpec.describe IsoDoc::Ogc do
                  <thead>
                    <tr>
                      <th scope='colgroup' colspan='2'>
-                       <p class='RecommendationTestTitle'>Requirement Test 2</p>
+                       <p class='RecommendationTestTitle'>Requirement test 2</p>
                      </th>
                    </tr>
                  </thead>
@@ -741,7 +741,7 @@ RSpec.describe IsoDoc::Ogc do
                  </tbody>
                </table>
                <p>
-                 <xref target='N'>Requirement Test 2</xref>
+                 <xref target='N'>Requirement test 2</xref>
                </p>
              </clause>
              <terms id='terms' displayorder='4'>
@@ -759,7 +759,7 @@ RSpec.describe IsoDoc::Ogc do
                    <thead>
                      <tr>
                        <th scope='colgroup' colspan='2'>
-                         <p class='RecommendationTestTitle'>Requirement Test 3</p>
+                         <p class='RecommendationTestTitle'>Requirement test 3</p>
                        </th>
                      </tr>
                    </thead>
@@ -773,7 +773,7 @@ RSpec.describe IsoDoc::Ogc do
                    <thead>
                      <tr>
                        <th scope='colgroup' colspan='2'>
-                         <p class='RecommendationTestTitle'>Requirement Test 4</p>
+                         <p class='RecommendationTestTitle'>Requirement test 4</p>
                        </th>
                      </tr>
                    </thead>
@@ -784,8 +784,8 @@ RSpec.describe IsoDoc::Ogc do
                    </tbody>
                  </table>
                  <p>
-                   <xref target='note1'>Requirement Test 3</xref>
-                   <xref target='note2'>Requirement Test 4</xref>
+                   <xref target='note1'>Requirement test 3</xref>
+                   <xref target='note2'>Requirement test 4</xref>
                  </p>
                </clause>
              </clause>
@@ -802,7 +802,7 @@ RSpec.describe IsoDoc::Ogc do
                  <thead>
                    <tr>
                      <th scope='colgroup' colspan='2'>
-                       <p class='RecommendationTestTitle'>Requirement Test A.1</p>
+                       <p class='RecommendationTestTitle'>Requirement test A.1</p>
                      </th>
                    </tr>
                  </thead>
@@ -819,7 +819,7 @@ RSpec.describe IsoDoc::Ogc do
                  <thead>
                    <tr>
                      <th scope='colgroup' colspan='2'>
-                       <p class='RecommendationTestTitle'>Requirement Test</p>
+                       <p class='RecommendationTestTitle'>Requirement test</p>
                      </th>
                    </tr>
                  </thead>
@@ -833,7 +833,7 @@ RSpec.describe IsoDoc::Ogc do
                  <thead>
                    <tr>
                      <th scope='colgroup' colspan='2'>
-                       <p class='RecommendationTestTitle'>Requirement Test A.2</p>
+                       <p class='RecommendationTestTitle'>Requirement test A.2</p>
                      </th>
                    </tr>
                  </thead>
@@ -1174,14 +1174,14 @@ RSpec.describe IsoDoc::Ogc do
          <preface>
            <foreword displayorder="1">
              <p>
-               <xref target='N1'>Introduction, Recommendation Test 1</xref>
-               <xref target='N2'>Clause II.A, Recommendation Test (??)</xref>
-               <xref target='N'>Clause 1, Recommendation Test 2</xref>
-               <xref target='note1'>Clause 3.1, Recommendation Test 3</xref>
-               <xref target='note2'>Clause 3.1, Recommendation Test 4</xref>
-               <xref target='AN'>Annex A.1, Recommendation Test A.1</xref>
-               <xref target='Anote1'>Annex A.2, Recommendation Test (??)</xref>
-               <xref target='Anote2'>Annex A.2, Recommendation Test A.2</xref>
+               <xref target='N1'>Introduction, Recommendation test 1</xref>
+               <xref target='N2'>Clause II.A, Recommendation test (??)</xref>
+               <xref target='N'>Clause 1, Recommendation test 2</xref>
+               <xref target='note1'>Clause 3.1, Recommendation test 3</xref>
+               <xref target='note2'>Clause 3.1, Recommendation test 4</xref>
+               <xref target='AN'>Annex A.1, Recommendation test A.1</xref>
+               <xref target='Anote1'>Annex A.2, Recommendation test (??)</xref>
+               <xref target='Anote2'>Annex A.2, Recommendation test A.2</xref>
              </p>
            </foreword>
        <introduction id='intro' displayorder="2">
@@ -1190,7 +1190,7 @@ RSpec.describe IsoDoc::Ogc do
               <thead>
                 <tr>
                   <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTestTitle'>Recommendation Test 1</p>
+                    <p class='RecommendationTestTitle'>Recommendation test 1</p>
                   </th>
                 </tr>
               </thead>
@@ -1210,7 +1210,7 @@ RSpec.describe IsoDoc::Ogc do
                 <thead>
                   <tr>
                     <th scope='colgroup' colspan='2'>
-                      <p class='RecommendationTestTitle'>Recommendation Test</p>
+                      <p class='RecommendationTestTitle'>Recommendation test</p>
                     </th>
                   </tr>
                 </thead>
@@ -1234,7 +1234,7 @@ RSpec.describe IsoDoc::Ogc do
               <thead>
                 <tr>
                   <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTestTitle'>Recommendation Test 2</p>
+                    <p class='RecommendationTestTitle'>Recommendation test 2</p>
                   </th>
                 </tr>
               </thead>
@@ -1245,7 +1245,7 @@ RSpec.describe IsoDoc::Ogc do
               </tbody>
             </table>
             <p>
-              <xref target='N'>Recommendation Test 2</xref>
+              <xref target='N'>Recommendation test 2</xref>
             </p>
           </clause>
           <terms id='terms' displayorder='4'>
@@ -1263,7 +1263,7 @@ RSpec.describe IsoDoc::Ogc do
                 <thead>
                   <tr>
                     <th scope='colgroup' colspan='2'>
-                      <p class='RecommendationTestTitle'>Recommendation Test 3</p>
+                      <p class='RecommendationTestTitle'>Recommendation test 3</p>
                     </th>
                   </tr>
                 </thead>
@@ -1277,7 +1277,7 @@ RSpec.describe IsoDoc::Ogc do
                 <thead>
                   <tr>
                     <th scope='colgroup' colspan='2'>
-                      <p class='RecommendationTestTitle'>Recommendation Test 4</p>
+                      <p class='RecommendationTestTitle'>Recommendation test 4</p>
                     </th>
                   </tr>
                 </thead>
@@ -1288,8 +1288,8 @@ RSpec.describe IsoDoc::Ogc do
                 </tbody>
               </table>
               <p>
-                <xref target='note1'>Recommendation Test 3</xref>
-                <xref target='note2'>Recommendation Test 4</xref>
+                <xref target='note1'>Recommendation test 3</xref>
+                <xref target='note2'>Recommendation test 4</xref>
               </p>
             </clause>
           </clause>
@@ -1306,7 +1306,7 @@ RSpec.describe IsoDoc::Ogc do
               <thead>
                 <tr>
                   <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTestTitle'>Recommendation Test A.1</p>
+                    <p class='RecommendationTestTitle'>Recommendation test A.1</p>
                   </th>
                 </tr>
               </thead>
@@ -1323,7 +1323,7 @@ RSpec.describe IsoDoc::Ogc do
               <thead>
                 <tr>
                   <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTestTitle'>Recommendation Test</p>
+                    <p class='RecommendationTestTitle'>Recommendation test</p>
                   </th>
                 </tr>
               </thead>
@@ -1337,7 +1337,7 @@ RSpec.describe IsoDoc::Ogc do
               <thead>
                 <tr>
                   <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTestTitle'>Recommendation Test A.2</p>
+                    <p class='RecommendationTestTitle'>Recommendation test A.2</p>
                   </th>
                 </tr>
               </thead>
@@ -1678,14 +1678,14 @@ RSpec.describe IsoDoc::Ogc do
          <preface>
            <foreword displayorder="1">
              <p>
-               <xref target='N1'>Introduction, Permission Test 1</xref>
-               <xref target='N2'>Clause II.A, Permission Test (??)</xref>
-               <xref target='N'>Clause 1, Permission Test 2</xref>
-               <xref target='note1'>Clause 3.1, Permission Test 3</xref>
-               <xref target='note2'>Clause 3.1, Permission Test 4</xref>
-               <xref target='AN'>Annex A.1, Permission Test A.1</xref>
-               <xref target='Anote1'>Annex A.2, Permission Test (??)</xref>
-               <xref target='Anote2'>Annex A.2, Permission Test A.2</xref>
+               <xref target='N1'>Introduction, Permission test 1</xref>
+               <xref target='N2'>Clause II.A, Permission test (??)</xref>
+               <xref target='N'>Clause 1, Permission test 2</xref>
+               <xref target='note1'>Clause 3.1, Permission test 3</xref>
+               <xref target='note2'>Clause 3.1, Permission test 4</xref>
+               <xref target='AN'>Annex A.1, Permission test A.1</xref>
+               <xref target='Anote1'>Annex A.2, Permission test (??)</xref>
+               <xref target='Anote2'>Annex A.2, Permission test A.2</xref>
              </p>
            </foreword>
         <introduction id='intro' displayorder="2">
@@ -1694,7 +1694,7 @@ RSpec.describe IsoDoc::Ogc do
               <thead>
                 <tr>
                   <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTestTitle'>Permission Test 1</p>
+                    <p class='RecommendationTestTitle'>Permission test 1</p>
                   </th>
                 </tr>
               </thead>
@@ -1714,7 +1714,7 @@ RSpec.describe IsoDoc::Ogc do
                 <thead>
                   <tr>
                     <th scope='colgroup' colspan='2'>
-                      <p class='RecommendationTestTitle'>Permission Test</p>
+                      <p class='RecommendationTestTitle'>Permission test</p>
                     </th>
                   </tr>
                 </thead>
@@ -1738,7 +1738,7 @@ RSpec.describe IsoDoc::Ogc do
               <thead>
                 <tr>
                   <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTestTitle'>Permission Test 2</p>
+                    <p class='RecommendationTestTitle'>Permission test 2</p>
                   </th>
                 </tr>
               </thead>
@@ -1749,7 +1749,7 @@ RSpec.describe IsoDoc::Ogc do
               </tbody>
             </table>
             <p>
-              <xref target='N'>Permission Test 2</xref>
+              <xref target='N'>Permission test 2</xref>
             </p>
           </clause>
           <terms id='terms' displayorder='4'>
@@ -1767,7 +1767,7 @@ RSpec.describe IsoDoc::Ogc do
                 <thead>
                   <tr>
                     <th scope='colgroup' colspan='2'>
-                      <p class='RecommendationTestTitle'>Permission Test 3</p>
+                      <p class='RecommendationTestTitle'>Permission test 3</p>
                     </th>
                   </tr>
                 </thead>
@@ -1781,7 +1781,7 @@ RSpec.describe IsoDoc::Ogc do
                 <thead>
                   <tr>
                     <th scope='colgroup' colspan='2'>
-                      <p class='RecommendationTestTitle'>Permission Test 4</p>
+                      <p class='RecommendationTestTitle'>Permission test 4</p>
                     </th>
                   </tr>
                 </thead>
@@ -1792,8 +1792,8 @@ RSpec.describe IsoDoc::Ogc do
                 </tbody>
               </table>
               <p>
-                <xref target='note1'>Permission Test 3</xref>
-                <xref target='note2'>Permission Test 4</xref>
+                <xref target='note1'>Permission test 3</xref>
+                <xref target='note2'>Permission test 4</xref>
               </p>
             </clause>
           </clause>
@@ -1810,7 +1810,7 @@ RSpec.describe IsoDoc::Ogc do
               <thead>
                 <tr>
                   <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTestTitle'>Permission Test A.1</p>
+                    <p class='RecommendationTestTitle'>Permission test A.1</p>
                   </th>
                 </tr>
               </thead>
@@ -1827,7 +1827,7 @@ RSpec.describe IsoDoc::Ogc do
               <thead>
                 <tr>
                   <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTestTitle'>Permission Test</p>
+                    <p class='RecommendationTestTitle'>Permission test</p>
                   </th>
                 </tr>
               </thead>
@@ -1841,7 +1841,7 @@ RSpec.describe IsoDoc::Ogc do
               <thead>
                 <tr>
                   <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTestTitle'>Permission Test A.2</p>
+                    <p class='RecommendationTestTitle'>Permission test A.2</p>
                   </th>
                 </tr>
               </thead>
@@ -1918,13 +1918,13 @@ RSpec.describe IsoDoc::Ogc do
                   <foreword displayorder="1">
                     <p>
                       <xref target='N1'>Clause 1, Permission 1</xref>
-                      <xref target='N2'>Clause 1, Permission Test 1-1</xref>
+                      <xref target='N2'>Clause 1, Permission test 1-1</xref>
                       <xref target='N'>Clause 1, Permission 1-1-1</xref>
                       <xref target='Q1'>Clause 1, Requirement 1-1</xref>
                       <xref target='R1'>Clause 1, Recommendation 1-1</xref>
-                      <xref target='AN1'>Annex A, Permission Test A.1</xref>
+                      <xref target='AN1'>Annex A, Permission test A.1</xref>
                       <xref target='AN2'>Annex A, Permission A.1-1</xref>
-                      <xref target='AN'>Annex A, Permission Test A.1-1-1</xref>
+                      <xref target='AN'>Annex A, Permission test A.1-1-1</xref>
                       <xref target='AQ1'>Annex A, Requirement A.1-1</xref>
                       <xref target='AR1'>Annex A, Recommendation A.1-1</xref>
                     </p>
@@ -1952,7 +1952,7 @@ RSpec.describe IsoDoc::Ogc do
                              <thead>
                                <tr>
                                  <th scope='colgroup' colspan='2'>
-                                   <p class='RecommendationTestTitle'>Permission Test 1-1</p>
+                                   <p class='RecommendationTestTitle'>Permission test 1-1</p>
                                  </th>
                                </tr>
                              </thead>
@@ -2009,7 +2009,7 @@ RSpec.describe IsoDoc::Ogc do
                              <thead>
                                <tr>
                                  <th scope='colgroup' colspan='2'>
-                                   <p class='RecommendationTestTitle'>Permission Test 1-2</p>
+                                   <p class='RecommendationTestTitle'>Permission test 1-2</p>
                                  </th>
                                </tr>
                              </thead>
@@ -2047,7 +2047,7 @@ RSpec.describe IsoDoc::Ogc do
                    <thead>
                      <tr>
                        <th scope='colgroup' colspan='2'>
-                         <p class='RecommendationTestTitle'>Permission Test A.1</p>
+                         <p class='RecommendationTestTitle'>Permission test A.1</p>
                        </th>
                      </tr>
                    </thead>
@@ -2069,7 +2069,7 @@ RSpec.describe IsoDoc::Ogc do
                                    <thead>
                                      <tr>
                                        <th scope='colgroup' colspan='2'>
-                                         <p class='RecommendationTestTitle'>Permission Test A.1-1-1</p>
+                                         <p class='RecommendationTestTitle'>Permission test A.1-1-1</p>
                                        </th>
                                      </tr>
                                    </thead>
@@ -2115,7 +2115,7 @@ RSpec.describe IsoDoc::Ogc do
                            <thead>
                              <tr>
                                <th scope='colgroup' colspan='2'>
-                                 <p class='RecommendationTestTitle'>Permission Test A.1-1</p>
+                                 <p class='RecommendationTestTitle'>Permission test A.1-1</p>
                                </th>
                              </tr>
                            </thead>
@@ -2217,14 +2217,14 @@ RSpec.describe IsoDoc::Ogc do
          <preface>
            <foreword displayorder="1">
              <p>
-               <xref target='N1'>Introduction, Abstract Test 1</xref>
-               <xref target='N2'>Clause II.A, Abstract Test (??)</xref>
-               <xref target='N'>Clause 1, Abstract Test 2</xref>
-               <xref target='note1'>Clause 3.1, Abstract Test 3</xref>
-               <xref target='note2'>Clause 3.1, Abstract Test 4</xref>
-               <xref target='AN'>Annex A.1, Abstract Test A.1</xref>
-               <xref target='Anote1'>Annex A.2, Abstract Test (??)</xref>
-               <xref target='Anote2'>Annex A.2, Abstract Test A.2</xref>
+               <xref target='N1'>Introduction, Abstract test 1</xref>
+               <xref target='N2'>Clause II.A, Abstract test (??)</xref>
+               <xref target='N'>Clause 1, Abstract test 2</xref>
+               <xref target='note1'>Clause 3.1, Abstract test 3</xref>
+               <xref target='note2'>Clause 3.1, Abstract test 4</xref>
+               <xref target='AN'>Annex A.1, Abstract test A.1</xref>
+               <xref target='Anote1'>Annex A.2, Abstract test (??)</xref>
+               <xref target='Anote2'>Annex A.2, Abstract test A.2</xref>
              </p>
            </foreword>
        <introduction id='intro' displayorder="2">
@@ -2233,7 +2233,7 @@ RSpec.describe IsoDoc::Ogc do
               <thead>
                 <tr>
                   <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTestTitle'>Abstract Test 1</p>
+                    <p class='RecommendationTestTitle'>Abstract test 1</p>
                   </th>
                 </tr>
               </thead>
@@ -2253,7 +2253,7 @@ RSpec.describe IsoDoc::Ogc do
                 <thead>
                   <tr>
                     <th scope='colgroup' colspan='2'>
-                      <p class='RecommendationTestTitle'>Abstract Test</p>
+                      <p class='RecommendationTestTitle'>Abstract test</p>
                     </th>
                   </tr>
                 </thead>
@@ -2277,7 +2277,7 @@ RSpec.describe IsoDoc::Ogc do
               <thead>
                 <tr>
                   <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTestTitle'>Abstract Test 2</p>
+                    <p class='RecommendationTestTitle'>Abstract test 2</p>
                   </th>
                 </tr>
               </thead>
@@ -2288,7 +2288,7 @@ RSpec.describe IsoDoc::Ogc do
               </tbody>
             </table>
             <p>
-              <xref target='N'>Abstract Test 2</xref>
+              <xref target='N'>Abstract test 2</xref>
             </p>
           </clause>
           <terms id='terms' displayorder='4'>
@@ -2306,7 +2306,7 @@ RSpec.describe IsoDoc::Ogc do
                 <thead>
                   <tr>
                     <th scope='colgroup' colspan='2'>
-                      <p class='RecommendationTestTitle'>Abstract Test 3</p>
+                      <p class='RecommendationTestTitle'>Abstract test 3</p>
                     </th>
                   </tr>
                 </thead>
@@ -2320,7 +2320,7 @@ RSpec.describe IsoDoc::Ogc do
                 <thead>
                   <tr>
                     <th scope='colgroup' colspan='2'>
-                      <p class='RecommendationTestTitle'>Abstract Test 4</p>
+                      <p class='RecommendationTestTitle'>Abstract test 4</p>
                     </th>
                   </tr>
                 </thead>
@@ -2331,8 +2331,8 @@ RSpec.describe IsoDoc::Ogc do
                 </tbody>
               </table>
               <p>
-                <xref target='note1'>Abstract Test 3</xref>
-                <xref target='note2'>Abstract Test 4</xref>
+                <xref target='note1'>Abstract test 3</xref>
+                <xref target='note2'>Abstract test 4</xref>
               </p>
             </clause>
           </clause>
@@ -2349,7 +2349,7 @@ RSpec.describe IsoDoc::Ogc do
               <thead>
                 <tr>
                   <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTestTitle'>Abstract Test A.1</p>
+                    <p class='RecommendationTestTitle'>Abstract test A.1</p>
                   </th>
                 </tr>
               </thead>
@@ -2366,7 +2366,7 @@ RSpec.describe IsoDoc::Ogc do
               <thead>
                 <tr>
                   <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTestTitle'>Abstract Test</p>
+                    <p class='RecommendationTestTitle'>Abstract test</p>
                   </th>
                 </tr>
               </thead>
@@ -2380,7 +2380,7 @@ RSpec.describe IsoDoc::Ogc do
               <thead>
                 <tr>
                   <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTestTitle'>Abstract Test A.2</p>
+                    <p class='RecommendationTestTitle'>Abstract test A.2</p>
                   </th>
                 </tr>
               </thead>
@@ -2469,14 +2469,14 @@ RSpec.describe IsoDoc::Ogc do
          <preface>
            <foreword displayorder="1">
              <p>
-               <xref target='N1'>Introduction, Conformance Class 1</xref>
-               <xref target='N2'>Clause II.A, Conformance Class (??)</xref>
-               <xref target='N'>Clause 1, Conformance Class 2</xref>
-               <xref target='note1'>Clause 3.1, Conformance Class 3</xref>
-               <xref target='note2'>Clause 3.1, Conformance Class 4</xref>
-               <xref target='AN'>Annex A.1, Conformance Class A.1</xref>
-               <xref target='Anote1'>Annex A.2, Conformance Class (??)</xref>
-               <xref target='Anote2'>Annex A.2, Conformance Class A.2</xref>
+               <xref target='N1'>Introduction, Conformance class 1</xref>
+               <xref target='N2'>Clause II.A, Conformance class (??)</xref>
+               <xref target='N'>Clause 1, Conformance class 2</xref>
+               <xref target='note1'>Clause 3.1, Conformance class 3</xref>
+               <xref target='note2'>Clause 3.1, Conformance class 4</xref>
+               <xref target='AN'>Annex A.1, Conformance class A.1</xref>
+               <xref target='Anote1'>Annex A.2, Conformance class (??)</xref>
+               <xref target='Anote2'>Annex A.2, Conformance class A.2</xref>
              </p>
            </foreword>
         <introduction id='intro' displayorder="2">
@@ -2485,7 +2485,7 @@ RSpec.describe IsoDoc::Ogc do
               <thead>
                 <tr>
                   <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTitle'>Conformance Class 1</p>
+                    <p class='RecommendationTitle'>Conformance class 1</p>
                   </th>
                 </tr>
               </thead>
@@ -2505,7 +2505,7 @@ RSpec.describe IsoDoc::Ogc do
                 <thead>
                   <tr>
                     <th scope='colgroup' colspan='2'>
-                      <p class='RecommendationTitle'>Conformance Class</p>
+                      <p class='RecommendationTitle'>Conformance class</p>
                     </th>
                   </tr>
                 </thead>
@@ -2529,7 +2529,7 @@ RSpec.describe IsoDoc::Ogc do
               <thead>
                 <tr>
                   <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTitle'>Conformance Class 2</p>
+                    <p class='RecommendationTitle'>Conformance class 2</p>
                   </th>
                 </tr>
               </thead>
@@ -2540,7 +2540,7 @@ RSpec.describe IsoDoc::Ogc do
               </tbody>
             </table>
             <p>
-              <xref target='N'>Conformance Class 2</xref>
+              <xref target='N'>Conformance class 2</xref>
             </p>
           </clause>
           <terms id='terms' displayorder='4'>
@@ -2558,7 +2558,7 @@ RSpec.describe IsoDoc::Ogc do
                 <thead>
                   <tr>
                     <th scope='colgroup' colspan='2'>
-                      <p class='RecommendationTitle'>Conformance Class 3</p>
+                      <p class='RecommendationTitle'>Conformance class 3</p>
                     </th>
                   </tr>
                 </thead>
@@ -2572,7 +2572,7 @@ RSpec.describe IsoDoc::Ogc do
                 <thead>
                   <tr>
                     <th scope='colgroup' colspan='2'>
-                      <p class='RecommendationTitle'>Conformance Class 4</p>
+                      <p class='RecommendationTitle'>Conformance class 4</p>
                     </th>
                   </tr>
                 </thead>
@@ -2583,8 +2583,8 @@ RSpec.describe IsoDoc::Ogc do
                 </tbody>
               </table>
               <p>
-                <xref target='note1'>Conformance Class 3</xref>
-                <xref target='note2'>Conformance Class 4</xref>
+                <xref target='note1'>Conformance class 3</xref>
+                <xref target='note2'>Conformance class 4</xref>
               </p>
             </clause>
           </clause>
@@ -2601,7 +2601,7 @@ RSpec.describe IsoDoc::Ogc do
               <thead>
                 <tr>
                   <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTitle'>Conformance Class A.1</p>
+                    <p class='RecommendationTitle'>Conformance class A.1</p>
                   </th>
                 </tr>
               </thead>
@@ -2618,7 +2618,7 @@ RSpec.describe IsoDoc::Ogc do
               <thead>
                 <tr>
                   <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTitle'>Conformance Class</p>
+                    <p class='RecommendationTitle'>Conformance class</p>
                   </th>
                 </tr>
               </thead>
@@ -2632,7 +2632,7 @@ RSpec.describe IsoDoc::Ogc do
               <thead>
                 <tr>
                   <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTitle'>Conformance Class A.2</p>
+                    <p class='RecommendationTitle'>Conformance class A.2</p>
                   </th>
                 </tr>
               </thead>

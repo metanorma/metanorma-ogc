@@ -200,8 +200,7 @@ module IsoDoc
         when 6 then "(#{num})"
         when 7 then "(#{(96 + num).chr})"
         when 8 then "(#{RomanNumerals.to_roman(num).downcase})"
-        else
-          num.to_s
+        else num.to_s
         end
       end
 
