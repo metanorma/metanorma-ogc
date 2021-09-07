@@ -43,9 +43,12 @@ module IsoDoc
 
       def recommend_title(node, out)
         label = node&.at(ns("./label"))&.remove or return
+        label.xpath(ns(".//xref | .//eref | .//quote/source"))
+          .each { |f| xref1(f) }
+        label.xpath(ns(".//concept")).each { |f| concept1(f) }
         b = out.add_child("<tr><td colspan='2'><p></p></td></tr>")
         p = b.at(ns(".//p"))
-        p << label.children
+        p << label.text
       end
 
       def recommendation_attributes1(node)

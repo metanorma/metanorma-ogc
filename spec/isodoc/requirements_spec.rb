@@ -67,495 +67,495 @@ RSpec.describe IsoDoc::Ogc do
     INPUT
 
     presxml = <<~OUTPUT
-          <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
-          <preface><foreword id="A" displayorder="1"><title depth="1">I.<tab/>Preface</title>
-          <table id="A1" class="permission" type="recommend">
-      <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Permission 1</p></th></tr></thead><tbody><tr><td colspan="2"><p>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Subject</td><td>user</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td>Dependency</td><td><eref type="inline" bibitemid="rfc2616" citeas="RFC 2616">RFC 2616 (HTTP/1.1)</eref></td></tr>
+                <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
+                <preface><foreword id="A" displayorder="1"><title depth="1">I.<tab/>Preface</title>
+                <table id="A1" class="permission" type="recommend">
+            <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Permission 1</p></th></tr></thead><tbody><tr><td colspan="2"><p>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Subject</td><td>user</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td>Dependency</td><td><eref type="inline" bibitemid="rfc2616" citeas="RFC 2616">RFC 2616 (HTTP/1.1)</eref></td></tr>
+            <tr>
+        <td>Control-class</td>
+        <td>Technical</td>
+      </tr>
       <tr>
-  <td>Control-class</td>
-  <td>Technical</td>
-</tr>
-<tr>
-  <td>Priority</td>
-  <td>P0</td>
-</tr>
-<tr>
-  <td>Family</td>
-  <td>System and Communications Protection</td>
-</tr>
-<tr>
-  <td>Family</td>
-  <td>System and Communications Protocols</td>
-</tr>
-<tr>
-  <td colspan='2'>
-    <p id='_'>
-      I recommend
-      <em>this</em>
-      .
-    </p>
-  </td>
-</tr>
-<tr>
-  <td>A</td>
-  <td>B</td>
-</tr>
-<tr>
-  <td>C</td>
-  <td>D</td>
-</tr>
-<tr>
-  <td colspan='2'>
-    <p id='_'>The measurement target shall be measured as:</p>
-    <formula id='_'>
-      <name>1</name>
-      <stem type='AsciiMath'>r/1 = 0</stem>
-    </formula>
-  </td>
-</tr>
-<tr>
-  <td colspan='2'>
-    <p id='_'>The following code will be run for verification:</p>
-    <sourcecode id='_'>
-      CoreRoot(success): HttpResponse if (success)
-      recommendation(label: success-response) end
-    </sourcecode>
-  </td>
-</tr>
-       <tr>
-             <td>Test purpose</td>
-             <td>
-               <p>TEST PURPOSE</p>
-             </td>
-           </tr>
-           <tr>
-             <td>Test method</td>
-             <td>
-               <p>TEST METHOD</p>
-             </td>
-           </tr>
-           <tr>
-             <td>Conditions</td>
-             <td>
-               <p>CONDITIONS</p>
-             </td>
-           </tr>
-           <tr>
-             <td>A</td>
-             <td>
-               <p>FIRST PART</p>
-             </td>
-           </tr>
-           <tr>
-             <td>B</td>
-             <td>
-               <p>SECOND PART</p>
-             </td>
-           </tr>
-           <tr>
-             <td>C</td>
-             <td>
-               <p>THIRD PART</p>
-             </td>
-           </tr>
-           <tr>
-            <td>Reference</td>
-            <td>
-              <p>REFERENCE PART</p>
-            </td>
-          </tr>
-          <tr>
-            <td>Panda GHz express</td>
-            <td>
-              <p>PANDA PART</p>
-            </td>
-          </tr>
-        </tbody></table>
-          </foreword></preface>
-          <bibliography><references id="_bibliography" obligation="informative" normative="false" displayorder="2">
-      <title depth="1">Bibliography</title>
-      <bibitem id="rfc2616" type="standard"> <fetched>2020-03-27</fetched> <title format="text/plain" language="en" script="Latn">Hypertext Transfer Protocol&#x2009;&#x2014;&#x2009;HTTP/1.1</title> <uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</uri> <uri type="src">https://www.rfc-editor.org/info/rfc2616</uri> <docidentifier type="IETF">IETF RFC 2616</docidentifier> <docidentifier type="rfc-anchor">RFC2616</docidentifier> <docidentifier type="DOI">DOI 10.17487/RFC2616</docidentifier> <date type="published">  <on>1999</on> </date> <contributor>  <role type="author"/>  <person>   <name>    <completename language="en">R. Fielding</completename>   </name>   <affiliation>    <organization>     <name>IETF</name>     <abbreviation>IETF</abbreviation>    </organization>   </affiliation>  </person> </contributor> <contributor>  <role type="author"/>  <person>   <name>    <completename language="en">J. Gettys</completename>   </name>   <affiliation>    <organization>     <name>IETF</name>     <abbreviation>IETF</abbreviation>    </organization>   </affiliation>  </person> </contributor> <contributor>  <role type="author"/>  <person>   <name>    <completename language="en">J. Mogul</completename>   </name>   <affiliation>    <organization>     <name>IETF</name>     <abbreviation>IETF</abbreviation>    </organization>   </affiliation>  </person> </contributor> <contributor>  <role type="author"/>  <person>   <name>    <completename language="en">H. Frystyk</completename>   </name>   <affiliation>    <organization>     <name>IETF</name>     <abbreviation>IETF</abbreviation>    </organization>   </affiliation>  </person> </contributor> <contributor>  <role type="author"/>  <person>   <name>    <completename language="en">L. Masinter</completename>   </name>   <affiliation>    <organization>     <name>IETF</name>     <abbreviation>IETF</abbreviation>    </organization>   </affiliation>  </person> </contributor> <contributor>  <role type="author"/>  <person>   <name>    <completename language="en">P. Leach</completename>   </name>   <affiliation>    <organization>     <name>IETF</name>     <abbreviation>IETF</abbreviation>    </organization>   </affiliation>  </person> </contributor> <contributor>  <role type="author"/>  <person>   <name>    <completename language="en">T. Berners-Lee</completename>   </name>   <affiliation>    <organization>     <name>IETF</name>     <abbreviation>IETF</abbreviation>    </organization>   </affiliation>  </person> </contributor> <language>en</language> <script>Latn</script> <abstract format="text/plain" language="en" script="Latn">HTTP has been in use by the World-Wide Web global information initiative since 1990. This specification defines the protocol referred to as &#x201C;HTTP/1.1&#x201D;, and is an update to RFC 2068. [STANDARDS-TRACK]</abstract> <series type="main">  <title format="text/plain" language="en" script="Latn">RFC</title>  <number>2616</number> </series> <place>Fremont, CA</place></bibitem>
-      </references></bibliography>
-          </ogc-standard>
+        <td>Priority</td>
+        <td>P0</td>
+      </tr>
+      <tr>
+        <td>Family</td>
+        <td>System and Communications Protection</td>
+      </tr>
+      <tr>
+        <td>Family</td>
+        <td>System and Communications Protocols</td>
+      </tr>
+      <tr>
+        <td colspan='2'>
+          <p id='_'>
+            I recommend
+            <em>this</em>
+            .
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td>A</td>
+        <td>B</td>
+      </tr>
+      <tr>
+        <td>C</td>
+        <td>D</td>
+      </tr>
+      <tr>
+        <td colspan='2'>
+          <p id='_'>The measurement target shall be measured as:</p>
+          <formula id='_'>
+            <name>1</name>
+            <stem type='AsciiMath'>r/1 = 0</stem>
+          </formula>
+        </td>
+      </tr>
+      <tr>
+        <td colspan='2'>
+          <p id='_'>The following code will be run for verification:</p>
+          <sourcecode id='_'>
+            CoreRoot(success): HttpResponse if (success)
+            recommendation(label: success-response) end
+          </sourcecode>
+        </td>
+      </tr>
+             <tr>
+                   <td>Test purpose</td>
+                   <td>
+                     <p>TEST PURPOSE</p>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td>Test method</td>
+                   <td>
+                     <p>TEST METHOD</p>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td>Conditions</td>
+                   <td>
+                     <p>CONDITIONS</p>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td>A</td>
+                   <td>
+                     <p>FIRST PART</p>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td>B</td>
+                   <td>
+                     <p>SECOND PART</p>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td>C</td>
+                   <td>
+                     <p>THIRD PART</p>
+                   </td>
+                 </tr>
+                 <tr>
+                  <td>Reference</td>
+                  <td>
+                    <p>REFERENCE PART</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Panda GHz express</td>
+                  <td>
+                    <p>PANDA PART</p>
+                  </td>
+                </tr>
+              </tbody></table>
+                </foreword></preface>
+                <bibliography><references id="_bibliography" obligation="informative" normative="false" displayorder="2">
+            <title depth="1">Bibliography</title>
+            <bibitem id="rfc2616" type="standard"> <fetched>2020-03-27</fetched> <title format="text/plain" language="en" script="Latn">Hypertext Transfer Protocol&#x2009;&#x2014;&#x2009;HTTP/1.1</title> <uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</uri> <uri type="src">https://www.rfc-editor.org/info/rfc2616</uri> <docidentifier type="IETF">IETF RFC 2616</docidentifier> <docidentifier type="rfc-anchor">RFC2616</docidentifier> <docidentifier type="DOI">DOI 10.17487/RFC2616</docidentifier> <date type="published">  <on>1999</on> </date> <contributor>  <role type="author"/>  <person>   <name>    <completename language="en">R. Fielding</completename>   </name>   <affiliation>    <organization>     <name>IETF</name>     <abbreviation>IETF</abbreviation>    </organization>   </affiliation>  </person> </contributor> <contributor>  <role type="author"/>  <person>   <name>    <completename language="en">J. Gettys</completename>   </name>   <affiliation>    <organization>     <name>IETF</name>     <abbreviation>IETF</abbreviation>    </organization>   </affiliation>  </person> </contributor> <contributor>  <role type="author"/>  <person>   <name>    <completename language="en">J. Mogul</completename>   </name>   <affiliation>    <organization>     <name>IETF</name>     <abbreviation>IETF</abbreviation>    </organization>   </affiliation>  </person> </contributor> <contributor>  <role type="author"/>  <person>   <name>    <completename language="en">H. Frystyk</completename>   </name>   <affiliation>    <organization>     <name>IETF</name>     <abbreviation>IETF</abbreviation>    </organization>   </affiliation>  </person> </contributor> <contributor>  <role type="author"/>  <person>   <name>    <completename language="en">L. Masinter</completename>   </name>   <affiliation>    <organization>     <name>IETF</name>     <abbreviation>IETF</abbreviation>    </organization>   </affiliation>  </person> </contributor> <contributor>  <role type="author"/>  <person>   <name>    <completename language="en">P. Leach</completename>   </name>   <affiliation>    <organization>     <name>IETF</name>     <abbreviation>IETF</abbreviation>    </organization>   </affiliation>  </person> </contributor> <contributor>  <role type="author"/>  <person>   <name>    <completename language="en">T. Berners-Lee</completename>   </name>   <affiliation>    <organization>     <name>IETF</name>     <abbreviation>IETF</abbreviation>    </organization>   </affiliation>  </person> </contributor> <language>en</language> <script>Latn</script> <abstract format="text/plain" language="en" script="Latn">HTTP has been in use by the World-Wide Web global information initiative since 1990. This specification defines the protocol referred to as &#x201C;HTTP/1.1&#x201D;, and is an update to RFC 2068. [STANDARDS-TRACK]</abstract> <series type="main">  <title format="text/plain" language="en" script="Latn">RFC</title>  <number>2616</number> </series> <place>Fremont, CA</place></bibitem>
+            </references></bibliography>
+                </ogc-standard>
     OUTPUT
 
     html = <<~OUTPUT
-            #{HTML_HDR}
-                <br/>
-                   <div id='A'>
-                     <h1 class='ForewordTitle'>I.&#160; Preface</h1>
-                     <table id='A1' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
-                       <thead>
-                         <tr>
-                           <th colspan='2' style='vertical-align:top;' scope='colgroup' class='recommend'>
-                             <p class='RecommendationTitle'>Permission 1</p>
-                           </th>
-                         </tr>
-                       </thead>
-                       <tbody>
-                         <tr>
-                           <td colspan='2' style='vertical-align:top;' class='recommend'>
-                             <p>/ogc/recommendation/wfs/2</p>
-                           </td>
-                         </tr>
-                         <tr>
-                           <td style='vertical-align:top;' class='recommend'>Subject</td>
-                           <td style='vertical-align:top;' class='recommend'>user</td>
-                         </tr>
-                         <tr>
-                           <td style='vertical-align:top;' class='recommend'>Dependency</td>
-                           <td style='vertical-align:top;' class='recommend'>/ss/584/2015/level/1</td>
-                         </tr>
-                         <tr>
-                           <td style='vertical-align:top;' class='recommend'>Dependency</td>
-                           <td style='vertical-align:top;' class='recommend'>
-                             <a href='#rfc2616'>RFC 2616 (HTTP/1.1)</a>
-                           </td>
-                         </tr>
-                         <tr>
-                           <td style='vertical-align:top;' class='recommend'>Control-class</td>
-                           <td style='vertical-align:top;' class='recommend'>Technical</td>
-                         </tr>
-                         <tr>
-                           <td style='vertical-align:top;' class='recommend'>Priority</td>
-                           <td style='vertical-align:top;' class='recommend'>P0</td>
-                         </tr>
-                         <tr>
-                           <td style='vertical-align:top;' class='recommend'>Family</td>
-                           <td style='vertical-align:top;' class='recommend'>System and Communications Protection</td>
-                         </tr>
-                         <tr>
-                           <td style='vertical-align:top;' class='recommend'>Family</td>
-                           <td style='vertical-align:top;' class='recommend'>System and Communications Protocols</td>
-                         </tr>
-                         <tr>
-                           <td colspan='2' style='vertical-align:top;' class='recommend'>
-                             <p id='_'>
-                               I recommend
-                               <i>this</i>
-                               .
-                             </p>
-                           </td>
-                         </tr>
-                         <tr>
-                           <td style='vertical-align:top;' class='recommend'>A</td>
-                           <td style='vertical-align:top;' class='recommend'>B</td>
-                         </tr>
-                         <tr>
-                           <td style='vertical-align:top;' class='recommend'>C</td>
-                           <td style='vertical-align:top;' class='recommend'>D</td>
-                         </tr>
-                         <tr>
-                           <td colspan='2' style='vertical-align:top;' class='recommend'>
-                             <p id='_'>The measurement target shall be measured as:</p>
-                             <div id='_'>
-                               <div class='formula'>
-                                 <p>
-                                   <span class='stem'>(#(r/1 = 0)#)</span>
-                                   &#160; (1)
-                                 </p>
-                               </div>
-                             </div>
-                           </td>
-                         </tr>
-                         <tr>
-                           <td colspan='2' style='vertical-align:top;' class='recommend'>
-                             <p id='_'>The following code will be run for verification:</p>
-                                                  <pre id='_' class='prettyprint '>
-                       <br/>
-                       &#160;&#160;&#160;&#160;&#160; CoreRoot(success): HttpResponse
-                       if (success)
-                       <br/>
-                       &#160;&#160;&#160;&#160;&#160; recommendation(label:
-                       success-response) end
-                       <br/>
-                       &#160;&#160;&#160;
-                     </pre>
-                           </td>
-                         </tr>
-                          <tr>
-   <td style='vertical-align:top;' class='recommend'>Test purpose</td>
-   <td style='vertical-align:top;' class='recommend'>
-     <p>TEST PURPOSE</p>
-   </td>
- </tr>
- <tr>
-   <td style='vertical-align:top;' class='recommend'>Test method</td>
-   <td style='vertical-align:top;' class='recommend'>
-     <p>TEST METHOD</p>
-   </td>
- </tr>
- <tr>
-   <td style='vertical-align:top;' class='recommend'>Conditions</td>
-   <td style='vertical-align:top;' class='recommend'>
-     <p>CONDITIONS</p>
-   </td>
- </tr>
- <tr>
-   <td style='vertical-align:top;' class='recommend'>A</td>
-   <td style='vertical-align:top;' class='recommend'>
-     <p>FIRST PART</p>
-   </td>
- </tr>
- <tr>
-   <td style='vertical-align:top;' class='recommend'>B</td>
-   <td style='vertical-align:top;' class='recommend'>
-     <p>SECOND PART</p>
-   </td>
- </tr>
- <tr>
-   <td style='vertical-align:top;' class='recommend'>C</td>
-   <td style='vertical-align:top;' class='recommend'>
-     <p>THIRD PART</p>
-   </td>
- </tr>
- <tr>
-   <td style='vertical-align:top;' class='recommend'>Reference</td>
-   <td style='vertical-align:top;' class='recommend'>
-     <p>REFERENCE PART</p>
-   </td>
- </tr>
- <tr>
-   <td style='vertical-align:top;' class='recommend'>Panda GHz express</td>
-   <td style='vertical-align:top;' class='recommend'>
-     <p>PANDA PART</p>
-   </td>
- </tr>
-                       </tbody>
-                     </table>
-                   </div>
-                   <p class='zzSTDTitle1'/>
-                   <br/>
-                   <div>
-                     <h1 class='Section3'>Bibliography</h1>
-                     <p id='rfc2616' class='Biblio'>
-                       [1]&#160; R. Fielding, J. Gettys, J. Mogul, H. Frystyk, L. Masinter, P. Leach, T. Berners-Lee: IETF RFC 2616,
-                       <i>Hypertext Transfer Protocol&#8201;&#8212;&#8201;HTTP/1.1</i>
-                       . Fremont, CA (1999). <a href='https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml'>https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</a>
-                     </p>
-                   </div>
-                 </div>
-               </body>
+                 #{HTML_HDR}
+                     <br/>
+                        <div id='A'>
+                          <h1 class='ForewordTitle'>I.&#160; Preface</h1>
+                          <table id='A1' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
+                            <thead>
+                              <tr>
+                                <th colspan='2' style='vertical-align:top;' scope='colgroup' class='recommend'>
+                                  <p class='RecommendationTitle'>Permission 1</p>
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td colspan='2' style='vertical-align:top;' class='recommend'>
+                                  <p>/ogc/recommendation/wfs/2</p>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td style='vertical-align:top;' class='recommend'>Subject</td>
+                                <td style='vertical-align:top;' class='recommend'>user</td>
+                              </tr>
+                              <tr>
+                                <td style='vertical-align:top;' class='recommend'>Dependency</td>
+                                <td style='vertical-align:top;' class='recommend'>/ss/584/2015/level/1</td>
+                              </tr>
+                              <tr>
+                                <td style='vertical-align:top;' class='recommend'>Dependency</td>
+                                <td style='vertical-align:top;' class='recommend'>
+                                  <a href='#rfc2616'>RFC 2616 (HTTP/1.1)</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td style='vertical-align:top;' class='recommend'>Control-class</td>
+                                <td style='vertical-align:top;' class='recommend'>Technical</td>
+                              </tr>
+                              <tr>
+                                <td style='vertical-align:top;' class='recommend'>Priority</td>
+                                <td style='vertical-align:top;' class='recommend'>P0</td>
+                              </tr>
+                              <tr>
+                                <td style='vertical-align:top;' class='recommend'>Family</td>
+                                <td style='vertical-align:top;' class='recommend'>System and Communications Protection</td>
+                              </tr>
+                              <tr>
+                                <td style='vertical-align:top;' class='recommend'>Family</td>
+                                <td style='vertical-align:top;' class='recommend'>System and Communications Protocols</td>
+                              </tr>
+                              <tr>
+                                <td colspan='2' style='vertical-align:top;' class='recommend'>
+                                  <p id='_'>
+                                    I recommend
+                                    <i>this</i>
+                                    .
+                                  </p>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td style='vertical-align:top;' class='recommend'>A</td>
+                                <td style='vertical-align:top;' class='recommend'>B</td>
+                              </tr>
+                              <tr>
+                                <td style='vertical-align:top;' class='recommend'>C</td>
+                                <td style='vertical-align:top;' class='recommend'>D</td>
+                              </tr>
+                              <tr>
+                                <td colspan='2' style='vertical-align:top;' class='recommend'>
+                                  <p id='_'>The measurement target shall be measured as:</p>
+                                  <div id='_'>
+                                    <div class='formula'>
+                                      <p>
+                                        <span class='stem'>(#(r/1 = 0)#)</span>
+                                        &#160; (1)
+                                      </p>
+                                    </div>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td colspan='2' style='vertical-align:top;' class='recommend'>
+                                  <p id='_'>The following code will be run for verification:</p>
+                                                       <pre id='_' class='prettyprint '>
+                            <br/>
+                            &#160;&#160;&#160;&#160;&#160; CoreRoot(success): HttpResponse
+                            if (success)
+                            <br/>
+                            &#160;&#160;&#160;&#160;&#160; recommendation(label:
+                            success-response) end
+                            <br/>
+                            &#160;&#160;&#160;
+                          </pre>
+                                </td>
+                              </tr>
+                               <tr>
+        <td style='vertical-align:top;' class='recommend'>Test purpose</td>
+        <td style='vertical-align:top;' class='recommend'>
+          <p>TEST PURPOSE</p>
+        </td>
+      </tr>
+      <tr>
+        <td style='vertical-align:top;' class='recommend'>Test method</td>
+        <td style='vertical-align:top;' class='recommend'>
+          <p>TEST METHOD</p>
+        </td>
+      </tr>
+      <tr>
+        <td style='vertical-align:top;' class='recommend'>Conditions</td>
+        <td style='vertical-align:top;' class='recommend'>
+          <p>CONDITIONS</p>
+        </td>
+      </tr>
+      <tr>
+        <td style='vertical-align:top;' class='recommend'>A</td>
+        <td style='vertical-align:top;' class='recommend'>
+          <p>FIRST PART</p>
+        </td>
+      </tr>
+      <tr>
+        <td style='vertical-align:top;' class='recommend'>B</td>
+        <td style='vertical-align:top;' class='recommend'>
+          <p>SECOND PART</p>
+        </td>
+      </tr>
+      <tr>
+        <td style='vertical-align:top;' class='recommend'>C</td>
+        <td style='vertical-align:top;' class='recommend'>
+          <p>THIRD PART</p>
+        </td>
+      </tr>
+      <tr>
+        <td style='vertical-align:top;' class='recommend'>Reference</td>
+        <td style='vertical-align:top;' class='recommend'>
+          <p>REFERENCE PART</p>
+        </td>
+      </tr>
+      <tr>
+        <td style='vertical-align:top;' class='recommend'>Panda GHz express</td>
+        <td style='vertical-align:top;' class='recommend'>
+          <p>PANDA PART</p>
+        </td>
+      </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <p class='zzSTDTitle1'/>
+                        <br/>
+                        <div>
+                          <h1 class='Section3'>Bibliography</h1>
+                          <p id='rfc2616' class='Biblio'>
+                            [1]&#160; R. Fielding, J. Gettys, J. Mogul, H. Frystyk, L. Masinter, P. Leach, T. Berners-Lee: IETF RFC 2616,
+                            <i>Hypertext Transfer Protocol&#8201;&#8212;&#8201;HTTP/1.1</i>
+                            . Fremont, CA (1999). <a href='https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml'>https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</a>
+                          </p>
+                        </div>
+                      </div>
+                    </body>
     OUTPUT
 
     word = <<~OUTPUT
-           <body xmlns:m=''>
-         <div>
-           <div>
-             <a name='A' id='A'/>
-             <h1 class='ForewordTitle'>
-               I.
-               <span style='mso-tab-count:1'>&#xA0; </span>
-               Preface
-             </h1>
-             <div align='center' class='table_container'>
-               <table class='recommend' style='border-collapse:collapse;border-spacing:0;'>
-                 <a name='A1' id='A1'/>
-                 <thead>
-                   <tr style='background:#A5A5A5;'>
-                     <th colspan='2' style='vertical-align:top;' class='recommend'>
-                       <p class='RecommendationTitle'>Permission 1</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <tr>
-                     <td colspan='2' style='vertical-align:top;' class='recommend'>
-                       <p class='MsoNormal'>/ogc/recommendation/wfs/2</p>
-                     </td>
-                   </tr>
-                   <tr style='background:#C9C9C9;'>
-                     <td style='vertical-align:top;' class='recommend'>Subject</td>
-                     <td style='vertical-align:top;' class='recommend'>user</td>
-                   </tr>
-                   <tr>
-                     <td style='vertical-align:top;' class='recommend'>Dependency</td>
-                     <td style='vertical-align:top;' class='recommend'>/ss/584/2015/level/1</td>
-                   </tr>
-                   <tr style='background:#C9C9C9;'>
-                     <td style='vertical-align:top;' class='recommend'>Dependency</td>
-                     <td style='vertical-align:top;' class='recommend'>
-                       <a href='#rfc2616'>RFC 2616 (HTTP/1.1)</a>
-                     </td>
-                   </tr>
-                   <tr>
-                     <td style='vertical-align:top;' class='recommend'>Control-class</td>
-                     <td style='vertical-align:top;' class='recommend'>Technical</td>
-                   </tr>
-                   <tr style='background:#C9C9C9;'>
-                     <td style='vertical-align:top;' class='recommend'>Priority</td>
-                     <td style='vertical-align:top;' class='recommend'>P0</td>
-                   </tr>
-                   <tr>
-                     <td style='vertical-align:top;' class='recommend'>Family</td>
-                     <td style='vertical-align:top;' class='recommend'>System and Communications Protection</td>
-                   </tr>
-                   <tr style='background:#C9C9C9;'>
-                     <td style='vertical-align:top;' class='recommend'>Family</td>
-                     <td style='vertical-align:top;' class='recommend'>System and Communications Protocols</td>
-                   </tr>
-                   <tr>
-                     <td colspan='2' style='vertical-align:top;' class='recommend'>
-                       <p class='MsoNormal'>
-                         <a name='_' id='_'/>
-                          I recommend
-                         <i>this</i>
-                          .
-                       </p>
-                     </td>
-                   </tr>
-                   <tr style='background:#C9C9C9;'>
-                     <td style='vertical-align:top;' class='recommend'>A</td>
-                     <td style='vertical-align:top;' class='recommend'>B</td>
-                   </tr>
-                   <tr>
-                     <td style='vertical-align:top;' class='recommend'>C</td>
-                     <td style='vertical-align:top;' class='recommend'>D</td>
-                   </tr>
-                   <tr style='background:#C9C9C9;'>
-                     <td colspan='2' style='vertical-align:top;' class='recommend'>
-                       <p class='MsoNormal'>
-                         <a name='_' id='_'/>
-                         The measurement target shall be measured as:
-                       </p>
-                       <div>
-                         <a name='_' id='_'/>
-                         <div class='formula'>
-                           <p class='MsoNormal'>
-                             <span class='stem'>
-                               <m:oMath>
-                                 <m:f>
-                                   <m:fPr>
-                                     <m:type m:val='bar'/>
-                                   </m:fPr>
-                                   <m:num>
-                                     <m:r>
-                                       <m:t>r</m:t>
-                                     </m:r>
-                                   </m:num>
-                                   <m:den>
-                                     <m:r>
-                                       <m:t>1</m:t>
-                                     </m:r>
-                                   </m:den>
-                                 </m:f>
-                                 <span style='font-style:normal;'>
-                                   <m:r>
-                                     <m:rPr>
-                                       <m:sty m:val='p'/>
-                                     </m:rPr>
-                                     <m:t>=</m:t>
-                                   </m:r>
-                                 </span>
-                                 <m:r>
-                                   <m:t>0</m:t>
-                                 </m:r>
-                               </m:oMath>
-                             </span>
-                             <span style='mso-tab-count:1'>&#xA0; </span>
-                             (1)
-                           </p>
-                         </div>
-                       </div>
-                     </td>
-                   </tr>
-                   <tr>
-                     <td colspan='2' style='vertical-align:top;' class='recommend'>
-                       <p class='MsoNormal'>
-                         <a name='_' id='_'/>
-                         The following code will be run for verification:
-                       </p>
-                       <p class='Sourcecode'>
-                         <a name='_' id='_'/>
-                         <br/>
-                         &#xA0;&#xA0;&#xA0;&#xA0;&#xA0; CoreRoot(success): HttpResponse
-                         if (success)
-                         <br/>
-                         &#xA0;&#xA0;&#xA0;&#xA0;&#xA0; recommendation(label:
-                         success-response) end
-                         <br/>
-                         &#xA0;&#xA0;&#xA0;
-                       </p>
-                     </td>
-                   </tr>
-                   <tr style='background:#C9C9C9;'>
-                     <td style='vertical-align:top;' class='recommend'>Test purpose</td>
-                     <td style='vertical-align:top;' class='recommend'>
-                       <p class='MsoNormal'>TEST PURPOSE</p>
-                     </td>
-                   </tr>
-                   <tr>
-                     <td style='vertical-align:top;' class='recommend'>Test method</td>
-                     <td style='vertical-align:top;' class='recommend'>
-                       <p class='MsoNormal'>TEST METHOD</p>
-                     </td>
-                   </tr>
-                   <tr style='background:#C9C9C9;'>
-                     <td style='vertical-align:top;' class='recommend'>Conditions</td>
-                     <td style='vertical-align:top;' class='recommend'>
-                       <p class='MsoNormal'>CONDITIONS</p>
-                     </td>
-                   </tr>
-                   <tr>
-                     <td style='vertical-align:top;' class='recommend'>A</td>
-                     <td style='vertical-align:top;' class='recommend'>
-                       <p class='MsoNormal'>FIRST PART</p>
-                     </td>
-                   </tr>
-                   <tr style='background:#C9C9C9;'>
-                     <td style='vertical-align:top;' class='recommend'>B</td>
-                     <td style='vertical-align:top;' class='recommend'>
-                       <p class='MsoNormal'>SECOND PART</p>
-                     </td>
-                   </tr>
-                   <tr>
-                     <td style='vertical-align:top;' class='recommend'>C</td>
-                     <td style='vertical-align:top;' class='recommend'>
-                       <p class='MsoNormal'>THIRD PART</p>
-                     </td>
-                   </tr>
-                   <tr style='background:#C9C9C9;'>
-                     <td style='vertical-align:top;' class='recommend'>Reference</td>
-                     <td style='vertical-align:top;' class='recommend'>
-                       <p class='MsoNormal'>REFERENCE PART</p>
-                     </td>
-                   </tr>
-                   <tr>
-                     <td style='vertical-align:top;' class='recommend'>Panda GHz express</td>
-                     <td style='vertical-align:top;' class='recommend'>
-                       <p class='MsoNormal'>PANDA PART</p>
-                     </td>
-                   </tr>
-                 </tbody>
-               </table>
-             </div>
-           </div>
-           <p class='MsoNormal'>&#xA0;</p>
-         </div>
-         <p class='MsoNormal'>
-           <br clear='all' class='section'/>
-         </p>
-         <div class='WordSection3'>
-           <p class='zzSTDTitle1'/>
-           <p class='MsoNormal'>
-             <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
-           </p>
-           <div>
-             <h1 class='Section3'>Bibliography</h1>
-             <p class='Biblio'>
-               <a name='rfc2616' id='rfc2616'/>
-               [1]
-               <span style='mso-tab-count:1'>&#xA0; </span>
-               R. Fielding, J. Gettys, J. Mogul, H. Frystyk, L. Masinter, P. Leach, T.
-               Berners-Lee: IETF RFC 2616,
-               <i>Hypertext Transfer Protocol&#x2009;&#x2014;&#x2009;HTTP/1.1</i>
-               . Fremont, CA (1999).
-               <a href='https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml'>https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</a>
-             </p>
-           </div>
-         </div>
-         <div style='mso-element:footnote-list'/>
-       </body>
+          <body xmlns:m=''>
+        <div>
+          <div>
+            <a name='A' id='A'/>
+            <h1 class='ForewordTitle'>
+              I.
+              <span style='mso-tab-count:1'>&#xA0; </span>
+              Preface
+            </h1>
+            <div align='center' class='table_container'>
+              <table class='recommend' style='border-collapse:collapse;border-spacing:0;'>
+                <a name='A1' id='A1'/>
+                <thead>
+                  <tr style='background:#A5A5A5;'>
+                    <th colspan='2' style='vertical-align:top;' class='recommend'>
+                      <p class='RecommendationTitle'>Permission 1</p>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td colspan='2' style='vertical-align:top;' class='recommend'>
+                      <p class='MsoNormal'>/ogc/recommendation/wfs/2</p>
+                    </td>
+                  </tr>
+                  <tr style='background:#C9C9C9;'>
+                    <td style='vertical-align:top;' class='recommend'>Subject</td>
+                    <td style='vertical-align:top;' class='recommend'>user</td>
+                  </tr>
+                  <tr>
+                    <td style='vertical-align:top;' class='recommend'>Dependency</td>
+                    <td style='vertical-align:top;' class='recommend'>/ss/584/2015/level/1</td>
+                  </tr>
+                  <tr style='background:#C9C9C9;'>
+                    <td style='vertical-align:top;' class='recommend'>Dependency</td>
+                    <td style='vertical-align:top;' class='recommend'>
+                      <a href='#rfc2616'>RFC 2616 (HTTP/1.1)</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style='vertical-align:top;' class='recommend'>Control-class</td>
+                    <td style='vertical-align:top;' class='recommend'>Technical</td>
+                  </tr>
+                  <tr style='background:#C9C9C9;'>
+                    <td style='vertical-align:top;' class='recommend'>Priority</td>
+                    <td style='vertical-align:top;' class='recommend'>P0</td>
+                  </tr>
+                  <tr>
+                    <td style='vertical-align:top;' class='recommend'>Family</td>
+                    <td style='vertical-align:top;' class='recommend'>System and Communications Protection</td>
+                  </tr>
+                  <tr style='background:#C9C9C9;'>
+                    <td style='vertical-align:top;' class='recommend'>Family</td>
+                    <td style='vertical-align:top;' class='recommend'>System and Communications Protocols</td>
+                  </tr>
+                  <tr>
+                    <td colspan='2' style='vertical-align:top;' class='recommend'>
+                      <p class='MsoNormal'>
+                        <a name='_' id='_'/>
+                         I recommend
+                        <i>this</i>
+                         .
+                      </p>
+                    </td>
+                  </tr>
+                  <tr style='background:#C9C9C9;'>
+                    <td style='vertical-align:top;' class='recommend'>A</td>
+                    <td style='vertical-align:top;' class='recommend'>B</td>
+                  </tr>
+                  <tr>
+                    <td style='vertical-align:top;' class='recommend'>C</td>
+                    <td style='vertical-align:top;' class='recommend'>D</td>
+                  </tr>
+                  <tr style='background:#C9C9C9;'>
+                    <td colspan='2' style='vertical-align:top;' class='recommend'>
+                      <p class='MsoNormal'>
+                        <a name='_' id='_'/>
+                        The measurement target shall be measured as:
+                      </p>
+                      <div>
+                        <a name='_' id='_'/>
+                        <div class='formula'>
+                          <p class='MsoNormal'>
+                            <span class='stem'>
+                              <m:oMath>
+                                <m:f>
+                                  <m:fPr>
+                                    <m:type m:val='bar'/>
+                                  </m:fPr>
+                                  <m:num>
+                                    <m:r>
+                                      <m:t>r</m:t>
+                                    </m:r>
+                                  </m:num>
+                                  <m:den>
+                                    <m:r>
+                                      <m:t>1</m:t>
+                                    </m:r>
+                                  </m:den>
+                                </m:f>
+                                <span style='font-style:normal;'>
+                                  <m:r>
+                                    <m:rPr>
+                                      <m:sty m:val='p'/>
+                                    </m:rPr>
+                                    <m:t>=</m:t>
+                                  </m:r>
+                                </span>
+                                <m:r>
+                                  <m:t>0</m:t>
+                                </m:r>
+                              </m:oMath>
+                            </span>
+                            <span style='mso-tab-count:1'>&#xA0; </span>
+                            (1)
+                          </p>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan='2' style='vertical-align:top;' class='recommend'>
+                      <p class='MsoNormal'>
+                        <a name='_' id='_'/>
+                        The following code will be run for verification:
+                      </p>
+                      <p class='Sourcecode'>
+                        <a name='_' id='_'/>
+                        <br/>
+                        &#xA0;&#xA0;&#xA0;&#xA0;&#xA0; CoreRoot(success): HttpResponse
+                        if (success)
+                        <br/>
+                        &#xA0;&#xA0;&#xA0;&#xA0;&#xA0; recommendation(label:
+                        success-response) end
+                        <br/>
+                        &#xA0;&#xA0;&#xA0;
+                      </p>
+                    </td>
+                  </tr>
+                  <tr style='background:#C9C9C9;'>
+                    <td style='vertical-align:top;' class='recommend'>Test purpose</td>
+                    <td style='vertical-align:top;' class='recommend'>
+                      <p class='MsoNormal'>TEST PURPOSE</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style='vertical-align:top;' class='recommend'>Test method</td>
+                    <td style='vertical-align:top;' class='recommend'>
+                      <p class='MsoNormal'>TEST METHOD</p>
+                    </td>
+                  </tr>
+                  <tr style='background:#C9C9C9;'>
+                    <td style='vertical-align:top;' class='recommend'>Conditions</td>
+                    <td style='vertical-align:top;' class='recommend'>
+                      <p class='MsoNormal'>CONDITIONS</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style='vertical-align:top;' class='recommend'>A</td>
+                    <td style='vertical-align:top;' class='recommend'>
+                      <p class='MsoNormal'>FIRST PART</p>
+                    </td>
+                  </tr>
+                  <tr style='background:#C9C9C9;'>
+                    <td style='vertical-align:top;' class='recommend'>B</td>
+                    <td style='vertical-align:top;' class='recommend'>
+                      <p class='MsoNormal'>SECOND PART</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style='vertical-align:top;' class='recommend'>C</td>
+                    <td style='vertical-align:top;' class='recommend'>
+                      <p class='MsoNormal'>THIRD PART</p>
+                    </td>
+                  </tr>
+                  <tr style='background:#C9C9C9;'>
+                    <td style='vertical-align:top;' class='recommend'>Reference</td>
+                    <td style='vertical-align:top;' class='recommend'>
+                      <p class='MsoNormal'>REFERENCE PART</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style='vertical-align:top;' class='recommend'>Panda GHz express</td>
+                    <td style='vertical-align:top;' class='recommend'>
+                      <p class='MsoNormal'>PANDA PART</p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <p class='MsoNormal'>&#xA0;</p>
+        </div>
+        <p class='MsoNormal'>
+          <br clear='all' class='section'/>
+        </p>
+        <div class='WordSection3'>
+          <p class='zzSTDTitle1'/>
+          <p class='MsoNormal'>
+            <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
+          </p>
+          <div>
+            <h1 class='Section3'>Bibliography</h1>
+            <p class='Biblio'>
+              <a name='rfc2616' id='rfc2616'/>
+              [1]
+              <span style='mso-tab-count:1'>&#xA0; </span>
+              R. Fielding, J. Gettys, J. Mogul, H. Frystyk, L. Masinter, P. Leach, T.
+              Berners-Lee: IETF RFC 2616,
+              <i>Hypertext Transfer Protocol&#x2009;&#x2014;&#x2009;HTTP/1.1</i>
+              . Fremont, CA (1999).
+              <a href='https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml'>https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</a>
+            </p>
+          </div>
+        </div>
+        <div style='mso-element:footnote-list'/>
+      </body>
     OUTPUT
 
     expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({})
@@ -2751,178 +2751,23 @@ RSpec.describe IsoDoc::Ogc do
          </ogc-standard>
     OUTPUT
     html = <<~OUTPUT
-    <body lang='EN-US' xml:lang='EN-US' link='blue' vlink='#954F72' class='container'>
-         <div class='title-section'>
-           <p>&#160;</p>
-         </div>
-         <br/>
-         <div class='prefatory-section'>
-           <p>&#160;</p>
-         </div>
-         <br/>
-         <div class='main-section'>
-           <br/>
-           <div id='A'>
-             <h1 class='ForewordTitle'>I.&#160; Preface</h1>
-             <table id='_' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
-               <thead>
-                 <tr>
-                   <th colspan='2' style='vertical-align:top;' scope='colgroup' class='recommend'>
-                     <p class='RecommendationTitle'>Recommendation 1</p>
-                   </th>
-                 </tr>
-               </thead>
-               <tbody>
-                 <tr>
-                   <td colspan='2' style='vertical-align:top;' class='recommend'>
-                     <p>/ogc/recommendation/wfs/2</p>
-                   </td>
-                 </tr>
-                 <tr>
-                   <td style='vertical-align:top;' class='recommend'>Subject</td>
-                   <td style='vertical-align:top;' class='recommend'>user</td>
-                 </tr>
-                 <tr>
-                   <td style='vertical-align:top;' class='recommend'>Dependency</td>
-                   <td style='vertical-align:top;' class='recommend'>/ss/584/2015/level/1</td>
-                 </tr>
-                 <tr>
-                   <td colspan='2' style='vertical-align:top;' class='recommend'>
-                     <p id='_'>
-                       I recommend
-                       <i>1</i>
-                       .
-                     </p>
-                   </td>
-                 </tr>
-                 <tr>
-                   <td style='vertical-align:top;' class='recommend'>Test purpose</td>
-                   <td style='vertical-align:top;' class='recommend'>
-                     <p>TEST PURPOSE</p>
-                   </td>
-                 </tr>
-                 <tr>
-                   <td colspan='2' style='vertical-align:top;' class='recommend'>
-                     <p id='_'>
-                       I recommend
-                       <i>2</i>
-                       .
-                     </p>
-                   </td>
-                 </tr>
-                 <tr>
-                   <td style='vertical-align:top;' class='recommend'>Conditions</td>
-                   <td style='vertical-align:top;' class='recommend'>
-                     <p>CONDITIONS</p>
-                   </td>
-                 </tr>
-                 <tr>
-                   <td colspan='2' style='vertical-align:top;' class='recommend'>
-                     <p id='_'>
-                       I recommend
-                       <i>3</i>
-                       .
-                     </p>
-                   </td>
-                 </tr>
-                 <tr>
-                   <td style='vertical-align:top;' class='recommend'>A</td>
-                   <td style='vertical-align:top;' class='recommend'>
-                     <p>FIRST PART</p>
-                   </td>
-                 </tr>
-                 <tr>
-                   <td colspan='2' style='vertical-align:top;' class='recommend'>
-                     <p id='_'>
-                       I recommend
-                       <i>4</i>
-                       .
-                     </p>
-                   </td>
-                 </tr>
-                 <tr>
-                   <td style='vertical-align:top;' class='recommend'>B</td>
-                   <td style='vertical-align:top;' class='recommend'>
-                     <p>SECOND PART</p>
-                   </td>
-                 </tr>
-                 <tr>
-                   <td colspan='2' style='vertical-align:top;' class='recommend'>
-                     <p id='_'>
-                       I recommend
-                       <i>5</i>
-                       .
-                     </p>
-                   </td>
-                 </tr>
-                 <tr>
-                   <td style='vertical-align:top;' class='recommend'>Test method</td>
-                   <td style='vertical-align:top;' class='recommend'>
-                     <p>TEST METHOD</p>
-                   </td>
-                 </tr>
-                 <tr>
-                   <td colspan='2' style='vertical-align:top;' class='recommend'>
-                     <p id='_'>
-                       I recommend
-                       <i>6</i>
-                       .
-                     </p>
-                   </td>
-                 </tr>
-                 <tr>
-                   <td style='vertical-align:top;' class='recommend'>C</td>
-                   <td style='vertical-align:top;' class='recommend'>
-                     <p>THIRD PART</p>
-                   </td>
-                 </tr>
-                 <tr>
-                   <td colspan='2' style='vertical-align:top;' class='recommend'>
-                     <p id='_'>
-                       I recommend
-                       <i>7</i>
-                       .
-                     </p>
-                   </td>
-                 </tr>
-                 <tr>
-                   <td style='vertical-align:top;' class='recommend'>Panda GHz express</td>
-                   <td style='vertical-align:top;' class='recommend'>
-                     <p>PANDA PART</p>
-                   </td>
-                 </tr>
-                 <tr>
-                   <td colspan='2' style='vertical-align:top;' class='recommend'>
-                     <p id='_'>
-                       I recommend
-                       <i>8</i>
-                       .
-                     </p>
-                   </td>
-                 </tr>
-               </tbody>
-             </table>
+      <body lang='EN-US' xml:lang='EN-US' link='blue' vlink='#954F72' class='container'>
+           <div class='title-section'>
+             <p>&#160;</p>
            </div>
-           <p class='zzSTDTitle1'/>
-         </div>
-       </body>
-    OUTPUT
-    word = <<~OUTPUT
-           <body xmlns:m=''>
-         <div>
-           <div>
-             <a name='A' id='A'/>
-             <h1 class='ForewordTitle'>
-               I.
-               <span style='mso-tab-count:1'>&#xA0; </span>
-               Preface
-             </h1>
-             <div align='center' class='table_container'>
-               <table class='recommend' style='border-collapse:collapse;border-spacing:0;'>
-                 <a name='_' id='_'/>
+           <br/>
+           <div class='prefatory-section'>
+             <p>&#160;</p>
+           </div>
+           <br/>
+           <div class='main-section'>
+             <br/>
+             <div id='A'>
+               <h1 class='ForewordTitle'>I.&#160; Preface</h1>
+               <table id='_' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
                  <thead>
-                   <tr style='background:#A5A5A5;'>
-                     <th colspan='2' style='vertical-align:top;' class='recommend'>
+                   <tr>
+                     <th colspan='2' style='vertical-align:top;' scope='colgroup' class='recommend'>
                        <p class='RecommendationTitle'>Recommendation 1</p>
                      </th>
                    </tr>
@@ -2930,10 +2775,10 @@ RSpec.describe IsoDoc::Ogc do
                  <tbody>
                    <tr>
                      <td colspan='2' style='vertical-align:top;' class='recommend'>
-                       <p class='MsoNormal'>/ogc/recommendation/wfs/2</p>
+                       <p>/ogc/recommendation/wfs/2</p>
                      </td>
                    </tr>
-                   <tr style='background:#C9C9C9;'>
+                   <tr>
                      <td style='vertical-align:top;' class='recommend'>Subject</td>
                      <td style='vertical-align:top;' class='recommend'>user</td>
                    </tr>
@@ -2941,10 +2786,9 @@ RSpec.describe IsoDoc::Ogc do
                      <td style='vertical-align:top;' class='recommend'>Dependency</td>
                      <td style='vertical-align:top;' class='recommend'>/ss/584/2015/level/1</td>
                    </tr>
-                   <tr style='background:#C9C9C9;'>
+                   <tr>
                      <td colspan='2' style='vertical-align:top;' class='recommend'>
-                       <p class='MsoNormal'>
-                         <a name='_' id='_'/>
+                       <p id='_'>
                          I recommend
                          <i>1</i>
                          .
@@ -2954,13 +2798,12 @@ RSpec.describe IsoDoc::Ogc do
                    <tr>
                      <td style='vertical-align:top;' class='recommend'>Test purpose</td>
                      <td style='vertical-align:top;' class='recommend'>
-                       <p class='MsoNormal'>TEST PURPOSE</p>
+                       <p>TEST PURPOSE</p>
                      </td>
                    </tr>
-                   <tr style='background:#C9C9C9;'>
+                   <tr>
                      <td colspan='2' style='vertical-align:top;' class='recommend'>
-                       <p class='MsoNormal'>
-                         <a name='_' id='_'/>
+                       <p id='_'>
                          I recommend
                          <i>2</i>
                          .
@@ -2970,13 +2813,12 @@ RSpec.describe IsoDoc::Ogc do
                    <tr>
                      <td style='vertical-align:top;' class='recommend'>Conditions</td>
                      <td style='vertical-align:top;' class='recommend'>
-                       <p class='MsoNormal'>CONDITIONS</p>
+                       <p>CONDITIONS</p>
                      </td>
                    </tr>
-                   <tr style='background:#C9C9C9;'>
+                   <tr>
                      <td colspan='2' style='vertical-align:top;' class='recommend'>
-                       <p class='MsoNormal'>
-                         <a name='_' id='_'/>
+                       <p id='_'>
                          I recommend
                          <i>3</i>
                          .
@@ -2986,13 +2828,12 @@ RSpec.describe IsoDoc::Ogc do
                    <tr>
                      <td style='vertical-align:top;' class='recommend'>A</td>
                      <td style='vertical-align:top;' class='recommend'>
-                       <p class='MsoNormal'>FIRST PART</p>
+                       <p>FIRST PART</p>
                      </td>
                    </tr>
-                   <tr style='background:#C9C9C9;'>
+                   <tr>
                      <td colspan='2' style='vertical-align:top;' class='recommend'>
-                       <p class='MsoNormal'>
-                         <a name='_' id='_'/>
+                       <p id='_'>
                          I recommend
                          <i>4</i>
                          .
@@ -3002,13 +2843,12 @@ RSpec.describe IsoDoc::Ogc do
                    <tr>
                      <td style='vertical-align:top;' class='recommend'>B</td>
                      <td style='vertical-align:top;' class='recommend'>
-                       <p class='MsoNormal'>SECOND PART</p>
+                       <p>SECOND PART</p>
                      </td>
                    </tr>
-                   <tr style='background:#C9C9C9;'>
+                   <tr>
                      <td colspan='2' style='vertical-align:top;' class='recommend'>
-                       <p class='MsoNormal'>
-                         <a name='_' id='_'/>
+                       <p id='_'>
                          I recommend
                          <i>5</i>
                          .
@@ -3018,13 +2858,12 @@ RSpec.describe IsoDoc::Ogc do
                    <tr>
                      <td style='vertical-align:top;' class='recommend'>Test method</td>
                      <td style='vertical-align:top;' class='recommend'>
-                       <p class='MsoNormal'>TEST METHOD</p>
+                       <p>TEST METHOD</p>
                      </td>
                    </tr>
-                   <tr style='background:#C9C9C9;'>
+                   <tr>
                      <td colspan='2' style='vertical-align:top;' class='recommend'>
-                       <p class='MsoNormal'>
-                         <a name='_' id='_'/>
+                       <p id='_'>
                          I recommend
                          <i>6</i>
                          .
@@ -3034,13 +2873,12 @@ RSpec.describe IsoDoc::Ogc do
                    <tr>
                      <td style='vertical-align:top;' class='recommend'>C</td>
                      <td style='vertical-align:top;' class='recommend'>
-                       <p class='MsoNormal'>THIRD PART</p>
+                       <p>THIRD PART</p>
                      </td>
                    </tr>
-                   <tr style='background:#C9C9C9;'>
+                   <tr>
                      <td colspan='2' style='vertical-align:top;' class='recommend'>
-                       <p class='MsoNormal'>
-                         <a name='_' id='_'/>
+                       <p id='_'>
                          I recommend
                          <i>7</i>
                          .
@@ -3050,13 +2888,12 @@ RSpec.describe IsoDoc::Ogc do
                    <tr>
                      <td style='vertical-align:top;' class='recommend'>Panda GHz express</td>
                      <td style='vertical-align:top;' class='recommend'>
-                       <p class='MsoNormal'>PANDA PART</p>
+                       <p>PANDA PART</p>
                      </td>
                    </tr>
-                   <tr style='background:#C9C9C9;'>
+                   <tr>
                      <td colspan='2' style='vertical-align:top;' class='recommend'>
-                       <p class='MsoNormal'>
-                         <a name='_' id='_'/>
+                       <p id='_'>
                          I recommend
                          <i>8</i>
                          .
@@ -3066,17 +2903,180 @@ RSpec.describe IsoDoc::Ogc do
                  </tbody>
                </table>
              </div>
+             <p class='zzSTDTitle1'/>
            </div>
-           <p class='MsoNormal'>&#xA0;</p>
-         </div>
-         <p class='MsoNormal'>
-           <br clear='all' class='section'/>
-         </p>
-         <div class='WordSection3'>
-           <p class='zzSTDTitle1'/>
-         </div>
-         <div style='mso-element:footnote-list'/>
-       </body>
+         </body>
+    OUTPUT
+    word = <<~OUTPUT
+          <body xmlns:m=''>
+        <div>
+          <div>
+            <a name='A' id='A'/>
+            <h1 class='ForewordTitle'>
+              I.
+              <span style='mso-tab-count:1'>&#xA0; </span>
+              Preface
+            </h1>
+            <div align='center' class='table_container'>
+              <table class='recommend' style='border-collapse:collapse;border-spacing:0;'>
+                <a name='_' id='_'/>
+                <thead>
+                  <tr style='background:#A5A5A5;'>
+                    <th colspan='2' style='vertical-align:top;' class='recommend'>
+                      <p class='RecommendationTitle'>Recommendation 1</p>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td colspan='2' style='vertical-align:top;' class='recommend'>
+                      <p class='MsoNormal'>/ogc/recommendation/wfs/2</p>
+                    </td>
+                  </tr>
+                  <tr style='background:#C9C9C9;'>
+                    <td style='vertical-align:top;' class='recommend'>Subject</td>
+                    <td style='vertical-align:top;' class='recommend'>user</td>
+                  </tr>
+                  <tr>
+                    <td style='vertical-align:top;' class='recommend'>Dependency</td>
+                    <td style='vertical-align:top;' class='recommend'>/ss/584/2015/level/1</td>
+                  </tr>
+                  <tr style='background:#C9C9C9;'>
+                    <td colspan='2' style='vertical-align:top;' class='recommend'>
+                      <p class='MsoNormal'>
+                        <a name='_' id='_'/>
+                        I recommend
+                        <i>1</i>
+                        .
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style='vertical-align:top;' class='recommend'>Test purpose</td>
+                    <td style='vertical-align:top;' class='recommend'>
+                      <p class='MsoNormal'>TEST PURPOSE</p>
+                    </td>
+                  </tr>
+                  <tr style='background:#C9C9C9;'>
+                    <td colspan='2' style='vertical-align:top;' class='recommend'>
+                      <p class='MsoNormal'>
+                        <a name='_' id='_'/>
+                        I recommend
+                        <i>2</i>
+                        .
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style='vertical-align:top;' class='recommend'>Conditions</td>
+                    <td style='vertical-align:top;' class='recommend'>
+                      <p class='MsoNormal'>CONDITIONS</p>
+                    </td>
+                  </tr>
+                  <tr style='background:#C9C9C9;'>
+                    <td colspan='2' style='vertical-align:top;' class='recommend'>
+                      <p class='MsoNormal'>
+                        <a name='_' id='_'/>
+                        I recommend
+                        <i>3</i>
+                        .
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style='vertical-align:top;' class='recommend'>A</td>
+                    <td style='vertical-align:top;' class='recommend'>
+                      <p class='MsoNormal'>FIRST PART</p>
+                    </td>
+                  </tr>
+                  <tr style='background:#C9C9C9;'>
+                    <td colspan='2' style='vertical-align:top;' class='recommend'>
+                      <p class='MsoNormal'>
+                        <a name='_' id='_'/>
+                        I recommend
+                        <i>4</i>
+                        .
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style='vertical-align:top;' class='recommend'>B</td>
+                    <td style='vertical-align:top;' class='recommend'>
+                      <p class='MsoNormal'>SECOND PART</p>
+                    </td>
+                  </tr>
+                  <tr style='background:#C9C9C9;'>
+                    <td colspan='2' style='vertical-align:top;' class='recommend'>
+                      <p class='MsoNormal'>
+                        <a name='_' id='_'/>
+                        I recommend
+                        <i>5</i>
+                        .
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style='vertical-align:top;' class='recommend'>Test method</td>
+                    <td style='vertical-align:top;' class='recommend'>
+                      <p class='MsoNormal'>TEST METHOD</p>
+                    </td>
+                  </tr>
+                  <tr style='background:#C9C9C9;'>
+                    <td colspan='2' style='vertical-align:top;' class='recommend'>
+                      <p class='MsoNormal'>
+                        <a name='_' id='_'/>
+                        I recommend
+                        <i>6</i>
+                        .
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style='vertical-align:top;' class='recommend'>C</td>
+                    <td style='vertical-align:top;' class='recommend'>
+                      <p class='MsoNormal'>THIRD PART</p>
+                    </td>
+                  </tr>
+                  <tr style='background:#C9C9C9;'>
+                    <td colspan='2' style='vertical-align:top;' class='recommend'>
+                      <p class='MsoNormal'>
+                        <a name='_' id='_'/>
+                        I recommend
+                        <i>7</i>
+                        .
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style='vertical-align:top;' class='recommend'>Panda GHz express</td>
+                    <td style='vertical-align:top;' class='recommend'>
+                      <p class='MsoNormal'>PANDA PART</p>
+                    </td>
+                  </tr>
+                  <tr style='background:#C9C9C9;'>
+                    <td colspan='2' style='vertical-align:top;' class='recommend'>
+                      <p class='MsoNormal'>
+                        <a name='_' id='_'/>
+                        I recommend
+                        <i>8</i>
+                        .
+                      </p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <p class='MsoNormal'>&#xA0;</p>
+        </div>
+        <p class='MsoNormal'>
+          <br clear='all' class='section'/>
+        </p>
+        <div class='WordSection3'>
+          <p class='zzSTDTitle1'/>
+        </div>
+        <div style='mso-element:footnote-list'/>
+      </body>
     OUTPUT
 
     expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({})
@@ -3096,5 +3096,91 @@ RSpec.describe IsoDoc::Ogc do
             "<body xmlns:m=''><div><div><a name='A' id='A'>")
               .gsub(%r{</body>.*}m, "</body>")))
       .to be_equivalent_to xmlpp(word)
+  end
+
+  it "processes labels with rich text" do
+    input = <<~INPUT
+              <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+          <preface>
+              <foreword id="A"><title>Preface</title>
+          <permission id="A1" type="verification">
+        <label><strong>A</strong> <xref target="A"/></label>
+        <inherit>/ss/584/2015/level/1</inherit>
+        <subject>user</subject>
+        <classification> <tag>control-class</tag> <value>Technical</value> </classification><classification> <tag>priority</tag> <value>P0</value> </classification><classification> <tag>family</tag> <value>System and Communications Protection</value> </classification><classification> <tag>family</tag> <value>System and Communications Protocols</value> </classification>
+        <description>
+          <p id="_">I recommend <em>this</em>.</p>
+        </description>
+      </permission>
+          </foreword></preface>
+          </ogc-standard>
+    INPUT
+    presxml = <<~PRESXML
+          <ogc-standard xmlns='https://standards.opengeospatial.org/document' type='presentation'>
+        <preface>
+          <foreword id='A' displayorder='1'>
+            <title depth='1'>
+              I.
+              <tab/>
+              Preface
+            </title>
+            <table id='A1' type='recommendtest' class='permission'>
+              <thead>
+                <tr>
+                  <th scope='colgroup' colspan='2'>
+                    <p class='RecommendationTestTitle'>Permission test 1</p>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colspan='2'>
+                    <p>A Preface</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Requirement</td>
+                  <td>user</td>
+                </tr>
+                <tr>
+                  <td>Dependency</td>
+                  <td>/ss/584/2015/level/1</td>
+                </tr>
+                <tr>
+                  <td>Control-class</td>
+                  <td>Technical</td>
+                </tr>
+                <tr>
+                  <td>Priority</td>
+                  <td>P0</td>
+                </tr>
+                <tr>
+                  <td>Family</td>
+                  <td>System and Communications Protection</td>
+                </tr>
+                <tr>
+                  <td>Family</td>
+                  <td>System and Communications Protocols</td>
+                </tr>
+                <tr>
+                  <td colspan='2'>
+                    <p id='_'>
+                      I recommend
+                      <em>this</em>
+                      .
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </foreword>
+        </preface>
+      </ogc-standard>
+    PRESXML
+    expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({})
+      .convert("test", input, true)
+      .gsub(%r{^.*<body}m, "<body")
+      .gsub(%r{</body>.*}m, "</body>")))
+      .to be_equivalent_to xmlpp(presxml)
   end
 end
