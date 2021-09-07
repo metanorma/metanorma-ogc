@@ -725,12 +725,12 @@ RSpec.describe Asciidoctor::Ogc do
       [appendix]
       == Glossary
 
-      === Glossary
+      === Term
 
       [appendix]
       == Appendix
 
-      term:[Glossary]
+      term:[Term]
     INPUT
     output = <<~OUTPUT
       #{BLANK_HDR}
@@ -739,8 +739,8 @@ RSpec.describe Asciidoctor::Ogc do
       <annex id='_' obligation='normative'>
         <title>Glossary</title>
         <terms id='_' obligation='normative'>
-          <term id='term-glossary'>
-            <preferred>Glossary</preferred>
+          <term id='term-term'>
+            <preferred>Term</preferred>
           </term>
         </terms>
       </annex>
@@ -748,9 +748,9 @@ RSpec.describe Asciidoctor::Ogc do
         <title>Appendix</title>
         <p id='_'>
           <concept>
-            <refterm>Glossary</refterm>
-            <renderterm>Glossary</renderterm>
-            <xref target='term-glossary'/>
+            <refterm>Term</refterm>
+            <renderterm>Term</renderterm>
+            <xref target='term-term'/>
           </concept>
         </p>
       </annex>
@@ -781,6 +781,73 @@ RSpec.describe Asciidoctor::Ogc do
         </terms>
       </annex>
       </ogc-standard>
+    OUTPUT
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+      .to be_equivalent_to xmlpp(output)
+  end
+
+  it "processes glossary annex with terms section" do
+    input = <<~INPUT
+      #{ASCIIDOC_BLANK_HDR}
+
+      == Terms and definitions
+
+      === Term
+
+      [appendix]
+      [heading='terms and definitions']
+      == Glossary
+
+      === Term Collection
+
+      ==== Term
+
+    INPUT
+    output = <<~OUTPUT
+            #{BLANK_HDR}
+            <preface>#{SECURITY}</preface>
+                     <sections>
+                 <terms id='_' obligation='normative'>
+                   <title>Terms and definitions</title>
+                   <p id='_'>
+        This document uses the terms defined in
+        <link target='https://portal.ogc.org/public_ogc/directives/directives.php'>OGC Policy Directive 49</link>
+        , which is based on the ISO/IEC Directives, Part 2, Rules for the
+        structure and drafting of International Standards. In particular, the
+        word &#8220;shall&#8221; (not &#8220;must&#8221;) is the verb form used
+        to indicate a requirement to be strictly followed to conform to this
+        standard and OGC documents do not use the equivalent phrases in the
+        ISO/IEC Directives, Part 2.
+      </p>
+      <p id='_'>
+        This document also uses terms defined in the OGC Standard for Modular
+        specifications (
+        <link target='https://portal.opengeospatial.org/files/?artifact_id=34762'>OGC 08-131r3</link>
+        ), also known as the &#8216;ModSpec&#8217;. The definitions of terms
+        such as standard, specification, requirement, and conformance test are
+        provided in the ModSpec.
+      </p>
+      <p id='_'>
+        For the purposes of this document, the following additional terms and
+        definitions apply.
+      </p>
+                   <term id='term-term'>
+                     <preferred>Term</preferred>
+                   </term>
+                 </terms>
+               </sections>
+               <annex id='_' obligation='normative'>
+                 <title>Glossary</title>
+                 <clause id='_' obligation='normative'>
+                   <terms id='_' obligation='normative'>
+                     <title>Term Collection</title>
+                     <term id='term-term-1'>
+                       <preferred>Term</preferred>
+                     </term>
+                   </terms>
+                 </clause>
+               </annex>
+             </ogc-standard>
     OUTPUT
     expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
       .to be_equivalent_to xmlpp(output)

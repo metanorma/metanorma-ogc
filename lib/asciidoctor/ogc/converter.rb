@@ -41,6 +41,14 @@ module Asciidoctor
         d
       end
 
+      def sectiontype(node, level = true)
+        ret = sectiontype_streamline(sectiontype1(node))
+        return ret if ret == "terms and definitions" &&
+          node.attr("style") == "appendix" && node.level == 1
+
+        super
+      end
+
       def sectiontype_streamline(ret)
         case ret
         when "preface" then "foreword"
