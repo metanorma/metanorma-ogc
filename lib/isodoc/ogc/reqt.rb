@@ -1,4 +1,5 @@
 require "isodoc"
+require "metanorma-utils"
 
 module IsoDoc
   module Ogc
@@ -67,22 +68,6 @@ module IsoDoc
           out << ["Dependency", i.remove.children]
         end
         out
-      end
-
-      def strict_capitalize_phrase(str)
-        str.split(/ /).map do |w|
-          letters = w.chars
-          letters.first.upcase!
-          letters.join
-        end.join(" ")
-      end
-
-      def strict_capitalize_first(str)
-        str.split(/ /).each_with_index.map do |w, i|
-          letters = w.chars
-          letters.first.upcase! if i.zero?
-          letters.join
-        end.join(" ")
       end
 
       def recommendation_attributes1_component(node, out)
@@ -160,7 +145,7 @@ module IsoDoc
           c["label"] = case c["class"]
                        when "test-purpose" then "Test purpose"
                        when "test-method" then "Test method"
-                       else strict_capitalize_first(c["class"])
+                       else Metanorma::Utils.strict_capitalize_first(c["class"])
                        end
         end
       end
