@@ -273,10 +273,10 @@ ul {
   }
 }
 
-ul ul li:first-child {
+ul ul > li:first-child {
       margin-top: 0;
 }
-ul ol li:first-child {
+ol ul > li:first-child {
       margin-top: 0;
 }
 
