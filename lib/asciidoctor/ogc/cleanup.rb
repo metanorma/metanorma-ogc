@@ -36,6 +36,9 @@ module Asciidoctor
           preface = sect.at("//preface") ||
             sect.add_previous_sibling("<preface/>").first
           submitters = xml.at("//submitters").remove
+          submitters.xpath(".//table").each do |t|
+             t["unnumbered"] = true
+           end
           preface.add_child submitters.remove
         end
       end
