@@ -70,7 +70,20 @@ module IsoDoc
         out
       end
 
+      def recommendation_steps(node)
+        node.elements.each { |e| recommendation_steps(e) }
+        return node unless node.at(ns("./component[@class = 'step']"))
+
+        d = node.at(ns("./component[@class = 'step']"))
+        d = d.replace("<ol><li>#{d.children.to_xml}</li></ol>").first
+        node.xpath(ns("./component[@class = 'step']")).each do |f|
+          f = f.replace("<li>#{f.children.to_xml}</li>").first
+          d << f
+        end
+      end
+
       def recommendation_attributes1_component(node, out)
+        node = recommendation_steps(node)
         out << "<tr><td>#{node['label']}</td><td>#{node.children}</td></tr>"
       end
 

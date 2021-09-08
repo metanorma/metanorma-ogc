@@ -948,85 +948,155 @@ RSpec.describe Asciidoctor::Ogc do
       ====
     INPUT
     output = <<~OUTPUT
-        #{BLANK_HDR}
-        <preface>#{SECURITY}</preface>
-        <sections>
-        <requirement id='_' obligation='recommendation,requirement' model='ogc' type='class'>
-        <label>
-          <link target='http://www.opengis.net/spec/waterml/2.0/req/xsd-xml-rules'>
-            <strong>req/core</strong>
-          </link>
-        </label>
-        <subject>Encoding of logical models</subject>
-        <inherit>urn:iso:dis:iso:19156:clause:7.2.2</inherit>
-        <inherit>urn:iso:dis:iso:19156:clause:8</inherit>
-        <inherit>
-          <link target='http://www.opengis.net/doc/IS/GML/3.2/clause/2.4'/>
-        </inherit>
-        <inherit>O&amp;M Abstract model, OGC 10-004r3, clause D.3.4</inherit>
-        <inherit>
-          <link target='http://www.opengis.net/spec/SWE/2.0/req/core/core-concepts-used'/>
-        </inherit>
-        <inherit>
-          <xref target='ref2'/>
-        </inherit>
-        <inherit>
-          <xref target='ref3'/>
-        </inherit>
-        <classification>
-          <tag>priority</tag>
-          <value>P0</value>
-        </classification>
-        <classification>
-          <tag>domain</tag>
-          <value>Hydrology</value>
-        </classification>
-        <classification>
-          <tag>domain</tag>
-          <value>Groundwater</value>
-        </classification>
-        <classification>
-          <tag>control-class</tag>
-          <value>Technical</value>
-        </classification>
-           <component class='conditions'>
-                 <ol id='_' type='arabic'>
-                   <li>
-                     <p id='_'>Candidate test subject is a witch</p>
-                   </li>
-                   <li>
-                     <p id='_'>Widget has been suitably calibrated for aerodynamics</p>
-                   </li>
-                 </ol>
-             </component>
-             <component class='part'>
-                 <p id='_'>Determine travel distance by flight path</p>
-             </component>
-             <description>
-                 <p id='_'>Interpolated description</p>
-             </description>
-             <recommendation id='_' label="Interpolated Recommendation"/>
-             <component class='part'>
-                 <p id='_'>Widget has been suitably calibrated for aerodynamics</p>
-             </component>
-             <component class='test-method'>
-                 <p id='_'>Method</p>
-             </component>
-             <component class='test-purpose'>
-                 <p id='_'>Purpose</p>
-             </component>
-             <component class='reference'>
-                 <p id='_'><xref target='ref2'/></p>
-             </component>
-             <description>
-               <p id='_'>
-                 Logical models encoded as XSDs should be faithful to the original UML
-                 conceptual models.
-               </p>
-             </description>
-           </requirement>
-         </sections>
-       </ogc-standard>
+       #{BLANK_HDR}
+       <preface>#{SECURITY}</preface>
+       <sections>
+       <requirement id='_' obligation='recommendation,requirement' model='ogc' type='class'>
+       <label>
+         <link target='http://www.opengis.net/spec/waterml/2.0/req/xsd-xml-rules'>
+           <strong>req/core</strong>
+         </link>
+       </label>
+       <subject>Encoding of logical models</subject>
+       <inherit>urn:iso:dis:iso:19156:clause:7.2.2</inherit>
+       <inherit>urn:iso:dis:iso:19156:clause:8</inherit>
+       <inherit>
+         <link target='http://www.opengis.net/doc/IS/GML/3.2/clause/2.4'/>
+       </inherit>
+       <inherit>O&amp;M Abstract model, OGC 10-004r3, clause D.3.4</inherit>
+       <inherit>
+         <link target='http://www.opengis.net/spec/SWE/2.0/req/core/core-concepts-used'/>
+       </inherit>
+       <inherit>
+         <xref target='ref2'/>
+       </inherit>
+       <inherit>
+         <xref target='ref3'/>
+       </inherit>
+       <classification>
+         <tag>priority</tag>
+         <value>P0</value>
+       </classification>
+       <classification>
+         <tag>domain</tag>
+         <value>Hydrology</value>
+       </classification>
+       <classification>
+         <tag>domain</tag>
+         <value>Groundwater</value>
+       </classification>
+       <classification>
+         <tag>control-class</tag>
+         <value>Technical</value>
+       </classification>
+          <component class='conditions'>
+                <ol id='_' type='arabic'>
+                  <li>
+                    <p id='_'>Candidate test subject is a witch</p>
+                  </li>
+                  <li>
+                    <p id='_'>Widget has been suitably calibrated for aerodynamics</p>
+                  </li>
+                </ol>
+            </component>
+            <component class='part'>
+                <p id='_'>Determine travel distance by flight path</p>
+            </component>
+            <description>
+                <p id='_'>Interpolated description</p>
+            </description>
+            <recommendation id='_' label="Interpolated Recommendation"/>
+            <component class='part'>
+                <p id='_'>Widget has been suitably calibrated for aerodynamics</p>
+            </component>
+            <component class='test-method'>
+                <p id='_'>Method</p>
+            </component>
+            <component class='test-purpose'>
+                <p id='_'>Purpose</p>
+            </component>
+            <component class='reference'>
+                <p id='_'><xref target='ref2'/></p>
+            </component>
+            <description>
+              <p id='_'>
+                Logical models encoded as XSDs should be faithful to the original UML
+                conceptual models.
+              </p>
+            </description>
+          </requirement>
+        </sections>
+      </ogc-standard>
+    OUTPUT
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+      .to be_equivalent_to xmlpp(output)
+  end
+
+  it "allows nested steps in requirement test methods" do
+    input = <<~INPUT
+      #{ASCIIDOC_BLANK_HDR}
+
+      [requirement]
+      ====
+      [.component,class=Test method type]
+      --
+      Manual Inspection
+      --
+
+      [.component,class=Test method]
+      =====
+
+      [.component,class=step]
+      ======
+      For each UML class defined or referenced in the Tunnel Package:
+
+      [.component,class=step]
+      --
+      Validate that the Implementation Specification contains a data element which represents the same concept as that defined for the UML class.
+      --
+
+      [.component,class=step]
+      --
+      Validate that the data element has the same relationships with other elements as those defined for the UML class. Validate that those relationships have the same source, target, direction, roles, and multiplicies as those documented in the Conceptual Model.
+      --
+      ======
+      =====
+      ====
+    INPUT
+    output = <<~OUTPUT
+                 #{BLANK_HDR}
+             <preface>#{SECURITY}</preface>
+            <sections>
+          <requirement id='_'>
+            <component exclude='false' class='Test method type'>
+              <p id='_'>Manual Inspection</p>
+            </component>
+            <component exclude='false' class='Test method'>
+              <p id='_'>
+                <component exclude='false' class='step'>
+                  <p id='_'>For each UML class defined or referenced in the Tunnel Package:</p>
+                  <component exclude='false' class='step'>
+                    <p id='_'>
+                      Validate that the Implementation Specification contains a data
+                      element which represents the same concept as that defined for
+                      the UML class.
+                    </p>
+                  </component>
+                  <component exclude='false' class='step'>
+                    <p id='_'>
+                      Validate that the data element has the same relationships with
+                      other elements as those defined for the UML class. Validate that
+                      those relationships have the same source, target, direction,
+                      roles, and multiplicies as those documented in the Conceptual
+                      Model.
+                    </p>
+                  </component>
+                </component>
+              </p>
+            </component>
+          </requirement>
+        </sections>
+      </ogc-standard>
     OUTPUT
     expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
       .to be_equivalent_to xmlpp(output)

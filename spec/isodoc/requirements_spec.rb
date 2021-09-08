@@ -3178,9 +3178,109 @@ RSpec.describe IsoDoc::Ogc do
       </ogc-standard>
     PRESXML
     expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({})
-      .convert("test", input, true)
-      .gsub(%r{^.*<body}m, "<body")
-      .gsub(%r{</body>.*}m, "</body>")))
+      .convert("test", input, true)))
+      .to be_equivalent_to xmlpp(presxml)
+  end
+
+  it "processes nested requirement steps" do
+    input = <<~INPUT
+                <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+            <preface>
+                <foreword id="A"><title>Preface</title>
+                    <requirement id='A1'>
+        <component exclude='false' class='test method type'>
+          <p id='_'>Manual Inspection</p>
+        </component>
+        <component exclude='false' class='test-method'>
+          <p id='1'>
+            <component exclude='false' class='step'>
+              <p id='2'>For each UML class defined or referenced in the Tunnel Package:</p>
+              <component exclude='false' class='step'>
+                <p id='3'>
+                  Validate that the Implementation Specification contains a data
+                  element which represents the same concept as that defined for
+                  the UML class.
+                </p>
+              </component>
+              <component exclude='false' class='step'>
+                <p id='4'>
+                  Validate that the data element has the same relationships with
+                  other elements as those defined for the UML class. Validate that
+                  those relationships have the same source, target, direction,
+                  roles, and multiplicies as those documented in the Conceptual
+                  Model.
+                </p>
+              </component>
+            </component>
+          </p>
+        </component>
+      </requirement>
+            </foreword></preface>
+            </ogc-standard>
+    INPUT
+    presxml = <<~PRESXML
+          <ogc-standard xmlns='https://standards.opengeospatial.org/document' type='presentation'>
+        <preface>
+          <foreword id='A' displayorder='1'>
+            <title depth='1'>
+              I.
+              <tab/>
+              Preface
+            </title>
+            <table id='A1' class='requirement' type='recommend'>
+              <thead>
+                <tr>
+                  <th scope='colgroup' colspan='2'>
+                    <p class='RecommendationTitle'>Requirement 1</p>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Test method type</td>
+                  <td>
+                    <p id='_'>Manual Inspection</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Test method</td>
+                  <td>
+                    <p id='1'>
+                      <ol>
+                        <li>
+                          <p id='2'>For each UML class defined or referenced in the Tunnel Package:</p>
+                          <ol>
+                            <li>
+                              <p id='3'>
+                                 Validate that the Implementation Specification
+                                contains a data element which represents the same
+                                concept as that defined for the UML class.
+                              </p>
+                            </li>
+                            <li>
+                              <p id='4'>
+                                 Validate that the data element has the same
+                                relationships with other elements as those defined for
+                                the UML class. Validate that those relationships have
+                                the same source, target, direction, roles, and
+                                multiplicies as those documented in the Conceptual
+                                Model.
+                              </p>
+                            </li>
+                          </ol>
+                        </li>
+                      </ol>
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </foreword>
+        </preface>
+      </ogc-standard>
+    PRESXML
+    expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({})
+      .convert("test", input, true)))
       .to be_equivalent_to xmlpp(presxml)
   end
 end
