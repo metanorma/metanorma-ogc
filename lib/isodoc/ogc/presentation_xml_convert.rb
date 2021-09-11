@@ -148,7 +148,8 @@ module IsoDoc
       end
 
       def clause1(elem)
-        return if elem.name == "terms" && elem.parent.name == "annex"
+        return if elem.name == "terms" && elem.parent.name == "annex" &&
+          elem.parent.xpath(ns("./terms")).size == 1
 
         super
       end
