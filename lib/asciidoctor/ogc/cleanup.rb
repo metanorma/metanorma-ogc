@@ -37,8 +37,8 @@ module Asciidoctor
             sect.add_previous_sibling("<preface/>").first
           submitters = xml.at("//submitters").remove
           submitters.xpath(".//table").each do |t|
-             t["unnumbered"] = true
-           end
+            t["unnumbered"] = true
+          end
           preface.add_child submitters.remove
         end
       end
@@ -128,6 +128,16 @@ module Asciidoctor
         reqt.xpath("./component | ./description").each do |c|
           %w(p ol ul dl table).include?(c&.elements&.first&.name) and next
           c.children = "<p>#{c.children.to_xml}</p>"
+        end
+      end
+
+      # skip annex/terms/terms, which is empty node
+      def termdef_subclause_cleanup(xmldoc)
+        xmldoc.xpath("//terms[terms]").each do |t|
+          next if t.parent.name == "terms"
+
+          t.children.each { |n| n.parent = t.parent }
+          t.remove
         end
       end
     end

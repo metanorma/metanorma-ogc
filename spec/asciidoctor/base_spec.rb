@@ -860,14 +860,12 @@ RSpec.describe Asciidoctor::Ogc do
                </sections>
                <annex id='_' obligation='normative'>
                  <title>Glossary</title>
-                 <clause id='_' obligation='normative'>
                    <terms id='_' obligation='normative'>
                      <title>Term Collection</title>
                      <term id='term-term-1'>
                        <preferred>Term</preferred>
                      </term>
                    </terms>
-                 </clause>
                </annex>
              </ogc-standard>
     OUTPUT
