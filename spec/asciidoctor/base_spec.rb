@@ -812,9 +812,15 @@ RSpec.describe Asciidoctor::Ogc do
     input = <<~INPUT
       #{ASCIIDOC_BLANK_HDR}
 
-      == Terms and definitions
+      == Terms, definitions, symbols and abbreviated terms
 
-      === Term
+      === Terms and definitions
+
+      ==== Term
+
+      === Abbreviated terms
+
+      ==== Term2
 
       [appendix]
       [heading='terms and definitions']
@@ -830,7 +836,7 @@ RSpec.describe Asciidoctor::Ogc do
             <preface>#{SECURITY}</preface>
                      <sections>
                  <terms id='_' obligation='normative'>
-                   <title>Terms and definitions</title>
+                   <title>Terms, definitions, symbols and abbreviated terms</title>
                    <p id='_'>
         This document uses the terms defined in
         <link target='https://portal.ogc.org/public_ogc/directives/directives.php'>OGC Policy Directive 49</link>
@@ -853,10 +859,19 @@ RSpec.describe Asciidoctor::Ogc do
         For the purposes of this document, the following additional terms and
         definitions apply.
       </p>
-                   <term id='term-term'>
-                     <preferred>Term</preferred>
-                   </term>
-                 </terms>
+      <terms id='_' obligation='normative'>
+        <title>Terms and definitions</title>
+        <term id='term-term'>
+          <preferred>Term</preferred>
+        </term>
+      </terms>
+      <definitions id='_' type='abbreviated_terms' obligation='normative'>
+        <title>Abbreviated terms</title>
+        <definitions id='_' obligation='normative'>
+          <title>Symbols and abbreviated terms</title>
+        </definitions>
+      </definitions>
+      </terms>
                </sections>
                <annex id='_' obligation='normative'>
                  <title>Glossary</title>
