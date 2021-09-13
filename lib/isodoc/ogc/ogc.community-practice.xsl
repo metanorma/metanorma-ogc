@@ -414,7 +414,7 @@
 							</fo:block>
 						</fo:block-container>	
 								
-						<xsl:if test="//ogc:table[@id and ogc:name]">								
+						<xsl:if test="//ogc:table[@id and ogc:name and contains(ogc:name, '—')]">								
 							<xsl:variable name="title-list-tables">
 								<xsl:call-template name="getTitle">
 									<xsl:with-param name="name" select="'title-list-tables'"/>
@@ -429,7 +429,7 @@
 								</fo:block-container>
 							</fo:block-container>							
 							<fo:block-container line-height="130%">
-								<xsl:for-each select="//ogc:table[@id and ogc:name]">
+								<xsl:for-each select="//ogc:table[@id and ogc:name and contains(ogc:name, '—')]">
 									<fo:block text-align-last="justify" margin-top="2pt" role="TOCI">
 										<fo:basic-link internal-destination="{@id}" fox:alt-text="{ogc:name}">
 											<xsl:apply-templates select="ogc:name" mode="contents"/>										
@@ -443,7 +443,7 @@
 							</fo:block-container>							
 						</xsl:if>
 								
-						<xsl:if test="//ogc:figure[@id and ogc:name]">								
+						<xsl:if test="//ogc:figure[@id and ogc:name and contains(ogc:name, '—')]">								
 							<xsl:variable name="title-list-figures">
 								<xsl:call-template name="getTitle">
 									<xsl:with-param name="name" select="'title-list-figures'"/>
@@ -458,7 +458,7 @@
 							</fo:block-container>
 							
 							<fo:block-container line-height="130%">
-								<xsl:for-each select="//ogc:figure[@id and ogc:name]">
+								<xsl:for-each select="//ogc:figure[@id and ogc:name and contains(ogc:name, '—')]">
 									<fo:block text-align-last="justify" margin-top="2pt" role="TOCI">
 										<fo:basic-link internal-destination="{@id}" fox:alt-text="{ogc:name}">
 											<xsl:apply-templates select="ogc:name" mode="contents"/>										
@@ -1533,7 +1533,22 @@
 	<xsl:template match="ogc:br" mode="titlesimple">
 		<xsl:value-of select="$linebreak"/>
 	</xsl:template>
-	
+
+	<xsl:template match="*[local-name() = 'name']/text()[1]" priority="2">
+		<!-- 0xA0 to space replacement -->
+		<xsl:variable name="text" select="java:replaceAll(java:java.lang.String.new(.),' ',' ')"/>
+		<xsl:variable name="separator" select="' — '"/>
+		<xsl:choose>
+			<xsl:when test="contains($text, $separator)">
+				<fo:inline font-weight="bold"><xsl:value-of select="substring-before($text, $separator)"/></fo:inline>
+				<xsl:value-of select="$separator"/>
+				<xsl:value-of select="substring-after($text, $separator)"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="$text"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
 	
 	<xsl:template name="insertOrangeHorizontalLine">		
 		<fo:block-container width="12.7mm" border-top="1pt solid {$color_orange}" margin-top="3mm">
@@ -5572,14 +5587,15 @@
 		</xsl:if>
 	</xsl:template><xsl:variable name="localized.source">
 		<xsl:call-template name="getLocalizedString">
-				<xsl:with-param name="key">source</xsl:with-param>
-			</xsl:call-template>
+			<xsl:with-param name="key">source</xsl:with-param>
+		</xsl:call-template>
 	</xsl:variable><xsl:template match="*[local-name() = 'origin']">
 		<fo:basic-link internal-destination="{@bibitemid}" fox:alt-text="{@citeas}">
 			<xsl:if test="normalize-space(@citeas) = ''">
 				<xsl:attribute name="fox:alt-text"><xsl:value-of select="@bibitemid"/></xsl:attribute>
 			</xsl:if>
 			
+				<xsl:text>[</xsl:text>
 				<fo:inline>
 					
 						<xsl:attribute name="font-weight">bold</xsl:attribute>
@@ -5589,11 +5605,10 @@
 					
 					
 					
-					
-						<xsl:call-template name="getTitle">
-							<xsl:with-param name="name" select="'title-source'"/>
-						</xsl:call-template>
+						<xsl:value-of select="$localized.source"/>
 						<xsl:text>: </xsl:text>
+					
+					
 					
 					
 				</fo:inline>
@@ -5601,6 +5616,7 @@
 			<fo:inline xsl:use-attribute-sets="origin-style">
 				<xsl:apply-templates/>
 			</fo:inline>
+			<xsl:text>]</xsl:text>
 			</fo:basic-link>
 	</xsl:template><xsl:template match="*[local-name() = 'modification']/*[local-name() = 'p']">
 		<fo:inline><xsl:apply-templates/></fo:inline>
