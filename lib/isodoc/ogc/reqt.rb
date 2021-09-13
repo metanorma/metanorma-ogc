@@ -1,4 +1,5 @@
 require "isodoc"
+require "metanorma-utils"
 
 module IsoDoc
   module Ogc
@@ -43,9 +44,12 @@ module IsoDoc
 
       def recommend_title(node, out)
         label = node&.at(ns("./label"))&.remove or return
+        label.xpath(ns(".//xref | .//eref | .//quote/source"))
+          .each { |f| xref1(f) }
+        label.xpath(ns(".//concept")).each { |f| concept1(f) }
         b = out.add_child("<tr><td colspan='2'><p></p></td></tr>")
         p = b.at(ns(".//p"))
-        p << label.children
+        p << label.text
       end
 
       def recommendation_attributes1(node)
@@ -66,23 +70,20 @@ module IsoDoc
         out
       end
 
-      def strict_capitalize_phrase(str)
-        str.split(/ /).map do |w|
-          letters = w.chars
-          letters.first.upcase!
-          letters.join
-        end.join(" ")
-      end
+      def recommendation_steps(node)
+        node.elements.each { |e| recommendation_steps(e) }
+        return node unless node.at(ns("./component[@class = 'step']"))
 
-      def strict_capitalize_first(str)
-        str.split(/ /).each_with_index.map do |w, i|
-          letters = w.chars
-          letters.first.upcase! if i.zero?
-          letters.join
-        end.join(" ")
+        d = node.at(ns("./component[@class = 'step']"))
+        d = d.replace("<ol><li>#{d.children.to_xml}</li></ol>").first
+        node.xpath(ns("./component[@class = 'step']")).each do |f|
+          f = f.replace("<li>#{f.children.to_xml}</li>").first
+          d << f
+        end
       end
 
       def recommendation_attributes1_component(node, out)
+        node = recommendation_steps(node)
         out << "<tr><td>#{node['label']}</td><td>#{node.children}</td></tr>"
       end
 
@@ -157,7 +158,7 @@ module IsoDoc
           c["label"] = case c["class"]
                        when "test-purpose" then "Test purpose"
                        when "test-method" then "Test method"
-                       else strict_capitalize_first(c["class"])
+                       else Metanorma::Utils.strict_capitalize_first(c["class"])
                        end
         end
       end

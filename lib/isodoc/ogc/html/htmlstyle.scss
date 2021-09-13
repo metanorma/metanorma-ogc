@@ -273,6 +273,13 @@ ul {
   }
 }
 
+ul ul > li:first-child {
+      margin-top: 0;
+}
+ol ul > li:first-child {
+      margin-top: 0;
+}
+
 
 span.keyword {
   font-weight: 600;
