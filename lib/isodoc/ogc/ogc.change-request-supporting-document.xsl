@@ -910,6 +910,7 @@
 					<xsl:call-template name="insertSectionTitle">
 						<xsl:with-param name="section" select="$section"/>
 						<xsl:with-param name="title" select="$title"/>
+						<xsl:with-param name="level" select="$level"/>
 					</xsl:call-template>
 				</fo:block>
 			</xsl:when>
@@ -1110,17 +1111,14 @@
 								<xsl:when test="../@type = 'roman'">
 									<xsl:number format="i)"/>
 								</xsl:when>
-								<xsl:when test="ancestor::ogc:table">
-									<xsl:variable name="level" select="count(ancestor-or-self::ogc:li[ancestor::ogc:table])"/>
+								<xsl:otherwise>
+									<xsl:variable name="level" select="count(ancestor-or-self::ogc:li)"/>
 									<xsl:choose>
 										<xsl:when test="$level = 1"><xsl:number format="a)" lang="en"/></xsl:when>
 										<xsl:when test="$level = 2"><xsl:number format="1."/></xsl:when>
 										<xsl:when test="$level = 3"><xsl:number format="i)"/></xsl:when>
 										<xsl:otherwise><xsl:number format="a)" lang="en"/></xsl:otherwise>
 									</xsl:choose>
-								</xsl:when>
-								<xsl:otherwise>
-									<xsl:number format="1."/>
 								</xsl:otherwise>
 							</xsl:choose>
 						</xsl:otherwise>
@@ -1451,6 +1449,7 @@
 	<xsl:template name="insertSectionTitle">
 		<xsl:param name="section"/>
 		<xsl:param name="title"/>
+		<xsl:param name="level">1</xsl:param>
 		<fo:block>
 			<fo:block font-size="18pt" color="{$color_blue}" keep-with-next="always" line-height="150%">
 				<xsl:if test="$section != ''">
@@ -1461,10 +1460,24 @@
 						</xsl:call-template>						
 					</fo:inline>
 				</xsl:if>
-				<xsl:apply-templates select="xalan:nodeset($title)" mode="titlesmall"/>
+				<xsl:choose>
+					<xsl:when test="$level = 1">
+						<xsl:apply-templates select="xalan:nodeset($title)" mode="titlesmall"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:apply-templates select="xalan:nodeset($title)" mode="titlesimple"/>
+					</xsl:otherwise>
+				</xsl:choose>
 				
 				<xsl:variable name="variant-title">
-					<xsl:apply-templates select="following-sibling::*[1][local-name() = 'variant-title'][@type = 'sub']" mode="titlesmall"/>
+					<xsl:choose>
+						<xsl:when test="$level = 1">
+							<xsl:apply-templates select="following-sibling::*[1][local-name() = 'variant-title'][@type = 'sub']" mode="titlesmall"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:apply-templates select="following-sibling::*[1][local-name() = 'variant-title'][@type = 'sub']" mode="titlesimple"/>
+						</xsl:otherwise>
+					</xsl:choose>
 				</xsl:variable>
 				<xsl:if test="normalize-space($variant-title) != ''">
 					<fo:inline padding-right="5mm"> </fo:inline>
@@ -1483,22 +1496,41 @@
 		</xsl:call-template>
 	</xsl:template>
 	
+	<xsl:template match="text()" mode="titlesimple">
+		<xsl:value-of select="."/>
+	</xsl:template>
+	
 	<xsl:template match="ogc:strong" mode="titlesmall">
 		<xsl:apply-templates mode="titlesmall"/>		
+	</xsl:template>
+	<xsl:template match="ogc:strong" mode="titlesimple">
+		<xsl:apply-templates mode="titlesimple"/>		
 	</xsl:template>
 	
 	<xsl:template match="ogc:em" mode="titlesmall">
 		<fo:inline font-style="italic"><xsl:apply-templates mode="titlesmall"/></fo:inline>
 	</xsl:template>
+	<xsl:template match="ogc:em" mode="titlesimple">
+		<fo:inline font-style="italic"><xsl:apply-templates mode="titlesimple"/></fo:inline>
+	</xsl:template>
 	
 	<xsl:template match="ogc:fn" mode="titlesmall">
+		<xsl:call-template name="fn"/>
+	</xsl:template>
+	<xsl:template match="ogc:fn" mode="titlesimple">
 		<xsl:call-template name="fn"/>
 	</xsl:template>
 	<xsl:template match="ogc:tab " mode="titlesmall">
 		<xsl:apply-templates select="."/>
 	</xsl:template>
+	<xsl:template match="ogc:tab " mode="titlesimple">
+		<xsl:apply-templates select="."/>
+	</xsl:template>
 	
 	<xsl:template match="ogc:br" mode="titlesmall">
+		<xsl:value-of select="$linebreak"/>
+	</xsl:template>
+	<xsl:template match="ogc:br" mode="titlesimple">
 		<xsl:value-of select="$linebreak"/>
 	</xsl:template>
 	
