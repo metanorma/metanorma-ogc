@@ -3,6 +3,7 @@ require "asciidoctor/standoc/converter"
 require "fileutils"
 require_relative "front"
 require_relative "validate"
+require_relative "cleanup"
 
 module Asciidoctor
   module Ogc
@@ -70,55 +71,6 @@ module Asciidoctor
                                      false, "#{@filename}.pdf")
       end
 
-      def validate(doc)
-        content_validate(doc)
-        schema_validate(formattedstr_strip(doc.dup),
-                        File.join(File.dirname(__FILE__), "ogc.rng"))
-      end
-
-      def sections_cleanup(xml)
-        super
-        xml.xpath("//*[@inline-header]").each do |h|
-          h.delete("inline-header")
-        end
-      end
-
-      def make_preface(xml, sect)
-        super
-        insert_security(xml, sect)
-        insert_submitters(xml, sect)
-      end
-
-      def add_id
-        %(id="_#{UUIDTools::UUID.random_create}")
-      end
-
-      def insert_security(xml, sect)
-        doctype = sect&.at("//bibdata/ext/doctype")&.text
-        description = if %w(standard
-                            community-standard).include?(doctype)
-                        "standard"
-                      else
-                        "document"
-                      end
-        preface = sect.at("//preface") ||
-          sect.add_previous_sibling("<preface/>").first
-        sect = xml&.at("//clause[@type = 'security']")&.remove ||
-          "<clause type='security' #{add_id}>"\
-          "<title>Security considerations</title>"\
-          "<p>#{@i18n.security_empty.sub(/%/, description)}</p></clause>"
-        preface.add_child sect
-      end
-
-      def insert_submitters(xml, sect)
-        if xml.at("//submitters")
-          preface = sect.at("//preface") ||
-            sect.add_previous_sibling("<preface/>").first
-          submitters = xml.at("//submitters").remove
-          preface.add_child submitters.remove
-        end
-      end
-
       def clause_parse(attrs, xml, node)
         case node&.attr("heading")&.downcase || node.title.downcase
         when "submitters" then return submitters_parse(attrs, xml, node)
@@ -139,8 +91,6 @@ module Asciidoctor
       def style(_node, _text)
         nil
       end
-
-      def termdef_boilerplate_cleanup(xmldoc); end
 
       def term_def_parse(attrs, xml, node, _toplevel)
         if node.attr("style") == "appendix" && node.level == 1
@@ -166,31 +116,6 @@ module Asciidoctor
             terms << node.content
           end
         end
-      end
-
-      def bibdata_cleanup(xmldoc)
-        super
-        a = xmldoc.at("//bibdata/status/stage")
-        a.text == "published" and a.children = "approved"
-      end
-
-      def section_names_terms_cleanup(xml)
-        replace_title(xml, "//definitions[@type = 'symbols']", @i18n&.symbols)
-        replace_title(xml, "//definitions[@type = 'abbreviated_terms']",
-                      @i18n&.abbrev)
-        replace_title(xml, "//definitions[not(@type)]", @i18n&.symbolsabbrev)
-        replace_title(xml, "//sections//terms#{SYMnoABBR} | //sections//clause[.//terms]#{SYMnoABBR}",
-                      @i18n&.termsdefsymbols, true)
-        replace_title(xml, "//sections//terms#{ABBRnoSYM} | //sections//clause[.//terms]#{ABBRnoSYM}",
-                      @i18n&.termsdefabbrev, true)
-        replace_title(xml, "//sections//terms#{SYMABBR} | //sections//clause[.//terms]#{SYMABBR}",
-                      @i18n&.termsdefsymbolsabbrev, true)
-        replace_title(xml, "//sections//terms#{NO_SYMABBR} | //sections//clause[.//terms]#{NO_SYMABBR}",
-                      @i18n&.termsdefsymbolsabbrev, true)
-        replace_title(
-          xml, "//sections//terms[not(.//definitions)] | //sections//clause[.//terms][not(.//definitions)]",
-          @i18n&.termsdef, true
-        )
       end
 
       def highlight_parse(text, xml)

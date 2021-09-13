@@ -838,14 +838,29 @@ RSpec.describe IsoDoc::Ogc do
            </clause>
          </clause>
          </annex>
-         <annex id='_' obligation='normative'>
+         <annex id='PP' obligation='normative'>
         <title>Glossary</title>
-        <terms id='_' obligation='normative'>
+        <terms id='PP1' obligation='normative'>
           <term id='term-glossary'>
             <preferred>Glossary</preferred>
           </term>
         </terms>
       </annex>
+      <annex id='QQ' obligation='normative'>
+                 <title>Glossary</title>
+                   <terms id='QQ1' obligation='normative'>
+                     <title>Term Collection</title>
+                     <term id='term-term-1'>
+                       <preferred>Term</preferred>
+                     </term>
+                   </terms>
+                   <terms id='QQ2' obligation='normative'>
+                     <title>Term Collection 2</title>
+                     <term id='term-term-2'>
+                       <preferred>Term</preferred>
+                     </term>
+                   </terms>
+               </annex>
           <bibliography><references id="R" obligation="informative" normative="true">
            <title>Normative References</title>
          </references><clause id="S" obligation="informative">
@@ -932,18 +947,49 @@ RSpec.describe IsoDoc::Ogc do
            </clause>
          </clause>
          </annex>
-       <annex id='_' obligation='normative' displayorder='15'>
-         <title>B<br/><strong>Glossary</strong></title>
-         <terms id='_' obligation='normative'>
+       <annex id='PP' obligation='normative' displayorder='15'>
+         <title><strong>Annex B</strong><br/>(normative)<br/><strong>Glossary</strong></title>
+         <terms id='PP1' obligation='normative'>
            <term id='term-glossary'>
              <name>B.1.</name>
              <preferred>Glossary</preferred>
            </term>
          </terms>
        </annex>
+                <annex id='QQ' obligation='normative' displayorder='16'>
+           <title>
+             <strong>Annex C</strong>
+             <br/>
+             (normative)
+             <br/>
+             <strong>Glossary</strong>
+           </title>
+           <terms id='QQ1' obligation='normative'>
+             <title depth='2'>
+               C.1.
+               <tab/>
+               Term Collection
+             </title>
+             <term id='term-term-1'>
+               <name>C.1.1.</name>
+               <preferred>Term</preferred>
+             </term>
+           </terms>
+           <terms id='QQ2' obligation='normative'>
+             <title depth='2'>
+               C.2.
+               <tab/>
+               Term Collection 2
+             </title>
+             <term id='term-term-2'>
+               <name>C.2.1.</name>
+               <preferred>Term</preferred>
+             </term>
+           </terms>
+         </annex>
          <bibliography><references id="R" obligation="informative" normative="true" displayorder="10">
            <title depth="1">3.<tab/>Normative References</title>
-         </references><clause id="S" obligation="informative" displayorder="16">
+         </references><clause id="S" obligation="informative" displayorder="17">
            <title depth="1">Bibliography</title>
            <references id="T" obligation="informative" normative="false">
            <title depth="2">Bibliography Subsection</title>
@@ -1032,25 +1078,53 @@ RSpec.describe IsoDoc::Ogc do
               </div>
                    </div>
                    <br/>
-                   <div id="P" class="Section3">
-                      <h1 class="Annex"><b>Annex A</b><br/>(normative)<br/><b>Annex</b></h1>
-                     <div id="Q">
-                <h2>A.1.&#160; Annex A.1</h2>
-                <div id="Q1">
-                <h3>A.1.1.&#160; Annex A.1a</h3>
-                </div>
-              </div>
-                   </div>
-                   <br/>
-           <div id='_' class='Section3'>
+                              <div id='P' class='Section3'>
              <h1 class='Annex'>
-               B
+               <b>Annex A</b>
+               <br/>
+               (normative)
+               <br/>
+               <b>Annex</b>
+             </h1>
+             <div id='Q'>
+               <h2>A.1.&#160; Annex A.1</h2>
+               <div id='Q1'>
+                 <h3>A.1.1.&#160; Annex A.1a</h3>
+               </div>
+             </div>
+           </div>
+           <br/>
+           <div id='PP' class='Section3'>
+             <h1 class='Annex'>
+               <b>Annex B</b>
+               <br/>
+               (normative)
                <br/>
                <b>Glossary</b>
              </h1>
-             <div id='_'>
+             <div id='PP1'>
                <p class='TermNum' id='term-glossary'>B.1.</p>
                <p class='Terms' style='text-align:left;'>Glossary</p>
+             </div>
+           </div>
+           <br/>
+           <div id='QQ' class='Section3'>
+             <h1 class='Annex'>
+               <b>Annex C</b>
+               <br/>
+                (normative)
+               <br/>
+               <b>Glossary</b>
+             </h1>
+             <div id='QQ1'>
+               <h2> C.1. &#160; Term Collection </h2>
+               <p class='TermNum' id='term-term-1'>C.1.1.</p>
+               <p class='Terms' style='text-align:left;'>Term</p>
+             </div>
+             <div id='QQ2'>
+               <h2> C.2. &#160; Term Collection 2 </h2>
+               <p class='TermNum' id='term-term-2'>C.2.1.</p>
+               <p class='Terms' style='text-align:left;'>Term</p>
              </div>
            </div>
            <br/>

@@ -43,8 +43,10 @@ module IsoDoc
       end
 
       def insert_submitting_orgs(docxml)
-        orgs = []
-        docxml.xpath(ns(submittingorgs_path)).each { |org| orgs << org.text }
+        orgs = docxml.xpath(ns(submittingorgs_path))
+          .each_with_object([]) do |org, m|
+          m << org.text
+        end
         return if orgs.empty?
 
         if a = submit_orgs_append_pt(docxml)
@@ -146,7 +148,8 @@ module IsoDoc
       end
 
       def clause1(elem)
-        return if elem.name == "terms" && elem.parent.name == "annex"
+        return if elem.name == "terms" && elem.parent.name == "annex" &&
+          elem.parent.xpath(ns("./terms")).size == 1
 
         super
       end
