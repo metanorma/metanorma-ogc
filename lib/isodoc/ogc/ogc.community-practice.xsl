@@ -364,7 +364,7 @@
 										
 										<xsl:choose>
 											<xsl:when test="@level = 1">
-												<fo:list-block provisional-distance-between-starts="7mm">
+												<fo:list-block provisional-distance-between-starts="8mm">
 													<xsl:if test="@type = 'annex'">
 														<xsl:attribute name="provisional-distance-between-starts">0mm</xsl:attribute>
 													</xsl:if>
@@ -393,7 +393,7 @@
 												</fo:list-block>
 											</xsl:when>
 											<xsl:otherwise>
-												<fo:block text-align-last="justify" margin-left="7mm">
+												<fo:block text-align-last="justify" margin-left="8mm">
 													<fo:basic-link internal-destination="{@id}" fox:alt-text="{text()}">
 														<xsl:value-of select="java:toUpperCase(java:java.lang.String.new(@section))"/>
 														<xsl:text> </xsl:text>
@@ -579,7 +579,7 @@
 		<xsl:value-of select="translate(., $thinspace, ' ')"/>
 	</xsl:template>
 	
-	<xsl:template match="text()" priority="3" mode="contents">
+	<xsl:template match="ogc:title//text() | ogc:name//text()" priority="3" mode="contents">
 		<xsl:value-of select="translate(., $thinspace, ' ')"/>
 	</xsl:template>
 
@@ -587,7 +587,9 @@
 		<xsl:variable name="content">
 			<xsl:call-template name="add-zero-spaces"/>
 		</xsl:variable>
-		<xsl:value-of select="translate($content, $thinspace, ' ')"/>
+		<!-- add zero-width space in the words like 'adeOfAbstractTransportaonSpace' to split it in the table's cell -->
+		<xsl:variable name="content2" select="java:replaceAll(java:java.lang.String.new($content),'([a-z]{2,})([A-Z])(.?)','$1​$2$3')"/>
+		<xsl:value-of select="translate($content2, $thinspace, ' ')"/>
 	</xsl:template>
 
 
@@ -1057,6 +1059,9 @@
 			<xsl:if test="ancestor::ogc:table">
 				<xsl:attribute name="margin-left">1.5mm</xsl:attribute>
 			</xsl:if>
+			<xsl:if test="ancestor::ogc:ul or ancestor::ogc:ol">
+				<xsl:attribute name="margin-top">10pt</xsl:attribute>
+			</xsl:if>
 			<fo:block-container margin-left="0mm">
 				<fo:list-block provisional-distance-between-starts="12mm" space-after="12pt" line-height="115%">
 					<xsl:if test="ancestor::ogc:table">
@@ -1091,17 +1096,25 @@
 									<xsl:number format="a)" lang="en"/>
 								</xsl:when>
 								<xsl:when test="../@type = 'alphabet'">
-									<xsl:number format="1)"/>
+									<xsl:number format="1."/>
 								</xsl:when>
 								<xsl:when test="../@type = 'alphabet_upper'">
 									<xsl:number format="A)" lang="en"/>
 								</xsl:when>
-								
 								<xsl:when test="../@type = 'roman'">
 									<xsl:number format="i)"/>
 								</xsl:when>
+								<xsl:when test="ancestor::ogc:table">
+									<xsl:variable name="level" select="count(ancestor-or-self::ogc:li[ancestor::ogc:table])"/>
+									<xsl:choose>
+										<xsl:when test="$level = 1"><xsl:number format="a)" lang="en"/></xsl:when>
+										<xsl:when test="$level = 2"><xsl:number format="1."/></xsl:when>
+										<xsl:when test="$level = 3"><xsl:number format="i)"/></xsl:when>
+										<xsl:otherwise><xsl:number format="a)" lang="en"/></xsl:otherwise>
+									</xsl:choose>
+								</xsl:when>
 								<xsl:otherwise>
-									<xsl:number format="1)"/>
+									<xsl:number format="1."/>
 								</xsl:otherwise>
 							</xsl:choose>
 						</xsl:otherwise>
@@ -1110,6 +1123,9 @@
 			</fo:list-item-label>
 			<fo:list-item-body start-indent="body-start()" line-height-shift-adjustment="disregard-shifts">
 				<fo:block margin-bottom="10pt">
+					<xsl:if test="not(following-sibling::*) and not(../following-sibling::*)">
+						<xsl:attribute name="margin-bottom">0pt</xsl:attribute>
+					</xsl:if>
 					<xsl:apply-templates/>
 				</fo:block>
 			</fo:list-item-body>
@@ -1834,7 +1850,7 @@
 									
 			<xsl:attribute name="text-align">left</xsl:attribute>
 			<xsl:attribute name="margin-bottom">6pt</xsl:attribute>
-			<xsl:attribute name="font-weight">normal</xsl:attribute>
+			<xsl:attribute name="font-weight">bold</xsl:attribute><!-- normal -->
 			<xsl:attribute name="font-size">11pt</xsl:attribute>
 		
 		
@@ -1994,6 +2010,7 @@
 		
 				
 		
+			<xsl:attribute name="font-weight">bold</xsl:attribute>
 			<xsl:attribute name="margin-top">12pt</xsl:attribute>
 			<xsl:attribute name="margin-bottom">6pt</xsl:attribute>
 			<xsl:attribute name="keep-with-next">always</xsl:attribute>
@@ -2954,6 +2971,8 @@
 			
 			
 				<xsl:attribute name="border">solid 0pt white</xsl:attribute>
+				<xsl:attribute name="padding-top">1mm</xsl:attribute>			
+				<xsl:attribute name="padding-bottom">1mm</xsl:attribute>			
 			
 			
 			
