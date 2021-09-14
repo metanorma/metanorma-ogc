@@ -1281,7 +1281,6 @@
 	
 	<xsl:template match="ogc:figure" priority="2">
 		<fo:block-container id="{@id}" margin-top="12pt" margin-bottom="12pt">			
-			<xsl:apply-templates select="ogc:name" mode="presentation"/>			
 			<fo:block>
 				<xsl:apply-templates/>
 			</fo:block>
@@ -1289,6 +1288,7 @@
 			<xsl:for-each select="ogc:note">
 				<xsl:call-template name="note"/>
 			</xsl:for-each>
+			<xsl:apply-templates select="ogc:name" mode="presentation"/>
 		</fo:block-container>
 	</xsl:template>
 
@@ -2068,9 +2068,13 @@
 				
 		
 			<xsl:attribute name="color"><xsl:value-of select="$color_blue"/></xsl:attribute>
-			<xsl:attribute name="margin-top">12pt</xsl:attribute>
-			<xsl:attribute name="margin-bottom">6pt</xsl:attribute>
-			<xsl:attribute name="keep-with-next">always</xsl:attribute>
+			<!-- <xsl:attribute name="margin-top">12pt</xsl:attribute> -->
+			<xsl:attribute name="margin-top">6pt</xsl:attribute>
+			<!-- <xsl:attribute name="margin-bottom">6pt</xsl:attribute> -->
+			<xsl:attribute name="margin-bottom">12pt</xsl:attribute>
+			<!-- <xsl:attribute name="keep-with-next">always</xsl:attribute> -->
+			<xsl:attribute name="keep-with-previous">always</xsl:attribute>
+			<xsl:attribute name="text-align">center</xsl:attribute>
 		
 		
 		
