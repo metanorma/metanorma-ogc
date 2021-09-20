@@ -2,53 +2,6 @@ require "spec_helper"
 require "fileutils"
 
 RSpec.describe Asciidoctor::Ogc do
-  it "processes a blank document" do
-    input = <<~"INPUT"
-      #{ASCIIDOC_BLANK_HDR}
-    INPUT
-
-    output = xmlpp(<<~"OUTPUT")
-          #{BLANK_HDR}
-          <preface>#{SECURITY}</preface>
-      <sections/>
-      </ogc-standard>
-    OUTPUT
-
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
-      .to be_equivalent_to output
-  end
-
-  it "converts a blank document" do
-    input = <<~"INPUT"
-      = Document title
-      Author
-      :docfile: test.adoc
-      :novalid:
-
-      == Clause
-    INPUT
-
-    output = xmlpp(<<~"OUTPUT")
-          #{BLANK_HDR}
-          <preface>#{SECURITY}</preface>
-      <sections>
-      <clause id='_' obligation='normative'>
-             <title>Clause</title>
-             </clause>
-             </sections>
-      </ogc-standard>
-    OUTPUT
-
-    FileUtils.rm_f "test.html"
-    FileUtils.rm_f "test.doc"
-    FileUtils.rm_f "test.pdf"
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
-      .to be_equivalent_to output
-    expect(File.exist?("test.html")).to be true
-    expect(File.exist?("test.doc")).to be true
-    expect(File.exist?("test.pdf")).to be true
-  end
-
   it "processes default metadata" do
     input = <<~"INPUT"
       = Document title
@@ -1108,6 +1061,93 @@ RSpec.describe Asciidoctor::Ogc do
               </p>
             </component>
           </requirement>
+        </sections>
+      </ogc-standard>
+    OUTPUT
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+      .to be_equivalent_to xmlpp(output)
+  end
+
+  it "uses ModSpec requirement types" do
+    input = <<~INPUT
+      #{ASCIIDOC_BLANK_HDR}
+
+      [.requirement,type=requirement]
+      ====
+      ====
+
+      [.requirement,type=recommendation]
+      ====
+      ====
+
+      [.requirement,type=permission]
+      ====
+      ====
+
+      [.requirement,type=requirement_class]
+      ====
+      ====
+
+      [.requirement,type=conformance_test]
+      ====
+      ====
+
+      [.requirement,type=conformance_class]
+      ====
+      ====
+
+      [.requirement,type=abstract_test]
+      ====
+      ====
+
+    INPUT
+    output = <<~OUTPUT
+      #{BLANK_HDR}
+        <preface>#{SECURITY}</preface>
+            <sections>
+          <requirement id='_' type='general'> </requirement>
+          <requirement id='_' type='general'> </requirement>
+          <requirement id='_' type='general'> </requirement>
+          <requirement id='_' type='class'> </requirement>
+          <requirement id='_' type='verification'> </requirement>
+          <requirement id='_' type='conformanceclass'> </requirement>
+          <requirement id='_' type='abstracttest'> </requirement>
+        </sections>
+      </ogc-standard>
+    OUTPUT
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+      .to be_equivalent_to xmlpp(output)
+  end
+
+  it "uses ModSpec requirement style attributes" do
+    input = <<~INPUT
+      #{ASCIIDOC_BLANK_HDR}
+
+      [requirement_class]
+      ====
+      ====
+
+      [conformance_test]
+      ====
+      ====
+
+      [conformance_class]
+      ====
+      ====
+
+      [abstract_test]
+      ====
+      ====
+
+    INPUT
+    output = <<~OUTPUT
+      #{BLANK_HDR}
+        <preface>#{SECURITY}</preface>
+            <sections>
+          <requirement id='_' type='class'> </requirement>
+          <requirement id='_' type='verification'> </requirement>
+          <requirement id='_' type='conformanceclass'> </requirement>
+          <requirement id='_' type='abstracttest'> </requirement>
         </sections>
       </ogc-standard>
     OUTPUT
