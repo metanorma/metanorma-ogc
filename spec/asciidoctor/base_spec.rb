@@ -906,8 +906,16 @@ RSpec.describe Asciidoctor::Ogc do
       recommendation:: Interpolated Recommendation
       part:: Widget has been suitably calibrated for aerodynamics
       test-method:: Method
+      description::: Method description
+      step::: Step 1
+      step::: Step 2
       test-purpose:: Purpose
+      test-method-type:: Method Type
       reference:: <<ref2>>
+      step:: Step
+      Test Method:: Method2
+      Test Purpose:: Purpose2
+      Test Method Type:: Method Type2
 
       Logical models encoded as XSDs should be faithful to the original UML conceptual
       models.
@@ -976,13 +984,39 @@ RSpec.describe Asciidoctor::Ogc do
                 <p id='_'>Widget has been suitably calibrated for aerodynamics</p>
             </component>
             <component class='test-method'>
-                <p id='_'>Method</p>
+              <description>
+                <p id='_'>Method description</p>
+              </description>
+              <component class='step'>
+                <p id='_'>Step 1</p>
+              </component>
+              <component class='step'>
+                <p id='_'>Step 2</p>
+              </component>
+              <p id='_'>Method</p>
             </component>
             <component class='test-purpose'>
-                <p id='_'>Purpose</p>
+              <p id='_'>Purpose</p>
+            </component>
+            <component class='test-method-type'>
+              <p id='_'>Method Type</p>
             </component>
             <component class='reference'>
-                <p id='_'><xref target='ref2'/></p>
+              <p id='_'>
+                <xref target='ref2'/>
+              </p>
+            </component>
+            <component class='step'>
+              <p id='_'>Step</p>
+            </component>
+            <component class='test-method'>
+              <p id='_'>Method2</p>
+            </component>
+            <component class='test-purpose'>
+              <p id='_'>Purpose2</p>
+            </component>
+            <component class='test-method-type'>
+              <p id='_'>Method Type2</p>
             </component>
             <description>
               <p id='_'>
@@ -1038,7 +1072,6 @@ RSpec.describe Asciidoctor::Ogc do
               <p id='_'>Manual Inspection</p>
             </component>
             <component exclude='false' class='Test method'>
-              <p id='_'>
                 <component exclude='false' class='step'>
                   <p id='_'>For each UML class defined or referenced in the Tunnel Package:</p>
                   <component exclude='false' class='step'>
@@ -1058,7 +1091,6 @@ RSpec.describe Asciidoctor::Ogc do
                     </p>
                   </component>
                 </component>
-              </p>
             </component>
           </requirement>
         </sections>

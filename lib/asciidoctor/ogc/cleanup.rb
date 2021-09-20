@@ -74,23 +74,25 @@ module Asciidoctor
       end
 
       def requirement_metadata_component_tags
-        %w(test-purpose test-method conditions part description reference
-           requirement permission recommendation)
+        %w(test-purpose test-method test-method-type conditions part description
+           reference step requirement permission recommendation)
       end
 
       def requirement_metadata1(reqt, dlist)
         ins = super
         dlist.xpath("./dt").each do |e|
-          next unless requirement_metadata_component_tags.include? e.text
+          tag = e&.text&.gsub(/ /, "-")&.downcase
+          next unless requirement_metadata_component_tags.include? tag
 
-          ins.next = requirement_metadata1_component(e)
+          ins.next = requirement_metadata1_component(e, tag)
           ins = ins.next
         end
       end
 
-      def requirement_metadata1_component(term)
+      def requirement_metadata1_component(term, tag)
         val = term.at("./following::dd")
-        val.name = term.text
+        val.name = tag
+        val.xpath("./dl").each { |d| requirement_metadata1(val, d.remove) }
         if %w(requirement permission
               recommendation).include?(term.text) && !val.text.empty?
           val["label"] = val.text.strip
@@ -109,8 +111,8 @@ module Asciidoctor
       end
 
       def requirement_metadata_to_component(reqt)
-        reqt.xpath("./test-method | ./test-purpose | ./conditions | ./part | "\
-                   "./reference")
+        reqt.xpath(".//test-method | .//test-purpose | .//conditions | "\
+                   ".//part | .//test-method-type | .//step | .//reference")
           .each do |c|
           c["class"] = c.name
           c.name = "component"
@@ -125,8 +127,10 @@ module Asciidoctor
       end
 
       def requirement_subparts_to_blocks(reqt)
-        reqt.xpath("./component | ./description").each do |c|
-          %w(p ol ul dl table).include?(c&.elements&.first&.name) and next
+        reqt.xpath(".//component | .//description").each do |c|
+          next if %w(p ol ul dl table component description)
+            .include?(c&.elements&.first&.name)
+
           c.children = "<p>#{c.children.to_xml}</p>"
         end
       end
