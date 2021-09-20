@@ -140,6 +140,27 @@ module Asciidoctor
           t.remove
         end
       end
+
+      def requirement_cleanup(xmldoc)
+        requirement_type(xmldoc)
+        super
+      end
+
+      def requirement_type(xmldoc)
+        xmldoc.xpath(REQRECPER).each do |r|
+          next unless r["type"]
+
+          r["type"] = case r["type"]
+                      when "requirement", "recommendation", "permission"
+                        "general"
+                      when "requirement_class" then "class"
+                      when "conformance_test" then "verification"
+                      when "conformance_class" then "conformanceclass"
+                      when "abstract_test" then "abstracttest"
+                      else r["type"]
+                      end
+        end
+      end
     end
   end
 end

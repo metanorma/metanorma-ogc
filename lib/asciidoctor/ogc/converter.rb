@@ -122,6 +122,16 @@ module Asciidoctor
         xml.hi { |s| s << text }
       end
 
+      def example(node)
+        role = node.role || node.attr("style")
+        if %w(requirement_class conformance_test conformance_class
+              abstract_test).include?(role)
+          node.set_attr("type", role)
+          return requirement(node, "requirement")
+        end
+        super
+      end
+
       def presentation_xml_converter(node)
         IsoDoc::Ogc::PresentationXMLConvert.new(html_extract_attributes(node))
       end
