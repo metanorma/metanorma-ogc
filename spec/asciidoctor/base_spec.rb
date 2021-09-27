@@ -908,7 +908,7 @@ RSpec.describe Asciidoctor::Ogc do
       test-method:: Method
       description::: Method description
       step::: Step 1
-      step::: Step 2
+      step:::: Step 2
       test-purpose:: Purpose
       test-method-type:: Method Type
       reference:: <<ref2>>
@@ -989,9 +989,9 @@ RSpec.describe Asciidoctor::Ogc do
               </description>
               <component class='step'>
                 <p id='_'>Step 1</p>
-              </component>
-              <component class='step'>
+                <component class='step'>
                 <p id='_'>Step 2</p>
+              </component>
               </component>
               <p id='_'>Method</p>
             </component>

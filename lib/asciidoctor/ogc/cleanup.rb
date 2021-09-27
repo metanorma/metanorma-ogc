@@ -78,21 +78,24 @@ module Asciidoctor
            reference step requirement permission recommendation)
       end
 
-      def requirement_metadata1(reqt, dlist)
-        ins = super
+      def requirement_metadata1(reqt, dlist, ins)
+        ins1 = super
         dlist.xpath("./dt").each do |e|
           tag = e&.text&.gsub(/ /, "-")&.downcase
           next unless requirement_metadata_component_tags.include? tag
 
-          ins.next = requirement_metadata1_component(e, tag)
-          ins = ins.next
+          ins1.next = requirement_metadata1_component(e, tag)
+          ins1 = ins1.next
         end
       end
 
       def requirement_metadata1_component(term, tag)
         val = term.at("./following::dd")
         val.name = tag
-        val.xpath("./dl").each { |d| requirement_metadata1(val, d.remove) }
+        val.xpath("./dl").each do |d|
+          requirement_metadata1(val, d, d)
+          d.remove
+        end
         if %w(requirement permission
               recommendation).include?(term.text) && !val.text.empty?
           val["label"] = val.text.strip
