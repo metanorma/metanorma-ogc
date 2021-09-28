@@ -80,6 +80,7 @@ module IsoDoc
           f = f.replace("<li>#{f.children.to_xml}</li>").first
           d << f
         end
+        node
       end
 
       def recommendation_attributes1_component(node, out)
