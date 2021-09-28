@@ -1116,7 +1116,7 @@ RSpec.describe Asciidoctor::Ogc do
       ====
       ====
 
-      [.requirement,type=requirement_class]
+      [.requirement,type=requirements_class]
       ====
       ====
 
@@ -1155,7 +1155,7 @@ RSpec.describe Asciidoctor::Ogc do
     input = <<~INPUT
       #{ASCIIDOC_BLANK_HDR}
 
-      [requirement_class]
+      [requirements_class]
       ====
       ====
 

@@ -160,7 +160,7 @@ module Asciidoctor
           r["type"] = case r["type"]
                       when "requirement", "recommendation", "permission"
                         "general"
-                      when "requirement_class" then "class"
+                      when "requirements_class" then "class"
                       when "conformance_test" then "verification"
                       when "conformance_class" then "conformanceclass"
                       when "abstract_test" then "abstracttest"
