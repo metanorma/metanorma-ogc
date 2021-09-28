@@ -124,7 +124,7 @@ module Asciidoctor
 
       def example(node)
         role = node.role || node.attr("style")
-        if %w(requirement_class conformance_test conformance_class
+        if %w(requirements_class conformance_test conformance_class
               abstract_test).include?(role)
           node.set_attr("type", role)
           return requirement(node, "requirement")
