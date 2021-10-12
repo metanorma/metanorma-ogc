@@ -316,6 +316,7 @@ RSpec.describe IsoDoc::Ogc do
         <docidentifier type="metanorma">[Citn]</docidentifier>
         <docidentifier type="IETF">RFC 20</docidentifier>
       </bibitem>
+      <bibitem id="rfc2616" type="standard"> <fetched>2020-03-27</fetched> <title format="text/plain" language="en" script="Latn">Hypertext Transfer Protocol — HTTP/1.1</title> <uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</uri> <uri type="src">https://www.rfc-editor.org/info/rfc2616</uri> <docidentifier type="IETF">RFC 2616</docidentifier> <docidentifier type="rfc-anchor">RFC2616</docidentifier> <docidentifier type="DOI">10.17487/RFC2616</docidentifier> <date type="published">  <on>1999-06</on> </date> <contributor>  <role type="author"/>  <person>   <name>    <completename language="en">R. Fielding</completename>   </name>   <affiliation>    <organization>     <name>IETF</name>     <abbreviation>IETF</abbreviation>    </organization>   </affiliation>  </person> </contributor> <contributor>  <role type="author"/>  <person>   <name>    <completename language="en">J. Gettys</completename>   </name>   <affiliation>    <organization>     <name>IETF</name>     <abbreviation>IETF</abbreviation>    </organization>   </affiliation>  </person> </contributor> <contributor>  <role type="author"/>  <person>   <name>    <completename language="en">J. Mogul</completename>   </name>   <affiliation>    <organization>     <name>IETF</name>     <abbreviation>IETF</abbreviation>    </organization>   </affiliation>  </person> </contributor> <contributor>  <role type="author"/>  <person>   <name>    <completename language="en">H. Frystyk</completename>   </name>   <affiliation>    <organization>     <name>IETF</name>     <abbreviation>IETF</abbreviation>    </organization>   </affiliation>  </person> </contributor> <contributor>  <role type="author"/>  <person>   <name>    <completename language="en">L. Masinter</completename>   </name>   <affiliation>    <organization>     <name>IETF</name>     <abbreviation>IETF</abbreviation>    </organization>   </affiliation>  </person> </contributor> <contributor>  <role type="author"/>  <person>   <name>    <completename language="en">P. Leach</completename>   </name>   <affiliation>    <organization>     <name>IETF</name>     <abbreviation>IETF</abbreviation>    </organization>   </affiliation>  </person> </contributor> <contributor>  <role type="author"/>  <person>   <name>    <completename language="en">T. Berners-Lee</completename>   </name>   <affiliation>    <organization>     <name>IETF</name>     <abbreviation>IETF</abbreviation>    </organization>   </affiliation>  </person> </contributor> <language>en</language> <script>Latn</script> <abstract format="text/plain" language="en" script="Latn">HTTP has been in use by the World-Wide Web global information initiative since 1990. This specification defines the protocol referred to as “HTTP/1.1”, and is an update to RFC 2068. [STANDARDS-TRACK]</abstract> <series type="main">  <title format="text/plain" language="en" script="Latn">RFC</title>  <number>2616</number> </series> <place>Fremont, CA</place></bibitem>
       </references>
       </bibliography>
           </iso-standard>
@@ -637,6 +638,129 @@ RSpec.describe IsoDoc::Ogc do
                 <docidentifier type="metanorma">[Citn]</docidentifier>
                 <docidentifier type="IETF">IETF RFC 20</docidentifier>
               </bibitem>
+                    <bibitem id='rfc2616' type='standard'>
+        <fetched>2020-03-27</fetched>
+        <title format='text/plain' language='en' script='Latn'>Hypertext Transfer Protocol&#x2009;&#x2014;&#x2009;HTTP/1.1</title>
+        <uri type='xml'>https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</uri>
+        <uri type='src'>https://www.rfc-editor.org/info/rfc2616</uri>
+        <docidentifier type='IETF'>IETF RFC 2616</docidentifier>
+        <docidentifier type='rfc-anchor'>RFC2616</docidentifier>
+        <docidentifier type='DOI'>DOI 10.17487/RFC2616</docidentifier>
+        <date type='published'>
+          <on>1999</on>
+        </date>
+        <contributor>
+          <role type='author'/>
+          <person>
+            <name>
+              <completename language='en'>R. Fielding</completename>
+            </name>
+            <affiliation>
+              <organization>
+                <name>IETF</name>
+                <abbreviation>IETF</abbreviation>
+              </organization>
+            </affiliation>
+          </person>
+        </contributor>
+        <contributor>
+          <role type='author'/>
+          <person>
+            <name>
+              <completename language='en'>J. Gettys</completename>
+            </name>
+            <affiliation>
+              <organization>
+                <name>IETF</name>
+                <abbreviation>IETF</abbreviation>
+              </organization>
+            </affiliation>
+          </person>
+        </contributor>
+        <contributor>
+          <role type='author'/>
+          <person>
+            <name>
+              <completename language='en'>J. Mogul</completename>
+            </name>
+            <affiliation>
+              <organization>
+                <name>IETF</name>
+                <abbreviation>IETF</abbreviation>
+              </organization>
+            </affiliation>
+          </person>
+        </contributor>
+        <contributor>
+          <role type='author'/>
+          <person>
+            <name>
+              <completename language='en'>H. Frystyk</completename>
+            </name>
+            <affiliation>
+              <organization>
+                <name>IETF</name>
+                <abbreviation>IETF</abbreviation>
+              </organization>
+            </affiliation>
+          </person>
+        </contributor>
+        <contributor>
+          <role type='author'/>
+          <person>
+            <name>
+              <completename language='en'>L. Masinter</completename>
+            </name>
+            <affiliation>
+              <organization>
+                <name>IETF</name>
+                <abbreviation>IETF</abbreviation>
+              </organization>
+            </affiliation>
+          </person>
+        </contributor>
+        <contributor>
+          <role type='author'/>
+          <person>
+            <name>
+              <completename language='en'>P. Leach</completename>
+            </name>
+            <affiliation>
+              <organization>
+                <name>IETF</name>
+                <abbreviation>IETF</abbreviation>
+              </organization>
+            </affiliation>
+          </person>
+        </contributor>
+        <contributor>
+          <role type='author'/>
+          <person>
+            <name>
+              <completename language='en'>T. Berners-Lee</completename>
+            </name>
+            <affiliation>
+              <organization>
+                <name>IETF</name>
+                <abbreviation>IETF</abbreviation>
+              </organization>
+            </affiliation>
+          </person>
+        </contributor>
+        <language>en</language>
+        <script>Latn</script>
+        <abstract format='text/plain' language='en' script='Latn'>
+          HTTP has been in use by the World-Wide Web global information
+          initiative since 1990. This specification defines the protocol
+          referred to as &#x201C;HTTP/1.1&#x201D;, and is an update to RFC 2068.
+          [STANDARDS-TRACK]
+        </abstract>
+        <series type='main'>
+          <title format='text/plain' language='en' script='Latn'>RFC</title>
+          <number>2616</number>
+        </series>
+        <place>Fremont, CA</place>
+      </bibitem>
               </references>
               </bibliography>
                   </iso-standard>
@@ -717,6 +841,13 @@ RSpec.describe IsoDoc::Ogc do
       </p>
              <p id="ref11" class="Biblio">[6]&#160; Fred Johnson, Jackson KG, Nixon RM: IETF RFC 10, <i>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</i>. </p>
              <p id="ref12" class="Biblio">[7]&#160; CitationWorks. 2019. <i>How to cite a reference</i>.</p>
+                   <p id='rfc2616' class='Biblio'>
+        [8]&#160; R. Fielding, J. Gettys, J. Mogul, H. Frystyk, L. Masinter, P.
+        Leach, T. Berners-Lee: IETF RFC 2616,
+        <i>Hypertext Transfer Protocol&#8201;&#8212;&#8201;HTTP/1.1</i>
+        . Fremont, CA (1999).
+        <a href='https://www.rfc-editor.org/info/rfc2616'>https://www.rfc-editor.org/info/rfc2616</a>
+      </p>
              </div>
                  </div>
                </body>
