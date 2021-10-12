@@ -331,7 +331,7 @@ RSpec.describe IsoDoc::Ogc do
                           <p id='rfc2616' class='Biblio'>
                             [1]&#160; R. Fielding, J. Gettys, J. Mogul, H. Frystyk, L. Masinter, P. Leach, T. Berners-Lee: IETF RFC 2616,
                             <i>Hypertext Transfer Protocol&#8201;&#8212;&#8201;HTTP/1.1</i>
-                            . Fremont, CA (1999). <a href='https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml'>https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</a>
+                            .  Fremont, CA (1999). <a href='https://www.rfc-editor.org/info/rfc2616'>https://www.rfc-editor.org/info/rfc2616</a>
                           </p>
                         </div>
                       </div>
@@ -550,7 +550,7 @@ RSpec.describe IsoDoc::Ogc do
               Berners-Lee: IETF RFC 2616,
               <i>Hypertext Transfer Protocol&#x2009;&#x2014;&#x2009;HTTP/1.1</i>
               . Fremont, CA (1999).
-              <a href='https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml'>https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</a>
+               <a href='https://www.rfc-editor.org/info/rfc2616'>https://www.rfc-editor.org/info/rfc2616</a>
             </p>
           </div>
         </div>
