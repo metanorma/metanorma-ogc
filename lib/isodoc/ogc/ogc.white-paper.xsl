@@ -243,7 +243,10 @@
 								<fo:block font-size="11pt" margin-top="8pt"> </fo:block>
 								<fo:block font-size="11pt" margin-top="8pt"> </fo:block>							
 								<fo:block xsl:use-attribute-sets="title-toc-style">
-									<xsl:text>Table of Figures</xsl:text>
+									<!-- <xsl:text>Table of Figures</xsl:text> -->
+									<xsl:call-template name="getTitle">
+										<xsl:with-param name="name" select="'title-table-figures'"/>
+									</xsl:call-template>
 								</fo:block>
 								<xsl:for-each select="//ogc:figure[@id and ogc:name] | //ogc:table[@id and ogc:name]">
 									<fo:block margin-top="8pt" margin-bottom="5pt" text-align-last="justify" role="TOCI">
@@ -1013,6 +1016,8 @@
 		<title-list-tables lang="en">List of Tables</title-list-tables>
 		
 		<title-list-figures lang="en">List of Figures</title-list-figures>
+		
+		<title-table-figures lang="en">Table of Figures</title-table-figures>
 		
 		<title-list-recommendations lang="en">List of Recommendations</title-list-recommendations>
 		
@@ -4281,7 +4286,7 @@
 		<xsl:text> </xsl:text>
 	</xsl:template><xsl:template match="*[local-name() = 'figure' or local-name() = 'table' or local-name() = 'permission' or local-name() = 'recommendation' or local-name() = 'requirement']/*[local-name() = 'name']/text()" mode="contents" priority="2">
 		<xsl:value-of select="."/>
-	</xsl:template><xsl:template match="*[local-name() = 'figure' or local-name() = 'table' or local-name() = 'permission' or local-name() = 'recommendation' or local-name() = 'requirement']/*[local-name() = 'name']/text()" mode="bookmarks" priority="2">
+	</xsl:template><xsl:template match="*[local-name() = 'figure' or local-name() = 'table' or local-name() = 'permission' or local-name() = 'recommendation' or local-name() = 'requirement']/*[local-name() = 'name']//text()" mode="bookmarks" priority="2">
 		<xsl:value-of select="."/>
 	</xsl:template><xsl:template match="node()" mode="contents">
 		<xsl:apply-templates mode="contents"/>
@@ -4374,19 +4379,43 @@
 				
 				
 				
-					<xsl:if test="//*[local-name() = 'figure'][@id and *[local-name() = 'name']]">					
-						<fo:bookmark internal-destination="{//*[local-name() = 'figure'][@id and *[local-name() = 'name']][1]/@id}" starting-state="hide">
-							<fo:bookmark-title>Figures</fo:bookmark-title>
-							<xsl:for-each select="//*[local-name() = 'figure'][@id and *[local-name() = 'name']]">
+				
+				
+				
+				
+				
+				
+					<xsl:variable name="list_of_tables_figures_">
+						<xsl:for-each select="//*[local-name() = 'table'][@id and *[local-name() = 'name']] | //*[local-name() = 'figure'][@id and *[local-name() = 'name']]">
+							<table_figure id="{@id}"><xsl:apply-templates select="*[local-name() = 'name']" mode="bookmarks"/></table_figure>
+						</xsl:for-each>
+					</xsl:variable>
+					<xsl:variable name="list_of_tables_figures" select="xalan:nodeset($list_of_tables_figures_)"/>
+				
+					
+					<xsl:if test="$list_of_tables_figures/table_figure">
+						<fo:bookmark internal-destination="empty_bookmark">
+							<fo:bookmark-title>—————</fo:bookmark-title>
+						</fo:bookmark>
+					</xsl:if>
+					
+					<xsl:if test="$list_of_tables_figures//table_figure">
+						<fo:bookmark internal-destination="empty_bookmark" starting-state="hide"> <!-- {$list_of_figures//figure[1]/@id} -->
+							<fo:bookmark-title>
+								
+								
+									<xsl:call-template name="getTitle">
+										<xsl:with-param name="name" select="'title-table-figures'"/>
+									</xsl:call-template>
+								
+							</fo:bookmark-title>
+							<xsl:for-each select="$list_of_tables_figures//table_figure">
 								<fo:bookmark internal-destination="{@id}">
-									<fo:bookmark-title><xsl:apply-templates select="*[local-name() = 'name']/text()" mode="bookmarks"/></fo:bookmark-title>
+									<fo:bookmark-title><xsl:value-of select="."/></fo:bookmark-title>
 								</fo:bookmark>
 							</xsl:for-each>
-						</fo:bookmark>					
+						</fo:bookmark>
 					</xsl:if>
-				
-				
-				
 				
 				
 				
