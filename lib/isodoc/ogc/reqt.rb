@@ -49,7 +49,7 @@ module IsoDoc
         label.xpath(ns(".//concept")).each { |f| concept1(f) }
         b = out.add_child("<tr><td colspan='2'><p></p></td></tr>")
         p = b.at(ns(".//p"))
-        p << label.text
+        p << label.children.to_xml
       end
 
       def recommendation_attributes1(node)
