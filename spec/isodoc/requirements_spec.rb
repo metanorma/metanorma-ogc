@@ -3135,7 +3135,7 @@ RSpec.describe IsoDoc::Ogc do
               <tbody>
                 <tr>
                   <td colspan='2'>
-                    <p>A Preface</p>
+                    <p><strong>A</strong><xref target='A'>Preface</xref></p>
                   </td>
                 </tr>
                 <tr>
