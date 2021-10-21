@@ -1874,7 +1874,38 @@
     </element>
   </define>
   <define name="Designation">
-    <ref name="expression_designation"/>
+    <optional>
+      <attribute name="absent">
+        <data type="boolean"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="geographicArea"/>
+    </optional>
+    <choice>
+      <ref name="expression_designation"/>
+      <ref name="letter_symbol_designation"/>
+    </choice>
+    <zeroOrMore>
+      <ref name="termsource"/>
+    </zeroOrMore>
+  </define>
+  <define name="letter_symbol_designation">
+    <element name="letter-symbol">
+      <optional>
+        <attribute name="isInternational">
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+      <element name="name">
+        <oneOrMore>
+          <choice>
+            <ref name="PureTextElement"/>
+            <ref name="stem"/>
+          </choice>
+        </oneOrMore>
+      </element>
+    </element>
   </define>
   <define name="expression_designation">
     <element name="expression">
@@ -1893,6 +1924,11 @@
           <ref name="ExpressionDesignationType"/>
         </attribute>
       </optional>
+      <optional>
+        <attribute name="isInternational">
+          <data type="boolean"/>
+        </attribute>
+      </optional>
       <element name="name">
         <oneOrMore>
           <choice>
@@ -1901,11 +1937,6 @@
           </choice>
         </oneOrMore>
       </element>
-      <optional>
-        <element name="isInternational">
-          <data type="boolean"/>
-        </element>
-      </optional>
       <optional>
         <element name="abbreviationType">
           <ref name="AbbreviationType"/>
