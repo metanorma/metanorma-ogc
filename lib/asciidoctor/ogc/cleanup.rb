@@ -138,10 +138,15 @@ module Asciidoctor
         end
       end
 
+      def termdef_cleanup(xmldoc)
+        super
+        termdef_subclause_cleanup(xmldoc)
+      end
+
       # skip annex/terms/terms, which is empty node
       def termdef_subclause_cleanup(xmldoc)
-        xmldoc.xpath("//annex//terms[terms]").each do |t|
-          next if t.parent.name == "terms"
+        xmldoc.xpath("//annex//clause[terms]").each do |t|
+          next unless t.xpath("./clause | ./terms | ./definitions").size == 1
 
           t.children.each { |n| n.parent = t.parent }
           t.remove

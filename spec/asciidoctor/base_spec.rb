@@ -715,7 +715,7 @@ RSpec.describe Asciidoctor::Ogc do
         <title>Glossary</title>
         <terms id='_' obligation='normative'>
           <term id='term-term'>
-            <preferred>Term</preferred>
+            <preferred><expression><name>Term</name></expression></preferred>
           </term>
         </terms>
       </annex>
@@ -751,7 +751,7 @@ RSpec.describe Asciidoctor::Ogc do
         <title>Glossarium</title>
         <terms id='_' obligation='normative'>
           <term id='term-glossaire'>
-            <preferred>Glossaire</preferred>
+            <preferred><expression><name>Glossaire</name></expression></preferred>
           </term>
         </terms>
       </annex>
@@ -788,7 +788,7 @@ RSpec.describe Asciidoctor::Ogc do
             #{BLANK_HDR}
             <preface>#{SECURITY}</preface>
                      <sections>
-                 <terms id='_' obligation='normative'>
+                 <clause id='_' obligation='normative'>
                    <title>Terms, definitions, symbols and abbreviated terms</title>
                    <p id='_'>
         This document uses the terms defined in
@@ -815,7 +815,7 @@ RSpec.describe Asciidoctor::Ogc do
       <terms id='_' obligation='normative'>
         <title>Terms and definitions</title>
         <term id='term-term'>
-          <preferred>Term</preferred>
+          <preferred><expression><name>Term</name></expression></preferred>
         </term>
       </terms>
       <definitions id='_' type='abbreviated_terms' obligation='normative'>
@@ -824,14 +824,14 @@ RSpec.describe Asciidoctor::Ogc do
           <title>Symbols and abbreviated terms</title>
         </definitions>
       </definitions>
-      </terms>
+      </clause>
                </sections>
                <annex id='_' obligation='normative'>
                  <title>Glossary</title>
                    <terms id='_' obligation='normative'>
                      <title>Term Collection</title>
                      <term id='term-term-1'>
-                       <preferred>Term</preferred>
+                       <preferred><expression><name>Term</name></expression></preferred>
                      </term>
                    </terms>
                </annex>
