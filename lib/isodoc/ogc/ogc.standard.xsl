@@ -5671,10 +5671,12 @@
 					<!-- <xsl:apply-templates /> -->
 					<xsl:copy-of select="$termsource_text"/>
 				</xsl:when>
-				<xsl:otherwise>					
+				<xsl:otherwise>
+					
 					
 					<!-- <xsl:apply-templates />					 -->
 					<xsl:copy-of select="$termsource_text"/>
+					
 					
 				</xsl:otherwise>
 			</xsl:choose>
