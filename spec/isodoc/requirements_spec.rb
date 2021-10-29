@@ -3246,10 +3246,10 @@ RSpec.describe IsoDoc::Ogc do
                   <td>Test method</td>
                   <td>
                     <p id='1'>
-                      <ol>
+                      <ol class="steps">
                         <li>
                           <p id='2'>For each UML class defined or referenced in the Tunnel Package:</p>
-                          <ol>
+                          <ol class="steps">
                             <li>
                               <p id='3'>
                                  Validate that the Implementation Specification
