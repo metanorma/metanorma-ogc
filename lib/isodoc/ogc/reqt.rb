@@ -75,7 +75,7 @@ module IsoDoc
         return node unless node.at(ns("./component[@class = 'step']"))
 
         d = node.at(ns("./component[@class = 'step']"))
-        d = d.replace("<ol><li>#{d.children.to_xml}</li></ol>").first
+        d = d.replace("<ol class='steps'><li>#{d.children.to_xml}</li></ol>").first
         node.xpath(ns("./component[@class = 'step']")).each do |f|
           f = f.replace("<li>#{f.children.to_xml}</li>").first
           d << f

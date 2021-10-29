@@ -206,6 +206,22 @@ module IsoDoc
         end
       end
 
+      def toWord(result, filename, dir, header)
+        result = from_xhtml(word_cleanup(to_xhtml(result)))
+        @wordstylesheet = wordstylesheet_update
+        Html2Doc.process(
+          result,
+          filename: filename,
+          imagedir: @localdir,
+          stylesheet: @wordstylesheet&.path,
+          header_file: header&.path, dir: dir,
+          asciimathdelims: [@openmathdelim, @closemathdelim],
+          liststyles: { ul: @ulstyle, ol: @olstyle, steps: "l4" }
+        )
+        header&.unlink
+        @wordstylesheet.unlink if @wordstylesheet.is_a?(Tempfile)
+      end
+
       include BaseConvert
       include Init
     end

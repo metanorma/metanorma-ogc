@@ -133,6 +133,13 @@ module IsoDoc
 
         super
       end
+
+      def ol_depth(node)
+        return super unless (node["class"] == "steps") ||
+          node.at(".//ancestor::xmlns:ol[@class = 'steps']")
+
+        ol_style(:arabic)
+      end
     end
   end
 end
