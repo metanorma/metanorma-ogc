@@ -119,6 +119,8 @@ RSpec.describe IsoDoc::Ogc do
       :issueddate=>"2001-01-01",
       :keywords=>["A", "B"],
       :lang=>"en",
+      :logo_new=>"#{File.join(logoloc, 'logo.2021.svg')}",
+      :logo_old=>"#{File.join(logoloc, 'logo.png')}",
       :logo_word=>"#{File.join(logoloc, 'logo.png')}",
       :obsoleteddate=>"XXX",
       :pdf=>"http://www.example.com/pdf",
@@ -142,6 +144,54 @@ RSpec.describe IsoDoc::Ogc do
       :xml=>"http://www.example.com/xml"}
     OUTPUT
 
+    docxml, = csdc.convert_init(input, "test", true)
+    expect(htmlencode(metadata(csdc.info(docxml, nil)).to_s)
+      .gsub(/, :/, ",\n:")).to be_equivalent_to output
+  end
+
+  it "processes metadata with new logo" do
+    csdc = IsoDoc::Ogc::HtmlConvert.new({})
+    input = <<~"INPUT"
+      <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+      <bibdata type="standard">
+        <title language="en" format="text/plain">Main Title</title>
+        <docidentifier type="ogc-external">http://www.example2.com</docidentifier>
+        <docidentifier type="ogc-internal">1000</docidentifier>
+        <docnumber>1000</docnumber>
+        <date type="published">
+          <on>2030-01-01</on>
+        </date>
+      </bibdata>
+      </ogc-standard>
+    INPUT
+    output = <<~OUTPUT
+      {:accesseddate=>"XXX",
+      :circulateddate=>"XXX",
+      :confirmeddate=>"XXX",
+      :copieddate=>"XXX",
+      :createddate=>"XXX",
+      :doclanguage=>"English",
+      :docnumber=>"1000",
+      :docnumeric=>"1000",
+      :doctitle=>"Main Title",
+      :externalid=>"http://www.example2.com",
+      :implementeddate=>"XXX",
+      :issueddate=>"XXX",
+      :lang=>"en",
+      :logo_new=>"#{File.join(logoloc, 'logo.2021.svg')}",
+      :logo_old=>"#{File.join(logoloc, 'logo.png')}",
+      :logo_word=>"#{File.join(logoloc, 'logo.2021.svg')}",
+      :obsoleteddate=>"XXX",
+      :publisheddate=>"2030-01-01",
+      :receiveddate=>"XXX",
+      :script=>"Latn",
+      :transmitteddate=>"XXX",
+      :unchangeddate=>"XXX",
+      :unpublished=>true,
+      :updateddate=>"XXX",
+      :vote_endeddate=>"XXX",
+      :vote_starteddate=>"XXX"}
+    OUTPUT
     docxml, = csdc.convert_init(input, "test", true)
     expect(htmlencode(metadata(csdc.info(docxml, nil)).to_s)
       .gsub(/, :/, ",\n:")).to be_equivalent_to output
@@ -500,19 +550,19 @@ RSpec.describe IsoDoc::Ogc do
     INPUT
 
     output = xmlpp(<<~"OUTPUT")
-        <div id='H'>
-          <h1 id='toc0'>1.&#xA0; Terms, Definitions, Symbols and Abbreviated Terms</h1>
-                   <h2 class='TermNum' style='text-align:left;' id='J'>
-           1.1.&#xA0;Term2 Term2A&#xA0;
-           <span class='AdmittedLabel'>ADMITTED</span>
-            Term2B&#xA0;
-           <span class='AdmittedLabel'>ADMITTED</span>
-            Term2C&#xA0;
-           <span class='AdmittedLabel'>DEPRECATED</span>
-            Term2D&#xA0;
-           <span class='AdmittedLabel'>DEPRECATED</span>
-         </h2>
-        </div>
+      <div id='H'>
+        <h1 id='toc0'>1.&#xA0; Terms, Definitions, Symbols and Abbreviated Terms</h1>
+                 <h2 class='TermNum' style='text-align:left;' id='J'>
+         1.1.&#xA0;Term2 Term2A&#xA0;
+         <span class='AdmittedLabel'>ADMITTED</span>
+          Term2B&#xA0;
+         <span class='AdmittedLabel'>ADMITTED</span>
+          Term2C&#xA0;
+         <span class='AdmittedLabel'>DEPRECATED</span>
+          Term2D&#xA0;
+         <span class='AdmittedLabel'>DEPRECATED</span>
+       </h2>
+      </div>
     OUTPUT
 
     IsoDoc::Ogc::HtmlConvert.new({ filename: "test" })

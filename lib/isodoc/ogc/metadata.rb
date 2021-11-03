@@ -37,8 +37,11 @@ module IsoDoc
       def initialize(lang, script, i18n)
         super
         here = File.dirname(__FILE__)
-        set(:logo_word,
+        set(:logo_old,
             File.expand_path(File.join(here, "html", "logo.png")))
+        set(:logo_new,
+            File.expand_path(File.join(here, "html",
+                                       "logo.2021.svg")))
       end
 
       def title(isoxml, _out)
@@ -113,6 +116,23 @@ module IsoDoc
 
       def status_print(status)
         type_capitalise(status)
+      end
+
+      def docdate(isoxml)
+        isoxml.xpath(ns("//bibdata/date[@type = 'published']/on")) ||
+          isoxml.xpath(ns("//bibdata/date[@type = 'published']/from")) ||
+          isoxml.xpath(ns("//bibdata/date[@type = 'issued']/on")) ||
+          isoxml.xpath(ns("//bibdata/date[@type = 'issued']/from")) ||
+          isoxml.xpath(ns("//bibdata/date/from")) ||
+          isoxml.xpath(ns("//bibdata/date/on"))
+      end
+
+      def bibdate(isoxml, _out)
+        super
+        d = docdate(isoxml)
+        old = d.nil? || d.empty? ||
+          DateTime.iso8601("2021-11-08") > DateTime.parse(d.text)
+        set(:logo_word, old ? get[:logo_old] : get[:logo_new])
       end
     end
   end
