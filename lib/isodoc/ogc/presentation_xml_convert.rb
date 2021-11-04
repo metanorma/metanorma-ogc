@@ -173,6 +173,17 @@ module IsoDoc
         end
       end
 
+      def bibdata_i18n(bib)
+        stage = bib&.at(ns("./status/stage"))
+        doctype = bib&.at(ns("./ext/doctype"))
+        if stage&.text == "approved" &&
+            !%w(standard abstract-specification-topic
+                community-standard).include?(doctype&.text)
+          stage.children = "published"
+        end
+        super
+      end
+
       include Init
     end
   end

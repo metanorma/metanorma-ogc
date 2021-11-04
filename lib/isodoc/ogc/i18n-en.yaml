@@ -27,11 +27,14 @@ internal_external_terms_boilerplate: |
             given in % and the following additionally apply.</p>
 term_defined_in: "(%)"
 stage_dict:
+  draft: Draft
+  work-item-draft: Work Item Draft
   swg-draft: Candidate SWG Draft
   oab-review: Candidate OAB Review Draft
   public-rfc: Candidate Public RFC Draft
   tc-vote: Candidate TC Vote Draft
   approved: Approved
-  published: Approved
+  published: Published
   deprecated: Deprecated
+  rescinded: Rescinded
   retired: Retired
