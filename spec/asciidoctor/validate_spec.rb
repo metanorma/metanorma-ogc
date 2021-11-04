@@ -101,6 +101,22 @@ RSpec.describe Asciidoctor::Ogc do
     expect(File.read("test.err")).to include "pizza is not a recognised status"
   end
 
+  it "Warns of status inconsistent with doctype" do
+    FileUtils.rm_f "test.err"
+    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
+      = Document title
+      Author
+      :docfile: test.adoc
+      :nodoc:
+      :no-isobib:
+      :status: draft
+      :doctype: abstract-specification-topic
+
+      text
+    INPUT
+    expect(File.read("test.err")).to include "draft is not an allowed status for abstract-specification-topic"
+  end
+
   it "does not issue section order warnings unless document is a standard" do
     FileUtils.rm_f "test.err"
     Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)

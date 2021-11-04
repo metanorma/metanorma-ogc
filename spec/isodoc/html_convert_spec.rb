@@ -197,6 +197,42 @@ RSpec.describe IsoDoc::Ogc do
       .gsub(/, :/, ",\n:")).to be_equivalent_to output
   end
 
+  it "changes approved to published" do
+    input = <<~"INPUT"
+      <ogc-standard xmlns="#{Metanorma::Ogc::DOCUMENT_NAMESPACE}">
+      <bibdata>
+      <status>
+      <stage>approved</stage>
+      </status>
+      <ext>
+      <doctype>community-practice</doctype>
+      </ext>
+      </bibdata>
+      <sections/>
+      </ogc-standard>
+    INPUT
+
+    presxml = <<~OUTPUT
+           <ogc-standard xmlns='https://standards.opengeospatial.org/document' type='presentation'>
+         <bibdata>
+           <status>
+             <stage language=''>published</stage>
+             <stage language='en'>Published</stage>
+           </status>
+           <ext>
+             <doctype language=''>community-practice</doctype>
+           </ext>
+         </bibdata>
+         <sections/>
+       </ogc-standard>
+    OUTPUT
+
+    expect(xmlpp(strip_guid(IsoDoc::Ogc::PresentationXMLConvert.new({})
+      .convert("test", input, true)
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
+      .to be_equivalent_to xmlpp(presxml)
+  end
+
   it "processes pre" do
     input = <<~"INPUT"
       <ogc-standard xmlns="#{Metanorma::Ogc::DOCUMENT_NAMESPACE}">

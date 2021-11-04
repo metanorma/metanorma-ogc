@@ -23,10 +23,24 @@ module Asciidoctor
 
       def stage_validate(xmldoc)
         stage = xmldoc&.at("//bibdata/status/stage")&.text
-        %w(swg-draft oab-review public-rfc tc-vote
-           approved deprecated retired).include? stage or
+        %w(draft swg-draft oab-review public-rfc tc-vote work-item-draft
+           approved deprecated retired rescinded).include? stage or
           @log.add("Document Attributes", nil,
                    "#{stage} is not a recognised status")
+        stage_type_validate(stage, xmldoc&.at("//bibdata/ext/doctype")&.text)
+      end
+
+      def stage_type_validate(stage, doctype)
+        err = case doctype
+              when "standard", "abstract-specification-topic"
+                %w(draft work-item-draft).include?(stage)
+              when "community-standard"
+                %w(draft swg-draft).include?(stage)
+              else %w(swg-draft oab-review public-rfc tc-vote
+                      work-item-draft deprecated rescinded).include?(stage)
+              end
+        err and @log.add("Document Attributes", nil,
+                         "#{stage} is not an allowed status for #{doctype}")
       end
 
       def version_validate(xmldoc)
