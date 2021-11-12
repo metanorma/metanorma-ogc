@@ -5,7 +5,7 @@
 
       <p align="center">Copyright
         © {{ docyear }} Open Geospatial Consortium<br/>
-        To obtain additional rights of use, visit 
+        To obtain additional rights of use, visit
         <link target="http://www.ogc.org/legal/">http://www.ogc.org/legal/</link></p>
     </clause>
     <clause>
@@ -113,7 +113,7 @@
     <clause>
       <title>Notice</title>
       <p>This document is not an OGC Standard. This document is an OGC Public Engineering Report created as a deliverable in an OGC Interoperability Initiative and is <em>not an official position</em> of the OGC membership. It is distributed for review and comment. It is subject to change without notice and may not be referred to as an OGC Standard.</p>
-     
+
       <p>Further, any OGC Engineering Report should not be referenced as required or mandatory technology in procurements. However, the discussions in this document could very well lead to the definition of an OGC Standard.</p>
     </clause>
 
@@ -151,7 +151,7 @@
   <feedback-statement>
     {% if doctype == "Standard" %}
     <clause id="boilerplate-standard-feedback">
-      <p>Suggested additions, changes and comments on this standard are welcome and encouraged. Such suggestions may be submitted using the online change request form on OGC web site: <link target="http://portal.opengeospatial.org/public_ogc/change_request.php">http://portal.opengeospatial.org/public_ogc/change_request.php</link></p>
+      <p>Suggested additions, changes and comments on this document are welcome and encouraged. Such suggestions may be submitted using the online change request form on OGC web site: <link target="http://portal.opengeospatial.org/public_ogc/change_request.php">http://portal.opengeospatial.org/public_ogc/change_request.php</link></p>
     </clause>
     {% endif %}
   </feedback-statement>
