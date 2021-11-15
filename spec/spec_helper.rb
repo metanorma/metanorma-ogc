@@ -70,7 +70,8 @@ VALIDATING_BLANK_HDR = <<~"HDR".freeze
 HDR
 
 BOILERPLATE =
-  HTMLEntities.new.decode(
+  #HTMLEntities.new.decode(
+  (
     File.read(File.join(File.dirname(__FILE__), "..", "lib", "asciidoctor", "ogc", "boilerplate.xml"), encoding: "utf-8")
     .gsub(/<legal-statement>.+<\/legal-statement>/m, "<legal-statement><clause> <title>Notice</title> <p>This document is an OGC Member approved international standard. This document is available on a royalty free, non-discriminatory basis. Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation.  </p> </clause></legal-statement>")
     .gsub(/\{% if doctype == "Standard" %\}\s*(<clause id="boilerplate-standard-feedback">.+?)\{% endif %\}/m, "\\1")
@@ -80,7 +81,7 @@ BOILERPLATE =
     .gsub(/<p align="left">/, '<p align="left" id="_">')
     .gsub(/"Licensor"/, "“Licensor”").gsub(/"AS/, "“AS").gsub(/IS"/, "IS”")
     .gsub(/\{% if unpublished %\}.+?\{% endif %\}/m, "")
-    .gsub(/\{% if ip_notice_received %\}\{% else %\}not\{% endif %\}/m, ""),
+    .gsub(/\{% if ip_notice_received %\}\{% else %\}not\{% endif %\}/m, "")
   )
 
 BLANK_HDR = <<~"HDR".freeze
