@@ -147,15 +147,16 @@ module IsoDoc
 
       def recommmendation_sort_key1(type)
         case type.downcase
-        when "requirement class" then 1
-        when "requirement" then 2
-        when "recommendation" then 3
-        when "permission" then 4
-        when "conformance class" then 5
-        when "abstract test" then 6
-        when "conformance test", "requirement test", "recommendation test",
-         "permission test" then 7
-        else 8
+        when "requirement class" then "1"
+        when "requirement" then "2"
+        when "recommendation" then "3"
+        when "permission" then "4"
+        when "conformance class" then "5"
+        when "abstract test" then "6"
+        when "requirement test" then "7"
+        when "recommendation test" then "8"
+        when "permission test" then "9"
+        else "z"
         end
       end
 
