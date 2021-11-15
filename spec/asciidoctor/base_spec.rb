@@ -785,33 +785,26 @@ RSpec.describe Asciidoctor::Ogc do
 
     INPUT
     output = <<~OUTPUT
-            #{BLANK_HDR}
-            <preface>#{SECURITY}</preface>
-                     <sections>
-                 <clause id='_' obligation='normative'>
-                   <title>Terms, definitions, symbols and abbreviated terms</title>
-                   <p id='_'>
-        This document uses the terms defined in
-        <link target='https://portal.ogc.org/public_ogc/directives/directives.php'>OGC Policy Directive 49</link>
-        , which is based on the ISO/IEC Directives, Part 2, Rules for the
+      #{BLANK_HDR}
+      <preface>#{SECURITY}</preface>
+      <sections>
+      <clause id='_' obligation='normative'>
+      <title>Terms, definitions, symbols and abbreviated terms</title>
+      <p id='_'>This document uses the terms defined in
+        <link target='https://portal.ogc.org/public_ogc/directives/directives.php'>OGC Policy Directive 49</link>, 
+        which is based on the ISO/IEC Directives, Part 2, Rules for the
         structure and drafting of International Standards. In particular, the
         word &#8220;shall&#8221; (not &#8220;must&#8221;) is the verb form used
         to indicate a requirement to be strictly followed to conform to this
-        standard and OGC documents do not use the equivalent phrases in the
-        ISO/IEC Directives, Part 2.
-      </p>
-      <p id='_'>
-        This document also uses terms defined in the OGC Standard for Modular
-        specifications (
-        <link target='https://portal.opengeospatial.org/files/?artifact_id=34762'>OGC 08-131r3</link>
-        ), also known as the &#8216;ModSpec&#8217;. The definitions of terms
+        document and OGC documents do not use the equivalent phrases in the
+        ISO/IEC Directives, Part 2.</p>
+      <p id='_'>This document also uses terms defined in the OGC Standard for Modular
+        specifications (<link target='https://portal.opengeospatial.org/files/?artifact_id=34762'>OGC 08-131r3</link>),
+        also known as the &#8216;ModSpec&#8217;. The definitions of terms
         such as standard, specification, requirement, and conformance test are
-        provided in the ModSpec.
-      </p>
-      <p id='_'>
-        For the purposes of this document, the following additional terms and
-        definitions apply.
-      </p>
+        provided in the ModSpec.</p>
+      <p id='_'>For the purposes of this document, the following additional terms and
+        definitions apply.</p>
       <terms id='_' obligation='normative'>
         <title>Terms and definitions</title>
         <term id='term-term'>
@@ -837,8 +830,8 @@ RSpec.describe Asciidoctor::Ogc do
                </annex>
              </ogc-standard>
     OUTPUT
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
-      .to be_equivalent_to xmlpp(output)
+    expect(xmlpp(((strip_guid(Asciidoctor.convert(input, *OPTIONS))))))
+      .to be_equivalent_to xmlpp(((output)))
   end
 
   it "overrides table valign" do
