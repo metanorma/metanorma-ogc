@@ -141,21 +141,23 @@ module IsoDoc
       end
 
       def recommmendation_sort_key(header)
-        m = /^([^0-9]+) (\d+)/.match(header)
+        m = /^([^0-9]+) (\d+)/.match(header) || /^([^:]+)/.match(header)
         "#{recommmendation_sort_key1(m[1])}::#{'%04d' % m[2].to_i}"
       end
 
       def recommmendation_sort_key1(type)
         case type.downcase
-        when "requirements class" then "1"
-        when "requirement" then "2"
-        when "recommendation" then "3"
-        when "permission" then "4"
-        when "conformance class" then "5"
-        when "abstract test" then "6"
-        when "requirements test" then "7"
-        when "recommendation test" then "8"
-        when "permission test" then "9"
+        when "requirements class" then "01"
+        when "recommendations class" then "02"
+        when "permissions class" then "03"
+        when "requirement" then "04"
+        when "recommendation" then "05"
+        when "permission" then "06"
+        when "conformance class" then "07"
+        when "abstract test" then "08"
+        when "requirements test" then "09"
+        when "recommendations test" then "10"
+        when "permissions test" then "11"
         else "z"
         end
       end
