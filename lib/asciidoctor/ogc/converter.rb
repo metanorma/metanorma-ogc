@@ -75,8 +75,10 @@ module Asciidoctor
         case node&.attr("heading")&.downcase || node.title.downcase
         when "submitters" then return submitters_parse(attrs, xml, node)
         when "conformance" then attrs = attrs.merge(type: "conformance")
-        when "security considerations" then attrs =
-                                              attrs.merge(type: "security")
+        when "security considerations"
+          attrs = attrs.merge(type: "security")
+        when "executive summary"
+          attrs = attrs.merge(type: "executivesummary")
         end
         super
       end

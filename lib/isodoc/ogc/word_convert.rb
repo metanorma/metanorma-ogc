@@ -145,6 +145,7 @@ module IsoDoc
           boilerplate docxml, div2
           preface_block docxml, div2
           abstract docxml, div2
+          executivesummary docxml, div2
           keywords docxml, div2
           foreword docxml, div2
           introduction docxml, div2

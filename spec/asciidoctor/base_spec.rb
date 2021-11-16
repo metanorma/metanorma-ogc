@@ -639,6 +639,44 @@ RSpec.describe Asciidoctor::Ogc do
       .to be_equivalent_to xmlpp(output)
   end
 
+  it "processes executive summary section" do
+    input = <<~INPUT
+      #{ASCIIDOC_BLANK_HDR}
+
+      == Executive Summary
+
+      This is an executive summary
+
+      [abstract]
+      == Abstract
+
+      This is an abstract
+
+    INPUT
+    output = <<~OUTPUT
+      #{BLANK_HDR.sub(%r{</script>}, '</script><abstract><p>This is an abstract</p></abstract>')}
+      <preface>
+      <abstract id='_'>
+        <title>Abstract</title>
+        <p id='_'>This is an abstract</p>
+      </abstract>
+           <clause id='_' type='executivesummary' obligation='informative'>
+             <title>Executive Summary</title>
+             <p id='_'>This is an executive summary</p>
+           </clause>
+           <clause type='security' id='_' obligation='informative'>
+             <title>Security considerations</title>
+             <p id='_'>No security considerations have been made for this document.</p>
+           </clause>
+         </preface>
+         <sections>
+         </sections>
+       </ogc-standard>
+    OUTPUT
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+      .to be_equivalent_to xmlpp(output)
+  end
+
   it "does not recognise 'Foreword' or 'Introduction' as a preface section" do
     input = <<~INPUT
       #{ASCIIDOC_BLANK_HDR}
@@ -791,7 +829,7 @@ RSpec.describe Asciidoctor::Ogc do
       <clause id='_' obligation='normative'>
       <title>Terms, definitions, symbols and abbreviated terms</title>
       <p id='_'>This document uses the terms defined in
-        <link target='https://portal.ogc.org/public_ogc/directives/directives.php'>OGC Policy Directive 49</link>, 
+        <link target='https://portal.ogc.org/public_ogc/directives/directives.php'>OGC Policy Directive 49</link>,#{' '}
         which is based on the ISO/IEC Directives, Part 2, Rules for the
         structure and drafting of International Standards. In particular, the
         word &#8220;shall&#8221; (not &#8220;must&#8221;) is the verb form used
@@ -830,8 +868,8 @@ RSpec.describe Asciidoctor::Ogc do
                </annex>
              </ogc-standard>
     OUTPUT
-    expect(xmlpp(((strip_guid(Asciidoctor.convert(input, *OPTIONS))))))
-      .to be_equivalent_to xmlpp(((output)))
+    expect(xmlpp((strip_guid(Asciidoctor.convert(input, *OPTIONS)))))
+      .to be_equivalent_to xmlpp((output))
   end
 
   it "overrides table valign" do
