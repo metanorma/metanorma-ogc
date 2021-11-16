@@ -13,9 +13,10 @@ module IsoDoc
       end
 
       def insert_preface_sections(docxml)
-        insert_keywords(docxml)
+        insert_executivesummary(docxml)
         insert_submitting_orgs(docxml)
         insert_security(docxml)
+        insert_keywords(docxml)
       end
 
       def preface_init_insert_pt(docxml)
@@ -35,6 +36,17 @@ module IsoDoc
         s = docxml&.at(ns("//preface/clause[@type = 'security']"))&.remove or
           return
         if a = submit_orgs_append_pt(docxml)
+          a.next = s
+        else
+          preface_init_insert_pt(docxml)&.children&.first
+            &.add_previous_sibling(s)
+        end
+      end
+
+      def insert_executivesummary(docxml)
+        s = docxml&.at(ns("//preface/clause[@type = 'executivesummary']"))
+          &.remove or return
+        if a = docxml.at(ns("//preface/abstract"))
           a.next = s
         else
           preface_init_insert_pt(docxml)&.children&.first
@@ -81,7 +93,9 @@ module IsoDoc
       def insert_keywords(docxml)
         kw = @meta.get[:keywords]
         kw.empty? and return
-        if abstract = docxml.at(ns("//preface/abstract"))
+        if abstract =
+             docxml.at(ns("//preface/clause[@type = 'executivesummary']")) ||
+             docxml.at(ns("//preface/abstract"))
           abstract.next = keyword_clause(kw)
         else
           preface_init_insert_pt(docxml)&.children&.first

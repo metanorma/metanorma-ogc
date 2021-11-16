@@ -387,4 +387,61 @@ RSpec.describe Asciidoctor::Ogc do
     INPUT
     expect(File.read("test.err")).not_to include "Submitters is missing"
   end
+
+  it "warns of missing executive summary in engineering report" do
+    FileUtils.rm_f "test.err"
+    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
+      = Document title
+      Author
+      :docfile: test.adoc
+      :nodoc:
+      :doctype: engineering-report
+
+      Paragraph
+    INPUT
+    expect(File.read("test.err"))
+      .to include "Executive Summary required for Engineering Reports!"
+
+    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
+      = Document title
+      Author
+      :docfile: test.adoc
+      :nodoc:
+      :doctype: engineering-report
+
+      == Executive Summary
+
+      Paragraph
+    INPUT
+    expect(File.read("test.err"))
+      .not_to include "Executive Summary required for Engineering Reports!"
+  end
+
+  it "warns of missing executive summary outside of engineering report" do
+    FileUtils.rm_f "test.err"
+    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
+      = Document title
+      Author
+      :docfile: test.adoc
+      :nodoc:
+
+      Paragraph
+    INPUT
+    expect(File.read("test.err"))
+      .not_to include "Executive Summary only allowed for Engineering Reports!"
+
+    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
+      = Document title
+      Author
+      :docfile: test.adoc
+      :nodoc:
+
+      == Executive Summary
+
+      Paragraph
+    INPUT
+    expect(File.read("test.err"))
+      .to include "Executive Summary only allowed for Engineering Reports!"
+  end
+
 end

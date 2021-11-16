@@ -141,14 +141,16 @@ module IsoDoc
 
       def preface_anchor_names(doc)
         @prefacenum = 0
-        ["//preface/abstract", "//preface/clause[@type = 'keywords']",
+        ["//preface/abstract", "//preface/clause[@type = 'executivesummary']",
+         "//preface/clause[@type = 'keywords']",
          "//foreword", "//introduction", "//preface/clause[@type = 'security']",
          "//preface/clause[@type = 'submitting_orgs']",
          "//submitters"].each do |path|
           preface_names_numbered(doc.at(ns(path)))
         end
         doc.xpath(ns("//preface/clause[not(@type = 'keywords' or "\
-                     "@type = 'submitting_orgs' or @type = 'security')]"))
+                     "@type = 'submitting_orgs' or @type = 'security' or "\
+                     "@type = 'executivesummary')]"))
           .each { |c| preface_names_numbered(c) }
         preface_names_numbered(doc.at(ns("//acknowledgements")))
         sequential_asset_names(

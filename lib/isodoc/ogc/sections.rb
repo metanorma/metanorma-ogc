@@ -20,7 +20,13 @@ module IsoDoc
       end
 
       def security(docxml, out)
-        f = docxml.at(ns("//preface/clause[@type = 'security']")) || return
+        f = docxml.at(ns("//preface/clause[@type = 'security']")) or return
+        intro_clause(f, out)
+      end
+
+      def executivesummary(docxml, out)
+        f = docxml.at(ns("//preface/clause[@type = 'executivesummary']")) or
+          return
         intro_clause(f, out)
       end
 
@@ -31,7 +37,8 @@ module IsoDoc
 
       def preface(isoxml, out)
         isoxml.xpath(ns("//preface/clause[not(@type = 'keywords' or "\
-                        "@type = 'submitting_orgs' or @type = 'security')]"))
+                        "@type = 'submitting_orgs' or @type = 'security' or "\
+                        "@type = 'executivesummary')]"))
           .each do |f|
           intro_clause(f, out)
         end

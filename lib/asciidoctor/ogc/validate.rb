@@ -57,8 +57,20 @@ module Asciidoctor
         end
       end
 
+      def execsummary_validate(xmldoc)
+        doctype = xmldoc&.at("//bibdata/ext/doctype")&.text
+        sect = xmldoc&.at("//clause[@type = 'executivesummary']")
+        doctype == "engineering-report" && sect.nil? and
+          @log.add("Style", nil,
+                   "Executive Summary required for Engineering Reports!")
+        doctype != "engineering-report" && !sect.nil? and
+          @log.add("Style", nil,
+                   "Executive Summary only allowed for Engineering Reports!")
+      end
+
       def section_validate(doc)
         preface_sequence_validate(doc.root)
+        execsummary_validate(doc.root)
         sections_sequence_validate(doc.root)
         super
       end
