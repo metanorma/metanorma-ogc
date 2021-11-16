@@ -86,7 +86,7 @@ module IsoDoc
                           <span lang="EN-GB"><span
         style='mso-element:field-begin'></span><span
         style='mso-spacerun:yes'>&#xA0;</span>TOC
-        \\h \\z \\t &quot;RecommendationTitle,recommendationtitle&quot;#{' '}
+        \\h \\z \\t &quot;RecommendationTitle,RecommendationTestTitle,recommendationtitle,recommendationtesttitle&quot;#{' '}
         <span style='mso-element:field-separator'></span></span>
       TOC
 
@@ -131,11 +131,35 @@ module IsoDoc
 
       def make_RecommendationWordToC(docxml)
         toc = ""
-        docxml.xpath("//p[@class = 'RecommendationTitle']").each do |h|
+        docxml.xpath("//p[@class = 'RecommendationTitle' or @class = 'RecommendationTestTitle']").sort_by do |h|
+          recommmendation_sort_key(h.text)
+        end.each do |h|
           toc += word_toc_entry(1, header_strip(h))
         end
         toc.sub(/(<p class="MsoToc1">)/,
                 %{\\1#{WORD_TOC_RECOMMENDATION_PREFACE1}}) + WORD_TOC_SUFFIX1
+      end
+
+      def recommmendation_sort_key(header)
+        m = /^([^0-9]+) (\d+)/.match(header) || /^([^:]+)/.match(header)
+        "#{recommmendation_sort_key1(m[1])}::#{'%04d' % m[2].to_i}"
+      end
+
+      def recommmendation_sort_key1(type)
+        case type.downcase
+        when "requirements class" then "01"
+        when "recommendations class" then "02"
+        when "permissions class" then "03"
+        when "requirement" then "04"
+        when "recommendation" then "05"
+        when "permission" then "06"
+        when "conformance class" then "07"
+        when "abstract test" then "08"
+        when "requirements test" then "09"
+        when "recommendations test" then "10"
+        when "permissions test" then "11"
+        else "z"
+        end
       end
 
       def make_body2(body, docxml)
@@ -212,8 +236,7 @@ module IsoDoc
         @wordstylesheet = wordstylesheet_update
         Html2Doc.process(
           result,
-          filename: filename,
-          imagedir: @localdir,
+          filename: filename, imagedir: @localdir,
           stylesheet: @wordstylesheet&.path,
           header_file: header&.path, dir: dir,
           asciimathdelims: [@openmathdelim, @closemathdelim],
