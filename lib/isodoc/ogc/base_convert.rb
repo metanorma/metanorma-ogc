@@ -138,7 +138,8 @@ module IsoDoc
         return super unless (node["class"] == "steps") ||
           node.at(".//ancestor::xmlns:ol[@class = 'steps']")
 
-        ol_style(:arabic)
+        idx = node.xpath("./ancestor-or-self::xmlns:ol[@class = 'steps']").size
+        ol_style(%i(arabic alphabet roman alphabet_upper roman_upper)[(idx - 1) % 5])
       end
     end
   end
