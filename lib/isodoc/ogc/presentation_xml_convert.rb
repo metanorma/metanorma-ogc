@@ -171,6 +171,7 @@ module IsoDoc
       def block(docxml)
         super
         recommendation_to_table(docxml)
+        ol docxml
       end
 
       def section(docxml)
@@ -196,6 +197,20 @@ module IsoDoc
           stage.children = "published"
         end
         super
+      end
+
+      def ol(docxml)
+        docxml.xpath(ns("//ol")).each do |f|
+          ol1(f)
+        end
+      end
+
+      def ol1(elem)
+        return unless elem["class"] == "steps"
+
+        idx = elem.xpath("./ancestor-or-self::xmlns:ol[@class = 'steps']").size
+        elem["type"] = %w(arabic alphabet roman alphabet_upper
+                          roman_upper)[(idx - 1) % 5]
       end
 
       include Init
