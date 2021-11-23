@@ -3863,7 +3863,7 @@
 				
 				
 				
-				10
+				9.5
 				
 				
 						
@@ -5394,6 +5394,10 @@
 		
 				
 				
+				
+					<fo:block font-size="1pt" line-height="10%" space-after="4pt"> </fo:block>
+				
+				
 				<fo:block xsl:use-attribute-sets="sourcecode-style">
 					<xsl:variable name="_font-size">
 						
@@ -5408,7 +5412,7 @@
 								
 						
 						
-						
+						9.5
 												
 						
 								
@@ -5427,12 +5431,20 @@
 				
 				
 				
+				
+					<xsl:attribute name="margin-bottom">0pt</xsl:attribute>
+				
+				
 				<xsl:apply-templates/>			
 			</fo:block>
-				
+			
 			
 				<xsl:apply-templates select="*[local-name()='name']" mode="presentation"/>
 				
+				
+			
+				<fo:block font-size="1pt" line-height="10%" space-before="6pt"> </fo:block>
+			
 				
 			</fo:block-container>
 		</fo:block-container>
