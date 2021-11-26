@@ -130,8 +130,12 @@ module IsoDoc
       def bibdate(isoxml, _out)
         super
         d = docdate(isoxml)
-        old = d.nil? || d.empty? ||
-          DateTime.iso8601("2021-11-08") > DateTime.parse(d.text)
+        begin
+          old = d.nil? || d.empty? ||
+            DateTime.iso8601("2021-11-08") > DateTime.parse(d.text)
+        rescue StandardError
+          old = false
+        end
         set(:logo_word, old ? get[:logo_old] : get[:logo_new])
       end
     end

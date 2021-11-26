@@ -197,6 +197,55 @@ RSpec.describe IsoDoc::Ogc do
       .gsub(/, :/, ",\n:")).to be_equivalent_to output
   end
 
+  it "uses new logo for invalid data" do
+    csdc = IsoDoc::Ogc::HtmlConvert.new({})
+    input = <<~"INPUT"
+      <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+      <bibdata type="standard">
+        <title language="en" format="text/plain">Main Title</title>
+        <docidentifier type="ogc-external">http://www.example2.com</docidentifier>
+        <docidentifier type="ogc-internal">1000</docidentifier>
+        <docnumber>1000</docnumber>
+        <date type="published">
+          <on>yyyy-mm-dd</on>
+        </date>
+      </bibdata>
+      </ogc-standard>
+    INPUT
+    output = <<~OUTPUT
+      {:accesseddate=>"XXX",
+      :circulateddate=>"XXX",
+      :confirmeddate=>"XXX",
+      :copieddate=>"XXX",
+      :createddate=>"XXX",
+      :doclanguage=>"English",
+      :docnumber=>"1000",
+      :docnumeric=>"1000",
+      :doctitle=>"Main Title",
+      :externalid=>"http://www.example2.com",
+      :implementeddate=>"XXX",
+      :issueddate=>"XXX",
+      :lang=>"en",
+      :logo_new=>"#{File.join(logoloc, 'logo.2021.svg')}",
+      :logo_old=>"#{File.join(logoloc, 'logo.png')}",
+      :logo_word=>"#{File.join(logoloc, 'logo.2021.svg')}",
+      :obsoleteddate=>"XXX",
+      :publisheddate=>"yyyy-mm-dd",
+      :receiveddate=>"XXX",
+      :script=>"Latn",
+      :transmitteddate=>"XXX",
+      :unchangeddate=>"XXX",
+      :unpublished=>true,
+      :updateddate=>"XXX",
+      :vote_endeddate=>"XXX",
+      :vote_starteddate=>"XXX"}
+    OUTPUT
+    docxml, = csdc.convert_init(input, "test", true)
+    expect(htmlencode(metadata(csdc.info(docxml, nil)).to_s)
+      .gsub(/, :/, ",\n:")).to be_equivalent_to output
+  end
+
+
   it "changes approved to published" do
     input = <<~"INPUT"
       <ogc-standard xmlns="#{Metanorma::Ogc::DOCUMENT_NAMESPACE}">
