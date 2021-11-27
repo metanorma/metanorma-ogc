@@ -355,9 +355,12 @@ p.TableTitle {
 
 /* Terms */
 
+.TermNum {
+  font-weight: 300;
+}
+
 .TermNum, .Terms, .AltTerms {
   color: #00335b;
-  font-weight: 300;
   font-family: $headerfont;
 }
 
