@@ -800,6 +800,7 @@
 				<xsl:apply-templates select="ancestor::ogc:term[1]/ogc:name" mode="presentation"/>
 			</fo:block>
 			<fo:block font-weight="bold" keep-with-next="always" line-height="1">
+				<xsl:call-template name="setStyle_preferred"/>
 				<xsl:apply-templates/>
 			</fo:block>
 		</fo:block>
@@ -5296,6 +5297,10 @@
 		<fo:block xsl:use-attribute-sets="deprecates-style">
 			<xsl:value-of select="$title-deprecated"/>: <xsl:apply-templates/>
 		</fo:block>
+	</xsl:template><xsl:template name="setStyle_preferred">
+		<xsl:if test="*[local-name() = 'strong']">
+			<xsl:attribute name="font-weight">normal</xsl:attribute>
+		</xsl:if>
 	</xsl:template><xsl:template match="*[local-name() = 'definition']">
 		<fo:block xsl:use-attribute-sets="definition-style">
 			<xsl:apply-templates/>

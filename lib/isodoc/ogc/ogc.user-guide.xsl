@@ -1256,7 +1256,7 @@
 	<xsl:template match="ogc:preferred | ogc:deprecated | ogc:admitted" priority="2"/>
 	
 	<xsl:template match="ogc:preferred" mode="term_name">						
-		<fo:inline font-size="18pt" padding-right="3mm"><xsl:apply-templates/></fo:inline>		
+		<fo:inline font-size="18pt" padding-right="3mm"><xsl:call-template name="setStyle_preferred"/><xsl:apply-templates/></fo:inline>		
 		<fo:inline padding-right="2mm"> </fo:inline>
 	</xsl:template>
 	
@@ -6064,6 +6064,10 @@
 		<fo:block xsl:use-attribute-sets="deprecates-style">
 			<xsl:value-of select="$title-deprecated"/>: <xsl:apply-templates/>
 		</fo:block>
+	</xsl:template><xsl:template name="setStyle_preferred">
+		<xsl:if test="*[local-name() = 'strong']">
+			<xsl:attribute name="font-weight">normal</xsl:attribute>
+		</xsl:if>
 	</xsl:template><xsl:template match="*[local-name() = 'definition']">
 		<fo:block xsl:use-attribute-sets="definition-style">
 			<xsl:apply-templates/>
