@@ -425,7 +425,7 @@
 						
 						<fo:block-container line-height="130%">
 							<fo:block role="TOC">
-								<xsl:for-each select="xalan:nodeset($contents)//item[@display = 'true']">
+								<xsl:for-each select="xalan:nodeset($contents)//item[@display = 'true' and normalize-space(@id) != '']">
 									
 									<fo:block role="TOCI">
 										<xsl:if test="@level = 1">
@@ -452,7 +452,10 @@
 														</fo:list-item-label>
 														<fo:list-item-body start-indent="body-start()">
 															<fo:block text-align-last="justify" margin-left="12mm" text-indent="-12mm">
-																<fo:basic-link internal-destination="{@id}" fox:alt-text="{text()}">
+																<fo:basic-link internal-destination="{@id}">
+																	<xsl:call-template name="setAltText">
+																		<xsl:with-param name="value" select="text()"/>
+																	</xsl:call-template>
 																	<xsl:variable name="sectionTitle">
 																		<xsl:apply-templates select="title"/>
 																	</xsl:variable>
@@ -470,7 +473,10 @@
 											</xsl:when>
 											<xsl:otherwise>
 												<fo:block text-align-last="justify" margin-left="8mm">
-													<fo:basic-link internal-destination="{@id}" fox:alt-text="{text()}">
+													<fo:basic-link internal-destination="{@id}">
+														<xsl:call-template name="setAltText">
+															<xsl:with-param name="value" select="text()"/>
+														</xsl:call-template>
 														<xsl:value-of select="java:toUpperCase(java:java.lang.String.new(@section))"/>
 														<xsl:text> </xsl:text>
 														<xsl:apply-templates select="title"/>
@@ -505,9 +511,12 @@
 								</fo:block-container>
 							</fo:block-container>							
 							<fo:block-container line-height="130%">
-								<xsl:for-each select="//ogc:table[@id and ogc:name]"> <!-- contains(ogc:name, '—') -->
+								<xsl:for-each select="//ogc:table[@id and ogc:name and normalize-space(@id) != '']"> <!-- contains(ogc:name, '—') -->
 									<fo:block text-align-last="justify" margin-top="2pt" role="TOCI">
-										<fo:basic-link internal-destination="{@id}" fox:alt-text="{ogc:name}">
+										<fo:basic-link internal-destination="{@id}">
+											<xsl:call-template name="setAltText">
+												<xsl:with-param name="value" select="ogc:name"/>
+											</xsl:call-template>
 											<xsl:apply-templates select="ogc:name" mode="contents"/>										
 											<fo:inline keep-together.within-line="always">
 												<fo:leader leader-pattern="dots"/>
@@ -520,7 +529,7 @@
 						</xsl:if>
 						
 						<xsl:variable name="list_of_figures_">
-							<xsl:for-each select="//ogc:figure[@id and ogc:name and not(@unnumbered = 'true')] | //*[@id and starts-with(ogc:name, 'Figure ')]">
+							<xsl:for-each select="//ogc:figure[@id and ogc:name and not(@unnumbered = 'true') and normalize-space(@id) != ''] | //*[@id and starts-with(ogc:name, 'Figure ') and normalize-space(@id) != '']">
 								<figure id="{@id}" alt-text="{ogc:name}">
 									<xsl:apply-templates select="ogc:name" mode="contents"/>
 								</figure>
@@ -547,7 +556,10 @@
 								<!-- <xsl:for-each select="//ogc:figure[@id and ogc:name and not(@unnumbered = 'true')] or //*[@id and starts-with(ogc:name, 'Figure ')]"> --> <!-- contains(ogc:name, '—') -->
 								<xsl:for-each select="$list_of_figures/figure"> <!-- contains(ogc:name, '—') -->
 									<fo:block text-align-last="justify" margin-top="2pt" role="TOCI">
-										<fo:basic-link internal-destination="{@id}" fox:alt-text="{@alt-text}">
+										<fo:basic-link internal-destination="{@id}">
+											<xsl:call-template name="setAltText">
+												<xsl:with-param name="value" select="@alt-text"/>
+											</xsl:call-template>
 											<!-- <xsl:apply-templates select="ogc:name" mode="contents"/>										 -->
 											<xsl:copy-of select="node()"/>
 											<fo:inline keep-together.within-line="always">
@@ -578,9 +590,12 @@
 							
 							<fo:block-container line-height="130%">
 								<!-- <xsl:for-each select="//ogc:table[.//ogc:p[@class = 'RecommendationTitle']]"> -->
-								<xsl:for-each select="xalan:nodeset($toc_recommendations)/*">
+								<xsl:for-each select="xalan:nodeset($toc_recommendations)/*[normalize-space(@id) != '']">
 									<fo:block text-align-last="justify" margin-top="6pt" role="TOCI">
-										<fo:basic-link internal-destination="{@id}" fox:alt-text="{@alt-text}">
+										<fo:basic-link internal-destination="{@id}">
+											<xsl:call-template name="setAltText">
+												<xsl:with-param name="value" select="@alt-text"/>
+											</xsl:call-template>
 											<xsl:copy-of select="title/node()"/>
 											<xsl:text> </xsl:text>
 											<fo:inline keep-together.within-line="always">
@@ -7316,4 +7331,14 @@
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:if>
+	</xsl:template><xsl:template name="setAltText">
+		<xsl:param name="value"/>
+		<xsl:attribute name="fox:alt-text">
+			<xsl:choose>
+				<xsl:when test="normalize-space($value) != ''">
+					<xsl:value-of select="$value"/>
+				</xsl:when>
+				<xsl:otherwise>_</xsl:otherwise>
+			</xsl:choose>
+		</xsl:attribute>
 	</xsl:template></xsl:stylesheet>
