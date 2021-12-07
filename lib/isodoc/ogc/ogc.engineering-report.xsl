@@ -434,7 +434,7 @@
 										<xsl:if test="@level = 1 or @parent = 'annex'">										
 											<xsl:attribute name="font-size">12pt</xsl:attribute>
 										</xsl:if>
-										<xsl:if test="@level = 2 and not(@parent = 'annex')">
+										<xsl:if test="@level &gt;= 2 and not(@parent = 'annex')">
 											<xsl:attribute name="font-size">10pt</xsl:attribute>
 										</xsl:if>
 										
@@ -472,7 +472,13 @@
 												</fo:list-block>
 											</xsl:when>
 											<xsl:otherwise>
-												<fo:block text-align-last="justify" margin-left="8mm">
+												<xsl:variable name="margin-left">
+													<xsl:choose>
+														<xsl:when test="number(@level) != 'NaN'"><xsl:value-of select="(@level - 1) * 8"/></xsl:when>
+														<xsl:otherwise>8</xsl:otherwise>
+													</xsl:choose>
+												</xsl:variable>
+												<fo:block text-align-last="justify" margin-left="{$margin-left}mm">
 													<fo:basic-link internal-destination="{@id}">
 														<xsl:call-template name="setAltText">
 															<xsl:with-param name="value" select="text()"/>
@@ -775,7 +781,7 @@
 		
 		<xsl:variable name="display">
 			<xsl:choose>				
-				<xsl:when test="$level &gt;= 3">false</xsl:when>
+				<xsl:when test="$level &gt; $toc_level">false</xsl:when>
 				<xsl:otherwise>true</xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>
@@ -6781,7 +6787,31 @@
 		<fo:block-container border="1pt solid black" width="50%">
 			<fo:block> </fo:block>
 		</fo:block-container>
-	</xsl:template><xsl:template match="*[local-name() = 'toc']">
+	</xsl:template><xsl:variable name="toc_level">
+		<xsl:choose>
+			<xsl:when test="1 = 2"/> <!-- to do https://github.com/metanorma/mn-native-pdf/issues/337: if there is value in xml -->
+			<xsl:otherwise><!-- default value -->
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				2
+				
+				
+				
+				
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable><xsl:template match="*[local-name() = 'toc']">
 		<xsl:param name="colwidths"/>
 		<xsl:variable name="colwidths_">
 			<xsl:choose>
