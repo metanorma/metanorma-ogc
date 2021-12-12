@@ -114,7 +114,7 @@ module IsoDoc
 
       def preserve_in_nested_table?(node)
         return true if %w(recommendation requirement permission
-                          table).include?(node.name)
+                          table ol dl ul).include?(node.name)
 
         false
       end
