@@ -214,11 +214,11 @@ module IsoDoc
       end
 
       def termsource1(elem)
-        mod = elem.at(ns("./modification")) and
-          termsource_modification(mod)
+        while elem&.next_element&.name == "termsource"
+          elem << "; #{elem.next_element.remove.children.to_xml}"
+        end
         elem.children = l10n("[<strong>#{@i18n.source}:</strong> "\
                              "#{elem.children.to_xml.strip}]")
-        elem&.next_element&.name == "termsource" and elem.next = "; "
       end
 
       include Init
