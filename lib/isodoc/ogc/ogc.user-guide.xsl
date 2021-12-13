@@ -4640,22 +4640,6 @@
 			<xsl:if test="not(preceding-sibling::*[local-name() = 'p'])"><xsl:value-of select="$callout"/></xsl:if>
 			<xsl:apply-templates/>
 		</fo:inline>		
-	</xsl:template><xsl:template match="*[local-name() = 'modification']">
-		<xsl:variable name="title-modified">
-			
-			
-				<xsl:call-template name="getTitle">
-					<xsl:with-param name="name" select="'title-modified'"/>
-				</xsl:call-template>
-			
-		</xsl:variable>
-		
-    <xsl:variable name="text"><xsl:apply-templates/></xsl:variable>
-		<xsl:choose>
-			<xsl:when test="$lang = 'zh'"><xsl:text>、</xsl:text><xsl:value-of select="$title-modified"/><xsl:if test="normalize-space($text) != ''"><xsl:text>—</xsl:text></xsl:if></xsl:when>
-			<xsl:otherwise><xsl:text>, </xsl:text><xsl:value-of select="$title-modified"/><xsl:if test="normalize-space($text) != ''"><xsl:text> — </xsl:text></xsl:if></xsl:otherwise>
-		</xsl:choose>
-		<xsl:apply-templates/>
 	</xsl:template><xsl:template match="*[local-name() = 'xref']">
 		<fo:basic-link internal-destination="{@target}" fox:alt-text="{@target}" xsl:use-attribute-sets="xref-style">
 			
@@ -5989,59 +5973,71 @@
 			<xsl:variable name="termsource_text">
 				<xsl:apply-templates/>
 			</xsl:variable>
-			
-			<xsl:choose>
+			<xsl:copy-of select="$termsource_text"/>
+			<!-- <xsl:choose>
 				<xsl:when test="starts-with(normalize-space($termsource_text), '[')">
-					<!-- <xsl:apply-templates /> -->
 					<xsl:copy-of select="$termsource_text"/>
 				</xsl:when>
 				<xsl:otherwise>
-					
-					
-					<!-- <xsl:apply-templates />					 -->
+					<xsl:if test="$namespace = 'bsi'">
+						<xsl:choose>
+							<xsl:when test="$document_type = 'PAS' and starts-with(*[local-name() = 'origin']/@citeas, '[')"><xsl:text>{</xsl:text></xsl:when>
+							<xsl:otherwise><xsl:text>[</xsl:text></xsl:otherwise>
+						</xsl:choose>
+					</xsl:if>
+					<xsl:if test="$namespace = 'gb' or $namespace = 'iso' or $namespace = 'iec' or $namespace = 'itu' or $namespace = 'unece' or $namespace = 'unece-rec' or $namespace = 'nist-cswp'  or $namespace = 'nist-sp' or $namespace = 'ogc-white-paper' or $namespace = 'csa' or $namespace = 'csd' or $namespace = 'm3d' or $namespace = 'iho' or $namespace = 'bipm' or $namespace = 'jcgm'">
+						<xsl:text>[</xsl:text>
+					</xsl:if>
 					<xsl:copy-of select="$termsource_text"/>
-					
-					
+					<xsl:if test="$namespace = 'bsi'">
+						<xsl:choose>
+							<xsl:when test="$document_type = 'PAS' and starts-with(*[local-name() = 'origin']/@citeas, '[')"><xsl:text>}</xsl:text></xsl:when>
+							<xsl:otherwise><xsl:text>]</xsl:text></xsl:otherwise>
+						</xsl:choose>
+					</xsl:if>
+					<xsl:if test="$namespace = 'gb' or $namespace = 'iso' or $namespace = 'iec' or $namespace = 'itu' or $namespace = 'unece' or $namespace = 'unece-rec' or $namespace = 'nist-cswp'  or $namespace = 'nist-sp' or $namespace = 'ogc-white-paper' or $namespace = 'csa' or $namespace = 'csd' or $namespace = 'm3d' or $namespace = 'iho' or $namespace = 'bipm' or $namespace = 'jcgm'">
+						<xsl:text>]</xsl:text>
+					</xsl:if>
 				</xsl:otherwise>
-			</xsl:choose>
+			</xsl:choose> -->
 		</fo:block>
 	</xsl:template><xsl:template match="*[local-name() = 'termsource']/text()">
 		<xsl:if test="normalize-space() != ''">
 			<xsl:value-of select="."/>
 		</xsl:if>
-	</xsl:template><xsl:variable name="localized.source">
-		<xsl:call-template name="getLocalizedString">
-			<xsl:with-param name="key">source</xsl:with-param>
-		</xsl:call-template>
-	</xsl:variable><xsl:template match="*[local-name() = 'origin']">
+	</xsl:template><xsl:template match="*[local-name() = 'termsource']/*[local-name() = 'strong'][1][following-sibling::*[1][local-name() = 'origin']]/text()">
+		<fo:inline>
+			
+			
+				<xsl:attribute name="padding-right">1mm</xsl:attribute>
+			
+			<xsl:value-of select="."/>
+		</fo:inline>
+	</xsl:template><xsl:template match="*[local-name() = 'origin']">
 		<fo:basic-link internal-destination="{@bibitemid}" fox:alt-text="{@citeas}">
 			<xsl:if test="normalize-space(@citeas) = ''">
 				<xsl:attribute name="fox:alt-text"><xsl:value-of select="@bibitemid"/></xsl:attribute>
 			</xsl:if>
-			
-				<xsl:text>[</xsl:text>
-				<fo:inline>
-					
-						<xsl:attribute name="font-weight">bold</xsl:attribute>
-						<xsl:attribute name="padding-right">1mm</xsl:attribute>
-					
-					
-					
-					
-					
-						<xsl:value-of select="$localized.source"/>
-						<xsl:text>: </xsl:text>
-					
-					
-					
-					
-				</fo:inline>
-			
 			<fo:inline xsl:use-attribute-sets="origin-style">
 				<xsl:apply-templates/>
 			</fo:inline>
-			<xsl:text>]</xsl:text>
-			</fo:basic-link>
+		</fo:basic-link>
+	</xsl:template><xsl:template match="*[local-name() = 'modification']">
+		<xsl:variable name="title-modified">
+			
+			
+				<xsl:call-template name="getTitle">
+					<xsl:with-param name="name" select="'title-modified'"/>
+				</xsl:call-template>
+			
+		</xsl:variable>
+		
+    <xsl:variable name="text"><xsl:apply-templates/></xsl:variable>
+		<xsl:choose>
+			<xsl:when test="$lang = 'zh'"><xsl:text>、</xsl:text><xsl:value-of select="$title-modified"/><xsl:if test="normalize-space($text) != ''"><xsl:text>—</xsl:text></xsl:if></xsl:when>
+			<xsl:otherwise><xsl:text>, </xsl:text><xsl:value-of select="$title-modified"/><xsl:if test="normalize-space($text) != ''"><xsl:text> — </xsl:text></xsl:if></xsl:otherwise>
+		</xsl:choose>
+		<xsl:apply-templates/>
 	</xsl:template><xsl:template match="*[local-name() = 'modification']/*[local-name() = 'p']">
 		<fo:inline><xsl:apply-templates/></fo:inline>
 	</xsl:template><xsl:template match="*[local-name() = 'modification']/text()">
