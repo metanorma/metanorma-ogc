@@ -620,7 +620,29 @@ RSpec.describe IsoDoc::Ogc do
     input = <<~"INPUT"
       <ogc-standard xmlns="https://standards.opengeospatial.org/document">
         <sections>
-        <terms id="H" obligation="normative"><title>1.<tab/>Terms, Definitions, Symbols and Abbreviated Terms</title>
+        <terms id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title>
+          <term id="J">
+          <preferred>Term2</preferred>
+          <admitted>Term2A</admitted>
+          <admitted>Term2B</admitted>
+          <deprecates>Term2C</deprecates>
+          <deprecates>Term2D</deprecates>
+          <termsource status="modified">
+        <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011"><locality type="clause"><referenceFrom>3.1</referenceFrom></locality></origin>
+          <modification>
+          <p id="_e73a417d-ad39-417d-a4c8-20e4e2529489">The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here</p>
+        </modification>
+      </termsource>
+        </term>
+         </terms>
+         </sections>
+         </ogc-standard>
+    INPUT
+
+    presxml = <<~"INPUT"
+      <ogc-standard xmlns="https://standards.opengeospatial.org/document" type='presentation'>
+        <sections>
+        <terms id="H" obligation="normative" displayorder='1'><title depth='1'>1.<tab/>Terms, Definitions, Symbols and Abbreviated Terms</title>
           <term id="J">
           <name>1.1.</name>
           <preferred>Term2</preferred>
@@ -628,6 +650,15 @@ RSpec.describe IsoDoc::Ogc do
           <admitted>Term2B</admitted>
           <deprecates>Term2C</deprecates>
           <deprecates>Term2D</deprecates>
+          <termsource status='modified'>[<strong>SOURCE:</strong>
+                 <origin bibitemid='ISO7301' type='inline' citeas='ISO 7301:2011'>
+                   <locality type='clause'>
+                     <referenceFrom>3.1</referenceFrom>
+                   </locality>
+                   ISO 7301:2011, Clause 3.1
+                 </origin>, modified &#x2013; The term "cargo rice" is shown as deprecated, and
+                 Note 1 to entry is not included here]
+               </termsource>
         </term>
          </terms>
          </sections>
@@ -647,11 +678,19 @@ RSpec.describe IsoDoc::Ogc do
           Term2D&#xA0;
          <span class='AdmittedLabel'>DEPRECATED</span>
        </h2>
+         <p>[<b>SOURCE:</b>
+        <a href='#ISO7301'> ISO 7301:2011, Clause 3.1 </a>, modified &#x2013; The term "cargo rice" is shown as deprecated, and Note 1
+        to entry is not included here]
+       </p>
       </div>
     OUTPUT
 
+     expect(xmlpp(strip_guid(IsoDoc::Ogc::PresentationXMLConvert.new({})
+      .convert("test", input, true)
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
+      .to be_equivalent_to xmlpp(presxml)
     IsoDoc::Ogc::HtmlConvert.new({ filename: "test" })
-      .convert("test", input, false)
+      .convert("test", presxml, false)
     expect(xmlpp(
              File.read("test.html")
           .gsub(%r{^.*<div id="H">}m, '<div id="H">')

@@ -213,6 +213,14 @@ module IsoDoc
                           roman_upper)[(idx - 1) % 5]
       end
 
+      def termsource1(elem)
+        mod = elem.at(ns("./modification")) and
+          termsource_modification(mod)
+        elem.children = l10n("[<strong>#{@i18n.source}:</strong> "\
+                             "#{elem.children.to_xml.strip}]")
+        elem&.next_element&.name == "termsource" and elem.next = "; "
+      end
+
       include Init
     end
   end
