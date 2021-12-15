@@ -18,6 +18,7 @@ module IsoDoc
       "test-suite" => "TS",
       "user-guide" => "UG",
       "white-paper" => "WP",
+      "technical-paper" => "TP",
       "other" => "other",
     }.freeze
 

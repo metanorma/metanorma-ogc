@@ -31,7 +31,7 @@ module Asciidoctor
                   change-request-supporting-document community-practice
                   community-standard discussion-paper engineering-report
                   reference-model release-notes standard user-guide white-paper
-                  test-suite}.include? d
+                  technical-paper test-suite}.include? d
           @warned_doctype or
             @log.add("Document Attributes", nil,
                      "'#{d}' is not a legal document type: reverting to 'standard'")

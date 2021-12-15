@@ -1973,7 +1973,10 @@
       </optional>
       <element name="name">
         <zeroOrMore>
-          <ref name="PureTextElement"/>
+          <choice>
+            <ref name="PureTextElement"/>
+            <ref name="stem"/>
+          </choice>
         </zeroOrMore>
       </element>
       <optional>
@@ -1987,7 +1990,7 @@
         </element>
       </optional>
       <optional>
-        <element name="grammar-info">
+        <element name="grammar">
           <ref name="Grammar"/>
         </element>
       </optional>

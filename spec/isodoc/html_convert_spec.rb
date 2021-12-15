@@ -282,6 +282,83 @@ RSpec.describe IsoDoc::Ogc do
       .to be_equivalent_to xmlpp(presxml)
   end
 
+  it "renders white-paper as technical-paper after cutoff date" do
+    input = <<~"INPUT"
+      <ogc-standard xmlns="#{Metanorma::Ogc::DOCUMENT_NAMESPACE}">
+      <bibdata>
+      <date type="published">2021-12-16</date>
+      <status>
+      <stage>approved</stage>
+      </status>
+      <ext>
+      <doctype>white-paper</doctype>
+      </ext>
+      </bibdata>
+      <sections/>
+      </ogc-standard>
+    INPUT
+
+    presxml = <<~OUTPUT
+      <ogc-standard xmlns='https://standards.opengeospatial.org/document' type='presentation'>
+         <bibdata>
+           <date type="published">2021-12-16</date>
+           <status>
+             <stage language=''>published</stage>
+             <stage language='en'>Published</stage>
+           </status>
+           <ext>
+             <doctype language=''>technical-paper</doctype>
+           </ext>
+         </bibdata>
+         <sections/>
+       </ogc-standard>
+    OUTPUT
+
+    expect(xmlpp(strip_guid(IsoDoc::Ogc::PresentationXMLConvert.new({})
+      .convert("test", input, true)
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
+      .to be_equivalent_to xmlpp(presxml)
+  end
+
+  it "renders white-paper as white-paper before cutoff date" do
+    input = <<~"INPUT"
+      <ogc-standard xmlns="#{Metanorma::Ogc::DOCUMENT_NAMESPACE}">
+      <bibdata>
+      <date type="issued">2021-12-15</date>
+      <status>
+      <stage>approved</stage>
+      </status>
+      <ext>
+      <doctype>white-paper</doctype>
+      </ext>
+      </bibdata>
+      <sections/>
+      </ogc-standard>
+    INPUT
+
+    presxml = <<~OUTPUT
+      <ogc-standard xmlns='https://standards.opengeospatial.org/document' type='presentation'>
+         <bibdata>
+           <date type="issued">2021-12-15</date>
+           <status>
+             <stage language=''>published</stage>
+             <stage language='en'>Published</stage>
+           </status>
+           <ext>
+             <doctype language=''>white-paper</doctype>
+           </ext>
+         </bibdata>
+         <sections/>
+       </ogc-standard>
+    OUTPUT
+
+    expect(xmlpp(strip_guid(IsoDoc::Ogc::PresentationXMLConvert.new({})
+      .convert("test", input, true)
+      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
+      .to be_equivalent_to xmlpp(presxml)
+  end
+
+
   it "processes pre" do
     input = <<~"INPUT"
       <ogc-standard xmlns="#{Metanorma::Ogc::DOCUMENT_NAMESPACE}">

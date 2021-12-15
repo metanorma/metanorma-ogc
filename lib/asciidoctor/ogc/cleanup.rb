@@ -58,6 +58,9 @@ module Asciidoctor
         super
         a = xmldoc.at("//bibdata/status/stage")
         a.text == "published" and a.children = "approved"
+        doctype = xmldoc.at("//bibdata/ext/doctype")
+        doctype.text == "technical-paper" and
+          doctype.children = "white-paper"
       end
 
       def section_names_terms_cleanup(xml)
@@ -171,16 +174,20 @@ module Asciidoctor
         xmldoc.xpath(REQRECPER).each do |r|
           next unless r["type"]
 
-          r["type"] = case r["type"]
-                      when "requirement", "recommendation", "permission"
-                        "general"
-                      when "requirements_class" then "class"
-                      when "conformance_test" then "verification"
-                      when "conformance_class" then "conformanceclass"
-                      when "abstract_test" then "abstracttest"
-                      else r["type"]
-                      end
+          requirement_type1(r)
         end
+      end
+
+      def requirement_type1(reqt)
+        reqt["type"] = case reqt["type"]
+                       when "requirement", "recommendation", "permission"
+                         "general"
+                       when "requirements_class" then "class"
+                       when "conformance_test" then "verification"
+                       when "conformance_class" then "conformanceclass"
+                       when "abstract_test" then "abstracttest"
+                       else reqt["type"]
+                       end
       end
     end
   end
