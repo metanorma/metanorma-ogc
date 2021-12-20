@@ -1217,4 +1217,34 @@ RSpec.describe Asciidoctor::Ogc do
     expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
       .to be_equivalent_to xmlpp(output)
   end
+
+  it "differentiates Normative References and References" do
+    input = <<~INPUT
+      #{ASCIIDOC_BLANK_HDR}
+
+      [bibliography]
+      == Normative References
+
+      [bibliography]
+      == References
+
+    INPUT
+    output = <<~OUTPUT
+      #{BLANK_HDR}
+        <preface>#{SECURITY}</preface>
+         <sections> </sections>
+        <bibliography>
+          <references id='_' normative='true' obligation='informative'>
+            <title>Normative references</title>
+            <p id='_'>There are no normative references in this document.</p>
+                  </references>
+          <references id='_' normative='false' obligation='informative'>
+            <title>References</title>
+          </references>
+        </bibliography>
+      </ogc-standard>
+    OUTPUT
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+      .to be_equivalent_to xmlpp(output)
+  end
 end

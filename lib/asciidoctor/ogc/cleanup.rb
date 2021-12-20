@@ -189,6 +189,16 @@ module Asciidoctor
                        else reqt["type"]
                        end
       end
+
+      def normref_cleanup(xmldoc)
+        r1 = xmldoc.at("//references[title[translate(text(), 'R', 'r') = "\
+                       "'Normative references']]")
+        r2 = xmldoc.at("//references[title[text() = 'References']]")
+        if r1 && r2
+          r2["normative"] = false
+        end
+        super
+      end
     end
   end
 end
