@@ -11,3 +11,4 @@ if File.exist? "Gemfile.devel"
 end
 
 gem "metanorma-cli"
+gem "reline", "~> 0.2.8.pre.11"

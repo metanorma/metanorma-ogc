@@ -189,14 +189,27 @@ module IsoDoc
       end
 
       def bibdata_i18n(bib)
-        stage = bib&.at(ns("./status/stage"))
         doctype = bib&.at(ns("./ext/doctype"))
+        rename_stage(bib&.at(ns("./status/stage")), doctype, bib)
+        rename_doctype(doctype, bib&.at(ns("./date[@type = 'published']")) ||
+                       bib&.at(ns("./date[@type = 'issued']")))
+        super
+      end
+
+      def rename_stage(stage, doctype, _bib)
         if stage&.text == "approved" &&
             !%w(standard abstract-specification-topic
                 community-standard).include?(doctype&.text)
           stage.children = "published"
         end
-        super
+      end
+
+      def rename_doctype(doctype, date)
+        return unless doctype&.text == "white-paper" && date
+
+        if Date.iso8601(date.text) >= Date.iso8601("2021-12-16")
+          doctype.children = "technical-paper"
+        end
       end
 
       def ol(docxml)

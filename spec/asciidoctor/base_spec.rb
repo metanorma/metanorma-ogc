@@ -160,7 +160,7 @@ RSpec.describe Asciidoctor::Ogc do
       :nodoc:
       :novalid:
       :docReference: 1000
-      :doctype: engineering-report
+      :doctype: technical-paper
       :version: 2.0
       :revdate: 2000-01-01
       :draft: 3.4
@@ -185,13 +185,13 @@ RSpec.describe Asciidoctor::Ogc do
     INPUT
 
     output = xmlpp(<<~"OUTPUT")
-          <ogc-standard xmlns="https://www.metanorma.org/ns/ogc" type="semantic" version="#{Metanorma::Ogc::VERSION}">
+      <ogc-standard xmlns="https://www.metanorma.org/ns/ogc" type="semantic" version="#{Metanorma::Ogc::VERSION}">
       <bibdata type="standard">
         <title language="en" format="text/plain">Main Title</title>
         <title format='text/plain' type='abbrev'>A</title>
         <uri>http://www.example.com</uri>
-        <docidentifier type='ogc-external'>http://www.opengis.net/doc/ER/A/2.0</docidentifier>
-        <docidentifier type="ogc-external">http://www.opengis.net/doc/PER/t14-http://www.example2.com</docidentifier>
+        <docidentifier type='ogc-external'>http://www.opengis.net/doc/TP/A/2.0</docidentifier>
+        <docidentifier type='ogc-external'>http://www.example2.com</docidentifier>
         <docidentifier type="ogc-internal">1000</docidentifier>
         <docnumber>1000</docnumber>
                  <date type="created">
@@ -257,7 +257,7 @@ RSpec.describe Asciidoctor::Ogc do
           </owner>
         </copyright>
         <ext>
-        <doctype>engineering-report</doctype>
+        <doctype>white-paper</doctype>
         </ext>
       </bibdata>
       <preface>#{SECURITY.sub(/standard/, 'document')}</preface>
