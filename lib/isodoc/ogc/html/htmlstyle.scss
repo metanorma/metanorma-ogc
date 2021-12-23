@@ -173,14 +173,14 @@ p {
   margin-bottom: 1em;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   color: #00335b;
   font-weight: 400;
   margin-top: 1.6em;
   margin-bottom: 0.3em;
 }
 
-h1 {
+h1, .h1 {
   font-size: 1.8em;
   text-transform: uppercase;
   margin-top: 2em;
@@ -190,7 +190,7 @@ h1 {
   }
 }
 
-h2 {
+h2, .h2 {
   margin-top: 1.3em;
   font-size: 1.7em;
   font-weight: 300;
@@ -200,13 +200,13 @@ h2 {
   }
 }
 
-h3 {
+h3, .h3 {
   margin-top: 1.3em;
   font-size: 1.5em;
   font-weight: 100;
 }
 
-h4 {
+h4, .h4 {
   font-size: 1.4em;
 }
 
@@ -556,12 +556,12 @@ a.anchorjs-link {
 }
 
 @media print {
-  h1, h2, h3, h4 {
+  h1, h2, h3, h4, .h1, .h2, .h3, .h4 {
     page-break-after: avoid;
     margin-top: 1.2em;
   }
 
-  h1 {
+  h1, .h1 {
     font-size: 1.5em;
     line-height: 1.5;
 
@@ -571,11 +571,11 @@ a.anchorjs-link {
     }
   }
 
-  h2 {
+  h2, .h2 {
     font-size: 1.2em
   }
 
-  h3 {
+  h3, .h3 {
     font-size: 1em;
   }
 

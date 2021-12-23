@@ -435,7 +435,7 @@ div.figure, p.figure
         {text-align: center;}
 
 
-h1
+h1, .h1
 	{mso-style-priority:1;
 	mso-style-unhide:no;
 	mso-style-qformat:yes;
@@ -449,8 +449,6 @@ h1
 	mso-add-space:auto;
 	mso-pagination:widow-orphan lines-together;
 	page-break-after:avoid;
-	mso-outline-level:1;
-	mso-list:l1 level1 lfo6;
 	tab-stops:0.7cm;
 	border:none;
 	mso-border-bottom-alt:solid #152B4D 2.25pt;
@@ -473,6 +471,10 @@ h1
 	mso-ansi-language:EN-US;
 	mso-fareast-language:EN-US;
 	font-weight:normal;}
+h1 {
+	mso-outline-level:1;
+	mso-list:l1 level1 lfo6;
+}
 /*
 h1.Annex
 	{mso-style-priority:1;
@@ -504,7 +506,7 @@ h1.Annex
 	mso-fareast-language:JA;
 	mso-bidi-font-weight:normal;}
 */
-.h2Annex, h2
+.h2Annex, h2, .h2
         {mso-style-priority:2;
         mso-style-unhide:no;
         mso-style-qformat:yes;
@@ -534,7 +536,7 @@ h2
 	{
 	mso-list:l1 level2 lfo6;
       }
-h3
+h3, .h3
 	{mso-style-priority:3;
 	mso-style-unhide:no;
 	mso-style-qformat:yes;
@@ -549,7 +551,6 @@ h3
 	line-height:107%;
 	mso-pagination:widow-orphan lines-together;
 	page-break-after:avoid;
-	mso-outline-level:3;
 	tab-stops:1.3cm;
 	font-size:12.0pt;
 	font-family:$headerfont;
@@ -560,7 +561,10 @@ h3
 	mso-fareast-language:EN-US;
 	font-weight:bold;
 	mso-bidi-font-weight:normal;}
-h4
+h3 {
+	mso-outline-level:3;
+}
+h4, .h4
 	{mso-style-priority:4;
 	mso-style-unhide:no;
 	mso-style-qformat:yes;
@@ -576,7 +580,6 @@ h4
 	tab-stops:1.6cm;
 	mso-pagination:widow-orphan lines-together;
 	page-break-after:avoid;
-	mso-outline-level:4;
 	font-size:$normalfontsize;
 	font-family:$headerfont;
 	color:#1F4E79;
@@ -586,7 +589,10 @@ h4
 	mso-fareast-language:EN-US;
 	font-weight:normal;
 	font-style:italic;}
-h5
+h4 {
+	mso-outline-level:4;
+}
+h5, .h5
 	{mso-style-priority:5;
 	mso-style-unhide:no;
 	mso-style-qformat:yes;
@@ -602,7 +608,6 @@ h5
 	tab-stops:1.9cm;
 	mso-pagination:widow-orphan lines-together;
 	page-break-after:avoid;
-	mso-outline-level:5;
 	font-size:$normalfontsize;
 	font-family:$headerfont;
 	color:#1F4E79;
@@ -611,7 +616,10 @@ h5
 	mso-ansi-language:EN-US;
 	mso-fareast-language:EN-US;
 	font-weight:normal;}
-h6
+h5 {
+	mso-outline-level:5;
+}
+h6, .h6
 	{mso-style-priority:6;
 	mso-style-unhide:no;
 	mso-style-qformat:yes;
@@ -627,7 +635,6 @@ h6
 	tab-stops:2.2cm;
 	mso-pagination:widow-orphan lines-together;
 	page-break-after:avoid;
-	mso-outline-level:6;
 	font-size:$normalfontsize;
 	font-family:$headerfont;
 	mso-fareast-font-family:"MS Gothic";
@@ -641,6 +648,9 @@ h6
 	mso-fareast-language:EN-US;
 	font-weight:bold;
 	mso-bidi-font-weight:normal;}
+h6 {
+	mso-outline-level:6;
+}
 p.MsoToc1, li.MsoToc1, div.MsoToc1
 	{mso-style-priority:39;
 	mso-style-unhide:no;
