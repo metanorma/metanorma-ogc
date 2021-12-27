@@ -1,5 +1,5 @@
 module Metanorma
   module Ogc
-    VERSION = "1.5.4.1".freeze
+    VERSION = "1.5.5".freeze
   end
 end
