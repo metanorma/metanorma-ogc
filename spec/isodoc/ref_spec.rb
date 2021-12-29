@@ -582,6 +582,7 @@ RSpec.describe IsoDoc::Ogc do
               <note><name>NOTE</name><p>This is another annotation of document ISSN.</p></note>
               <bibitem id="ISO3696" type="standard">
                 <title format="text/plain">Water for analytical laboratory use</title>
+                <docidentifier type='metanorma-ordinal'>[1]</docidentifier>
                 <docidentifier type="ISO">ISO 3696</docidentifier>
                 <contributor>
                   <role type="publisher"/>
@@ -596,6 +597,7 @@ RSpec.describe IsoDoc::Ogc do
               </bibitem>
               <bibitem id='ref10a'>
         <formattedref format='application/x-isodoc+xml'><em>Appelation of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</em> (see <link target='http://www.icc.or.at'/>)</formattedref>
+        <docidentifier type='metanorma-ordinal'>[2]</docidentifier>
         <docidentifier>ABC</docidentifier>
       </bibitem>
               <bibitem id="ref11">
@@ -631,6 +633,7 @@ RSpec.describe IsoDoc::Ogc do
                   </person>
                 </contributor>
                 <title>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</title>
+                <docidentifier type='metanorma-ordinal'>[3]</docidentifier>
                 <docidentifier type="IETF">IETF RFC 10</docidentifier>
               </bibitem>
               <bibitem id="ref12">
@@ -643,6 +646,7 @@ RSpec.describe IsoDoc::Ogc do
         <title format='text/plain' language='en' script='Latn'>Hypertext Transfer Protocol&#x2009;&#x2014;&#x2009;HTTP/1.1</title>
         <uri type='xml'>https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</uri>
         <uri type='src'>https://www.rfc-editor.org/info/rfc2616</uri>
+        <docidentifier type='metanorma-ordinal'>[4]</docidentifier>
         <docidentifier type='IETF'>IETF RFC 2616</docidentifier>
         <docidentifier type='rfc-anchor'>RFC2616</docidentifier>
         <docidentifier type='DOI'>DOI 10.17487/RFC2616</docidentifier>
