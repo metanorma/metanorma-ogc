@@ -134,6 +134,16 @@ module Asciidoctor
         super
       end
 
+      def set_obligation(attrs, node)
+        if node.attr("style") == "appendix" && node.level == 1
+          attrs[:obligation] = if node.attributes.has_key?("obligation")
+                                 node.attr("obligation")
+                               else "informative"
+                               end
+        else super
+        end
+      end
+
       def presentation_xml_converter(node)
         IsoDoc::Ogc::PresentationXMLConvert.new(html_extract_attributes(node))
       end
