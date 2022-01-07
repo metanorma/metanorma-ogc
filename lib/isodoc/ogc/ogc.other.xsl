@@ -1954,6 +1954,7 @@
 		
 		
 		
+		
 					
 			<xsl:attribute name="margin-top">10pt</xsl:attribute>
 			<xsl:attribute name="margin-bottom">10pt</xsl:attribute>
@@ -1967,7 +1968,9 @@
 		
 		
 		
+		
 	</xsl:attribute-set><xsl:attribute-set name="example-name-style">
+		<xsl:attribute name="keep-with-next">always</xsl:attribute>
 		
 		
 		
@@ -1979,7 +1982,6 @@
 		
 		
 			<xsl:attribute name="font-weight">bold</xsl:attribute>
-			<xsl:attribute name="keep-with-next">always</xsl:attribute>			 
 		
 		
 				
@@ -1988,6 +1990,7 @@
 		
 		
 	</xsl:attribute-set><xsl:attribute-set name="example-p-style">
+		
 		
 		
 		
@@ -4614,9 +4617,9 @@
 		<fo:inline role="H{$level}"><xsl:apply-templates/></fo:inline>
 	</xsl:template><xsl:template match="*[local-name()='appendix']//*[local-name()='example']" priority="2">
 		<fo:block id="{@id}" xsl:use-attribute-sets="appendix-example-style">			
-			<xsl:apply-templates select="*[local-name()='name']" mode="presentation"/>
+			<xsl:apply-templates select="*[local-name()='name']"/>
 		</fo:block>
-		<xsl:apply-templates/>
+		<xsl:apply-templates select="node()[not(local-name()='name')]"/>
 	</xsl:template><xsl:template match="*[local-name() = 'callout']">		
 		<fo:basic-link internal-destination="{@target}" fox:alt-text="{@target}">&lt;<xsl:apply-templates/>&gt;</fo:basic-link>
 	</xsl:template><xsl:template match="*[local-name() = 'annotation']">
@@ -5942,42 +5945,48 @@
 		<fo:block id="{@id}" xsl:use-attribute-sets="example-style">
 			
 			
-			<xsl:apply-templates select="*[local-name()='name']" mode="presentation"/>
-			
-			<xsl:variable name="element">
+			<xsl:variable name="fo_element">
+				<xsl:if test=".//*[local-name() = 'table'] or .//*[local-name() = 'dl']">block</xsl:if> 
 								
 				inline
-				<xsl:if test=".//*[local-name() = 'table']">block</xsl:if> 
+				
 			</xsl:variable>
 			
+			<!-- display 'EXAMPLE' -->
+			<xsl:apply-templates select="*[local-name()='name']">
+				<xsl:with-param name="fo_element" select="$fo_element"/>
+			</xsl:apply-templates>
+			
 			<xsl:choose>
-				<xsl:when test="contains(normalize-space($element), 'block')">
-					<fo:block xsl:use-attribute-sets="example-body-style">
-						<xsl:apply-templates/>
-					</fo:block>
+				<xsl:when test="contains(normalize-space($fo_element), 'block')">
+					<fo:block-container xsl:use-attribute-sets="example-body-style">
+						<fo:block-container margin-left="0mm" margin-right="0mm">
+							<xsl:apply-templates select="node()[not(local-name() = 'name')]">
+								<xsl:with-param name="fo_element" select="$fo_element"/>
+							</xsl:apply-templates>
+						</fo:block-container>
+					</fo:block-container>
 				</xsl:when>
 				<xsl:otherwise>
 					<fo:inline>
-						<xsl:apply-templates/>
+						<xsl:apply-templates select="node()[not(local-name() = 'name')]">
+							<xsl:with-param name="fo_element" select="$fo_element"/>
+						</xsl:apply-templates>
 					</fo:inline>
 				</xsl:otherwise>
 			</xsl:choose>
 			
 		</fo:block>
-	</xsl:template><xsl:template match="*[local-name() = 'example']/*[local-name() = 'name']"/><xsl:template match="*[local-name() = 'example']/*[local-name() = 'name']" mode="presentation">
-
-		<xsl:variable name="element">
-			
-			inline
-			<xsl:if test="following-sibling::*[1][local-name() = 'table']">block</xsl:if> 
-		</xsl:variable>		
+	</xsl:template><xsl:template match="*[local-name() = 'example']/*[local-name() = 'name']">
+		<xsl:param name="fo_element">block</xsl:param>
+	
 		<xsl:choose>
 			<xsl:when test="ancestor::*[local-name() = 'appendix']">
 				<fo:inline>
 					<xsl:apply-templates/>
 				</fo:inline>
 			</xsl:when>
-			<xsl:when test="contains(normalize-space($element), 'block')">
+			<xsl:when test="contains(normalize-space($fo_element), 'block')">
 				<fo:block xsl:use-attribute-sets="example-name-style">
 					<xsl:apply-templates/>
 				</fo:block>
@@ -5990,14 +5999,15 @@
 		</xsl:choose>
 
 	</xsl:template><xsl:template match="*[local-name() = 'example']/*[local-name() = 'p']">
+		<xsl:param name="fo_element">block</xsl:param>
+		
 		<xsl:variable name="num"><xsl:number/></xsl:variable>
 		<xsl:variable name="element">
 			
-			
-			inline
+			<xsl:value-of select="$fo_element"/>
 		</xsl:variable>		
 		<xsl:choose>			
-			<xsl:when test="normalize-space($element) = 'block'">
+			<xsl:when test="starts-with(normalize-space($element), 'block')">
 				<fo:block xsl:use-attribute-sets="example-p-style">
 					
 					<xsl:apply-templates/>
