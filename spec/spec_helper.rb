@@ -72,7 +72,7 @@ HDR
 BOILERPLATE =
   #HTMLEntities.new.decode(
   (
-    File.read(File.join(File.dirname(__FILE__), "..", "lib", "asciidoctor", "ogc", "boilerplate.xml"), encoding: "utf-8")
+    File.read(File.join(File.dirname(__FILE__), "..", "lib", "metanorma", "ogc", "boilerplate.xml"), encoding: "utf-8")
     .gsub(/<legal-statement>.+<\/legal-statement>/m, "<legal-statement><clause> <title>Notice</title> <p>This document is an OGC Member approved international standard. This document is available on a royalty free, non-discriminatory basis. Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation.  </p> </clause></legal-statement>")
     .gsub(/\{% if doctype == "Standard" %\}\s*(<clause id="boilerplate-standard-feedback">.+?)\{% endif %\}/m, "\\1")
     .gsub(/\{\{ docyear \}\}/, Date.today.year.to_s)

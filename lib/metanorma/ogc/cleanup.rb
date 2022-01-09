@@ -1,4 +1,4 @@
-module Asciidoctor
+module Metanorma
   module Ogc
     class Converter < Standoc::Converter
       def sections_cleanup(xml)
