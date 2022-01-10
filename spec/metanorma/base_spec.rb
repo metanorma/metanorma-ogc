@@ -1,7 +1,7 @@
 require "spec_helper"
 require "fileutils"
 
-RSpec.describe Asciidoctor::Ogc do
+RSpec.describe Metanorma::Ogc do
   it "processes default metadata" do
     input = <<~"INPUT"
       = Document title

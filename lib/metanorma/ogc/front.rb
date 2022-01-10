@@ -1,8 +1,8 @@
 require "asciidoctor"
-require "asciidoctor/standoc/converter"
+require "metanorma/standoc/converter"
 require "fileutils"
 
-module Asciidoctor
+module Metanorma
   module Ogc
     class Converter < Standoc::Converter
       def metadata_author(node, xml)

@@ -1,7 +1,7 @@
 require "spec_helper"
 require "fileutils"
 
-RSpec.describe Asciidoctor::Ogc do
+RSpec.describe Metanorma::Ogc do
   it "processes a blank document" do
     input = <<~"INPUT"
       #{ASCIIDOC_BLANK_HDR}
