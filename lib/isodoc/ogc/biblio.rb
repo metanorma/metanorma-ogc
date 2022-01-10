@@ -12,7 +12,7 @@ module IsoDoc
         list.p **attr_code(iso_bibitem_entry_attrs(bib, bibliography)) do |r|
           id = bibitem_ref_code(bib)
           identifier = render_identifier(id)
-          identifier[1] = nil
+          identifier[:sdo] = nil
           if bibliography
             ref_entry_code(r, ordinal, identifier, id)
           end
@@ -124,7 +124,7 @@ module IsoDoc
           u = extract_uri(bib)
           out << "#{author || pub_abbrev}: " if author || pub_abbrev
           id = render_identifier(inline_bibitem_ref_code(bib))
-          out << id[1] if id[1]
+          out << id[:sdo] if id[:sdo]
           out << " (Draft)" if ogc_draft_ref?(bib)
           out << ", "
           out.i do |i|
@@ -143,13 +143,14 @@ module IsoDoc
       def inline_bibitem_ref_code(bib)
         id = bib.at(ns("./docidentifier[not(@type = 'DOI' "\
                        "or @type = 'metanorma' or @type = 'ISSN' "\
-                       "or @type = 'ISBN' or @type = 'rfc-anchor')]"))
-        id ||= bib.at(ns("./docidentifier[not(@type = 'metanorma')]"))
-        return [nil, id, nil] if id
+                       "or @type = 'ISBN' or @type = 'metanorma-ordinal')]"))
+        id ||= bib.at(ns("./docidentifier[not(@type = 'metanorma' or "\
+                         "@type = 'metanorma-ordinal')]"))
+        return [nil, id, nil, nil] if id
 
         id = Nokogiri::XML::Node.new("docidentifier", bib.document)
         id << "(NO ID)"
-        [nil, id, nil]
+        [nil, id, nil, nil]
       end
     end
   end

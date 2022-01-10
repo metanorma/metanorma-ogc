@@ -213,9 +213,7 @@ module IsoDoc
       end
 
       def ol(docxml)
-        docxml.xpath(ns("//ol")).each do |f|
-          ol1(f)
-        end
+        docxml.xpath(ns("//ol")).each { |f| ol1(f) }
       end
 
       def ol1(elem)
@@ -232,6 +230,11 @@ module IsoDoc
         end
         elem.children = l10n("[<strong>#{@i18n.source}:</strong> "\
                              "#{elem.children.to_xml.strip}]")
+      end
+
+      def bibliography_bibitem_number_skip(bibitem)
+        @xrefs.klass.implicit_reference(bibitem) ||
+          bibitem.at(ns(".//docidentifier[@type = 'metanorma-ordinal']"))
       end
 
       include Init
