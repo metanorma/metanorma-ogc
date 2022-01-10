@@ -1,11 +1,11 @@
 require "asciidoctor"
-require "asciidoctor/standoc/converter"
+require "metanorma/standoc/converter"
 require "fileutils"
 require_relative "front"
 require_relative "validate"
 require_relative "cleanup"
 
-module Asciidoctor
+module Metanorma
   module Ogc
     # A {Converter} implementation that generates RSD output, and a document
     # schema encapsulation of the document for validation
@@ -132,6 +132,16 @@ module Asciidoctor
           return requirement(node, "requirement")
         end
         super
+      end
+
+      def set_obligation(attrs, node)
+        if node.attr("style") == "appendix" && node.level == 1
+          attrs[:obligation] = if node.attributes.has_key?("obligation")
+                                 node.attr("obligation")
+                               else "informative"
+                               end
+        else super
+        end
       end
 
       def presentation_xml_converter(node)

@@ -1,7 +1,7 @@
 require "spec_helper"
 require "fileutils"
 
-RSpec.describe Asciidoctor::Ogc do
+RSpec.describe Metanorma::Ogc do
   it "processes default metadata" do
     input = <<~"INPUT"
       = Document title
@@ -749,7 +749,7 @@ RSpec.describe Asciidoctor::Ogc do
       #{BLANK_HDR}
       <preface>#{SECURITY}</preface>
       <sections> </sections>
-      <annex id='_' obligation='normative'>
+      <annex id='_' obligation='informative'>
         <title>Glossary</title>
         <terms id='_' obligation='normative'>
           <term id='term-term'>
@@ -757,7 +757,7 @@ RSpec.describe Asciidoctor::Ogc do
           </term>
         </terms>
       </annex>
-      <annex id='_' obligation='normative'>
+      <annex id='_' obligation='informative'>
         <title>Appendix</title>
         <p id='_'>
           <concept>
@@ -785,7 +785,7 @@ RSpec.describe Asciidoctor::Ogc do
             #{BLANK_HDR}
           <preface>#{SECURITY}</preface>
           <sections> </sections>
-      <annex id='_' obligation='normative'>
+      <annex id='_' obligation='informative'>
         <title>Glossarium</title>
         <terms id='_' obligation='normative'>
           <term id='term-glossaire'>
@@ -857,7 +857,7 @@ RSpec.describe Asciidoctor::Ogc do
       </definitions>
       </clause>
                </sections>
-               <annex id='_' obligation='normative'>
+               <annex id='_' obligation='informative'>
                  <title>Glossary</title>
                    <terms id='_' obligation='normative'>
                      <title>Term Collection</title>

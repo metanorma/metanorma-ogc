@@ -1,5 +1,6 @@
 require "metanorma/ogc/version"
 require "metanorma/ogc/processor"
+require "metanorma/ogc/converter"
 
 module Metanorma
   module Ogc

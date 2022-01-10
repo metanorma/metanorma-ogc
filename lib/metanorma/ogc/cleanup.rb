@@ -1,4 +1,4 @@
-module Asciidoctor
+module Metanorma
   module Ogc
     class Converter < Standoc::Converter
       def sections_cleanup(xml)
@@ -198,6 +198,18 @@ module Asciidoctor
           r2["normative"] = false
         end
         super
+      end
+
+      def obligations_cleanup_inherit(xml)
+        xml.xpath("//annex").each do |r|
+          r["obligation"] = "informative" unless r["obligation"]
+        end
+        xml.xpath("//clause[not(ancestor::boilerplate)]").each do |r|
+          r["obligation"] = "normative" unless r["obligation"]
+        end
+        xml.xpath(::Metanorma::Standoc::Utils::SUBCLAUSE_XPATH).each do |r|
+          o = r&.at("./ancestor::*/@obligation")&.text and r["obligation"] = o
+        end
       end
     end
   end

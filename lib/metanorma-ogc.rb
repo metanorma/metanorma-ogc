@@ -1,6 +1,5 @@
 require "metanorma/ogc"
 require "asciidoctor"
-require "asciidoctor/ogc"
 require "isodoc/ogc"
 
 if defined? Metanorma
