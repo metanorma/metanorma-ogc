@@ -64,7 +64,7 @@ dl {
   }
 }
 
-#toc {
+#toc, #toc > ul > :is(.h1, .h2, .h3, .h4, .h5, .h6) {
   @include toc($colorLink: #00335b, $colorLinkActiveBg: #00335b, $colorLinkActiveFg: white);
 
   li a {
@@ -84,6 +84,11 @@ dl {
      background: none;
      box-shadow: none;
   }
+}
+
+#toc > ul > :is(.h1, .h2, .h3, .h4, .h5, .h6) {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 nav {
@@ -112,7 +117,7 @@ nav {
     margin-top: 1em;
   }
 
-  ul#toc-list {
+  ul#toc-list, ul#toc-list > :is(.h1, .h2, .h3, .h4, .h5, .h6) {
     padding: 0;
     margin: 0;
   }
@@ -173,7 +178,8 @@ p {
   margin-bottom: 1em;
 }
 
-h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
   color: #00335b;
   font-weight: 400;
   margin-top: 1.6em;
