@@ -444,4 +444,173 @@ RSpec.describe Metanorma::Ogc do
       .to include "Executive Summary only allowed for Engineering Reports!"
   end
 
+  it "warns of disconnect between requirements and conformance tests" do
+    FileUtils.rm_f "test.err"
+    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
+      = Document title
+      Author
+      :docfile: test.adoc
+      :nodoc:
+
+      [[A]]
+      [.requirement,type=requirement]
+      ====
+      ====
+
+      [[B]]
+      [.requirement,type=recommendation]
+      ====
+      ====
+
+      [[C]]
+      [.requirement,type=permission]
+      ====
+      ====
+
+      [[D]]
+      [.requirement,type=conformance_test]
+      ====
+      [%metadata]
+      subject:: <<A>>
+      ====
+
+      [[E]]
+      [.recommendation,type=conformance_test]
+      ====
+      [%metadata]
+      subject:: <<B>>
+      ====
+
+      [[F]]
+      [.permission,type=conformance_test]
+      ====
+      [%metadata]
+      subject:: <<C>>
+      ====
+
+      [[G]]
+      [.requirement,type=requirements_class]
+      ====
+      ====
+
+      [[H]]
+      [.recommendation,type=requirements_class]
+      ====
+      ====
+
+      [[I]]
+      [.permission,type=requirements_class]
+      ====
+      ====
+
+      [[J]]
+      [.requirement,type=conformance_class]
+      ====
+      [%metadata]
+      subject:: <<G>>
+      ====
+
+      [[K]]
+      [.recommendation,type=conformance_class]
+      ====
+      [%metadata]
+      subject:: <<H>>
+      ====
+
+      [[L]]
+      [.permission,type=conformance_class]
+      ====
+      [%metadata]
+      subject:: <<I>>
+      ====
+
+    INPUT
+    expect(File.read("test.err"))
+      .not_to include "no corresponding Requirement"
+    expect(File.read("test.err"))
+      .not_to include "has no corresponding Conformance test"
+    expect(File.read("test.err"))
+      .not_to include "has no corresponding Requirement class"
+    expect(File.read("test.err"))
+      .not_to include "has no corresponding Conformance class test"
+
+   FileUtils.rm_f "test.err"
+    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
+      = Document title
+      Author
+      :docfile: test.adoc
+      :nodoc:
+
+      [[A]]
+      [.requirement,type=requirement]
+      ====
+      ====
+
+      [[B]]
+      [.requirement,type=recommendation]
+      ====
+      ====
+
+      [[C]]
+      [.requirement,type=permission]
+      ====
+      ====
+
+      [[D]]
+      [.requirement,type=conformance_test]
+      ====
+      ====
+
+      [[E]]
+      [.recommendation,type=conformance_test]
+      ====
+      ====
+
+      [[F]]
+      [.permission,type=conformance_test]
+      ====
+      ====
+
+      [[G]]
+      [.requirement,type=requirements_class]
+      ====
+      ====
+
+      [[H]]
+      [.recommendation,type=requirements_class]
+      ====
+      ====
+
+      [[I]]
+      [.permission,type=requirements_class]
+      ====
+      ====
+
+      [[J]]
+      [.requirement,type=conformance_class]
+      ====
+      ====
+
+      [[K]]
+      [.recommendation,type=conformance_class]
+      ====
+      ====
+
+      [[L]]
+      [.permission,type=conformance_class]
+      ====
+      ====
+
+    INPUT
+
+    expect(File.read("test.err"))
+      .to include "Conformance test D has no corresponding Requirement"
+    expect(File.read("test.err"))
+      .to include "Requirement A has no corresponding Conformance test"
+    expect(File.read("test.err"))
+      .to include "Conformance class test J has no corresponding Requirement class"
+    expect(File.read("test.err"))
+      .to include "Requirement class G has no corresponding Conformance class test"
+
+  end
 end

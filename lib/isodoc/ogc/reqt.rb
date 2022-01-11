@@ -33,9 +33,8 @@ module IsoDoc
 
       def recommendation_name(node, out)
         b = out.add_child("<p class='#{recommendation_class(node)}'></p>").first
-        if name = node&.at(ns("./name"))&.remove
+        name = node&.at(ns("./name"))&.remove and
           name.children.each { |n| b << n }
-        end
         if title = node&.at(ns("./title"))&.remove
           b << l10n(": ") if name
           title.children.each { |n| b << n }
@@ -64,6 +63,9 @@ module IsoDoc
         oblig = node["obligation"] and out << ["Obligation", oblig]
         subj = node&.at(ns("./subject"))&.remove&.children and
           out << [rec_subj(node), subj]
+        %w(general class).include?(node["type_original"]) and
+          test = @reqt_links[node["id"]] and
+          out << ["Conformance test", "<xref target='#{test}'/>"]
         node.xpath(ns("./inherit")).each do |i|
           out << ["Dependency", i.remove.children]
         end
@@ -75,7 +77,8 @@ module IsoDoc
         return node unless node.at(ns("./component[@class = 'step']"))
 
         d = node.at(ns("./component[@class = 'step']"))
-        d = d.replace("<ol class='steps'><li>#{d.children.to_xml}</li></ol>").first
+        d = d.replace("<ol class='steps'><li>#{d.children.to_xml}</li></ol>")
+          .first
         node.xpath(ns("./component[@class = 'step']")).each do |f|
           f = f.replace("<li>#{f.children.to_xml}</li>").first
           d << f
@@ -177,6 +180,7 @@ module IsoDoc
       end
 
       def recommendation_to_table(docxml)
+        @reqt_links = reqt_links(docxml)
         docxml.xpath(ns("//recommendation")).each do |r|
           recommendation_parse1(r, "recommendation")
         end
@@ -187,6 +191,16 @@ module IsoDoc
           recommendation_parse1(r, "permission")
         end
         requirement_table_cleanup(docxml)
+      end
+
+      def reqt_links(docxml)
+        docxml.xpath(ns("//requirement | //recommendation | //permission"))
+          .each_with_object({}) do |r, m|
+            next unless %w(conformanceclass verification).include?(r["type"])
+            next unless subject = r&.at(ns("./subject/xref/@target"))&.text
+
+            m[subject] = r["id"]
+          end
       end
 
       # table nested in table: merge label and caption into a single row

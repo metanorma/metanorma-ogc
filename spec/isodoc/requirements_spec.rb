@@ -1,6 +1,7 @@
 require "spec_helper"
 
 RSpec.describe IsoDoc::Ogc do
+=begin
   it "processes permissions" do
     input = <<~INPUT
               <ogc-standard xmlns="https://standards.opengeospatial.org/document">
@@ -3280,71 +3281,71 @@ RSpec.describe IsoDoc::Ogc do
       </ogc-standard>
     PRESXML
     html = <<~OUTPUT
-           <body lang='EN-US' xml:lang='EN-US' link='blue' vlink='#954F72' class='container'>
-         <div class='title-section'>
-           <p>&#160;</p>
-         </div>
-         <br/>
-         <div class='prefatory-section'>
-           <p>&#160;</p>
-         </div>
-         <br/>
-         <div class='main-section'>
-           <br/>
-           <div id='A'>
-             <h1 class='ForewordTitle'> I. &#160; Preface </h1>
-             <table id='A1' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
-               <thead>
-                 <tr>
-                   <th colspan='2' style='vertical-align:top;' scope='colgroup' class='recommend'>
-                     <p class='RecommendationTitle'>Requirement 1</p>
-                   </th>
-                 </tr>
-               </thead>
-               <tbody>
-                 <tr>
-                   <td style='vertical-align:top;' class='recommend'>Test method type</td>
-                   <td style='vertical-align:top;' class='recommend'>
-                     <p id='_'>Manual Inspection</p>
-                   </td>
-                 </tr>
-                 <tr>
-                   <td style='vertical-align:top;' class='recommend'>Test method</td>
-                   <td style='vertical-align:top;' class='recommend'>
-                     <p id='1'>
-                       <ol type='1'>
-                         <li>
-                           <p id='2'>For each UML class defined or referenced in the Tunnel Package:</p>
-                           <ol type='a'>
-                             <li>
-                               <p id='3'>
-                                  Validate that the Implementation Specification
-                                 contains a data element which represents the same
-                                 concept as that defined for the UML class.
-                               </p>
-                             </li>
-                             <li>
-                               <p id='4'>
-                                  Validate that the data element has the same
-                                 relationships with other elements as those defined for
-                                 the UML class. Validate that those relationships have
-                                 the same source, target, direction, roles, and
-                                 multiplicies as those documented in the Conceptual
-                                 Model.
-                               </p>
-                             </li>
-                           </ol>
-                         </li>
-                       </ol>
-                     </p>
-                   </td>
-                 </tr>
-               </tbody>
-             </table>
-           </div>
-           <p class='zzSTDTitle1'/>
-         </div>
-       </body>
+          <body lang='EN-US' xml:lang='EN-US' link='blue' vlink='#954F72' class='container'>
+        <div class='title-section'>
+          <p>&#160;</p>
+        </div>
+        <br/>
+        <div class='prefatory-section'>
+          <p>&#160;</p>
+        </div>
+        <br/>
+        <div class='main-section'>
+          <br/>
+          <div id='A'>
+            <h1 class='ForewordTitle'> I. &#160; Preface </h1>
+            <table id='A1' class='recommend' style='border-collapse:collapse;border-spacing:0;'>
+              <thead>
+                <tr>
+                  <th colspan='2' style='vertical-align:top;' scope='colgroup' class='recommend'>
+                    <p class='RecommendationTitle'>Requirement 1</p>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style='vertical-align:top;' class='recommend'>Test method type</td>
+                  <td style='vertical-align:top;' class='recommend'>
+                    <p id='_'>Manual Inspection</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td style='vertical-align:top;' class='recommend'>Test method</td>
+                  <td style='vertical-align:top;' class='recommend'>
+                    <p id='1'>
+                      <ol type='1'>
+                        <li>
+                          <p id='2'>For each UML class defined or referenced in the Tunnel Package:</p>
+                          <ol type='a'>
+                            <li>
+                              <p id='3'>
+                                 Validate that the Implementation Specification
+                                contains a data element which represents the same
+                                concept as that defined for the UML class.
+                              </p>
+                            </li>
+                            <li>
+                              <p id='4'>
+                                 Validate that the data element has the same
+                                relationships with other elements as those defined for
+                                the UML class. Validate that those relationships have
+                                the same source, target, direction, roles, and
+                                multiplicies as those documented in the Conceptual
+                                Model.
+                              </p>
+                            </li>
+                          </ol>
+                        </li>
+                      </ol>
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class='zzSTDTitle1'/>
+        </div>
+      </body>
     OUTPUT
     expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({})
       .convert("test", input, true)))
@@ -3354,5 +3355,134 @@ RSpec.describe IsoDoc::Ogc do
       .gsub(%r{^.*<body}m, "<body")
       .gsub(%r{</body>.*}m, "</body>")))
       .to be_equivalent_to xmlpp(html)
+  end
+=end
+
+  it "processes bidirectional requirement/conformance tests" do
+    input = <<~INPUT
+          <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+      <preface>
+          <foreword id="A"><title>Preface</title>
+              <requirement id='A1' type="general">
+              <label>/ogc/recommendation/wfs/1</label>
+              </requirement>
+              <requirement id='A2' type="verification">
+              <label>/ogc/recommendation/wfs/2</label>
+              <subject><xref target="A1"/></subject>
+              </requirement>
+              <requirement id='A3' type="class">
+              <label>/ogc/recommendation/wfs/3</label>
+              </requirement>
+              <requirement id='A4' type="conformanceclass">
+              <label>/ogc/recommendation/wfs/4</label>
+              <subject><xref target="A3"/></subject>
+              </requirement>
+      </foreword></preface>
+      </ogc-standard>
+    INPUT
+    presxml = <<~PRESXML
+           <ogc-standard xmlns='https://standards.opengeospatial.org/document' type='presentation'>
+         <preface>
+           <foreword id='A' displayorder='1'>
+             <title depth='1'>
+               I.
+               <tab/>
+               Preface
+             </title>
+             <table id='A1' type='recommend' class='requirement'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTitle'>Requirement 1</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>
+                     <p>/ogc/recommendation/wfs/1</p>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td>Conformance test</td>
+                   <td>
+                     <xref target='A2'>Preface, Requirement test 1</xref>
+                   </td>
+                 </tr>
+               </tbody>
+             </table>
+             <table id='A2' type='recommendtest' class='requirement'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTestTitle'>Requirement test 1</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>
+                     <p>/ogc/recommendation/wfs/2</p>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td>Requirement</td>
+                   <td>
+                     <xref target='A1'>Preface, Requirement 1</xref>
+                   </td>
+                 </tr>
+               </tbody>
+             </table>
+             <table id='A3' type='recommendclass' class='requirement'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTitle'>Requirements class 1</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>
+                     <p>/ogc/recommendation/wfs/3</p>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td>Conformance test</td>
+                   <td>
+                     <xref target='A4'>Preface, Conformance class 1</xref>
+                   </td>
+                 </tr>
+               </tbody>
+             </table>
+             <table id='A4' type='recommendclass' class='requirement'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTitle'>Conformance class 1</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>
+                     <p>/ogc/recommendation/wfs/4</p>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td>Requirements class</td>
+                   <td>
+                     <xref target='A3'>Preface, Requirements class 1</xref>
+                   </td>
+                 </tr>
+               </tbody>
+             </table>
+           </foreword>
+         </preface>
+       </ogc-standard>
+    PRESXML
+    expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({})
+      .convert("test", input, true)))
+      .to be_equivalent_to xmlpp(presxml)
   end
 end
