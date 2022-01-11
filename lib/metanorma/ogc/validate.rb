@@ -14,6 +14,44 @@ module Metanorma
       def content_validate(doc)
         super
         bibdata_validate(doc.root)
+        reqt_link_validate(doc.root)
+      end
+
+      def reqt_link_validate(docxml)
+        ids = reqt_links(docxml)
+        reqt_to_conformance(ids, "general", "verification", "Requirement",
+                            "Conformance test")
+        reqt_to_conformance(ids, "class", "conformanceclass",
+                            "Requirement class", "Conformance class test")
+        conformance_to_reqt(ids, "general", "verification", "Requirement",
+                            "Conformance test")
+        conformance_to_reqt(ids, "class", "conformanceclass",
+                            "Requirement class", "Conformance class test")
+      end
+
+      def reqt_to_conformance(ids, reqtclass, confclass, reqtlabel, conflabel)
+        ids[reqtclass]&.each do |r|
+          ids[confclass]&.any? { |x| x[:subject] == r[:id] } or
+            @log.add("Requirements", r[:elem],
+                     "#{reqtlabel} #{r[:id]} has no corresponding #{conflabel}")
+        end
+      end
+
+      def conformance_to_reqt(ids, reqtclass, confclass, reqtlabel, conflabel)
+        ids[confclass]&.each do |x|
+          ids[reqtclass]&.any? { |r| x[:subject] == r[:id] } or
+            @log.add("Requirements", x[:elem],
+                     "#{conflabel} #{x[:id]} has no corresponding #{reqtlabel}")
+        end
+      end
+
+      def reqt_links(docxml)
+        docxml.xpath("//requirement | //recommendation | //permission")
+          .each_with_object({}) do |r, m|
+            m[r["type"]] ||= []
+            m[r["type"]] << { id: r["id"], elem: r,
+                              subject: r&.at("./subject/xref/@target")&.text }
+          end
       end
 
       def bibdata_validate(doc)
