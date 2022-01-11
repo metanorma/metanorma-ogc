@@ -750,14 +750,6 @@ RSpec.describe Metanorma::Ogc do
       <preface>#{SECURITY}</preface>
       <sections> </sections>
       <annex id='_' obligation='informative'>
-        <title>Glossary</title>
-        <terms id='_' obligation='normative'>
-          <term id='term-term'>
-            <preferred><expression><name>Term</name></expression></preferred>
-          </term>
-        </terms>
-      </annex>
-      <annex id='_' obligation='informative'>
         <title>Appendix</title>
         <p id='_'>
           <concept>
@@ -766,6 +758,14 @@ RSpec.describe Metanorma::Ogc do
             <xref target='term-term'/>
           </concept>
         </p>
+      </annex>
+            <annex id='_' obligation='informative'>
+        <title>Glossary</title>
+        <terms id='_' obligation='normative'>
+          <term id='term-term'>
+            <preferred><expression><name>Term</name></expression></preferred>
+          </term>
+        </terms>
       </annex>
       </ogc-standard>
     OUTPUT
@@ -1242,6 +1242,89 @@ RSpec.describe Metanorma::Ogc do
             <title>References</title>
           </references>
         </bibliography>
+      </ogc-standard>
+    OUTPUT
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+      .to be_equivalent_to xmlpp(output)
+  end
+
+  it "sorts annexes" do
+    input = <<~INPUT
+      #{ASCIIDOC_BLANK_HDR}
+
+      [appendix]
+      == A
+
+      [appendix]
+      == Revision History
+
+      [appendix]
+      == B
+
+    INPUT
+    output = <<~OUTPUT
+      #{BLANK_HDR}
+      <preface>#{SECURITY}</preface>
+      <sections> </sections>
+        <annex id='_' obligation='informative'>
+          <title>A</title>
+        </annex>
+        <annex id='_' obligation='informative'>
+          <title>B</title>
+        </annex>
+        <annex id='_' obligation='informative'>
+          <title>Revision History</title>
+        </annex>
+      </ogc-standard>
+    OUTPUT
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+      .to be_equivalent_to xmlpp(output)
+  end
+
+  it "sorts annexes #2" do
+    input = <<~INPUT
+      #{ASCIIDOC_BLANK_HDR}
+
+      [appendix]
+      == A
+
+      [appendix]
+      == Revision History
+
+      [appendix]
+      == Glossary
+
+      === Term
+
+      [appendix]
+      == B
+
+    INPUT
+    output = <<~OUTPUT
+      #{BLANK_HDR}
+      <preface>#{SECURITY}</preface>
+      <sections> </sections>
+        <annex id='_' obligation='informative'>
+          <title>A</title>
+        </annex>
+        <annex id='_' obligation='informative'>
+          <title>B</title>
+        </annex>
+        <annex id='_' obligation='informative'>
+          <title>Glossary</title>
+          <terms id='_' obligation='normative'>
+            <term id='term-term'>
+              <preferred>
+                <expression>
+                  <name>Term</name>
+                </expression>
+              </preferred>
+            </term>
+          </terms>
+        </annex>
+        <annex id='_' obligation='informative'>
+          <title>Revision History</title>
+        </annex>
       </ogc-standard>
     OUTPUT
     expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))

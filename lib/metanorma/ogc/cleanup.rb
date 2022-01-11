@@ -211,6 +211,21 @@ module Metanorma
           o = r&.at("./ancestor::*/@obligation")&.text and r["obligation"] = o
         end
       end
+
+      def sections_order_cleanup(xml)
+        super
+        sort_annexes(xml)
+      end
+
+      def sort_annexes(xml)
+        last = xml.at("//annex[last()]") or return
+        last.next = "<sentinel/>" and last = last.next_element
+        gl = xml.at("//annex[.//term]") and last.previous = gl.remove
+        rev = xml.at("//annex[title[normalize-space(.) = 'Revision history']]") ||
+          xml.at("//annex[title[normalize-space(.) = 'Revision History']]") and
+          last.previous = rev.remove
+        last.remove
+      end
     end
   end
 end
