@@ -36,6 +36,18 @@ module Metanorma
         end
       end
 
+      def personal_role(node, contrib, suffix)
+        type = node.attr("role#{suffix}")&.downcase || "editor"
+        if type == "contributor"
+          contrib.role **{ type: "author" } do |r|
+            r.description do |d|
+              d << type
+            end
+          end
+        else contrib.role **{ type: type }
+        end
+      end
+
       def ogc_editor(node, xml)
         return unless node.attr("editor")
 
@@ -51,7 +63,7 @@ module Metanorma
 
       def personal_author1(node, xml, suffix)
         xml.contributor do |c|
-          c.role **{ type: node&.attr("role#{suffix}")&.downcase || "editor" }
+          personal_role(node, c, suffix)
           c.person do |p|
             p.name do |n|
               if node.attr("fullname#{suffix}")

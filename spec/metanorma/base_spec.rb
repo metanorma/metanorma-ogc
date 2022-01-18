@@ -46,6 +46,9 @@ RSpec.describe Metanorma::Ogc do
       :surname_2: Rubble
       :givenname_2: Barney
       :role_2: editor
+      :surname_3: Slaghoople
+      :givenname_3: Pearl
+      :role_3: contributor
       :previous-uri: PREVIOUS URI
       :submitting-organizations: University of Bern, Switzerland; Proctor & Gamble
       :keywords: a, b, c
@@ -104,6 +107,15 @@ RSpec.describe Metanorma::Ogc do
                </name>
              </person>
            </contributor>
+           <contributor>
+              <role type='author'><description>contributor</description></role>
+              <person>
+              <name>
+              <forename>Pearl</forename>
+              <surname>Slaghoople</surname>
+            </name>
+          </person>
+          </contributor>
            <contributor>
              <role type="publisher"/>
              <organization>
