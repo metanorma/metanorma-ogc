@@ -35,8 +35,7 @@ module IsoDoc
       def insert_security(docxml)
         s = docxml&.at(ns("//preface/clause[@type = 'security']"))&.remove or
           return
-        if a = submit_orgs_append_pt(docxml)
-          a.next = s
+        if a = submit_orgs_append_pt(docxml) then a.next = s
         else
           preface_init_insert_pt(docxml)&.children&.first
             &.add_previous_sibling(s)
@@ -46,8 +45,7 @@ module IsoDoc
       def insert_executivesummary(docxml)
         s = docxml&.at(ns("//preface/clause[@type = 'executivesummary']"))
           &.remove or return
-        if a = docxml.at(ns("//preface/abstract"))
-          a.next = s
+        if a = docxml.at(ns("//preface/abstract")) then a.next = s
         else
           preface_init_insert_pt(docxml)&.children&.first
             &.add_previous_sibling(s)
@@ -56,9 +54,7 @@ module IsoDoc
 
       def insert_submitting_orgs(docxml)
         orgs = docxml.xpath(ns(submittingorgs_path))
-          .each_with_object([]) do |org, m|
-          m << org.text
-        end
+          .each_with_object([]) { |org, m| m << org.text }
         return if orgs.empty?
 
         if a = submit_orgs_append_pt(docxml)
@@ -146,9 +142,8 @@ module IsoDoc
 
       def annex1(elem)
         lbl = @xrefs.anchor(elem["id"], :label)
-        if t = elem.at(ns("./title"))
+        t = elem.at(ns("./title")) and
           t.children = "<strong>#{t.children.to_xml}</strong>"
-        end
         prefix_name(elem, "<br/>", lbl, "title")
       end
 
@@ -188,6 +183,14 @@ module IsoDoc
         end
       end
 
+      def bibdata(docxml)
+        docxml.xpath(ns("//bibdata/contributor[@type = 'author']")).each do |a|
+          a.at(ns("./description"))&.text == "contributor" and
+            a["type"] = "contributor"
+        end
+        super
+      end
+
       def bibdata_i18n(bib)
         doctype = bib&.at(ns("./ext/doctype"))
         rename_stage(bib&.at(ns("./status/stage")), doctype, bib)
@@ -197,19 +200,17 @@ module IsoDoc
       end
 
       def rename_stage(stage, doctype, _bib)
-        if stage&.text == "approved" &&
-            !%w(standard abstract-specification-topic
-                community-standard).include?(doctype&.text)
+        stage&.text == "approved" &&
+          !%w(standard abstract-specification-topic
+              community-standard).include?(doctype&.text) and
           stage.children = "published"
-        end
       end
 
       def rename_doctype(doctype, date)
         return unless doctype&.text == "white-paper" && date
 
-        if Date.iso8601(date.text) >= Date.iso8601("2021-12-16")
+        Date.iso8601(date.text) >= Date.iso8601("2021-12-16") and
           doctype.children = "technical-paper"
-        end
       end
 
       def ol(docxml)

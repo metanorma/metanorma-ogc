@@ -37,7 +37,7 @@ style='mso-no-proof:yes;font-size:10.0pt'>Category: {{ doctype }}</span></span><
 
 {% if editors %}
 <p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
-                                                                  style='mso-no-proof:yes;font-size:10.0pt'>Editor{% if editors.size > 1 %}s{%endif}: {{ editors | join: ", " }}</span></span></p>
+                                                                  style='mso-no-proof:yes;font-size:10.0pt'>Editor{% if editors.size > 1 %}s{% endif %}: {{ editors | join: ", " }}</span></span></p>
 {% endif %}
 
 <p class="MsoNormal" align="center" style='text-align:center;line-height:18.0pt;margin-bottom:0.0pt'><b
