@@ -35,6 +35,12 @@
   -->
 
   <div class="authors">
+    {% if contributors %}
+    {% for contributor in contributors %}
+    <span>{{ contributor }} <span class="roletag">Contributor</span></span>
+    {% endfor %}
+    {% endif %}
+
     {% if editors %}
     {% for editor in editors %}
     <span>{{ editor }} <span class="roletag">Editor</span></span>

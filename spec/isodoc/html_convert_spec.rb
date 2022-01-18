@@ -53,6 +53,15 @@ RSpec.describe IsoDoc::Ogc do
           </person>
         </contributor>
         <contributor>
+          <role type="contributor"/>
+          <person>
+            <name>
+              <forename>Pearl</forename>
+              <surname>Slaghoople</surname>
+            </name>
+          </person>
+        </contributor>
+        <contributor>
           <role type="publisher"/>
           <organization>
             <name>OGC</name>
@@ -97,6 +106,7 @@ RSpec.describe IsoDoc::Ogc do
       :authors=>["Barney Rubble"],
       :circulateddate=>"XXX",
       :confirmeddate=>"XXX",
+      :contributors=>["Pearl Slaghoople"],
       :copieddate=>"XXX",
       :createddate=>"1999-01-01",
       :doc=>"http://www.example.com/doc",

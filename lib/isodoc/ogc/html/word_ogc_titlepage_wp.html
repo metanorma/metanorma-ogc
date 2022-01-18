@@ -50,9 +50,14 @@ style='mso-no-proof:yes;font-size:10.0pt'>Version: {{ edition }}</span></p>
 <p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
 style='mso-no-proof:yes;font-size:10.0pt'>Category: {{ doctype }}</span></p>
 
+{% if contributors %}
+<p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
+                                                                  style='mso-no-proof:yes;font-size:10.0pt'>Contributor{% if contributors.size > 1 %}s{% endif %}: {{ contributors | join: ", " }}</span></span></p>
+{% endif %}
+
 {% if editors %}
 <p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
-style='mso-no-proof:yes;font-size:10.0pt'>Editor: {{ editors | join: ", " }}</span></p>
+                                                                  style='mso-no-proof:yes;font-size:10.0pt'>Editor{% if editors.size > 1 %}s{%endif}: {{ editors | join: ", " }}</span></span></p>
 {% endif %}
 
 <div style="margin-top:1.0cm;">
