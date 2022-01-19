@@ -9,8 +9,6 @@
 	
 	<xsl:key name="kfn" match="*[local-name() = 'fn'][not(ancestor::*[(local-name() = 'table' or local-name() = 'figure') and not(ancestor::*[local-name() = 'name'])])]" use="@reference"/>
 	
-	<xsl:variable name="pageWidth" select="215.9"/>
-	<xsl:variable name="pageHeight" select="279.4"/>
 	<xsl:variable name="marginLeftRight1" select="25.4"/>
 	<xsl:variable name="marginLeftRight2" select="25.4"/>
 	<xsl:variable name="marginTop" select="25.4"/>
@@ -769,13 +767,6 @@
 	
 	
 	
-	<xsl:template match="ogc:pagebreak">
-		<fo:block break-after="page"/>
-		<fo:block> </fo:block>
-		<fo:block break-after="page"/>
-	</xsl:template>
-	
-	
 	<xsl:template name="insertHeaderFooter">
 	
 		<fo:static-content flow-name="xsl-footnote-separator">
@@ -848,7 +839,11 @@
 		</xsl:choose>
 	</xsl:template>
 	
-<xsl:variable name="titles_">
+<xsl:variable name="pageWidth_">
+		215.9
+	</xsl:variable><xsl:variable name="pageWidth" select="normalize-space($pageWidth_)"/><xsl:variable name="pageHeight_">
+		279.4
+	</xsl:variable><xsl:variable name="pageHeight" select="normalize-space($pageHeight_)"/><xsl:variable name="titles_">
 				
 		<title-edition lang="en">
 			
@@ -1870,6 +1865,7 @@
 	</xsl:attribute-set><xsl:attribute-set name="bibitem-non-normative-list-body-style">
 		
 		
+		
 	</xsl:attribute-set><xsl:attribute-set name="bibitem-note-fn-style">
 		<xsl:attribute name="keep-with-previous.within-line">always</xsl:attribute>
 		<xsl:attribute name="font-size">65%</xsl:attribute>
@@ -2120,7 +2116,7 @@
 							<xsl:apply-templates select="*[local-name()='thead']" mode="process_tbody"/>
 						</xsl:when>
 						<xsl:otherwise>
-							<xsl:apply-templates select="node()[not(local-name() = 'name')]"/>
+							<xsl:apply-templates select="node()[not(local-name() = 'name') and not(local-name() = 'note')        and not(local-name() = 'thead') and not(local-name() = 'tfoot')]"/> <!-- process all table' elements, except name, header, footer and note that renders separaterely -->
 						</xsl:otherwise>
 					</xsl:choose>
 					
@@ -2336,7 +2332,7 @@
 		
 		<xsl:variable name="math_text" select="normalize-space(xalan:nodeset($mathml))"/>
 		<xsl:value-of select="translate($math_text, ' ', '#')"/><!-- mathml images as one 'word' without spaces -->
-	</xsl:template><xsl:template match="*[local-name()='table2']"/><xsl:template match="*[local-name()='thead']"/><xsl:template match="*[local-name()='thead']" mode="process">
+	</xsl:template><xsl:template match="*[local-name()='thead']">
 		<xsl:param name="cols-count"/>
 		<fo:table-header>
 			
@@ -2361,13 +2357,13 @@
 		<fo:table-body>
 			<xsl:apply-templates/>
 		</fo:table-body>
-	</xsl:template><xsl:template match="*[local-name()='tfoot']"/><xsl:template match="*[local-name()='tfoot']" mode="process">
+	</xsl:template><xsl:template match="*[local-name()='tfoot']">
 		<xsl:apply-templates/>
 	</xsl:template><xsl:template name="insertTableFooter">
 		<xsl:param name="cols-count"/>
 		<xsl:if test="../*[local-name()='tfoot']">
 			<fo:table-footer>			
-				<xsl:apply-templates select="../*[local-name()='tfoot']" mode="process"/>
+				<xsl:apply-templates select="../*[local-name()='tfoot']"/>
 			</fo:table-footer>
 		</xsl:if>
 	</xsl:template><xsl:template name="insertTableFooterInSeparateTable">
@@ -2453,7 +2449,7 @@
 							
 							<!-- except gb and bsi  -->
 							
-									<xsl:apply-templates select="../*[local-name()='note']" mode="process"/>
+									<xsl:apply-templates select="../*[local-name()='note']"/>
 								
 							
 							
@@ -2491,7 +2487,7 @@
 		
 		
 		
-		<xsl:apply-templates select="../*[local-name()='thead']" mode="process">
+		<xsl:apply-templates select="../*[local-name()='thead']">
 			<xsl:with-param name="cols-count" select="$cols-count"/>
 		</xsl:apply-templates>
 		
@@ -2633,7 +2629,7 @@
 				<xsl:apply-templates/>
 			</fo:block>			
 		</fo:table-cell>
-	</xsl:template><xsl:template match="*[local-name()='table']/*[local-name()='note']" priority="2"/><xsl:template match="*[local-name()='table']/*[local-name()='note']" mode="process">
+	</xsl:template><xsl:template match="*[local-name()='table']/*[local-name()='note']" priority="2">
 
 		<fo:block xsl:use-attribute-sets="table-note-style">
 
@@ -2656,10 +2652,10 @@
 			
 			
 			
-			<xsl:apply-templates select="node()[not(local-name() = 'name')]" mode="process"/>
+			<xsl:apply-templates select="node()[not(local-name() = 'name')]"/>
 		</fo:block>
 		
-	</xsl:template><xsl:template match="*[local-name()='table']/*[local-name()='note']/*[local-name()='name']" mode="process"/><xsl:template match="*[local-name()='table']/*[local-name()='note']/*[local-name()='p']" mode="process">
+	</xsl:template><xsl:template match="*[local-name()='table']/*[local-name()='note']/*[local-name()='p']" priority="2">
 		<xsl:apply-templates/>
 	</xsl:template><xsl:template match="*[local-name() = 'fn'][not(ancestor::*[(local-name() = 'table' or local-name() = 'figure') and not(ancestor::*[local-name() = 'name'])])]" priority="2" name="fn">
 	
@@ -3199,7 +3195,9 @@
 			</td>
 			<td>
 				
-						<xsl:apply-templates select="following-sibling::*[local-name()='dd'][1]" mode="process"/>
+						<xsl:apply-templates select="following-sibling::*[local-name()='dd'][1]">
+							<xsl:with-param name="process">true</xsl:with-param>
+						</xsl:apply-templates>
 					
 			</td>
 		</tr>
@@ -3226,15 +3224,20 @@
 				<fo:block>
 					
 
-					<xsl:apply-templates select="following-sibling::*[local-name()='dd'][1]" mode="process"/>
+					<xsl:apply-templates select="following-sibling::*[local-name()='dd'][1]">
+						<xsl:with-param name="process">true</xsl:with-param>
+					</xsl:apply-templates>
 				</fo:block>
 			</fo:table-cell>
 		</fo:table-row>
 	</xsl:template><xsl:template match="*[local-name()='dd']" mode="dl"/><xsl:template match="*[local-name()='dd']" mode="dl_process">
 		<xsl:apply-templates/>
-	</xsl:template><xsl:template match="*[local-name()='dd']"/><xsl:template match="*[local-name()='dd']" mode="process">
-		<xsl:apply-templates select="@language"/>
-		<xsl:apply-templates/>
+	</xsl:template><xsl:template match="*[local-name()='dd']">
+		<xsl:param name="process">false</xsl:param>
+		<xsl:if test="$process = 'true'">
+			<xsl:apply-templates select="@language"/>
+			<xsl:apply-templates/>
+		</xsl:if>
 	</xsl:template><xsl:template match="*[local-name()='dd']/*[local-name()='p']" mode="inline">
 		<fo:inline><xsl:text> </xsl:text><xsl:apply-templates/></fo:inline>
 	</xsl:template><xsl:template match="*[local-name()='em']">
@@ -3409,7 +3412,11 @@
         <xsl:with-param name="text" select="substring($text,2)"/>
       </xsl:call-template>
     </xsl:if>
-  </xsl:template><xsl:template name="tokenize">
+  </xsl:template><xsl:template match="*[local-name() = 'pagebreak']">
+		<fo:block break-after="page"/>
+		<fo:block> </fo:block>
+		<fo:block break-after="page"/>
+	</xsl:template><xsl:template name="tokenize">
 		<xsl:param name="text"/>
 		<xsl:param name="separator" select="' '"/>
 		<xsl:choose>
@@ -3841,10 +3848,10 @@
 		</fo:inline>
 	</xsl:template><xsl:template match="*[local-name()='appendix']">
 		<fo:block id="{@id}" xsl:use-attribute-sets="appendix-style">
-			<xsl:apply-templates select="*[local-name()='title']" mode="process"/>
+			<xsl:apply-templates select="*[local-name()='title']"/>
 		</fo:block>
-		<xsl:apply-templates/>
-	</xsl:template><xsl:template match="*[local-name()='appendix']/*[local-name()='title']"/><xsl:template match="*[local-name()='appendix']/*[local-name()='title']" mode="process">
+		<xsl:apply-templates select="node()[not(local-name()='title')]"/>
+	</xsl:template><xsl:template match="*[local-name()='appendix']/*[local-name()='title']" priority="2">
 		<xsl:variable name="level">
 			<xsl:call-template name="getLevel"/>
 		</xsl:variable>
@@ -6314,27 +6321,17 @@
 		<xsl:variable name="month" select="substring($date, 6, 2)"/>
 		<xsl:variable name="day" select="substring($date, 9, 2)"/>
 		<xsl:variable name="monthStr">
-			<xsl:choose>
-				<xsl:when test="$month = '01'">january</xsl:when>
-				<xsl:when test="$month = '02'">february</xsl:when>
-				<xsl:when test="$month = '03'">march</xsl:when>
-				<xsl:when test="$month = '04'">april</xsl:when>
-				<xsl:when test="$month = '05'">may</xsl:when>
-				<xsl:when test="$month = '06'">june</xsl:when>
-				<xsl:when test="$month = '07'">july</xsl:when>
-				<xsl:when test="$month = '08'">august</xsl:when>
-				<xsl:when test="$month = '09'">september</xsl:when>
-				<xsl:when test="$month = '10'">october</xsl:when>
-				<xsl:when test="$month = '11'">november</xsl:when>
-				<xsl:when test="$month = '12'">december</xsl:when>
-			</xsl:choose>
+			<xsl:call-template name="getMonthByNum">
+				<xsl:with-param name="num" select="$month"/>
+				<xsl:with-param name="lowercase" select="'true'"/>
+			</xsl:call-template>
 		</xsl:variable>
 		<xsl:variable name="monthStr_localized">
 			<xsl:if test="normalize-space($monthStr) != ''"><xsl:call-template name="getLocalizedString"><xsl:with-param name="key">month_<xsl:value-of select="$monthStr"/></xsl:with-param></xsl:call-template></xsl:if>
 		</xsl:variable>
 		<xsl:variable name="result">
 			<xsl:choose>
-				<xsl:when test="$format = 'ddMMyyyy'">
+				<xsl:when test="$format = 'ddMMyyyy'"> <!-- convert date from format 2007-04-01 to 1 April 2007 -->
 					<xsl:if test="$day != ''"><xsl:value-of select="number($day)"/></xsl:if>
 					<xsl:text> </xsl:text>
 					<xsl:value-of select="normalize-space(concat($monthStr_localized, ' ' , $year))"/>
@@ -6347,11 +6344,57 @@
 					<xsl:value-of select="normalize-space(concat($monthStr_localized, ' ', $year))"/>
 				</xsl:when>
 				<xsl:otherwise>
-					<xsl:value-of select="normalize-space(concat($monthStr_localized, ' ', $day, ', ' , $year))"/>
+					<xsl:value-of select="normalize-space(concat($monthStr_localized, ' ', $day, ', ' , $year))"/> <!-- January 01, 2022 -->
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>
 		<xsl:value-of select="$result"/>
+	</xsl:template><xsl:template name="getMonthByNum">
+		<xsl:param name="num"/>
+		<xsl:param name="lang">en</xsl:param>
+		<xsl:param name="lowercase">false</xsl:param> <!-- return 'january' instead of 'January' -->
+		<xsl:variable name="monthStr_">
+			<xsl:choose>
+				<xsl:when test="$lang = 'fr'">
+					<xsl:choose>
+						<xsl:when test="$num = '01'">Janvier</xsl:when>
+						<xsl:when test="$num = '02'">Février</xsl:when>
+						<xsl:when test="$num = '03'">Mars</xsl:when>
+						<xsl:when test="$num = '04'">Avril</xsl:when>
+						<xsl:when test="$num = '05'">Mai</xsl:when>
+						<xsl:when test="$num = '06'">Juin</xsl:when>
+						<xsl:when test="$num = '07'">Juillet</xsl:when>
+						<xsl:when test="$num = '08'">Août</xsl:when>
+						<xsl:when test="$num = '09'">Septembre</xsl:when>
+						<xsl:when test="$num = '10'">Octobre</xsl:when>
+						<xsl:when test="$num = '11'">Novembre</xsl:when>
+						<xsl:when test="$num = '12'">Décembre</xsl:when>
+					</xsl:choose>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:choose>
+						<xsl:when test="$num = '01'">January</xsl:when>
+						<xsl:when test="$num = '02'">February</xsl:when>
+						<xsl:when test="$num = '03'">March</xsl:when>
+						<xsl:when test="$num = '04'">April</xsl:when>
+						<xsl:when test="$num = '05'">May</xsl:when>
+						<xsl:when test="$num = '06'">June</xsl:when>
+						<xsl:when test="$num = '07'">July</xsl:when>
+						<xsl:when test="$num = '08'">August</xsl:when>
+						<xsl:when test="$num = '09'">September</xsl:when>
+						<xsl:when test="$num = '10'">October</xsl:when>
+						<xsl:when test="$num = '11'">November</xsl:when>
+						<xsl:when test="$num = '12'">December</xsl:when>
+					</xsl:choose>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:choose>
+			<xsl:when test="normalize-space($lowercase) = 'true'">
+				<xsl:value-of select="java:toLowerCase(java:java.lang.String.new($monthStr_))"/>
+			</xsl:when>
+			<xsl:otherwise><xsl:value-of select="$monthStr_"/></xsl:otherwise>
+		</xsl:choose>
 	</xsl:template><xsl:template name="insertKeywords">
 		<xsl:param name="sorting" select="'true'"/>
 		<xsl:param name="charAtEnd" select="'.'"/>
@@ -6812,6 +6855,25 @@
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:if>
+	</xsl:template><xsl:template name="number-to-ordinal">
+		<xsl:param name="number"/>
+		<xsl:param name="curr_lang"/>
+		<xsl:choose>
+			<xsl:when test="$curr_lang = 'fr'">
+				<xsl:choose>					
+					<xsl:when test="$number = '1'">re</xsl:when>
+					<xsl:otherwise>e</xsl:otherwise>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:choose>
+					<xsl:when test="$number = 1">st</xsl:when>
+					<xsl:when test="$number = 2">nd</xsl:when>
+					<xsl:when test="$number = 3">rd</xsl:when>
+					<xsl:otherwise>th</xsl:otherwise>
+				</xsl:choose>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template><xsl:template name="setAltText">
 		<xsl:param name="value"/>
 		<xsl:attribute name="fox:alt-text">
