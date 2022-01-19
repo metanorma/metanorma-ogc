@@ -64,7 +64,7 @@ dl {
   }
 }
 
-#toc, #toc > ul > :is(.h1, .h2, .h3, .h4, .h5, .h6) {
+#toc, #toc > ul :is(.h1, .h2, .h3, .h4, .h5, .h6) {
   @include toc($colorLink: #00335b, $colorLinkActiveBg: #00335b, $colorLinkActiveFg: white);
 
   li a {
@@ -86,9 +86,10 @@ dl {
   }
 }
 
-#toc > ul > :is(.h1, .h2, .h3, .h4, .h5, .h6) {
+#toc > ul :is(.h1, .h2, .h3, .h4, .h5, .h6) {
   margin-top: 0;
   margin-bottom: 0;
+  font-size: 100%;
 }
 
 nav {
