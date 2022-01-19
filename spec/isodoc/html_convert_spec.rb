@@ -840,22 +840,32 @@ RSpec.describe IsoDoc::Ogc do
 
     output = xmlpp(<<~"OUTPUT")
       <div id='H'>
-        <h1 id='toc0'>1.&#xA0; Terms, Definitions, Symbols and Abbreviated Terms</h1>
-                 <h2 class='TermNum' style='text-align:left;' id='J'>
-         1.1.&#xA0;Term2 Term2A&#xA0;
-         <span class='AdmittedLabel'>ADMITTED</span>
-          Term2B&#xA0;
-         <span class='AdmittedLabel'>ADMITTED</span>
-          Term2C&#xA0;
-         <span class='AdmittedLabel'>DEPRECATED</span>
-          Term2D&#xA0;
-         <span class='AdmittedLabel'>DEPRECATED</span>
-       </h2>
-         <p>[<b>SOURCE:</b>
-        <a href='#ISO7301'> ISO 7301:2011, Clause 3.1 </a>, modified &#x2013; The term "cargo rice" is shown as deprecated, and Note 1
-        to entry is not included here]
-       </p>
-      </div>
+         <h1 id='toc0'>1.&#xA0; Terms, Definitions, Symbols and Abbreviated Terms</h1>
+         <h2 class='TermNum' style='text-align:left;' id='J'>1.1.&#xA0;Term2</h2>
+         <p class='AltTerms'>
+           Term2A&#xA0;
+           <span class='AdmittedLabel'>ADMITTED</span>
+         </p>
+         <p class='AltTerms'>
+           Term2B&#xA0;
+           <span class='AdmittedLabel'>ADMITTED</span>
+         </p>
+         <p class='DeprecatedTerms'>
+           Term2C&#xA0;
+           <span class='AdmittedLabel'>DEPRECATED</span>
+         </p>
+         <p class='DeprecatedTerms'>
+           Term2D&#xA0;
+           <span class='AdmittedLabel'>DEPRECATED</span>
+         </p>
+         <p>
+           [
+           <b>SOURCE:</b>
+           <a href='#ISO7301'> ISO 7301:2011, Clause 3.1 </a>
+           , modified &#x2013; The term "cargo rice" is shown as deprecated, and Note 1
+           to entry is not included here]
+         </p>
+       </div>
     OUTPUT
 
     expect(xmlpp(strip_guid(IsoDoc::Ogc::PresentationXMLConvert.new({})

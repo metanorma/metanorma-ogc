@@ -28,7 +28,7 @@ module IsoDoc
       def term_cleanup(docxml)
         docxml.xpath("//p[@class = 'Terms']").each do |d|
           term_cleanup_merge_termnum(d)
-          term_cleanup_merge_admitted(d)
+          # term_cleanup_merge_admitted(d)
         end
         docxml
       end
