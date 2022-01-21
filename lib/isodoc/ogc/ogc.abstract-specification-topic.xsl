@@ -862,46 +862,11 @@
 		</fo:block>
 	</xsl:template>
 	
-	<xsl:template match="ogc:license-statement | ogc:feedback-statement | ogc:copyright-statement">
-		<fo:block font-size="8pt" line-height="125%">
-			<xsl:apply-templates/>
-		</fo:block>
-	</xsl:template>
-	
-	<xsl:template match="ogc:license-statement//ogc:title">
+	<xsl:template match="ogc:legal-statement//ogc:title" priority="2">
 		<xsl:variable name="level">
 			<xsl:call-template name="getLevel"/>
 		</xsl:variable>
-		<fo:block font-weight="bold" color="{$color_blue}" role="H{$level}">
-			<xsl:apply-templates/>
-		</fo:block>
-	</xsl:template>
-	
-	<xsl:template match="ogc:copyright-statement//ogc:title">
-		<xsl:variable name="level">
-			<xsl:call-template name="getLevel"/>
-		</xsl:variable>
-		<fo:block font-weight="bold" color="{$color_blue}" margin-top="24pt" role="H{$level}">
-			<xsl:apply-templates/>
-		</fo:block>
-	</xsl:template>
-	
-	<xsl:template match="ogc:license-statement//ogc:p | ogc:feedback-statement//ogc:p | ogc:copyright-statement//ogc:p">
-		<fo:block margin-top="6pt">
-			<xsl:apply-templates/>
-		</fo:block>
-	</xsl:template>
-	
-	<xsl:template match="ogc:legal-statement">
-		<fo:block font-size="8pt">
-			<xsl:apply-templates/>
-		</fo:block>
-	</xsl:template>
-
-	<xsl:template match="ogc:legal-statement//ogc:title">
-		<xsl:variable name="level">
-			<xsl:call-template name="getLevel"/>
-		</xsl:variable>
+		<!-- inline title -->
 		<fo:inline font-weight="bold" role="H{$level}">
 			<xsl:apply-templates/><xsl:text>: </xsl:text>
 		</fo:inline>
@@ -913,8 +878,8 @@
 		</xsl:call-template>		
 	</xsl:template>
 
-	
-	<xsl:template match="ogc:legal-statement//ogc:p">
+
+	<xsl:template match="ogc:legal-statement//ogc:p" priority="2">
 		<fo:inline>			
 			<xsl:apply-templates/>			
 		</fo:inline>
@@ -1051,7 +1016,7 @@
 	<!-- ====== -->
 	<!-- ====== -->
 	
-	<xsl:template match="ogc:p">
+	<xsl:template match="ogc:p" name="paragraph">
 		<xsl:param name="inline" select="'false'"/>
 		<xsl:variable name="previous-element" select="local-name(preceding-sibling::*[1])"/>
 		<xsl:variable name="element-name">
@@ -1718,6 +1683,77 @@
 		
 		
 		
+		
+	</xsl:attribute-set><xsl:attribute-set name="copyright-statement-style">
+		
+			<xsl:attribute name="font-size">8pt</xsl:attribute>
+			<xsl:attribute name="line-height">125%</xsl:attribute>
+		
+	</xsl:attribute-set><xsl:attribute-set name="copyright-statement-title-style">
+		
+			<xsl:attribute name="font-weight">bold</xsl:attribute>
+			<xsl:attribute name="color"><xsl:value-of select="$color_blue"/></xsl:attribute>
+			<xsl:attribute name="margin-top">24pt</xsl:attribute>
+		
+		
+	</xsl:attribute-set><xsl:attribute-set name="copyright-statement-p-style">
+		
+		
+			<xsl:attribute name="margin-top">6pt</xsl:attribute>
+		
+		
+	</xsl:attribute-set><xsl:attribute-set name="license-statement-style">
+		
+		
+			<xsl:attribute name="font-size">8pt</xsl:attribute>
+			<xsl:attribute name="line-height">125%</xsl:attribute>
+		
+	</xsl:attribute-set><xsl:attribute-set name="license-statement-title-style">
+		<xsl:attribute name="keep-with-next">always</xsl:attribute>
+		
+		
+		
+		
+		
+			<xsl:attribute name="font-weight">bold</xsl:attribute>
+			<xsl:attribute name="color"><xsl:value-of select="$color_blue"/></xsl:attribute>
+		
+		
+	</xsl:attribute-set><xsl:attribute-set name="license-statement-p-style">
+		
+		
+		
+			<xsl:attribute name="margin-top">6pt</xsl:attribute>
+		
+		
+	</xsl:attribute-set><xsl:attribute-set name="legal-statement-style">
+		
+			<xsl:attribute name="font-size">8pt</xsl:attribute>
+		
+		
+		
+	</xsl:attribute-set><xsl:attribute-set name="legal-statement-title-style">
+		<xsl:attribute name="keep-with-next">always</xsl:attribute>
+		
+		
+		
+		
+		
+	</xsl:attribute-set><xsl:attribute-set name="legal-statement-p-style">
+		
+	</xsl:attribute-set><xsl:attribute-set name="feedback-statement-style">
+		
+		
+			<xsl:attribute name="font-size">8pt</xsl:attribute>
+			<xsl:attribute name="line-height">125%</xsl:attribute>
+		
+	</xsl:attribute-set><xsl:attribute-set name="feedback-statement-title-style">
+		<xsl:attribute name="keep-with-next">always</xsl:attribute>
+		
+	</xsl:attribute-set><xsl:attribute-set name="feedback-statement-p-style">
+		
+		
+			<xsl:attribute name="margin-top">6pt</xsl:attribute>
 		
 	</xsl:attribute-set><xsl:attribute-set name="link-style">
 		
@@ -2739,6 +2775,86 @@
 		<xsl:value-of select="."/>
 	</xsl:template><xsl:template match="*[local-name()='br']">
 		<xsl:value-of select="$linebreak"/>
+	</xsl:template><xsl:template match="*[local-name()='copyright-statement']">
+		<fo:block xsl:use-attribute-sets="copyright-statement-style">
+			<xsl:apply-templates/>
+		</fo:block>
+	</xsl:template><xsl:template match="*[local-name()='copyright-statement']//*[local-name()='title']">
+		
+				<xsl:variable name="level">
+					<xsl:call-template name="getLevel"/>
+				</xsl:variable>
+				<fo:block role="H{$level}" xsl:use-attribute-sets="copyright-statement-title-style">
+					<xsl:apply-templates/>
+				</fo:block>
+			
+	</xsl:template><xsl:template match="*[local-name()='copyright-statement']//*[local-name()='p']">
+		
+		
+				<fo:block xsl:use-attribute-sets="copyright-statement-p-style">
+					
+					
+					
+					
+					
+					<xsl:apply-templates/>
+				</fo:block>
+				
+			
+	</xsl:template><xsl:template match="*[local-name()='license-statement']">
+		<fo:block xsl:use-attribute-sets="license-statement-style">
+			<xsl:apply-templates/>
+		</fo:block>
+	</xsl:template><xsl:template match="*[local-name()='license-statement']//*[local-name()='title']">
+		
+				<xsl:variable name="level">
+					<xsl:call-template name="getLevel"/>
+				</xsl:variable>
+				<fo:block role="H{$level}" xsl:use-attribute-sets="license-statement-title-style">
+					<xsl:apply-templates/>
+				</fo:block>
+			
+	</xsl:template><xsl:template match="*[local-name()='license-statement']//*[local-name()='p']">
+		
+				<fo:block xsl:use-attribute-sets="license-statement-p-style">
+		
+					
+					
+					
+					
+					<xsl:apply-templates/>
+				</fo:block>
+			
+	</xsl:template><xsl:template match="*[local-name()='legal-statement']">
+		<fo:block xsl:use-attribute-sets="legal-statement-style">
+			<xsl:apply-templates/>
+		</fo:block>
+	</xsl:template><xsl:template match="*[local-name()='legal-statement']//*[local-name()='title']">
+		
+				<!-- process in the template 'title' -->
+				<xsl:call-template name="title"/>
+			
+	
+	</xsl:template><xsl:template match="*[local-name()='legal-statement']//*[local-name()='p']">
+		
+				<!-- process in the template 'paragraph' -->
+				<xsl:call-template name="paragraph"/>
+			
+	</xsl:template><xsl:template match="*[local-name()='feedback-statement']">
+		<fo:block xsl:use-attribute-sets="feedback-statement-style">
+			<xsl:apply-templates/>
+		</fo:block>
+	</xsl:template><xsl:template match="*[local-name()='feedback-statement']//*[local-name()='title']">
+		
+				<!-- process in the template 'title' -->
+				<xsl:call-template name="title"/>
+			
+	</xsl:template><xsl:template match="*[local-name()='feedback-statement']//*[local-name()='p']">
+		
+				<fo:block xsl:use-attribute-sets="feedback-statement-p-style">
+					<xsl:apply-templates/>
+				</fo:block>	
+			
 	</xsl:template><xsl:template match="*[local-name()='td']//text() | *[local-name()='th']//text() | *[local-name()='dt']//text() | *[local-name()='dd']//text()" priority="1">
 		<!-- <xsl:call-template name="add-zero-spaces"/> -->
 		<xsl:call-template name="add-zero-spaces-java"/>
