@@ -2204,11 +2204,11 @@
 		
 		
 	</xsl:attribute-set><xsl:attribute-set name="quote-style">
-		<xsl:attribute name="role">BlockQuote</xsl:attribute>
+		<xsl:attribute name="margin-left">12mm</xsl:attribute>
+		<xsl:attribute name="margin-right">12mm</xsl:attribute>
 		
 			<xsl:attribute name="margin-top">12pt</xsl:attribute>
 			<xsl:attribute name="margin-left">13mm</xsl:attribute>
-			<xsl:attribute name="margin-right">12mm</xsl:attribute>
 		
 		
 		
@@ -2217,11 +2217,10 @@
 		
 		
 	</xsl:attribute-set><xsl:attribute-set name="quote-source-style">		
+		<xsl:attribute name="text-align">right</xsl:attribute>
 		
-			<xsl:attribute name="text-align">right</xsl:attribute>
 			<xsl:attribute name="margin-right">25mm</xsl:attribute>
 		
-				
 				
 	</xsl:attribute-set><xsl:attribute-set name="termsource-style">
 		
@@ -6461,11 +6460,14 @@
 			
 			
 			<fo:block-container margin-left="0mm">
-		
-				<fo:block xsl:use-attribute-sets="quote-style">
+				<fo:block-container xsl:use-attribute-sets="quote-style">
 					
-					<xsl:apply-templates select="./node()[not(local-name() = 'author') and not(local-name() = 'source')]"/> <!-- process all nested nodes, except author and source -->
-				</fo:block>
+					<fo:block-container margin-left="0mm" margin-right="0mm">
+						<fo:block role="BlockQuote">
+							<xsl:apply-templates select="./node()[not(local-name() = 'author') and not(local-name() = 'source')]"/> <!-- process all nested nodes, except author and source -->
+						</fo:block>
+					</fo:block-container>
+				</fo:block-container>
 				<xsl:if test="*[local-name() = 'author'] or *[local-name() = 'source']">
 					<fo:block xsl:use-attribute-sets="quote-source-style">
 						<!-- — ISO, ISO 7301:2011, Clause 1 -->
