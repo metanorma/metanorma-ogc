@@ -8005,10 +8005,12 @@
 		<xsl:param name="key"/>
 		<xsl:param name="formatted">false</xsl:param>
 		<xsl:param name="lang"/>
+		<xsl:param name="returnEmptyIfNotFound">false</xsl:param>
 		
 		<xsl:variable name="curr_lang">
 			<xsl:choose>
 				<xsl:when test="$lang != ''"><xsl:value-of select="$lang"/></xsl:when>
+				<xsl:when test="$returnEmptyIfNotFound = 'true'"/>
 				<xsl:otherwise>
 					<xsl:call-template name="getLang"/>
 				</xsl:otherwise>
@@ -8043,6 +8045,7 @@
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:when>
+			<xsl:when test="$returnEmptyIfNotFound = 'true'"/>
 			<xsl:otherwise>
 				<xsl:variable name="key_">
 					<xsl:call-template name="capitalize">
