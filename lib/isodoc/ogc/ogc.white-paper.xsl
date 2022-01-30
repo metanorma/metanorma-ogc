@@ -3,11 +3,6 @@
 	<xsl:output version="1.0" method="xml" encoding="UTF-8" indent="no"/>
 	
 	<xsl:key name="kfn" match="*[local-name() = 'fn'][not(ancestor::*[(local-name() = 'table' or local-name() = 'figure') and not(ancestor::*[local-name() = 'name'])])]" use="@reference"/>
-	
-	<xsl:variable name="marginLeftRight1" select="25.4"/>
-	<xsl:variable name="marginLeftRight2" select="25.4"/>
-	<xsl:variable name="marginTop" select="25.4"/>
-	<xsl:variable name="marginBottom" select="25.4"/>
 
 	
 
@@ -112,10 +107,7 @@
 		</contents>
 	</xsl:variable>
 	
-	<xsl:variable name="lang">
-		<xsl:call-template name="getLang"/>
-	</xsl:variable>
-	
+
 	<xsl:template match="/">
 		<xsl:call-template name="namespaceCheck"/>
 		<fo:root xsl:use-attribute-sets="root-style" xml:lang="{$lang}">
@@ -599,8 +591,8 @@
 	</xsl:template>
 	
 	
-	<xsl:template match="ogc:ul | ogc:ol" mode="ul_ol">
-		<fo:list-block provisional-distance-between-starts="6.5mm" margin-bottom="12pt" line-height="115%">
+	<xsl:template match="ogc:ul | ogc:ol" mode="list" priority="2">
+		<fo:list-block xsl:use-attribute-sets="list-style">
 			<xsl:if test="ancestor::ogc:ul | ancestor::ogc:ol">
 				<xsl:attribute name="margin-bottom">0pt</xsl:attribute>
 			</xsl:if>
@@ -611,41 +603,11 @@
 		</fo:list-block>
 	</xsl:template>
 	
-	<xsl:template match="ogc:li">
-		<fo:list-item id="{@id}">
-			<fo:list-item-label end-indent="label-end()">
-				<fo:block>
-					<xsl:choose>
-						<xsl:when test="local-name(..) = 'ul'">
-							<xsl:call-template name="setULLabel"/>
-						</xsl:when>
-						<xsl:otherwise> <!-- for ordered lists -->
-							<xsl:choose>
-								<xsl:when test="../@class = 'steps'">
-									<xsl:number format="1)"/>
-								</xsl:when>
-								<xsl:when test="../@type = 'arabic'">
-									<xsl:number format="a)" lang="en"/>
-								</xsl:when>
-								<xsl:when test="../@type = 'alphabet'">
-									<xsl:number format="1)"/>
-								</xsl:when>
-								<xsl:when test="../@type = 'alphabet_upper'">
-									<xsl:number format="A)" lang="en"/>
-								</xsl:when>
-								
-								<xsl:when test="../@type = 'roman'">
-									<xsl:number format="i)"/>
-								</xsl:when>
-								<xsl:otherwise>
-									<xsl:number format="1)"/>
-								</xsl:otherwise>
-							</xsl:choose>
-						</xsl:otherwise>
-					</xsl:choose>
-				</fo:block>
-			</fo:list-item-label>
-			<fo:list-item-body start-indent="body-start()" line-height-shift-adjustment="disregard-shifts">
+	
+	<xsl:template match="ogc:ul/ogc:note | ogc:ol/ogc:note" priority="2">
+		<fo:list-item font-size="10pt">
+			<fo:list-item-label><fo:block/></fo:list-item-label>
+			<fo:list-item-body>
 				<fo:block>
 					<xsl:apply-templates/>
 				</fo:block>
@@ -653,43 +615,7 @@
 		</fo:list-item>
 	</xsl:template>
 	
-	<xsl:template match="ogc:ul/ogc:note | ogc:ol/ogc:note" priority="2">
-		<fo:list-item font-size="10pt">
-			<fo:list-item-label><fo:block/></fo:list-item-label>
-			<fo:list-item-body>
-				<fo:block>
-					<xsl:apply-templates select="ogc:name"/>
-					<xsl:apply-templates select="node()[not(local-name() = 'name')]"/>
-				</fo:block>
-			</fo:list-item-body>
-		</fo:list-item>
-	</xsl:template>
-	
 
-	
-	<xsl:template match="ogc:preferred">		
-		<xsl:variable name="level">
-			<xsl:call-template name="getLevel"/>
-		</xsl:variable>
-		<xsl:variable name="font-size">
-			<xsl:choose>
-				<xsl:when test="$level &gt;= 2">11pt</xsl:when>
-				<xsl:otherwise>12pt</xsl:otherwise>
-			</xsl:choose>
-		</xsl:variable>
-		<xsl:variable name="levelTerm">
-			<xsl:call-template name="getLevelTermName"/>
-		</xsl:variable>
-		<fo:block font-size="{$font-size}" role="H{$levelTerm}">
-			<fo:block font-weight="bold" keep-with-next="always">
-				<xsl:apply-templates select="ancestor::ogc:term[1]/ogc:name"/>
-			</fo:block>
-			<fo:block font-weight="bold" keep-with-next="always" line-height="1">
-				<xsl:call-template name="setStyle_preferred"/>
-				<xsl:apply-templates/>
-			</fo:block>
-		</fo:block>
-	</xsl:template>
 		
 	
 	<xsl:template name="insertHeaderFooter">
@@ -764,11 +690,21 @@
 		</xsl:choose>
 	</xsl:template>
 	
-<xsl:param name="svg_images"/><xsl:variable name="images" select="document($svg_images)"/><xsl:param name="basepath"/><xsl:param name="external_index"/><xsl:param name="syntax-highlight">false</xsl:param><xsl:variable name="pageWidth_">
+<xsl:param name="svg_images"/><xsl:variable name="images" select="document($svg_images)"/><xsl:param name="basepath"/><xsl:param name="external_index"/><xsl:param name="syntax-highlight">false</xsl:param><xsl:variable name="lang">
+		<xsl:call-template name="getLang"/>
+	</xsl:variable><xsl:variable name="pageWidth_">
 		215.9
 	</xsl:variable><xsl:variable name="pageWidth" select="normalize-space($pageWidth_)"/><xsl:variable name="pageHeight_">
 		279.4
-	</xsl:variable><xsl:variable name="pageHeight" select="normalize-space($pageHeight_)"/><xsl:variable name="titles_">
+	</xsl:variable><xsl:variable name="pageHeight" select="normalize-space($pageHeight_)"/><xsl:variable name="marginLeftRight1_">
+		25.4
+	</xsl:variable><xsl:variable name="marginLeftRight1" select="normalize-space($marginLeftRight1_)"/><xsl:variable name="marginLeftRight2_">
+		25.4
+	</xsl:variable><xsl:variable name="marginLeftRight2" select="normalize-space($marginLeftRight2_)"/><xsl:variable name="marginTop_">
+		25.4
+	</xsl:variable><xsl:variable name="marginTop" select="normalize-space($marginTop_)"/><xsl:variable name="marginBottom_">
+		25.4
+	</xsl:variable><xsl:variable name="marginBottom" select="normalize-space($marginBottom_)"/><xsl:variable name="titles_">
 				
 		<title-edition lang="en">
 			
@@ -1479,11 +1415,11 @@
 		
 		
 	</xsl:attribute-set><xsl:attribute-set name="quote-style">
-		<xsl:attribute name="role">BlockQuote</xsl:attribute>
+		<xsl:attribute name="margin-left">12mm</xsl:attribute>
+		<xsl:attribute name="margin-right">12mm</xsl:attribute>
 		
 			<xsl:attribute name="margin-top">12pt</xsl:attribute>
 			<xsl:attribute name="margin-left">13mm</xsl:attribute>
-			<xsl:attribute name="margin-right">12mm</xsl:attribute>
 		
 		
 		
@@ -1492,11 +1428,10 @@
 		
 		
 	</xsl:attribute-set><xsl:attribute-set name="quote-source-style">		
+		<xsl:attribute name="text-align">right</xsl:attribute>
 		
-			<xsl:attribute name="text-align">right</xsl:attribute>
 			<xsl:attribute name="margin-right">25mm</xsl:attribute>
 		
-				
 				
 	</xsl:attribute-set><xsl:attribute-set name="termsource-style">
 		
@@ -1522,6 +1457,9 @@
 		
 	</xsl:attribute-set><xsl:attribute-set name="term-style">
 		
+	</xsl:attribute-set><xsl:attribute-set name="term-name-style">
+		<xsl:attribute name="keep-with-next">always</xsl:attribute>
+		<xsl:attribute name="font-weight">bold</xsl:attribute>
 	</xsl:attribute-set><xsl:attribute-set name="figure-style">
 		
 	</xsl:attribute-set><xsl:attribute-set name="figure-name-style">
@@ -1623,6 +1561,21 @@
 		<xsl:attribute name="margin-bottom">12pt</xsl:attribute>
 		<xsl:attribute name="keep-with-previous">always</xsl:attribute>
 		
+	</xsl:attribute-set><xsl:attribute-set name="preferred-block-style">
+		
+		
+		
+		
+		
+		
+		
+	</xsl:attribute-set><xsl:attribute-set name="preferred-term-style">
+		<xsl:attribute name="keep-with-next">always</xsl:attribute>
+		<xsl:attribute name="font-weight">bold</xsl:attribute>
+		
+		
+			<xsl:attribute name="line-height">1</xsl:attribute>
+		
 	</xsl:attribute-set><xsl:attribute-set name="domain-style">
 				
 	</xsl:attribute-set><xsl:attribute-set name="admitted-style">
@@ -1659,6 +1612,39 @@
 		
 		
 	</xsl:attribute-set><xsl:attribute-set name="list-style">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+			<xsl:attribute name="provisional-distance-between-starts">6.5mm</xsl:attribute>
+			<xsl:attribute name="margin-bottom">12pt</xsl:attribute>
+			<xsl:attribute name="line-height">115%</xsl:attribute>
+		
+		
+		
+		
+	</xsl:attribute-set><xsl:attribute-set name="list-item-style">
+		
+		
+	</xsl:attribute-set><xsl:attribute-set name="list-item-label-style">
+		
+		
+		
+	</xsl:attribute-set><xsl:attribute-set name="list-item-body-style">
+		
+		
+			<xsl:attribute name="line-height-shift-adjustment">disregard-shifts</xsl:attribute>
+		
 		
 	</xsl:attribute-set><xsl:attribute-set name="toc-style">
 		<xsl:attribute name="line-height">135%</xsl:attribute>
@@ -2044,6 +2030,20 @@
 	</xsl:attribute-set><xsl:attribute-set name="hljs-property">
 	</xsl:attribute-set><xsl:attribute-set name="hljs-punctuation">
 	</xsl:attribute-set><xsl:attribute-set name="hljs-tag">
+	</xsl:attribute-set><xsl:attribute-set name="indexsect-title-style">
+		<xsl:attribute name="role">H1</xsl:attribute>
+		
+		
+		
+		
+		
+	</xsl:attribute-set><xsl:attribute-set name="indexsect-clause-title-style">
+		<xsl:attribute name="keep-with-next">always</xsl:attribute>
+		
+		
+		
+		
+		
 	</xsl:attribute-set><xsl:variable name="border-block-added">2.5pt solid rgb(0, 176, 80)</xsl:variable><xsl:variable name="border-block-deleted">2.5pt solid rgb(255, 0, 0)</xsl:variable><xsl:variable name="ace_tag">ace-tag_</xsl:variable><xsl:template name="processPrefaceSectionsDefault_Contents">
 		<xsl:for-each select="/*/*[local-name()='preface']/*">
 			<xsl:sort select="@displayorder" data-type="number"/>
@@ -3890,17 +3890,21 @@
 		</xsl:apply-templates>
 	</xsl:template><xsl:template name="getLang">
 		<xsl:variable name="language_current" select="normalize-space(//*[local-name()='bibdata']//*[local-name()='language'][@current = 'true'])"/>
-		<xsl:variable name="language_current_2" select="normalize-space(xalan:nodeset($bibdata)//*[local-name()='bibdata']//*[local-name()='language'][@current = 'true'])"/>
 		<xsl:variable name="language">
 			<xsl:choose>
 				<xsl:when test="$language_current != ''">
 					<xsl:value-of select="$language_current"/>
 				</xsl:when>
-				<xsl:when test="$language_current_2 != ''">
-					<xsl:value-of select="$language_current_2"/>
-				</xsl:when>
 				<xsl:otherwise>
-					<xsl:value-of select="//*[local-name()='bibdata']//*[local-name()='language']"/>
+					<xsl:variable name="language_current_2" select="normalize-space(xalan:nodeset($bibdata)//*[local-name()='bibdata']//*[local-name()='language'][@current = 'true'])"/>
+					<xsl:choose>
+						<xsl:when test="$language_current_2 != ''">
+							<xsl:value-of select="$language_current_2"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="//*[local-name()='bibdata']//*[local-name()='language']"/>
+						</xsl:otherwise>
+					</xsl:choose>
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>
@@ -5662,11 +5666,14 @@
 			
 			
 			<fo:block-container margin-left="0mm">
-		
-				<fo:block xsl:use-attribute-sets="quote-style">
+				<fo:block-container xsl:use-attribute-sets="quote-style">
 					
-					<xsl:apply-templates select="./node()[not(local-name() = 'author') and not(local-name() = 'source')]"/> <!-- process all nested nodes, except author and source -->
-				</fo:block>
+					<fo:block-container margin-left="0mm" margin-right="0mm">
+						<fo:block role="BlockQuote">
+							<xsl:apply-templates select="./node()[not(local-name() = 'author') and not(local-name() = 'source')]"/> <!-- process all nested nodes, except author and source -->
+						</fo:block>
+					</fo:block-container>
+				</fo:block-container>
 				<xsl:if test="*[local-name() = 'author'] or *[local-name() = 'source']">
 					<fo:block xsl:use-attribute-sets="quote-source-style">
 						<!-- — ISO, ISO 7301:2011, Clause 1 -->
@@ -5818,6 +5825,36 @@
 				<xsl:with-param name="count" select="$count - 1"/>
 			</xsl:call-template>
 		</xsl:if>
+	</xsl:template><xsl:template match="*[local-name() = 'preferred']">
+		<xsl:variable name="level">
+			<xsl:call-template name="getLevel"/>
+		</xsl:variable>
+		<xsl:variable name="font-size">
+			
+					<xsl:choose>
+						<xsl:when test="$level &gt;= 2">11pt</xsl:when>
+						<xsl:otherwise>12pt</xsl:otherwise>
+					</xsl:choose>
+				
+		</xsl:variable>
+		<xsl:variable name="levelTerm">
+			<xsl:call-template name="getLevelTermName"/>
+		</xsl:variable>
+		<fo:block font-size="{normalize-space($font-size)}" role="H{$levelTerm}" xsl:use-attribute-sets="preferred-block-style">
+		
+			
+			
+			<xsl:if test="parent::*[local-name() = 'term'] and not(preceding-sibling::*[local-name() = 'preferred'])"> <!-- if first preffered in term, then display term's name -->
+				<fo:block xsl:use-attribute-sets="term-name-style">
+					<xsl:apply-templates select="ancestor::*[local-name() = 'term'][1]/*[local-name() = 'name']"/>
+				</fo:block>
+			</xsl:if>
+			
+			<fo:block xsl:use-attribute-sets="preferred-term-style">
+				<xsl:call-template name="setStyle_preferred"/>
+				<xsl:apply-templates/>
+			</fo:block>
+		</fo:block>
 	</xsl:template><xsl:template match="*[local-name() = 'domain']">
 		<fo:inline xsl:use-attribute-sets="domain-style">&lt;<xsl:apply-templates/>&gt;</fo:inline>
 		<xsl:text> </xsl:text>
@@ -5906,24 +5943,8 @@
 		<xsl:value-of select="java:replaceAll(java:java.lang.String.new(.),' ',' ')"/>
 	</xsl:template><xsl:variable name="ul_labels_">
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-			<label>—</label> <!-- em dash -->
-		
-		
-		
-		
+				<label>—</label> <!-- em dash -->
+			
 	</xsl:variable><xsl:variable name="ul_labels" select="xalan:nodeset($ul_labels_)"/><xsl:template name="setULLabel">
 		<xsl:variable name="list_level_" select="count(ancestor::*[local-name() = 'ul']) + count(ancestor::*[local-name() = 'ol'])"/>
 		<xsl:variable name="list_level">
@@ -5949,6 +5970,56 @@
 	</xsl:template><xsl:template match="label" mode="ul_labels">
 		<xsl:copy-of select="@*[not(local-name() = 'level')]"/>
 		<xsl:value-of select="."/>
+	</xsl:template><xsl:template name="getListItemFormat">
+		<xsl:choose>
+			<xsl:when test="local-name(..) = 'ul'">
+				<xsl:call-template name="setULLabel"/>
+			</xsl:when>
+			<xsl:otherwise> <!-- for ordered lists 'ol' -->
+			
+				<!-- Example: for BSI <?list-start 2?> -->
+				<xsl:variable name="processing_instruction_start" select="normalize-space(../preceding-sibling::*[1]/processing-instruction('list-start'))"/>
+				<!-- Example: for BSI <?list-type loweralpha?> -->
+				<xsl:variable name="processing_instruction_type" select="normalize-space(../preceding-sibling::*[1]/processing-instruction('list-type'))"/>
+			
+				<xsl:variable name="start_value">
+					<xsl:choose>
+						<xsl:when test="normalize-space($processing_instruction_start) != ''">
+							<xsl:value-of select="number($processing_instruction_start) - 1"/><!-- if start="3" then start_value=2 + xsl:number(1) = 3 -->
+						</xsl:when>
+						<xsl:when test="normalize-space(../@start) != ''">
+							<xsl:value-of select="number(../@start) - 1"/><!-- if start="3" then start_value=2 + xsl:number(1) = 3 -->
+						</xsl:when>
+						<xsl:otherwise>0</xsl:otherwise>
+					</xsl:choose>
+				</xsl:variable>
+				
+				<xsl:variable name="curr_value"><xsl:number/></xsl:variable>
+				
+				<xsl:variable name="type">
+					<xsl:choose>
+						<xsl:when test="normalize-space($processing_instruction_type) != ''"><xsl:value-of select="$processing_instruction_type"/></xsl:when>
+						<xsl:otherwise><xsl:value-of select="../@type"/></xsl:otherwise>
+					</xsl:choose>
+				</xsl:variable>
+				
+				<xsl:variable name="format">
+					
+							<xsl:choose>
+								<xsl:when test="../@class = 'steps'">1)</xsl:when>
+								<xsl:when test="$type = 'arabic'">a)</xsl:when>
+								<xsl:when test="$type = 'alphabet'">1)</xsl:when>
+								<xsl:when test="$type = 'alphabet_upper'">A)</xsl:when>
+								<xsl:when test="$type = 'roman'">i)</xsl:when>
+								<xsl:otherwise>1)</xsl:otherwise>
+							</xsl:choose>
+						
+				</xsl:variable>
+				
+				<xsl:number value="$start_value + $curr_value" format="{$format}" lang="en"/>
+				
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template><xsl:template match="*[local-name() = 'ul'] | *[local-name() = 'ol']">
 		<xsl:choose>
 			<xsl:when test="parent::*[local-name() = 'note'] or parent::*[local-name() = 'termnote']">
@@ -5964,17 +6035,65 @@
 					
 					<fo:block-container margin-left="0mm">
 						<fo:block>
-							<xsl:apply-templates select="." mode="ul_ol"/>
+							<xsl:apply-templates select="." mode="list"/>
 						</fo:block>
 					</fo:block-container>
 				</fo:block-container>
 			</xsl:when>
 			<xsl:otherwise>
 				<fo:block>
-					<xsl:apply-templates select="." mode="ul_ol"/>
+					<xsl:apply-templates select="." mode="list"/>
 				</fo:block>
 			</xsl:otherwise>
 		</xsl:choose>
+	</xsl:template><xsl:template match="*[local-name()='ul'] | *[local-name()='ol']" mode="list" name="list">
+		<fo:list-block xsl:use-attribute-sets="list-style">
+		
+			
+			
+			
+			
+			
+
+			
+					
+			<xsl:apply-templates select="node()[not(local-name() = 'note')]"/>
+		</fo:list-block>
+		<!-- <xsl:for-each select="./iho:note">
+			<xsl:call-template name="note"/>
+		</xsl:for-each> -->
+		<xsl:apply-templates select="./*[local-name() = 'note']"/>
+	</xsl:template><xsl:template match="*[local-name()='li']">
+		<fo:list-item xsl:use-attribute-sets="list-item-style">
+			<xsl:copy-of select="@id"/>
+			
+			
+			
+			<fo:list-item-label end-indent="label-end()">
+				<fo:block xsl:use-attribute-sets="list-item-label-style">
+				
+					
+				
+					<xsl:call-template name="getListItemFormat"/> <!-- this template should be determined in each xslt -->
+				</fo:block>
+			</fo:list-item-label>
+			<fo:list-item-body start-indent="body-start()" xsl:use-attribute-sets="list-item-body-style">
+				<fo:block>
+				
+					
+				
+					
+				
+					<xsl:apply-templates/>
+				
+					<!-- <xsl:apply-templates select="node()[not(local-name() = 'note')]" />
+					
+					<xsl:for-each select="./bsi:note">
+						<xsl:call-template name="note"/>
+					</xsl:for-each> -->
+				</fo:block>
+			</fo:list-item-body>
+		</fo:list-item>
 	</xsl:template><xsl:variable name="index" select="document($external_index)"/><xsl:variable name="bookmark_in_fn">
 		<xsl:for-each select="//*[local-name() = 'bookmark'][ancestor::*[local-name() = 'fn']]">
 			<bookmark><xsl:value-of select="@id"/></bookmark>
@@ -6106,12 +6225,22 @@
 		</xsl:variable>
 		<xsl:variable name="xref_number"><xsl:number count="*[local-name() = 'xref']"/></xsl:variable>
 		<xsl:value-of select="concat($docid, '_', $item_number, '_', $xref_number)"/> <!-- $level, '_',  -->
+	</xsl:template><xsl:template match="*[local-name() = 'indexsect']/*[local-name() = 'title']" priority="4">
+		<fo:block xsl:use-attribute-sets="indexsect-title-style">
+			<!-- Index -->
+			<xsl:apply-templates/>
+		</fo:block>
+	</xsl:template><xsl:template match="*[local-name() = 'indexsect']/*[local-name() = 'clause']/*[local-name() = 'title']" priority="4">
+		<!-- Letter A, B, C, ... -->
+		<fo:block xsl:use-attribute-sets="indexsect-clause-title-style">
+			<xsl:apply-templates/>
+		</fo:block>
 	</xsl:template><xsl:template match="*[local-name() = 'indexsect']/*[local-name() = 'clause']" priority="4">
 		<xsl:apply-templates/>
 		<fo:block>
-		<xsl:if test="following-sibling::*[local-name() = 'clause']">
-			<fo:block> </fo:block>
-		</xsl:if>
+			<xsl:if test="following-sibling::*[local-name() = 'clause']">
+				<fo:block> </fo:block>
+			</xsl:if>
 		</fo:block>
 	</xsl:template><xsl:template match="*[local-name() = 'indexsect']//*[local-name() = 'ul']" priority="4">
 		<xsl:apply-templates/>
@@ -6121,6 +6250,9 @@
 			
 			<xsl:apply-templates/>
 		</fo:block>
+	</xsl:template><xsl:template match="*[local-name() = 'indexsect']//*[local-name() = 'li']/text()">
+		<!-- to split by '_' and other chars -->
+		<xsl:call-template name="add-zero-spaces-java"/>
 	</xsl:template><xsl:template match="*[local-name() = 'bookmark']" name="bookmark">
 		<fo:inline id="{@id}" font-size="1pt"/>
 	</xsl:template><xsl:template match="*[local-name() = 'errata']">
@@ -6576,7 +6708,7 @@
 				</fo:table-body>
 			</fo:table>
 		</fo:block>
-	</xsl:template><xsl:template match="*[local-name() = 'toc']//*[local-name() = 'li']">
+	</xsl:template><xsl:template match="*[local-name() = 'toc']//*[local-name() = 'li']" priority="2">
 		<fo:table-row min-height="5mm">
 			<xsl:apply-templates/>
 		</fo:table-row>
@@ -6809,9 +6941,6 @@
 			<xsl:otherwise><xsl:value-of select="$charAtEnd"/></xsl:otherwise>
 		</xsl:choose>
 	</xsl:template><xsl:template name="addPDFUAmeta">
-		<xsl:variable name="lang">
-			<xsl:call-template name="getLang"/>
-		</xsl:variable>
 		<pdf:catalog xmlns:pdf="http://xmlgraphics.apache.org/fop/extensions/pdf">
 				<pdf:dictionary type="normal" key="ViewerPreferences">
 					<pdf:boolean key="DisplayDocTitle">true</pdf:boolean>
@@ -7039,10 +7168,12 @@
 		<xsl:param name="key"/>
 		<xsl:param name="formatted">false</xsl:param>
 		<xsl:param name="lang"/>
+		<xsl:param name="returnEmptyIfNotFound">false</xsl:param>
 		
 		<xsl:variable name="curr_lang">
 			<xsl:choose>
 				<xsl:when test="$lang != ''"><xsl:value-of select="$lang"/></xsl:when>
+				<xsl:when test="$returnEmptyIfNotFound = 'true'"/>
 				<xsl:otherwise>
 					<xsl:call-template name="getLang"/>
 				</xsl:otherwise>
@@ -7077,6 +7208,7 @@
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:when>
+			<xsl:when test="$returnEmptyIfNotFound = 'true'"/>
 			<xsl:otherwise>
 				<xsl:variable name="key_">
 					<xsl:call-template name="capitalize">
