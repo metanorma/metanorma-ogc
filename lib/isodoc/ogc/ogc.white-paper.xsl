@@ -1016,7 +1016,7 @@
 		
 		
 	</xsl:attribute-set><xsl:attribute-set name="example-name-style">
-		<xsl:attribute name="keep-with-next">always</xsl:attribute>
+		
 		
 		
 		
