@@ -166,7 +166,6 @@ module IsoDoc
       def block(docxml)
         super
         recommendation_to_table(docxml)
-        ol docxml
       end
 
       def section(docxml)
@@ -213,16 +212,12 @@ module IsoDoc
           doctype.children = "technical-paper"
       end
 
-      def ol(docxml)
-        docxml.xpath(ns("//ol")).each { |f| ol1(f) }
-      end
+      def ol_depth(node)
+        return super unless node["class"] == "steps" ||
+          node.at(".//ancestor::xmlns:ol[@class = 'steps']")
 
-      def ol1(elem)
-        return unless elem["class"] == "steps"
-
-        idx = elem.xpath("./ancestor-or-self::xmlns:ol[@class = 'steps']").size
-        elem["type"] = %w(arabic alphabet roman alphabet_upper
-                          roman_upper)[(idx - 1) % 5]
+        idx = node.xpath("./ancestor-or-self::xmlns:ol[@class = 'steps']").size
+        %i(arabic alphabet roman alphabet_upper roman_upper)[(idx - 1) % 5]
       end
 
       def termsource1(elem)

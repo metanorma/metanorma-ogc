@@ -1,6 +1,165 @@
 require "spec_helper"
 
 RSpec.describe IsoDoc::Ogc do
+  it "cross-references list items" do
+    input = <<~INPUT
+          <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <preface>
+          <foreword>
+          <p>
+          <xref target="N1"/>
+          <xref target="N2"/>
+          <xref target="N"/>
+          <xref target="note1"/>
+          <xref target="note2"/>
+          <xref target="AN"/>
+          <xref target="Anote1"/>
+          <xref target="Anote2"/>
+          </p>
+          </foreword>
+          <introduction id="intro">
+          <ol id="N01">
+        <li id="N1"><p>A</p></li>
+      </ol>
+        <clause id="xyz"><title>Preparatory</title>
+           <ol id="N02" type="arabic">
+        <li id="N2"><p>A</p></li>
+      </ol>
+      </clause>
+          </introduction>
+          </preface>
+          <sections>
+          <clause id="scope" type="scope"><title>Scope</title>
+          <ol id="N0" type="roman">
+        <li id="N"><p>A</p></li>
+      </ol>
+          </clause>
+          <terms id="terms"/>
+          <clause id="widgets"><title>Widgets</title>
+          <clause id="widgets1">
+          <ol id="note1l" type="alphabet">
+        <li id="note1"><p>A</p></li>
+      </ol>
+          <ol id="note2l" type="roman_upper">
+        <li id="note2"><p>A</p></li>
+      </ol>
+          </clause>
+          </clause>
+          </sections>
+          <annex id="annex1">
+          <clause id="annex1a">
+          <ol id="ANl" type="alphabet_upper">
+        <li id="AN"><p>A</p></li>
+      </ol>
+          </clause>
+          <clause id="annex1b">
+          <ol id="Anote1l" type="roman" start="4">
+        <li id="Anote1"><p>A</p></li>
+      </ol>
+          <ol id="Anote2l">
+        <li id="Anote2"><p>A</p></li>
+      </ol>
+          </clause>
+          </annex>
+          </iso-standard>
+    INPUT
+    output = <<~OUTPUT
+      <foreword displayorder='1'>
+        <p>
+          <xref target='N1'>Introduction, a)</xref>
+          <xref target='N2'>Clause II.A, 1)</xref>
+          <xref target='N'>Clause 1, i)</xref>
+          <xref target='note1'>Clause 3.1, List 1 a)</xref>
+          <xref target='note2'>Clause 3.1, List 2 I)</xref>
+          <xref target='AN'>Annex A.1, A)</xref>
+          <xref target='Anote1'>Annex A.2, List 1 iv)</xref>
+          <xref target='Anote2'>Annex A.2, List 2 a)</xref>
+        </p>
+      </foreword>
+    OUTPUT
+    expect(xmlpp(Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .at("//xmlns:foreword").to_xml))
+      .to be_equivalent_to xmlpp(output)
+  end
+
+  it "cross-references list items of steps class" do
+    input = <<~INPUT
+          <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <preface>
+          <foreword>
+          <p>
+          <xref target="N1"/>
+          <xref target="N11"/>
+          <xref target="N12"/>
+          </p>
+          </foreword>
+          <introduction id="intro">
+          <ol id="N01" class="steps">
+        <li id="N1"><p>A</p>
+          <ol id="N011">
+        <li id="N11"><p>A</p>
+          <ol id="N012">
+        <li id="N12"><p>A</p>
+         </li>
+      </ol></li></ol></li></ol>
+        <clause id="xyz"><title>Preparatory</title>
+           <ol id="N02" type="arabic">
+        <li id="N2"><p>A</p></li>
+      </ol>
+      </clause>
+          </introduction>
+          </preface>
+          <sections>
+          <clause id="scope" type="scope"><title>Scope</title>
+          <ol id="N0" type="roman">
+        <li id="N"><p>A</p></li>
+      </ol>
+          </clause>
+          <terms id="terms"/>
+          <clause id="widgets"><title>Widgets</title>
+          <clause id="widgets1">
+          <ol id="note1l" type="alphabet">
+        <li id="note1"><p>A</p></li>
+      </ol>
+          <ol id="note2l" type="roman_upper">
+        <li id="note2"><p>A</p></li>
+      </ol>
+          </clause>
+          </clause>
+          </sections>
+          <annex id="annex1">
+          <clause id="annex1a">
+          <ol id="ANl" type="alphabet_upper">
+        <li id="AN"><p>A</p></li>
+      </ol>
+          </clause>
+          <clause id="annex1b">
+          <ol id="Anote1l" type="roman" start="4">
+        <li id="Anote1"><p>A</p></li>
+      </ol>
+          <ol id="Anote2l">
+        <li id="Anote2"><p>A</p></li>
+      </ol>
+          </clause>
+          </annex>
+          </iso-standard>
+    INPUT
+    output = <<~OUTPUT
+      <foreword displayorder='1'>
+        <p>
+          <xref target='N1'>Introduction, 1)</xref>
+          <xref target='N11'>Introduction, 1.1)</xref>
+          <xref target='N12'>Introduction, 1.1.1)</xref>
+        </p>
+      </foreword>
+    OUTPUT
+    expect(xmlpp(Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .at("//xmlns:foreword").to_xml))
+      .to be_equivalent_to xmlpp(output)
+  end
+
   it "cross-references requirements" do
     input = <<~INPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -66,190 +225,22 @@ RSpec.describe IsoDoc::Ogc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
-           <preface>
-             <foreword displayorder="1">
-               <p>
-                 <xref target='N1'>Introduction, Requirement 1</xref>
-                 <xref target='N2'>Clause II.A, Requirement (??)</xref>
-                 <xref target='N'>Clause 1, Requirement 2</xref>
-                 <xref target='note1'>Clause 3.1, Requirement 3</xref>
-                 <xref target='note2'>Clause 3.1, Requirement 4</xref>
-                 <xref target='AN'>Annex A.1, Requirement A.1</xref>
-                 <xref target='Anote1'>Annex A.2, Requirement (??)</xref>
-                 <xref target='Anote2'>Annex A.2, Requirement A.2</xref>
-               </p>
-             </foreword>
-        <introduction id='intro' displayorder="2">
-              <title>II.</title>
-              <table id='N1' class='requirement' type='recommend'>
-                <thead>
-                  <tr>
-                    <th scope='colgroup' colspan='2'>
-                      <p class='RecommendationTitle'>Requirement 1</p>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td colspan='2'>r = 1 %</td>
-                  </tr>
-                </tbody>
-              </table>
-              <clause id='xyz'>
-                <title depth='2'>
-                  II.A.
-                  <tab/>
-                  Preparatory
-                </title>
-                <table id='N2' unnumbered='true' class='requirement' type='recommend'>
-                  <thead>
-                    <tr>
-                      <th scope='colgroup' colspan='2'>
-                        <p class='RecommendationTitle'>Requirement</p>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td colspan='2'>r = 1 %</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </clause>
-            </introduction>
-          </preface>
-          <sections>
-            <clause id='scope' type='scope' displayorder="3">
-              <title depth='1'>
-                1.
-                <tab/>
-                Scope
-              </title>
-              <table id='N' class='requirement' type='recommend'>
-                <thead>
-                  <tr>
-                    <th scope='colgroup' colspan='2'>
-                      <p class='RecommendationTitle'>Requirement 2</p>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td colspan='2'>r = 1 %</td>
-                  </tr>
-                </tbody>
-              </table>
-              <p>
-                <xref target='N'>Requirement 2</xref>
-              </p>
-            </clause>
-            <terms id='terms' displayorder='4'>
-              <title>2.</title>
-            </terms>
-            <clause id='widgets' displayorder='5'>
-              <title depth='1'>
-                3.
-                <tab/>
-                Widgets
-              </title>
-              <clause id='widgets1'>
-                <title>3.1.</title>
-                <table id='note1' class='requirement' type='recommend'>
-                  <thead>
-                    <tr>
-                      <th scope='colgroup' colspan='2'>
-                        <p class='RecommendationTitle'>Requirement 3</p>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td colspan='2'>r = 1 %</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <table id='note2' class='requirement' type='recommend'>
-                  <thead>
-                    <tr>
-                      <th scope='colgroup' colspan='2'>
-                        <p class='RecommendationTitle'>Requirement 4</p>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td colspan='2'>r = 1 %</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <p>
-                  <xref target='note1'>Requirement 3</xref>
-                  <xref target='note2'>Requirement 4</xref>
-                </p>
-              </clause>
-            </clause>
-          </sections>
-          <annex id='annex1' displayorder='6'>
-            <title>
-              <strong>Annex A</strong>
-              <br/>
-              (informative)
-            </title>
-            <clause id='annex1a'>
-              <title>A.1.</title>
-              <table id='AN' class='requirement' type='recommend'>
-                <thead>
-                  <tr>
-                    <th scope='colgroup' colspan='2'>
-                      <p class='RecommendationTitle'>Requirement A.1</p>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td colspan='2'>r = 1 %</td>
-                  </tr>
-                </tbody>
-              </table>
-            </clause>
-            <clause id='annex1b'>
-              <title>A.2.</title>
-              <table id='Anote1' unnumbered='true' class='requirement' type='recommend'>
-                <thead>
-                  <tr>
-                    <th scope='colgroup' colspan='2'>
-                      <p class='RecommendationTitle'>Requirement</p>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td colspan='2'>r = 1 %</td>
-                  </tr>
-                </tbody>
-              </table>
-              <table id='Anote2' class='requirement' type='recommend'>
-                <thead>
-                  <tr>
-                    <th scope='colgroup' colspan='2'>
-                      <p class='RecommendationTitle'>Requirement A.2</p>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td colspan='2'>r = 1 %</td>
-                  </tr>
-                </tbody>
-              </table>
-            </clause>
-          </annex>
-        </iso-standard>
+      <foreword displayorder="1">
+        <p>
+          <xref target='N1'>Introduction, Requirement 1</xref>
+          <xref target='N2'>Clause II.A, Requirement (??)</xref>
+          <xref target='N'>Clause 1, Requirement 2</xref>
+          <xref target='note1'>Clause 3.1, Requirement 3</xref>
+          <xref target='note2'>Clause 3.1, Requirement 4</xref>
+          <xref target='AN'>Annex A.1, Requirement A.1</xref>
+          <xref target='Anote1'>Annex A.2, Requirement (??)</xref>
+          <xref target='Anote2'>Annex A.2, Requirement A.2</xref>
+        </p>
+      </foreword>
     OUTPUT
-    expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({})
-      .convert("test", input, true)
-      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
+    expect(xmlpp(Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
   end
 
@@ -342,262 +333,30 @@ RSpec.describe IsoDoc::Ogc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-           <preface>
-             <foreword displayorder='1'>
-               <p>
-                 <xref target='N1a'>Introduction, Requirement A</xref>
-                 <xref target='N1b'>Introduction, Requirement B</xref>
-                 <xref target='N2a'>Clause II.A, Requirement A</xref>
-                 <xref target='N2b'>Clause II.A, Requirement B</xref>
-                 <xref target='Na'>Clause 1, Requirement A</xref>
-                 <xref target='Nb'>Clause 1, Requirement B</xref>
-                 <xref target='note1a'>Clause 3.1, Requirement A</xref>
-                 <xref target='note1b'>Clause 3.1, Requirement B</xref>
-                 <xref target='note2a'>Clause 3.1, Requirement A</xref>
-                 <xref target='note2b'>Clause 3.1, Requirement B</xref>
-                 <xref target='ANa'>Annex A.1, Requirement A</xref>
-                 <xref target='ANb'>Annex A.1, Requirement B</xref>
-                 <xref target='Anote1a'>Annex A.2, Requirement A</xref>
-                 <xref target='Anote1b'>Annex A.2, Requirement B</xref>
-                 <xref target='Anote2a'>Annex A.2, Requirement A</xref>
-                 <xref target='Anote2b'>Annex A.2, Requirement B</xref>
-               </p>
-             </foreword>
-             <introduction id='intro' displayorder='2'>
-               <title>II.</title>
-               <table id='N1' class='requirement' type='recommend'>
-                 <thead>
-                   <tr>
-                     <th scope='colgroup' colspan='2'>
-                       <p class='RecommendationTitle'>Requirement 1</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <tr>
-                     <td>A</td>
-                     <td/>
-                   </tr>
-                   <tr>
-                     <td>B</td>
-                     <td/>
-                   </tr>
-                   <tr>
-                     <td colspan='2'>r = 1 %</td>
-                   </tr>
-                 </tbody>
-               </table>
-               <clause id='xyz'>
-                 <title depth='2'>
-                   II.A.
-                   <tab/>
-                   Preparatory
-                 </title>
-                 <table id='N2' unnumbered='true' class='requirement' type='recommend'>
-                   <thead>
-                     <tr>
-                       <th scope='colgroup' colspan='2'>
-                         <p class='RecommendationTitle'>Requirement</p>
-                       </th>
-                     </tr>
-                   </thead>
-                   <tbody>
-                     <tr>
-                       <td>A</td>
-                       <td/>
-                     </tr>
-                     <tr>
-                       <td>B</td>
-                       <td/>
-                     </tr>
-                     <tr>
-                       <td colspan='2'>r = 1 %</td>
-                     </tr>
-                   </tbody>
-                 </table>
-               </clause>
-             </introduction>
-           </preface>
-           <sections>
-             <clause id='scope' type='scope' displayorder='3'>
-               <title depth='1'>
-                 1.
-                 <tab/>
-                 Scope
-               </title>
-               <table id='N' class='requirement' type='recommend'>
-                 <thead>
-                   <tr>
-                     <th scope='colgroup' colspan='2'>
-                       <p class='RecommendationTitle'>Requirement 2</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <tr>
-                     <td>A</td>
-                     <td/>
-                   </tr>
-                   <tr>
-                     <td>B</td>
-                     <td/>
-                   </tr>
-                   <tr>
-                     <td colspan='2'>r = 1 %</td>
-                   </tr>
-                 </tbody>
-               </table>
-               <p>
-                 <xref target='N'>Requirement 2</xref>
-               </p>
-             </clause>
-             <terms id='terms' displayorder='4'>
-               <title>2.</title>
-             </terms>
-             <clause id='widgets' displayorder='5'>
-               <title depth='1'>
-                 3.
-                 <tab/>
-                 Widgets
-               </title>
-               <clause id='widgets1'>
-                 <title>3.1.</title>
-                 <table id='note1' class='requirement' type='recommend'>
-                   <thead>
-                     <tr>
-                       <th scope='colgroup' colspan='2'>
-                         <p class='RecommendationTitle'>Requirement 3</p>
-                       </th>
-                     </tr>
-                   </thead>
-                   <tbody>
-                     <tr>
-                       <td>A</td>
-                       <td/>
-                     </tr>
-                     <tr>
-                       <td>B</td>
-                       <td/>
-                     </tr>
-                     <tr>
-                       <td colspan='2'>r = 1 %</td>
-                     </tr>
-                   </tbody>
-                 </table>
-                 <table id='note2' class='requirement' type='recommend'>
-                   <thead>
-                     <tr>
-                       <th scope='colgroup' colspan='2'>
-                         <p class='RecommendationTitle'>Requirement 4</p>
-                       </th>
-                     </tr>
-                   </thead>
-                   <tbody>
-                     <tr>
-                       <td>A</td>
-                       <td/>
-                     </tr>
-                     <tr>
-                       <td>B</td>
-                       <td/>
-                     </tr>
-                     <tr>
-                       <td colspan='2'>r = 1 %</td>
-                     </tr>
-                   </tbody>
-                 </table>
-                 <p>
-                   <xref target='note1a'>Requirement A</xref>
-                   <xref target='note2b'>Requirement B</xref>
-                 </p>
-               </clause>
-             </clause>
-           </sections>
-           <annex id='annex1' displayorder='6'>
-             <title>
-               <strong>Annex A</strong>
-               <br/>
-               (informative)
-             </title>
-             <clause id='annex1a'>
-               <title>A.1.</title>
-               <table id='AN' class='requirement' type='recommend'>
-                 <thead>
-                   <tr>
-                     <th scope='colgroup' colspan='2'>
-                       <p class='RecommendationTitle'>Requirement A.1</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <tr>
-                     <td>A</td>
-                     <td/>
-                   </tr>
-                   <tr>
-                     <td>B</td>
-                     <td/>
-                   </tr>
-                   <tr>
-                     <td colspan='2'>r = 1 %</td>
-                   </tr>
-                 </tbody>
-               </table>
-             </clause>
-             <clause id='annex1b'>
-               <title>A.2.</title>
-               <table id='Anote1' unnumbered='true' class='requirement' type='recommend'>
-                 <thead>
-                   <tr>
-                     <th scope='colgroup' colspan='2'>
-                       <p class='RecommendationTitle'>Requirement</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <tr>
-                     <td>A</td>
-                     <td/>
-                   </tr>
-                   <tr>
-                     <td>B</td>
-                     <td/>
-                   </tr>
-                   <tr>
-                     <td colspan='2'>r = 1 %</td>
-                   </tr>
-                 </tbody>
-               </table>
-               <table id='Anote2' class='requirement' type='recommend'>
-                 <thead>
-                   <tr>
-                     <th scope='colgroup' colspan='2'>
-                       <p class='RecommendationTitle'>Requirement A.2</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <tr>
-                     <td>A</td>
-                     <td/>
-                   </tr>
-                   <tr>
-                     <td>B</td>
-                     <td/>
-                   </tr>
-                   <tr>
-                     <td colspan='2'>r = 1 %</td>
-                   </tr>
-                 </tbody>
-               </table>
-             </clause>
-           </annex>
-         </iso-standard>
+      <foreword displayorder='1'>
+        <p>
+          <xref target='N1a'>Introduction, Requirement A</xref>
+          <xref target='N1b'>Introduction, Requirement B</xref>
+          <xref target='N2a'>Clause II.A, Requirement A</xref>
+          <xref target='N2b'>Clause II.A, Requirement B</xref>
+          <xref target='Na'>Clause 1, Requirement A</xref>
+          <xref target='Nb'>Clause 1, Requirement B</xref>
+          <xref target='note1a'>Clause 3.1, Requirement A</xref>
+          <xref target='note1b'>Clause 3.1, Requirement B</xref>
+          <xref target='note2a'>Clause 3.1, Requirement A</xref>
+          <xref target='note2b'>Clause 3.1, Requirement B</xref>
+          <xref target='ANa'>Annex A.1, Requirement A</xref>
+          <xref target='ANb'>Annex A.1, Requirement B</xref>
+          <xref target='Anote1a'>Annex A.2, Requirement A</xref>
+          <xref target='Anote1b'>Annex A.2, Requirement B</xref>
+          <xref target='Anote2a'>Annex A.2, Requirement A</xref>
+          <xref target='Anote2b'>Annex A.2, Requirement B</xref>
+        </p>
+      </foreword>
     OUTPUT
-    expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({})
-      .convert("test", input, true)
-      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
+    expect(xmlpp(Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
   end
 
@@ -666,190 +425,22 @@ RSpec.describe IsoDoc::Ogc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
-            <preface>
-              <foreword displayorder="1">
-                <p>
-                  <xref target='N1'>Introduction, Requirement test 1</xref>
-                  <xref target='N2'>Clause II.A, Requirement test (??)</xref>
-                  <xref target='N'>Clause 1, Requirement test 2</xref>
-                  <xref target='note1'>Clause 3.1, Requirement test 3</xref>
-                  <xref target='note2'>Clause 3.1, Requirement test 4</xref>
-                  <xref target='AN'>Annex A.1, Requirement test A.1</xref>
-                  <xref target='Anote1'>Annex A.2, Requirement test (??)</xref>
-                  <xref target='Anote2'>Annex A.2, Requirement test A.2</xref>
-                </p>
-              </foreword>
-          <introduction id='intro' displayorder="2">
-               <title>II.</title>
-               <table id='N1' type='recommendtest' class='requirement'>
-                 <thead>
-                   <tr>
-                     <th scope='colgroup' colspan='2'>
-                       <p class='RecommendationTestTitle'>Requirement test 1</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <tr>
-                     <td colspan='2'>r = 1 %</td>
-                   </tr>
-                 </tbody>
-               </table>
-               <clause id='xyz'>
-                 <title depth='2'>
-                   II.A.
-                   <tab/>
-                   Preparatory
-                 </title>
-                 <table id='N2' unnumbered='true' type='recommendtest' class='requirement'>
-                   <thead>
-                     <tr>
-                       <th scope='colgroup' colspan='2'>
-                         <p class='RecommendationTestTitle'>Requirement test</p>
-                       </th>
-                     </tr>
-                   </thead>
-                   <tbody>
-                     <tr>
-                       <td colspan='2'>r = 1 %</td>
-                     </tr>
-                   </tbody>
-                 </table>
-               </clause>
-             </introduction>
-           </preface>
-           <sections>
-             <clause id='scope' type='scope' displayorder="3">
-               <title depth='1'>
-                 1.
-                 <tab/>
-                 Scope
-               </title>
-               <table id='N' type='recommendtest' class='requirement'>
-                 <thead>
-                   <tr>
-                     <th scope='colgroup' colspan='2'>
-                       <p class='RecommendationTestTitle'>Requirement test 2</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <tr>
-                     <td colspan='2'>r = 1 %</td>
-                   </tr>
-                 </tbody>
-               </table>
-               <p>
-                 <xref target='N'>Requirement test 2</xref>
-               </p>
-             </clause>
-             <terms id='terms' displayorder='4'>
-               <title>2.</title>
-             </terms>
-             <clause id='widgets' displayorder='5'>
-               <title depth='1'>
-                 3.
-                 <tab/>
-                 Widgets
-               </title>
-               <clause id='widgets1'>
-                 <title>3.1.</title>
-                 <table id='note1' type='recommendtest' class='requirement'>
-                   <thead>
-                     <tr>
-                       <th scope='colgroup' colspan='2'>
-                         <p class='RecommendationTestTitle'>Requirement test 3</p>
-                       </th>
-                     </tr>
-                   </thead>
-                   <tbody>
-                     <tr>
-                       <td colspan='2'>r = 1 %</td>
-                     </tr>
-                   </tbody>
-                 </table>
-                 <table id='note2' type='recommendtest' class='requirement'>
-                   <thead>
-                     <tr>
-                       <th scope='colgroup' colspan='2'>
-                         <p class='RecommendationTestTitle'>Requirement test 4</p>
-                       </th>
-                     </tr>
-                   </thead>
-                   <tbody>
-                     <tr>
-                       <td colspan='2'>r = 1 %</td>
-                     </tr>
-                   </tbody>
-                 </table>
-                 <p>
-                   <xref target='note1'>Requirement test 3</xref>
-                   <xref target='note2'>Requirement test 4</xref>
-                 </p>
-               </clause>
-             </clause>
-           </sections>
-           <annex id='annex1' displayorder='6'>
-             <title>
-               <strong>Annex A</strong>
-               <br/>
-               (informative)
-             </title>
-             <clause id='annex1a'>
-               <title>A.1.</title>
-               <table id='AN' type='recommendtest' class='requirement'>
-                 <thead>
-                   <tr>
-                     <th scope='colgroup' colspan='2'>
-                       <p class='RecommendationTestTitle'>Requirement test A.1</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <tr>
-                     <td colspan='2'>r = 1 %</td>
-                   </tr>
-                 </tbody>
-               </table>
-             </clause>
-             <clause id='annex1b'>
-               <title>A.2.</title>
-               <table id='Anote1' unnumbered='true' type='recommendtest' class='requirement'>
-                 <thead>
-                   <tr>
-                     <th scope='colgroup' colspan='2'>
-                       <p class='RecommendationTestTitle'>Requirement test</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <tr>
-                     <td colspan='2'>r = 1 %</td>
-                   </tr>
-                 </tbody>
-               </table>
-               <table id='Anote2' type='recommendtest' class='requirement'>
-                 <thead>
-                   <tr>
-                     <th scope='colgroup' colspan='2'>
-                       <p class='RecommendationTestTitle'>Requirement test A.2</p>
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <tr>
-                     <td colspan='2'>r = 1 %</td>
-                   </tr>
-                 </tbody>
-               </table>
-             </clause>
-           </annex>
-         </iso-standard>
+      <foreword displayorder="1">
+        <p>
+          <xref target='N1'>Introduction, Requirement test 1</xref>
+          <xref target='N2'>Clause II.A, Requirement test (??)</xref>
+          <xref target='N'>Clause 1, Requirement test 2</xref>
+          <xref target='note1'>Clause 3.1, Requirement test 3</xref>
+          <xref target='note2'>Clause 3.1, Requirement test 4</xref>
+          <xref target='AN'>Annex A.1, Requirement test A.1</xref>
+          <xref target='Anote1'>Annex A.2, Requirement test (??)</xref>
+          <xref target='Anote2'>Annex A.2, Requirement test A.2</xref>
+        </p>
+      </foreword>
     OUTPUT
-    expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({})
-      .convert("test", input, true)
-      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
+    expect(xmlpp(Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
   end
 
@@ -918,190 +509,22 @@ RSpec.describe IsoDoc::Ogc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
-         <preface>
-           <foreword displayorder="1">
-             <p>
-               <xref target='N1'>Introduction, Recommendation 1</xref>
-               <xref target='N2'>Clause II.A, Recommendation (??)</xref>
-               <xref target='N'>Clause 1, Recommendation 2</xref>
-               <xref target='note1'>Clause 3.1, Recommendation 3</xref>
-               <xref target='note2'>Clause 3.1, Recommendation 4</xref>
-               <xref target='AN'>Annex A.1, Recommendation A.1</xref>
-               <xref target='Anote1'>Annex A.2, Recommendation (??)</xref>
-               <xref target='Anote2'>Annex A.2, Recommendation A.2</xref>
-             </p>
-           </foreword>
-       <introduction id='intro' displayorder="2">
-            <title>II.</title>
-            <table id='N1' class='recommendation' type='recommend'>
-              <thead>
-                <tr>
-                  <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTitle'>Recommendation 1</p>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td colspan='2'>r = 1 %</td>
-                </tr>
-              </tbody>
-            </table>
-            <clause id='xyz'>
-              <title depth='2'>
-                II.A.
-                <tab/>
-                Preparatory
-              </title>
-              <table id='N2' unnumbered='true' class='recommendation' type='recommend'>
-                <thead>
-                  <tr>
-                    <th scope='colgroup' colspan='2'>
-                      <p class='RecommendationTitle'>Recommendation</p>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td colspan='2'>r = 1 %</td>
-                  </tr>
-                </tbody>
-              </table>
-            </clause>
-          </introduction>
-        </preface>
-        <sections>
-          <clause id='scope' type='scope' displayorder="3">
-            <title depth='1'>
-              1.
-              <tab/>
-              Scope
-            </title>
-            <table id='N' class='recommendation' type='recommend'>
-              <thead>
-                <tr>
-                  <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTitle'>Recommendation 2</p>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td colspan='2'>r = 1 %</td>
-                </tr>
-              </tbody>
-            </table>
-            <p>
-              <xref target='N'>Recommendation 2</xref>
-            </p>
-          </clause>
-          <terms id='terms' displayorder='4'>
-            <title>2.</title>
-          </terms>
-          <clause id='widgets' displayorder='5'>
-            <title depth='1'>
-              3.
-              <tab/>
-              Widgets
-            </title>
-            <clause id='widgets1'>
-              <title>3.1.</title>
-              <table id='note1' class='recommendation' type='recommend'>
-                <thead>
-                  <tr>
-                    <th scope='colgroup' colspan='2'>
-                      <p class='RecommendationTitle'>Recommendation 3</p>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td colspan='2'>r = 1 %</td>
-                  </tr>
-                </tbody>
-              </table>
-              <table id='note2' class='recommendation' type='recommend'>
-                <thead>
-                  <tr>
-                    <th scope='colgroup' colspan='2'>
-                      <p class='RecommendationTitle'>Recommendation 4</p>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td colspan='2'>r = 1 %</td>
-                  </tr>
-                </tbody>
-              </table>
-              <p>
-                <xref target='note1'>Recommendation 3</xref>
-                <xref target='note2'>Recommendation 4</xref>
-              </p>
-            </clause>
-          </clause>
-        </sections>
-        <annex id='annex1' displayorder='6'>
-          <title>
-            <strong>Annex A</strong>
-            <br/>
-            (informative)
-          </title>
-          <clause id='annex1a'>
-            <title>A.1.</title>
-            <table id='AN' class='recommendation' type='recommend'>
-              <thead>
-                <tr>
-                  <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTitle'>Recommendation A.1</p>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td colspan='2'>r = 1 %</td>
-                </tr>
-              </tbody>
-            </table>
-          </clause>
-          <clause id='annex1b'>
-            <title>A.2.</title>
-            <table id='Anote1' unnumbered='true' class='recommendation' type='recommend'>
-              <thead>
-                <tr>
-                  <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTitle'>Recommendation</p>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td colspan='2'>r = 1 %</td>
-                </tr>
-              </tbody>
-            </table>
-            <table id='Anote2' class='recommendation' type='recommend'>
-              <thead>
-                <tr>
-                  <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTitle'>Recommendation A.2</p>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td colspan='2'>r = 1 %</td>
-                </tr>
-              </tbody>
-            </table>
-          </clause>
-        </annex>
-      </iso-standard>
+      <foreword displayorder="1">
+        <p>
+          <xref target='N1'>Introduction, Recommendation 1</xref>
+          <xref target='N2'>Clause II.A, Recommendation (??)</xref>
+          <xref target='N'>Clause 1, Recommendation 2</xref>
+          <xref target='note1'>Clause 3.1, Recommendation 3</xref>
+          <xref target='note2'>Clause 3.1, Recommendation 4</xref>
+          <xref target='AN'>Annex A.1, Recommendation A.1</xref>
+          <xref target='Anote1'>Annex A.2, Recommendation (??)</xref>
+          <xref target='Anote2'>Annex A.2, Recommendation A.2</xref>
+        </p>
+      </foreword>
     OUTPUT
-    expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({})
-      .convert("test", input, true)
-      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
+    expect(xmlpp(Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
   end
 
@@ -1170,190 +593,22 @@ RSpec.describe IsoDoc::Ogc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
-         <preface>
-           <foreword displayorder="1">
-             <p>
-               <xref target='N1'>Introduction, Recommendation test 1</xref>
-               <xref target='N2'>Clause II.A, Recommendation test (??)</xref>
-               <xref target='N'>Clause 1, Recommendation test 2</xref>
-               <xref target='note1'>Clause 3.1, Recommendation test 3</xref>
-               <xref target='note2'>Clause 3.1, Recommendation test 4</xref>
-               <xref target='AN'>Annex A.1, Recommendation test A.1</xref>
-               <xref target='Anote1'>Annex A.2, Recommendation test (??)</xref>
-               <xref target='Anote2'>Annex A.2, Recommendation test A.2</xref>
-             </p>
-           </foreword>
-       <introduction id='intro' displayorder="2">
-            <title>II.</title>
-            <table id='N1' type='recommendtest' class='recommendation'>
-              <thead>
-                <tr>
-                  <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTestTitle'>Recommendation test 1</p>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td colspan='2'>r = 1 %</td>
-                </tr>
-              </tbody>
-            </table>
-            <clause id='xyz'>
-              <title depth='2'>
-                II.A.
-                <tab/>
-                Preparatory
-              </title>
-              <table id='N2' unnumbered='true' type='recommendtest' class='recommendation'>
-                <thead>
-                  <tr>
-                    <th scope='colgroup' colspan='2'>
-                      <p class='RecommendationTestTitle'>Recommendation test</p>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td colspan='2'>r = 1 %</td>
-                  </tr>
-                </tbody>
-              </table>
-            </clause>
-          </introduction>
-        </preface>
-        <sections>
-          <clause id='scope' type='scope' displayorder="3">
-            <title depth='1'>
-              1.
-              <tab/>
-              Scope
-            </title>
-            <table id='N' type='recommendtest' class='recommendation'>
-              <thead>
-                <tr>
-                  <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTestTitle'>Recommendation test 2</p>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td colspan='2'>r = 1 %</td>
-                </tr>
-              </tbody>
-            </table>
-            <p>
-              <xref target='N'>Recommendation test 2</xref>
-            </p>
-          </clause>
-          <terms id='terms' displayorder='4'>
-            <title>2.</title>
-          </terms>
-          <clause id='widgets' displayorder='5'>
-            <title depth='1'>
-              3.
-              <tab/>
-              Widgets
-            </title>
-            <clause id='widgets1'>
-              <title>3.1.</title>
-              <table id='note1' type='recommendtest' class='recommendation'>
-                <thead>
-                  <tr>
-                    <th scope='colgroup' colspan='2'>
-                      <p class='RecommendationTestTitle'>Recommendation test 3</p>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td colspan='2'>r = 1 %</td>
-                  </tr>
-                </tbody>
-              </table>
-              <table id='note2' type='recommendtest' class='recommendation'>
-                <thead>
-                  <tr>
-                    <th scope='colgroup' colspan='2'>
-                      <p class='RecommendationTestTitle'>Recommendation test 4</p>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td colspan='2'>r = 1 %</td>
-                  </tr>
-                </tbody>
-              </table>
-              <p>
-                <xref target='note1'>Recommendation test 3</xref>
-                <xref target='note2'>Recommendation test 4</xref>
-              </p>
-            </clause>
-          </clause>
-        </sections>
-        <annex id='annex1' displayorder='6'>
-          <title>
-            <strong>Annex A</strong>
-            <br/>
-            (informative)
-          </title>
-          <clause id='annex1a'>
-            <title>A.1.</title>
-            <table id='AN' type='recommendtest' class='recommendation'>
-              <thead>
-                <tr>
-                  <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTestTitle'>Recommendation test A.1</p>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td colspan='2'>r = 1 %</td>
-                </tr>
-              </tbody>
-            </table>
-          </clause>
-          <clause id='annex1b'>
-            <title>A.2.</title>
-            <table id='Anote1' unnumbered='true' type='recommendtest' class='recommendation'>
-              <thead>
-                <tr>
-                  <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTestTitle'>Recommendation test</p>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td colspan='2'>r = 1 %</td>
-                </tr>
-              </tbody>
-            </table>
-            <table id='Anote2' type='recommendtest' class='recommendation'>
-              <thead>
-                <tr>
-                  <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTestTitle'>Recommendation test A.2</p>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td colspan='2'>r = 1 %</td>
-                </tr>
-              </tbody>
-            </table>
-          </clause>
-        </annex>
-      </iso-standard>
+      <foreword displayorder="1">
+        <p>
+          <xref target='N1'>Introduction, Recommendation test 1</xref>
+          <xref target='N2'>Clause II.A, Recommendation test (??)</xref>
+          <xref target='N'>Clause 1, Recommendation test 2</xref>
+          <xref target='note1'>Clause 3.1, Recommendation test 3</xref>
+          <xref target='note2'>Clause 3.1, Recommendation test 4</xref>
+          <xref target='AN'>Annex A.1, Recommendation test A.1</xref>
+          <xref target='Anote1'>Annex A.2, Recommendation test (??)</xref>
+          <xref target='Anote2'>Annex A.2, Recommendation test A.2</xref>
+        </p>
+      </foreword>
     OUTPUT
-    expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({})
-      .convert("test", input, true)
-      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
+    expect(xmlpp(Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
   end
 
@@ -1422,190 +677,22 @@ RSpec.describe IsoDoc::Ogc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
-         <preface>
-           <foreword displayorder="1">
-             <p>
-               <xref target='N1'>Introduction, Permission 1</xref>
-               <xref target='N2'>Clause II.A, Permission (??)</xref>
-               <xref target='N'>Clause 1, Permission 2</xref>
-               <xref target='note1'>Clause 3.1, Permission 3</xref>
-               <xref target='note2'>Clause 3.1, Permission 4</xref>
-               <xref target='AN'>Annex A.1, Permission A.1</xref>
-               <xref target='Anote1'>Annex A.2, Permission (??)</xref>
-               <xref target='Anote2'>Annex A.2, Permission A.2</xref>
-             </p>
-           </foreword>
-       <introduction id='intro' displayorder="2">
-            <title>II.</title>
-            <table id='N1' class='permission' type='recommend'>
-              <thead>
-                <tr>
-                  <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTitle'>Permission 1</p>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td colspan='2'>r = 1 %</td>
-                </tr>
-              </tbody>
-            </table>
-            <clause id='xyz'>
-              <title depth='2'>
-                II.A.
-                <tab/>
-                Preparatory
-              </title>
-              <table id='N2' unnumbered='true' class='permission' type='recommend'>
-                <thead>
-                  <tr>
-                    <th scope='colgroup' colspan='2'>
-                      <p class='RecommendationTitle'>Permission</p>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td colspan='2'>r = 1 %</td>
-                  </tr>
-                </tbody>
-              </table>
-            </clause>
-          </introduction>
-        </preface>
-        <sections>
-          <clause id='scope' type='scope' displayorder="3">
-            <title depth='1'>
-              1.
-              <tab/>
-              Scope
-            </title>
-            <table id='N' class='permission' type='recommend'>
-              <thead>
-                <tr>
-                  <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTitle'>Permission 2</p>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td colspan='2'>r = 1 %</td>
-                </tr>
-              </tbody>
-            </table>
-            <p>
-              <xref target='N'>Permission 2</xref>
-            </p>
-          </clause>
-          <terms id='terms' displayorder='4'>
-            <title>2.</title>
-          </terms>
-          <clause id='widgets' displayorder='5'>
-            <title depth='1'>
-              3.
-              <tab/>
-              Widgets
-            </title>
-            <clause id='widgets1'>
-              <title>3.1.</title>
-              <table id='note1' class='permission' type='recommend'>
-                <thead>
-                  <tr>
-                    <th scope='colgroup' colspan='2'>
-                      <p class='RecommendationTitle'>Permission 3</p>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td colspan='2'>r = 1 %</td>
-                  </tr>
-                </tbody>
-              </table>
-              <table id='note2' class='permission' type='recommend'>
-                <thead>
-                  <tr>
-                    <th scope='colgroup' colspan='2'>
-                      <p class='RecommendationTitle'>Permission 4</p>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td colspan='2'>r = 1 %</td>
-                  </tr>
-                </tbody>
-              </table>
-              <p>
-                <xref target='note1'>Permission 3</xref>
-                <xref target='note2'>Permission 4</xref>
-              </p>
-            </clause>
-          </clause>
-        </sections>
-        <annex id='annex1' displayorder='6'>
-          <title>
-            <strong>Annex A</strong>
-            <br/>
-            (informative)
-          </title>
-          <clause id='annex1a'>
-            <title>A.1.</title>
-            <table id='AN' class='permission' type='recommend'>
-              <thead>
-                <tr>
-                  <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTitle'>Permission A.1</p>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td colspan='2'>r = 1 %</td>
-                </tr>
-              </tbody>
-            </table>
-          </clause>
-          <clause id='annex1b'>
-            <title>A.2.</title>
-            <table id='Anote1' unnumbered='true' class='permission' type='recommend'>
-              <thead>
-                <tr>
-                  <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTitle'>Permission</p>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td colspan='2'>r = 1 %</td>
-                </tr>
-              </tbody>
-            </table>
-            <table id='Anote2' class='permission' type='recommend'>
-              <thead>
-                <tr>
-                  <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTitle'>Permission A.2</p>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td colspan='2'>r = 1 %</td>
-                </tr>
-              </tbody>
-            </table>
-          </clause>
-        </annex>
-      </iso-standard>
+      <foreword displayorder="1">
+        <p>
+          <xref target='N1'>Introduction, Permission 1</xref>
+          <xref target='N2'>Clause II.A, Permission (??)</xref>
+          <xref target='N'>Clause 1, Permission 2</xref>
+          <xref target='note1'>Clause 3.1, Permission 3</xref>
+          <xref target='note2'>Clause 3.1, Permission 4</xref>
+          <xref target='AN'>Annex A.1, Permission A.1</xref>
+          <xref target='Anote1'>Annex A.2, Permission (??)</xref>
+          <xref target='Anote2'>Annex A.2, Permission A.2</xref>
+        </p>
+      </foreword>
     OUTPUT
-    expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({})
-      .convert("test", input, true)
-      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
+    expect(xmlpp(Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
   end
 
@@ -1674,190 +761,22 @@ RSpec.describe IsoDoc::Ogc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
-         <preface>
-           <foreword displayorder="1">
-             <p>
-               <xref target='N1'>Introduction, Permission test 1</xref>
-               <xref target='N2'>Clause II.A, Permission test (??)</xref>
-               <xref target='N'>Clause 1, Permission test 2</xref>
-               <xref target='note1'>Clause 3.1, Permission test 3</xref>
-               <xref target='note2'>Clause 3.1, Permission test 4</xref>
-               <xref target='AN'>Annex A.1, Permission test A.1</xref>
-               <xref target='Anote1'>Annex A.2, Permission test (??)</xref>
-               <xref target='Anote2'>Annex A.2, Permission test A.2</xref>
-             </p>
-           </foreword>
-        <introduction id='intro' displayorder="2">
-            <title>II.</title>
-            <table id='N1' type='recommendtest' class='permission'>
-              <thead>
-                <tr>
-                  <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTestTitle'>Permission test 1</p>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td colspan='2'>r = 1 %</td>
-                </tr>
-              </tbody>
-            </table>
-            <clause id='xyz'>
-              <title depth='2'>
-                II.A.
-                <tab/>
-                Preparatory
-              </title>
-              <table id='N2' unnumbered='true' type='recommendtest' class='permission'>
-                <thead>
-                  <tr>
-                    <th scope='colgroup' colspan='2'>
-                      <p class='RecommendationTestTitle'>Permission test</p>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td colspan='2'>r = 1 %</td>
-                  </tr>
-                </tbody>
-              </table>
-            </clause>
-          </introduction>
-        </preface>
-        <sections>
-          <clause id='scope' type='scope' displayorder="3">
-            <title depth='1'>
-              1.
-              <tab/>
-              Scope
-            </title>
-            <table id='N' type='recommendtest' class='permission'>
-              <thead>
-                <tr>
-                  <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTestTitle'>Permission test 2</p>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td colspan='2'>r = 1 %</td>
-                </tr>
-              </tbody>
-            </table>
-            <p>
-              <xref target='N'>Permission test 2</xref>
-            </p>
-          </clause>
-          <terms id='terms' displayorder='4'>
-            <title>2.</title>
-          </terms>
-          <clause id='widgets' displayorder='5'>
-            <title depth='1'>
-              3.
-              <tab/>
-              Widgets
-            </title>
-            <clause id='widgets1'>
-              <title>3.1.</title>
-              <table id='note1' type='recommendtest' class='permission'>
-                <thead>
-                  <tr>
-                    <th scope='colgroup' colspan='2'>
-                      <p class='RecommendationTestTitle'>Permission test 3</p>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td colspan='2'>r = 1 %</td>
-                  </tr>
-                </tbody>
-              </table>
-              <table id='note2' type='recommendtest' class='permission'>
-                <thead>
-                  <tr>
-                    <th scope='colgroup' colspan='2'>
-                      <p class='RecommendationTestTitle'>Permission test 4</p>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td colspan='2'>r = 1 %</td>
-                  </tr>
-                </tbody>
-              </table>
-              <p>
-                <xref target='note1'>Permission test 3</xref>
-                <xref target='note2'>Permission test 4</xref>
-              </p>
-            </clause>
-          </clause>
-        </sections>
-        <annex id='annex1' displayorder='6'>
-          <title>
-            <strong>Annex A</strong>
-            <br/>
-            (informative)
-          </title>
-          <clause id='annex1a'>
-            <title>A.1.</title>
-            <table id='AN' type='recommendtest' class='permission'>
-              <thead>
-                <tr>
-                  <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTestTitle'>Permission test A.1</p>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td colspan='2'>r = 1 %</td>
-                </tr>
-              </tbody>
-            </table>
-          </clause>
-          <clause id='annex1b'>
-            <title>A.2.</title>
-            <table id='Anote1' unnumbered='true' type='recommendtest' class='permission'>
-              <thead>
-                <tr>
-                  <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTestTitle'>Permission test</p>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td colspan='2'>r = 1 %</td>
-                </tr>
-              </tbody>
-            </table>
-            <table id='Anote2' type='recommendtest' class='permission'>
-              <thead>
-                <tr>
-                  <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTestTitle'>Permission test A.2</p>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td colspan='2'>r = 1 %</td>
-                </tr>
-              </tbody>
-            </table>
-          </clause>
-        </annex>
-      </iso-standard>
+      <foreword displayorder="1">
+        <p>
+          <xref target='N1'>Introduction, Permission test 1</xref>
+          <xref target='N2'>Clause II.A, Permission test (??)</xref>
+          <xref target='N'>Clause 1, Permission test 2</xref>
+          <xref target='note1'>Clause 3.1, Permission test 3</xref>
+          <xref target='note2'>Clause 3.1, Permission test 4</xref>
+          <xref target='AN'>Annex A.1, Permission test A.1</xref>
+          <xref target='Anote1'>Annex A.2, Permission test (??)</xref>
+          <xref target='Anote2'>Annex A.2, Permission test A.2</xref>
+        </p>
+      </foreword>
     OUTPUT
-    expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({})
-      .convert("test", input, true)
-      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
+    expect(xmlpp(Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
   end
 
@@ -1913,238 +832,24 @@ RSpec.describe IsoDoc::Ogc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
-                <preface>
-                  <foreword displayorder="1">
-                    <p>
-                      <xref target='N1'>Clause 1, Permission 1</xref>
-                      <xref target='N2'>Clause 1, Permission test 1-1</xref>
-                      <xref target='N'>Clause 1, Permission 1-1-1</xref>
-                      <xref target='Q1'>Clause 1, Requirement 1-1</xref>
-                      <xref target='R1'>Clause 1, Recommendation 1-1</xref>
-                      <xref target='AN1'>Annex A, Permission test A.1</xref>
-                      <xref target='AN2'>Annex A, Permission A.1-1</xref>
-                      <xref target='AN'>Annex A, Permission test A.1-1-1</xref>
-                      <xref target='AQ1'>Annex A, Requirement A.1-1</xref>
-                      <xref target='AR1'>Annex A, Recommendation A.1-1</xref>
-                    </p>
-                  </foreword>
-                </preface>
-                <sections>
-                 <clause id='xyz' displayorder="2">
-                   <title depth='1'>
-                     1.
-                     <tab/>
-                     Preparatory
-                   </title>
-                   <table id='N1' class='permission' type='recommend'>
-                     <thead>
-                       <tr>
-                         <th scope='colgroup' colspan='2'>
-                           <p class='RecommendationTitle'>Permission 1</p>
-                         </th>
-                       </tr>
-                     </thead>
-                     <tbody>
-                       <tr>
-                         <td colspan='2'>
-                           <table id='N2' type='recommendtest' class='permission'>
-                             <thead>
-                               <tr>
-                                 <th scope='colgroup' colspan='2'>
-                                   <p class='RecommendationTestTitle'>Permission test 1-1</p>
-                                 </th>
-                               </tr>
-                             </thead>
-                             <tbody>
-                               <tr>
-                                 <td colspan='2'>
-                                   <table id='N' class='permission' type='recommend'>
-                                     <thead>
-                                       <tr>
-                                         <th scope='colgroup' colspan='2'>
-                                           <p class='RecommendationTitle'>Permission 1-1-1</p>
-                                         </th>
-                                       </tr>
-                                     </thead>
-                                     <tbody/>
-                                   </table>
-                                 </td>
-                               </tr>
-                             </tbody>
-                           </table>
-                         </td>
-                       </tr>
-                       <tr>
-                         <td colspan='2'>
-                           <table id='Q1' class='requirement' type='recommend'>
-                             <thead>
-                               <tr>
-                                 <th scope='colgroup' colspan='2'>
-                                   <p class='RecommendationTitle'>Requirement 1-1</p>
-                                 </th>
-                               </tr>
-                             </thead>
-                             <tbody/>
-                           </table>
-                         </td>
-                       </tr>
-                       <tr>
-                         <td colspan='2'>
-                           <table id='R1' class='recommendation' type='recommend'>
-                             <thead>
-                               <tr>
-                                 <th scope='colgroup' colspan='2'>
-                                   <p class='RecommendationTitle'>Recommendation 1-1</p>
-                                 </th>
-                               </tr>
-                             </thead>
-                             <tbody/>
-                           </table>
-                         </td>
-                       </tr>
-                       <tr>
-                         <td colspan='2'>
-                           <table id='N3' type='recommendtest' class='permission'>
-                             <thead>
-                               <tr>
-                                 <th scope='colgroup' colspan='2'>
-                                   <p class='RecommendationTestTitle'>Permission test 1-2</p>
-                                 </th>
-                               </tr>
-                             </thead>
-                             <tbody/>
-                           </table>
-                         </td>
-                       </tr>
-                       <tr>
-                         <td colspan='2'>
-                           <table id='N4' class='permission' type='recommend'>
-                             <thead>
-                               <tr>
-                                 <th scope='colgroup' colspan='2'>
-                                   <p class='RecommendationTitle'>Permission 1-1</p>
-                                 </th>
-                               </tr>
-                             </thead>
-                             <tbody/>
-                           </table>
-                         </td>
-                       </tr>
-                     </tbody>
-                   </table>
-                 </clause>
-               </sections>
-               <annex id='Axyz' displayorder='3'>
-                 <title>
-                   <strong>Annex A</strong>
-                   <br/>
-                   (informative)
-                   <br/>
-                   <strong>Preparatory</strong>
-                 </title>
-                 <table id='AN1' type='recommendtest' class='permission'>
-                   <thead>
-                     <tr>
-                       <th scope='colgroup' colspan='2'>
-                         <p class='RecommendationTestTitle'>Permission test A.1</p>
-                       </th>
-                     </tr>
-                   </thead>
-                   <tbody>
-                     <tr>
-                       <td colspan='2'>
-                         <table id='AN2' class='permission' type='recommend'>
-                           <thead>
-                             <tr>
-                               <th scope='colgroup' colspan='2'>
-                                 <p class='RecommendationTitle'>Permission A.1-1</p>
-                               </th>
-                             </tr>
-                           </thead>
-                           <tbody>
-                             <tr>
-                               <td colspan='2'>
-                                 <table id='AN' type='recommendtest' class='permission'>
-                                   <thead>
-                                     <tr>
-                                       <th scope='colgroup' colspan='2'>
-                                         <p class='RecommendationTestTitle'>Permission test A.1-1-1</p>
-                                       </th>
-                                     </tr>
-                                   </thead>
-                                   <tbody/>
-                                 </table>
-                               </td>
-                             </tr>
-                           </tbody>
-                         </table>
-                       </td>
-                     </tr>
-                     <tr>
-                       <td colspan='2'>
-                         <table id='AQ1' class='requirement' type='recommend'>
-                           <thead>
-                             <tr>
-                               <th scope='colgroup' colspan='2'>
-                                 <p class='RecommendationTitle'>Requirement A.1-1</p>
-                               </th>
-                             </tr>
-                           </thead>
-                           <tbody/>
-                         </table>
-                       </td>
-                     </tr>
-                     <tr>
-                       <td colspan='2'>
-                         <table id='AR1' class='recommendation' type='recommend'>
-                           <thead>
-                             <tr>
-                               <th scope='colgroup' colspan='2'>
-                                 <p class='RecommendationTitle'>Recommendation A.1-1</p>
-                               </th>
-                             </tr>
-                           </thead>
-                           <tbody/>
-                         </table>
-                       </td>
-                     </tr>
-                     <tr>
-                       <td colspan='2'>
-                         <table id='AN3' type='recommendtest' class='permission'>
-                           <thead>
-                             <tr>
-                               <th scope='colgroup' colspan='2'>
-                                 <p class='RecommendationTestTitle'>Permission test A.1-1</p>
-                               </th>
-                             </tr>
-                           </thead>
-                           <tbody/>
-                         </table>
-                       </td>
-                     </tr>
-                     <tr>
-                       <td colspan='2'>
-                         <table id='AN4' class='permission' type='recommend'>
-                           <thead>
-                             <tr>
-                               <th scope='colgroup' colspan='2'>
-                                 <p class='RecommendationTitle'>Permission A.1-2</p>
-                               </th>
-                             </tr>
-                           </thead>
-                           <tbody/>
-                         </table>
-                       </td>
-                     </tr>
-                   </tbody>
-                 </table>
-               </annex>
-             </iso-standard>
+      <foreword displayorder="1">
+        <p>
+          <xref target='N1'>Clause 1, Permission 1</xref>
+          <xref target='N2'>Clause 1, Permission test 1-1</xref>
+          <xref target='N'>Clause 1, Permission 1-1-1</xref>
+          <xref target='Q1'>Clause 1, Requirement 1-1</xref>
+          <xref target='R1'>Clause 1, Recommendation 1-1</xref>
+          <xref target='AN1'>Annex A, Permission test A.1</xref>
+          <xref target='AN2'>Annex A, Permission A.1-1</xref>
+          <xref target='AN'>Annex A, Permission test A.1-1-1</xref>
+          <xref target='AQ1'>Annex A, Requirement A.1-1</xref>
+          <xref target='AR1'>Annex A, Recommendation A.1-1</xref>
+        </p>
+      </foreword>
     OUTPUT
-    expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({})
-      .convert("test", input, true)
-      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
+    expect(xmlpp(Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
   end
 
@@ -2213,190 +918,22 @@ RSpec.describe IsoDoc::Ogc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
-         <preface>
-           <foreword displayorder="1">
-             <p>
-               <xref target='N1'>Introduction, Abstract test 1</xref>
-               <xref target='N2'>Clause II.A, Abstract test (??)</xref>
-               <xref target='N'>Clause 1, Abstract test 2</xref>
-               <xref target='note1'>Clause 3.1, Abstract test 3</xref>
-               <xref target='note2'>Clause 3.1, Abstract test 4</xref>
-               <xref target='AN'>Annex A.1, Abstract test A.1</xref>
-               <xref target='Anote1'>Annex A.2, Abstract test (??)</xref>
-               <xref target='Anote2'>Annex A.2, Abstract test A.2</xref>
-             </p>
-           </foreword>
-       <introduction id='intro' displayorder="2">
-            <title>II.</title>
-            <table id='N1' type='recommendtest' class='permission'>
-              <thead>
-                <tr>
-                  <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTestTitle'>Abstract test 1</p>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td colspan='2'>r = 1 %</td>
-                </tr>
-              </tbody>
-            </table>
-            <clause id='xyz'>
-              <title depth='2'>
-                II.A.
-                <tab/>
-                Preparatory
-              </title>
-              <table id='N2' unnumbered='true' type='recommendtest' class='permission'>
-                <thead>
-                  <tr>
-                    <th scope='colgroup' colspan='2'>
-                      <p class='RecommendationTestTitle'>Abstract test</p>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td colspan='2'>r = 1 %</td>
-                  </tr>
-                </tbody>
-              </table>
-            </clause>
-          </introduction>
-        </preface>
-        <sections>
-          <clause id='scope' type='scope' displayorder="3">
-            <title depth='1'>
-              1.
-              <tab/>
-              Scope
-            </title>
-            <table id='N' type='recommendtest' class='permission'>
-              <thead>
-                <tr>
-                  <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTestTitle'>Abstract test 2</p>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td colspan='2'>r = 1 %</td>
-                </tr>
-              </tbody>
-            </table>
-            <p>
-              <xref target='N'>Abstract test 2</xref>
-            </p>
-          </clause>
-          <terms id='terms' displayorder='4'>
-            <title>2.</title>
-          </terms>
-          <clause id='widgets' displayorder='5'>
-            <title depth='1'>
-              3.
-              <tab/>
-              Widgets
-            </title>
-            <clause id='widgets1'>
-              <title>3.1.</title>
-              <table id='note1' type='recommendtest' class='permission'>
-                <thead>
-                  <tr>
-                    <th scope='colgroup' colspan='2'>
-                      <p class='RecommendationTestTitle'>Abstract test 3</p>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td colspan='2'>r = 1 %</td>
-                  </tr>
-                </tbody>
-              </table>
-              <table id='note2' type='recommendtest' class='permission'>
-                <thead>
-                  <tr>
-                    <th scope='colgroup' colspan='2'>
-                      <p class='RecommendationTestTitle'>Abstract test 4</p>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td colspan='2'>r = 1 %</td>
-                  </tr>
-                </tbody>
-              </table>
-              <p>
-                <xref target='note1'>Abstract test 3</xref>
-                <xref target='note2'>Abstract test 4</xref>
-              </p>
-            </clause>
-          </clause>
-        </sections>
-        <annex id='annex1' displayorder='6'>
-          <title>
-            <strong>Annex A</strong>
-            <br/>
-            (informative)
-          </title>
-          <clause id='annex1a'>
-            <title>A.1.</title>
-            <table id='AN' type='recommendtest' class='permission'>
-              <thead>
-                <tr>
-                  <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTestTitle'>Abstract test A.1</p>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td colspan='2'>r = 1 %</td>
-                </tr>
-              </tbody>
-            </table>
-          </clause>
-          <clause id='annex1b'>
-            <title>A.2.</title>
-            <table id='Anote1' unnumbered='true' type='recommendtest' class='permission'>
-              <thead>
-                <tr>
-                  <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTestTitle'>Abstract test</p>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td colspan='2'>r = 1 %</td>
-                </tr>
-              </tbody>
-            </table>
-            <table id='Anote2' type='recommendtest' class='permission'>
-              <thead>
-                <tr>
-                  <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTestTitle'>Abstract test A.2</p>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td colspan='2'>r = 1 %</td>
-                </tr>
-              </tbody>
-            </table>
-          </clause>
-        </annex>
-      </iso-standard>
+      <foreword displayorder="1">
+        <p>
+          <xref target='N1'>Introduction, Abstract test 1</xref>
+          <xref target='N2'>Clause II.A, Abstract test (??)</xref>
+          <xref target='N'>Clause 1, Abstract test 2</xref>
+          <xref target='note1'>Clause 3.1, Abstract test 3</xref>
+          <xref target='note2'>Clause 3.1, Abstract test 4</xref>
+          <xref target='AN'>Annex A.1, Abstract test A.1</xref>
+          <xref target='Anote1'>Annex A.2, Abstract test (??)</xref>
+          <xref target='Anote2'>Annex A.2, Abstract test A.2</xref>
+        </p>
+      </foreword>
     OUTPUT
-    expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({})
-      .convert("test", input, true)
-      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
+    expect(xmlpp(Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
   end
 
@@ -2465,190 +1002,22 @@ RSpec.describe IsoDoc::Ogc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
-         <preface>
-           <foreword displayorder="1">
-             <p>
-               <xref target='N1'>Introduction, Conformance class 1</xref>
-               <xref target='N2'>Clause II.A, Conformance class (??)</xref>
-               <xref target='N'>Clause 1, Conformance class 2</xref>
-               <xref target='note1'>Clause 3.1, Conformance class 3</xref>
-               <xref target='note2'>Clause 3.1, Conformance class 4</xref>
-               <xref target='AN'>Annex A.1, Conformance class A.1</xref>
-               <xref target='Anote1'>Annex A.2, Conformance class (??)</xref>
-               <xref target='Anote2'>Annex A.2, Conformance class A.2</xref>
-             </p>
-           </foreword>
-        <introduction id='intro' displayorder="2">
-            <title>II.</title>
-            <table id='N1' type='recommendclass' class='permission'>
-              <thead>
-                <tr>
-                  <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTitle'>Conformance class 1</p>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td colspan='2'>r = 1 %</td>
-                </tr>
-              </tbody>
-            </table>
-            <clause id='xyz'>
-              <title depth='2'>
-                II.A.
-                <tab/>
-                Preparatory
-              </title>
-              <table id='N2' unnumbered='true' type='recommendclass' class='permission'>
-                <thead>
-                  <tr>
-                    <th scope='colgroup' colspan='2'>
-                      <p class='RecommendationTitle'>Conformance class</p>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td colspan='2'>r = 1 %</td>
-                  </tr>
-                </tbody>
-              </table>
-            </clause>
-          </introduction>
-        </preface>
-        <sections>
-          <clause id='scope' type='scope' displayorder="3">
-            <title depth='1'>
-              1.
-              <tab/>
-              Scope
-            </title>
-            <table id='N' type='recommendclass' class='permission'>
-              <thead>
-                <tr>
-                  <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTitle'>Conformance class 2</p>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td colspan='2'>r = 1 %</td>
-                </tr>
-              </tbody>
-            </table>
-            <p>
-              <xref target='N'>Conformance class 2</xref>
-            </p>
-          </clause>
-          <terms id='terms' displayorder='4'>
-            <title>2.</title>
-          </terms>
-          <clause id='widgets'  displayorder='5'>
-            <title depth='1'>
-              3.
-              <tab/>
-              Widgets
-            </title>
-            <clause id='widgets1'>
-              <title>3.1.</title>
-              <table id='note1' type='recommendclass' class='permission'>
-                <thead>
-                  <tr>
-                    <th scope='colgroup' colspan='2'>
-                      <p class='RecommendationTitle'>Conformance class 3</p>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td colspan='2'>r = 1 %</td>
-                  </tr>
-                </tbody>
-              </table>
-              <table id='note2' type='recommendclass' class='permission'>
-                <thead>
-                  <tr>
-                    <th scope='colgroup' colspan='2'>
-                      <p class='RecommendationTitle'>Conformance class 4</p>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td colspan='2'>r = 1 %</td>
-                  </tr>
-                </tbody>
-              </table>
-              <p>
-                <xref target='note1'>Conformance class 3</xref>
-                <xref target='note2'>Conformance class 4</xref>
-              </p>
-            </clause>
-          </clause>
-        </sections>
-        <annex id='annex1' displayorder='6'>
-          <title>
-            <strong>Annex A</strong>
-            <br/>
-            (informative)
-          </title>
-          <clause id='annex1a'>
-            <title>A.1.</title>
-            <table id='AN' type='recommendclass' class='permission'>
-              <thead>
-                <tr>
-                  <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTitle'>Conformance class A.1</p>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td colspan='2'>r = 1 %</td>
-                </tr>
-              </tbody>
-            </table>
-          </clause>
-          <clause id='annex1b'>
-            <title>A.2.</title>
-            <table id='Anote1' unnumbered='true' type='recommendclass' class='permission'>
-              <thead>
-                <tr>
-                  <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTitle'>Conformance class</p>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td colspan='2'>r = 1 %</td>
-                </tr>
-              </tbody>
-            </table>
-            <table id='Anote2' type='recommendclass' class='permission'>
-              <thead>
-                <tr>
-                  <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTitle'>Conformance class A.2</p>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td colspan='2'>r = 1 %</td>
-                </tr>
-              </tbody>
-            </table>
-          </clause>
-        </annex>
-      </iso-standard>
+      <foreword displayorder="1">
+        <p>
+          <xref target='N1'>Introduction, Conformance class 1</xref>
+          <xref target='N2'>Clause II.A, Conformance class (??)</xref>
+          <xref target='N'>Clause 1, Conformance class 2</xref>
+          <xref target='note1'>Clause 3.1, Conformance class 3</xref>
+          <xref target='note2'>Clause 3.1, Conformance class 4</xref>
+          <xref target='AN'>Annex A.1, Conformance class A.1</xref>
+          <xref target='Anote1'>Annex A.2, Conformance class (??)</xref>
+          <xref target='Anote2'>Annex A.2, Conformance class A.2</xref>
+        </p>
+      </foreword>
     OUTPUT
-    expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({})
-      .convert("test", input, true)
-      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
+    expect(xmlpp(Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
   end
 
@@ -2692,54 +1061,23 @@ RSpec.describe IsoDoc::Ogc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-        <preface>
-          <foreword displayorder="1">
-            <p>
-              <xref target='A'>Introduction</xref>
-              <xref target='B'>Clause II.A</xref>
-              <xref target='C'>Clause II.A.1</xref>
-              <xref target='D'>Clause II.A.1.a</xref>
-              <xref target='E'>Clause II.A.1.a.i</xref>
-              <xref target='F'>Clause II.A.1.a.i.(1)</xref>
-              <xref target='G'>Clause II.A.1.a.i.(1).(a)</xref>
-              <xref target='H'>Clause II.A.1.a.i.(1).(a).(i)</xref>
-              <xref target='I'>Clause II.A.1.a.i.(1).(a).(i).1</xref>
-            </p>
-          </foreword>
-          <introduction id='A' displayorder="2">
-             <title depth='1'>II.<tab/>Introduction</title>
-            <clause id='B'>
-              <title>II.A.</title>
-              <clause id='C'>
-                <title>II.A.1.</title>
-                <clause id='D'>
-                  <title>II.A.1.a.</title>
-                  <clause id='E'>
-                    <title>II.A.1.a.i.</title>
-                    <clause id='F'>
-                      <title>II.A.1.a.i.(1).</title>
-                      <clause id='G'>
-                        <title>II.A.1.a.i.(1).(a).</title>
-                        <clause id='H'>
-                          <title>II.A.1.a.i.(1).(a).(i).</title>
-                          <clause id='I'>
-                            <title>II.A.1.a.i.(1).(a).(i).1.</title>
-                          </clause>
-                        </clause>
-                      </clause>
-                    </clause>
-                  </clause>
-                </clause>
-              </clause>
-            </clause>
-          </introduction>
-        </preface>
-      </iso-standard>
+      <foreword displayorder="1">
+        <p>
+          <xref target='A'>Introduction</xref>
+          <xref target='B'>Clause II.A</xref>
+          <xref target='C'>Clause II.A.1</xref>
+          <xref target='D'>Clause II.A.1.a</xref>
+          <xref target='E'>Clause II.A.1.a.i</xref>
+          <xref target='F'>Clause II.A.1.a.i.(1)</xref>
+          <xref target='G'>Clause II.A.1.a.i.(1).(a)</xref>
+          <xref target='H'>Clause II.A.1.a.i.(1).(a).(i)</xref>
+          <xref target='I'>Clause II.A.1.a.i.(1).(a).(i).1</xref>
+        </p>
+      </foreword>
     OUTPUT
-    expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({})
-      .convert("test", input, true)
-      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
+    expect(xmlpp(Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
   end
 
@@ -2765,41 +1103,17 @@ RSpec.describe IsoDoc::Ogc do
       <iso-standard>
     INPUT
     output = <<~OUTPUT
-      <iso-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
-        <preface>
-          <foreword displayorder='1'>
-            <p>
-              <xref target='A'>Annex A</xref>
-              <xref target='B'>Annex A.1</xref>
-              <xref target='C'>Annex A.2</xref>
-            </p>
-          </foreword>
-        </preface>
-        <annex id='A' displayorder='2'>
-          <title>
-            <strong>Annex A</strong>
-            <br/>
-            (informative)
-            <br/>
-            <strong>Glossary</strong>
-          </title>
-          <terms>
-            <term id='B'>
-              <name>A.1.</name>
-              <preferred>Term B</preferred>
-            </term>
-            <term id='C'>
-              <name>A.2.</name>
-              <preferred>Term C</preferred>
-            </term>
-          </terms>
-        </annex>
-        <iso-standard> </iso-standard>
-      </iso-standard>
+      <foreword displayorder='1'>
+        <p>
+          <xref target='A'>Annex A</xref>
+          <xref target='B'>Annex A.1</xref>
+          <xref target='C'>Annex A.2</xref>
+        </p>
+      </foreword>
     OUTPUT
-    expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({})
-      .convert("test", input, true)
-      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
+    expect(xmlpp(Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
   end
 end
