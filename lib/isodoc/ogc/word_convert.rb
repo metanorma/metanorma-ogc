@@ -123,6 +123,8 @@ module IsoDoc
       def make_FigureWordToC(docxml)
         toc = ""
         docxml.xpath("//p[@class = 'FigureTitle']").each do |h|
+          next if h.xpath("./ancestor::div[@class = 'figure']").size > 1
+
           toc += word_toc_entry(1, header_strip(h))
         end
         toc.sub(/(<p class="MsoToc1">)/,

@@ -77,7 +77,10 @@ RSpec.describe IsoDoc::Ogc do
                <name>Recommendation Verification 2</name>
         <label>/ogc/recommendation/wfs/3</label>
         </recommendation>
-        <figure id="BA"><name>First figure</name></figure>
+        <figure id="BA"><name>First figure</name>
+        <figure id="BA1"><name>First subfigure</name>
+        </figure>
+        </figure>
         <table id="CA"><name>First table</name></table>
                <p>A<fn reference="1">
         <p id="_ff27c067-2785-4551-96cf-0a73530ff1e6">Formerly denoted as 15 % (m/m).</p>
