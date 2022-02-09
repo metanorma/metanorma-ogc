@@ -48,7 +48,7 @@ p.Biblio, li.Biblio, div.Biblio, p.NormRef, li.NormRef, div.NormRef
 	mso-fareast-font-family:$bodyfont;
 	mso-bidi-font-family:$bodyfont;
 	mso-ansi-language:EN-GB;}
-p.FigureTitle
+p.FigureTitle, p.SubfigureTitle
 	{
 	page-break-before:avoid;
       }
@@ -60,7 +60,7 @@ p.AdmonitionTitle, p.RecommendationTitle, p.RecommendationTestTitle
         {
         page-break-after:avoid;
       }
-p.TableTitle, p.FigureTitle, p.SourceTitle, p.AdmonitionTitle, p.RecommendationTitle, p.RecommendationTestTitle, p.example-title
+p.TableTitle, p.FigureTitle, p.SubfigureTitle, p.SourceTitle, p.AdmonitionTitle, p.RecommendationTitle, p.RecommendationTestTitle, p.example-title
 	{mso-style-unhide:no;
 	mso-style-qformat:yes;
 	mso-style-parent:"";

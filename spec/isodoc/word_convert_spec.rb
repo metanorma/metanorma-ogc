@@ -96,6 +96,8 @@ RSpec.describe IsoDoc::Ogc do
       .convert("test", input, true)
     IsoDoc::Ogc::WordConvert.new({}).convert("test", presxml, false)
     word = File.read("test.doc")
+    expect(word).to include 'class="SubfigureTitle"'
+    word = word
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">')
       .sub(%r{^.*<p class="zzContents" style="margin-top:0cm">}m,
            "<div><p class='zzContents' style='margin-top:0cm'>")
