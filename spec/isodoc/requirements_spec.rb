@@ -3381,7 +3381,7 @@ RSpec.describe IsoDoc::Ogc do
       </ogc-standard>
     INPUT
     presxml = <<~PRESXML
-           <ogc-standard xmlns='https://standards.opengeospatial.org/document' type='presentation'>
+          <ogc-standard xmlns='https://standards.opengeospatial.org/document' type='presentation'>
          <preface>
            <foreword id='A' displayorder='1'>
              <title depth='1'>
@@ -3406,7 +3406,10 @@ RSpec.describe IsoDoc::Ogc do
                  <tr>
                    <td>Conformance test</td>
                    <td>
-                     <xref target='A2'>Preface, Requirement test 1</xref>
+                     <xref target='A2'>
+                       Preface, Requirement test 1:
+                       <tt>/ogc/recommendation/wfs/2</tt>
+                     </xref>
                    </td>
                  </tr>
                </tbody>
@@ -3428,7 +3431,10 @@ RSpec.describe IsoDoc::Ogc do
                  <tr>
                    <td>Requirement</td>
                    <td>
-                     <xref target='A1'>Preface, Requirement 1</xref>
+                     <xref target='A1'>
+                       Preface, Requirement 1:
+                       <tt>/ogc/recommendation/wfs/1</tt>
+                     </xref>
                    </td>
                  </tr>
                </tbody>
@@ -3450,7 +3456,10 @@ RSpec.describe IsoDoc::Ogc do
                  <tr>
                    <td>Conformance test</td>
                    <td>
-                     <xref target='A4'>Preface, Conformance class 1</xref>
+                     <xref target='A4'>
+                       Preface, Conformance class 1:
+                       <tt>/ogc/recommendation/wfs/4</tt>
+                     </xref>
                    </td>
                  </tr>
                </tbody>
@@ -3472,7 +3481,10 @@ RSpec.describe IsoDoc::Ogc do
                  <tr>
                    <td>Requirements class</td>
                    <td>
-                     <xref target='A3'>Preface, Requirements class 1</xref>
+                     <xref target='A3'>
+                       Preface, Requirements class 1:
+                       <tt>/ogc/recommendation/wfs/3</tt>
+                     </xref>
                    </td>
                  </tr>
                </tbody>

@@ -103,7 +103,7 @@ module IsoDoc
       def recommendation_attr_keyvalue(node, key, value)
         tag = node&.at(ns("./#{key}"))&.remove
         value = node.at(ns("./#{value}"))&.remove
-        tag && value or return nil
+        (tag && value) or return nil
         node.remove
         [tag.text.capitalize, value.children]
       end

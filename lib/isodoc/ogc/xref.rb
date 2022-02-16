@@ -23,7 +23,7 @@ module IsoDoc
           id = c.increment(t).print
           @anchors[t["id"]] = anchor_struct(id, t, label, klass,
                                             t["unnumbered"])
-          l = t.at(ns("./label"))&.text and @reqtlabels[l] = t["id"]
+          reqt_suffix_label(t)
           permission_parts(t, label, klass)
           sequential_permission_children(t, id)
         end
@@ -39,6 +39,13 @@ module IsoDoc
       def req_class_paths2
         { "abstracttest" => "@type = 'abstracttest'",
           "conformanceclass" => "@type = 'conformanceclass'" }
+      end
+
+      def reqt_suffix_label(reqt)
+        if l = reqt.at(ns("./label"))&.text
+          @reqtlabels[l] = reqt["id"]
+          @anchors[reqt["id"]][:xref] += ": <tt>#{l}</tt>"
+        end
       end
 
       def permission_parts(block, label, klass)
@@ -116,7 +123,7 @@ module IsoDoc
           lbl = "#{num}#{hiersep}#{c.increment(t).print}"
           @anchors[t["id"]] = anchor_struct(lbl, t, label, klass,
                                             t["unnumbered"])
-          l = t.at(ns("./label"))&.text and @reqtlabels[l] = t["id"]
+          reqt_suffix_label(t)
           permission_parts(t, label, klass)
           sequential_permission_children(t, lbl)
         end
