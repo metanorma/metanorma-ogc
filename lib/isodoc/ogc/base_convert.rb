@@ -129,7 +129,8 @@ module IsoDoc
       end
 
       def para_class(node)
-        return node["class"] if node["class"]
+        return node["class"] if node["class"] &&
+          node["class"] != "RecommendationLabel"
 
         super
       end
@@ -139,7 +140,8 @@ module IsoDoc
           node.at(".//ancestor::xmlns:ol[@class = 'steps']")
 
         idx = node.xpath("./ancestor-or-self::xmlns:ol[@class = 'steps']").size
-        ol_style(%i(arabic alphabet roman alphabet_upper roman_upper)[(idx - 1) % 5])
+        styles = %i(arabic alphabet roman alphabet_upper roman_upper)
+        ol_style(styles[(idx - 1) % 5])
       end
     end
   end

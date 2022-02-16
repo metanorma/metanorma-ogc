@@ -244,6 +244,122 @@ RSpec.describe IsoDoc::Ogc do
       .to be_equivalent_to xmlpp(output)
   end
 
+  it "cross-references requirements with labels" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+        <preface>
+          <foreword>
+          <p>
+          <xref target="N1"/>
+          <xref target="N2"/>
+          <xref target="N"/>
+          <xref target="note1"/>
+          <xref target="note2"/>
+          <xref target="AN"/>
+          <xref target="Anote1"/>
+          <xref target="Anote2"/>
+          </p>
+          </foreword>
+          <introduction id="intro">
+          <requirement id="N1">
+          <label>/ogc/req1</label>
+        <stem type="AsciiMath">r = 1 %</stem>
+        </requirement>
+        <clause id="xyz"><title>Preparatory</title>
+          <requirement id="N2" unnumbered="true">
+          <label>/ogc/req2</label>
+        <stem type="AsciiMath">r = 1 %</stem>
+        </requirement>
+      </clause>
+          </introduction>
+          </preface>
+          <sections>
+          <clause id="scope" type="scope"><title>Scope</title>
+          <requirement id="N">
+          <label>/ogc/req3</label>
+        <stem type="AsciiMath">r = 1 %</stem>
+        </requirement>
+        <p><xref target="N"/></p>
+          </clause>
+          <terms id="terms"/>
+          <clause id="widgets"><title>Widgets</title>
+          <clause id="widgets1">
+          <requirement id="note1">
+          <label>/ogc/req4</label>
+        <stem type="AsciiMath">r = 1 %</stem>
+        </requirement>
+          <requirement id="note2">
+          <label>/ogc/req5</label>
+        <stem type="AsciiMath">r = 1 %</stem>
+        </requirement>
+        <p>    <xref target="note1"/> <xref target="note2"/> </p>
+          </clause>
+          </clause>
+          </sections>
+          <annex id="annex1">
+          <clause id="annex1a">
+          <requirement id="AN">
+          <label>/ogc/req6</label>
+        <stem type="AsciiMath">r = 1 %</stem>
+        </requirement>
+          </clause>
+          <clause id="annex1b">
+          <requirement id="Anote1" unnumbered="true">
+          <label>/ogc/req7</label>
+        <stem type="AsciiMath">r = 1 %</stem>
+        </requirement>
+          <requirement id="Anote2">
+          <label>/ogc/req8</label>
+        <stem type="AsciiMath">r = 1 %</stem>
+        </requirement>
+          </clause>
+          </annex>
+          </iso-standard>
+    INPUT
+    output = <<~OUTPUT
+      <foreword displayorder="1">
+              <p>
+                   <xref target='N1'>
+           Introduction, Requirement 1:
+           <tt>/ogc/req1</tt>
+         </xref>
+         <xref target='N2'>
+           Clause II.A, Requirement (??):
+           <tt>/ogc/req2</tt>
+         </xref>
+         <xref target='N'>
+           Clause 1, Requirement 2:
+           <tt>/ogc/req3</tt>
+         </xref>
+         <xref target='note1'>
+           Clause 3.1, Requirement 3:
+           <tt>/ogc/req4</tt>
+         </xref>
+         <xref target='note2'>
+           Clause 3.1, Requirement 4:
+           <tt>/ogc/req5</tt>
+         </xref>
+         <xref target='AN'>
+           Annex A.1, Requirement A.1:
+           <tt>/ogc/req6</tt>
+         </xref>
+         <xref target='Anote1'>
+           Annex A.2, Requirement (??):
+           <tt>/ogc/req7</tt>
+         </xref>
+         <xref target='Anote2'>
+           Annex A.2, Requirement A.2:
+           <tt>/ogc/req8</tt>
+         </xref>
+              </p>
+      </foreword>
+    OUTPUT
+    expect(xmlpp(Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new({})
+      .convert("test", input, true))
+      .at("//xmlns:foreword").to_xml))
+      .to be_equivalent_to xmlpp(output)
+  end
+
   it "cross-references requirement parts" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">

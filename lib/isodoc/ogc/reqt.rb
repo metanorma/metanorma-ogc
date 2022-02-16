@@ -48,6 +48,7 @@ module IsoDoc
         label.xpath(ns(".//concept")).each { |f| concept1(f) }
         b = out.add_child("<tr><td colspan='2'><p></p></td></tr>")
         p = b.at(ns(".//p"))
+        p["class"] = "RecommendationLabel"
         p << label.children.to_xml
       end
 
@@ -103,7 +104,7 @@ module IsoDoc
       def recommendation_attr_keyvalue(node, key, value)
         tag = node&.at(ns("./#{key}"))&.remove
         value = node.at(ns("./#{value}"))&.remove
-        tag && value or return nil
+        (tag && value) or return nil
         node.remove
         [tag.text.capitalize, value.children]
       end

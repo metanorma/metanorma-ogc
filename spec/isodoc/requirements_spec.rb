@@ -1,7 +1,6 @@
 require "spec_helper"
 
 RSpec.describe IsoDoc::Ogc do
-=begin
   it "processes permissions" do
     input = <<~INPUT
               <ogc-standard xmlns="https://standards.opengeospatial.org/document">
@@ -71,7 +70,7 @@ RSpec.describe IsoDoc::Ogc do
                 <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
                 <preface><foreword id="A" displayorder="1"><title depth="1">I.<tab/>Preface</title>
                 <table id="A1" class="permission" type="recommend">
-            <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Permission 1</p></th></tr></thead><tbody><tr><td colspan="2"><p>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Subject</td><td>user</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td>Dependency</td><td><eref type="inline" bibitemid="rfc2616" citeas="RFC 2616">RFC 2616 (HTTP/1.1)</eref></td></tr>
+            <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Permission 1</p></th></tr></thead><tbody><tr><td colspan="2"><p class='RecommendationLabel'>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Subject</td><td>user</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td>Dependency</td><td><eref type="inline" bibitemid="rfc2616" citeas="RFC 2616">RFC 2616 (HTTP/1.1)</eref></td></tr>
             <tr>
         <td>Control-class</td>
         <td>Technical</td>
@@ -636,7 +635,7 @@ RSpec.describe IsoDoc::Ogc do
           <preface>
               <foreword id="A" displayorder="1"><title depth="1">I.<tab/>Preface</title>
           <table id="A1" type="recommendtest" class="permission">
-      <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTestTitle">Permission test 1</p></th></tr></thead><tbody><tr><td colspan="2"><p>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Requirement</td><td>user</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td>Control-class</td><td>Technical</td></tr><tr><td>Priority</td><td>P0</td></tr><tr><td>Family</td><td>System and Communications Protection</td></tr><tr><td>Family</td><td>System and Communications Protocols</td></tr><tr><td colspan="2">
+      <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTestTitle">Permission test 1</p></th></tr></thead><tbody><tr><td colspan="2"><p class='RecommendationLabel'>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Requirement</td><td>user</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td>Control-class</td><td>Technical</td></tr><tr><td>Priority</td><td>P0</td></tr><tr><td>Family</td><td>System and Communications Protection</td></tr><tr><td>Family</td><td>System and Communications Protocols</td></tr><tr><td colspan="2">
           <p id="_">I recommend <em>this</em>.</p>
         </td></tr><tr><td>A</td><td>B</td></tr><tr><td>C</td><td>D</td></tr><tr><td colspan="2">
           <p id="_">The measurement target shall be measured as:</p>
@@ -979,7 +978,7 @@ RSpec.describe IsoDoc::Ogc do
           <preface>
               <foreword id="A" displayorder="1"><title depth="1">I.<tab/>Preface</title>
           <table id="A1" type="recommendtest" class="permission">
-      <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTestTitle">Abstract test 1</p></th></tr></thead><tbody><tr><td colspan="2"><p>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Requirement</td><td>user</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td>Control-class</td><td>Technical</td></tr><tr><td>Priority</td><td>P0</td></tr><tr><td>Family</td><td>System and Communications Protection</td></tr><tr><td>Family</td><td>System and Communications Protocols</td></tr><tr><td colspan="2">
+      <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTestTitle">Abstract test 1</p></th></tr></thead><tbody><tr><td colspan="2"><p class='RecommendationLabel'>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Requirement</td><td>user</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td>Control-class</td><td>Technical</td></tr><tr><td>Priority</td><td>P0</td></tr><tr><td>Family</td><td>System and Communications Protection</td></tr><tr><td>Family</td><td>System and Communications Protocols</td></tr><tr><td colspan="2">
           <p id="_">I recommend <em>this</em>.</p>
         </td></tr><tr><td>A</td><td>B</td></tr><tr><td>C</td><td>D</td></tr><tr><td colspan="2">
           <p id="_">The measurement target shall be measured as:</p>
@@ -1302,17 +1301,17 @@ RSpec.describe IsoDoc::Ogc do
 
 
 
-         <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Permissions class 1</p></th></tr></thead><tbody><tr><td colspan="2"><p>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Target type</td><td>user</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/2</td></tr>
+         <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Permissions class 1</p></th></tr></thead><tbody><tr><td colspan="2"><p class='RecommendationLabel'>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Target type</td><td>user</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/2</td></tr>
 
-           <tr><td><p>Permission 1</p></td><td><p>/ogc/recommendation/wfs/10</p></td></tr>
+           <tr><td><p>Permission 1: <tt>/ogc/recommendation/wfs/10</tt></p></td><td><p class='RecommendationLabel'>/ogc/recommendation/wfs/10</p></td></tr>
 
-           <tr><td><p>Requirement 1-1</p></td><td><p>Requirement 1</p></td></tr>
+           <tr><td><p>Requirement 1-1</p></td><td><p class="RecommendationLabel">Requirement 1</p></td></tr>
 
-           <tr><td><p>Recommendation 1-1</p></td><td><p>Recommendation 1</p></td></tr></tbody></table>
+           <tr><td><p>Recommendation 1-1</p></td><td><p class="RecommendationLabel">Recommendation 1</p></td></tr></tbody></table>
 
          <table id="B1" class="permission" type="recommend">
 
-         <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Permission 1</p></th></tr></thead><tbody><tr><td colspan="2"><p>/ogc/recommendation/wfs/10</p></td></tr></tbody></table>
+         <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Permission 1</p></th></tr></thead><tbody><tr><td colspan="2"><p class='RecommendationLabel'>/ogc/recommendation/wfs/10</p></td></tr></tbody></table>
 
              </foreword></preface>
              </ogc-standard>
@@ -1351,7 +1350,7 @@ RSpec.describe IsoDoc::Ogc do
                        </tr>
                        <tr>
                          <td style='vertical-align:top;' class='recommend'>
-                           <p>Permission 1</p>
+                           <p>Permission 1: <tt>/ogc/recommendation/wfs/10</tt></p>
                          </td>
                          <td style='vertical-align:top;' class='recommend'>
                            <p>/ogc/recommendation/wfs/10</p>
@@ -1437,7 +1436,7 @@ RSpec.describe IsoDoc::Ogc do
                    </tr>
                    <tr>
                      <td style='vertical-align:top;' class='recommend'>
-                       <p class='MsoNormal'>Permission 1</p>
+                       <p class='MsoNormal'>Permission 1: <tt>/ogc/recommendation/wfs/10</tt></p>
                      </td>
                      <td style='vertical-align:top;' class='recommend'>
                        <p class='MsoNormal'>/ogc/recommendation/wfs/10</p>
@@ -1540,10 +1539,10 @@ RSpec.describe IsoDoc::Ogc do
       <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
              <preface><foreword id="A" displayorder="1"><title depth="1">I.<tab/>Preface</title>
              <table id="A1" type="recommendclass" class="permission">
-         <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Conformance class 1</p></th></tr></thead><tbody><tr><td colspan="2"><p>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Requirements class</td><td>user</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/2</td></tr>
-           <tr><td><p>Permission 1-1</p></td><td><p>Permission 1</p></td></tr>
-           <tr><td><p>Requirement 1-1</p></td><td><p>Requirement 1</p></td></tr>
-           <tr><td><p>Recommendation 1-1</p></td><td><p>Recommendation 1</p></td></tr></tbody></table>
+         <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Conformance class 1</p></th></tr></thead><tbody><tr><td colspan="2"><p class='RecommendationLabel'>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Requirements class</td><td>user</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/2</td></tr>
+           <tr><td><p>Permission 1-1</p></td><td><p class="RecommendationLabel">Permission 1</p></td></tr>
+           <tr><td><p>Requirement 1-1</p></td><td><p class="RecommendationLabel">Requirement 1</p></td></tr>
+           <tr><td><p>Recommendation 1-1</p></td><td><p class="RecommendationLabel">Recommendation 1</p></td></tr></tbody></table>
              </foreword></preface>
              </ogc-standard>
     OUTPUT
@@ -1735,10 +1734,10 @@ RSpec.describe IsoDoc::Ogc do
       <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
              <preface><foreword id="A" displayorder="1"><title depth="1">I.<tab/>Preface</title>
              <table id="A1" type="recommendclass" class="requirement">
-         <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Requirements class 1</p></th></tr></thead><tbody><tr><td colspan="2"><p>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Target type</td><td>user</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/2</td></tr>
-           <tr><td><p>Permission 1-1</p></td><td><p>Permission 1</p></td></tr>
-           <tr><td><p>Requirement 1-1</p></td><td><p>Requirement 1</p></td></tr>
-           <tr><td><p>Recommendation 1-1</p></td><td><p>Recommendation 1</p></td></tr></tbody></table>
+         <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Requirements class 1</p></th></tr></thead><tbody><tr><td colspan="2"><p class='RecommendationLabel'>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Target type</td><td>user</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/2</td></tr>
+           <tr><td><p>Permission 1-1</p></td><td><p class="RecommendationLabel">Permission 1</p></td></tr>
+           <tr><td><p>Requirement 1-1</p></td><td><p class="RecommendationLabel">Requirement 1</p></td></tr>
+           <tr><td><p>Recommendation 1-1</p></td><td><p class="RecommendationLabel">Recommendation 1</p></td></tr></tbody></table>
              </foreword></preface>
              </ogc-standard>
     OUTPUT
@@ -1930,10 +1929,10 @@ RSpec.describe IsoDoc::Ogc do
            <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
           <preface><foreword id="A" displayorder="1"><title depth="1">I.<tab/>Preface</title>
           <table id="A1" type="recommendclass" class="recommendation">
-      <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Recommendations class 1</p></th></tr></thead><tbody><tr><td colspan="2"><p>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Target type</td><td>user</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/2</td></tr>
-        <tr><td><p>Permission 1-1</p></td><td><p>Permission 1</p></td></tr>
-        <tr><td><p>Requirement 1-1</p></td><td><p>Requirement 1</p></td></tr>
-        <tr><td><p>Recommendation 1-1</p></td><td><p>Recommendation 1</p></td></tr></tbody></table>
+      <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Recommendations class 1</p></th></tr></thead><tbody><tr><td colspan="2"><p class='RecommendationLabel'>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Target type</td><td>user</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/2</td></tr>
+        <tr><td><p>Permission 1-1</p></td><td><p class="RecommendationLabel">Permission 1</p></td></tr>
+        <tr><td><p>Requirement 1-1</p></td><td><p class="RecommendationLabel">Requirement 1</p></td></tr>
+        <tr><td><p>Recommendation 1-1</p></td><td><p class="RecommendationLabel">Recommendation 1</p></td></tr></tbody></table>
           </foreword></preface>
           </ogc-standard>
     OUTPUT
@@ -2153,7 +2152,7 @@ RSpec.describe IsoDoc::Ogc do
            <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
           <preface><foreword id="A0" displayorder="1"><title depth="1">I.<tab/>Preface</title>
           <table id="A" unnumbered="true" class="requirement" type="recommend">
-      <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Requirement: A New Requirement</p></th></tr></thead><tbody><tr><td colspan="2"><p>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Subject</td><td>user</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td colspan="2">
+      <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Requirement: A New Requirement</p></th></tr></thead><tbody><tr><td colspan="2"><p class='RecommendationLabel'>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Subject</td><td>user</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td colspan="2">
           <p id="_">I recommend <em>this</em>.</p>
         </td></tr><tr><td colspan="2">
           <p id="_">As for the measurement targets,</p>
@@ -2461,7 +2460,7 @@ RSpec.describe IsoDoc::Ogc do
            <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
           <preface><foreword id="A" displayorder="1"><title depth="1">I.<tab/>Preface</title>
           <table id="_" class="recommendation" type="recommend">
-      <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Recommendation 1</p></th></tr></thead><tbody><tr><td colspan="2"><p>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Subject</td><td>user</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td colspan="2">
+      <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Recommendation 1</p></th></tr></thead><tbody><tr><td colspan="2"><p class='RecommendationLabel'>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Subject</td><td>user</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td colspan="2">
           <p id="_">I recommend <em>this</em>.</p>
         </td></tr><tr><td colspan="2">
           <p id="_">As for the measurement targets,</p>
@@ -2746,7 +2745,7 @@ RSpec.describe IsoDoc::Ogc do
       <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
            <preface><foreword id="A" displayorder="1"><title depth="1">I.<tab/>Preface</title>
            <table id="_" class="recommendation" type="recommend">
-         <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Recommendation 1</p></th></tr></thead><tbody><tr><td colspan="2"><p>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Subject</td><td>user</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td colspan="2"><p id="_">I recommend <em>1</em>.</p></td></tr><tr><td>Test purpose</td><td><p>TEST PURPOSE</p></td></tr><tr><td colspan="2"><p id="_">I recommend <em>2</em>.</p></td></tr><tr><td>Conditions</td><td><p>CONDITIONS</p></td></tr><tr><td colspan="2"><p id="_">I recommend <em>3</em>.</p></td></tr><tr><td>A</td><td><p>FIRST PART</p></td></tr><tr><td colspan="2"><p id="_">I recommend <em>4</em>.</p></td></tr><tr><td>B</td><td><p>SECOND PART</p></td></tr><tr><td colspan="2"><p id="_">I recommend <em>5</em>.</p></td></tr><tr><td>Test method</td><td><p>TEST METHOD</p></td></tr><tr><td colspan="2"><p id="_">I recommend <em>6</em>.</p></td></tr><tr><td>C</td><td><p>THIRD PART</p></td></tr><tr><td colspan="2"><p id="_">I recommend <em>7</em>.</p></td></tr><tr><td>Panda GHz express</td><td><p>PANDA PART</p></td></tr><tr><td colspan="2"><p id="_">I recommend <em>8</em>.</p></td></tr></tbody></table>
+         <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Recommendation 1</p></th></tr></thead><tbody><tr><td colspan="2"><p class='RecommendationLabel'>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Subject</td><td>user</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td colspan="2"><p id="_">I recommend <em>1</em>.</p></td></tr><tr><td>Test purpose</td><td><p>TEST PURPOSE</p></td></tr><tr><td colspan="2"><p id="_">I recommend <em>2</em>.</p></td></tr><tr><td>Conditions</td><td><p>CONDITIONS</p></td></tr><tr><td colspan="2"><p id="_">I recommend <em>3</em>.</p></td></tr><tr><td>A</td><td><p>FIRST PART</p></td></tr><tr><td colspan="2"><p id="_">I recommend <em>4</em>.</p></td></tr><tr><td>B</td><td><p>SECOND PART</p></td></tr><tr><td colspan="2"><p id="_">I recommend <em>5</em>.</p></td></tr><tr><td>Test method</td><td><p>TEST METHOD</p></td></tr><tr><td colspan="2"><p id="_">I recommend <em>6</em>.</p></td></tr><tr><td>C</td><td><p>THIRD PART</p></td></tr><tr><td colspan="2"><p id="_">I recommend <em>7</em>.</p></td></tr><tr><td>Panda GHz express</td><td><p>PANDA PART</p></td></tr><tr><td colspan="2"><p id="_">I recommend <em>8</em>.</p></td></tr></tbody></table>
          </foreword>
          </preface>
          </ogc-standard>
@@ -3136,7 +3135,7 @@ RSpec.describe IsoDoc::Ogc do
               <tbody>
                 <tr>
                   <td colspan='2'>
-                    <p><strong>A</strong><xref target='A'>Preface</xref></p>
+                    <p class='RecommendationLabel'><strong>A</strong><xref target='A'>Preface</xref></p>
                   </td>
                 </tr>
                 <tr>
@@ -3247,10 +3246,10 @@ RSpec.describe IsoDoc::Ogc do
                   <td>Test method</td>
                   <td>
                     <p id='1'>
-                      <ol class="steps" type="arabic">
+                      <ol class="steps">
                         <li>
                           <p id='2'>For each UML class defined or referenced in the Tunnel Package:</p>
-                          <ol class="steps" type="alphabet">
+                          <ol class="steps">
                             <li>
                               <p id='3'>
                                  Validate that the Implementation Specification
@@ -3356,7 +3355,6 @@ RSpec.describe IsoDoc::Ogc do
       .gsub(%r{</body>.*}m, "</body>")))
       .to be_equivalent_to xmlpp(html)
   end
-=end
 
   it "processes bidirectional requirement/conformance tests" do
     input = <<~INPUT
@@ -3381,7 +3379,7 @@ RSpec.describe IsoDoc::Ogc do
       </ogc-standard>
     INPUT
     presxml = <<~PRESXML
-           <ogc-standard xmlns='https://standards.opengeospatial.org/document' type='presentation'>
+          <ogc-standard xmlns='https://standards.opengeospatial.org/document' type='presentation'>
          <preface>
            <foreword id='A' displayorder='1'>
              <title depth='1'>
@@ -3400,13 +3398,16 @@ RSpec.describe IsoDoc::Ogc do
                <tbody>
                  <tr>
                    <td colspan='2'>
-                     <p>/ogc/recommendation/wfs/1</p>
+                     <p class='RecommendationLabel'>/ogc/recommendation/wfs/1</p>
                    </td>
                  </tr>
                  <tr>
                    <td>Conformance test</td>
                    <td>
-                     <xref target='A2'>Preface, Requirement test 1</xref>
+                     <xref target='A2'>
+                       Preface, Requirement test 1:
+                       <tt>/ogc/recommendation/wfs/2</tt>
+                     </xref>
                    </td>
                  </tr>
                </tbody>
@@ -3422,13 +3423,16 @@ RSpec.describe IsoDoc::Ogc do
                <tbody>
                  <tr>
                    <td colspan='2'>
-                     <p>/ogc/recommendation/wfs/2</p>
+                     <p class='RecommendationLabel'>/ogc/recommendation/wfs/2</p>
                    </td>
                  </tr>
                  <tr>
                    <td>Requirement</td>
                    <td>
-                     <xref target='A1'>Preface, Requirement 1</xref>
+                     <xref target='A1'>
+                       Preface, Requirement 1:
+                       <tt>/ogc/recommendation/wfs/1</tt>
+                     </xref>
                    </td>
                  </tr>
                </tbody>
@@ -3444,13 +3448,16 @@ RSpec.describe IsoDoc::Ogc do
                <tbody>
                  <tr>
                    <td colspan='2'>
-                     <p>/ogc/recommendation/wfs/3</p>
+                     <p class='RecommendationLabel'>/ogc/recommendation/wfs/3</p>
                    </td>
                  </tr>
                  <tr>
                    <td>Conformance test</td>
                    <td>
-                     <xref target='A4'>Preface, Conformance class 1</xref>
+                     <xref target='A4'>
+                       Preface, Conformance class 1:
+                       <tt>/ogc/recommendation/wfs/4</tt>
+                     </xref>
                    </td>
                  </tr>
                </tbody>
@@ -3466,13 +3473,16 @@ RSpec.describe IsoDoc::Ogc do
                <tbody>
                  <tr>
                    <td colspan='2'>
-                     <p>/ogc/recommendation/wfs/4</p>
+                     <p class='RecommendationLabel'>/ogc/recommendation/wfs/4</p>
                    </td>
                  </tr>
                  <tr>
                    <td>Requirements class</td>
                    <td>
-                     <xref target='A3'>Preface, Requirements class 1</xref>
+                     <xref target='A3'>
+                       Preface, Requirements class 1:
+                       <tt>/ogc/recommendation/wfs/3</tt>
+                     </xref>
                    </td>
                  </tr>
                </tbody>
