@@ -1123,6 +1123,18 @@ RSpec.describe IsoDoc::Ogc do
         <bibdata>
         <keyword>A</keyword>
         <keyword>B</keyword>
+                       <contributor>
+                 <role type="author"/>
+                 <organization>
+                   <name>OGC</name>
+                 </organization>
+               </contributor>
+               <contributor>
+                 <role type="author"/>
+                 <organization>
+                   <name>DEF</name>
+                 </organization>
+               </contributor>
         </bibdata>
         <preface>
          <abstract obligation="informative" id="1"><title>Abstract</title>
@@ -1139,11 +1151,6 @@ RSpec.describe IsoDoc::Ogc do
            <title>Security</title>
            <p id="EE1">Text</p>
          </clause>
-         <clause id="SUBORG" type="submitting_orgs">
-          <title>Submitting Organizations</title>
-          <p>The following organizations submitted this Document to the
-             Open Geospatial Consortium (OGC):</p>
-             </clause>
          <submitters obligation="informative" id="3">
          <title>Submitters</title>
          <p>ABC</p>
@@ -1240,6 +1247,18 @@ RSpec.describe IsoDoc::Ogc do
         <bibdata>
         <keyword>A</keyword>
         <keyword>B</keyword>
+           <contributor>
+     <role type='author'/>
+     <organization>
+       <name>OGC</name>
+     </organization>
+   </contributor>
+   <contributor>
+     <role type='author'/>
+     <organization>
+       <name>DEF</name>
+     </organization>
+   </contributor>
         </bibdata>
         <preface>
          <abstract obligation="informative" id="1" displayorder="1"><title depth="1">I.<tab/>Abstract</title>
@@ -1258,10 +1277,11 @@ RSpec.describe IsoDoc::Ogc do
            <title depth="1">V.<tab/>Security</title>
            <p id="EE1">Text</p>
          </clause>
-         <clause id="SUBORG" type="submitting_orgs" displayorder="6">
+         <clause id="_" type="submitting_orgs" displayorder="6">
           <title depth="1">VI.<tab/>Submitting Organizations</title>
           <p>The following organizations submitted this Document to the
              Open Geospatial Consortium (OGC):</p>
+             <ul> <li>OGC</li> <li>DEF</li> </ul>
              </clause>
          <submitters obligation="informative" id="3" displayorder="7">
          <title depth="1">VII.<tab/>Submitters</title>
@@ -1380,12 +1400,13 @@ RSpec.describe IsoDoc::Ogc do
             <h1 class='IntroTitle'>V.&#160; Security</h1>
             <p id='EE1'>Text</p>
           </div>
-          <div class='Section3' id='SUBORG'>
+          <div class='Section3' id='_'>
             <h1 class='IntroTitle'>VI.&#160; Submitting Organizations</h1>
             <p>
               The following organizations submitted this Document to the Open
               Geospatial Consortium (OGC):
             </p>
+            <ul> <li>OGC</li> <li>DEF</li> </ul>
           </div>
           <div class='Section3' id='3'>
             <h1 class='IntroTitle'>VII.&#160; Submitters</h1>

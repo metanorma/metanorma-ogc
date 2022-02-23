@@ -150,9 +150,9 @@ module IsoDoc
         @prefacenum = 0
         ["//preface/abstract", "//preface/clause[@type = 'executivesummary']",
          "//preface/clause[@type = 'keywords']",
-         "//foreword", "//introduction", "//preface/clause[@type = 'security']",
-         "//preface/clause[@type = 'submitting_orgs']",
-         "//submitters"].each do |path|
+         "//foreword", "//preface/clause[@type = 'security']",
+         "//preface/clause[@type = 'submitting_orgs']", "//submitters",
+         "//introduction"].each do |path|
           preface_names_numbered(doc.at(ns(path)))
         end
         doc.xpath(ns("//preface/clause[not(@type = 'keywords' or "\
@@ -182,7 +182,7 @@ module IsoDoc
         @prefacenum += 1
         pref = preface_number(@prefacenum, 1)
         @anchors[clause["id"]] =
-          { label: pref, 
+          { label: pref,
             level: 1, xref: preface_clause_name(clause), type: "clause" }
         clause.xpath(ns(SUBCLAUSES)).each_with_index do |c, i|
           preface_names_numbered1(c, "#{pref}.#{preface_number(i + 1, 2)}", 2)
