@@ -12,11 +12,16 @@ module IsoDoc
         super
       end
 
-      def insert_preface_sections(docxml)
-        insert_executivesummary(docxml)
-        insert_submitting_orgs(docxml)
-        insert_security(docxml)
-        insert_keywords(docxml)
+      def insert_preface_sections(doc)
+        preface_insert(doc&.at(ns("//preface/clause"\
+                                  "[@type = 'executivesummary']")),
+                       doc.at(ns("//preface/abstract")), doc)
+        preface_insert(doc&.at(ns("//preface//submitters")),
+                       submit_orgs_append_pt(doc), doc)
+        insert_submitting_orgs(doc)
+        preface_insert(doc&.at(ns("//preface/clause[@type = 'security']")),
+                       submit_orgs_append_pt(doc), doc)
+        insert_keywords(doc)
       end
 
       def preface_init_insert_pt(docxml)
@@ -25,31 +30,22 @@ module IsoDoc
             .add_previous_sibling("<preface> </preface>").first
       end
 
+      def preface_insert(clause, after, docxml)
+        return unless clause
+
+        clause.remove
+        if after then after.next = clause
+        else
+          preface_init_insert_pt(docxml)&.children&.first
+            &.add_previous_sibling(clause)
+        end
+      end
+
       def submit_orgs_append_pt(docxml)
-        docxml.at(ns("//introduction")) ||
-          docxml.at(ns("//foreword")) ||
+        docxml.at(ns("//foreword")) ||
           docxml.at(ns("//preface/clause[@type = 'keywords']")) ||
+          docxml.at(ns("//preface/clause[@type = 'executivesummary']")) ||
           docxml.at(ns("//preface/abstract"))
-      end
-
-      def insert_security(docxml)
-        s = docxml&.at(ns("//preface/clause[@type = 'security']"))&.remove or
-          return
-        if a = submit_orgs_append_pt(docxml) then a.next = s
-        else
-          preface_init_insert_pt(docxml)&.children&.first
-            &.add_previous_sibling(s)
-        end
-      end
-
-      def insert_executivesummary(docxml)
-        s = docxml&.at(ns("//preface/clause[@type = 'executivesummary']"))
-          &.remove or return
-        if a = docxml.at(ns("//preface/abstract")) then a.next = s
-        else
-          preface_init_insert_pt(docxml)&.children&.first
-            &.add_previous_sibling(s)
-        end
       end
 
       def insert_submitting_orgs(docxml)
