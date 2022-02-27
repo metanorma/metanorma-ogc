@@ -6,7 +6,6 @@ require_relative "metadata"
 
 module IsoDoc
   module Ogc
-
     # A {Converter} implementation that generates HTML output, and a document
     # schema encapsulation of the document for validation
     #
@@ -16,7 +15,7 @@ module IsoDoc
         super
       end
 
-      def default_fonts(options)
+      def default_fonts(_options)
         {
           bodyfont: '"Overpass",sans-serif',
           headerfont: '"Overpass",sans-serif',
@@ -37,9 +36,9 @@ module IsoDoc
 
       def googlefonts
         <<~HEAD.freeze
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i|Space+Mono:400,700" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css?family=Overpass:300,300i,600,900" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Teko:300,400,500" rel="stylesheet">
+          <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i|Space+Mono:400,700" rel="stylesheet" />
+          <link href="https://fonts.googleapis.com/css?family=Overpass:300,300i,600,900" rel="stylesheet">
+          <link href="https://fonts.googleapis.com/css?family=Teko:300,400,500" rel="stylesheet">
         HEAD
       end
 
@@ -53,7 +52,8 @@ module IsoDoc
       end
 
       def make_body(xml, docxml)
-        body_attr = { lang: "EN-US", link: "blue", vlink: "#954F72", "xml:lang": "EN-US", class: "container" }
+        body_attr = { lang: "EN-US", link: "blue", vlink: "#954F72",
+                      "xml:lang": "EN-US", class: "container" }
         xml.body **body_attr do |body|
           make_body1(body, docxml)
           make_body2(body, docxml)

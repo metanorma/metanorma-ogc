@@ -16,6 +16,13 @@ module Metanorma
 
       register_for "ogc"
 
+      def init_toc(node)
+        super
+        @tocfigures = true
+        @toctables = true
+        @tocrecommendations = true
+      end
+
       # ignore, we generate ToC outside of asciidoctor
       def toc(value); end
 
