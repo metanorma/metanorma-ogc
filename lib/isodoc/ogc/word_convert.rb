@@ -64,85 +64,9 @@ module IsoDoc
         end
       end
 
-      def insert_toc(intro, docxml, level)
-        toc = ""
-        toc += make_WordToC(docxml, level)
-        if docxml.at("//p[@class = 'TableTitle']")
-          toc += %{<p class="TOCTitle">List of Tables</p>}
-          toc += make_TableWordToC(docxml)
-        end
-        if docxml.at("//p[@class = 'FigureTitle']")
-          toc += %{<p class="TOCTitle">List of Figures</p>}
-          toc += make_FigureWordToC(docxml)
-        end
-        if docxml.at("//p[@class = 'RecommendationTitle']")
-          toc += %{<p class="TOCTitle">List of Recommendations</p>}
-          toc += make_RecommendationWordToC(docxml)
-        end
-        intro.sub(/WORDTOC/, toc)
-      end
-
-      WORD_TOC_RECOMMENDATION_PREFACE1 = <<~TOC.freeze
-                          <span lang="EN-GB"><span
-        style='mso-element:field-begin'></span><span
-        style='mso-spacerun:yes'>&#xA0;</span>TOC
-        \\h \\z \\t &quot;RecommendationTitle,RecommendationTestTitle,recommendationtitle,recommendationtesttitle&quot;
-        <span style='mso-element:field-separator'></span></span>
-      TOC
-
-      WORD_TOC_TABLE_PREFACE1 = <<~TOC.freeze
-                          <span lang="EN-GB"><span
-        style='mso-element:field-begin'></span><span
-        style='mso-spacerun:yes'>&#xA0;</span>TOC
-        \\h \\z \\t &quot;TableTitle,tabletitle&quot; <span
-        style='mso-element:field-separator'></span></span>
-      TOC
-
-      WORD_TOC_FIGURE_PREFACE1 = <<~TOC.freeze
-                                      <span lang="EN-GB"><span
-        style='mso-element:field-begin'></span><span
-        style='mso-spacerun:yes'>&#xA0;</span>TOC
-        \\h \\z \\t &quot;FigureTitle,figuretitle&quot; <span
-        style='mso-element:field-separator'></span></span>
-      TOC
-
-      def header_strip(h)
-        h = h.to_s.gsub(/<\/?p[^>]*>/, "")
+      def header_strip(hdr)
+        hdr = hdr.to_s.gsub(/<\/?p[^>]*>/, "")
         super
-      end
-
-      def make_TableWordToC(docxml)
-        toc = ""
-        docxml.xpath("//p[@class = 'TableTitle']").each do |h|
-          toc += word_toc_entry(1, header_strip(h))
-        end
-        toc.sub(/(<p class="MsoToc1">)/,
-                %{\\1#{WORD_TOC_TABLE_PREFACE1}}) + WORD_TOC_SUFFIX1
-      end
-
-      def make_FigureWordToC(docxml)
-        toc = ""
-        docxml.xpath("//p[@class = 'FigureTitle']").each do |h|
-          toc += word_toc_entry(1, header_strip(h))
-        end
-        toc.sub(/(<p class="MsoToc1">)/,
-                %{\\1#{WORD_TOC_FIGURE_PREFACE1}}) + WORD_TOC_SUFFIX1
-      end
-
-      def make_RecommendationWordToC(docxml)
-        toc = ""
-        docxml.xpath("//p[@class = 'RecommendationTitle' or @class = 'RecommendationTestTitle']").sort_by do |h|
-          recommmendation_sort_key(h.text)
-        end.each do |h|
-          toc += word_toc_entry(1, header_strip(h))
-        end
-        toc.sub(/(<p class="MsoToc1">)/,
-                %{\\1#{WORD_TOC_RECOMMENDATION_PREFACE1}}) + WORD_TOC_SUFFIX1
-      end
-
-      def recommmendation_sort_key(header)
-        m = /^([^0-9]+) (\d+)/.match(header) || /^([^:]+)/.match(header)
-        "#{recommmendation_sort_key1(m[1])}::#{'%04d' % m[2].to_i}"
       end
 
       def recommmendation_sort_key1(type)
