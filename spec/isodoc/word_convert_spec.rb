@@ -58,6 +58,11 @@ RSpec.describe IsoDoc::Ogc do
     FileUtils.rm_f "test.doc"
     input = <<~INPUT
               <iso-standard xmlns="http://riboseinc.com/isoxml">
+                <misc-container>
+                  <toc type="figure"><title>List of Figures</title></toc>
+                  <toc type="table"><title>List of Tables</title></toc>
+                  <toc type="recommendation"><title>List of Recommendations</title></toc>
+                </misc-container>
               <sections>
                      <clause id="A" inline-header="false" obligation="normative"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
                <title>Introduction<bookmark id="Q"/> to this<fn reference="1">

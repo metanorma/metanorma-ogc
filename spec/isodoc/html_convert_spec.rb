@@ -861,7 +861,7 @@ RSpec.describe IsoDoc::Ogc do
          <p>
            [
            <b>SOURCE:</b>
-           <a href='#ISO7301'> ISO 7301:2011, Clause 3.1 </a>
+           ISO 7301:2011, Clause 3.1 
            , modified &#x2013; The term "cargo rice" is shown as deprecated, and Note 1
            to entry is not included here]
          </p>
