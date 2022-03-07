@@ -117,11 +117,11 @@ module IsoDoc
         ret
       end
 
-      def make_tr_attr(td, row, totalrows, header)
+      def make_tr_attr(cell, row, totalrows, header)
         ret = super
-        if td.at("./ancestor::xmlns:table[@class = 'recommendation'] | "\
-                 "./ancestor::xmlns:table[@class = 'requirement'] | "\
-                 "./ancestor::xmlns:table[@class = 'permission']")
+        if cell.at("./ancestor::xmlns:table[@class = 'recommendation'] | "\
+                   "./ancestor::xmlns:table[@class = 'requirement'] | "\
+                   "./ancestor::xmlns:table[@class = 'permission']")
           ret[:style] = "vertical-align:top;"
           ret[:class] = "recommend"
         end

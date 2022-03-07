@@ -86,7 +86,7 @@ module IsoDoc
                           <span lang="EN-GB"><span
         style='mso-element:field-begin'></span><span
         style='mso-spacerun:yes'>&#xA0;</span>TOC
-        \\h \\z \\t &quot;RecommendationTitle,RecommendationTestTitle,recommendationtitle,recommendationtesttitle&quot;#{' '}
+        \\h \\z \\t &quot;RecommendationTitle,RecommendationTestTitle,recommendationtitle,recommendationtesttitle&quot;
         <span style='mso-element:field-separator'></span></span>
       TOC
 
