@@ -100,7 +100,7 @@ RSpec.describe IsoDoc::Ogc do
     # sub(%r{<p class="MsoNormal">\s*\&#xA0;\s*</p>\s*</div>\s*$}, "")
     expect(xmlpp(word.gsub(/_Toc\d\d+/, "_Toc")))
       .to be_equivalent_to xmlpp(<<~'OUTPUT')
-           <div>
+        <div>
          <p class='zzContents' style='margin-top:0cm'>
            <span lang='EN-GB' xml:lang='EN-GB'>Contents</span>
          </p>
