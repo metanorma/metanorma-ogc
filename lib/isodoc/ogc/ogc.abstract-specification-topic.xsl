@@ -1604,7 +1604,30 @@
 		
 		
 		
-	</xsl:attribute-set><xsl:attribute-set name="copyright-statement-style">
+	</xsl:attribute-set><xsl:template name="insertRootStyle">
+		<xsl:param name="root-style"/>
+		<xsl:variable name="root-style_" select="xalan:nodeset($root-style)"/>
+		
+		<xsl:variable name="additional_fonts_">
+			<xsl:for-each select="//*[local-name() = 'misc-container'][1]/*[local-name() = 'presentation-metadata'][*[local-name() = 'name'] = 'fonts']/*[local-name() = 'value']">
+				<xsl:value-of select="."/><xsl:if test="position() != last()">, </xsl:if>
+			</xsl:for-each>
+		</xsl:variable>
+		<xsl:variable name="additional_fonts" select="normalize-space($additional_fonts_)"/>
+		
+		<xsl:for-each select="$root-style_/root-style/@*">
+			<xsl:choose>
+				<xsl:when test="local-name() = 'font-family' and $additional_fonts != ''">
+					<xsl:attribute name="{local-name()}">
+						<xsl:value-of select="."/>, <xsl:value-of select="$additional_fonts"/>
+					</xsl:attribute>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:copy-of select="."/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:for-each>
+	</xsl:template><xsl:attribute-set name="copyright-statement-style">
 		
 			<xsl:attribute name="font-size">8pt</xsl:attribute>
 			<xsl:attribute name="line-height">125%</xsl:attribute>
@@ -2195,7 +2218,7 @@
 			<xsl:attribute name="margin-bottom">12pt</xsl:attribute>						
 		
 		
-	</xsl:attribute-set><xsl:attribute-set name="termnote-name-style">		
+	</xsl:attribute-set><xsl:attribute-set name="termnote-name-style">
 		
 		
 			<xsl:attribute name="font-weight">bold</xsl:attribute>
