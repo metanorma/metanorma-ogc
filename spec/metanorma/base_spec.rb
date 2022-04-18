@@ -767,14 +767,14 @@ RSpec.describe Metanorma::Ogc do
           <concept>
             <refterm>Term</refterm>
             <renderterm>Term</renderterm>
-            <xref target='term-term'/>
+            <xref target='term-Term'/>
           </concept>
         </p>
       </annex>
             <annex id='_' obligation='informative'>
         <title>Glossary</title>
         <terms id='_' obligation='normative'>
-          <term id='term-term'>
+          <term id='term-Term'>
             <preferred><expression><name>Term</name></expression></preferred>
           </term>
         </terms>
@@ -800,7 +800,7 @@ RSpec.describe Metanorma::Ogc do
       <annex id='_' obligation='informative'>
         <title>Glossarium</title>
         <terms id='_' obligation='normative'>
-          <term id='term-glossaire'>
+          <term id='term-Glossaire'>
             <preferred><expression><name>Glossaire</name></expression></preferred>
           </term>
         </terms>
@@ -857,7 +857,7 @@ RSpec.describe Metanorma::Ogc do
         definitions apply.</p>
       <terms id='_' obligation='normative'>
         <title>Terms and definitions</title>
-        <term id='term-term'>
+        <term id='term-Term'>
           <preferred><expression><name>Term</name></expression></preferred>
         </term>
       </terms>
@@ -873,7 +873,7 @@ RSpec.describe Metanorma::Ogc do
                  <title>Glossary</title>
                    <terms id='_' obligation='normative'>
                      <title>Term Collection</title>
-                     <term id='term-term-1'>
+                     <term id='term-Term-1'>
                        <preferred><expression><name>Term</name></expression></preferred>
                      </term>
                    </terms>
@@ -1325,7 +1325,7 @@ RSpec.describe Metanorma::Ogc do
         <annex id='_' obligation='informative'>
           <title>Glossary</title>
           <terms id='_' obligation='normative'>
-            <term id='term-term'>
+            <term id='term-Term'>
               <preferred>
                 <expression>
                   <name>Term</name>
