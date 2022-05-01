@@ -144,10 +144,7 @@
 							<fo:block margin-top="6pt">URL for this OGC® document: <xsl:value-of select="$url"/></fo:block>
 						</xsl:if>
 							
-						<xsl:variable name="edition" select="/ogc:ogc-standard/ogc:bibdata/ogc:edition"/>
-						<xsl:if test="normalize-space($edition) != ''">
-							<fo:block margin-top="6pt">Version: <xsl:value-of select="$edition"/></fo:block>
-						</xsl:if>
+						<xsl:apply-templates select="/ogc:ogc-standard/ogc:bibdata/ogc:edition[normalize-space(@language) = '']"/>
 							
 						<fo:block margin-top="6pt"><xsl:text>Category: </xsl:text>
 							<xsl:call-template name="capitalizeWords">
@@ -371,16 +368,17 @@
 		</fo:block>
 	</xsl:template>
 	
+	
 	<xsl:template match="/ogc:ogc-standard/ogc:bibdata/ogc:edition">
-		<fo:block margin-bottom="12pt">
-			<xsl:variable name="title-edition">
+		<xsl:variable name="edition" select="."/>
+		<xsl:if test="normalize-space($edition) != ''">
+			<fo:block margin-top="6pt">
 				<xsl:call-template name="getTitle">
-					<xsl:with-param name="name" select="'title-edition'"/>
+					<xsl:with-param name="name" select="'title-version'"/>
 				</xsl:call-template>
-			</xsl:variable>
-			<xsl:value-of select="$title-edition"/><xsl:text>: </xsl:text>
-			<xsl:value-of select="."/><xsl:text> </xsl:text>
-		</fo:block>
+				<xsl:text>: </xsl:text><xsl:value-of select="$edition"/>
+			</fo:block>
+		</xsl:if>
 	</xsl:template>
 
 	
@@ -653,20 +651,11 @@
 	</xsl:variable><xsl:variable name="marginTop" select="normalize-space($marginTop_)"/><xsl:variable name="marginBottom_">
 		25.4
 	</xsl:variable><xsl:variable name="marginBottom" select="normalize-space($marginBottom_)"/><xsl:variable name="titles_">
-				
-		<title-edition lang="en">
-			
-					<xsl:text>Version</xsl:text>
-				
-		</title-edition>
 		
-		<title-edition lang="fr">
-			<xsl:text>Édition </xsl:text>
-		</title-edition>
+		<title-version lang="en">
+			<xsl:text>Version</xsl:text>
+		</title-version>
 		
-		<title-edition lang="ru">
-			<xsl:text>Издание </xsl:text>
-		</title-edition>
 		
 		<!-- These titles of Table of contents renders different than determined in localized-strings -->
 		<title-toc lang="en">
@@ -7405,6 +7394,31 @@
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:otherwise><xsl:value-of select="$text"/></xsl:otherwise>
+		</xsl:choose>
+	</xsl:template><xsl:template name="printEdition">
+		<xsl:variable name="edition_i18n" select="normalize-space((//*[contains(local-name(), '-standard')])[1]/*[local-name() = 'bibdata']/*[local-name() = 'edition'][normalize-space(@language) != ''])"/>
+		<xsl:text> </xsl:text>
+		<xsl:choose>
+			<xsl:when test="$edition_i18n != ''">
+				<!-- Example: <edition language="fr">deuxième édition</edition> -->
+				<xsl:call-template name="capitalize">
+					<xsl:with-param name="str" select="$edition_i18n"/>
+				</xsl:call-template>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:variable name="edition" select="normalize-space((//*[contains(local-name(), '-standard')])[1]/*[local-name() = 'bibdata']/*[local-name() = 'edition'])"/>
+				<xsl:if test="$edition != ''"> <!-- Example: 1.3 -->
+					<xsl:call-template name="capitalize">
+						<xsl:with-param name="str">
+							<xsl:call-template name="getLocalizedString">
+								<xsl:with-param name="key">edition</xsl:with-param>
+							</xsl:call-template>
+						</xsl:with-param>
+					</xsl:call-template>
+					<xsl:text> </xsl:text>
+					<xsl:value-of select="$edition"/>
+				</xsl:if>
+			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template><xsl:template name="convertDate">
 		<xsl:param name="date"/>
