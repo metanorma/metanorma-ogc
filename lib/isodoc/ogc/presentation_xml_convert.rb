@@ -2,6 +2,7 @@ require_relative "init"
 require_relative "reqt"
 require "isodoc"
 require "uuidtools"
+require_relative "../../relaton/render/general"
 
 module IsoDoc
   module Ogc
@@ -169,15 +170,6 @@ module IsoDoc
         references(docxml)
       end
 
-      def references(docxml)
-        super
-        docxml.xpath(ns("//bibitem/date")).each do |d|
-          d.xpath(ns("./on | ./from | ./to")).each do |d1|
-            d1.children = d1.text.sub(/^(\d\d\d\d).*$/, "\\1")
-          end
-        end
-      end
-
       def bibdata(docxml)
         docxml.xpath(ns("//bibdata/contributor[@type = 'author']")).each do |a|
           a.at(ns("./description"))&.text == "contributor" and
@@ -228,6 +220,18 @@ module IsoDoc
         @xrefs.klass.implicit_reference(bibitem) ||
           bibitem.at(ns(".//docidentifier[@type = 'metanorma-ordinal']")) ||
           bibitem["hidden"] == "true" || bibitem.parent["hidden"] == "true"
+      end
+
+      def bibrenderer
+        ::Relaton::Render::Ogc::General.new(language: @lang)
+      end
+
+      def bibrender(xml)
+        unless xml.at(ns("./formattedref"))
+          xml.children =
+            "#{bibrenderer.render(xml.to_xml)}"\
+            "#{xml.xpath(ns('./docidentifier | ./uri | ./note | ./status')).to_xml}"
+        end
       end
 
       include Init

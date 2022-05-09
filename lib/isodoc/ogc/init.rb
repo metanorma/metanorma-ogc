@@ -10,7 +10,7 @@ module IsoDoc
         @meta = Metadata.new(lang, script, labels)
       end
 
-      def xref_init(lang, script, klass, labels, options)
+      def xref_init(lang, script, _klass, labels, options)
         html = HtmlConvert.new(language: lang, script: script)
         @xrefs = Xref.new(lang, script, html, labels, options)
       end
@@ -28,14 +28,13 @@ module IsoDoc
       end
 
       def ogc_draft_ref?(ref)
-        return unless ref.at(
-          ns("./contributor[role/@type = 'publisher']/organization"\
-             "[name = 'Open Geospatial Consortium']"))
+        return unless ref.at(ns("./docidentifier[@type = 'OGC']"))
+
         status = ref.at(ns("./status/stage"))&.text or return
         return if %w(approved published deprecated retired).include? status
+
         true
       end
     end
   end
 end
-
