@@ -130,6 +130,7 @@ module IsoDoc
       end
 
       def initial_anchor_names(doc)
+        if @parse_settings.empty? || @parse_settings[:clauses]
         preface_anchor_names(doc)
         n = Counter.new
         n = section_names(doc.at(ns("//clause[@type = 'scope']")), n, 1)
@@ -140,10 +141,13 @@ module IsoDoc
           n, 1
         )
         n = section_names(doc.at(ns("//sections/definitions")), n, 1)
-        middle_section_asset_names(doc)
         clause_names(doc, n)
+        end
+        if @parse_settings.empty?
+        middle_section_asset_names(doc)
         termnote_anchor_names(doc)
         termexample_anchor_names(doc)
+        end
       end
 
       def preface_anchor_names(doc)
@@ -217,7 +221,7 @@ module IsoDoc
         super
         return unless @klass.ogc_draft_ref?(ref)
 
-        @anchors[ref["id"]] = { xref: "#{@anchors[ref['id']][:xref]}  (draft)" }
+        @anchors[ref["id"]] = { xref: "#{@anchors[ref['id']][:xref]} (draft)" }
       end
     end
   end

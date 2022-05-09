@@ -330,7 +330,7 @@ RSpec.describe IsoDoc::Ogc do
         </person>
       </contributor>
              <ext>
-               <doctype language=''>community-practice</doctype>
+               <doctype>community-practice</doctype>
              </ext>
            </bibdata>
            <sections/>
@@ -366,7 +366,7 @@ RSpec.describe IsoDoc::Ogc do
              <stage language='en'>Published</stage>
            </status>
            <ext>
-             <doctype language=''>community-practice</doctype>
+             <doctype>community-practice</doctype>
            </ext>
          </bibdata>
          <sections/>
@@ -404,7 +404,7 @@ RSpec.describe IsoDoc::Ogc do
              <stage language='en'>Published</stage>
            </status>
            <ext>
-             <doctype language=''>technical-paper</doctype>
+             <doctype>technical-paper</doctype>
            </ext>
          </bibdata>
          <sections/>
@@ -442,7 +442,7 @@ RSpec.describe IsoDoc::Ogc do
              <stage language='en'>Published</stage>
            </status>
            <ext>
-             <doctype language=''>white-paper</doctype>
+             <doctype>white-paper</doctype>
            </ext>
          </bibdata>
          <sections/>
@@ -898,6 +898,7 @@ RSpec.describe IsoDoc::Ogc do
              <foreword id='A' displayorder="1">
                <title depth='1'>I.<tab/>Preface</title>
                <admonition id='_70234f78-64e5-4dfc-8b6f-f3f037348b6a' type='caution'>
+               <name>CAUTION</name>
                  <p id='_e94663cc-2473-4ccc-9a72-983a74d989f2'>Only use paddy or parboiled rice for the determination of husked rice yield.</p>
                </admonition>
              </foreword>
@@ -945,6 +946,7 @@ RSpec.describe IsoDoc::Ogc do
              <foreword id='A' displayorder="1">
                <title depth='1'>I.<tab/>Preface</title>
                <admonition id='_70234f78-64e5-4dfc-8b6f-f3f037348b6a' type='warning'>
+               <name>WARNING</name>
                  <p id='_e94663cc-2473-4ccc-9a72-983a74d989f2'>Only use paddy or parboiled rice for the determination of husked rice yield.</p>
                </admonition>
              </foreword>
@@ -992,6 +994,7 @@ RSpec.describe IsoDoc::Ogc do
              <foreword id='A' displayorder="1">
                <title depth='1'>I.<tab/>Preface</title>
                <admonition id='_70234f78-64e5-4dfc-8b6f-f3f037348b6a' type='important'>
+               <name>IMPORTANT</name>
                  <p id='_e94663cc-2473-4ccc-9a72-983a74d989f2'>Only use paddy or parboiled rice for the determination of husked rice yield.</p>
                </admonition>
              </foreword>
