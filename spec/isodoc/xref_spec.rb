@@ -1201,7 +1201,7 @@ RSpec.describe IsoDoc::Ogc do
     input = <<~INPUT
                   <iso-standard xmlns="http://riboseinc.com/isoxml">
       <preface>
-      <foreword>
+      <foreword><title>Foreword</title>
       <p>
       <xref target="A"/>
       <xref target="B"/>
@@ -1211,7 +1211,7 @@ RSpec.describe IsoDoc::Ogc do
       </preface>
       <annex id="A">
       <title>Glossary</title>
-      <terms>
+      <terms><title>Terms</title>
       <term id="B"><preferred>Term B</preferred></term>
       <term id="C"><preferred>Term C</preferred></term>
       </terms>
@@ -1220,6 +1220,7 @@ RSpec.describe IsoDoc::Ogc do
     INPUT
     output = <<~OUTPUT
       <foreword displayorder='1'>
+      <title depth='1'>Foreword</title>
         <p>
           <xref target='A'>Annex A</xref>
           <xref target='B'>Annex A.1</xref>

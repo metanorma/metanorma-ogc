@@ -159,14 +159,13 @@ module IsoDoc
         result = from_xhtml(word_cleanup(to_xhtml(result)))
           .gsub(/-DOUBLE_HYPHEN_ESCAPE-/, "--")
         @wordstylesheet = wordstylesheet_update
-        Html2Doc.process(
-          result,
+        Html2Doc.new(
           filename: filename, imagedir: @localdir,
           stylesheet: @wordstylesheet&.path,
           header_file: header&.path, dir: dir,
           asciimathdelims: [@openmathdelim, @closemathdelim],
           liststyles: { ul: @ulstyle, ol: @olstyle, steps: "l4" }
-        )
+        ).process(result)
         header&.unlink
         @wordstylesheet.unlink if @wordstylesheet.is_a?(Tempfile)
       end

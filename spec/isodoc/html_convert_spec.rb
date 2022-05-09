@@ -1181,14 +1181,14 @@ RSpec.describe IsoDoc::Ogc do
            <preferred>Term2</preferred>
          </term>
          </terms>
-         <definitions id="K">
+         <definitions id="K"><title>Definitions</title>
            <dl>
            <dt>Symbol</dt>
            <dd>Definition</dd>
            </dl>
          </definitions>
          </clause>
-         <definitions id="L">
+         <definitions id="L"><title>Definitions</title>
            <dl>
            <dt>Symbol</dt>
            <dd>Definition</dd>
@@ -1212,7 +1212,7 @@ RSpec.describe IsoDoc::Ogc do
          </annex>
          <annex id='PP' obligation='normative'>
         <title>Glossary</title>
-        <terms id='PP1' obligation='normative'>
+        <terms id='PP1' obligation='normative'><title>Title</title>
           <term id='term-glossary'>
             <preferred>Glossary</preferred>
           </term>
@@ -1312,14 +1312,14 @@ RSpec.describe IsoDoc::Ogc do
            <preferred>Term2</preferred>
          </term>
          </terms>
-         <definitions id="K"><title>4.2.</title>
+         <definitions id="K"><title depth="2">4.2.<tab/>Definitions</title>
            <dl>
            <dt>Symbol</dt>
            <dd>Definition</dd>
            </dl>
          </definitions>
          </clause>
-         <definitions id="L" displayorder="13"><title>5.</title>
+         <definitions id="L" displayorder="13"><title depth="1">5.<tab/>Definitions</title>
            <dl>
            <dt>Symbol</dt>
            <dd>Definition</dd>
@@ -1445,7 +1445,7 @@ RSpec.describe IsoDoc::Ogc do
               <p class='Terms' style='text-align:left;'>Term2</p>
             </div>
             <div id='K'>
-              <h2>4.2.</h2>
+              <h2>4.2.&#160; Definitions</h2>
               <dl>
                 <dt>
                   <p>Symbol</p>
@@ -1455,7 +1455,7 @@ RSpec.describe IsoDoc::Ogc do
             </div>
           </div>
           <div id='L' class='Symbols'>
-            <h1>5.</h1>
+            <h1>5.&#160; Definitions</h1>
             <dl>
               <dt>
                 <p>Symbol</p>
