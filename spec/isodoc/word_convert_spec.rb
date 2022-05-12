@@ -101,8 +101,9 @@ RSpec.describe IsoDoc::Ogc do
       .sub(/^.*<div class="WordSection2">/m, '<div class="WordSection2">')
       .sub(%r{^.*<p class="zzContents" style="margin-top:0cm">}m,
            "<div><p class='zzContents' style='margin-top:0cm'>")
+      .gsub(%r{<o:p>&#xA0;</o:p>}, "")
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
-    # sub(%r{<p class="MsoNormal">\s*\&#xA0;\s*</p>\s*</div>\s*$}, "")
+      .sub(%r{</span>\s*<p class="MsoNormal">&#xA0;</p>\s*</div>\s*$}, "</div>")
     expect(xmlpp(word.gsub(/_Toc\d\d+/, "_Toc")))
       .to be_equivalent_to xmlpp(<<~'OUTPUT')
         <div>
@@ -192,7 +193,6 @@ RSpec.describe IsoDoc::Ogc do
              <span style='mso-element:field-end'/>
            </span>
            <span lang='EN-GB' xml:lang='EN-GB'>
-             <p class='MsoNormal'>&#xA0;</p>
            </span>
          </p>
          <p class='TOCTitle'>List of Tables</p>
@@ -231,7 +231,6 @@ RSpec.describe IsoDoc::Ogc do
              <span style='mso-element:field-end'/>
            </span>
            <span lang='EN-GB' xml:lang='EN-GB'>
-             <p class='MsoNormal'>&#xA0;</p>
            </span>
          </p>
          <p class='TOCTitle'>List of Figures</p>
@@ -270,7 +269,6 @@ RSpec.describe IsoDoc::Ogc do
              <span style='mso-element:field-end'/>
            </span>
            <span lang='EN-GB' xml:lang='EN-GB'>
-             <p class='MsoNormal'>&#xA0;</p>
            </span>
          </p>
          <p class='TOCTitle'>List of Recommendations</p>
@@ -357,11 +355,8 @@ RSpec.describe IsoDoc::Ogc do
            <span lang='EN-GB' xml:lang='EN-GB'>
              <span style='mso-element:field-end'/>
            </span>
-           <span lang='EN-GB' xml:lang='EN-GB'>
-             <p class='MsoNormal'>&#xA0;</p>
-           </span>
+           <span lang='EN-GB' xml:lang='EN-GB'/>
          </p>
-         <p class='MsoNormal'>&#xA0;</p>
        </div>
       OUTPUT
   end

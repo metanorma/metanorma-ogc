@@ -102,7 +102,7 @@ module IsoDoc
           submitters docxml, div2
           preface docxml, div2
           acknowledgements docxml, div2
-          div2.p { |p| p << "&nbsp;" } # placeholder
+          div2.p { |p| p << "&#xA0;" } # placeholder
         end
         section_break(body)
       end
