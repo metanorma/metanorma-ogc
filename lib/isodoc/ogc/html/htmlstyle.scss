@@ -408,6 +408,8 @@ p.Biblio, p.NormRef {
   @include blockTitle();
 }
 
+@include listBlock();
+
 pre {
   @include sourceBlock(#f7f7f7);
 
