@@ -149,8 +149,8 @@ RSpec.describe IsoDoc::Ogc do
       <foreword displayorder='1'>
         <p>
           <xref target='N1'>Introduction, 1)</xref>
-          <xref target='N11'>Introduction, 1.1)</xref>
-          <xref target='N12'>Introduction, 1.1.1)</xref>
+          <xref target='N11'>Introduction, 1) 1)</xref>
+          <xref target='N12'>Introduction, 1) 1) 1)</xref>
         </p>
       </foreword>
     OUTPUT
