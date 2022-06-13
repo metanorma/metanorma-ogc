@@ -8623,7 +8623,7 @@
 							<fo:block>
 								<fo:inline>
 									
-											<xsl:number format="1."/>
+											<xsl:number format="1." count="*[local-name()='bibitem'][not(@hidden = 'true')]"/>
 										
 								</fo:inline>
 							</fo:block>
