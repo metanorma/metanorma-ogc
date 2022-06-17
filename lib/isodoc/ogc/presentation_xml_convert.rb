@@ -98,7 +98,7 @@ module IsoDoc
 
       def example1(elem)
         lbl = @xrefs.anchor(elem["id"], :label, false) or return
-        prefix_name(elem, "&#xA0;&#x2014; ", l10n("#{@i18n.example} #{lbl}"),
+        prefix_name(elem, block_delim, l10n("#{@i18n.example} #{lbl}"),
                     "name")
       end
 
