@@ -33,6 +33,7 @@ RSpec.describe IsoDoc::Ogc do
           <role type="publisher"/>
           <organization>
             <name>International Organization for Standardization</name>
+            <abbreviation>ISO</abbreviation>
           </organization>
         </contributor>
       </bibitem>
@@ -60,6 +61,7 @@ RSpec.describe IsoDoc::Ogc do
           <role type="publisher"/>
           <organization>
             <name>International Organization for Standardization</name>
+            <abbreviation>ISO</abbreviation>
           </organization>
         </contributor>
       </bibitem>
@@ -265,6 +267,7 @@ RSpec.describe IsoDoc::Ogc do
           <role type="publisher"/>
           <organization>
             <name>International Organization for Standardization</name>
+            <abbreviation>ISO</abbreviation>
           </organization>
         </contributor>
       </bibitem>
@@ -347,7 +350,7 @@ RSpec.describe IsoDoc::Ogc do
                   <bibliography><references id="_normative_references" obligation="informative" normative="true" displayorder="2"><title depth="1">1.<tab/>Normative References</title>
                   <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
               <bibitem id="ISO712" type="standard">
-                <formattedref>ISO 712, <em>Cereals and cereal products</em>. International Organization for Standardization</formattedref>
+                <formattedref>ISO: ISO 712, <em>Cereals and cereal products</em>. International Organization for Standardization</formattedref>
                 <docidentifier type="ISO">ISO 712</docidentifier>
                 <docidentifier type="metanorma">[110]</docidentifier>
               </bibitem>
@@ -356,7 +359,7 @@ RSpec.describe IsoDoc::Ogc do
                 <docidentifier type="ISO">ISO 16634:-- (all parts)</docidentifier>
               </bibitem>
               <bibitem id="ISO20483" type="standard">
-                <formattedref>ISO 20483:2013-2014, <em>Cereals and pulses</em>. International Organization for Standardization (2013&#x2013;2014).</formattedref>
+                <formattedref>ISO: ISO 20483:2013-2014, <em>Cereals and pulses</em>. International Organization for Standardization (2013&#x2013;2014).</formattedref>
                 <docidentifier type="ISO">ISO 20483:2013-2014</docidentifier>
               </bibitem>
               <bibitem id="ref1">
@@ -402,7 +405,7 @@ RSpec.describe IsoDoc::Ogc do
               <note><name>NOTE</name><p>This is an annotation of document ISSN.</p></note>
               <note><name>NOTE</name><p>This is another annotation of document ISSN.</p></note>
               <bibitem id="ISO3696" type="standard">
-                <formattedref>ISO 3696, <em>Water for analytical laboratory use</em>. International Organization for Standardization</formattedref>
+                <formattedref>ISO: ISO 3696, <em>Water for analytical laboratory use</em>. International Organization for Standardization</formattedref>
                 <docidentifier type='metanorma-ordinal'>[4]</docidentifier>
                 <docidentifier type="ISO">ISO 3696</docidentifier>
               </bibitem>
@@ -471,7 +474,7 @@ RSpec.describe IsoDoc::Ogc do
                amendments) applies.
              </p>
              <p id='ISO712' class='NormRef'>
-               ISO 712,
+               ISO: ISO 712,
                <i>Cereals and cereal products</i>
                . International Organization for Standardization
              </p>
@@ -481,7 +484,7 @@ RSpec.describe IsoDoc::Ogc do
                . International Organization for Standardization
              </p>
              <p id='ISO20483' class='NormRef'>
-               ISO 20483:2013-2014,
+               ISO: ISO 20483:2013-2014,
                <i>Cereals and pulses</i>
                . International Organization for Standardization (2013&#8211;2014).
              </p>
@@ -553,7 +556,7 @@ RSpec.describe IsoDoc::Ogc do
                </p>
              </div>
              <p id='ISO3696' class='Biblio'>
-               [3]&#160; ISO 3696,
+               [3]&#160; ISO: ISO 3696,
                <i>Water for analytical laboratory use</i>
                . International Organization for Standardization
              </p>
