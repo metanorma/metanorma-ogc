@@ -104,7 +104,7 @@ module IsoDoc
 
       def recommendation1(elem, _type)
         type = recommendation_class_label(elem)
-        label = elem&.at(ns("./label"))&.text
+        label = elem.at(ns("./label"))&.text
         if inject_crossreference_reqt?(elem, label)
           n = @xrefs.anchor(@xrefs.reqtlabels[label], :xref, false)
           lbl = (n.nil? ? type : n)
