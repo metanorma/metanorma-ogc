@@ -1831,9 +1831,12 @@
 		
 	</xsl:attribute-set><xsl:attribute-set name="requirement-style">
 		
+		
 			<xsl:attribute name="margin-top">6pt</xsl:attribute>
 		
 	</xsl:attribute-set><xsl:attribute-set name="requirement-name-style">
+		<xsl:attribute name="keep-with-next">always</xsl:attribute>
+		
 		
 			<xsl:attribute name="font-size">11pt</xsl:attribute>
 			<xsl:attribute name="font-weight">bold</xsl:attribute>
@@ -1842,7 +1845,6 @@
 			<xsl:attribute name="padding-bottom">1mm</xsl:attribute>
 			<xsl:attribute name="margin-bottom">1mm</xsl:attribute>
 			<xsl:attribute name="background-color">rgb(165,165,165)</xsl:attribute>
-			<xsl:attribute name="keep-with-next">always</xsl:attribute>
 		
 	</xsl:attribute-set><xsl:attribute-set name="requirement-label-style">
 		
