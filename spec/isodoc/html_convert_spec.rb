@@ -1039,7 +1039,7 @@ RSpec.describe IsoDoc::Ogc do
         <preface>
           <foreword id='A' displayorder="1"><title depth='1'>I.<tab/>Preface</title>
             <example id='_'>
-              <name>Example &#xA0;&#x2014; Example Title</name>
+              <name>Example&#xA0;&#x2014; Example Title</name>
               <p id='_'>This is an example</p>
               <p id='_'>Amen</p>
             </example>
@@ -1053,7 +1053,7 @@ RSpec.describe IsoDoc::Ogc do
               <br/>
             <div id="A">
               <h1 class="ForewordTitle">I.&#160; Preface</h1>
-              <p class='SourceTitle' style='text-align:center;'>Example &#160;&#8212; Example Title</p>
+              <p class='SourceTitle' style='text-align:center;'>Example&#160;&#8212; Example Title</p>
               <div id="_" class="example">
       <p id="_">This is an example</p>
       <p id="_">Amen</p></div>
