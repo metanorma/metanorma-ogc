@@ -48,9 +48,10 @@ module Metanorma
       def reqt_links(docxml)
         docxml.xpath("//requirement | //recommendation | //permission")
           .each_with_object({}) do |r, m|
-            m[r["type"]] ||= []
-            m[r["type"]] << { id: r["id"], elem: r,
-                              subject: r&.at("./subject/xref/@target")&.text }
+            type = r["type"] || "general"
+            m[type] ||= []
+            m[type] << { id: r["id"], elem: r,
+                         subject: r&.at("./subject/xref/@target")&.text }
           end
       end
 
