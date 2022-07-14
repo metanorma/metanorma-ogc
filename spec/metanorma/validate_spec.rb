@@ -534,7 +534,7 @@ RSpec.describe Metanorma::Ogc do
     expect(File.read("test.err"))
       .not_to include "has no corresponding Conformance class test"
 
-   FileUtils.rm_f "test.err"
+    FileUtils.rm_f "test.err"
     Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
       = Document title
       Author
@@ -612,5 +612,36 @@ RSpec.describe Metanorma::Ogc do
     expect(File.read("test.err"))
       .to include "Requirement class G has no corresponding Conformance class test"
 
+    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
+      = Document title
+      Author
+      :docfile: test.adoc
+      :nodoc:
+
+      [[A]]
+      [.requirement]
+      ====
+      ====
+
+      [[B]]
+      [.requirement,type=recommendation]
+      ====
+      ====
+
+      [[C]]
+      [.requirement,type=permission]
+      ====
+      ====
+
+      [[D]]
+      [.requirement,type=conformance_test]
+      ====
+      [%metadata]
+      subject:: <<A>>
+      ====
+    INPUT
+
+    expect(File.read("test.err"))
+      .not_to include "Conformance test D has no corresponding Requirement"
   end
 end
