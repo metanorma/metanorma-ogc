@@ -959,6 +959,7 @@ RSpec.describe Metanorma::Ogc do
       Test Method:: Method2
       Test Purpose:: Purpose2
       Test Method Type:: Method Type2
+      target:: http://www.example.com
 
       Logical models encoded as XSDs should be faithful to the original UML conceptual
       models.
@@ -966,118 +967,118 @@ RSpec.describe Metanorma::Ogc do
     INPUT
     output = <<~OUTPUT
        #{BLANK_HDR}
-       <preface>#{SECURITY}</preface>
-       <sections>
-       <requirement id='_' obligation='recommendation,requirement' model='ogc' type='class'>
-       <identifier>http://www.opengis.net/spec/waterml/2.0/req/xsd-xml-rules</identifier>
-       <subject>Encoding of logical models</subject>
-       <inherit>urn:iso:dis:iso:19156:clause:7.2.2</inherit>
-       <inherit>urn:iso:dis:iso:19156:clause:8</inherit>
-       <inherit>
-         <link target='http://www.opengis.net/doc/IS/GML/3.2/clause/2.4'/>
-       </inherit>
-       <inherit>O&amp;M Abstract model, OGC 10-004r3, clause D.3.4</inherit>
-       <inherit>
-         <link target='http://www.opengis.net/spec/SWE/2.0/req/core/core-concepts-used'/>
-       </inherit>
-       <inherit>
-         <xref target='ref2'/>
-       </inherit>
-       <inherit>
-         <xref target='ref3'/>
-       </inherit>
-       <classification>
-         <tag>priority</tag>
-         <value>P0</value>
-       </classification>
-       <classification>
-         <tag>domain</tag>
-         <value>Hydrology</value>
-       </classification>
-       <classification>
-         <tag>domain</tag>
-         <value>Groundwater</value>
-       </classification>
-       <classification>
-         <tag>control-class</tag>
-         <value>Technical</value>
-       </classification>
+        <preface>#{SECURITY}</preface>
+        <sections>
+        <requirement id='_' obligation='recommendation,requirement' model='ogc' type='class'>
+        <identifier>http://www.opengis.net/spec/waterml/2.0/req/xsd-xml-rules</identifier>
+        <subject>Encoding of logical models</subject>
+        <inherit>urn:iso:dis:iso:19156:clause:7.2.2</inherit>
+        <inherit>urn:iso:dis:iso:19156:clause:8</inherit>
+        <inherit>http://www.opengis.net/doc/IS/GML/3.2/clause/2.4</inherit>
+        <inherit>O&amp;M Abstract model, OGC 10-004r3, clause D.3.4</inherit>
+        <inherit>http://www.opengis.net/spec/SWE/2.0/req/core/core-concepts-used</inherit>
+        <inherit>
+          <xref target='ref2'/>
+        </inherit>
+        <inherit>
+          <xref target='ref3'/>
+        </inherit>
+        <classification>
+          <tag>priority</tag>
+          <value>P0</value>
+        </classification>
+        <classification>
+          <tag>domain</tag>
+          <value>Hydrology</value>
+        </classification>
+        <classification>
+          <tag>domain</tag>
+          <value>Groundwater</value>
+        </classification>
+        <classification>
+          <tag>control-class</tag>
+          <value>Technical</value>
+        </classification>
+             <classification>
+        <tag>Test Method</tag>
+        <value>Method2</value>
+      </classification>
+      <classification>
+        <tag>Test Purpose</tag>
+        <value>Purpose2</value>
+      </classification>
+      <classification>
+        <tag>Test Method Type</tag>
+        <value>Method Type2</value>
+      </classification>
             <classification>
-       <tag>Test Method</tag>
-       <value>Method2</value>
-     </classification>
-     <classification>
-       <tag>Test Purpose</tag>
-       <value>Purpose2</value>
-     </classification>
-     <classification>
-       <tag>Test Method Type</tag>
-       <value>Method Type2</value>
-     </classification>
-          <component class='conditions'>
-                <ol id='_' type='arabic'>
-                  <li>
-                    <p id='_'>Candidate test subject is a witch</p>
-                  </li>
-                  <li>
-                    <p id='_'>Widget has been suitably calibrated for aerodynamics</p>
-                  </li>
-                </ol>
-            </component>
-            <component class='part'>
-                <p id='_'>Determine travel distance by flight path</p>
-            </component>
-            <description>
-                <p id='_'>Interpolated description</p>
-            </description>
-            <recommendation id='_' label="Interpolated Recommendation"/>
-            <component class='part'>
-                <p id='_'>Widget has been suitably calibrated for aerodynamics</p>
-            </component>
-            <component class='test-method'>
-              <p id='_'>Method</p>
-              <description>
-                <p id='_'>Method description</p>
-              </description>
-              <component class='step'>
-                <p id='_'>Step 1</p>
-                <component class='step'>
-                <p id='_'>Step 2</p>
-              </component>
-              </component>
-            </component>
-            <component class='test-purpose'>
-              <p id='_'>Purpose</p>
-            </component>
-            <component class='test-method-type'>
-              <p id='_'>Method Type</p>
-            </component>
-            <component class='reference'>
-              <p id='_'>
-                <xref target='ref2'/>
-              </p>
-            </component>
-            <component class='step'>
-              <p id='_'>Step</p>
-            </component>
-            <component class='test-method'>
-              <p id='_'>Method2</p>
-            </component>
-            <component class='test-purpose'>
-              <p id='_'>Purpose2</p>
-            </component>
-            <component class='test-method-type'>
-              <p id='_'>Method Type2</p>
-            </component>
-            <description>
-              <p id='_'>
-                Logical models encoded as XSDs should be faithful to the original UML
-                conceptual models.
-              </p>
-            </description>
-          </requirement>
-        </sections>
-      </ogc-standard>
+         <tag>target</tag>
+         <value>http://www.example.com</value>
+       </classification>
+           <component class='conditions'>
+                 <ol id='_' type='arabic'>
+                   <li>
+                     <p id='_'>Candidate test subject is a witch</p>
+                   </li>
+                   <li>
+                     <p id='_'>Widget has been suitably calibrated for aerodynamics</p>
+                   </li>
+                 </ol>
+             </component>
+             <component class='part'>
+                 <p id='_'>Determine travel distance by flight path</p>
+             </component>
+             <description>
+                 <p id='_'>Interpolated description</p>
+             </description>
+             <recommendation id='_' label="Interpolated Recommendation"/>
+             <component class='part'>
+                 <p id='_'>Widget has been suitably calibrated for aerodynamics</p>
+             </component>
+             <component class='test-method'>
+               <p id='_'>Method</p>
+               <description>
+                 <p id='_'>Method description</p>
+               </description>
+               <component class='step'>
+                 <p id='_'>Step 1</p>
+                 <component class='step'>
+                 <p id='_'>Step 2</p>
+               </component>
+               </component>
+             </component>
+             <component class='test-purpose'>
+               <p id='_'>Purpose</p>
+             </component>
+             <component class='test-method-type'>
+               <p id='_'>Method Type</p>
+             </component>
+             <component class='reference'>
+               <p id='_'>
+                 <xref target='ref2'/>
+               </p>
+             </component>
+             <component class='step'>
+               <p id='_'>Step</p>
+             </component>
+             <component class='test-method'>
+               <p id='_'>Method2</p>
+             </component>
+             <component class='test-purpose'>
+               <p id='_'>Purpose2</p>
+             </component>
+             <component class='test-method-type'>
+               <p id='_'>Method Type2</p>
+             </component>
+             <description>
+               <p id='_'>
+                 Logical models encoded as XSDs should be faithful to the original UML
+                 conceptual models.
+               </p>
+             </description>
+           </requirement>
+         </sections>
+       </ogc-standard>
     OUTPUT
     expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
       .to be_equivalent_to xmlpp(output)

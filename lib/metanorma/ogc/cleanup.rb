@@ -122,6 +122,13 @@ module Metanorma
           requirement_metadata_to_component(r)
           requirement_metadata_to_requirement(r)
           requirement_subparts_to_blocks(r)
+          requirement_target_identifiers(r)
+        end
+      end
+
+      def requirement_target_identifiers(reqt)
+        reqt.xpath("./classification[tag = 'target']/value[link]").each do |v|
+          v.children = v.at("./link/@target").text
         end
       end
 
