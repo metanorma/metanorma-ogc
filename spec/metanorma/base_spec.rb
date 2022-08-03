@@ -928,7 +928,7 @@ RSpec.describe Metanorma::Ogc do
       [%metadata]
       model:: ogc
       type:: class
-      label:: http://www.opengis.net/spec/waterml/2.0/req/xsd-xml-rules[*req/core*]
+      identifier:: \\http://www.opengis.net/spec/waterml/2.0/req/xsd-xml-rules
       subject:: Encoding of logical models
       inherit:: urn:iso:dis:iso:19156:clause:7.2.2
       inherit:: urn:iso:dis:iso:19156:clause:8
@@ -969,11 +969,7 @@ RSpec.describe Metanorma::Ogc do
        <preface>#{SECURITY}</preface>
        <sections>
        <requirement id='_' obligation='recommendation,requirement' model='ogc' type='class'>
-       <label>
-         <link target='http://www.opengis.net/spec/waterml/2.0/req/xsd-xml-rules'>
-           <strong>req/core</strong>
-         </link>
-       </label>
+       <identifier>http://www.opengis.net/spec/waterml/2.0/req/xsd-xml-rules</identifier>
        <subject>Encoding of logical models</subject>
        <inherit>urn:iso:dis:iso:19156:clause:7.2.2</inherit>
        <inherit>urn:iso:dis:iso:19156:clause:8</inherit>
@@ -1006,6 +1002,18 @@ RSpec.describe Metanorma::Ogc do
          <tag>control-class</tag>
          <value>Technical</value>
        </classification>
+            <classification>
+       <tag>Test Method</tag>
+       <value>Method2</value>
+     </classification>
+     <classification>
+       <tag>Test Purpose</tag>
+       <value>Purpose2</value>
+     </classification>
+     <classification>
+       <tag>Test Method Type</tag>
+       <value>Method Type2</value>
+     </classification>
           <component class='conditions'>
                 <ol id='_' type='arabic'>
                   <li>
@@ -1027,6 +1035,7 @@ RSpec.describe Metanorma::Ogc do
                 <p id='_'>Widget has been suitably calibrated for aerodynamics</p>
             </component>
             <component class='test-method'>
+              <p id='_'>Method</p>
               <description>
                 <p id='_'>Method description</p>
               </description>
@@ -1036,7 +1045,6 @@ RSpec.describe Metanorma::Ogc do
                 <p id='_'>Step 2</p>
               </component>
               </component>
-              <p id='_'>Method</p>
             </component>
             <component class='test-purpose'>
               <p id='_'>Purpose</p>

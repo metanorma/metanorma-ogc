@@ -1,6 +1,5 @@
 require_relative "init"
 require_relative "reqt"
-require "isodoc"
 require "uuidtools"
 require_relative "../../relaton/render/general"
 
@@ -14,13 +13,13 @@ module IsoDoc
       end
 
       def insert_preface_sections(doc)
-        preface_insert(doc&.at(ns("//preface/clause"\
-                                  "[@type = 'executivesummary']")),
+        preface_insert(doc.at(ns("//preface/clause"\
+                                 "[@type = 'executivesummary']")),
                        doc.at(ns("//preface/abstract")), doc)
-        preface_insert(doc&.at(ns("//preface//submitters")),
+        preface_insert(doc.at(ns("//preface//submitters")),
                        submit_orgs_append_pt(doc), doc)
         insert_submitting_orgs(doc)
-        preface_insert(doc&.at(ns("//preface/clause[@type = 'security']")),
+        preface_insert(doc.at(ns("//preface/clause[@type = 'security']")),
                        submit_orgs_append_pt(doc), doc)
         insert_keywords(doc)
       end
@@ -100,41 +99,6 @@ module IsoDoc
         lbl = @xrefs.anchor(elem["id"], :label, false) or return
         prefix_name(elem, block_delim, l10n("#{@i18n.example} #{lbl}"),
                     "name")
-      end
-
-      def recommendation1(elem, _type)
-        type = recommendation_class_label(elem)
-        label = elem.at(ns("./label"))&.text
-        if inject_crossreference_reqt?(elem, label)
-          n = @xrefs.anchor(@xrefs.reqtlabels[label], :xref, false)
-          lbl = (n.nil? ? type : n)
-          elem&.at(ns("./title"))&.remove # suppress from display if embedded
-        else
-          n = @xrefs.anchor(elem["id"], :label, false)
-          lbl = (n.nil? ? type : l10n("#{type} #{n}"))
-        end
-        prefix_name(elem, "", lbl, "name")
-      end
-
-      # embedded reqts xref to top level reqts via label lookup
-      def inject_crossreference_reqt?(node, label)
-        !node.ancestors("requirement, recommendation, permission").empty? &&
-          @xrefs.reqtlabels[label]
-      end
-
-      def recommendation_class_label(node)
-        case node["type"]
-        when "verification" then @i18n.get["#{node.name}test"]
-        when "class" then @i18n.get["#{node.name}class"]
-        when "abstracttest" then @i18n.get["abstracttest"]
-        when "conformanceclass" then @i18n.get["conformanceclass"]
-        else
-          case node.name
-          when "recommendation" then @i18n.recommendation
-          when "requirement" then @i18n.requirement
-          when "permission" then @i18n.permission
-          end
-        end
       end
 
       def annex1(elem)
