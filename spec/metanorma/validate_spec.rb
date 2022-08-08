@@ -452,79 +452,95 @@ RSpec.describe Metanorma::Ogc do
       :docfile: test.adoc
       :nodoc:
 
-      [[A]]
+      [[A1]]
       [.requirement,type=requirement]
       ====
+      [%metadata]
+      identifier:: A
       ====
 
-      [[B]]
+      [[B1]]
       [.requirement,type=recommendation]
       ====
+      [%metadata]
+      identifier:: B
       ====
 
-      [[C]]
+      [[C1]]
       [.requirement,type=permission]
       ====
+      [%metadata]
+      identifier:: C
       ====
 
-      [[D]]
+      [[D1]]
       [.requirement,type=conformance_test]
       ====
       [%metadata]
-      subject:: <<A>>
+      identifier:: D
+      classification:: target:A
       ====
 
-      [[E]]
+      [[E1]]
       [.recommendation,type=conformance_test]
       ====
       [%metadata]
-      subject:: <<B>>
+      identifier:: E
+      classification:: target:B
       ====
 
-      [[F]]
+      [[F1]]
       [.permission,type=conformance_test]
       ====
       [%metadata]
-      subject:: <<C>>
+      identifier:: F
+      target:: C
       ====
 
-      [[G]]
+      [[G1]]
       [.requirement,type=requirements_class]
       ====
+      [%metadata]
+      identifier:: G
       ====
 
-      [[H]]
+      [[H1]]
       [.recommendation,type=requirements_class]
       ====
+      [%metadata]
+      identifier:: H
       ====
 
-      [[I]]
+      [[I1]]
       [.permission,type=requirements_class]
       ====
+      [%metadata]
+      identifier:: I
       ====
 
-      [[J]]
+      [[J1]]
       [.requirement,type=conformance_class]
       ====
       [%metadata]
-      subject:: <<G>>
+      classification:: target:G
       ====
 
-      [[K]]
+      [[K1]]
       [.recommendation,type=conformance_class]
       ====
       [%metadata]
-      subject:: <<H>>
+      classification:: target:H
       ====
 
-      [[L]]
+      [[L1]]
       [.permission,type=conformance_class]
       ====
       [%metadata]
-      subject:: <<I>>
+      classification:: target:I
       ====
 
     INPUT
+    warn File.read("test.err")
     expect(File.read("test.err"))
       .not_to include "no corresponding Requirement"
     expect(File.read("test.err"))
@@ -566,39 +582,53 @@ RSpec.describe Metanorma::Ogc do
       ====
       ====
 
-      [[F]]
+      [[F1]]
       [.permission,type=conformance_test]
       ====
+      [%metadata]
+      identifier:: F
       ====
 
-      [[G]]
+      [[G1]]
       [.requirement,type=requirements_class]
       ====
+      [%metadata]
+      identifier:: G
       ====
 
-      [[H]]
+      [[H1]]
       [.recommendation,type=requirements_class]
       ====
+      [%metadata]
+      identifier:: H
       ====
 
-      [[I]]
+      [[I1]]
       [.permission,type=requirements_class]
       ====
+      [%metadata]
+      identifier:: I
       ====
 
-      [[J]]
+      [[J1]]
       [.requirement,type=conformance_class]
       ====
+      [%metadata]
+      identifier:: J
       ====
 
-      [[K]]
+      [[K1]]
       [.recommendation,type=conformance_class]
       ====
+      [%metadata]
+      identifier:: K
       ====
 
-      [[L]]
+      [[L1]]
       [.permission,type=conformance_class]
       ====
+      [%metadata]
+      identifier:: L
       ====
 
     INPUT
@@ -618,26 +648,29 @@ RSpec.describe Metanorma::Ogc do
       :docfile: test.adoc
       :nodoc:
 
-      [[A]]
+      [[A1]]
       [.requirement]
       ====
+      [%metadata]
+      identifier:: A
       ====
 
-      [[B]]
+      [[B1]]
       [.requirement,type=recommendation]
       ====
       ====
 
-      [[C]]
+      [[C1]]
       [.requirement,type=permission]
       ====
       ====
 
-      [[D]]
+      [[D1]]
       [.requirement,type=conformance_test]
       ====
       [%metadata]
-      subject:: <<A>>
+      identifier:: D
+      target:: A
       ====
     INPUT
 

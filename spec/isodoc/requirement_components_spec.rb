@@ -6,7 +6,7 @@ RSpec.describe IsoDoc::Ogc do
               <ogc-standard xmlns="https://standards.opengeospatial.org/document">
         <preface><foreword id="A"><title>Preface</title>
         <recommendation id="_">
-      <label>/ogc/recommendation/wfs/2</label>
+      <identifier>/ogc/recommendation/wfs/2</identifier>
       <inherit>/ss/584/2015/level/1</inherit>
       <subject>user</subject>
       <description><p id="_">I recommend <em>1</em>.</p></description>
@@ -386,90 +386,6 @@ RSpec.describe IsoDoc::Ogc do
       .to be_equivalent_to xmlpp(word)
   end
 
-  it "processes labels with rich text" do
-    input = <<~INPUT
-              <ogc-standard xmlns="https://standards.opengeospatial.org/document">
-          <preface>
-              <foreword id="A"><title>Preface</title>
-          <permission id="A1" type="verification">
-        <label><strong>A</strong> <xref target="A"/></label>
-        <inherit>/ss/584/2015/level/1</inherit>
-        <subject>user</subject>
-        <classification> <tag>control-class</tag> <value>Technical</value> </classification><classification> <tag>priority</tag> <value>P0</value> </classification><classification> <tag>family</tag> <value>System and Communications Protection</value> </classification><classification> <tag>family</tag> <value>System and Communications Protocols</value> </classification>
-        <description>
-          <p id="_">I recommend <em>this</em>.</p>
-        </description>
-      </permission>
-          </foreword></preface>
-          </ogc-standard>
-    INPUT
-    presxml = <<~PRESXML
-          <ogc-standard xmlns='https://standards.opengeospatial.org/document' type='presentation'>
-        <preface>
-          <foreword id='A' displayorder='1'>
-            <title depth='1'>
-              I.
-              <tab/>
-              Preface
-            </title>
-            <table id='A1' type='recommendtest' class='permission'>
-              <thead>
-                <tr>
-                  <th scope='colgroup' colspan='2'>
-                    <p class='RecommendationTestTitle'>Permission test 1</p>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td colspan='2'>
-                    <p class='RecommendationLabel'><strong>A</strong><xref target='A'>Preface</xref></p>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Requirement</td>
-                  <td>user</td>
-                </tr>
-                <tr>
-                  <td>Dependency</td>
-                  <td>/ss/584/2015/level/1</td>
-                </tr>
-                <tr>
-                  <td>Control-class</td>
-                  <td>Technical</td>
-                </tr>
-                <tr>
-                  <td>Priority</td>
-                  <td>P0</td>
-                </tr>
-                <tr>
-                  <td>Family</td>
-                  <td>System and Communications Protection</td>
-                </tr>
-                <tr>
-                  <td>Family</td>
-                  <td>System and Communications Protocols</td>
-                </tr>
-                <tr>
-                  <td colspan='2'>
-                    <p id='_'>
-                      I recommend
-                      <em>this</em>
-                      .
-                    </p>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </foreword>
-        </preface>
-      </ogc-standard>
-    PRESXML
-    expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({})
-      .convert("test", input, true)))
-      .to be_equivalent_to xmlpp(presxml)
-  end
-
   it "processes nested requirement steps" do
     input = <<~INPUT
                 <ogc-standard xmlns="https://standards.opengeospatial.org/document">
@@ -650,24 +566,24 @@ RSpec.describe IsoDoc::Ogc do
       <preface>
           <foreword id="A"><title>Preface</title>
               <requirement id='A1' type="general">
-              <label>/ogc/recommendation/wfs/1</label>
+              <identifier>/ogc/recommendation/wfs/1</identifier>
               </requirement>
               <requirement id='A2' type="verification">
-              <label>/ogc/recommendation/wfs/2</label>
-              <subject><xref target="A1"/></subject>
+              <identifier>/ogc/recommendation/wfs/2</identifier>
+              <classification><tag>target</tag><value>/ogc/recommendation/wfs/1</value></classification>
               </requirement>
               <requirement id='A3' type="class">
-              <label>/ogc/recommendation/wfs/3</label>
+              <identifier>/ogc/recommendation/wfs/3</identifier>
               </requirement>
               <requirement id='A4' type="conformanceclass">
-              <label>/ogc/recommendation/wfs/4</label>
-              <subject><xref target="A3"/></subject>
+              <identifier>/ogc/recommendation/wfs/4</identifier>
+              <classification><tag>target</tag><value>/ogc/recommendation/wfs/3</value></classification>
               </requirement>
       </foreword></preface>
       </ogc-standard>
     INPUT
     presxml = <<~PRESXML
-          <ogc-standard xmlns='https://standards.opengeospatial.org/document' type='presentation'>
+      <ogc-standard xmlns='https://standards.opengeospatial.org/document' type='presentation'>
          <preface>
            <foreword id='A' displayorder='1'>
              <title depth='1'>
@@ -691,12 +607,7 @@ RSpec.describe IsoDoc::Ogc do
                  </tr>
                  <tr>
                    <td>Conformance test</td>
-                   <td>
-                     <xref target='A2'>
-                       Preface, Requirement test 1:
-                       <tt>/ogc/recommendation/wfs/2</tt>
-                     </xref>
-                   </td>
+                   <td><xref target='A2'>/ogc/recommendation/wfs/2</xref></td>
                  </tr>
                </tbody>
              </table>
@@ -716,12 +627,7 @@ RSpec.describe IsoDoc::Ogc do
                  </tr>
                  <tr>
                    <td>Requirement</td>
-                   <td>
-                     <xref target='A1'>
-                       Preface, Requirement 1:
-                       <tt>/ogc/recommendation/wfs/1</tt>
-                     </xref>
-                   </td>
+                   <td><xref target="A1">/ogc/recommendation/wfs/1</xref></td>
                  </tr>
                </tbody>
              </table>
@@ -741,12 +647,7 @@ RSpec.describe IsoDoc::Ogc do
                  </tr>
                  <tr>
                    <td>Conformance test</td>
-                   <td>
-                     <xref target='A4'>
-                       Preface, Conformance class 1:
-                       <tt>/ogc/recommendation/wfs/4</tt>
-                     </xref>
-                   </td>
+                   <td><xref target='A4'>/ogc/recommendation/wfs/4</xref></td>
                  </tr>
                </tbody>
              </table>
@@ -766,12 +667,7 @@ RSpec.describe IsoDoc::Ogc do
                  </tr>
                  <tr>
                    <td>Requirements class</td>
-                   <td>
-                     <xref target='A3'>
-                       Preface, Requirements class 1:
-                       <tt>/ogc/recommendation/wfs/3</tt>
-                     </xref>
-                   </td>
+                   <td><xref target='A3'>/ogc/recommendation/wfs/3</xref></td>
                  </tr>
                </tbody>
              </table>

@@ -31,17 +31,23 @@ module Metanorma
 
       def reqt_to_conformance(ids, reqtclass, confclass, reqtlabel, conflabel)
         ids[reqtclass]&.each do |r|
-          ids[confclass]&.any? { |x| x[:subject] == r[:id] } or
+          (r[:label] && ids[confclass]&.any? do |x|
+             x[:subject] == r[:label]
+           end) or
             @log.add("Requirements", r[:elem],
-                     "#{reqtlabel} #{r[:id]} has no corresponding #{conflabel}")
+                     "#{reqtlabel} #{r[:label] || r[:id]} "\
+                     "has no corresponding #{conflabel}")
         end
       end
 
       def conformance_to_reqt(ids, reqtclass, confclass, reqtlabel, conflabel)
         ids[confclass]&.each do |x|
-          ids[reqtclass]&.any? { |r| x[:subject] == r[:id] } or
+          (x[:subject] && ids[reqtclass]&.any? do |r|
+             x[:subject] == r[:label]
+           end) or
             @log.add("Requirements", x[:elem],
-                     "#{conflabel} #{x[:id]} has no corresponding #{reqtlabel}")
+                     "#{conflabel} #{x[:label] || x[:id]} "\
+                     "has no corresponding #{reqtlabel}")
         end
       end
 
@@ -50,8 +56,8 @@ module Metanorma
           .each_with_object({}) do |r, m|
             type = r["type"] || "general"
             m[type] ||= []
-            m[type] << { id: r["id"], elem: r,
-                         subject: r&.at("./subject/xref/@target")&.text }
+            m[type] << { id: r["id"], elem: r, label: r.at("./identifier")&.text,
+                         subject: r.at("./classification[tag = 'target']/value")&.text }
           end
       end
 

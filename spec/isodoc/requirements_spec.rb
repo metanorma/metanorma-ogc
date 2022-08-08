@@ -6,7 +6,7 @@ RSpec.describe IsoDoc::Ogc do
               <ogc-standard xmlns="https://standards.opengeospatial.org/document">
           <preface><foreword id="A"><title>Preface</title>
           <permission id="A1">
-        <label>/ogc/recommendation/wfs/2</label>
+        <identifier>/ogc/recommendation/wfs/2</identifier>
         <inherit>/ss/584/2015/level/1</inherit>
         <inherit><eref type="inline" bibitemid="rfc2616" citeas="RFC 2616">RFC 2616 (HTTP/1.1)</eref></inherit>
         <subject>user</subject>
@@ -592,7 +592,7 @@ RSpec.describe IsoDoc::Ogc do
           <preface>
               <foreword id="A"><title>Preface</title>
           <permission id="A1" type="verification">
-        <label>/ogc/recommendation/wfs/2</label>
+        <identifier>/ogc/recommendation/wfs/2</identifier>
         <inherit>/ss/584/2015/level/1</inherit>
         <subject>user</subject>
         <classification> <tag>control-class</tag> <value>Technical</value> </classification><classification> <tag>priority</tag> <value>P0</value> </classification><classification> <tag>family</tag> <value>System and Communications Protection</value> </classification><classification> <tag>family</tag> <value>System and Communications Protocols</value> </classification>
@@ -644,7 +644,7 @@ RSpec.describe IsoDoc::Ogc do
           <preface>
               <foreword id="A" displayorder="1"><title depth="1">I.<tab/>Preface</title>
           <table id="A1" type="recommendtest" class="permission">
-      <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTestTitle">Permission test 1</p></th></tr></thead><tbody><tr><td colspan="2"><p class='RecommendationLabel'>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Requirement</td><td>user</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td>Control-class</td><td>Technical</td></tr><tr><td>Priority</td><td>P0</td></tr><tr><td>Family</td><td>System and Communications Protection</td></tr><tr><td>Family</td><td>System and Communications Protocols</td></tr><tr><td colspan="2">
+      <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTestTitle">Permission test 1</p></th></tr></thead><tbody><tr><td colspan="2"><p class='RecommendationLabel'>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Subject</td><td>user</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td>Control-class</td><td>Technical</td></tr><tr><td>Priority</td><td>P0</td></tr><tr><td>Family</td><td>System and Communications Protection</td></tr><tr><td>Family</td><td>System and Communications Protocols</td></tr><tr><td colspan="2">
           <p id="_">I recommend <em>this</em>.</p>
         </td></tr><tr><td>A</td><td>B</td></tr><tr><td>C</td><td>D</td></tr><tr><td colspan="2">
           <p id="_">The measurement target shall be measured as:</p>
@@ -683,7 +683,7 @@ RSpec.describe IsoDoc::Ogc do
                      </td>
                    </tr>
                    <tr>
-                     <td style='vertical-align:top;' class='recommend'>Requirement</td>
+                     <td style='vertical-align:top;' class='recommend'>Subject</td>
                      <td style='vertical-align:top;' class='recommend'>user</td>
                    </tr>
                    <tr>
@@ -787,7 +787,7 @@ RSpec.describe IsoDoc::Ogc do
                            </td>
                          </tr>
                          <tr>
-                           <td style='vertical-align:top;' class='recommend'>Requirement</td>
+                           <td style='vertical-align:top;' class='recommend'>Subject</td>
                            <td style='vertical-align:top;' class='recommend'>user</td>
                          </tr>
                          <tr>
@@ -936,7 +936,7 @@ RSpec.describe IsoDoc::Ogc do
           <preface>
               <foreword id="A"><title>Preface</title>
           <permission id="A1" type="abstracttest">
-        <label>/ogc/recommendation/wfs/2</label>
+        <identifier>/ogc/recommendation/wfs/2</identifier>
         <inherit>/ss/584/2015/level/1</inherit>
         <subject>user</subject>
         <classification> <tag>control-class</tag> <value>Technical</value> </classification><classification> <tag>priority</tag> <value>P0</value> </classification><classification> <tag>family</tag> <value>System and Communications Protection</value> </classification><classification> <tag>family</tag> <value>System and Communications Protocols</value> </classification>
@@ -987,7 +987,7 @@ RSpec.describe IsoDoc::Ogc do
           <preface>
               <foreword id="A" displayorder="1"><title depth="1">I.<tab/>Preface</title>
           <table id="A1" type="recommendtest" class="permission">
-      <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTestTitle">Abstract test 1</p></th></tr></thead><tbody><tr><td colspan="2"><p class='RecommendationLabel'>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Requirement</td><td>user</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td>Control-class</td><td>Technical</td></tr><tr><td>Priority</td><td>P0</td></tr><tr><td>Family</td><td>System and Communications Protection</td></tr><tr><td>Family</td><td>System and Communications Protocols</td></tr><tr><td colspan="2">
+      <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTestTitle">Abstract test 1</p></th></tr></thead><tbody><tr><td colspan="2"><p class='RecommendationLabel'>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Subject</td><td>user</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td>Control-class</td><td>Technical</td></tr><tr><td>Priority</td><td>P0</td></tr><tr><td>Family</td><td>System and Communications Protection</td></tr><tr><td>Family</td><td>System and Communications Protocols</td></tr><tr><td colspan="2">
           <p id="_">I recommend <em>this</em>.</p>
         </td></tr><tr><td>A</td><td>B</td></tr><tr><td>C</td><td>D</td></tr><tr><td colspan="2">
           <p id="_">The measurement target shall be measured as:</p>
@@ -1026,7 +1026,7 @@ RSpec.describe IsoDoc::Ogc do
                   </td>
                 </tr>
                 <tr>
-                  <td style='vertical-align:top;' class='recommend'>Requirement</td>
+                  <td style='vertical-align:top;' class='recommend'>Subject</td>
                   <td style='vertical-align:top;' class='recommend'>user</td>
                 </tr>
                 <tr>
@@ -1130,7 +1130,7 @@ RSpec.describe IsoDoc::Ogc do
                            </td>
                          </tr>
                          <tr>
-                           <td style='vertical-align:top;' class='recommend'>Requirement</td>
+                           <td style='vertical-align:top;' class='recommend'>Subject</td>
                            <td style='vertical-align:top;' class='recommend'>user</td>
                          </tr>
                          <tr>
@@ -1278,22 +1278,22 @@ RSpec.describe IsoDoc::Ogc do
               <ogc-standard xmlns="https://standards.opengeospatial.org/document">
           <preface><foreword id="A"><title>Preface</title>
           <permission id="A1" type="class" keep-with-next="true" keep-lines-together="true">
-        <label>/ogc/recommendation/wfs/2</label>
+        <identifier>/ogc/recommendation/wfs/2</identifier>
         <inherit>/ss/584/2015/level/1</inherit>
         <inherit>/ss/584/2015/level/2</inherit>
         <subject>user</subject>
         <permission id="A2">
-        <label>/ogc/recommendation/wfs/10</label>
+        <identifier>/ogc/recommendation/wfs/10</identifier>
         </permission>
         <requirement id="A3">
-        <label>Requirement 1</label>
+        <identifier>Requirement 1</identifier>
         </requirement>
         <recommendation id="A4">
-        <label>Recommendation 1</label>
+        <identifier>Recommendation 1</identifier>
         </recommendation>
       </permission>
       <permission id="B1">
-        <label>/ogc/recommendation/wfs/10</label>
+        <identifier>/ogc/recommendation/wfs/11</identifier>
       </permission>
           </foreword></preface>
           </ogc-standard>
@@ -1312,7 +1312,7 @@ RSpec.describe IsoDoc::Ogc do
 
          <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Permissions class 1</p></th></tr></thead><tbody><tr><td colspan="2"><p class='RecommendationLabel'>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Target type</td><td>user</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/2</td></tr>
 
-           <tr><td><p>Permission 1: <tt>/ogc/recommendation/wfs/10</tt></p></td><td><p class='RecommendationLabel'>/ogc/recommendation/wfs/10</p></td></tr>
+           <tr><td><p>Permission 1-1</p></td><td><p class='RecommendationLabel'>/ogc/recommendation/wfs/10</p></td></tr>
 
            <tr><td><p>Requirement 1-1</p></td><td><p class="RecommendationLabel">Requirement 1</p></td></tr>
 
@@ -1320,7 +1320,7 @@ RSpec.describe IsoDoc::Ogc do
 
          <table id="B1" class="permission" type="recommend">
 
-         <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Permission 1</p></th></tr></thead><tbody><tr><td colspan="2"><p class='RecommendationLabel'>/ogc/recommendation/wfs/10</p></td></tr></tbody></table>
+         <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Permission 1</p></th></tr></thead><tbody><tr><td colspan="2"><p class='RecommendationLabel'>/ogc/recommendation/wfs/11</p></td></tr></tbody></table>
 
              </foreword></preface>
              </ogc-standard>
@@ -1359,7 +1359,7 @@ RSpec.describe IsoDoc::Ogc do
                        </tr>
                        <tr>
                          <td style='vertical-align:top;' class='recommend'>
-                           <p>Permission 1: <tt>/ogc/recommendation/wfs/10</tt></p>
+                           <p>Permission 1-1</p>
                          </td>
                          <td style='vertical-align:top;' class='recommend'>
                            <p>/ogc/recommendation/wfs/10</p>
@@ -1394,7 +1394,7 @@ RSpec.describe IsoDoc::Ogc do
                      <tbody>
                        <tr>
                          <td colspan='2' style='vertical-align:top;' class='recommend'>
-                           <p>/ogc/recommendation/wfs/10</p>
+                           <p>/ogc/recommendation/wfs/11</p>
                          </td>
                        </tr>
                      </tbody>
@@ -1445,7 +1445,7 @@ RSpec.describe IsoDoc::Ogc do
                    </tr>
                    <tr>
                      <td style='vertical-align:top;' class='recommend'>
-                       <p class='MsoNormal'>Permission 1: <tt>/ogc/recommendation/wfs/10</tt></p>
+                       <p class='MsoNormal'>Permission 1-1</p>
                      </td>
                      <td style='vertical-align:top;' class='recommend'>
                        <p class='MsoNormal'>/ogc/recommendation/wfs/10</p>
@@ -1483,7 +1483,7 @@ RSpec.describe IsoDoc::Ogc do
                  <tbody>
                    <tr>
                      <td colspan='2' style='vertical-align:top;' class='recommend'>
-                       <p class='MsoNormal'>/ogc/recommendation/wfs/10</p>
+                       <p class='MsoNormal'>/ogc/recommendation/wfs/11</p>
                      </td>
                    </tr>
                  </tbody>
@@ -1526,20 +1526,24 @@ RSpec.describe IsoDoc::Ogc do
               <ogc-standard xmlns="https://standards.opengeospatial.org/document">
           <preface><foreword id="A"><title>Preface</title>
           <permission id="A1" type="conformanceclass">
-        <label>/ogc/recommendation/wfs/2</label>
+        <identifier>/ogc/recommendation/wfs/2</identifier>
         <inherit>/ss/584/2015/level/1</inherit>
         <inherit>/ss/584/2015/level/2</inherit>
         <subject>user</subject>
+        <classification><tag>target</target><value>ABC</value></classification>
         <permission id="A2">
-        <label>Permission 1</label>
+        <identifier>Permission 1</identifier>
         </permission>
         <requirement id="A3">
-        <label>Requirement 1</label>
+        <identifier>Requirement 1</identifier>
         </requirement>
         <recommendation id="A4">
-        <label>Recommendation 1</label>
+        <identifier>Recommendation 1</identifier>
         </recommendation>
       </permission>
+          <permission id="B" type="conformanceclass">
+          <identifier>ABC</identifier>
+          </permission>
           </foreword></preface>
           </ogc-standard>
     INPUT
@@ -1548,10 +1552,28 @@ RSpec.describe IsoDoc::Ogc do
       <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
              <preface><foreword id="A" displayorder="1"><title depth="1">I.<tab/>Preface</title>
              <table id="A1" type="recommendclass" class="permission">
-         <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Conformance class 1</p></th></tr></thead><tbody><tr><td colspan="2"><p class='RecommendationLabel'>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Requirements class</td><td>user</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/2</td></tr>
+         <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Conformance class 1</p></th></tr></thead><tbody><tr><td colspan="2"><p class='RecommendationLabel'>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Subject</td><td>user</td></tr>
+         <tr><td>Requirements class</td><td><xref target='B'>ABC</xref></td></tr>
+          <tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/2</td></tr>
            <tr><td><p>Permission 1-1</p></td><td><p class="RecommendationLabel">Permission 1</p></td></tr>
            <tr><td><p>Requirement 1-1</p></td><td><p class="RecommendationLabel">Requirement 1</p></td></tr>
            <tr><td><p>Recommendation 1-1</p></td><td><p class="RecommendationLabel">Recommendation 1</p></td></tr></tbody></table>
+                        <table id='B' class='permission' type='recommendclass'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTitle'>Conformance class 2</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2'>
+                     <p class='RecommendationLabel'>ABC</p>
+                   </td>
+                 </tr>
+               </tbody>
+             </table>
              </foreword></preface>
              </ogc-standard>
     OUTPUT
@@ -1576,8 +1598,12 @@ RSpec.describe IsoDoc::Ogc do
                   </td>
                 </tr>
                 <tr>
-                  <td style='vertical-align:top;' class='recommend'>Requirements class</td>
+                  <td style='vertical-align:top;' class='recommend'>Subject</td>
                   <td style='vertical-align:top;' class='recommend'>user</td>
+                </tr>
+                <tr>
+                  <td style='vertical-align:top;' class='recommend'>Requirements class</td>
+                  <td style='vertical-align:top;' class='recommend'><a href='#B'>ABC</a></td>
                 </tr>
                 <tr>
                   <td style='vertical-align:top;' class='recommend'>Dependency</td>
@@ -1613,6 +1639,22 @@ RSpec.describe IsoDoc::Ogc do
                 </tr>
               </tbody>
             </table>
+           <table id='B' class='recommendclass' style='border-collapse:collapse;border-spacing:0;'>
+               <thead>
+                 <tr>
+                   <th colspan='2' style='vertical-align:top;' scope='colgroup' class='recommend'>
+                     <p class='RecommendationTitle'>Conformance class 2</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td colspan='2' style='vertical-align:top;' class='recommend'>
+                     <p>ABC</p>
+                   </td>
+                 </tr>
+               </tbody>
+             </table>
           </div>
           <p class='zzSTDTitle1'/>
         </div>
@@ -1646,8 +1688,12 @@ RSpec.describe IsoDoc::Ogc do
                            </td>
                          </tr>
                          <tr>
-                           <td style='vertical-align:top;' class='recommend'>Requirements class</td>
+                           <td style='vertical-align:top;' class='recommend'>Subject</td>
                            <td style='vertical-align:top;' class='recommend'>user</td>
+                         </tr>
+                         <tr>
+                           <td style='vertical-align:top;' class='recommend'>Requirements class</td>
+                           <td style='vertical-align:top;' class='recommend'><a href='#B'>ABC</a></td>
                          </tr>
                          <tr>
                            <td style='vertical-align:top;' class='recommend'>Dependency</td>
@@ -1684,6 +1730,25 @@ RSpec.describe IsoDoc::Ogc do
                        </tbody>
                      </table>
                    </div>
+                                <div align='center' class='table_container'>
+               <table class='recommendclass' style='border-collapse:collapse;border-spacing:0;'>
+                 <a name='B' id='B'/>
+                 <thead>
+                   <tr>
+                     <th colspan='2' style='vertical-align:top;' class='recommend'>
+                       <p class='RecommendationTitle'>Conformance class 2</p>
+                     </th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   <tr>
+                     <td colspan='2' style='vertical-align:top;' class='recommend'>
+                       <p class='MsoNormal'>ABC</p>
+                     </td>
+                   </tr>
+                 </tbody>
+               </table>
+             </div>
                  </div>
                  <p class='MsoNormal'>&#xA0;</p>
                </div>
@@ -1721,18 +1786,18 @@ RSpec.describe IsoDoc::Ogc do
               <ogc-standard xmlns="https://standards.opengeospatial.org/document">
           <preface><foreword id="A"><title>Preface</title>
           <requirement id="A1" type="class">
-        <label>/ogc/recommendation/wfs/2</label>
+        <identifier>/ogc/recommendation/wfs/2</identifier>
         <inherit>/ss/584/2015/level/1</inherit>
         <inherit>/ss/584/2015/level/2</inherit>
         <subject>user</subject>
         <permission id="A2">
-        <label>Permission 1</label>
+        <identifier>Permission 1</identifier>
         </permission>
         <requirement id="A3">
-        <label>Requirement 1</label>
+        <identifier>Requirement 1</identifier>
         </requirement>
         <recommendation id="A4">
-        <label>Recommendation 1</label>
+        <identifier>Recommendation 1</identifier>
         </recommendation>
       </requirement>
           </foreword></preface>
@@ -1916,18 +1981,18 @@ RSpec.describe IsoDoc::Ogc do
               <ogc-standard xmlns="https://standards.opengeospatial.org/document">
           <preface><foreword id="A"><title>Preface</title>
           <recommendation id="A1" type="class">
-        <label>/ogc/recommendation/wfs/2</label>
+        <identifier>/ogc/recommendation/wfs/2</identifier>
         <inherit>/ss/584/2015/level/1</inherit>
         <inherit>/ss/584/2015/level/2</inherit>
         <subject>user</subject>
         <permission id="A2">
-        <label>Permission 1</label>
+        <identifier>Permission 1</identifier>
         </permission>
         <requirement id="A3">
-        <label>Requirement 1</label>
+        <identifier>Requirement 1</identifier>
         </requirement>
         <recommendation id="A4">
-        <label>Recommendation 1</label>
+        <identifier>Recommendation 1</identifier>
         </recommendation>
       </recommendation>
           </foreword></preface>
@@ -2112,7 +2177,7 @@ RSpec.describe IsoDoc::Ogc do
           <preface><foreword id="A0"><title>Preface</title>
           <requirement id="A" unnumbered="true">
         <title>A New Requirement</title>
-        <label>/ogc/recommendation/wfs/2</label>
+        <identifier>/ogc/recommendation/wfs/2</identifier>
         <inherit>/ss/584/2015/level/1</inherit>
         <subject>user</subject>
         <description>
@@ -2419,7 +2484,7 @@ RSpec.describe IsoDoc::Ogc do
             <ogc-standard xmlns="https://standards.opengeospatial.org/document">
           <preface><foreword id="A"><title>Preface</title>
           <recommendation id="_">
-        <label>/ogc/recommendation/wfs/2</label>
+        <identifier>/ogc/recommendation/wfs/2</identifier>
         <inherit>/ss/584/2015/level/1</inherit>
         <subject>user</subject>
         <description>
