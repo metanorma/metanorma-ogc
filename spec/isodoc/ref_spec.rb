@@ -390,13 +390,13 @@ RSpec.describe IsoDoc::Ogc do
               </references><references id="_bibliography" obligation="informative" normative="false" displayorder="3">
                 <title depth="1">Bibliography</title>
                 <bibitem id='ISBN' type='book'>
-                <formattedref><em>Chemicals for analytical laboratory use</em>. ISBN Publishers. ISBN.</formattedref>
+                <formattedref><em>Chemicals for analytical laboratory use</em>. n.p.: ISBN Publishers. n.d. ISBN.</formattedref>
                 <docidentifier type='metanorma-ordinal'>[2]</docidentifier>
                 <docidentifier type="ISBN">ISBN</docidentifier>
                 <docidentifier type="metanorma">[1]</docidentifier>
               </bibitem>
               <bibitem id='ISSN' type='journal'>
-                <formattedref><em>Instruments for analytical laboratory use</em>. ISSN Publishers. ISSN. <link target='http://www.example.com'>http://www.example.com</link>.</formattedref>
+                <formattedref><em>Instruments for analytical laboratory use</em>. ISSN Publishers. n.d. ISSN. <link target='http://www.example.com'>http://www.example.com</link>.</formattedref>
                 <docidentifier type='metanorma-ordinal'>[3]</docidentifier>
                 <docidentifier type="ISSN">ISSN</docidentifier>
                 <docidentifier type="metanorma">[2]</docidentifier>
@@ -420,7 +420,7 @@ RSpec.describe IsoDoc::Ogc do
         <docidentifier>ABC</docidentifier>
       </bibitem>
               <bibitem id="ref11">
-                <formattedref>Fred Johnson, Jackson KG, Nixon RM: IETF RFC 10, <em>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</em>.</formattedref>
+                <formattedref>Fred Johnson, Jackson KG, Nixon RM: IETF RFC 10, <em>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</em>. (n.d.).</formattedref>
                 <docidentifier type='metanorma-ordinal'>[7]</docidentifier>
                 <docidentifier type="IETF">IETF RFC 10</docidentifier>
               </bibitem>
@@ -534,12 +534,12 @@ RSpec.describe IsoDoc::Ogc do
              <p id='ISBN' class='Biblio'>
                [1]&#160;
                <i>Chemicals for analytical laboratory use</i>
-               . ISBN Publishers. ISBN.
+               . n.p.: ISBN Publishers. n.d. ISBN.
              </p>
              <p id='ISSN' class='Biblio'>
                [2]&#160;
                <i>Instruments for analytical laboratory use</i>
-               . ISSN Publishers. ISSN.
+               . ISSN Publishers. n.d. ISSN.
                <a href='http://www.example.com'>http://www.example.com</a>
                .
              </p>
@@ -587,7 +587,7 @@ RSpec.describe IsoDoc::Ogc do
              <p id='ref11' class='Biblio'>
                [6]&#160; Fred Johnson, Jackson KG, Nixon RM: IETF RFC 10,
                <i>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</i>
-               .
+               . (n.d.).
              </p>
              <p id='ref12' class='Biblio'>
                [7]&#160; CitationWorks. 2019.
