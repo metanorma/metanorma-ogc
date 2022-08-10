@@ -66,7 +66,7 @@ module IsoDoc
           xref = recommendation_link(node.at(ns("./identifier"))&.text) and
           head << ["Conformance test", xref]
         node.xpath(ns("./inherit")).each do |i|
-          head << ["Dependency", i.children]
+          head << ["Dependency", recommendation_id(i.children.to_xml)]
         end
         head
       end
