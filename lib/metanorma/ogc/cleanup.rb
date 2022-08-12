@@ -1,3 +1,5 @@
+require_relative "./cleanup_reqt"
+
 module Metanorma
   module Ogc
     class Converter < Standoc::Converter
@@ -85,78 +87,6 @@ module Metanorma
                       @i18n&.termsdef, true)
       end
 
-      def requirement_metadata_component_tags
-        %w(test-purpose test-method test-method-type conditions part description
-           reference step requirement permission recommendation)
-      end
-
-      def requirement_metadata1(reqt, dlist, ins)
-        ins1 = super
-        dlist.xpath("./dt").each do |e|
-          tag = e&.text&.gsub(/ /, "-")&.downcase
-          next unless requirement_metadata_component_tags.include? tag
-
-          ins1.next = requirement_metadata1_component(e, tag)
-          ins1 = ins1.next
-        end
-      end
-
-      def requirement_metadata1_component(term, tag)
-        val = term.at("./following::dd")
-        val.name = tag
-        val.xpath("./dl").each do |d|
-          requirement_metadata1(val, d, d)
-          d.remove
-        end
-        if %w(requirement permission
-              recommendation).include?(term.text) && !val.text.empty?
-          val["label"] = val.text.strip
-          val.children.remove
-        end
-        val
-      end
-
-      def requirement_metadata(xmldoc)
-        super
-        xmldoc.xpath(REQRECPER).each do |r|
-          requirement_metadata_to_component(r)
-          requirement_metadata_to_requirement(r)
-          requirement_subparts_to_blocks(r)
-          requirement_target_identifiers(r)
-        end
-      end
-
-      def requirement_target_identifiers(reqt)
-        reqt.xpath("./classification[tag = 'target']/value[link]").each do |v|
-          v.children = v.at("./link/@target").text
-        end
-      end
-
-      def requirement_metadata_to_component(reqt)
-        reqt.xpath(".//test-method | .//test-purpose | .//conditions | "\
-                   ".//part | .//test-method-type | .//step | .//reference")
-          .each do |c|
-          c["class"] = c.name
-          c.name = "component"
-        end
-      end
-
-      def requirement_metadata_to_requirement(reqt)
-        reqt.xpath("./requirement | ./permission | ./recommendation")
-          .each do |c|
-          c["id"] = Metanorma::Utils::anchor_or_uuid
-        end
-      end
-
-      def requirement_subparts_to_blocks(reqt)
-        reqt.xpath(".//component | .//description").each do |c|
-          next if %w(p ol ul dl table component description)
-            .include?(c&.elements&.first&.name)
-
-          c.children = "<p>#{c.children.to_xml}</p>"
-        end
-      end
-
       def termdef_cleanup(xmldoc)
         super
         termdef_subclause_cleanup(xmldoc)
@@ -170,31 +100,6 @@ module Metanorma
           t.children.each { |n| n.parent = t.parent }
           t.remove
         end
-      end
-
-      def requirement_cleanup(xmldoc)
-        requirement_type(xmldoc)
-        super
-      end
-
-      def requirement_type(xmldoc)
-        xmldoc.xpath(REQRECPER).each do |r|
-          next unless r["type"]
-
-          requirement_type1(r)
-        end
-      end
-
-      def requirement_type1(reqt)
-        reqt["type"] = case reqt["type"]
-                       when "requirement", "recommendation", "permission"
-                         "general"
-                       when "requirements_class" then "class"
-                       when "conformance_test" then "verification"
-                       when "conformance_class" then "conformanceclass"
-                       when "abstract_test" then "abstracttest"
-                       else reqt["type"]
-                       end
       end
 
       def normref_cleanup(xmldoc)
@@ -232,6 +137,74 @@ module Metanorma
           xml.at("//annex[title[normalize-space(.) = 'Revision History']]") and
           last.previous = rev.remove
         last.remove
+      end
+
+      def sort_biblio(bib)
+        bib.sort do |a, b|
+          sort_biblio_key(a) <=> sort_biblio_key(b)
+        end
+      end
+
+      PUBLISHER = "./contributor[role/@type = 'publisher']/organization".freeze
+
+      OTHERIDS = "@type = 'DOI' or @type = 'metanorma' or @type = 'ISSN' or "\
+                 "@type = 'ISBN'".freeze
+
+      def pub_class(bib)
+        return 1 if bib.at("#{PUBLISHER}[abbreviation = 'OGC']")
+        return 1 if bib.at("#{PUBLISHER}[name = 'Open Geospatial "\
+                           "Consortium']")
+        return 2 if bib.at("./docidentifier[@type][not(#{OTHERIDS})]")
+
+        3
+      end
+
+      # sort by: doc class (OGC, other standard (not DOI &c), other
+      # then standard class (docid class other than DOI &c)
+      # then if OGC, doc title else if other, authors
+      # then docnumber if present, numeric sort
+      #      else alphanumeric metanorma id (abbreviation)
+      # then doc part number if present, numeric sort
+      # then doc id (not DOI &c)
+      # then title
+      def sort_biblio_key(bib)
+        pubclass = pub_class(bib)
+        ids = sort_biblio_ids_key(bib)
+        title = title_key(bib)
+        sortkey3 = author_title_key(pubclass, title, bib)
+        num = if ids[:num].nil? then ids[:abbrid]
+              else sprintf("%09d", ids[:num].to_i)
+              end
+        "#{pubclass} :: #{ids[:type]} :: #{sortkey3} :: #{num} :: "\
+          "#{sprintf('%09d', ids[:partid])} :: #{ids[:id]} :: #{title}"
+      end
+
+      def author_title_key(pubclass, title, bib)
+        case pubclass
+        when 1, 2 then title
+        when 3
+          cite = ::Relaton::Render::General.new
+            .render_all("<references>#{bib.to_xml}</references>")
+          cite[:author]
+        end
+      end
+
+      def title_key(bib)
+        title = bib.at("./title[@type = 'main']") ||
+          bib.at("./title") || bib.at("./formattedref")
+        title&.text&.sub!(/^(OGC|Open Geospatial Consortium)\b/, "")
+      end
+
+      def sort_biblio_ids_key(bib)
+        id = bib.at("./docidentifier[@primary]") ||
+          bib.at("./docidentifier[not(#{OTHERIDS})]")
+        metaid = bib.at("./docidentifier[@type = 'metanorma']")&.text
+        /\d-(?<partid>\d+)/ =~ id&.text
+        { id: id&.text,
+          num: bib.at("./docnumber")&.text,
+          abbrid: /^\[\d+\]$/.match?(metaid) ? metaid : nil,
+          partid: partid&.to_i || 0,
+          type: id ? id["type"] : nil }
       end
     end
   end
