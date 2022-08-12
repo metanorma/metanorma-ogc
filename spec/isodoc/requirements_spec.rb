@@ -1531,6 +1531,8 @@ RSpec.describe IsoDoc::Ogc do
         <inherit>ABC</inherit>
         <subject>user</subject>
         <classification><tag>target</target><value>ABC</value></classification>
+        <classification><tag>indirect-dependency</target><value><link target="http://www.example.com/"/></value></classification>
+        <classification><tag>indirect-dependency</target><value>ABC</value></classification>
         <permission id="A2">
         <identifier>Permission 1</identifier>
         </permission>
@@ -1555,6 +1557,14 @@ RSpec.describe IsoDoc::Ogc do
          <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Conformance class 1</p></th></tr></thead><tbody><tr><td colspan="2"><p class='RecommendationLabel'>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Subject</td><td>user</td></tr>
          <tr><td>Requirements class</td><td><xref target='B'>ABC</xref></td></tr>
           <tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td>Dependency</td><td><xref target='B'>ABC</xref></td></tr>
+                           <tr>
+                   <td>Indirect Dependency</td>
+                   <td><link target='http://www.example.com/'/></td>
+                 </tr>
+                 <tr>
+                   <td>Indirect Dependency</td>
+                   <td><xref target='B'>ABC</xref></td>
+                 </tr>
            <tr><td><p>Permission 1-1</p></td><td><p class="RecommendationLabel">Permission 1</p></td></tr>
            <tr><td><p>Requirement 1-1</p></td><td><p class="RecommendationLabel">Requirement 1</p></td></tr>
            <tr><td><p>Recommendation 1-1</p></td><td><p class="RecommendationLabel">Recommendation 1</p></td></tr></tbody></table>
@@ -1613,6 +1623,18 @@ RSpec.describe IsoDoc::Ogc do
                   <td style='vertical-align:top;' class='recommend'>Dependency</td>
                   <td style='vertical-align:top;' class='recommend'><a href='#B'>ABC</a></td>
                 </tr>
+                <tr>
+                   <td style='vertical-align:top;' class='recommend'>Indirect Dependency</td>
+                   <td style='vertical-align:top;' class='recommend'>
+                     <a href='http://www.example.com/'>http://www.example.com/</a>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td style='vertical-align:top;' class='recommend'>Indirect Dependency</td>
+                   <td style='vertical-align:top;' class='recommend'>
+                     <a href='#B'>ABC</a>
+                   </td>
+                 </tr>
                 <tr>
                   <td style='vertical-align:top;' class='recommend'>
                     <p>Permission 1-1</p>
@@ -1703,6 +1725,18 @@ RSpec.describe IsoDoc::Ogc do
                            <td style='vertical-align:top;' class='recommend'>Dependency</td>
                            <td style='vertical-align:top;' class='recommend'><a href='#B'>ABC</a></td>
                          </tr>
+                         <tr>
+                     <td style='vertical-align:top;' class='recommend'>Indirect Dependency</td>
+                     <td style='vertical-align:top;' class='recommend'>
+                       <a href='http://www.example.com/'>http://www.example.com/</a>
+                     </td>
+                   </tr>
+                   <tr>
+                     <td style='vertical-align:top;' class='recommend'>Indirect Dependency</td>
+                     <td style='vertical-align:top;' class='recommend'>
+                       <a href='#B'>ABC</a>
+                     </td>
+                   </tr>
                          <tr>
                            <td style='vertical-align:top;' class='recommend'>
                              <p class='MsoNormal'>Permission 1-1</p>

@@ -59,14 +59,23 @@ module IsoDoc
         oblig = node["obligation"] and head << ["Obligation", oblig]
         subj = node.at(ns("./subject"))&.children and
           head << [rec_subj(node), subj]
-        xref = recommendation_id(node.at(ns("./classification[tag = 'target']/"\
-                                            "value"))&.text) and
-          head << [rec_target(node), xref]
+        node.xpath(ns("./classification[tag = 'target']/value")).each do |v|
+          xref = recommendation_id(v.text) and head << [rec_target(node), xref]
+        end
         %w(general class).include?(node["type"]) and
           xref = recommendation_link(node.at(ns("./identifier"))&.text) and
           head << ["Conformance test", xref]
+        recommendation_attributes1_dependencies(node, head)
+      end
+
+      def recommendation_attributes1_dependencies(node, head)
         node.xpath(ns("./inherit")).each do |i|
           head << ["Dependency", recommendation_id(i.children.to_xml)]
+        end
+        node.xpath(ns("./classification[tag = 'indirect-dependency']/value"))
+          .each do |v|
+          xref = recommendation_id(v.children.to_xml) and
+            head << ["Indirect Dependency", xref]
         end
         head
       end
@@ -93,7 +102,8 @@ module IsoDoc
       def recommendation_attr_keyvalue(node, key, value)
         tag = node.at(ns("./#{key}"))
         value = node.at(ns("./#{value}"))
-        (tag && value && tag.text != "target") or return nil
+        (tag && value && !%w(target indirect-dependency).include?(tag.text)) or
+          return nil
         [tag.text.capitalize, value.children]
       end
 
