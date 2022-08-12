@@ -45,7 +45,7 @@ module IsoDoc
       end
 
       def recommendation_id(ident)
-        test = @reqt_ids[ident&.strip] or return nil
+        test = @reqt_ids[ident&.strip] or return ident&.strip
         "<xref target='#{test}'>#{ident.strip}</xref>"
       end
 

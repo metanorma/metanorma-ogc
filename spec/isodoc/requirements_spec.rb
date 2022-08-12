@@ -1528,7 +1528,7 @@ RSpec.describe IsoDoc::Ogc do
           <permission id="A1" type="conformanceclass">
         <identifier>/ogc/recommendation/wfs/2</identifier>
         <inherit>/ss/584/2015/level/1</inherit>
-        <inherit>/ss/584/2015/level/2</inherit>
+        <inherit>ABC</inherit>
         <subject>user</subject>
         <classification><tag>target</target><value>ABC</value></classification>
         <permission id="A2">
@@ -1554,7 +1554,7 @@ RSpec.describe IsoDoc::Ogc do
              <table id="A1" type="recommendclass" class="permission">
          <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Conformance class 1</p></th></tr></thead><tbody><tr><td colspan="2"><p class='RecommendationLabel'>/ogc/recommendation/wfs/2</p></td></tr><tr><td>Subject</td><td>user</td></tr>
          <tr><td>Requirements class</td><td><xref target='B'>ABC</xref></td></tr>
-          <tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/2</td></tr>
+          <tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td>Dependency</td><td><xref target='B'>ABC</xref></td></tr>
            <tr><td><p>Permission 1-1</p></td><td><p class="RecommendationLabel">Permission 1</p></td></tr>
            <tr><td><p>Requirement 1-1</p></td><td><p class="RecommendationLabel">Requirement 1</p></td></tr>
            <tr><td><p>Recommendation 1-1</p></td><td><p class="RecommendationLabel">Recommendation 1</p></td></tr></tbody></table>
@@ -1611,7 +1611,7 @@ RSpec.describe IsoDoc::Ogc do
                 </tr>
                 <tr>
                   <td style='vertical-align:top;' class='recommend'>Dependency</td>
-                  <td style='vertical-align:top;' class='recommend'>/ss/584/2015/level/2</td>
+                  <td style='vertical-align:top;' class='recommend'><a href='#B'>ABC</a></td>
                 </tr>
                 <tr>
                   <td style='vertical-align:top;' class='recommend'>
@@ -1701,7 +1701,7 @@ RSpec.describe IsoDoc::Ogc do
                          </tr>
                          <tr>
                            <td style='vertical-align:top;' class='recommend'>Dependency</td>
-                           <td style='vertical-align:top;' class='recommend'>/ss/584/2015/level/2</td>
+                           <td style='vertical-align:top;' class='recommend'><a href='#B'>ABC</a></td>
                          </tr>
                          <tr>
                            <td style='vertical-align:top;' class='recommend'>
