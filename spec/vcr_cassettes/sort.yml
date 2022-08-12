@@ -1,0 +1,137 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://raw.githubusercontent.com/relaton/relaton-data-ogc/main/data/11-165R2.yaml
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.10.1
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '770'
+      Cache-Control:
+      - max-age=300
+      Content-Security-Policy:
+      - default-src 'none'; style-src 'unsafe-inline'; sandbox
+      Content-Type:
+      - text/plain; charset=utf-8
+      Etag:
+      - W/"77439dfc32c8a78a6f31e3a602952d00a84427a2571074eb9b6b18fc4c42a484"
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - deny
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Github-Request-Id:
+      - 7AE0:0D40:9DBEA:16F0F7:62F66989
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Fri, 12 Aug 2022 14:54:02 GMT
+      Via:
+      - 1.1 varnish
+      X-Served-By:
+      - cache-mel11264-MEL
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      X-Timer:
+      - S1660316042.874388,VS0,VE313
+      Vary:
+      - Authorization,Accept-Encoding,Origin
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Fastly-Request-Id:
+      - eb3a032288fed515cf4afd6858580b398aa0cbb6
+      Expires:
+      - Fri, 12 Aug 2022 14:59:02 GMT
+      Source-Age:
+      - '0'
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        ---
+        id: 11-165r2
+        title:
+        - type: title-main
+          content: CF-netCDF3 Data Model Extension standard
+          language:
+          - en
+          script:
+          - Latn
+          format: text/plain
+        - type: main
+          content: CF-netCDF3 Data Model Extension standard
+          language:
+          - en
+          script:
+          - Latn
+          format: text/plain
+        link:
+        - content: https://portal.ogc.org/files/?artifact_id=51908
+          type: obp
+        type: standard
+        docid:
+        - id: 11-165r2
+          type: OGC
+          primary: true
+        date:
+        - type: published
+          value: '2013-01-03'
+        contributor:
+        - person:
+            name:
+              completename: 'Ben Domenico and Stefano Nativi '
+          role:
+          - author
+        - organization:
+            name:
+            - Open Geospatial Consortium
+          role:
+          - publisher
+        edition:
+          content: '2'
+        revdate: '2013-01-03'
+        language:
+        - en
+        script:
+        - Latn
+        abstract:
+        - content: "The OGC netCDF encoding supports electronic encoding of geospatial data,
+            that is, digital geospatial information representing space and time-varying phenomena.\r\nThis
+            standard specifies the CF-netCDF data model extension. \r\nThis standard specifies
+            the CF-netCDF data model mapping onto the ISO 19123 coverage schema. \r\nThis
+            standard deals with multi-dimensional gridded data and multi-dimensional multi-point
+            data.\r\nIn particular, this extension standard encoding profile is limited to
+            multi-point, and regular and warped grids; however, irregular grids are important
+            in the CF-netCDF community and work is underway to expand the CF-netCDF to encompass
+            other coverages types, including irregular gridded datasets.\r\n"
+          language:
+          - en
+          script:
+          - Latn
+          format: text/plain
+        fetched: '2022-08-11'
+        doctype: standard
+        subdoctype: implementation
+        editorialgroup:
+          committee: technical
+  recorded_at: Fri, 12 Aug 2022 14:54:02 GMT
+recorded_with: VCR 6.1.0
