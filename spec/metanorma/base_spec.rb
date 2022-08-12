@@ -960,6 +960,8 @@ RSpec.describe Metanorma::Ogc do
       Test Purpose:: Purpose2
       Test Method Type:: Method Type2
       target:: http://www.example.com
+      indirect-dependency:: http://www.example.com
+      indirect-dependency:: <<ref3>>
 
       Logical models encoded as XSDs should be faithful to the original UML conceptual
       models.
@@ -1015,6 +1017,18 @@ RSpec.describe Metanorma::Ogc do
          <tag>target</tag>
          <value>http://www.example.com</value>
        </classification>
+             <classification>
+        <tag>indirect-dependency</tag>
+        <value>
+          <link target='http://www.example.com'/>
+        </value>
+      </classification>
+      <classification>
+        <tag>indirect-dependency</tag>
+        <value>
+          <xref target='ref3'/>
+        </value>
+      </classification>
            <component class='conditions'>
                  <ol id='_' type='arabic'>
                    <li>
