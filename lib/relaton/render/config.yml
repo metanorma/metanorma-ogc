@@ -3,8 +3,32 @@ template:
   standard: "{% if creatornames %}{{ creatornames }} ({{role}}){%else%}{{ publisher_abbrev}}{%endif%} : {{standardidentifier|first}} {{draft}} , <em>{{ title }}</em>. {{ publisher }}{%if place%},{%endif%} {{ place }} ({{date}}). {{uri}}."
   misc: standard
   techreport: standard
+  book: "{{ creatornames }} ({{role}}) : <em>{{ title }}</em> . {{ publisher }}, {% if place %}{{place}}{%else%}{{ labels['no_place']}}{%endif%} ({{date}})."
+  booklet: book
+  manual: book
+  proceedings: book
+  software: book
+  electronic resource: book
+  website: book
+  webresource: book
+  unpublished: book
+  presentation: book
+  inbook: "{{ creatornames }} ({{role}}) : {{ title }} . {{ labels['in'] | capitalize }}: {{ host_creatornames}} ({{ host_role}}) : <em>{{host_title}}</em>. {{ extent}}. {{ publisher }}{%if place%},{%endif%} {{ place }} . ({{date}})." 
+  inproceedings: inbook
+  incollection: inbook
+  journal: "<em>{{ title}}</em> . {{ publisher }}{%if place%},{%endif%} {{ place }} . ({{date}})."
+  article: "{{ creatornames }} ({{role}}) : {{ title }}. {{ series }} {{ extent }} ({{date}})."
 nametemplate:
   one: "{% if nonpersonal[0] %}{{ nonpersonal[0] }}{% else %}{{surname[0] }} {{initials[0]}}{% endif %}"
   two: "{% if nonpersonal[0] %}{{ nonpersonal[0] }}{% else %}{{surname[0] }} {{initials[0]}}{% endif %} , {% if nonpersonal[1] %}{{ nonpersonal[1] }}{% else %}{{surname[1]}} {{ initials[1]}}{% endif %}"
   more: "{% if nonpersonal[0] %}{{ nonpersonal[0] }}{% else %}{{surname[0] }} {{initials[0]}} {% endif %} , {% if nonpersonal[1] %}{{ nonpersonal[1] }}{% else %}{{surname[1]}} {{ initials[1]}} {% endif %} , {% if nonpersonal[2] %}{{ nonpersonal[2] }}{% else %}{{surname[2]}} {{initials[2]}}{% endif %}"
+extenttemplate:
+  book: "{{ volume }}, {{ page }}"
+  booklet: book
+  proceedings: book
+  journal: book
+  standard: book
+  techreport: book
+  inbook: "{{ volume }}: {{ page }}"
+  misc: "{{ volume }} ({{issue}}) , {{ page }}, {{ duration }}"
 
