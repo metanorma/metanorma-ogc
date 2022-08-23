@@ -32,8 +32,7 @@ module IsoDoc
       def req_class_paths
         { "class" => "@type = 'class'",
           "test" => "@type = 'verification'",
-          "" => "not(@type = 'verification' or @type = 'class' or "\
-                "@type = 'abstracttest' or @type = 'conformanceclass')" }
+          "" => "not(@type = 'verification' or @type = 'class' or @type = 'abstracttest' or @type = 'conformanceclass')" }
       end
 
       def req_class_paths2
@@ -44,7 +43,7 @@ module IsoDoc
       def reqt_suffix_label(reqt)
         if l = reqt.at(ns("./label"))&.text
           @reqtlabels[l] = reqt["id"]
-          @anchors[reqt["id"]][:xref] += ": <tt>#{l}</tt>"
+          #@anchors[reqt["id"]][:xref] += ": <tt>#{l}</tt>"
         end
       end
 
