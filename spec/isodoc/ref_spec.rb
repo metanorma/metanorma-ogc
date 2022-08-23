@@ -291,8 +291,7 @@ RSpec.describe IsoDoc::Ogc do
                   <person>
                     <name>
                     <surname>Jackson</surname>
-                    <initial>K.</initial>
-                    <initial>G.</initial>
+                    <formatted-initials>K. G.</formatted-initials>
                     </name>
                   </person>
                 </contributor>
@@ -420,7 +419,7 @@ RSpec.describe IsoDoc::Ogc do
         <docidentifier>ABC</docidentifier>
       </bibitem>
               <bibitem id="ref11">
-                <formattedref>Fred Johnson, Jackson KG, Nixon RM: IETF RFC 10, <em>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</em>. (n.d.).</formattedref>
+                <formattedref>Fred Johnson, Jackson KG, Nixon RM: IETF RFC 10, <em>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</em>.</formattedref>
                 <docidentifier type='metanorma-ordinal'>[7]</docidentifier>
                 <docidentifier type="IETF">IETF RFC 10</docidentifier>
               </bibitem>
@@ -585,7 +584,7 @@ RSpec.describe IsoDoc::Ogc do
              <p id='ref11' class='Biblio'>
                [6]&#160; Fred Johnson, Jackson KG, Nixon RM: IETF RFC 10,
                <i>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</i>
-               . (n.d.).
+               .
              </p>
              <p id='ref12' class='Biblio'>
                [7]&#160; CitationWorks. 2019.

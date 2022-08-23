@@ -19,9 +19,9 @@ template:
   journal: "<em>{{ title}}</em> . {{ publisher }}{%if place%},{%endif%} {{ place }} . ({{date}})."
   article: "{{ creatornames }} ({{role}}) : {{ title }}. {{ series }} {{ extent }} ({{date}})."
 nametemplate:
-  one: "{% if nonpersonal[0] %}{{ nonpersonal[0] }}{% else %}{{surname[0] }} {{initials[0] | join: '' | replace: '.', '' }}{% endif %}"
-  two: "{% if nonpersonal[0] %}{{ nonpersonal[0] }}{% else %}{{surname[0] }} {{initials[0] | join: '' | replace: '.', '' }}{% endif %} , {% if nonpersonal[1] %}{{ nonpersonal[1] }}{% else %}{{surname[1]}} {{ initials[1] | join: '' | replace: '.', '' }}{% endif %}"
-  more: "{% if nonpersonal[0] %}{{ nonpersonal[0] }}{% else %}{{surname[0] }} {{initials[0] | join: '' | replace: '.', '' }} {% endif %} , {% if nonpersonal[1] %}{{ nonpersonal[1] }}{% else %}{{surname[1]}} {{ initials[1] | join: '' | replace: '.', '' }} {% endif %} , {% if nonpersonal[2] %}{{ nonpersonal[2] }}{% else %}{{surname[2]}} {{initials[2] | join: '' | replace: '.', ''}}{% endif %}"
+  one: "{% if nonpersonal[0] %}{{ nonpersonal[0] }}{% else %}{{surname[0] }} {{initials[0] | join: '' | remove: '.' | remove: '_' }}{% endif %}"
+  two: "{% if nonpersonal[0] %}{{ nonpersonal[0] }}{% else %}{{surname[0] }} {{initials[0] | join: '' | remove: '.' | remove: '_' }}{% endif %} , {% if nonpersonal[1] %}{{ nonpersonal[1] }}{% else %}{{surname[1]}} {{ initials[1] | join: '' | remove: '.' | remove: '_' }}{% endif %}"
+  more: "{% if nonpersonal[0] %}{{ nonpersonal[0] }}{% else %}{{surname[0] }} {{initials[0] | join: '' | remove: '.' | remove: '_' }} {% endif %} , {% if nonpersonal[1] %}{{ nonpersonal[1] }}{% else %}{{surname[1]}} {{ initials[1] | join: '' | remove: '.' | remove: '_' }} {% endif %} , {% if nonpersonal[2] %}{{ nonpersonal[2] }}{% else %}{{surname[2]}} {{initials[2] | join: '' | remove: '.' | remove: '_'}}{% endif %}"
 extenttemplate:
   book: "{{ volume }}, {{ page }}"
   booklet: book

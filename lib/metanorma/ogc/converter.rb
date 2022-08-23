@@ -26,6 +26,10 @@ module Metanorma
       # ignore, we generate ToC outside of asciidoctor
       def toc(value); end
 
+      def default_requirement_model
+        "ogc"
+      end
+
       def makexml(node)
         @draft = node.attributes.has_key?("draft")
         super

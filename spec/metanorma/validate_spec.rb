@@ -444,7 +444,7 @@ RSpec.describe Metanorma::Ogc do
       .to include "Executive Summary only allowed for Engineering Reports!"
   end
 
-  it "warns of disconnect between requirements and conformance tests" do
+  it "warns of disconnect between requirements and conformance tests, #1" do
     FileUtils.rm_f "test.err"
     Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
       = Document title
@@ -540,7 +540,6 @@ RSpec.describe Metanorma::Ogc do
       ====
 
     INPUT
-    warn File.read("test.err")
     expect(File.read("test.err"))
       .not_to include "no corresponding Requirement"
     expect(File.read("test.err"))
@@ -549,7 +548,9 @@ RSpec.describe Metanorma::Ogc do
       .not_to include "has no corresponding Requirement class"
     expect(File.read("test.err"))
       .not_to include "has no corresponding Conformance class test"
+  end
 
+  it "warns of disconnect between requirements and conformance tests, #2" do
     FileUtils.rm_f "test.err"
     Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
       = Document title
@@ -641,7 +642,10 @@ RSpec.describe Metanorma::Ogc do
       .to include "Conformance class test J has no corresponding Requirement class"
     expect(File.read("test.err"))
       .to include "Requirement class G has no corresponding Conformance class test"
+  end
 
+  it "warns of disconnect between requirements and conformance tests, #3" do
+    FileUtils.rm_f "test.err"
     Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
       = Document title
       Author

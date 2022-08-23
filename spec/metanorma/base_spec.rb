@@ -1031,4 +1031,31 @@ RSpec.describe Metanorma::Ogc do
     expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
       .to be_equivalent_to xmlpp(output)
   end
+
+  it "applies default requirement model" do
+    input = <<~"INPUT"
+      #{ASCIIDOC_BLANK_HDR}
+
+      [[A]]
+      [.permission]
+      ====
+      I permit this
+
+
+      [[B]]
+      [.permission]
+      =====
+      I also permit this
+
+      . List
+      . List
+      =====
+      ====
+    INPUT
+
+    xml = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
+    expect(xml.at("//xmlns:permission[@id = 'A']/@model").text).to eq("ogc")
+    expect(xml.at("//xmlns:permission/xmlns:permission/@model").text)
+      .to eq("ogc")
+  end
 end

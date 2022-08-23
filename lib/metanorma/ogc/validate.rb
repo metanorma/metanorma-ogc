@@ -33,10 +33,10 @@ module Metanorma
         ids[reqtclass]&.each do |r|
           (r[:label] && ids[confclass]&.any? do |x|
              x[:subject] == r[:label]
-           end) or
-            @log.add("Requirements", r[:elem],
-                     "#{reqtlabel} #{r[:label] || r[:id]} "\
-                     "has no corresponding #{conflabel}")
+           end) and next
+          @log.add("Requirements", r[:elem],
+                   "#{reqtlabel} #{r[:label] || r[:id]} "\
+                   "has no corresponding #{conflabel}")
         end
       end
 
@@ -44,17 +44,18 @@ module Metanorma
         ids[confclass]&.each do |x|
           (x[:subject] && ids[reqtclass]&.any? do |r|
              x[:subject] == r[:label]
-           end) or
-            @log.add("Requirements", x[:elem],
-                     "#{conflabel} #{x[:label] || x[:id]} "\
-                     "has no corresponding #{reqtlabel}")
+           end) and next
+          @log.add("Requirements", x[:elem],
+                   "#{conflabel} #{x[:label] || x[:id]} "\
+                   "has no corresponding #{reqtlabel}")
         end
       end
 
       def reqt_links(docxml)
         docxml.xpath("//requirement | //recommendation | //permission")
           .each_with_object({}) do |r, m|
-            type = r["type"] || "general"
+            type = r["type"]
+            type.empty? and type = "general"
             m[type] ||= []
             m[type] << { id: r["id"], elem: r, label: r.at("./identifier")&.text,
                          subject: r.at("./classification[tag = 'target']/value")&.text }

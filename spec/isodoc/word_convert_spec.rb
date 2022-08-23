@@ -71,14 +71,14 @@ RSpec.describe IsoDoc::Ogc do
              </clause>
              <clause id="O" inline-header="false" obligation="normative">
                <title>Clause 4.2</title>
-               <recommendation id="AC" type="abstracttest">
+               <recommendation id="AC" type="abstracttest" model="ogc">
                <name>Recommendation Verification 1</name>
-        <label>/ogc/recommendation/wfs/3</label>
+        <identifier>/ogc/recommendation/wfs/3</identifier>
         </recommendation>
-               <recommendation id="AA">
-        <label>/ogc/recommendation/wfs/2</label>
+               <recommendation id="AA" model="ogc">
+        <identifier>/ogc/recommendation/wfs/2</identifier>
         </recommendation>
-               <recommendation id="AB" type="abstracttest">
+               <recommendation id="AB" type="abstracttest" model="ogc">
                <name>Recommendation Verification 2</name>
         <label>/ogc/recommendation/wfs/3</label>
         </recommendation>

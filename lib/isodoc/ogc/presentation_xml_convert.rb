@@ -123,11 +123,6 @@ module IsoDoc
         super
       end
 
-      def block(docxml)
-        super
-        recommendation_to_table(docxml)
-      end
-
       def section(docxml)
         super
         references(docxml)
