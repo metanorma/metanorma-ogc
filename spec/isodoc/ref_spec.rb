@@ -390,13 +390,13 @@ RSpec.describe IsoDoc::Ogc do
               </references><references id="_bibliography" obligation="informative" normative="false" displayorder="3">
                 <title depth="1">Bibliography</title>
                 <bibitem id='ISBN' type='book'>
-                <formattedref><em>Chemicals for analytical laboratory use</em>. n.p.: ISBN Publishers. n.d. ISBN.</formattedref>
+                <formattedref><em>Chemicals for analytical laboratory use</em>. ISBN Publishers, n.p. (n.d.).</formattedref>
                 <docidentifier type='metanorma-ordinal'>[2]</docidentifier>
                 <docidentifier type="ISBN">ISBN</docidentifier>
                 <docidentifier type="metanorma">[1]</docidentifier>
               </bibitem>
               <bibitem id='ISSN' type='journal'>
-                <formattedref><em>Instruments for analytical laboratory use</em>. ISSN Publishers. n.d. ISSN. <link target='http://www.example.com'>http://www.example.com</link>.</formattedref>
+                <formattedref><em>Instruments for analytical laboratory use</em>. ISSN Publishers. (n.d.).</formattedref>
                 <docidentifier type='metanorma-ordinal'>[3]</docidentifier>
                 <docidentifier type="ISSN">ISSN</docidentifier>
                 <docidentifier type="metanorma">[2]</docidentifier>
@@ -534,14 +534,12 @@ RSpec.describe IsoDoc::Ogc do
              <p id='ISBN' class='Biblio'>
                [1]&#160;
                <i>Chemicals for analytical laboratory use</i>
-               . n.p.: ISBN Publishers. n.d. ISBN.
+               . ISBN Publishers, n.p. (n.d.).
              </p>
              <p id='ISSN' class='Biblio'>
                [2]&#160;
                <i>Instruments for analytical laboratory use</i>
-               . ISSN Publishers. n.d. ISSN.
-               <a href='http://www.example.com'>http://www.example.com</a>
-               .
+               . ISSN Publishers. (n.d.).
              </p>
              <div class='Note'>
                <p>
