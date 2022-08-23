@@ -1,5 +1,3 @@
-require_relative "./cleanup_reqt"
-
 module Metanorma
   module Ogc
     class Converter < Standoc::Converter

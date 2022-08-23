@@ -1,5 +1,4 @@
 require_relative "init"
-require_relative "reqt"
 require "uuidtools"
 require_relative "../../relaton/render/general"
 
