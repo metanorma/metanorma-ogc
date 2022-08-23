@@ -190,12 +190,13 @@ module IsoDoc
         ::Relaton::Render::Ogc::General.new(language: @lang)
       end
 
-      def bibrender(xml)
-        unless xml.at(ns("./formattedref"))
-          xml.children =
-            "#{bibrenderer.render(xml.to_xml)}"\
-            "#{xml.xpath(ns('./docidentifier | ./uri | ./note | ./status')).to_xml}"
-        end
+      def bibrender_formattedref(formattedref, xml); end
+
+      def bibrender_relaton(xml, renderings)
+        f = renderings[xml["id"]][:formattedref]
+        f &&= "<formattedref>#{f}</formattedref>"
+        keep = "./docidentifier | ./uri | ./note | ./status"
+        xml.children = "#{f}#{xml.xpath(ns(keep)).to_xml}"
       end
 
       def display_order(docxml)
