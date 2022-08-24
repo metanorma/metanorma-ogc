@@ -135,16 +135,6 @@ module Metanorma
         xml.hi { |s| s << text }
       end
 
-      def example(node)
-        role = node.role || node.attr("style")
-        if %w(requirements_class conformance_test conformance_class
-              abstract_test).include?(role)
-          node.set_attr("type", role)
-          return requirement(node, "requirement")
-        end
-        super
-      end
-
       def set_obligation(attrs, node)
         if node.attr("style") == "appendix" && node.level == 1
           attrs[:obligation] = if node.attributes.has_key?("obligation")
