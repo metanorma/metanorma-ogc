@@ -14,52 +14,6 @@ module Metanorma
       def content_validate(doc)
         super
         bibdata_validate(doc.root)
-        reqt_link_validate(doc.root)
-      end
-
-      def reqt_link_validate(docxml)
-        ids = reqt_links(docxml)
-        reqt_to_conformance(ids, "general", "verification", "Requirement",
-                            "Conformance test")
-        reqt_to_conformance(ids, "class", "conformanceclass",
-                            "Requirement class", "Conformance class test")
-        conformance_to_reqt(ids, "general", "verification", "Requirement",
-                            "Conformance test")
-        conformance_to_reqt(ids, "class", "conformanceclass",
-                            "Requirement class", "Conformance class test")
-      end
-
-      def reqt_to_conformance(ids, reqtclass, confclass, reqtlabel, conflabel)
-        ids[reqtclass]&.each do |r|
-          (r[:label] && ids[confclass]&.any? do |x|
-             x[:subject] == r[:label]
-           end) and next
-          @log.add("Requirements", r[:elem],
-                   "#{reqtlabel} #{r[:label] || r[:id]} "\
-                   "has no corresponding #{conflabel}")
-        end
-      end
-
-      def conformance_to_reqt(ids, reqtclass, confclass, reqtlabel, conflabel)
-        ids[confclass]&.each do |x|
-          (x[:subject] && ids[reqtclass]&.any? do |r|
-             x[:subject] == r[:label]
-           end) and next
-          @log.add("Requirements", x[:elem],
-                   "#{conflabel} #{x[:label] || x[:id]} "\
-                   "has no corresponding #{reqtlabel}")
-        end
-      end
-
-      def reqt_links(docxml)
-        docxml.xpath("//requirement | //recommendation | //permission")
-          .each_with_object({}) do |r, m|
-            type = r["type"]
-            type.empty? and type = "general"
-            m[type] ||= []
-            m[type] << { id: r["id"], elem: r, label: r.at("./identifier")&.text,
-                         subject: r.at("./classification[tag = 'target']/value")&.text }
-          end
       end
 
       def bibdata_validate(doc)
