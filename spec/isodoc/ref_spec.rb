@@ -338,7 +338,7 @@ RSpec.describe IsoDoc::Ogc do
                 <eref bibitemid="ISSN">[2]</eref>
                 <eref bibitemid="ISO16634">ISO 16634:-- (all parts)</eref>
                 <eref bibitemid="ref1">ICC 167</eref>
-                <eref bibitemid="ref10">[10]</eref>
+                <eref bibitemid="ref10">[4]</eref>
                 <eref bibitemid="ref12">Citn</eref>
                 <eref bibitemid="zip_ffs">[5]</eref>
                 <eref bibitemid='ogc1'>OGC 19-025r1</eref>
@@ -390,42 +390,39 @@ RSpec.describe IsoDoc::Ogc do
                 <title depth="1">Bibliography</title>
                 <bibitem id='ISBN' type='book'>
                 <formattedref><em>Chemicals for analytical laboratory use</em>. ISBN Publishers, n.p. (n.d.).</formattedref>
-                <docidentifier type='metanorma-ordinal'>[2]</docidentifier>
+                <docidentifier type='metanorma-ordinal'>[1]</docidentifier>
                 <docidentifier type="ISBN">ISBN</docidentifier>
-                <docidentifier type="metanorma">[1]</docidentifier>
               </bibitem>
               <bibitem id='ISSN' type='journal'>
                 <formattedref><em>Instruments for analytical laboratory use</em>. ISSN Publishers. (n.d.).</formattedref>
-                <docidentifier type='metanorma-ordinal'>[3]</docidentifier>
+                <docidentifier type='metanorma-ordinal'>[2]</docidentifier>
                 <docidentifier type="ISSN">ISSN</docidentifier>
-                <docidentifier type="metanorma">[2]</docidentifier>
         <uri>http://www.example.com</uri>
               </bibitem>
               <note><name>NOTE</name><p>This is an annotation of document ISSN.</p></note>
               <note><name>NOTE</name><p>This is another annotation of document ISSN.</p></note>
               <bibitem id="ISO3696" type="standard">
                 <formattedref>ISO: ISO 3696, <em>Water for analytical laboratory use</em>. International Organization for Standardization</formattedref>
-                <docidentifier type='metanorma-ordinal'>[4]</docidentifier>
+                <docidentifier type='metanorma-ordinal'>[3]</docidentifier>
                 <docidentifier type="ISO">ISO 3696</docidentifier>
               </bibitem>
               <bibitem id="ref10">
                 <formattedref format="application/x-isodoc+xml"><smallcap>Standard No I.C.C 167</smallcap>. <em>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</em> (see <link target="http://www.icc.or.at"/>)</formattedref>
-                <docidentifier type='metanorma-ordinal'>[5]</docidentifier>
-                <docidentifier type="metanorma">[10]</docidentifier>
+                <docidentifier type='metanorma-ordinal'>[4]</docidentifier>
               </bibitem>
               <bibitem id='ref10a'>
         <formattedref format='application/x-isodoc+xml'><em>Appelation of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</em> (see <link target='http://www.icc.or.at'/>)</formattedref>
-        <docidentifier type='metanorma-ordinal'>[6]</docidentifier>
+        <docidentifier type='metanorma-ordinal'>[5]</docidentifier>
         <docidentifier>ABC</docidentifier>
       </bibitem>
               <bibitem id="ref11">
                 <formattedref>Fred Johnson, Jackson KG, Nixon RM: IETF RFC 10, <em>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</em>.</formattedref>
-                <docidentifier type='metanorma-ordinal'>[7]</docidentifier>
+                <docidentifier type='metanorma-ordinal'>[6]</docidentifier>
                 <docidentifier type="IETF">IETF RFC 10</docidentifier>
               </bibitem>
               <bibitem id="ref12">
                 <formattedref format="application/x-isodoc+xml">CitationWorks. 2019. <em>How to cite a reference</em>.</formattedref>
-                <docidentifier type='metanorma-ordinal'>[8]</docidentifier>
+                <docidentifier type='metanorma-ordinal'>[7]</docidentifier>
                 <docidentifier type="metanorma">[Citn]</docidentifier>
                 <docidentifier type="IETF">IETF RFC 20</docidentifier>
               </bibitem>
@@ -433,7 +430,7 @@ RSpec.describe IsoDoc::Ogc do
                       <formattedref>R. Fielding, J. Gettys, J. Mogul, H. Frystyk, L. Masinter, P. Leach, T. Berners-Lee: IETF RFC 2616, <em>Hypertext Transfer Protocol&#x2009;&#x2014;&#x2009;HTTP/1.1</em>. Fremont, CA (1999). <link target='https://www.rfc-editor.org/info/rfc2616'>https://www.rfc-editor.org/info/rfc2616</link>.</formattedref>
         <uri type='xml'>https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</uri>
         <uri type='src'>https://www.rfc-editor.org/info/rfc2616</uri>
-        <docidentifier type='metanorma-ordinal'>[9]</docidentifier>
+        <docidentifier type='metanorma-ordinal'>[8]</docidentifier>
         <docidentifier type='IETF'>IETF RFC 2616</docidentifier>
         <docidentifier type='IETF' scope="anchor">IETF RFC2616</docidentifier>
         <docidentifier type='DOI'>DOI 10.17487/RFC2616</docidentifier>
@@ -444,17 +441,17 @@ RSpec.describe IsoDoc::Ogc do
     OUTPUT
 
     html = <<~OUTPUT
-          #{HTML_HDR}
-                     <br/>
+      #{HTML_HDR}
+                 <br/>
            <div id='A'>
-             <h1 class='ForewordTitle'>I.&#160; Preface</h1>
+             <h1 class='ForewordTitle'>I.&#xa0; Preface</h1>
              <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
                <a href='#ISO712'>[110]</a>
                <a href='#ISBN'>[1]</a>
                <a href='#ISSN'>[2]</a>
                <a href='#ISO16634'>ISO 16634:-- (all parts)</a>
                <a href='#ref1'>ICC 167</a>
-               <a href='#ref10'>[10]</a>
+               <a href='#ref10'>[4]</a>
                <a href='#ref12'>Citn</a>
                <a href='#zip_ffs'>[5]</a>
                <a href='#ogc1'>OGC 19-025r1</a>
@@ -464,7 +461,7 @@ RSpec.describe IsoDoc::Ogc do
            </div>
            <p class='zzSTDTitle1'/>
            <div>
-             <h1>1.&#160; Normative References</h1>
+             <h1>1.&#xa0; Normative References</h1>
              <p>
                The following documents are referred to in the text in such a way that
                some or all of their content constitutes requirements of this document.
@@ -485,7 +482,7 @@ RSpec.describe IsoDoc::Ogc do
              <p id='ISO20483' class='NormRef'>
                ISO: ISO 20483:2013-2014,
                <i>Cereals and pulses</i>
-               . International Organization for Standardization (2013&#8211;2014).
+               . International Organization for Standardization (2013&#x2013;2014).
              </p>
              <p id='ref1' class='NormRef'>
                <span style='font-variant:small-caps;'>Standard No I.C.C 167</span>
@@ -502,7 +499,7 @@ RSpec.describe IsoDoc::Ogc do
              <div class='Note'>
                <p>
                  <span class='note_label'>NOTE</span>
-                 &#160; This is an annotation of ISO 20483:2013-2014
+                 &#xa0; This is an annotation of ISO 20483:2013-2014
                </p>
              </div>
              <p id='zip_ffs' class='NormRef'>Title 5</p>
@@ -531,34 +528,34 @@ RSpec.describe IsoDoc::Ogc do
            <div>
              <h1 class='Section3'>Bibliography</h1>
              <p id='ISBN' class='Biblio'>
-               [1]&#160;
+               [1]&#xa0;
                <i>Chemicals for analytical laboratory use</i>
                . ISBN Publishers, n.p. (n.d.).
              </p>
              <p id='ISSN' class='Biblio'>
-               [2]&#160;
+               [2]&#xa0;
                <i>Instruments for analytical laboratory use</i>
                . ISSN Publishers. (n.d.).
              </p>
              <div class='Note'>
                <p>
                  <span class='note_label'>NOTE</span>
-                 &#160; This is an annotation of document ISSN.
+                 &#xa0; This is an annotation of document ISSN.
                </p>
              </div>
              <div class='Note'>
                <p>
                  <span class='note_label'>NOTE</span>
-                 &#160; This is another annotation of document ISSN.
+                 &#xa0; This is another annotation of document ISSN.
                </p>
              </div>
              <p id='ISO3696' class='Biblio'>
-               [3]&#160; ISO: ISO 3696,
+               [3]&#xa0; ISO: ISO 3696,
                <i>Water for analytical laboratory use</i>
                . International Organization for Standardization
              </p>
              <p id='ref10' class='Biblio'>
-               [4]&#160;
+               [4]&#xa0;
                <span style='font-variant:small-caps;'>Standard No I.C.C 167</span>
                .
                <i>
@@ -571,7 +568,7 @@ RSpec.describe IsoDoc::Ogc do
                )
              </p>
              <p id='ref10a' class='Biblio'>
-               [5]&#160;
+               [5]&#xa0;
                <i>
                  Appelation of the protein content in cereal and cereal products for
                  food and animal feeding stuffs according to the Dumas combustion
@@ -582,19 +579,19 @@ RSpec.describe IsoDoc::Ogc do
                )
              </p>
              <p id='ref11' class='Biblio'>
-               [6]&#160; Fred Johnson, Jackson KG, Nixon RM: IETF RFC 10,
+               [6]&#xa0; Fred Johnson, Jackson KG, Nixon RM: IETF RFC 10,
                <i>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</i>
                .
              </p>
              <p id='ref12' class='Biblio'>
-               [7]&#160; CitationWorks. 2019.
+               [7]&#xa0; CitationWorks. 2019.
                <i>How to cite a reference</i>
                .
              </p>
              <p id='rfc2616' class='Biblio'>
-               [8]&#160; R. Fielding, J. Gettys, J. Mogul, H. Frystyk, L. Masinter, P.
+               [8]&#xa0; R. Fielding, J. Gettys, J. Mogul, H. Frystyk, L. Masinter, P.
                Leach, T. Berners-Lee: IETF RFC 2616,
-               <i>Hypertext Transfer Protocol&#8201;&#8212;&#8201;HTTP/1.1</i>
+               <i>Hypertext Transfer Protocol&#x2009;&#x2014;&#x2009;HTTP/1.1</i>
                . Fremont, CA (1999).
                <a href='https://www.rfc-editor.org/info/rfc2616'>https://www.rfc-editor.org/info/rfc2616</a>
                .
