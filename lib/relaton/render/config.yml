@@ -1,6 +1,5 @@
 template:
-  # skip standardidentifier, it is inserted in front of formattedref within metanorma
-  standard: "{% if creatornames %}{{ creatornames }} ({{role}}){%else%}{{ publisher_abbrev}}{%endif%} : {{standardidentifier|first}} {{draft}} , <em>{{ title }}</em>. {{ publisher }}{%if place%},{%endif%} {{ place }} ({{date}}). {{uri}}."
+  standard: "{% if creatornames %}{{ creatornames }} ({{role}}){%else%}{{ publisher_abbrev}}{%endif%} : {{authoritative_identifier|first}} {{draft}} , <em>{{ title }}</em>. {{ publisher }}{%if place%},{%endif%} {{ place }} ({{date}}). {{uri}}."
   misc: standard
   techreport: standard
   book: "{{ creatornames }} ({{role}}) : <em>{{ title }}</em> . {{ publisher }}, {% if place %}{{place}}{%else%}{{ labels['no_place']}}{%endif%} ({{date}})."
