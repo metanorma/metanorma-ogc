@@ -72,14 +72,12 @@ RSpec.describe IsoDoc::Ogc do
              <clause id="O" inline-header="false" obligation="normative">
                <title>Clause 4.2</title>
                <recommendation id="AC" type="abstracttest" model="ogc">
-               <name>Recommendation Verification 1</name>
         <identifier>/ogc/recommendation/wfs/3</identifier>
         </recommendation>
                <recommendation id="AA" model="ogc">
         <identifier>/ogc/recommendation/wfs/2</identifier>
         </recommendation>
                <recommendation id="AB" type="abstracttest" model="ogc">
-               <name>Recommendation Verification 2</name>
         <label>/ogc/recommendation/wfs/3</label>
         </recommendation>
         <figure id="BA"><name>First figure</name></figure>
@@ -106,14 +104,14 @@ RSpec.describe IsoDoc::Ogc do
       .sub(%r{</span>\s*<p class="MsoNormal">&#xA0;</p>\s*</div>\s*$}, "</div>")
     expect(xmlpp(word.gsub(/_Toc\d\d+/, "_Toc")))
       .to be_equivalent_to xmlpp(<<~'OUTPUT')
-        <div>
+           <div>
          <p class='zzContents' style='margin-top:0cm'>
            <span lang='EN-GB' xml:lang='EN-GB'>Contents</span>
          </p>
          <p class='MsoToc1'>
            <span lang='EN-GB' xml:lang='EN-GB'>
              <span style='mso-element:field-begin'/>
-             <span style='mso-spacerun:yes'>&#xA0;</span>
+             <span style='mso-spacerun:yes'>&#xa0;</span>
              TOC \o "1-2" \h \z \u
              <span style='mso-element:field-separator'/>
            </span>
@@ -192,21 +190,20 @@ RSpec.describe IsoDoc::Ogc do
            <span lang='EN-GB' xml:lang='EN-GB'>
              <span style='mso-element:field-end'/>
            </span>
-           <span lang='EN-GB' xml:lang='EN-GB'>
-           </span>
+           <span lang='EN-GB' xml:lang='EN-GB'/>
          </p>
          <p class='TOCTitle'>List of Tables</p>
          <p class='MsoToc1'>
            <span lang='EN-GB' xml:lang='EN-GB'>
              <span style='mso-element:field-begin'/>
-             <span style='mso-spacerun:yes'>&#xA0;</span>
+             <span style='mso-spacerun:yes'>&#xa0;</span>
              TOC \h \z \t "TableTitle,tabletitle"
              <span style='mso-element:field-separator'/>
            </span>
            <span class='MsoHyperlink'>
              <span lang='EN-GB' xml:lang='EN-GB' style='mso-no-proof:yes'>
                <a href='#_Toc'>
-                 Table 1&#xA0;&#x2014; First table
+                 Table&#xa0;&#x2014; First table
                  <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
                    <span style='mso-tab-count:1 dotted'>. </span>
                  </span>
@@ -230,21 +227,20 @@ RSpec.describe IsoDoc::Ogc do
            <span lang='EN-GB' xml:lang='EN-GB'>
              <span style='mso-element:field-end'/>
            </span>
-           <span lang='EN-GB' xml:lang='EN-GB'>
-           </span>
+           <span lang='EN-GB' xml:lang='EN-GB'/>
          </p>
          <p class='TOCTitle'>List of Figures</p>
          <p class='MsoToc1'>
            <span lang='EN-GB' xml:lang='EN-GB'>
              <span style='mso-element:field-begin'/>
-             <span style='mso-spacerun:yes'>&#xA0;</span>
+             <span style='mso-spacerun:yes'>&#xa0;</span>
              TOC \h \z \t "FigureTitle,figuretitle"
              <span style='mso-element:field-separator'/>
            </span>
            <span class='MsoHyperlink'>
              <span lang='EN-GB' xml:lang='EN-GB' style='mso-no-proof:yes'>
                <a href='#_Toc'>
-                 Figure 1&#xA0;&#x2014; First figure
+                 First figure
                  <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
                    <span style='mso-tab-count:1 dotted'>. </span>
                  </span>
@@ -268,14 +264,13 @@ RSpec.describe IsoDoc::Ogc do
            <span lang='EN-GB' xml:lang='EN-GB'>
              <span style='mso-element:field-end'/>
            </span>
-           <span lang='EN-GB' xml:lang='EN-GB'>
-           </span>
+           <span lang='EN-GB' xml:lang='EN-GB'/>
          </p>
          <p class='TOCTitle'>List of Recommendations</p>
          <p class='MsoToc1'>
            <span lang='EN-GB' xml:lang='EN-GB'>
              <span style='mso-element:field-begin'/>
-             <span style='mso-spacerun:yes'>&#xA0;</span>
+             <span style='mso-spacerun:yes'>&#xa0;</span>
              TOC \h \z \t
              "RecommendationTitle,RecommendationTestTitle,recommendationtitle,recommendationtesttitle"
              <span style='mso-element:field-separator'/>
@@ -283,7 +278,7 @@ RSpec.describe IsoDoc::Ogc do
            <span class='MsoHyperlink'>
              <span lang='EN-GB' xml:lang='EN-GB' style='mso-no-proof:yes'>
                <a href='#_Toc'>
-                 Recommendation 1
+                 Recommendation
                  <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
                    <span style='mso-tab-count:1 dotted'>. </span>
                  </span>
@@ -307,7 +302,7 @@ RSpec.describe IsoDoc::Ogc do
            <span class='MsoHyperlink'>
              <span lang='EN-GB' xml:lang='EN-GB' style='mso-no-proof:yes'>
                <a href='#_Toc'>
-                 Abstract test 1Recommendation Verification 1
+                 Abstract test
                  <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
                    <span style='mso-tab-count:1 dotted'>. </span>
                  </span>
@@ -331,7 +326,7 @@ RSpec.describe IsoDoc::Ogc do
            <span class='MsoHyperlink'>
              <span lang='EN-GB' xml:lang='EN-GB' style='mso-no-proof:yes'>
                <a href='#_Toc'>
-                 Abstract test 2Recommendation Verification 2
+                 Abstract test
                  <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
                    <span style='mso-tab-count:1 dotted'>. </span>
                  </span>
@@ -420,5 +415,87 @@ RSpec.describe IsoDoc::Ogc do
             <div><p class="TitlePageSubhead">License Agreement</p>
             <p class="license"/></div></div>
       OUTPUT
+  end
+
+  it "processes modspec permissions" do
+    presxml = <<~OUTPUT
+      <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
+                <preface><foreword id="A" displayorder="1"><title>Preface</title>
+                <table id="A1" class="modspec" type="recommend">
+            <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Permission 1</p></th></tr></thead>
+            <tbody>
+              <tr><td scope='colgroup' colspan='2'><tt>/ogc/recommendation/wfs/2</tt></td></tr>
+              <tr><td>Subject</td><td>user</td></tr><tr><td>Dependency</td><td>/ss/584/2015/level/1</td></tr><tr><td>Dependency</td><td>RFC 2616 (HTTP/1.1)</td></tr>
+            <tr>
+        <td>Control-class</td>
+        <td>Technical</td>
+      </tr>
+      <tr>
+        <td>Priority</td>
+        <td>P0</td>
+      </tr>
+      <tr>
+        <td>Family</td>
+        <td>System and Communications Protection</td>
+      </tr>
+      <tr>
+        <td>Family</td>
+        <td>System and Communications Protocols</td>
+      </tr>
+      </table>
+      </foreword></preface></ogc-standard>
+    OUTPUT
+    doc = <<~OUTPUT
+      <table class='MsoISOTable' style='mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;' width='100%'>
+         <a name='A1' id='A1'/>
+         <thead>
+           <tr>
+             <th colspan='2' style='font-weight:bold;border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;'>
+               <p class='RecommendationTitle'>Permission 1</p>
+             </th>
+           </tr>
+         </thead>
+         <tbody>
+           <tr>
+             <td colspan='2' style='border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;mso-border-bottom-alt:solid windowtext 1.0pt;'>
+               <tt>/ogc/recommendation/wfs/2</tt>
+             </td>
+           </tr>
+           <tr>
+             <td style='border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.0pt;mso-border-bottom-alt:solid windowtext 1.0pt;'>Subject</td>
+             <td style='border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.0pt;mso-border-bottom-alt:solid windowtext 1.0pt;'>user</td>
+           </tr>
+           <tr>
+             <td style='border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.0pt;mso-border-bottom-alt:solid windowtext 1.0pt;'>Dependency</td>
+             <td style='border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.0pt;mso-border-bottom-alt:solid windowtext 1.0pt;'>/ss/584/2015/level/1</td>
+           </tr>
+           <tr>
+             <td style='border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.0pt;mso-border-bottom-alt:solid windowtext 1.0pt;'>Dependency</td>
+             <td style='border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.0pt;mso-border-bottom-alt:solid windowtext 1.0pt;'>RFC 2616 (HTTP/1.1)</td>
+           </tr>
+           <tr>
+             <td style='border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.0pt;mso-border-bottom-alt:solid windowtext 1.0pt;'>Control-class</td>
+             <td style='border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.0pt;mso-border-bottom-alt:solid windowtext 1.0pt;'>Technical</td>
+           </tr>
+           <tr>
+             <td style='border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.0pt;mso-border-bottom-alt:solid windowtext 1.0pt;'>Priority</td>
+             <td style='border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.0pt;mso-border-bottom-alt:solid windowtext 1.0pt;'>P0</td>
+           </tr>
+           <tr>
+             <td style='border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.0pt;mso-border-bottom-alt:solid windowtext 1.0pt;'>Family</td>
+             <td style='border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.0pt;mso-border-bottom-alt:solid windowtext 1.0pt;'>System and Communications Protection</td>
+           </tr>
+           <tr>
+             <td style='border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;'>Family</td>
+             <td style='border-top:none;mso-border-top-alt:none;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;'>System and Communications Protocols</td>
+           </tr>
+         </tbody>
+       </table>
+    OUTPUT
+    IsoDoc::Ogc::WordConvert.new({}).convert("test", presxml, false)
+    expect(xmlpp(File.read("test.doc")
+      .gsub(%r{^.*<table}m, "<table")
+      .gsub(%r{</table>.*$}m, "</table>")))
+      .to be_equivalent_to xmlpp(doc)
   end
 end

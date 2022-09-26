@@ -170,6 +170,11 @@ module IsoDoc
         @wordstylesheet.unlink if @wordstylesheet.is_a?(Tempfile)
       end
 
+      def table_attrs(node)
+        node["class"] == "modspec" and node["width"] = "100%"
+        super
+      end
+
       include BaseConvert
       include Init
     end
