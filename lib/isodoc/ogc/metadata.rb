@@ -35,7 +35,7 @@ module IsoDoc
     }.freeze
 
     class Metadata < IsoDoc::Metadata
-      def initialize(lang, script, i18n)
+      def initialize(lang, script, locale, i18n)
         super
         here = File.dirname(__FILE__)
         set(:logo_old,

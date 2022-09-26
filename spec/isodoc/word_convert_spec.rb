@@ -203,7 +203,7 @@ RSpec.describe IsoDoc::Ogc do
            <span class='MsoHyperlink'>
              <span lang='EN-GB' xml:lang='EN-GB' style='mso-no-proof:yes'>
                <a href='#_Toc'>
-                 Table&#xa0;&#x2014; First table
+                 Table 1&#xa0;&#x2014; First table
                  <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
                    <span style='mso-tab-count:1 dotted'>. </span>
                  </span>
@@ -240,7 +240,7 @@ RSpec.describe IsoDoc::Ogc do
            <span class='MsoHyperlink'>
              <span lang='EN-GB' xml:lang='EN-GB' style='mso-no-proof:yes'>
                <a href='#_Toc'>
-                 First figure
+                 Figure 1&#xa0;&#x2014; First figure
                  <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
                    <span style='mso-tab-count:1 dotted'>. </span>
                  </span>
@@ -278,7 +278,7 @@ RSpec.describe IsoDoc::Ogc do
            <span class='MsoHyperlink'>
              <span lang='EN-GB' xml:lang='EN-GB' style='mso-no-proof:yes'>
                <a href='#_Toc'>
-                 Recommendation
+                 Recommendation 1
                  <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
                    <span style='mso-tab-count:1 dotted'>. </span>
                  </span>
@@ -302,7 +302,7 @@ RSpec.describe IsoDoc::Ogc do
            <span class='MsoHyperlink'>
              <span lang='EN-GB' xml:lang='EN-GB' style='mso-no-proof:yes'>
                <a href='#_Toc'>
-                 Abstract test
+                 Abstract test 1
                  <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
                    <span style='mso-tab-count:1 dotted'>. </span>
                  </span>
@@ -326,7 +326,7 @@ RSpec.describe IsoDoc::Ogc do
            <span class='MsoHyperlink'>
              <span lang='EN-GB' xml:lang='EN-GB' style='mso-no-proof:yes'>
                <a href='#_Toc'>
-                 Abstract test
+                 Abstract test 2
                  <span lang='EN-GB' xml:lang='EN-GB' class='MsoTocTextSpan'>
                    <span style='mso-tab-count:1 dotted'>. </span>
                  </span>
