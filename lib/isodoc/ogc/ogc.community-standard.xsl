@@ -2083,6 +2083,8 @@
 		<xsl:attribute name="padding-right">1mm</xsl:attribute>
 		<xsl:attribute name="display-align">center</xsl:attribute>
 
+			<xsl:attribute name="padding-top">1mm</xsl:attribute>
+			<xsl:attribute name="padding-bottom">1mm</xsl:attribute>
 			<xsl:attribute name="border">solid black 0pt</xsl:attribute>
 
 	</xsl:attribute-set> <!-- table-header-cell-style -->
@@ -3986,6 +3988,12 @@
 				<xsl:with-param name="default">center</xsl:with-param>
 			</xsl:call-template>
 
+				<xsl:if test="starts-with(ancestor::*[local-name() = 'table'][1]/@type, 'recommend') and normalize-space(@align) = ''">
+					<xsl:call-template name="setTextAlignment">
+						<xsl:with-param name="default">left</xsl:with-param>
+					</xsl:call-template>
+				</xsl:if>
+
 			<xsl:if test="$lang = 'ar'">
 				<xsl:attribute name="padding-right">1mm</xsl:attribute>
 			</xsl:if>
@@ -4997,8 +5005,10 @@
 
 				 <!-- 10 -->
 
-				9.5
-
+					<xsl:choose>
+						<xsl:when test="ancestor::*[local-name() = 'table']">8.5</xsl:when>
+						<xsl:otherwise>9.5</xsl:otherwise>
+					</xsl:choose>
 
 			</xsl:variable>
 			<xsl:variable name="font-size" select="normalize-space($_font-size)"/>
@@ -7498,8 +7508,10 @@
 							<xsl:if test="$current_template = 'standard'">8</xsl:if>
 						</xsl:if> -->
 
-						9.5
-
+							<xsl:choose>
+								<xsl:when test="ancestor::*[local-name() = 'table']">8.5</xsl:when>
+								<xsl:otherwise>9.5</xsl:otherwise>
+							</xsl:choose>
 
 				</xsl:variable>
 
