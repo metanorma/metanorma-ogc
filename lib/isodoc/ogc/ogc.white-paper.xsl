@@ -4192,8 +4192,10 @@
 
 				 <!-- 10 -->
 
-				9.5
-
+					<xsl:choose>
+						<xsl:when test="ancestor::*[local-name() = 'table']">8.5</xsl:when>
+						<xsl:otherwise>9.5</xsl:otherwise>
+					</xsl:choose>
 
 			</xsl:variable>
 			<xsl:variable name="font-size" select="normalize-space($_font-size)"/>
@@ -6662,8 +6664,10 @@
 							<xsl:if test="$current_template = 'standard'">8</xsl:if>
 						</xsl:if> -->
 
-						9.5						
-
+							<xsl:choose>
+								<xsl:when test="ancestor::*[local-name() = 'table']">8.5</xsl:when>
+								<xsl:otherwise>9.5</xsl:otherwise>
+							</xsl:choose>
 
 				</xsl:variable>
 
