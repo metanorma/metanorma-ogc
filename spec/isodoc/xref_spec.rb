@@ -18,6 +18,7 @@ RSpec.describe IsoDoc::Ogc do
           </p>
           </foreword>
           <introduction id="intro">
+          <title>Introduction</title>
           <ol id="N01">
         <li id="N1"><p>A</p></li>
       </ol>
@@ -95,6 +96,7 @@ RSpec.describe IsoDoc::Ogc do
           </p>
           </foreword>
           <introduction id="intro">
+          <title>Introduction</title>
           <ol id="N01" class="steps">
         <li id="N1"><p>A</p>
           <ol id="N011">
