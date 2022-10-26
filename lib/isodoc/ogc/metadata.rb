@@ -5,6 +5,7 @@ module IsoDoc
   module Ogc
     DOCTYPE_ABBR = {
       "standard" => "IS",
+      "draft-standard" => "DS",
       "abstract-specification-topic" => "AST",
       "best-practice" => "BP",
       "change-request-supporting-document" => "CRSD",
@@ -57,22 +58,22 @@ module IsoDoc
       def author(isoxml, _out)
         tc = isoxml.at(ns("//bibdata/ext/editorialgroup/committee"))
         set(:tc, tc.text) if tc
-        authors = isoxml.xpath(ns("//bibdata/contributor"\
+        authors = isoxml.xpath(ns("//bibdata/contributor" \
                                   "[role/@type = 'author']/person"))
         set(:authors, extract_person_names(authors))
-        editors = isoxml.xpath(ns("//bibdata/contributor"\
+        editors = isoxml.xpath(ns("//bibdata/contributor" \
                                   "[role/@type = 'editor']/person"))
         set(:editors, extract_person_names(editors))
-        contributors = isoxml.xpath(ns("//bibdata/contributor"\
-                                  "[role/@type = 'contributor']/person"))
+        contributors = isoxml.xpath(ns("//bibdata/contributor" \
+                                       "[role/@type = 'contributor']/person"))
         set(:contributors, extract_person_names(contributors))
         agency(isoxml)
       end
 
       def docid(isoxml, _out)
-        set(:docnumber, isoxml&.at(ns("//bibdata/docidentifier"\
+        set(:docnumber, isoxml&.at(ns("//bibdata/docidentifier" \
                                       "[@type = 'ogc-internal']"))&.text)
-        set(:externalid, isoxml&.at(ns("//bibdata/docidentifier"\
+        set(:externalid, isoxml&.at(ns("//bibdata/docidentifier" \
                                        "[@type = 'ogc-external']"))&.text)
       end
 

@@ -30,12 +30,12 @@ module Metanorma
       def insert_security(xml, sect)
         description = "document"
         description = "standard" if %w(standard community-standard)
-          .include?(sect&.at("//bibdata/ext/doctype")&.text)
+          .include?(sect.at("//bibdata/ext/doctype")&.text)
         preface = sect.at("//preface") ||
           sect.add_previous_sibling("<preface/>").first
-        sect = xml&.at("//clause[@type = 'security']")&.remove ||
-          "<clause type='security' #{add_id}>"\
-          "<title>Security considerations</title>"\
+        sect = xml.at("//clause[@type = 'security']")&.remove ||
+          "<clause type='security' #{add_id}>" \
+          "<title>Security considerations</title>" \
           "<p>#{@i18n.security_empty.sub(/%/, description)}</p></clause>"
         preface.add_child sect
       end
@@ -68,19 +68,19 @@ module Metanorma
         replace_title(xml, "//definitions[@type = 'abbreviated_terms']",
                       @i18n&.abbrev)
         replace_title(xml, "//definitions[not(@type)]", @i18n&.symbolsabbrev)
-        replace_title(xml, "//sections//terms#{SYMnoABBR} | "\
+        replace_title(xml, "//sections//terms#{SYMnoABBR} | " \
                            "//sections//clause[.//terms]#{SYMnoABBR}",
                       @i18n&.termsdefsymbols, true)
-        replace_title(xml, "//sections//terms#{ABBRnoSYM} | "\
+        replace_title(xml, "//sections//terms#{ABBRnoSYM} | " \
                            "//sections//clause[.//terms]#{ABBRnoSYM}",
                       @i18n&.termsdefabbrev, true)
-        replace_title(xml, "//sections//terms#{SYMABBR} | "\
+        replace_title(xml, "//sections//terms#{SYMABBR} | " \
                            "//sections//clause[.//terms]#{SYMABBR}",
                       @i18n&.termsdefsymbolsabbrev, true)
-        replace_title(xml, "//sections//terms#{NO_SYMABBR} | "\
+        replace_title(xml, "//sections//terms#{NO_SYMABBR} | " \
                            "//sections//clause[.//terms]#{NO_SYMABBR}",
                       @i18n&.termsdefsymbolsabbrev, true)
-        replace_title(xml, "//sections//terms[not(.//definitions)] | "\
+        replace_title(xml, "//sections//terms[not(.//definitions)] | " \
                            "//sections//clause[.//terms][not(.//definitions)]",
                       @i18n&.termsdef, true)
       end
@@ -101,7 +101,7 @@ module Metanorma
       end
 
       def normref_cleanup(xmldoc)
-        r1 = xmldoc.at("//references[title[translate(text(), 'R', 'r') = "\
+        r1 = xmldoc.at("//references[title[translate(text(), 'R', 'r') = " \
                        "'Normative references']]")
         r2 = xmldoc.at("//references[title[text() = 'References']]")
         if r1 && r2
@@ -118,7 +118,7 @@ module Metanorma
           r["obligation"] = "normative" unless r["obligation"]
         end
         xml.xpath(::Metanorma::Standoc::Utils::SUBCLAUSE_XPATH).each do |r|
-          o = r&.at("./ancestor::*/@obligation")&.text and r["obligation"] = o
+          o = r.at("./ancestor::*/@obligation")&.text and r["obligation"] = o
         end
       end
 
@@ -145,12 +145,12 @@ module Metanorma
 
       PUBLISHER = "./contributor[role/@type = 'publisher']/organization".freeze
 
-      OTHERIDS = "@type = 'DOI' or @type = 'metanorma' or @type = 'ISSN' or "\
+      OTHERIDS = "@type = 'DOI' or @type = 'metanorma' or @type = 'ISSN' or " \
                  "@type = 'ISBN'".freeze
 
       def pub_class(bib)
         return 1 if bib.at("#{PUBLISHER}[abbreviation = 'OGC']")
-        return 1 if bib.at("#{PUBLISHER}[name = 'Open Geospatial "\
+        return 1 if bib.at("#{PUBLISHER}[name = 'Open Geospatial " \
                            "Consortium']")
         return 2 if bib.at("./docidentifier[@type][not(#{OTHERIDS})]")
 
@@ -173,7 +173,7 @@ module Metanorma
         num = if ids[:num].nil? then ids[:abbrid]
               else sprintf("%09d", ids[:num].to_i)
               end
-        "#{pubclass} :: #{ids[:type]} :: #{sortkey3} :: #{num} :: "\
+        "#{pubclass} :: #{ids[:type]} :: #{sortkey3} :: #{num} :: " \
           "#{sprintf('%09d', ids[:partid])} :: #{ids[:id]} :: #{title}"
       end
 

@@ -85,16 +85,20 @@ module Metanorma
         return unless node.attr("committee")
 
         xml.editorialgroup do |a|
-          a.committee(node.attr("committee") || "technical")
-          node.attr("subcommittee") and
-            a.subcommittee(node.attr("subcommittee"),
+          metadata_committee1(node, a)
+        end
+      end
+
+      def metadata_committee1(node, xml)
+        xml.committee(node.attr("committee") || "technical")
+        node.attr("subcommittee") and
+          xml.subcommittee(node.attr("subcommittee"),
                            **attr_code(type: node.attr("subcommittee-type"),
                                        number: node.attr("subcommittee-number")))
-          (node.attr("workgroup") || node.attr("workinggroup")) and
-            a.workgroup(node.attr("workgroup") || node.attr("workinggroup"),
+        (node.attr("workgroup") || node.attr("workinggroup")) and
+          xml.workgroup(node.attr("workgroup") || node.attr("workinggroup"),
                         **attr_code(type: node.attr("workgroup-type"),
                                     number: node.attr("workgroup-number")))
-        end
       end
 
       def externalid(node)
@@ -170,7 +174,7 @@ module Metanorma
                     conceptual-model-and-implementation encoding extension
                     implementation profile profile-with-extension}.include? s
             @log.add("Document Attributes", nil,
-                     "'#{s}' is not a permitted subtype of Standard: "\
+                     "'#{s}' is not a permitted subtype of Standard: " \
                      "reverting to 'implementation'")
             s = "implementation"
           end
@@ -178,7 +182,7 @@ module Metanorma
           unless %w{general encoding extension profile
                     profile-with-extension}.include? s
             @log.add("Document Attributes", nil,
-                     "'#{s}' is not a permitted subtype of Standard: "\
+                     "'#{s}' is not a permitted subtype of Standard: " \
                      "reverting to 'implementation'")
             s = "general"
           end

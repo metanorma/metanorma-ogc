@@ -12,7 +12,7 @@ module IsoDoc
       end
 
       def insert_preface_sections(doc)
-        preface_insert(doc.at(ns("//preface/clause"\
+        preface_insert(doc.at(ns("//preface/clause" \
                                  "[@type = 'executivesummary']")),
                        doc.at(ns("//preface/abstract")), doc)
         preface_insert(doc.at(ns("//preface//submitters")),
@@ -109,7 +109,7 @@ module IsoDoc
 
       def clause(docxml)
         super
-        docxml.xpath(ns("//foreword | //preface/abstract | "\
+        docxml.xpath(ns("//foreword | //preface/abstract | " \
                         "//submitters | //introduction | //acknowledgements"))
           .each do |f|
           clause1(f)
@@ -146,7 +146,7 @@ module IsoDoc
 
       def rename_stage(stage, doctype, _bib)
         stage&.text == "approved" &&
-          !%w(standard abstract-specification-topic
+          !%w(standard abstract-specification-topic draft-standard
               community-standard).include?(doctype&.text) and
           stage.children = "published"
       end
@@ -170,7 +170,7 @@ module IsoDoc
         while elem&.next_element&.name == "termsource"
           elem << "; #{elem.next_element.remove.children.to_xml}"
         end
-        elem.children = l10n("[<strong>#{@i18n.source}:</strong> "\
+        elem.children = l10n("[<strong>#{@i18n.source}:</strong> " \
                              "#{elem.children.to_xml.strip}]")
       end
 
@@ -199,7 +199,7 @@ module IsoDoc
         i = display_order_at(docxml, "//clause[@type = 'scope']", i)
         i = display_order_at(docxml, "//clause[@type = 'conformance']", i)
         i = display_order_at(docxml, @xrefs.klass.norm_ref_xpath, i)
-        i = display_order_at(docxml, "//sections/terms | "\
+        i = display_order_at(docxml, "//sections/terms | " \
                                      "//sections/clause[descendant::terms]", i)
         i = display_order_at(docxml, "//sections/definitions", i)
         i = display_order_xpath(docxml, @xrefs.klass.middle_clause(docxml), i)
