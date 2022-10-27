@@ -18,6 +18,7 @@
         <value>user-guide</value>
         <value>white-paper</value>
         <value>test-suite</value>
+        <value>draft-standard</value>
       </choice>
     </define>
     <define name="DocumentSubtype">

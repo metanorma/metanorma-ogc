@@ -32,7 +32,7 @@ module Metanorma
 
       def stage_type_validate(stage, doctype)
         err = case doctype
-              when "standard", "abstract-specification-topic"
+              when "standard", "abstract-specification-topic", "draft-standard"
                 %w(draft work-item-draft).include?(stage)
               when "community-standard"
                 %w(draft swg-draft).include?(stage)
@@ -44,22 +44,20 @@ module Metanorma
       end
 
       def version_validate(xmldoc)
-        version = xmldoc&.at("//bibdata/edition")&.text
-        doctype = xmldoc&.at("//bibdata/ext/doctype")&.text
+        version = xmldoc.at("//bibdata/edition")&.text
+        doctype = xmldoc.at("//bibdata/ext/doctype")&.text
         if %w(engineering-report discussion-paper).include? doctype
-          version.nil? or
-            @log.add("Document Attributes", nil,
-                     "Version not permitted for #{doctype}")
+          version.nil? or @log.add("Document Attributes", nil,
+                                   "Version not permitted for #{doctype}")
         else
-          version.nil? and
-            @log.add("Document Attributes", nil,
-                     "Version required for #{doctype}")
+          version.nil? and @log.add("Document Attributes", nil,
+                                    "Version required for #{doctype}")
         end
       end
 
       def execsummary_validate(xmldoc)
-        doctype = xmldoc&.at("//bibdata/ext/doctype")&.text
-        sect = xmldoc&.at("//clause[@type = 'executivesummary']")
+        doctype = xmldoc.at("//bibdata/ext/doctype")&.text
+        sect = xmldoc.at("//clause[@type = 'executivesummary']")
         doctype == "engineering-report" && sect.nil? and
           @log.add("Style", nil,
                    "Executive Summary required for Engineering Reports!")
@@ -91,7 +89,7 @@ module Metanorma
             val: ["./self::clause[@type = 'conformance']"],
           },
           {
-            msg: "Normative References must be followed by "\
+            msg: "Normative References must be followed by " \
                  "Terms and Definitions",
             val: ["./self::terms | .//terms"],
           },
@@ -110,7 +108,7 @@ module Metanorma
 
       def sections_sequence_validate(root)
         return unless STANDARDTYPE.include?(
-          root&.at("//bibdata/ext/doctype")&.text,
+          root.at("//bibdata/ext/doctype")&.text,
         )
 
         names = root.xpath("//sections/* | //bibliography/*")
@@ -126,7 +124,7 @@ module Metanorma
                    "Document must contain at least one clause")
           return
         end
-        root.at("//references | //clause[descendant::references]"\
+        root.at("//references | //clause[descendant::references]" \
                 "[not(parent::clause)]") or
           @log.add("Style", nil, "Normative References are mandatory")
       end
@@ -138,7 +136,7 @@ module Metanorma
           @log.add("Style", nil, "Keywords are missing!")
         root.at("//foreword") or @log.add("Style", nil,
                                           "Preface is missing!")
-        root.at("//bibdata/contributor[role/@type = 'author']/organization/"\
+        root.at("//bibdata/contributor[role/@type = 'author']/organization/" \
                 "name") or
           @log.add("Style", nil, "Submitting Organizations is missing!")
         root.at("//submitters") or @log.add("Style", nil,

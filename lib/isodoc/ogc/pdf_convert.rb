@@ -13,10 +13,11 @@ module IsoDoc
 
       def pdf_stylesheet(docxml)
         doctype = docxml&.at(ns("//bibdata/ext/doctype"))&.text
-        doctype = "other" unless %w(abstract-specification-topic best-practice
-        change-request-supporting-document community-practice community-standard 
-        discussion-paper engineering-report policy reference-model release-notes 
-        standard user-guide test-suite white-paper).include? doctype
+        %w(abstract-specification-topic best-practice draft-standard
+           change-request-supporting-document community-practice
+           community-standard discussion-paper engineering-report policy
+           reference-model release-notes standard user-guide test-suite
+           white-paper).include? doctype or doctype = "other"
         "ogc.#{doctype}.xsl"
       end
     end

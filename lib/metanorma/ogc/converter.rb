@@ -42,7 +42,7 @@ module Metanorma
                   change-request-supporting-document community-practice
                   community-standard discussion-paper engineering-report
                   reference-model release-notes standard user-guide white-paper
-                  technical-paper test-suite}.include? d
+                  technical-paper test-suite draft-standard}.include? d
           @warned_doctype or
             @log.add("Document Attributes", nil,
                      "'#{d}' is not a legal document type: reverting to 'standard'")
@@ -83,7 +83,7 @@ module Metanorma
       end
 
       def clause_parse(attrs, xml, node)
-        case node&.attr("heading")&.downcase || node.title.downcase
+        case node.attr("heading")&.downcase || node.title.downcase
         when "submitters" then return submitters_parse(attrs, xml, node)
         when "conformance" then attrs = attrs.merge(type: "conformance")
         when "security considerations"
