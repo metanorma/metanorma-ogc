@@ -36,6 +36,8 @@ module Metanorma
                 %w(draft work-item-draft).include?(stage)
               when "community-standard"
                 %w(draft swg-draft).include?(stage)
+              when "best-practice", "community-practice"
+                %w(draft swg-draft work-item-draft).include?(stage)
               else %w(swg-draft oab-review public-rfc tc-vote
                       work-item-draft deprecated rescinded).include?(stage)
               end
