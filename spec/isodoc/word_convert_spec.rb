@@ -392,7 +392,7 @@ RSpec.describe IsoDoc::Ogc do
         </sections>
         </ogc-standard>
       INPUT
-    expect((File.read("test.doc")
+    expect(xmlpp(File.read("test.doc")
       .gsub(%r{^.*<div class="boilerplate-copyright">}m,
             "<div class='boilerplate-copyright'>")
       .gsub(%r{<div class="warning">.*}m, "")))
@@ -406,7 +406,7 @@ RSpec.describe IsoDoc::Ogc do
             </div>
             </div>
       OUTPUT
-    expect((File.read("test.doc")
+    expect(xmlpp(File.read("test.doc")
       .gsub(%r{^.*<div class="boilerplate-license">}m,
             "<div class='boilerplate-license'>")
       .gsub(%r{<p class="license">.*}m, '<p class="license"/></div></div>')))
