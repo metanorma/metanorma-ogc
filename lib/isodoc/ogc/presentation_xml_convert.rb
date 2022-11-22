@@ -103,7 +103,7 @@ module IsoDoc
       def annex1(elem)
         lbl = @xrefs.anchor(elem["id"], :label)
         t = elem.at(ns("./title")) and
-          t.children = "<strong>#{t.children.to_xml}</strong>"
+          t.children = "<strong>#{to_xml(t.children)}</strong>"
         prefix_name(elem, "<br/>", lbl, "title")
       end
 
@@ -168,10 +168,10 @@ module IsoDoc
 
       def termsource1(elem)
         while elem&.next_element&.name == "termsource"
-          elem << "; #{elem.next_element.remove.children.to_xml}"
+          elem << "; #{to_xml(elem.next_element.remove.children)}"
         end
         elem.children = l10n("[<strong>#{@i18n.source}:</strong> " \
-                             "#{elem.children.to_xml.strip}]")
+                             "#{to_xml(elem.children).strip}]")
       end
 
       def bibliography_bibitem_number_skip(bibitem)
