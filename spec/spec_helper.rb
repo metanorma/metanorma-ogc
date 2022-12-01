@@ -38,7 +38,7 @@ OPTIONS = [backend: :ogc, header_footer: true, agree_to_terms: true].freeze
 
 def metadata(xml)
   xml.sort.to_h.delete_if do |_k, v|
-    v.nil? || v.respond_to?(:empty?) && v.empty?
+    v.nil? || (v.respond_to?(:empty?) && v.empty?)
   end
 end
 
@@ -63,16 +63,16 @@ def xmlpp(xml)
     else n
     end
   end.join
- xsl = <<~XSL
+  xsl = <<~XSL
     <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
       <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
       <xsl:strip-space elements="*"/>
       <xsl:template match="/">
-        <xsml:copy-of select="."/>
+        <xsl:copy-of select="."/>
       </xsl:template>
     </xsl:stylesheet>
   XSL
-  Nokogiri::XSLT(xsl).transform(Nokogiri::XML(xml))
+  Nokogiri::XSLT(xsl).transform(Nokogiri::XML(xml, &:noblanks))
     .to_xml(indent: 2, encoding: "UTF-8")
 end
 
@@ -94,9 +94,9 @@ VALIDATING_BLANK_HDR = <<~"HDR".freeze
 HDR
 
 BOILERPLATE =
-  #HTMLEntities.new.decode(
-  (
-    File.read(File.join(File.dirname(__FILE__), "..", "lib", "metanorma", "ogc", "boilerplate.xml"), encoding: "utf-8")
+  # HTMLEntities.new.decode(
+
+  File.read(File.join(File.dirname(__FILE__), "..", "lib", "metanorma", "ogc", "boilerplate.xml"), encoding: "utf-8")
     .gsub(/<legal-statement>.+<\/legal-statement>/m, "<legal-statement><clause> <title>Notice</title> <p>This document is an OGC Member approved international standard. This document is available on a royalty free, non-discriminatory basis. Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation.  </p> </clause></legal-statement>")
     .gsub(/\{% if doctype == "Standard" %\}\s*(<clause id="boilerplate-standard-feedback">.+?)\{% endif %\}/m, "\\1")
     .gsub(/\{\{ docyear \}\}/, Date.today.year.to_s)
@@ -106,7 +106,6 @@ BOILERPLATE =
     .gsub(/"Licensor"/, "“Licensor”").gsub(/"AS/, "“AS").gsub(/IS"/, "IS”")
     .gsub(/\{% if unpublished %\}.+?\{% endif %\}/m, "")
     .gsub(/\{% if ip_notice_received %\}\{% else %\}not\{% endif %\}/m, "")
-  )
 
 BLANK_HDR = <<~"HDR".freeze
   <?xml version="1.0" encoding="UTF-8"?>
