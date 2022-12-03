@@ -1,5 +1,4 @@
 require "isodoc"
-require_relative "biblio"
 require_relative "sections"
 require "fileutils"
 

@@ -123,11 +123,6 @@ module IsoDoc
         super
       end
 
-      def section(docxml)
-        super
-        references(docxml)
-      end
-
       def bibdata(docxml)
         docxml.xpath(ns("//bibdata/contributor[@type = 'author']")).each do |a|
           a.at(ns("./description"))&.text == "contributor" and
@@ -189,7 +184,7 @@ module IsoDoc
       def bibrender_relaton(xml, renderings)
         f = renderings[xml["id"]][:formattedref]
         f &&= "<formattedref>#{f}</formattedref>"
-        keep = "./docidentifier | ./uri | ./note | ./status"
+        keep = "./docidentifier | ./uri | ./note | ./status | ./biblio-tag"
         xml.children = "#{f}#{xml.xpath(ns(keep)).to_xml}"
       end
 
@@ -206,6 +201,18 @@ module IsoDoc
         i = display_order_xpath(docxml, "//annex", i)
         i = display_order_xpath(docxml, @xrefs.klass.bibliography_xpath, i)
         display_order_xpath(docxml, "//indexsect", i)
+      end
+
+      def norm_ref_entry_code(_ordinal, _idents, _ids, _standard, _datefn)
+        ""
+      end
+
+      # if ids is just a number, only use that ([1] Non-Standard)
+      # else, use both ordinal, as prefix, and ids
+      def biblio_ref_entry_code(ordinal, ids, _id, standard, datefn)
+        standard and return "[#{ordinal}]<tab/>"
+        ret = (ids[:ordinal] || ids[:metanorma] || "[#{ordinal}]")
+        prefix_bracketed_ref("#{ret}#{datefn}")
       end
 
       include Init
