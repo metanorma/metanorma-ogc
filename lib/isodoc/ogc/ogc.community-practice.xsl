@@ -5088,7 +5088,7 @@
 
 			<xsl:variable name="_font-size">
 
-				 <!-- 10 -->
+				 <!-- inherit -->
 
 					<xsl:choose>
 						<xsl:when test="ancestor::*[local-name() = 'table']">8.5</xsl:when>
@@ -7712,7 +7712,7 @@
 			<xsl:element name="sourcecode_attributes" use-attribute-sets="sourcecode-style">
 				<xsl:variable name="_font-size">
 
-					<!-- 9 -->
+					<!-- inherit -->
 
 					<!-- <xsl:if test="$namespace = 'ieee'">							
 						<xsl:if test="$current_template = 'standard'">8</xsl:if>
