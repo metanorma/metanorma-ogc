@@ -122,6 +122,8 @@ def xmlpp(xml)
   XSL
   Nokogiri::XSLT(xsl).transform(Nokogiri::XML(xml, &:noblanks))
     .to_xml(indent: 2, encoding: "UTF-8")
+    .gsub(%r{<fetched>[^<]+</fetched>}, "<fetched/>")
+    .gsub(%r{ schema-version="[^"]+"}, "")
 end
 
 ASCIIDOC_BLANK_HDR = <<~"HDR".freeze
@@ -151,7 +153,6 @@ BOILERPLATE =
     .gsub(/<p>/, '<p id="_">')
     .gsub(/<p align="center">/, '<p align="center" id="_">')
     .gsub(/<p align="left">/, '<p align="left" id="_">')
-    .gsub(/"Licensor"/, "“Licensor”").gsub(/"AS/, "“AS").gsub(/IS"/, "IS”")
     .gsub(/\{% if unpublished %\}.+?\{% endif %\}/m, "")
     .gsub(/\{% if ip_notice_received %\}\{% else %\}not\{% endif %\}/m, "")
 

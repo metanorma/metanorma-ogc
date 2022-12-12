@@ -1619,17 +1619,15 @@ RSpec.describe IsoDoc::Ogc do
       :novalid:
       :no-pdf:
     INPUT
-
     output = xmlpp(<<~"OUTPUT")
           #{BLANK_HDR}
           <preface>#{SECURITY}</preface>
       <sections/>
       </ogc-standard>
     OUTPUT
-
     expect(xmlpp(strip_guid(Asciidoctor
       .convert(input, backend: :ogc, header_footer: true))))
-      .to be_equivalent_to output
+      .to be_equivalent_to xmlpp(output)
     html = File.read("test.html", encoding: "utf-8")
     expect(html).to match(%r{jquery\.min\.js})
     expect(html).to match(%r{Overpass})
