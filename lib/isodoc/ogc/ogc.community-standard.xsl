@@ -2322,6 +2322,12 @@
 		<xsl:attribute name="font-weight">bold</xsl:attribute>
 	</xsl:attribute-set>
 
+	<xsl:attribute-set name="figure-block-style">
+
+			<xsl:attribute name="margin-bottom">12pt</xsl:attribute>
+
+	</xsl:attribute-set>
+
 	<xsl:attribute-set name="figure-style">
 
 	</xsl:attribute-set>
@@ -2331,8 +2337,7 @@
 			<xsl:attribute name="color"><xsl:value-of select="$color_blue"/></xsl:attribute>
 			<!-- <xsl:attribute name="margin-top">12pt</xsl:attribute> -->
 			<xsl:attribute name="margin-top">6pt</xsl:attribute>
-			<!-- <xsl:attribute name="margin-bottom">6pt</xsl:attribute> -->
-			<xsl:attribute name="margin-bottom">12pt</xsl:attribute>
+			<xsl:attribute name="space-after">12pt</xsl:attribute>
 			<!-- <xsl:attribute name="keep-with-next">always</xsl:attribute> -->
 			<xsl:attribute name="keep-with-previous">always</xsl:attribute>
 			<xsl:attribute name="text-align">center</xsl:attribute>
@@ -6730,7 +6735,7 @@
 	<xsl:template match="*[local-name() = 'figure']" name="figure">
 		<xsl:variable name="isAdded" select="@added"/>
 		<xsl:variable name="isDeleted" select="@deleted"/>
-		<fo:block-container id="{@id}">
+		<fo:block-container id="{@id}" xsl:use-attribute-sets="figure-block-style">
 
 			<xsl:call-template name="setTrackChangesStyles">
 				<xsl:with-param name="isAdded" select="$isAdded"/>
