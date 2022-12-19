@@ -116,7 +116,7 @@ module IsoDoc
         ret
       end
 
-      def make_tr_attr(cell, row, totalrows, header)
+      def make_tr_attr(cell, row, totalrows, header, bordered)
         ret = super
         if cell.at("./ancestor::xmlns:table[@class = 'recommendation'] | "\
                    "./ancestor::xmlns:table[@class = 'requirement'] | "\
