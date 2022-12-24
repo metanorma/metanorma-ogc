@@ -215,6 +215,32 @@ module IsoDoc
         prefix_bracketed_ref("#{ret}#{datefn}")
       end
 
+      def conversions(docxml)
+        preprocess_xslt(docxml)
+        super
+      end
+
+      def initialize(options)
+        @libdir = File.dirname(__FILE__)
+        super
+      end
+
+      def preprocess_xslt_insert_pt(docxml)
+        unless docxml.at(ns("//bibdata"))
+          x = ::Nokogiri::XML::DocumentFragment.new(docxml, "<bibdata/>",
+                                                    docxml.root)
+          docxml.root.children.first.before(x)
+        end
+        docxml.at(ns("//render")) ||
+          docxml.at(ns("//bibdata")).after("<render/>").next_element
+      end
+
+      def preprocess_xslt(docxml)
+        ins = preprocess_xslt_insert_pt(docxml)
+        xslt = File.read(html_doc_path("preprocess-xml.xsl"), encoding: "utf-8")
+        ins << "<preprocess-xslt>#{xslt}</preprocess-xslt>"
+      end
+
       include Init
     end
   end

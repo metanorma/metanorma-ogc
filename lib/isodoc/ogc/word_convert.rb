@@ -87,7 +87,7 @@ module IsoDoc
       end
 
       def make_body2(body, docxml)
-        body.div **{ class: "WordSection2" } do |div2|
+        body.div class: "WordSection2" do |div2|
           @prefacenum = 0
           info docxml, div2
           boilerplate docxml, div2
@@ -174,6 +174,58 @@ module IsoDoc
         node["class"] == "modspec" and node["width"] = "100%"
         super
       end
+
+      def convert1(docxml, filename, dir)
+        docxml = preprocess_xslt(docxml)
+        super
+      end
+
+      XSLT_PASS = <<~XSLT.freeze
+        <xsl:template match="node() | @*">
+            <xsl:copy>
+                <xsl:apply-templates select="node() | @*"/>
+            </xsl:copy>
+        </xsl:template>
+      XSLT
+
+      def extract_preprocess_xslt(docxml, format)
+        docxml.xpath(ns("/*/render/preprocess-xslt"))
+          .each_with_object([]) do |p, m|
+          (p["format"] || format).split(",").include?(format) or next
+          m << p.children.to_xml.sub(%r{</xsl:stylesheet>},
+                                     "#{XSLT_PASS}</xsl:stylesheet>")
+        end
+      end
+
+      def preprocess_xslt(docxml)
+        r = extract_preprocess_xslt(docxml, "doc")
+        r.each do |x|
+          docxml = Nokogiri::XSLT(x).transform(docxml)
+        end
+        docxml
+      end
+
+            def note_p_parse(node, div)
+        name = node&.at(ns("./name"))&.remove
+        div.p **{ class: "Note" } do |p|
+          p.span **{ class: "note_label" } do |s|
+            name&.children&.each { |n| parse(n, s) }
+          end
+          node.first_element_child.children.each { |n| parse(n, p) }
+        end
+        node.element_children[1..-1].each { |n| parse(n, div) }
+      end
+
+      def note_parse1(node, div)
+        name = node&.at(ns("./name"))&.remove
+        div.p **{ class: "Note" } do |p|
+          p.span **{ class: "note_label" } do |s|
+            name&.children&.each { |n| parse(n, s) }
+          end
+        end
+        node.children.each { |n| parse(n, div) }
+      end
+
 
       include BaseConvert
       include Init

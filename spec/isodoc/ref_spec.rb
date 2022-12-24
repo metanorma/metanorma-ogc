@@ -619,7 +619,8 @@ RSpec.describe IsoDoc::Ogc do
     OUTPUT
     expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({})
       .convert("test", input, true)
-      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")
+      .sub(%r{<render>.*</render>}m, "")))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", presxml, true)

@@ -142,6 +142,30 @@ module IsoDoc
         styles = %i(arabic alphabet roman alphabet_upper roman_upper)
         ol_style(styles[(idx - 1) % 5])
       end
+
+      def note_p_parse(node, div)
+        name = node&.at(ns("./name"))&.remove
+        div.p do |p|
+          name and p.span **{ class: "note_label" } do |s|
+            name.children.each { |n| parse(n, s) }
+          end
+          node.first_element_child.children.each { |n| parse(n, p) }
+        end
+        node.element_children[1..-1].each { |n| parse(n, div) }
+      end
+
+      def note_parse1(node, div)
+        name = node&.at(ns("./name"))&.remove
+        name and div.p do |p|
+          p.span **{ class: "note_label" } do |s|
+            name.children.each { |n| parse(n, s) }
+          end
+        end
+        node.children.each { |n| parse(n, div) }
+      end
+
+
+
     end
   end
 end

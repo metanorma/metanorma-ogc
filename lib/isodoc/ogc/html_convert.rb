@@ -62,7 +62,7 @@ module IsoDoc
       end
 
       def make_body3(body, docxml)
-        body.div **{ class: "main-section" } do |div3|
+        body.div class: "main-section" do |div3|
           @prefacenum = 0
           boilerplate docxml, div3
           preface_block docxml, div3
@@ -85,6 +85,36 @@ module IsoDoc
       def authority_cleanup(docxml)
         authority_cleanup1(docxml, "contact")
         super
+      end
+
+      def convert1(docxml, filename, dir)
+        docxml = preprocess_xslt(docxml)
+        super
+      end
+
+      XSLT_PASS = <<~XSLT.freeze
+        <xsl:template match="node() | @*">
+            <xsl:copy>
+                <xsl:apply-templates select="node() | @*"/>
+            </xsl:copy>
+        </xsl:template>
+      XSLT
+
+      def extract_preprocess_xslt(docxml, format)
+        docxml.xpath(ns("/*/render/preprocess-xslt"))
+          .each_with_object([]) do |p, m|
+          (p["format"] || format).split(",").include?(format) or next
+          m << p.children.to_xml.sub(%r{</xsl:stylesheet>},
+                                     "#{XSLT_PASS}</xsl:stylesheet>")
+        end
+      end
+
+      def preprocess_xslt(docxml)
+        r = extract_preprocess_xslt(docxml, "html")
+        r.each do |x|
+          docxml = Nokogiri::XSLT(x).transform(docxml)
+        end
+        docxml
       end
 
       include BaseConvert

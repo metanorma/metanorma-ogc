@@ -339,7 +339,8 @@ RSpec.describe IsoDoc::Ogc do
 
     expect(xmlpp(strip_guid(IsoDoc::Ogc::PresentationXMLConvert.new({})
       .convert("test", input, true)
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")
+      .sub(%r{<render>.*</render>}m, ""))))
       .to be_equivalent_to xmlpp(presxml)
   end
 
@@ -375,7 +376,8 @@ RSpec.describe IsoDoc::Ogc do
 
     expect(xmlpp(strip_guid(IsoDoc::Ogc::PresentationXMLConvert.new({})
       .convert("test", input, true)
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")
+      .sub(%r{<render>.*</render>}m, ""))))
       .to be_equivalent_to xmlpp(presxml)
   end
 
@@ -413,7 +415,8 @@ RSpec.describe IsoDoc::Ogc do
 
     expect(xmlpp(strip_guid(IsoDoc::Ogc::PresentationXMLConvert.new({})
       .convert("test", input, true)
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")
+      .sub(%r{<render>.*</render>}m, ""))))
       .to be_equivalent_to xmlpp(presxml)
   end
 
@@ -451,7 +454,8 @@ RSpec.describe IsoDoc::Ogc do
 
     expect(xmlpp(strip_guid(IsoDoc::Ogc::PresentationXMLConvert.new({})
       .convert("test", input, true)
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")
+      .sub(%r{<render>.*</render>}m, ""))))
       .to be_equivalent_to xmlpp(presxml)
   end
 
@@ -526,7 +530,8 @@ RSpec.describe IsoDoc::Ogc do
 
     expect(xmlpp(strip_guid(IsoDoc::Ogc::PresentationXMLConvert.new({})
       .convert("test", input, true)
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")
+      .sub(%r{<render>.*</render>}m, ""))))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(
              IsoDoc::Ogc::HtmlConvert.new({})
@@ -591,7 +596,8 @@ RSpec.describe IsoDoc::Ogc do
 
     expect(xmlpp(strip_guid(IsoDoc::Ogc::PresentationXMLConvert.new({})
       .convert("test", input, true)
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")
+      .sub(%r{<render>.*</render>}m, ""))))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(
              IsoDoc::Ogc::HtmlConvert.new({})
@@ -671,7 +677,8 @@ RSpec.describe IsoDoc::Ogc do
 
     expect(xmlpp(strip_guid(IsoDoc::Ogc::PresentationXMLConvert.new({})
       .convert("test", input, true)
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")
+      .sub(%r{<render>.*</render>}m, ""))))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", presxml, true)
@@ -781,7 +788,8 @@ RSpec.describe IsoDoc::Ogc do
 
     expect(xmlpp(strip_guid(IsoDoc::Ogc::PresentationXMLConvert.new({})
       .convert("test", input, true)
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")
+      .sub(%r{<render>.*</render>}m, ""))))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", presxml, true)
@@ -814,6 +822,7 @@ RSpec.describe IsoDoc::Ogc do
 
     presxml = <<~"INPUT"
       <ogc-standard xmlns="https://standards.opengeospatial.org/document" type='presentation'>
+        <bibdata/>
         <sections>
         <terms id="H" obligation="normative" displayorder='1'><title depth='1'>1.<tab/>Terms, Definitions, Symbols and Abbreviated Terms</title>
           <term id="J">
@@ -870,7 +879,8 @@ RSpec.describe IsoDoc::Ogc do
 
     expect(xmlpp(strip_guid(IsoDoc::Ogc::PresentationXMLConvert.new({})
      .convert("test", input, true)
-     .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")
+      .sub(%r{<render>.*</render>}m, ""))))
       .to be_equivalent_to xmlpp(presxml)
     IsoDoc::Ogc::HtmlConvert.new({ filename: "test" })
       .convert("test", presxml, false)
@@ -894,6 +904,7 @@ RSpec.describe IsoDoc::Ogc do
 
     presxml = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
+           <bibdata/>
            <preface>
              <foreword id='A' displayorder="1">
                <title depth='1'>I.<tab/>Preface</title>
@@ -921,7 +932,8 @@ RSpec.describe IsoDoc::Ogc do
     OUTPUT
     expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({})
       .convert("test", input, true)
-      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")
+      .sub(%r{<render>.*</render>}m, "")))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", presxml, true)
@@ -942,6 +954,7 @@ RSpec.describe IsoDoc::Ogc do
 
     presxml = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
+      <bibdata/>
            <preface>
              <foreword id='A' displayorder="1">
                <title depth='1'>I.<tab/>Preface</title>
@@ -969,7 +982,8 @@ RSpec.describe IsoDoc::Ogc do
     OUTPUT
     expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({})
       .convert("test", input, true)
-      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")
+      .sub(%r{<render>.*</render>}m, "")))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", presxml, true)
@@ -990,6 +1004,7 @@ RSpec.describe IsoDoc::Ogc do
 
     presxml = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
+      <bibdata/>
            <preface>
              <foreword id='A' displayorder="1">
                <title depth='1'>I.<tab/>Preface</title>
@@ -1017,7 +1032,8 @@ RSpec.describe IsoDoc::Ogc do
     OUTPUT
     expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({})
       .convert("test", input, true)
-      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")
+      .sub(%r{<render>.*</render>}m, "")))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", presxml, true)
@@ -1036,6 +1052,7 @@ RSpec.describe IsoDoc::Ogc do
     INPUT
     presxml = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
+      <bibdata/>
         <preface>
           <foreword id='A' displayorder="1"><title depth='1'>I.<tab/>Preface</title>
             <example id='_'>
@@ -1064,8 +1081,8 @@ RSpec.describe IsoDoc::Ogc do
     OUTPUT
     expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({})
       .convert("test", input, true)
-      .gsub(%r{^.*<body}m, "<body")
-      .gsub(%r{</body>.*}m, "</body>")))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")
+      .sub(%r{<render>.*</render>}m, "")))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", presxml, true)
@@ -1084,6 +1101,7 @@ RSpec.describe IsoDoc::Ogc do
     INPUT
     presxml = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
+      <bibdata/>
         <preface>
           <foreword id='A' displayorder="1"><title>I.</title>
             <example id='_'>
@@ -1112,7 +1130,8 @@ RSpec.describe IsoDoc::Ogc do
     OUTPUT
     expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({})
       .convert("test", input, true)
-      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
+      .sub(%r{<localized-strings>.*</localized-strings>}m, "")
+      .sub(%r{<render>.*</render>}m, "")))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", presxml, true)
@@ -1536,7 +1555,7 @@ RSpec.describe IsoDoc::Ogc do
     expect(xmlpp(strip_guid(IsoDoc::Ogc::PresentationXMLConvert.new({})
       .convert("test", input, true)
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")
-      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))))
+      .sub(%r{<render>.*</render>}m, ""))))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(
              IsoDoc::Ogc::HtmlConvert.new({}).convert("test", presxml, true)
