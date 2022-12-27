@@ -47,8 +47,10 @@ module IsoDoc
       end
 
       def title(isoxml, _out)
-        main = isoxml&.at(ns("//bibdata/title[@language='en']"))&.text
+        main = isoxml.at(ns("//bibdata/title[@language='en']"))&.text
         set(:doctitle, main)
+        main = isoxml.at(ns("//bibdata/abstract"))&.text&.strip&.gsub(/\s+/, " ")
+        set(:abstract, main)
       end
 
       def subtitle(_isoxml, _out)

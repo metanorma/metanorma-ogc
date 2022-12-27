@@ -36,9 +36,9 @@ module IsoDoc
 
       def googlefonts
         <<~HEAD.freeze
-          <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i|Space+Mono:400,700" rel="stylesheet" />
-          <link href="https://fonts.googleapis.com/css?family=Overpass:300,300i,600,900" rel="stylesheet">
-          <link href="https://fonts.googleapis.com/css?family=Teko:300,400,500" rel="stylesheet">
+          <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i|Space+Mono:400,700" rel="stylesheet"/>
+          <link href="https://fonts.googleapis.com/css?family=Overpass:300,300i,600,900" rel="stylesheet"/>
+          <link href="https://fonts.googleapis.com/css?family=Teko:300,400,500" rel="stylesheet"/>
         HEAD
       end
 
@@ -46,8 +46,7 @@ module IsoDoc
         case node["type"]
         when "important" then "Admonition.Important"
         when "warning" then "Admonition.Warning"
-        else
-          "Admonition"
+        else "Admonition"
         end
       end
 
@@ -62,7 +61,7 @@ module IsoDoc
       end
 
       def make_body3(body, docxml)
-        body.div **{ class: "main-section" } do |div3|
+        body.div class: "main-section" do |div3|
           @prefacenum = 0
           boilerplate docxml, div3
           preface_block docxml, div3
@@ -85,6 +84,16 @@ module IsoDoc
       def authority_cleanup(docxml)
         authority_cleanup1(docxml, "contact")
         super
+      end
+
+      def html_head
+        ret = super
+        k = @meta.get[:keywords].join(", ")
+        k.empty? or ret += "<meta name='keywords' content='#{k}'/>"
+        k = @meta.get[:abstract]
+        (k.nil? || k.empty?) or
+          ret += "<meta name='description' content='#{k}'/>"
+        ret
       end
 
       include BaseConvert
