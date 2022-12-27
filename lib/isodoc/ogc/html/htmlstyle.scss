@@ -97,7 +97,7 @@ nav {
   @include sidebarNav(#f1f8ff, 323px, 45px);
 
   @media screen and (min-width: $bigscreenBreakpoint) {
-    marign-right: 30px;
+    margin-right: 30px;
   }
 }
 
@@ -411,7 +411,7 @@ p.Biblio, p.NormRef {
 
 @include listBlock();
 
-pre {
+pre, .sourcecode {
   @include sourceBlock(#f7f7f7);
 
   font-family: $monospacefont;
@@ -444,7 +444,7 @@ pre {
   }
 }
 
-.figure, pre, .pseudocode {
+.figure, pre, .pseudocode, .sourcecode {
   background-color: #e1eef1;
   color: #424242;
   font-size: $monospacefontsize;
