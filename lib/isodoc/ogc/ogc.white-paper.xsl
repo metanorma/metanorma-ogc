@@ -1429,7 +1429,7 @@
 
 	<xsl:attribute-set name="note-name-style">
 
-			<xsl:attribute name="padding-right">4mm</xsl:attribute>
+			<!-- <xsl:attribute name="padding-right">4mm</xsl:attribute> -->
 
 	</xsl:attribute-set>
 
@@ -8045,6 +8045,7 @@
 		<xsl:variable name="padding">
 
 				<xsl:choose>
+					<xsl:when test="ancestor::*[local-name() = 'note'] and ancestor::*[local-name() = 'name']">4</xsl:when>
 					<xsl:when test="$depth &gt;= 5"/>
 					<xsl:when test="$depth &gt;= 4">5</xsl:when>
 					<xsl:when test="$depth &gt;= 3 and ancestor::ogc:terms">3</xsl:when>
