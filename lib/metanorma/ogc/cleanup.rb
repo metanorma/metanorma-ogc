@@ -146,7 +146,8 @@ module Metanorma
       PUBLISHER = "./contributor[role/@type = 'publisher']/organization".freeze
 
       OTHERIDS = "@type = 'DOI' or @type = 'metanorma' or @type = 'ISSN' or " \
-                 "@type = 'ISBN'".freeze
+                 "@type = 'ISBN' or starts-with(@type, 'ISSN.') or " \
+                 "starts-with(@type, 'ISBN.')".freeze
 
       def pub_class(bib)
         return 1 if bib.at("#{PUBLISHER}[abbreviation = 'OGC']")
