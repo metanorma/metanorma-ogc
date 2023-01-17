@@ -145,15 +145,12 @@ module Metanorma
 
       PUBLISHER = "./contributor[role/@type = 'publisher']/organization".freeze
 
-      OTHERIDS = "@type = 'DOI' or @type = 'metanorma' or @type = 'ISSN' or " \
-                 "@type = 'ISBN' or starts-with(@type, 'ISSN.') or " \
-                 "starts-with(@type, 'ISBN.')".freeze
-
       def pub_class(bib)
         return 1 if bib.at("#{PUBLISHER}[abbreviation = 'OGC']")
         return 1 if bib.at("#{PUBLISHER}[name = 'Open Geospatial " \
                            "Consortium']")
-        return 2 if bib.at("./docidentifier[@type][not(#{OTHERIDS})]")
+        return 2 if bib.at("./docidentifier[@type][not(#{skip_docid} or " \
+                           "@type = 'metanorma')]")
 
         3
       end
@@ -196,7 +193,7 @@ module Metanorma
 
       def sort_biblio_ids_key(bib)
         id = bib.at("./docidentifier[@primary]") ||
-          bib.at("./docidentifier[not(#{OTHERIDS})]")
+          bib.at("./docidentifier[not(#{skip_docid} or @type = 'metanorma')]")
         metaid = bib.at("./docidentifier[@type = 'metanorma']")&.text
         /\d-(?<partid>\d+)/ =~ id&.text
         { id: id&.text,

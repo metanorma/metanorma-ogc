@@ -14,7 +14,7 @@ module IsoDoc
       end
 
       def hi_parse(node, out)
-        out.span **{ class: "hi" } do |e|
+        out.span class: "hi" do |e|
           node.children.each { |n| parse(n, e) }
         end
       end
@@ -41,7 +41,7 @@ module IsoDoc
       end
 
       def term_cleanup_merge_admitted(term)
-        term.xpath("./following-sibling::p[@class = 'AltTerms' or "\
+        term.xpath("./following-sibling::p[@class = 'AltTerms' or " \
                    "@class = 'DeprecatedTerms']").each do |a|
           term << " "
           term << a.children
@@ -50,20 +50,20 @@ module IsoDoc
       end
 
       def deprecated_term_parse(node, out)
-        out.p **{ class: "DeprecatedTerms" } do |p|
+        out.p class: "DeprecatedTerms" do |p|
           node.children.each { |c| parse(c, p) }
           p << "&#xa0;"
-          p.span **{ class: "AdmittedLabel" } do |s|
+          p.span class: "AdmittedLabel" do |s|
             s << l10n(@i18n.deprecated)
           end
         end
       end
 
       def admitted_term_parse(node, out)
-        out.p **{ class: "AltTerms" } do |p|
+        out.p class: "AltTerms" do |p|
           node.children.each { |c| parse(c, p) }
           p << "&#xa0;"
-          p.span **{ class: "AdmittedLabel" } do |s|
+          p.span class: "AdmittedLabel" do |s|
             s << l10n(@i18n.admitted)
           end
         end
@@ -78,13 +78,13 @@ module IsoDoc
       def example_label(node, div, name); end
 
       def example_name_parse(_node, div, name)
-        div.p **{ class: "SourceTitle", style: "text-align:center;" } do |p|
+        div.p class: "SourceTitle", style: "text-align:center;" do |p|
           name&.children&.each { |n| parse(n, p) }
         end
       end
 
       def middle_clause(_docxml)
-        "//clause[parent::sections][not(@type = 'scope' or "\
+        "//clause[parent::sections][not(@type = 'scope' or " \
           "@type = 'conformance')][not(descendant::terms)]"
       end
 
@@ -111,15 +111,15 @@ module IsoDoc
         ret = super
         %w(recommendation requirement permission).include?(node["class"]) and
           ret = ret.merge(class: node["type"], style:
-                          "border-collapse:collapse;border-spacing:0;"\
+                          "border-collapse:collapse;border-spacing:0;" \
                           "#{keep_style(node)}")
         ret
       end
 
       def make_tr_attr(cell, row, totalrows, header, bordered)
         ret = super
-        if cell.at("./ancestor::xmlns:table[@class = 'recommendation'] | "\
-                   "./ancestor::xmlns:table[@class = 'requirement'] | "\
+        if cell.at("./ancestor::xmlns:table[@class = 'recommendation'] | " \
+                   "./ancestor::xmlns:table[@class = 'requirement'] | " \
                    "./ancestor::xmlns:table[@class = 'permission']")
           ret[:style] = "vertical-align:top;"
           ret[:class] = "recommend"
