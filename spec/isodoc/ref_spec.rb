@@ -337,20 +337,20 @@ RSpec.describe IsoDoc::Ogc do
                 <eref bibitemid="ISBN">[1]</eref>
                 <eref bibitemid="ISSN">[2]</eref>
                 <eref bibitemid="ISO16634">ISO 16634:-- (all parts)</eref>
-                <eref bibitemid="ref1">ICC 167</eref>
+                <eref bibitemid="ref1">ICC&#xa0;167</eref>
                 <eref bibitemid="ref10">[4]</eref>
                 <eref bibitemid="ref12">Citn</eref>
                 <eref bibitemid="zip_ffs">[5]</eref>
-                <eref bibitemid='ogc1'>OGC 19-025r1</eref>
-      <eref bibitemid='ogc2'>OGC 00-027</eref>
-      <eref bibitemid='ogc3'>OGC 05-020r27 (draft)</eref>
+                <eref bibitemid='ogc1'>OGC&#xa0;19-025r1</eref>
+      <eref bibitemid='ogc2'>OGC&#xa0;00-027</eref>
+      <eref bibitemid='ogc3'>OGC&#xa0;05-020r27 (draft)</eref>
                 </p>
                   </foreword></preface>
                   <bibliography><references id="_normative_references" obligation="informative" normative="true" displayorder="2"><title depth="1">1.<tab/>Normative References</title>
                   <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
               <bibitem id="ISO712" type="standard">
-                <formattedref>ISO: ISO 712, <em>Cereals and cereal products</em>. International Organization for Standardization</formattedref>
-                <docidentifier type="ISO">ISO 712</docidentifier>
+                <formattedref>ISO: ISO&#xa0;712, <em>Cereals and cereal products</em>. International Organization for Standardization</formattedref>
+                <docidentifier type="ISO">ISO&#xa0;712</docidentifier>
                 <docidentifier type="metanorma">[110]</docidentifier>
                 <biblio-tag/>
               </bibitem>
@@ -360,13 +360,13 @@ RSpec.describe IsoDoc::Ogc do
                 <biblio-tag/>
               </bibitem>
               <bibitem id="ISO20483" type="standard">
-                <formattedref>ISO: ISO 20483:2013-2014, <em>Cereals and pulses</em>. International Organization for Standardization (2013&#x2013;2014).</formattedref>
-                <docidentifier type="ISO">ISO 20483:2013-2014</docidentifier>
+                <formattedref>ISO: ISO&#xa0;20483:2013-2014, <em>Cereals and pulses</em>. International Organization for Standardization (2013&#x2013;2014).</formattedref>
+                <docidentifier type="ISO">ISO&#xa0;20483:2013-2014</docidentifier>
                 <biblio-tag/>
               </bibitem>
               <bibitem id="ref1">
                 <formattedref format="application/x-isodoc+xml"><smallcap>Standard No I.C.C 167</smallcap>. <em>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</em> (see <link target="http://www.icc.or.at"/>)</formattedref>
-                <docidentifier type="ICC">ICC 167</docidentifier>
+                <docidentifier type="ICC">ICC&#xa0;167</docidentifier>
                 <biblio-tag/>
               </bibitem>
               <note><name>NOTE</name><p>This is an annotation of ISO 20483:2013-2014</p></note>
@@ -374,22 +374,22 @@ RSpec.describe IsoDoc::Ogc do
                   <biblio-tag/>
                   </bibitem>
                      <bibitem id='ogc1'>
-                       <formattedref>Robert Thomas, Terry Idol: OGC 19-025r1, <em>Development of Spatial Data Infrastructures for Marine Data Management</em>. Open Geospatial Consortium (2019). <link target='https://portal.opengeospatial.org/files/?artifact id=88037'>https://portal.opengeospatial.org/files/?artifact id=88037</link>.</formattedref>
+                       <formattedref>Robert Thomas, Terry Idol: OGC&#xa0;19-025r1, <em>Development of Spatial Data Infrastructures for Marine Data Management</em>. Open Geospatial Consortium (2019). <link target='https://portal.opengeospatial.org/files/?artifact id=88037'>https://portal.opengeospatial.org/files/?artifact id=88037</link>.</formattedref>
                        <uri type='obp'>https://portal.opengeospatial.org/files/?artifact_id=88037</uri>
-                      <docidentifier type='OGC'>OGC 19-025r1</docidentifier>
+                      <docidentifier type='OGC'>OGC&#xa0;19-025r1</docidentifier>
                       <biblio-tag/>
          </bibitem>
          <bibitem id='ogc2'>
-           <formattedref>Geodan Holding bv, the Netherlands: OGC 00-027, <em>Conformance Test Guidelines for OpenGIS Catalog Services Specification for CORBA</em>. Open Geospatial Consortium (2000).</formattedref>
-           <docidentifier type='OGC'>OGC 00-027</docidentifier>
+           <formattedref>Geodan Holding bv, the Netherlands: OGC&#xa0;00-027, <em>Conformance Test Guidelines for OpenGIS Catalog Services Specification for CORBA</em>. Open Geospatial Consortium (2000).</formattedref>
+           <docidentifier type='OGC'>OGC&#xa0;00-027</docidentifier>
                            <status>
                   <stage>published</stage>
                 </status>
                 <biblio-tag/>
          </bibitem>
          <bibitem id='ogc3'>
-           <formattedref>Scott Simmons (ed.): OGC 05-020r27 (Draft), <em>Technical Committee Policies and Procedures</em>.  Open Geospatial Consortium (2019).</formattedref>
-           <docidentifier type='OGC'>OGC 05-020r27</docidentifier>
+           <formattedref>Scott Simmons (ed.): OGC&#xa0;05-020r27 (Draft), <em>Technical Committee Policies and Procedures</em>.  Open Geospatial Consortium (2019).</formattedref>
+           <docidentifier type='OGC'>OGC&#xa0;05-020r27</docidentifier>
            <status>
              <stage>draft</stage>
            </status>
@@ -413,9 +413,9 @@ RSpec.describe IsoDoc::Ogc do
               <note><name>NOTE</name><p>This is an annotation of document ISSN.</p></note>
               <note><name>NOTE</name><p>This is another annotation of document ISSN.</p></note>
               <bibitem id="ISO3696" type="standard">
-                <formattedref>ISO: ISO 3696, <em>Water for analytical laboratory use</em>. International Organization for Standardization</formattedref>
+                <formattedref>ISO: ISO&#xa0;3696, <em>Water for analytical laboratory use</em>. International Organization for Standardization</formattedref>
                 <docidentifier type='metanorma-ordinal'>[3]</docidentifier>
-                <docidentifier type="ISO">ISO 3696</docidentifier>
+                <docidentifier type="ISO">ISO&#xa0;3696</docidentifier>
                 <biblio-tag>[3]<tab/></biblio-tag>
               </bibitem>
               <bibitem id="ref10">
@@ -430,25 +430,25 @@ RSpec.describe IsoDoc::Ogc do
         <biblio-tag>[5]<tab/></biblio-tag>
       </bibitem>
               <bibitem id="ref11">
-                <formattedref>Fred Johnson, Jackson KG, Nixon RM: IETF RFC 10, <em>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</em>.</formattedref>
+                <formattedref>Fred Johnson, Jackson KG, Nixon RM: IETF&#xa0;RFC&#xa0;10, <em>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</em>.</formattedref>
                 <docidentifier type='metanorma-ordinal'>[6]</docidentifier>
-                <docidentifier type="IETF">IETF RFC 10</docidentifier>
+                <docidentifier type="IETF">IETF&#xa0;RFC&#xa0;10</docidentifier>
                 <biblio-tag>[6]<tab/></biblio-tag>
               </bibitem>
               <bibitem id="ref12">
                 <formattedref format="application/x-isodoc+xml">CitationWorks. 2019. <em>How to cite a reference</em>.</formattedref>
                 <docidentifier type='metanorma-ordinal'>[7]</docidentifier>
                 <docidentifier type="metanorma">[Citn]</docidentifier>
-                <docidentifier type="IETF">IETF RFC 20</docidentifier>
+                <docidentifier type="IETF">IETF&#xa0;RFC&#xa0;20</docidentifier>
                 <biblio-tag>[7]<tab/></biblio-tag>
               </bibitem>
                     <bibitem id='rfc2616' type='standard'>
-                      <formattedref>R. Fielding, J. Gettys, J. Mogul, H. Frystyk, L. Masinter, P. Leach, T. Berners-Lee: IETF RFC 2616, <em>Hypertext Transfer Protocol&#x2009;&#x2014;&#x2009;HTTP/1.1</em>. Fremont, CA (1999). <link target='https://www.rfc-editor.org/info/rfc2616'>https://www.rfc-editor.org/info/rfc2616</link>.</formattedref>
+                      <formattedref>R. Fielding, J. Gettys, J. Mogul, H. Frystyk, L. Masinter, P. Leach, T. Berners-Lee: IETF&#xa0;RFC&#xa0;2616, <em>Hypertext Transfer Protocol&#x2009;&#x2014;&#x2009;HTTP/1.1</em>. Fremont, CA (1999). <link target='https://www.rfc-editor.org/info/rfc2616'>https://www.rfc-editor.org/info/rfc2616</link>.</formattedref>
         <uri type='xml'>https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</uri>
         <uri type='src'>https://www.rfc-editor.org/info/rfc2616</uri>
         <docidentifier type='metanorma-ordinal'>[8]</docidentifier>
-        <docidentifier type='IETF'>IETF RFC 2616</docidentifier>
-        <docidentifier type='IETF' scope="anchor">IETF RFC2616</docidentifier>
+        <docidentifier type='IETF'>IETF&#xa0;RFC&#xa0;2616</docidentifier>
+        <docidentifier type='IETF' scope="anchor">IETF&#xa0;RFC2616</docidentifier>
         <docidentifier type='DOI'>DOI 10.17487/RFC2616</docidentifier>
                 <biblio-tag>[8]<tab/></biblio-tag>
       </bibitem>
@@ -467,13 +467,13 @@ RSpec.describe IsoDoc::Ogc do
                <a href='#ISBN'>[1]</a>
                <a href='#ISSN'>[2]</a>
                <a href='#ISO16634'>ISO 16634:-- (all parts)</a>
-               <a href='#ref1'>ICC 167</a>
+               <a href='#ref1'>ICC&#xa0;167</a>
                <a href='#ref10'>[4]</a>
                <a href='#ref12'>Citn</a>
                <a href='#zip_ffs'>[5]</a>
-               <a href='#ogc1'>OGC 19-025r1</a>
-               <a href='#ogc2'>OGC 00-027</a>
-               <a href='#ogc3'>OGC 05-020r27 (draft)</a>
+               <a href='#ogc1'>OGC&#xa0;19-025r1</a>
+               <a href='#ogc2'>OGC&#xa0;00-027</a>
+               <a href='#ogc3'>OGC&#xa0;05-020r27 (draft)</a>
              </p>
            </div>
            <p class='zzSTDTitle1'/>
@@ -487,7 +487,7 @@ RSpec.describe IsoDoc::Ogc do
                amendments) applies.
              </p>
              <p id='ISO712' class='NormRef'>
-               ISO: ISO 712,
+               ISO: ISO&#xa0;712,
                <i>Cereals and cereal products</i>
                . International Organization for Standardization
              </p>
@@ -497,7 +497,7 @@ RSpec.describe IsoDoc::Ogc do
                . International Organization for Standardization
              </p>
              <p id='ISO20483' class='NormRef'>
-               ISO: ISO 20483:2013-2014,
+               ISO: ISO&#xa0;20483:2013-2014,
                <i>Cereals and pulses</i>
                . International Organization for Standardization (2013&#x2013;2014).
              </p>
@@ -521,14 +521,14 @@ RSpec.describe IsoDoc::Ogc do
              </div>
              <p id='zip_ffs' class='NormRef'>Title 5</p>
              <p id='ogc1' class='NormRef'>
-               Robert Thomas, Terry Idol: OGC 19-025r1,
+               Robert Thomas, Terry Idol: OGC&#xa0;19-025r1,
                <i>Development of Spatial Data Infrastructures for Marine Data Management</i>
                . Open Geospatial Consortium (2019).
                <a href='https://portal.opengeospatial.org/files/?artifact id=88037'>https://portal.opengeospatial.org/files/?artifact id=88037</a>
                .
              </p>
              <p id='ogc2' class='NormRef'>
-               Geodan Holding bv, the Netherlands: OGC 00-027,
+               Geodan Holding bv, the Netherlands: OGC&#xa0;00-027,
                <i>
                  Conformance Test Guidelines for OpenGIS Catalog Services Specification
                  for CORBA
@@ -536,7 +536,7 @@ RSpec.describe IsoDoc::Ogc do
                . Open Geospatial Consortium (2000).
              </p>
              <p id='ogc3' class='NormRef'>
-               Scott Simmons (ed.): OGC 05-020r27 (Draft),
+               Scott Simmons (ed.): OGC&#xa0;05-020r27 (Draft),
                <i>Technical Committee Policies and Procedures</i>
                . Open Geospatial Consortium (2019).
              </p>
@@ -567,7 +567,7 @@ RSpec.describe IsoDoc::Ogc do
                </p>
              </div>
              <p id='ISO3696' class='Biblio'>
-               [3]&#xa0; ISO: ISO 3696,
+               [3]&#xa0; ISO: ISO&#xa0;3696,
                <i>Water for analytical laboratory use</i>
                . International Organization for Standardization
              </p>
@@ -596,7 +596,7 @@ RSpec.describe IsoDoc::Ogc do
                )
              </p>
              <p id='ref11' class='Biblio'>
-               [6]&#xa0; Fred Johnson, Jackson KG, Nixon RM: IETF RFC 10,
+               [6]&#xa0; Fred Johnson, Jackson KG, Nixon RM: IETF&#xa0;RFC&#xa0;10,
                <i>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</i>
                .
              </p>
@@ -607,7 +607,7 @@ RSpec.describe IsoDoc::Ogc do
              </p>
              <p id='rfc2616' class='Biblio'>
                [8]&#xa0; R. Fielding, J. Gettys, J. Mogul, H. Frystyk, L. Masinter, P.
-               Leach, T. Berners-Lee: IETF RFC 2616,
+               Leach, T. Berners-Lee: IETF&#xa0;RFC&#xa0;2616,
                <i>Hypertext Transfer Protocol&#x2009;&#x2014;&#x2009;HTTP/1.1</i>
                . Fremont, CA (1999).
                <a href='https://www.rfc-editor.org/info/rfc2616'>https://www.rfc-editor.org/info/rfc2616</a>
@@ -617,7 +617,7 @@ RSpec.describe IsoDoc::Ogc do
          </div>
        </body>
     OUTPUT
-    expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
       .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
       .to be_equivalent_to xmlpp(presxml)

@@ -58,11 +58,11 @@ RSpec.describe IsoDoc::Ogc do
     FileUtils.rm_f "test.doc"
     input = <<~INPUT
               <iso-standard xmlns="http://riboseinc.com/isoxml">
-                <misc-container>
+                <metanorma-extension>
                   <toc type="figure"><title>List of Figures</title></toc>
                   <toc type="table"><title>List of Tables</title></toc>
                   <toc type="recommendation"><title>List of Recommendations</title></toc>
-                </misc-container>
+                </metanorma-extension>
               <sections>
                      <clause id="A" inline-header="false" obligation="normative"><title>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
                <title>Introduction<bookmark id="Q"/> to this<fn reference="1">
@@ -92,7 +92,7 @@ RSpec.describe IsoDoc::Ogc do
               </sections>
               </iso-standard>
     INPUT
-    presxml = IsoDoc::Ogc::PresentationXMLConvert.new({})
+    presxml = IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
     IsoDoc::Ogc::WordConvert.new({}).convert("test", presxml, false)
     word = File.read("test.doc")
@@ -292,12 +292,12 @@ RSpec.describe IsoDoc::Ogc do
       </foreword></preface></ogc-standard>
     OUTPUT
     doc = <<~OUTPUT
-           <table class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;" width="100%">
+      <table class="MsoISOTable" style="mso-table-anchor-horizontal:column;mso-table-overlap:never;border-spacing:0;border-width:1px;" width="100%">
          <a name="A1" id="A1"/>
          <thead>
            <tr>
              <th colspan="2" style="font-weight:bold;border-top:solid windowtext 1.5pt;mso-border-top-alt:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;mso-border-bottom-alt:solid windowtext 1.5pt;page-break-after:avoid;">
-               <p class="RecommendationTitle">Permission 1</p>
+              <p class="RecommendationTitle" style="page-break-after:avoid">Permission 1</p>
              </th>
            </tr>
          </thead>
