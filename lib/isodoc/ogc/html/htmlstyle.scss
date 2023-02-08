@@ -139,6 +139,12 @@ nav {
   @include figureBlock();
 }
 
+table div.figure {
+  padding: 0;
+  margin: 0;
+}
+
+
 .document-stage-band {
   @include docBand($order: 1, $textLength: 160px, $fontWeight: 300);
 }
