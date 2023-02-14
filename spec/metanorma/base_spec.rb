@@ -164,7 +164,7 @@ RSpec.describe Metanorma::Ogc do
       .to be_equivalent_to output
   end
 
-  it "processes OGC synonyms for default metadata, and default template for external-id" do
+  it "processes OGC synonyms for default metadata, default template for external-id, docidentifier override for internal-id" do
     input = <<~"INPUT"
       = Document title
       Author
@@ -194,6 +194,7 @@ RSpec.describe Metanorma::Ogc do
       :role: editor
       :editor: Wilma Flintstone
       :abbrev: A
+      :docidentifier: OVERRIDE
     INPUT
 
     output = xmlpp(<<~"OUTPUT")
@@ -204,7 +205,7 @@ RSpec.describe Metanorma::Ogc do
         <uri>http://www.example.com</uri>
         <docidentifier type='ogc-external'>http://www.opengis.net/doc/TP/A/2.0</docidentifier>
         <docidentifier type='ogc-external'>http://www.example2.com</docidentifier>
-        <docidentifier type="ogc-internal">1000</docidentifier>
+        <docidentifier type="ogc-internal">OVERRIDE</docidentifier>
         <docnumber>1000</docnumber>
                  <date type="created">
           <on>1999-01-01</on>

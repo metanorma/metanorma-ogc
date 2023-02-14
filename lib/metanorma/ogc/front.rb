@@ -16,7 +16,7 @@ module Metanorma
         csv_split(HTMLEntities.new
           .decode(node.attr("submitting-organizations")), ";")&.each do |org|
           xml.contributor do |c|
-            c.role **{ type: "author" }
+            c.role type: "author"
             c.organization do |a|
               a.name org
             end
@@ -39,12 +39,12 @@ module Metanorma
       def personal_role(node, contrib, suffix)
         type = node.attr("role#{suffix}")&.downcase || "editor"
         if type == "contributor"
-          contrib.role **{ type: "author" } do |r|
+          contrib.role type: "author" do |r|
             r.description do |d|
               d << type
             end
           end
-        else contrib.role **{ type: type }
+        else contrib.role type: type
         end
       end
 
@@ -52,7 +52,7 @@ module Metanorma
         return unless node.attr("editor")
 
         xml.contributor do |c|
-          c.role **{ type: "editor" }
+          c.role type: "editor"
           c.person do |p|
             p.name do |n|
               n.completename node.attr("editor")
@@ -114,14 +114,13 @@ module Metanorma
       end
 
       def metadata_id(node, xml)
-        e = externalid(node) and xml.docidentifier e, **{ type: "ogc-external" }
+        e = externalid(node) and xml.docidentifier e, type: "ogc-external"
         node.attr("referenceurlid") and
-          xml.docidentifier externalurl(node), **{ type: "ogc-external" }
+          xml.docidentifier externalurl(node), type: "ogc-external"
         docnumber = node.attr("docnumber") || node.attr("docreference")
-        if docnumber
-          xml.docidentifier docnumber, **{ type: "ogc-internal" }
-          xml.docnumber docnumber
-        end
+        id = node.attr("docidentifier") || docnumber
+        xml.docidentifier id, type: "ogc-internal"
+        docnumber and xml.docnumber docnumber
       end
 
       def externalurl(node)
@@ -153,7 +152,7 @@ module Metanorma
 
       def ogc_date(node, xml, ogcname, metanormaname)
         if node.attr(ogcname)
-          xml.date **{ type: metanormaname } do |d|
+          xml.date type: metanormaname do |d|
             d.on node.attr(ogcname)
           end
         end
