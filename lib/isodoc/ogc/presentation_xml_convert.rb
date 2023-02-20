@@ -203,13 +203,13 @@ module IsoDoc
         display_order_xpath(docxml, "//indexsect", i)
       end
 
-      def norm_ref_entry_code(_ordinal, _idents, _ids, _standard, _datefn)
+      def norm_ref_entry_code(_ordinal, _idents, _ids, _standard, _datefn, _bib)
         ""
       end
 
       # if ids is just a number, only use that ([1] Non-Standard)
       # else, use both ordinal, as prefix, and ids
-      def biblio_ref_entry_code(ordinal, ids, _id, standard, datefn)
+      def biblio_ref_entry_code(ordinal, ids, _id, standard, datefn, _bib)
         standard and return "[#{ordinal}]<tab/>"
         ret = (ids[:ordinal] || ids[:metanorma] || "[#{ordinal}]")
         prefix_bracketed_ref("#{ret}#{datefn}")
