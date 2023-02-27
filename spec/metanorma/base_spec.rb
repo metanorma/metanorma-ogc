@@ -54,7 +54,7 @@ RSpec.describe Metanorma::Ogc do
       :keywords: a, b, c
     INPUT
 
-    output = xmlpp(<<~"OUTPUT")
+    output = <<~"OUTPUT"
       <?xml version='1.0' encoding='UTF-8'?>
          <ogc-standard xmlns="https://www.metanorma.org/ns/ogc" type="semantic" version="#{Metanorma::Ogc::VERSION}">
          <bibdata type="standard">
@@ -160,8 +160,10 @@ RSpec.describe Metanorma::Ogc do
          </ogc-standard>
     OUTPUT
 
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
-      .to be_equivalent_to output
+    xml = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
+    xml.xpath("//xmlns:metanorma-extension").each(&:remove)
+    expect(xmlpp(strip_guid(xml.to_xml)))
+      .to be_equivalent_to xmlpp(output)
   end
 
   it "processes OGC synonyms for default metadata, default template for external-id, docidentifier override for internal-id" do
@@ -197,7 +199,7 @@ RSpec.describe Metanorma::Ogc do
       :docidentifier: OVERRIDE
     INPUT
 
-    output = xmlpp(<<~"OUTPUT")
+    output = <<~"OUTPUT"
       <ogc-standard xmlns="https://www.metanorma.org/ns/ogc" type="semantic" version="#{Metanorma::Ogc::VERSION}">
       <bibdata type="standard">
         <title language="en" format="text/plain">Main Title</title>
@@ -277,9 +279,11 @@ RSpec.describe Metanorma::Ogc do
       <sections/>
       </ogc-standard>
     OUTPUT
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS)
-      .sub(%r{<boilerplate.*</boilerplate>}m, ""))))
-      .to be_equivalent_to output
+    xml = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
+    xml.xpath("//xmlns:boilerplate | " \
+              "//xmlns:metanorma-extension").each(&:remove)
+    expect(xmlpp(strip_guid(xml.to_xml)))
+      .to be_equivalent_to xmlpp(output)
   end
 
   it "processes submitters" do
@@ -305,33 +309,8 @@ RSpec.describe Metanorma::Ogc do
       |===
     INPUT
 
-    output = xmlpp(<<~"OUTPUT")
+    output = <<~"OUTPUT"
           <ogc-standard xmlns="https://www.metanorma.org/ns/ogc" type="semantic" version="#{Metanorma::Ogc::VERSION}">
-      <bibdata type="standard">
-       <title language="en" format="text/plain">Document title</title>
-        <contributor>
-          <role type="publisher"/>
-          <organization>
-            <name>Open Geospatial Consortium</name>
-          </organization>
-        </contributor>
-        <language>en</language>
-        <script>Latn</script>
-        <status><stage>approved</stage></status>
-        <copyright>
-          <from>#{Date.today.year}</from>
-          <owner>
-            <organization>
-              <name>Open Geospatial Consortium</name>
-            </organization>
-          </owner>
-        </copyright>
-        <ext>
-        <doctype>standard</doctype>
-        <subdoctype>implementation</subdoctype>
-        </ext>
-      </bibdata>
-      #{BOILERPLATE}
       <preface><foreword id="_" obligation="informative">
       <title>Preface</title><p id="_">This is a preamble</p></foreword>
       <acknowledgements id='_' obligation='informative'>
@@ -366,8 +345,11 @@ RSpec.describe Metanorma::Ogc do
       </ogc-standard>
     OUTPUT
 
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
-      .to be_equivalent_to output
+    xml = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
+    xml.xpath("//xmlns:bibdata | //xmlns:boilerplate | " \
+              "//xmlns:metanorma-extension").each(&:remove)
+    expect(xmlpp(strip_guid(xml.to_xml)))
+      .to be_equivalent_to xmlpp(output)
   end
 
   it "processes References" do
@@ -379,41 +361,14 @@ RSpec.describe Metanorma::Ogc do
     INPUT
 
     output = xmlpp(<<~"OUTPUT")
-                <ogc-standard xmlns="https://www.metanorma.org/ns/ogc" type="semantic" version="#{Metanorma::Ogc::VERSION}">
-      <bibdata type="standard">
-      <title language="en" format="text/plain">Document title</title>
-        <contributor>
-          <role type="publisher"/>
-          <organization>
-            <name>Open Geospatial Consortium</name>
-          </organization>
-        </contributor>
-        <language>en</language>
-        <script>Latn</script>
-        <status><stage>approved</stage></status>
-        <copyright>
-          <from>#{Date.today.year}</from>
-          <owner>
-            <organization>
-              <name>Open Geospatial Consortium</name>
-            </organization>
-          </owner>
-        </copyright>
-        <ext>
-        <doctype>standard</doctype>
-        <subdoctype>implementation</subdoctype>
-        </ext>
-      </bibdata>
-      #{BOILERPLATE}
-      <preface>#{SECURITY}</preface>
-      <sections>
-      </sections><bibliography><references id="_" obligation="informative" normative="true">
+      <bibliography><references id="_" obligation="informative" normative="true">
         <title>Normative references</title>
         <p id="_">There are no normative references in this document.</p>
       </references></bibliography>
-      </ogc-standard>
     OUTPUT
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+    xml = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
+    xml = xml.at("//xmlns:bibliography")
+    expect(xmlpp(strip_guid(xml.to_xml)))
       .to be_equivalent_to output
   end
 
@@ -795,7 +750,7 @@ RSpec.describe Metanorma::Ogc do
       <clause id='_' obligation='normative'>
       <title>Terms, definitions, symbols and abbreviated terms</title>
       <p id='_'>This document uses the terms defined in
-        <link target='https://portal.ogc.org/public_ogc/directives/directives.php'>OGC Policy Directive 49</link>,#{' '}
+        <link target='https://portal.ogc.org/public_ogc/directives/directives.php'>OGC Policy Directive 49</link>,
         which is based on the ISO/IEC Directives, Part 2, Rules for the
         structure and drafting of International Standards. In particular, the
         word &#8220;shall&#8221; (not &#8220;must&#8221;) is the verb form used
