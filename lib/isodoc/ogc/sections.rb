@@ -3,7 +3,7 @@ module IsoDoc
     module BaseConvert
       def intro_clause(elem, out)
         out.div **{ class: "Section3", id: elem["id"] } do |div|
-          clause_name(nil, elem&.at(ns("./title")), div, class: "IntroTitle")
+          clause_name(elem, elem&.at(ns("./title")), div, class: "IntroTitle")
           elem.elements.each { |e| parse(e, div) unless e.name == "title" }
         end
       end
@@ -48,7 +48,7 @@ module IsoDoc
         f = isoxml.at(ns("//preface/abstract")) || return
         page_break(out)
         out.div **attr_code(id: f["id"]) do |s|
-          clause_name(nil, f&.at(ns("./title")), s, class: "AbstractTitle")
+          clause_name(f, f&.at(ns("./title")), s, class: "AbstractTitle")
           f.elements.each { |e| parse(e, s) unless e.name == "title" }
         end
       end
@@ -57,7 +57,7 @@ module IsoDoc
         f = isoxml.at(ns("//foreword")) || return
         page_break(out)
         out.div **attr_code(id: f["id"]) do |s|
-          clause_name(nil, f&.at(ns("./title")), s, class: "ForewordTitle")
+          clause_name(f, f&.at(ns("./title")), s, class: "ForewordTitle")
           f.elements.each { |e| parse(e, s) unless e.name == "title" }
         end
       end
@@ -70,7 +70,7 @@ module IsoDoc
       def conformance(isoxml, out, num)
         f = isoxml.at(ns("//clause[@type = 'conformance']")) or return num
         out.div **attr_code(id: f["id"]) do |div|
-          clause_name(nil, f&.at(ns("./title")), div, nil)
+          clause_name(f, f&.at(ns("./title")), div, nil)
           f.elements.each { |e| parse(e, div) unless e.name == "title" }
         end
         num
