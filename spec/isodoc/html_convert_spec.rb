@@ -881,7 +881,7 @@ RSpec.describe IsoDoc::Ogc do
 
     output = xmlpp(<<~"OUTPUT")
       <div id='H'>
-         <h1 id='toc0'>1.&#xA0; Terms, Definitions, Symbols and Abbreviated Terms</h1>
+         <h1 id='_'>1.&#xA0; Terms, Definitions, Symbols and Abbreviated Terms</h1>
          <h2 class='TermNum' style='text-align:left;' id='J'>1.1.&#xA0;Term2</h2>
          <p class='AltTerms'>
            Term2A&#xA0;
@@ -915,11 +915,11 @@ RSpec.describe IsoDoc::Ogc do
       .to be_equivalent_to xmlpp(presxml)
     IsoDoc::Ogc::HtmlConvert.new({ filename: "test" })
       .convert("test", presxml, false)
-    expect(xmlpp(
-             File.read("test.html")
-          .gsub(%r{^.*<div id="H">}m, '<div id="H">')
-          .gsub(%r{</div>.*}m, "</div>"),
-           )).to be_equivalent_to output
+    expect(xmlpp(strip_guid(
+                   File.read("test.html")
+                .gsub(%r{^.*<div id="H">}m, '<div id="H">')
+                .gsub(%r{</div>.*}m, "</div>"),
+                 ))).to be_equivalent_to output
   end
 
   it "processes admonitions" do
