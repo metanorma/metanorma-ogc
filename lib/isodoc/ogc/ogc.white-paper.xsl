@@ -3199,7 +3199,7 @@
 	<!-- ===================== -->
 	<!-- Table's row processing -->
 	<!-- ===================== -->
-	<!-- row in table header (thead) -->
+	<!-- row in table header (thead) thead/tr -->
 	<xsl:template match="*[local-name()='thead']/*[local-name()='tr']" priority="2">
 		<fo:table-row xsl:use-attribute-sets="table-header-row-style">
 
@@ -3233,7 +3233,7 @@
 		</xsl:choose>
 	</xsl:template>
 
-	<!-- row in table footer (tfoot) -->
+	<!-- row in table footer (tfoot), tfoot/tr -->
 	<xsl:template match="*[local-name()='tfoot']/*[local-name()='tr']" priority="2">
 		<fo:table-row xsl:use-attribute-sets="table-footer-row-style">
 
@@ -5789,7 +5789,10 @@
 	</xsl:template>
 
 	<xsl:template match="*[local-name() = 'callout']">
-		<fo:basic-link internal-destination="{@target}" fox:alt-text="{@target}">&lt;<xsl:apply-templates/>&gt;</fo:basic-link>
+		<xsl:choose>
+			<xsl:when test="normalize-space(@target) = ''">&lt;<xsl:apply-templates/>&gt;</xsl:when>
+			<xsl:otherwise><fo:basic-link internal-destination="{@target}" fox:alt-text="{@target}">&lt;<xsl:apply-templates/>&gt;</fo:basic-link></xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 
 	<xsl:template match="*[local-name() = 'annotation']">
