@@ -860,10 +860,10 @@ RSpec.describe IsoDoc::Ogc do
           <term id="J">
           <name>1.1.</name>
           <preferred>Term2</preferred>
-          <admitted>Term2A</admitted>
-          <admitted>Term2B</admitted>
-          <deprecates>Term2C</deprecates>
-          <deprecates>Term2D</deprecates>
+          <admitted>Term2A&#xa0;<span class="AdmittedLabel">ADMITTED</span></admitted>
+          <admitted>Term2B&#xa0;<span class="AdmittedLabel">ADMITTED</span></admitted>
+          <deprecates>Term2C&#xa0;<span class="AdmittedLabel">DEPRECATED</span></deprecates>
+          <deprecates>Term2D&#xa0;<span class="AdmittedLabel">DEPRECATED</span></deprecates>
           <termsource status='modified'>[<strong>SOURCE:</strong>
                  <origin bibitemid='ISO7301' type='inline' citeas='ISO 7301:2011'>
                    <locality type='clause'>
@@ -883,19 +883,19 @@ RSpec.describe IsoDoc::Ogc do
       <div id='H'>
          <h1 id='_'>1.&#xA0; Terms, Definitions, Symbols and Abbreviated Terms</h1>
          <h2 class='TermNum' style='text-align:left;' id='J'>1.1.&#xA0;Term2</h2>
-         <p class='AltTerms'>
+         <p class='AltTerms' style="text-align:left;">
            Term2A&#xA0;
            <span class='AdmittedLabel'>ADMITTED</span>
          </p>
-         <p class='AltTerms'>
+         <p class='AltTerms' style="text-align:left;">
            Term2B&#xA0;
            <span class='AdmittedLabel'>ADMITTED</span>
          </p>
-         <p class='DeprecatedTerms'>
+         <p class='DeprecatedTerms' style="text-align:left;">
            Term2C&#xA0;
            <span class='AdmittedLabel'>DEPRECATED</span>
          </p>
-         <p class='DeprecatedTerms'>
+         <p class='DeprecatedTerms' style="text-align:left;">
            Term2D&#xA0;
            <span class='AdmittedLabel'>DEPRECATED</span>
          </p>

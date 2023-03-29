@@ -215,6 +215,14 @@ module IsoDoc
         prefix_bracketed_ref("#{ret}#{datefn}")
       end
 
+      def deprecates(elem)
+        elem << "&#xa0;<span class='AdmittedLabel'>#{@i18n.deprecated}</span>"
+      end
+
+      def admits(elem)
+        elem << "&#xa0;<span class='AdmittedLabel'>#{@i18n.admitted}</span>"
+      end
+
       include Init
     end
   end
