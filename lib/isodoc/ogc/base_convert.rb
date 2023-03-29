@@ -49,26 +49,6 @@ module IsoDoc
         end
       end
 
-      def deprecated_term_parse(node, out)
-        out.p class: "DeprecatedTerms" do |p|
-          node.children.each { |c| parse(c, p) }
-          p << "&#xa0;"
-          p.span class: "AdmittedLabel" do |s|
-            s << l10n(@i18n.deprecated)
-          end
-        end
-      end
-
-      def admitted_term_parse(node, out)
-        out.p class: "AltTerms" do |p|
-          node.children.each { |c| parse(c, p) }
-          p << "&#xa0;"
-          p.span class: "AdmittedLabel" do |s|
-            s << l10n(@i18n.admitted)
-          end
-        end
-      end
-
       def example_parse(node, out)
         name = node.at(ns("./name"))
         example_name_parse(node, out, name) # if name
