@@ -93,6 +93,17 @@ module IsoDoc
 
         @anchors[ref["id"]] = { xref: "#{@anchors[ref['id']][:xref]} (draft)" }
       end
+
+      def sequential_permission_body(id, block, label, klass, model)
+        @anchors[block["id"]] = model.postprocess_anchor_struct(
+          block, anchor_struct(id, nil,
+                               label, klass, block["unnumbered"])
+        )
+        model.permission_parts(block, id, label, klass).each do |n|
+          @anchors[n[:id]] = anchor_struct(n[:number], nil, n[:label],
+                                           n[:klass], false)
+        end
+      end
     end
   end
 end
