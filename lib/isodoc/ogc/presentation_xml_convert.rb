@@ -5,6 +5,11 @@ require_relative "../../relaton/render/general"
 module IsoDoc
   module Ogc
     class PresentationXMLConvert < IsoDoc::PresentationXMLConvert
+      def initialize(options)
+        @libdir = File.dirname(__FILE__)
+        super
+      end
+
       def convert1(docxml, filename, dir)
         info docxml, nil
         insert_preface_sections(docxml)

@@ -4,6 +4,7 @@ RSpec.describe IsoDoc::Ogc do
   it "cross-references list items" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <bibdata/>
           <preface>
           <foreword>
           <p>
@@ -87,6 +88,7 @@ RSpec.describe IsoDoc::Ogc do
   it "cross-references list items of steps class" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <bibdata/>
           <preface>
           <foreword>
           <p>
@@ -165,6 +167,7 @@ RSpec.describe IsoDoc::Ogc do
   it "cross-references preface subclauses" do
     input = <<~INPUT
                   <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <bibdata/>
       <preface>
       <foreword>
       <p>
@@ -225,6 +228,7 @@ RSpec.describe IsoDoc::Ogc do
   it "cross-references preface subclauses" do
     input = <<~INPUT
                   <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <bibdata/>
       <preface>
       <foreword><title>Foreword</title>
       <p>
@@ -262,6 +266,7 @@ RSpec.describe IsoDoc::Ogc do
   it "cross-references requirements" do
     input = <<~INPUT
                   <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <bibdata/>
                   <preface>
           <foreword>
           <p>
@@ -346,6 +351,7 @@ RSpec.describe IsoDoc::Ogc do
   it "cross-references recommendations" do
     input = <<~INPUT
                   <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <bibdata/>
                   <preface>
           <foreword>
           <p>
@@ -430,6 +436,7 @@ RSpec.describe IsoDoc::Ogc do
   it "cross-references permissions" do
     input = <<~INPUT
                   <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <bibdata/>
                   <preface>
           <foreword>
           <p>
@@ -514,6 +521,7 @@ RSpec.describe IsoDoc::Ogc do
   it "labels and cross-references nested requirements" do
     input = <<~INPUT
               <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <bibdata/>
               <preface>
       <foreword>
       <p>

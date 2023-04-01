@@ -339,10 +339,11 @@ RSpec.describe IsoDoc::Ogc do
            <sections/>
       </ogc-standard>
     OUTPUT
-
-    expect(xmlpp(strip_guid(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
+    xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+          .convert("test", input, true))
+    xml.at("//xmlns:localized-strings").remove
+    xml.at("//xmlns:metanorma-extension").remove
+    expect(xmlpp(strip_guid(xml.to_xml)))
       .to be_equivalent_to xmlpp(presxml)
   end
 
@@ -375,10 +376,11 @@ RSpec.describe IsoDoc::Ogc do
          <sections/>
        </ogc-standard>
     OUTPUT
-
-    expect(xmlpp(strip_guid(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
+    xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+          .convert("test", input, true))
+    xml.at("//xmlns:localized-strings").remove
+    xml.at("//xmlns:metanorma-extension").remove
+    expect(xmlpp(strip_guid(xml.to_xml)))
       .to be_equivalent_to xmlpp(presxml)
   end
 
@@ -413,10 +415,11 @@ RSpec.describe IsoDoc::Ogc do
          <sections/>
        </ogc-standard>
     OUTPUT
-
-    expect(xmlpp(strip_guid(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
+    xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+          .convert("test", input, true))
+    xml.at("//xmlns:localized-strings").remove
+    xml.at("//xmlns:metanorma-extension").remove
+    expect(xmlpp(strip_guid(xml.to_xml)))
       .to be_equivalent_to xmlpp(presxml)
   end
 
@@ -451,10 +454,11 @@ RSpec.describe IsoDoc::Ogc do
          <sections/>
        </ogc-standard>
     OUTPUT
-
-    expect(xmlpp(strip_guid(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
+    xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+          .convert("test", input, true))
+    xml.at("//xmlns:localized-strings").remove
+    xml.at("//xmlns:metanorma-extension").remove
+    expect(xmlpp(strip_guid(xml.to_xml)))
       .to be_equivalent_to xmlpp(presxml)
   end
 
@@ -526,10 +530,11 @@ RSpec.describe IsoDoc::Ogc do
         </div>
       </body>
     OUTPUT
-
-    expect(xmlpp(strip_guid(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
+    xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+          .convert("test", input, true))
+    xml.at("//xmlns:localized-strings").remove
+    xml.at("//xmlns:metanorma-extension").remove
+    expect(xmlpp(strip_guid(xml.to_xml)))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(
              IsoDoc::Ogc::HtmlConvert.new({})
@@ -591,10 +596,11 @@ RSpec.describe IsoDoc::Ogc do
         </div>
       </body>
     OUTPUT
-
-    expect(xmlpp(strip_guid(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
+    xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+          .convert("test", input, true))
+    xml.at("//xmlns:localized-strings").remove
+    xml.at("//xmlns:metanorma-extension").remove
+    expect(xmlpp(strip_guid(xml.to_xml)))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(
              IsoDoc::Ogc::HtmlConvert.new({})
@@ -671,10 +677,11 @@ RSpec.describe IsoDoc::Ogc do
           </div>
         </body>
     OUTPUT
-
-    expect(xmlpp(strip_guid(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
+    xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+          .convert("test", input, true))
+    xml.at("//xmlns:localized-strings").remove
+    xml.at("//xmlns:metanorma-extension").remove
+    expect(xmlpp(strip_guid(xml.to_xml)))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", presxml, true)
@@ -781,10 +788,11 @@ RSpec.describe IsoDoc::Ogc do
         </div>
       </body>
     OUTPUT
-
-    expect(xmlpp(strip_guid(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)
-      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
+    xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+          .convert("test", input, true))
+    xml.at("//xmlns:localized-strings").remove
+    xml.at("//xmlns:metanorma-extension").remove
+    expect(xmlpp(strip_guid(xml.to_xml)))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", presxml, true)
@@ -833,6 +841,7 @@ RSpec.describe IsoDoc::Ogc do
   it "processes simple terms & definitions" do
     input = <<~"INPUT"
       <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+      <bibdata/>
         <sections>
         <terms id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title>
           <term id="J">
@@ -855,6 +864,7 @@ RSpec.describe IsoDoc::Ogc do
 
     presxml = <<~"INPUT"
       <ogc-standard xmlns="https://standards.opengeospatial.org/document" type='presentation'>
+      <bibdata/>
         <sections>
         <terms id="H" obligation="normative" displayorder='1'><title depth='1'>1.<tab/>Terms, Definitions, Symbols and Abbreviated Terms</title>
           <term id="J">
@@ -908,10 +918,11 @@ RSpec.describe IsoDoc::Ogc do
          </p>
        </div>
     OUTPUT
-
-    expect(xmlpp(strip_guid(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
-     .convert("test", input, true)
-     .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
+    xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+          .convert("test", input, true))
+    xml.at("//xmlns:localized-strings").remove
+    xml.at("//xmlns:metanorma-extension").remove
+    expect(xmlpp(strip_guid(xml.to_xml)))
       .to be_equivalent_to xmlpp(presxml)
     IsoDoc::Ogc::HtmlConvert.new({ filename: "test" })
       .convert("test", presxml, false)
@@ -925,6 +936,7 @@ RSpec.describe IsoDoc::Ogc do
   it "processes admonitions" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <bibdata/>
           <preface><foreword id="A"><title>Preface</title>
           <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" type="caution">
         <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
@@ -935,6 +947,7 @@ RSpec.describe IsoDoc::Ogc do
 
     presxml = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
+      <bibdata/>
            <preface>
              <foreword id='A' displayorder="1">
                <title depth='1'>I.<tab/>Preface</title>
@@ -960,9 +973,11 @@ RSpec.describe IsoDoc::Ogc do
             </div>
           </body>
     OUTPUT
-    expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)
-      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
+    xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+          .convert("test", input, true))
+    xml.at("//xmlns:localized-strings").remove
+    xml.at("//xmlns:metanorma-extension").remove
+    expect(xmlpp((xml.to_xml)))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", presxml, true)
@@ -973,6 +988,7 @@ RSpec.describe IsoDoc::Ogc do
   it "processes warning admonitions" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <bibdata/>
           <preface><foreword id="A"><title>Preface</title>
           <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" type="warning">
         <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
@@ -983,6 +999,7 @@ RSpec.describe IsoDoc::Ogc do
 
     presxml = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
+      <bibdata/>
            <preface>
              <foreword id='A' displayorder="1">
                <title depth='1'>I.<tab/>Preface</title>
@@ -1008,9 +1025,11 @@ RSpec.describe IsoDoc::Ogc do
             </div>
           </body>
     OUTPUT
-    expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)
-      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
+    xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+          .convert("test", input, true))
+    xml.at("//xmlns:localized-strings").remove
+    xml.at("//xmlns:metanorma-extension").remove
+    expect(xmlpp((xml.to_xml)))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", presxml, true)
@@ -1021,6 +1040,7 @@ RSpec.describe IsoDoc::Ogc do
   it "processes important admonitions" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <bibdata/>
           <preface><foreword id="A"><title>Preface</title>
           <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" type="important">
         <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
@@ -1031,6 +1051,7 @@ RSpec.describe IsoDoc::Ogc do
 
     presxml = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
+      <bibdata/>
            <preface>
              <foreword id='A' displayorder="1">
                <title depth='1'>I.<tab/>Preface</title>
@@ -1056,9 +1077,11 @@ RSpec.describe IsoDoc::Ogc do
             </div>
           </body>
     OUTPUT
-    expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)
-      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
+    xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+          .convert("test", input, true))
+    xml.at("//xmlns:localized-strings").remove
+    xml.at("//xmlns:metanorma-extension").remove
+    expect(xmlpp((xml.to_xml)))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", presxml, true)
@@ -1069,6 +1092,7 @@ RSpec.describe IsoDoc::Ogc do
   it "processes examples with titles" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <bibdata/>
           <preface><foreword id="A"><title>Preface</title>
                 <example id="_"><name>Example Title</name><p id="_">This is an example</p>
       <p id="_">Amen</p></example>
@@ -1077,6 +1101,7 @@ RSpec.describe IsoDoc::Ogc do
     INPUT
     presxml = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
+      <bibdata/>
         <preface>
           <foreword id='A' displayorder="1"><title depth='1'>I.<tab/>Preface</title>
             <example id='_'>
@@ -1103,10 +1128,11 @@ RSpec.describe IsoDoc::Ogc do
           </div>
         </body>
     OUTPUT
-    expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)
-      .gsub(%r{^.*<body}m, "<body")
-      .gsub(%r{</body>.*}m, "</body>")))
+    xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+          .convert("test", input, true))
+    xml.at("//xmlns:localized-strings").remove
+    xml.at("//xmlns:metanorma-extension").remove
+    expect(xmlpp(strip_guid(xml.to_xml)))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", presxml, true)
@@ -1117,6 +1143,7 @@ RSpec.describe IsoDoc::Ogc do
   it "processes examples without titles" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <bibdata/>
           <preface><foreword id="A">
                 <example id="_"><p id="_">This is an example</p>
       <p id="_">Amen</p></example>
@@ -1125,10 +1152,11 @@ RSpec.describe IsoDoc::Ogc do
     INPUT
     presxml = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
+      <bibdata/>
         <preface>
           <foreword id='A' displayorder="1"><title>I.</title>
             <example id='_'>
-              <name>Example </name>
+              <name>Example</name>
               <p id='_'>This is an example</p>
               <p id='_'>Amen</p>
             </example>
@@ -1151,9 +1179,11 @@ RSpec.describe IsoDoc::Ogc do
           </div>
         </body>
     OUTPUT
-    expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)
-      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
+    xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+          .convert("test", input, true))
+    xml.at("//xmlns:localized-strings").remove
+    xml.at("//xmlns:metanorma-extension").remove
+    expect(xmlpp(strip_guid(xml.to_xml)))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", presxml, true)
@@ -1574,10 +1604,11 @@ RSpec.describe IsoDoc::Ogc do
       </body>
     OUTPUT
 
-    expect(xmlpp(strip_guid(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)
-      .sub(%r{<localized-strings>.*</localized-strings>}m, "")
-      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))))
+    xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+          .convert("test", input, true))
+    xml.at("//xmlns:localized-strings").remove
+    xml.at("//xmlns:metanorma-extension").remove
+    expect(xmlpp(strip_guid(xml.to_xml)))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(
              IsoDoc::Ogc::HtmlConvert.new({}).convert("test", presxml, true)
@@ -1672,5 +1703,100 @@ RSpec.describe IsoDoc::Ogc do
     html = File.read("test.html", encoding: "utf-8")
     expect(html).to match(%r{jquery\.min\.js})
     expect(html).to match(%r{Overpass})
+  end
+
+  it "processes preprocessing XSLT" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <bibdata/>
+      <preface>
+      <foreword id="A">
+      <note id="B"><p>Hello</p></note>
+      </foreword>
+      </preface>
+      <sections>
+      <clause id="C"><title>Clause</title>
+      <note id="D"><p>Hello</p></note>
+      </clause>
+      </sections>
+      </iso-standard>
+    INPUT
+    presxml = <<~OUTPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+               <bibdata/>
+         <metanorma-extension>
+           <render>
+             <preprocess-xslt>
+               <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:mn="http://riboseinc.com/isoxml" version="1.0">
+                 <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no"/>
+                 <xsl:preserve-space elements="*"/>
+                 <xsl:template match="@* | node()">
+                   <xsl:copy>
+                     <xsl:apply-templates select="@* | node()"/>
+                   </xsl:copy>
+                 </xsl:template>
+                 <xsl:template match="mn:note/mn:name">
+                   <xsl:copy>
+                     <xsl:apply-templates select="@*|node()"/>
+                     <xsl:if test="normalize-space() != ''">:<mn:tab/></xsl:if>
+                   </xsl:copy>
+                 </xsl:template>
+               </xsl:stylesheet>
+             </preprocess-xslt>
+           </render>
+         </metanorma-extension>
+        <preface>
+          <foreword id="A" displayorder="1">
+            <title>I.</title>
+            <note id="B">
+              <name>NOTE</name>
+              <p>Hello</p>
+            </note>
+          </foreword>
+        </preface>
+        <sections>
+          <clause id="C" displayorder="2">
+            <title depth="1">
+              1.
+              <tab/>
+              Clause
+            </title>
+            <note id="D">
+              <name>NOTE</name>
+              <p>Hello</p>
+            </note>
+          </clause>
+        </sections>
+      </iso-standard>
+    OUTPUT
+    html = <<~OUTPUT
+      <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US" class="container"><div class="title-section"><p> </p></div><br/><div class="prefatory-section"><p> </p></div><br/><div class="main-section"><br/><div id="A"><h1 class="ForewordTitle">I.</h1><div id="B" class="Note"><p><span class="note_label">NOTE:  </span>  Hello</p></div></div><p class="zzSTDTitle1"/><div id="C"><h1>
+          1.
+           
+          Clause
+        </h1><div id="D" class="Note"><p><span class="note_label">NOTE:  </span>  Hello</p></div></div></div></body>
+    OUTPUT
+    word = <<~OUTPUT
+      <body lang="EN-US" link="blue" vlink="#954F72"><div class="WordSection1"><p> </p></div><p><br clear="all" class="section"/></p><div class="WordSection2"><p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div id="A"><h1 class="ForewordTitle">I.</h1><div id="B" class="Note"><p class="Note"><span class="note_label">NOTE:<span style="mso-tab-count:1">  </span></span><span style="mso-tab-count:1">  </span>Hello</p></div></div><p> </p></div><p><br clear="all" class="section"/></p><div class="WordSection3"><p class="zzSTDTitle1"/><div id="C"><h1>
+          1.
+          <span style="mso-tab-count:1">  </span>
+          Clause
+        </h1><div id="D" class="Note"><p class="Note"><span class="note_label">NOTE:<span style="mso-tab-count:1">  </span></span><span style="mso-tab-count:1">  </span>Hello</p></div></div></div></body>
+    OUTPUT
+    xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+          .convert("test", input, true))
+    xml.at("//xmlns:localized-strings").remove
+    expect(xmlpp(strip_guid(xml.to_xml)))
+      .to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(
+             IsoDoc::Ogc::HtmlConvert.new({}).convert("test", presxml, true)
+             .gsub(%r{^.*<body}m, "<body")
+             .gsub(%r{</body>.*}m, "</body>"),
+           )).to be_equivalent_to xmlpp(html)
+    expect(xmlpp(
+             IsoDoc::Ogc::WordConvert.new({}).convert("test", presxml, true)
+             .gsub(%r{^.*<body}m, "<body")
+      .gsub(%r{</body>.*}m, "</body>"),
+           )).to be_equivalent_to xmlpp(word)
   end
 end
