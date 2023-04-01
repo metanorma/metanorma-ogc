@@ -1707,7 +1707,7 @@ RSpec.describe IsoDoc::Ogc do
 
   it "processes preprocessing XSLT" do
     input = <<~INPUT
-      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <iso-standard xmlns="https://www.metanorma.org/ns/ogc">
       <bibdata/>
       <preface>
       <foreword id="A">
@@ -1722,52 +1722,56 @@ RSpec.describe IsoDoc::Ogc do
       </iso-standard>
     INPUT
     presxml = <<~OUTPUT
-      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-               <bibdata/>
-         <metanorma-extension>
-           <render>
-             <preprocess-xslt>
-               <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:mn="http://riboseinc.com/isoxml" version="1.0">
-                 <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no"/>
-                 <xsl:preserve-space elements="*"/>
-                 <xsl:template match="@* | node()">
-                   <xsl:copy>
-                     <xsl:apply-templates select="@* | node()"/>
-                   </xsl:copy>
-                 </xsl:template>
-                 <xsl:template match="mn:note/mn:name">
-                   <xsl:copy>
-                     <xsl:apply-templates select="@*|node()"/>
-                     <xsl:if test="normalize-space() != ''">:<mn:tab/></xsl:if>
-                   </xsl:copy>
-                 </xsl:template>
-               </xsl:stylesheet>
-             </preprocess-xslt>
-           </render>
-         </metanorma-extension>
-        <preface>
-          <foreword id="A" displayorder="1">
-            <title>I.</title>
-            <note id="B">
-              <name>NOTE</name>
-              <p>Hello</p>
-            </note>
-          </foreword>
-        </preface>
-        <sections>
-          <clause id="C" displayorder="2">
-            <title depth="1">
-              1.
-              <tab/>
-              Clause
-            </title>
-            <note id="D">
-              <name>NOTE</name>
-              <p>Hello</p>
-            </note>
-          </clause>
-        </sections>
-      </iso-standard>
+      <iso-standard xmlns="https://www.metanorma.org/ns/ogc" type="presentation">
+                     <bibdata/>
+               <metanorma-extension>
+                 <render>
+                 <preprocess-xslt format="html,doc">
+        <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:mn="https://www.metanorma.org/ns/ogc" version="1.0">
+          <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no"/>
+          <xsl:preserve-space elements="*"/>
+          <xsl:template match="@* | node()">
+            <xsl:copy><xsl:apply-templates select="@* | node()"/></xsl:copy>
+          </xsl:template>
+          <xsl:template match="mn:note/mn:name">
+            <xsl:copy><xsl:apply-templates select="@*|node()"/><xsl:if test="normalize-space() != ''">:<mn:tab/></xsl:if></xsl:copy>
+          </xsl:template>
+        </xsl:stylesheet>
+      </preprocess-xslt>
+      <preprocess-xslt format="pdf">
+        <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:mn="https://www.metanorma.org/ns/ogc" version="1.0">
+          <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no"/>
+          <xsl:preserve-space elements="*"/>
+          <xsl:template match="mn:note/mn:name">
+            <xsl:copy><xsl:apply-templates select="@*|node()"/><xsl:if test="normalize-space() != ''">:<mn:tab/></xsl:if></xsl:copy>
+          </xsl:template>
+        </xsl:stylesheet>
+      </preprocess-xslt>
+                 </render>
+               </metanorma-extension>
+              <preface>
+                <foreword id="A" displayorder="1">
+                  <title>I.</title>
+                  <note id="B">
+                    <name>NOTE</name>
+                    <p>Hello</p>
+                  </note>
+                </foreword>
+              </preface>
+              <sections>
+                <clause id="C" displayorder="2">
+                  <title depth="1">
+                    1.
+                    <tab/>
+                    Clause
+                  </title>
+                  <note id="D">
+                    <name>NOTE</name>
+                    <p>Hello</p>
+                  </note>
+                </clause>
+              </sections>
+            </iso-standard>
     OUTPUT
     html = <<~OUTPUT
       <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US" class="container"><div class="title-section"><p> </p></div><br/><div class="prefatory-section"><p> </p></div><br/><div class="main-section"><br/><div id="A"><h1 class="ForewordTitle">I.</h1><div id="B" class="Note"><p><span class="note_label">NOTE:  </span>  Hello</p></div></div><p class="zzSTDTitle1"/><div id="C"><h1>
