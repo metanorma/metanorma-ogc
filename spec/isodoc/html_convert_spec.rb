@@ -8,7 +8,7 @@ logoloc = File.expand_path(
 RSpec.describe IsoDoc::Ogc do
   it "processes default metadata" do
     csdc = IsoDoc::Ogc::HtmlConvert.new({})
-    input = <<~"INPUT"
+    input = <<~INPUT
       <ogc-standard xmlns="https://standards.opengeospatial.org/document">
       <bibdata type="standard">
         <title language="en" format="text/plain">Main Title</title>
@@ -164,7 +164,7 @@ RSpec.describe IsoDoc::Ogc do
 
   it "processes metadata with new logo" do
     csdc = IsoDoc::Ogc::HtmlConvert.new({})
-    input = <<~"INPUT"
+    input = <<~INPUT
       <ogc-standard xmlns="https://standards.opengeospatial.org/document">
       <bibdata type="standard">
         <title language="en" format="text/plain">Main Title</title>
@@ -212,7 +212,7 @@ RSpec.describe IsoDoc::Ogc do
 
   it "uses new logo for invalid data" do
     csdc = IsoDoc::Ogc::HtmlConvert.new({})
-    input = <<~"INPUT"
+    input = <<~INPUT
       <ogc-standard xmlns="https://standards.opengeospatial.org/document">
       <bibdata type="standard">
         <title language="en" format="text/plain">Main Title</title>
@@ -748,7 +748,7 @@ RSpec.describe IsoDoc::Ogc do
       </ogc-standard>
     OUTPUT
 
-    output = <<~"OUTPUT"
+    output = <<~OUTPUT
           <body lang='EN-US' xml:lang='EN-US' link='blue' vlink='#954F72' class='container'>
         <div class='title-section'>
           <p>&#160;</p>
@@ -816,7 +816,7 @@ RSpec.describe IsoDoc::Ogc do
              </ogc-standard>
     OUTPUT
 
-    output = <<~"OUTPUT"
+    output = <<~OUTPUT
       <meta name="keywords" content="ABC, DEF"/>
       <meta name="description" content="This is a description. This is a blockquote within a description."/>
     OUTPUT
@@ -831,7 +831,7 @@ RSpec.describe IsoDoc::Ogc do
   end
 
   it "processes simple terms & definitions" do
-    input = <<~"INPUT"
+    input = <<~INPUT
       <ogc-standard xmlns="https://standards.opengeospatial.org/document">
         <sections>
         <terms id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title>
@@ -853,7 +853,7 @@ RSpec.describe IsoDoc::Ogc do
          </ogc-standard>
     INPUT
 
-    presxml = <<~"INPUT"
+    presxml = <<~INPUT
       <ogc-standard xmlns="https://standards.opengeospatial.org/document" type='presentation'>
         <sections>
         <terms id="H" obligation="normative" displayorder='1'><title depth='1'>1.<tab/>Terms, Definitions, Symbols and Abbreviated Terms</title>
@@ -879,7 +879,7 @@ RSpec.describe IsoDoc::Ogc do
          </ogc-standard>
     INPUT
 
-    output = xmlpp(<<~"OUTPUT")
+    output = xmlpp(<<~OUTPUT)
       <div id='H'>
          <h1 id='_'>1.&#xA0; Terms, Definitions, Symbols and Abbreviated Terms</h1>
          <h2 class='TermNum' style='text-align:left;' id='J'>1.1.&#xA0;Term2</h2>
@@ -1162,7 +1162,7 @@ RSpec.describe IsoDoc::Ogc do
   end
 
   it "processes section names" do
-    input = <<~"INPUT"
+    input = <<~INPUT
       <ogc-standard xmlns="https://standards.opengeospatial.org/document">
         <bibdata>
         <keyword>A</keyword>
@@ -1653,7 +1653,7 @@ RSpec.describe IsoDoc::Ogc do
 
   it "injects JS into blank html" do
     system "rm -f test.html"
-    input = <<~"INPUT"
+    input = <<~INPUT
       = Document title
       Author
       :docfile: test.adoc

@@ -14,7 +14,7 @@ RSpec.describe Metanorma::Ogc::Processor do
   end
 
   it "registers output formats against metanorma" do
-    output = <<~"OUTPUT"
+    output = <<~OUTPUT
       [[:doc, "doc"], [:html, "html"], [:pdf, "pdf"], [:presentation, "presentation.xml"], [:rxl, "rxl"], [:xml, "xml"]]
     OUTPUT
 
@@ -43,7 +43,7 @@ RSpec.describe Metanorma::Ogc::Processor do
 
   it "generates HTML from IsoDoc XML" do
     FileUtils.rm_f "test.xml"
-    input = <<~"INPUT"
+    input = <<~INPUT
       <ogc-standard xmlns="https://standards.opengeospatial.org/document">
         <sections>
           <terms id="H" obligation="normative"><title>1.<tab/>Terms, Definitions, Symbols and Abbreviated Terms</title>
@@ -56,7 +56,7 @@ RSpec.describe Metanorma::Ogc::Processor do
       </ogc-standard>
     INPUT
 
-    output = xmlpp(<<~"OUTPUT")
+    output = xmlpp(<<~OUTPUT)
       <main class="main-section">
         <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
         <p class="zzSTDTitle1"></p>

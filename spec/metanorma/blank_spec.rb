@@ -19,7 +19,7 @@ RSpec.describe Metanorma::Ogc do
   end
 
   it "converts a blank document" do
-    input = <<~"INPUT"
+    input = <<~INPUT
       = Document title
       Author
       :docfile: test.adoc
