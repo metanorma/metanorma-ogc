@@ -373,12 +373,18 @@ RSpec.describe IsoDoc::Ogc do
                   <bibitem id="zip_ffs"><formattedref format="application/x-isodoc+xml">Title 5</formattedref><docidentifier type="metanorma">[5]</docidentifier>
                   <biblio-tag/>
                   </bibitem>
-                     <bibitem id='ogc1'>
-                       <formattedref>Robert Thomas, Terry Idol: OGC&#xa0;19-025r1, <em>Development of Spatial Data Infrastructures for Marine Data Management</em>. Open Geospatial Consortium (2019). <link target='https://portal.opengeospatial.org/files/?artifact id=88037'>https://portal.opengeospatial.org/files/?artifact id=88037</link>.</formattedref>
-                       <uri type='obp'>https://portal.opengeospatial.org/files/?artifact_id=88037</uri>
-                      <docidentifier type='OGC'>OGC&#xa0;19-025r1</docidentifier>
-                      <biblio-tag/>
-         </bibitem>
+                               <bibitem id="ogc1">
+               <formattedref>
+                 Robert Thomas, Terry Idol: OGC 19-025r1,
+                 <em>Development of Spatial Data Infrastructures for Marine Data Management</em>
+                 . Open Geospatial Consortium (2019).
+                 <link target="https://portal.opengeospatial.org/files/?artifact_id=88037">https://portal.opengeospatial.org/files/?artifact_id=88037</link>
+                 .
+               </formattedref>
+               <uri type="obp">https://portal.opengeospatial.org/files/?artifact_id=88037</uri>
+               <docidentifier type="OGC">OGC 19-025r1</docidentifier>
+               <biblio-tag/>
+             </bibitem>
          <bibitem id='ogc2'>
            <formattedref>Geodan Holding bv, the Netherlands: OGC&#xa0;00-027, <em>Conformance Test Guidelines for OpenGIS Catalog Services Specification for CORBA</em>. Open Geospatial Consortium (2000).</formattedref>
            <docidentifier type='OGC'>OGC&#xa0;00-027</docidentifier>
@@ -524,7 +530,7 @@ RSpec.describe IsoDoc::Ogc do
                Robert Thomas, Terry Idol: OGC&#xa0;19-025r1,
                <i>Development of Spatial Data Infrastructures for Marine Data Management</i>
                . Open Geospatial Consortium (2019).
-               <a href='https://portal.opengeospatial.org/files/?artifact id=88037'>https://portal.opengeospatial.org/files/?artifact id=88037</a>
+               <a href='https://portal.opengeospatial.org/files/?artifact_id=88037'>https://portal.opengeospatial.org/files/?artifact_id=88037</a>
                .
              </p>
              <p id='ogc2' class='NormRef'>
