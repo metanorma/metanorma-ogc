@@ -46,6 +46,8 @@
 			<xsl:otherwise>rgb(246, 223, 140)</xsl:otherwise>
 		</xsl:choose>
 	</xsl:variable>
+	<xsl:variable name="color_dl_dt">rgb(215,243,255)</xsl:variable>
+	<xsl:variable name="color_dl_dd">rgb(242,251,255)</xsl:variable>
 	<xsl:variable name="color_blue">rgb(33, 55, 92)</xsl:variable>
 
 	<xsl:variable name="toc_recommendations_">
@@ -845,9 +847,8 @@
 	</xsl:template>
 
 	<!-- ====== -->
-	<!-- title      -->
+	<!-- title  -->
 	<!-- ====== -->
-
 	<xsl:template match="ogc:title" name="title">
 
 		<xsl:variable name="level">
@@ -957,9 +958,9 @@
 				</xsl:element>
 			</xsl:otherwise>
 		</xsl:choose>
-
 	</xsl:template>
 	<!-- ====== -->
+	<!-- END: title  -->
 	<!-- ====== -->
 
 	<xsl:template match="ogc:p" name="paragraph">
@@ -993,6 +994,9 @@
 			</xsl:if>
 			<xsl:if test="ancestor::ogc:dd and not(ancestor::ogc:table)">
 				<xsl:attribute name="margin-bottom">4pt</xsl:attribute>
+				<xsl:if test="not(ancestor::ogc:dd[1]/following-sibling::ogc:dt)">
+					<xsl:attribute name="margin-bottom">0pt</xsl:attribute>
+				</xsl:if>
 			</xsl:if>
 
 			<xsl:apply-templates>
@@ -2180,6 +2184,13 @@
 	<!-- ========================== -->
 	<!-- Definition's list styles -->
 	<!-- ========================== -->
+
+	<xsl:attribute-set name="dl-block-style">
+
+			<xsl:attribute name="margin-bottom">8pt</xsl:attribute>
+
+	</xsl:attribute-set>
+
 	<xsl:attribute-set name="dt-row-style">
 
 			<xsl:attribute name="min-height">8.5mm</xsl:attribute>
@@ -2187,6 +2198,11 @@
 	</xsl:attribute-set>
 
 	<xsl:attribute-set name="dt-cell-style">
+
+			<xsl:attribute name="padding-top">0.5mm</xsl:attribute>
+			<xsl:attribute name="padding-right">5mm</xsl:attribute>
+			<xsl:attribute name="padding-left">1mm</xsl:attribute>
+
 	</xsl:attribute-set>
 
 	<xsl:attribute-set name="dt-block-style">
@@ -2207,6 +2223,9 @@
 
 	<xsl:attribute-set name="dd-cell-style">
 		<xsl:attribute name="padding-left">2mm</xsl:attribute>
+
+			<xsl:attribute name="padding-top">0.5mm</xsl:attribute>
+
 	</xsl:attribute-set>
 
 	<!-- ========================== -->
@@ -4552,13 +4571,25 @@
 		<xsl:variable name="isAdded" select="@added"/>
 		<xsl:variable name="isDeleted" select="@deleted"/>
 		<!-- <dl><xsl:copy-of select="."/></dl> -->
-		<fo:block-container>
+		<fo:block-container xsl:use-attribute-sets="dl-block-style">
 
 			<xsl:call-template name="setBlockSpanAll"/>
 
 					<xsl:if test="not(ancestor::*[local-name() = 'quote'])">
 						<xsl:attribute name="margin-left">0mm</xsl:attribute>
 					</xsl:if>
+
+			<xsl:if test="ancestor::*[local-name() = 'sourcecode']">
+				<!-- set font-size as sourcecode font-size -->
+				<xsl:variable name="sourcecode_attributes">
+					<xsl:call-template name="get_sourcecode_attributes"/>
+				</xsl:variable>
+				<xsl:for-each select="xalan:nodeset($sourcecode_attributes)/sourcecode_attributes/@font-size">
+					<xsl:attribute name="{local-name()}">
+						<xsl:value-of select="."/>
+					</xsl:attribute>
+				</xsl:for-each>
+			</xsl:if>
 
 			<xsl:if test="parent::*[local-name() = 'note']">
 				<xsl:attribute name="margin-left">
@@ -4993,6 +5024,11 @@
 		<xsl:param name="split_keep-within-line"/>
 
 		<fo:table-row xsl:use-attribute-sets="dt-row-style">
+
+				<xsl:if test="not(following-sibling::ogc:dt) or ancestor::ogc:sourcecode"> <!-- last item -->
+					<xsl:attribute name="min-height">3mm</xsl:attribute>
+				</xsl:if>
+
 			<xsl:call-template name="insert_dt_cell">
 				<xsl:with-param name="key_iso" select="$key_iso"/>
 				<xsl:with-param name="split_keep-within-line" select="$split_keep-within-line"/>
@@ -5014,7 +5050,16 @@
 				<!-- border is mandatory, to calculate real width -->
 				<xsl:attribute name="border">0.1pt solid black</xsl:attribute>
 				<xsl:attribute name="text-align">left</xsl:attribute>
+
+					<xsl:attribute name="padding-left">6mm</xsl:attribute>
+					<!-- <xsl:attribute name="padding-left">6.5mm</xsl:attribute> -->
+
 			</xsl:if>
+
+				<xsl:if test="not(ancestor::ogc:sourcecode)">
+					<!-- <xsl:attribute name="border-left">1pt solid <xsl:value-of select="$color_design"/></xsl:attribute> -->
+					<xsl:attribute name="background-color"><xsl:value-of select="$color_dl_dt"/></xsl:attribute>
+				</xsl:if>
 
 			<fo:block xsl:use-attribute-sets="dt-block-style">
 				<xsl:copy-of select="@id"/>
@@ -5022,6 +5067,13 @@
 				<xsl:if test="normalize-space($key_iso) = 'true'">
 					<xsl:attribute name="margin-top">0</xsl:attribute>
 				</xsl:if>
+
+					<xsl:if test="ancestor::ogc:sourcecode">
+						<xsl:attribute name="margin-bottom">2pt</xsl:attribute>
+					</xsl:if>
+					<xsl:if test="not(following-sibling::ogc:dt)"> <!-- last dt -->
+						<xsl:attribute name="margin-bottom">0</xsl:attribute>
+					</xsl:if>
 
 				<xsl:apply-templates>
 					<xsl:with-param name="split_keep-within-line" select="$split_keep-within-line"/>
@@ -5041,6 +5093,10 @@
 				<!-- border is mandatory, to calculate real width -->
 				<xsl:attribute name="border">0.1pt solid black</xsl:attribute>
 			</xsl:if>
+
+				<xsl:if test="not(ancestor::ogc:sourcecode)">
+					<xsl:attribute name="background-color"><xsl:value-of select="$color_dl_dd"/></xsl:attribute>
+				</xsl:if>
 
 			<fo:block>
 
@@ -8138,8 +8194,10 @@
 								<xsl:attribute name="margin-bottom">0pt</xsl:attribute>
 							</xsl:if>
 
-							<xsl:apply-templates select="node()[not(local-name() = 'name')]"/>
+							<xsl:apply-templates select="node()[not(local-name() = 'name' or local-name() = 'dl')]"/>
 						</fo:block>
+
+						<xsl:apply-templates select="*[local-name() = 'dl']"/> <!-- Key table -->
 
 								<xsl:apply-templates select="*[local-name()='name']"/> <!-- show sourcecode's name AFTER content -->
 
@@ -8176,11 +8234,22 @@
 	<!-- add sourcecode highlighting -->
 	<xsl:template match="*[local-name()='sourcecode']//*[local-name()='span'][@class]" priority="2">
 		<xsl:variable name="class" select="@class"/>
+
+		<!-- Example: <1> -->
+		<xsl:variable name="is_callout">
+			<xsl:if test="parent::*[local-name() = 'dt']">
+				<xsl:variable name="dt_id" select="../@id"/>
+				<xsl:if test="ancestor::*[local-name() = 'sourcecode']//*[local-name() = 'callout'][@target = $dt_id]">true</xsl:if>
+			</xsl:if>
+		</xsl:variable>
+
 		<xsl:choose>
 			<xsl:when test="$sourcecode_css//class[@name = $class]">
 				<fo:inline>
 					<xsl:apply-templates select="$sourcecode_css//class[@name = $class]" mode="css"/>
+					<xsl:if test="$is_callout = 'true'">&lt;</xsl:if>
 					<xsl:apply-templates/>
+					<xsl:if test="$is_callout = 'true'">&gt;</xsl:if>
 				</fo:inline>
 			</xsl:when>
 			<xsl:otherwise>
@@ -8610,6 +8679,10 @@
 		<fo:block xsl:use-attribute-sets="subject-style">
 			<xsl:text>Target Type </xsl:text><xsl:apply-templates/>
 		</fo:block>
+	</xsl:template>
+
+	<xsl:template match="*[local-name() = 'div']">
+		<fo:block><xsl:apply-templates/></fo:block>
 	</xsl:template>
 
 	<xsl:template match="*[local-name() = 'inherit'] | *[local-name() = 'component'][@class = 'inherit'] |           *[local-name() = 'div'][@type = 'requirement-inherit'] |           *[local-name() = 'div'][@type = 'recommendation-inherit'] |           *[local-name() = 'div'][@type = 'permission-inherit']">
@@ -10550,6 +10623,23 @@
 	<xsl:template match="*[local-name() = 'stem'] | *[local-name() = 'image']" mode="update_xml_step1">
 		<xsl:copy-of select="."/>
 	</xsl:template>
+
+	<!-- add @id, redundant for table auto-layout algorithm -->
+	<xsl:template match="*[local-name() = 'dl' or local-name() = 'table'][not(@id)]" mode="update_xml_step1">
+		<xsl:copy>
+			<xsl:copy-of select="@*"/>
+			<xsl:call-template name="add_id"/>
+			<xsl:apply-templates mode="update_xml_step1"/>
+		</xsl:copy>
+	</xsl:template>
+
+	<xsl:template name="add_id">
+		<xsl:if test="not(@id)">
+			<!-- add @id - first element with @id plus '_element_name' -->
+			<xsl:attribute name="id"><xsl:value-of select="(.//*[@id])[1]/@id"/>_<xsl:value-of select="local-name()"/></xsl:attribute>
+		</xsl:if>
+	</xsl:template>
+
 	<!-- =========================================================================== -->
 	<!-- END STEP1: Re-order elements in 'preface', 'sections' based on @displayorder -->
 	<!-- =========================================================================== -->
