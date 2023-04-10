@@ -332,7 +332,7 @@ RSpec.describe IsoDoc::Ogc do
                   </bibdata>
                   <preface><foreword id="A" displayorder="1">
                   <title depth='1'>I.<tab/>Preface</title>
-                <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">
+                  <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">
                 <eref bibitemid="ISO712">[110]</eref>
                 <eref bibitemid="ISBN">[1]</eref>
                 <eref bibitemid="ISSN">[2]</eref>
@@ -623,9 +623,11 @@ RSpec.describe IsoDoc::Ogc do
          </div>
        </body>
     OUTPUT
-    expect(xmlpp(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input, true)
-      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
+    xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+          .convert("test", input, true))
+    xml.at("//xmlns:localized-strings").remove
+    xml.at("//xmlns:metanorma-extension").remove
+    expect(xmlpp((xml.to_xml)))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", presxml, true)
