@@ -5737,6 +5737,54 @@
 		<xsl:value-of select="."/><xsl:value-of select="$zero_width_space"/>
 	</xsl:template>
 
+	<!-- special case for:
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<mstyle displaystyle="true">
+				<msup>
+					<mi color="#00000000">C</mi>
+					<mtext>R</mtext>
+				</msup>
+				<msubsup>
+					<mtext>C</mtext>
+					<mi>n</mi>
+					<mi>k</mi>
+				</msubsup>
+			</mstyle>
+		</math>
+	-->
+	<xsl:template match="mathml:msup/mathml:mi[. = '‌' or . = ''][not(preceding-sibling::*)][following-sibling::mathml:mtext]" mode="mathml">
+		<xsl:copy>
+			<xsl:copy-of select="@*"/>
+			<xsl:variable name="next_mtext" select="ancestor::mathml:msup/following-sibling::*[1][self::mathml:msubsup or self::mathml:msub or self::mathml:msup]/mathml:mtext"/>
+			<xsl:if test="string-length($next_mtext) != ''">
+				<xsl:attribute name="color">#00000000</xsl:attribute>
+			</xsl:if>
+			<xsl:apply-templates/>
+			<xsl:value-of select="$next_mtext"/>
+		</xsl:copy>
+	</xsl:template>
+
+	<!-- special case for:
+				<msup>
+					<mtext/>
+					<mn>1</mn>
+				</msup>
+		convert to (add mspace after mtext and enclose them into mrow):
+			<msup>
+				<mrow>
+					<mtext/>
+					<mspace height="1.47ex"/>
+				</mrow>
+				<mn>1</mn>
+			</msup>
+	-->
+	<xsl:template match="mathml:msup/mathml:mtext[not(preceding-sibling::*)]" mode="mathml">
+		<mathml:mrow>
+			<xsl:copy-of select="."/>
+			<mathml:mspace height="1.47ex"/>
+		</mathml:mrow>
+	</xsl:template>
+
 	<!-- Examples: 
 		<stem type="AsciiMath">x = 1</stem> 
 		<stem type="AsciiMath"><asciimath>x = 1</asciimath></stem>
@@ -9494,7 +9542,7 @@
 		<xsl:for-each select="*[local-name() = 'tab']">
 			<xsl:variable name="current_id" select="generate-id()"/>
 			<fo:table-cell>
-				<fo:block>
+				<fo:block line-height-shift-adjustment="disregard-shifts">
 					<xsl:call-template name="insert_basic_link">
 						<xsl:with-param name="element">
 							<fo:basic-link internal-destination="{$target}" fox:alt-text="{.}">
