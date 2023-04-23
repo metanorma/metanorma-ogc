@@ -336,6 +336,11 @@ RSpec.describe IsoDoc::Ogc do
                <doctype>community-practice</doctype>
              </ext>
            </bibdata>
+           <preface>
+               <clause type="toc" id="_" displayorder="1">
+            <title depth="1">Contents</title>
+          </clause>
+           </preface>
            <sections/>
       </ogc-standard>
     OUTPUT
@@ -373,6 +378,7 @@ RSpec.describe IsoDoc::Ogc do
              <doctype>community-practice</doctype>
            </ext>
          </bibdata>
+           <preface> <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause> </preface>
          <sections/>
        </ogc-standard>
     OUTPUT
@@ -412,6 +418,7 @@ RSpec.describe IsoDoc::Ogc do
              <doctype>technical-paper</doctype>
            </ext>
          </bibdata>
+           <preface> <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause> </preface>
          <sections/>
        </ogc-standard>
     OUTPUT
@@ -451,6 +458,7 @@ RSpec.describe IsoDoc::Ogc do
              <doctype>white-paper</doctype>
            </ext>
          </bibdata>
+           <preface> <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause> </preface>
          <sections/>
        </ogc-standard>
     OUTPUT
@@ -465,7 +473,9 @@ RSpec.describe IsoDoc::Ogc do
   it "processes pre" do
     input = <<~"INPUT"
       <ogc-standard xmlns="#{Metanorma::Ogc::DOCUMENT_NAMESPACE}">
-      <preface><foreword id="A"><title>Preface</title>
+      <preface>
+      <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
+      <foreword id="A"><title>Preface</title>
       <pre>ABC</pre>
       </foreword></preface>
       </ogc-standard>
@@ -509,7 +519,8 @@ RSpec.describe IsoDoc::Ogc do
              <keyword>DEF</keyword>
            </bibdata>
            <preface>
-             <clause id="_" type='keywords' displayorder="1">
+               <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
+             <clause id="_" type='keywords' displayorder="2">
                <title depth='1'>I.<tab/>Keywords</title>
                <p>The following are keywords to be used by search engines and document catalogues.</p>
                <p>ABC, DEF</p>
@@ -565,10 +576,11 @@ RSpec.describe IsoDoc::Ogc do
                  <keyword>DEF</keyword>
                </bibdata>
                <preface>
-               <abstract id='A' displayorder="1">
+                   <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
+               <abstract id='A' displayorder="2">
         <title>I.</title>
       </abstract>
-                 <clause id="_" type='keywords' displayorder="2">
+                 <clause id="_" type='keywords' displayorder="3">
                    <title depth='1'>II.<tab/>Keywords</title>
                    <p>The following are keywords to be used by search engines and document catalogues.</p>
                    <p>ABC, DEF</p>
@@ -648,7 +660,8 @@ RSpec.describe IsoDoc::Ogc do
                </contributor>
             </bibdata>
             <preface>
-        <clause id='_' type='submitting_orgs' displayorder="1">
+                <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
+        <clause id='_' type='submitting_orgs' displayorder="2">
           <title depth='1'>I.<tab/>Submitting Organizations</title>
           <p>The following organizations submitted this Document to the Open
             Geospatial Consortium (OGC):</p>
@@ -731,13 +744,14 @@ RSpec.describe IsoDoc::Ogc do
                </contributor>
             </bibdata>
             <preface>
-                 <abstract id='A' displayorder="1">
+                <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
+                 <abstract id='A' displayorder="2">
                    <title>I.</title>
                  </abstract>
-                 <clause type='security' id='B' displayorder="2">
+                 <clause type='security' id='B' displayorder="3">
         <title>II.</title>
       </clause>
-                 <clause id='_' type='submitting_orgs' displayorder="3">
+                 <clause id='_' type='submitting_orgs' displayorder="4">
                    <title depth='1'>
                      III.
                      <tab/>
@@ -767,6 +781,10 @@ RSpec.describe IsoDoc::Ogc do
         <br/>
         <div class='main-section'>
           <br/>
+          <div id="_" class="TOC">
+          <h1 class="IntroTitle">Contents</h1>
+        </div>
+        <br/>
           <div id='A'>
             <h1 class='AbstractTitle'>I.</h1>
           </div>
@@ -811,10 +829,11 @@ RSpec.describe IsoDoc::Ogc do
                  </abstract>
                </bibdata>
                <preface>
-               <abstract id='A' displayorder="1">
+                <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
+               <abstract id='A' displayorder="2">
         <title>I.</title>
       </abstract>
-                 <clause id="_" type='keywords' displayorder="2">
+                 <clause id="_" type='keywords' displayorder="3">
                    <title depth='1'>II.<tab/>Keywords</title>
                    <p>The following are keywords to be used by search engines and document catalogues.</p>
                    <p>ABC, DEF</p>
@@ -865,8 +884,9 @@ RSpec.describe IsoDoc::Ogc do
     presxml = <<~INPUT
       <ogc-standard xmlns="https://standards.opengeospatial.org/document" type='presentation'>
       <bibdata/>
+        <preface> <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause></preface>
         <sections>
-        <terms id="H" obligation="normative" displayorder='1'><title depth='1'>1.<tab/>Terms, Definitions, Symbols and Abbreviated Terms</title>
+        <terms id="H" obligation="normative" displayorder='2'><title depth='1'>1.<tab/>Terms, Definitions, Symbols and Abbreviated Terms</title>
           <term id="J">
           <name>1.1.</name>
           <preferred>Term2</preferred>
@@ -949,11 +969,12 @@ RSpec.describe IsoDoc::Ogc do
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
       <bibdata/>
            <preface>
-             <foreword id='A' displayorder="1">
+            <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
+             <foreword id='A' displayorder="2">
                <title depth='1'>I.<tab/>Preface</title>
-               <admonition id='_70234f78-64e5-4dfc-8b6f-f3f037348b6a' type='caution'>
+               <admonition id='_' type='caution'>
                <name>CAUTION</name>
-                 <p id='_e94663cc-2473-4ccc-9a72-983a74d989f2'>Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+                 <p id='_'>Only use paddy or parboiled rice for the determination of husked rice yield.</p>
                </admonition>
              </foreword>
            </preface>
@@ -965,8 +986,8 @@ RSpec.describe IsoDoc::Ogc do
               <br/>
               <div id="A">
                 <h1 class="ForewordTitle">I.&#160; Preface</h1>
-                <div  id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">CAUTION</p>
-        <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+                <div  id="_" class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">CAUTION</p>
+        <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
       </div>
               </div>
               <p class="zzSTDTitle1"/>
@@ -977,7 +998,7 @@ RSpec.describe IsoDoc::Ogc do
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
     xml.at("//xmlns:metanorma-extension").remove
-    expect(xmlpp((xml.to_xml)))
+    expect(xmlpp(strip_guid(xml.to_xml)))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", presxml, true)
@@ -1001,11 +1022,12 @@ RSpec.describe IsoDoc::Ogc do
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
       <bibdata/>
            <preface>
-             <foreword id='A' displayorder="1">
+            <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
+             <foreword id='A' displayorder="2">
                <title depth='1'>I.<tab/>Preface</title>
-               <admonition id='_70234f78-64e5-4dfc-8b6f-f3f037348b6a' type='warning'>
+               <admonition id='_' type='warning'>
                <name>WARNING</name>
-                 <p id='_e94663cc-2473-4ccc-9a72-983a74d989f2'>Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+                 <p id='_'>Only use paddy or parboiled rice for the determination of husked rice yield.</p>
                </admonition>
              </foreword>
            </preface>
@@ -1017,8 +1039,8 @@ RSpec.describe IsoDoc::Ogc do
               <br/>
               <div id="A">
                 <h1 class="ForewordTitle">I.&#160; Preface</h1>
-                <div id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" class="Admonition.Warning"><p class="AdmonitionTitle" style="text-align:center;">WARNING</p>
-        <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+                <div id="_" class="Admonition.Warning"><p class="AdmonitionTitle" style="text-align:center;">WARNING</p>
+        <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
       </div>
               </div>
               <p class="zzSTDTitle1"/>
@@ -1029,7 +1051,7 @@ RSpec.describe IsoDoc::Ogc do
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
     xml.at("//xmlns:metanorma-extension").remove
-    expect(xmlpp((xml.to_xml)))
+    expect(xmlpp(strip_guid(xml.to_xml)))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", presxml, true)
@@ -1053,11 +1075,12 @@ RSpec.describe IsoDoc::Ogc do
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
       <bibdata/>
            <preface>
-             <foreword id='A' displayorder="1">
+            <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
+             <foreword id='A' displayorder="2">
                <title depth='1'>I.<tab/>Preface</title>
-               <admonition id='_70234f78-64e5-4dfc-8b6f-f3f037348b6a' type='important'>
+               <admonition id='_' type='important'>
                <name>IMPORTANT</name>
-                 <p id='_e94663cc-2473-4ccc-9a72-983a74d989f2'>Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+                 <p id='_'>Only use paddy or parboiled rice for the determination of husked rice yield.</p>
                </admonition>
              </foreword>
            </preface>
@@ -1069,8 +1092,8 @@ RSpec.describe IsoDoc::Ogc do
               <br/>
               <div id="A">
                 <h1 class="ForewordTitle">I.&#160; Preface</h1>
-                <div  id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" class="Admonition.Important"><p class="AdmonitionTitle" style="text-align:center;">IMPORTANT</p>
-        <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+                <div  id="_" class="Admonition.Important"><p class="AdmonitionTitle" style="text-align:center;">IMPORTANT</p>
+        <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
       </div>
               </div>
               <p class="zzSTDTitle1"/>
@@ -1081,7 +1104,7 @@ RSpec.describe IsoDoc::Ogc do
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
     xml.at("//xmlns:metanorma-extension").remove
-    expect(xmlpp((xml.to_xml)))
+    expect(xmlpp(strip_guid(xml.to_xml)))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", presxml, true)
@@ -1103,7 +1126,8 @@ RSpec.describe IsoDoc::Ogc do
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
       <bibdata/>
         <preface>
-          <foreword id='A' displayorder="1"><title depth='1'>I.<tab/>Preface</title>
+         <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
+          <foreword id='A' displayorder="2"><title depth='1'>I.<tab/>Preface</title>
             <example id='_'>
               <name>Example&#xA0;&#x2014; Example Title</name>
               <p id='_'>This is an example</p>
@@ -1154,7 +1178,8 @@ RSpec.describe IsoDoc::Ogc do
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
       <bibdata/>
         <preface>
-          <foreword id='A' displayorder="1"><title>I.</title>
+         <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
+          <foreword id='A' displayorder="2"><title>I.</title>
             <example id='_'>
               <name>Example</name>
               <p id='_'>This is an example</p>
@@ -1335,49 +1360,50 @@ RSpec.describe IsoDoc::Ogc do
       </contributor>
            </bibdata>
            <preface>
-            <abstract obligation="informative" id="1" displayorder="1"><title depth="1">I.<tab/>Abstract</title>
+               <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
+            <abstract obligation="informative" id="1" displayorder="2"><title depth="1">I.<tab/>Abstract</title>
             <p>XYZ</p>
-            </abstract><clause id="DD0" obligation="normative" type="executivesummary" displayorder="2">
+            </abstract><clause id="DD0" obligation="normative" type="executivesummary" displayorder="3">
               <title depth="1">II.<tab/>Executive Summary</title>
               <p id="EE0">Text</p>
-            </clause><clause id="_" type="keywords" displayorder="3">
+            </clause><clause id="_" type="keywords" displayorder="4">
          <title depth="1">III.<tab/>Keywords</title>
          <p>The following are keywords to be used by search engines and
              document catalogues.</p>
          <p>A, B</p></clause>
-           <foreword obligation="informative" id="2" displayorder="4"><title depth="1">IV.<tab/>Preface</title>
+           <foreword obligation="informative" id="2" displayorder="5"><title depth="1">IV.<tab/>Preface</title>
               <p id="A">This is a preamble</p>
-            </foreword><clause id="DD1" obligation="normative" type="security" displayorder="5">
+            </foreword><clause id="DD1" obligation="normative" type="security" displayorder="6">
               <title depth="1">V.<tab/>Security</title>
               <p id="EE1">Text</p>
             </clause>
-            <clause id="_" type="submitting_orgs" displayorder="6">
+            <clause id="_" type="submitting_orgs" displayorder="7">
              <title depth="1">VI.<tab/>Submitting Organizations</title>
              <p>The following organizations submitted this Document to the
                 Open Geospatial Consortium (OGC):</p>
                 <ul> <li>OGC</li> <li>DEF</li> </ul>
                 </clause>
-            <submitters obligation="informative" id="3" displayorder="7">
+            <submitters obligation="informative" id="3" displayorder="8">
             <title depth="1">VII.<tab/>Submitters</title>
             <p>ABC</p>
             </submitters>
-            <clause id="5" displayorder="8"><title depth="1">VIII.<tab/>Dedication</title>
+            <clause id="5" displayorder="9"><title depth="1">VIII.<tab/>Dedication</title>
             <clause id="6"><title depth="2">VIII.A.<tab/>Note to readers</title></clause>
              </clause>
-            <acknowledgements obligation="informative" id="4" displayorder="9">
+            <acknowledgements obligation="informative" id="4" displayorder="10">
             <title depth="1">IX.<tab/>Acknowlegements</title>
             <p>ABC</p>
             </acknowledgements>
              </preface><sections>
-            <clause id="D" obligation="normative" type="scope" displayorder="10">
+            <clause id="D" obligation="normative" type="scope" displayorder="11">
               <title depth="1">1.<tab/>Scope</title>
               <p id="E">Text</p>
             </clause>
-            <clause id="D1" obligation="normative" type="conformance" displayorder="11">
+            <clause id="D1" obligation="normative" type="conformance" displayorder="12">
               <title depth="1">2.<tab/>Conformance</title>
               <p id="E1">Text</p>
             </clause>
-            <clause id="H" obligation="normative" displayorder="13"><title depth="1">4.<tab/>Terms, definitions, symbols and abbreviated terms</title><terms id="I" obligation="normative">
+            <clause id="H" obligation="normative" displayorder="14"><title depth="1">4.<tab/>Terms, definitions, symbols and abbreviated terms</title><terms id="I" obligation="normative">
               <title depth="2">4.1.<tab/>Normal Terms</title>
               <term id="J"><name>4.1.1.</name>
               <preferred>Term2</preferred>
@@ -1390,19 +1416,19 @@ RSpec.describe IsoDoc::Ogc do
               </dl>
             </definitions>
             </clause>
-            <definitions id="L" displayorder="14"><title depth="1">5.<tab/>Definitions</title>
+            <definitions id="L" displayorder="15"><title depth="1">5.<tab/>Definitions</title>
               <dl>
               <dt>Symbol</dt>
               <dd>Definition</dd>
               </dl>
             </definitions>
-            <clause id="M" inline-header="false" obligation="normative" displayorder="15"><title depth="1">6.<tab/>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
+            <clause id="M" inline-header="false" obligation="normative" displayorder="16"><title depth="1">6.<tab/>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
               <title depth="2">6.1.<tab/>Introduction</title>
             </clause>
             <clause id="O" inline-header="false" obligation="normative">
               <title depth="2">6.2.<tab/>Clause 4.2</title>
             </clause></clause>
-            </sections><annex id="P" inline-header="false" obligation="normative" displayorder="16">
+            </sections><annex id="P" inline-header="false" obligation="normative" displayorder="17">
               <title><strong>Annex A</strong><br/>(normative)<br/><strong>Annex</strong></title>
               <clause id="Q" inline-header="false" obligation="normative">
               <title depth="2">A.1.<tab/>Annex A.1</title>
@@ -1411,7 +1437,7 @@ RSpec.describe IsoDoc::Ogc do
               </clause>
             </clause>
             </annex>
-            <annex id="PP" obligation="normative" displayorder="17">
+            <annex id="PP" obligation="normative" displayorder="18">
            <title><strong>Annex B</strong><br/>(normative)<br/><strong>Glossary</strong></title>
            <terms id="PP1" obligation="normative">
              <term id="term-glossary"><name>B.1.</name>
@@ -1419,7 +1445,7 @@ RSpec.describe IsoDoc::Ogc do
              </term>
            </terms>
          </annex>
-         <annex id="QQ" obligation="normative" displayorder="18">
+         <annex id="QQ" obligation="normative" displayorder="19">
                     <title><strong>Annex C</strong><br/>(normative)<br/><strong>Glossary</strong></title>
                       <terms id="QQ1" obligation="normative">
                         <title depth="2">C.1.<tab/>Term Collection</title>
@@ -1434,9 +1460,9 @@ RSpec.describe IsoDoc::Ogc do
                         </term>
                       </terms>
                   </annex>
-             <bibliography><references id="R" obligation="informative" normative="true" displayorder="12">
+             <bibliography><references id="R" obligation="informative" normative="true" displayorder="13">
               <title depth="1">3.<tab/>Normative References</title>
-            </references><clause id="S" obligation="informative" displayorder="19">
+            </references><clause id="S" obligation="informative" displayorder="20">
               <title depth="1">Bibliography</title>
               <references id="T" obligation="informative" normative="false">
               <title depth="2">Bibliography Subsection</title>
@@ -1620,7 +1646,8 @@ RSpec.describe IsoDoc::Ogc do
   it "processes hi" do
     presxml = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
-          <preface><foreword id="A"><title>Preface</title>
+          <preface> <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
+        <foreword id="A"><title>Preface</title>
       <p id="_">Amen <hi>highlight</hi> Amen</p>
           </foreword></preface>
           </iso-standard>
@@ -1654,6 +1681,12 @@ RSpec.describe IsoDoc::Ogc do
              <p>
                <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
              </p>
+                 <div class="TOC" id="_">
+            <p class="zzContents">Contents</p>
+          </div>
+          <p>
+            <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+          </p>
              <div id='A'>
                <h1 class='ForewordTitle'>Preface</h1>
                <p id='_'>
@@ -1741,7 +1774,8 @@ RSpec.describe IsoDoc::Ogc do
                  </render>
                </metanorma-extension>
               <preface>
-                <foreword id="A" displayorder="1">
+                  <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
+                <foreword id="A" displayorder="2">
                   <title>I.</title>
                   <note id="B">
                     <name>NOTE</name>
@@ -1750,7 +1784,7 @@ RSpec.describe IsoDoc::Ogc do
                 </foreword>
               </preface>
               <sections>
-                <clause id="C" displayorder="2">
+                <clause id="C" displayorder="3">
                   <title depth="1">
                     1.
                     <tab/>
@@ -1765,14 +1799,25 @@ RSpec.describe IsoDoc::Ogc do
             </iso-standard>
     OUTPUT
     html = <<~OUTPUT
-      <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US" class="container"><div class="title-section"><p> </p></div><br/><div class="prefatory-section"><p> </p></div><br/><div class="main-section"><br/><div id="A"><h1 class="ForewordTitle">I.</h1><div id="B" class="Note"><p><span class="note_label">NOTE:  </span>  Hello</p></div></div><p class="zzSTDTitle1"/><div id="C"><h1>
+      <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US" class="container"><div class="title-section"><p> </p></div><br/><div class="prefatory-section"><p> </p></div><br/><div class="main-section">    <br/>
+        <div class="TOC" id="_">
+          <h1 class="IntroTitle">Contents</h1>
+        </div>
+        <br/><div id="A"><h1 class="ForewordTitle">I.</h1><div id="B" class="Note"><p><span class="note_label">NOTE:  </span>  Hello</p></div></div><p class="zzSTDTitle1"/><div id="C"><h1>
           1.
            
           Clause
         </h1><div id="D" class="Note"><p><span class="note_label">NOTE:  </span>  Hello</p></div></div></div></body>
     OUTPUT
     word = <<~OUTPUT
-      <body lang="EN-US" link="blue" vlink="#954F72"><div class="WordSection1"><p> </p></div><p><br clear="all" class="section"/></p><div class="WordSection2"><p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p><div id="A"><h1 class="ForewordTitle">I.</h1><div id="B" class="Note"><p class="Note"><span class="note_label">NOTE:<span style="mso-tab-count:1">  </span></span><span style="mso-tab-count:1">  </span>Hello</p></div></div><p> </p></div><p><br clear="all" class="section"/></p><div class="WordSection3"><p class="zzSTDTitle1"/><div id="C"><h1>
+      <body lang="EN-US" link="blue" vlink="#954F72"><div class="WordSection1"><p> </p></div><p><br clear="all" class="section"/></p><div class="WordSection2"><p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
+          <div class="TOC" id="_">
+      <p class="zzContents">Contents</p>
+      </div>
+      <p>
+       <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
+      </p>
+        <div id="A"><h1 class="ForewordTitle">I.</h1><div id="B" class="Note"><p class="Note"><span class="note_label">NOTE:<span style="mso-tab-count:1">  </span></span><span style="mso-tab-count:1">  </span>Hello</p></div></div><p> </p></div><p><br clear="all" class="section"/></p><div class="WordSection3"><p class="zzSTDTitle1"/><div id="C"><h1>
           1.
           <span style="mso-tab-count:1">  </span>
           Clause

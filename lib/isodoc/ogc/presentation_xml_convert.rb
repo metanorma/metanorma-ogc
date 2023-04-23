@@ -12,12 +12,16 @@ module IsoDoc
 
       def convert1(docxml, filename, dir)
         info docxml, nil
-        insert_preface_sections(docxml)
         super
       end
 
       def rouge_css_location
         File.read(File.join(@libdir, "html", "rouge.css"))
+      end
+
+      def preface_rearrange(doc)
+        super
+        insert_preface_sections(doc)
       end
 
       def insert_preface_sections(doc)
@@ -39,8 +43,7 @@ module IsoDoc
       end
 
       def preface_insert(clause, after, docxml)
-        return unless clause
-
+        clause or return
         clause.remove
         if after then after.next = clause
         else
@@ -126,9 +129,9 @@ module IsoDoc
       end
 
       def clause1(elem)
-        return if elem.name == "terms" && elem.parent.name == "annex" &&
-          elem.parent.xpath(ns("./terms")).size == 1
-
+        elem.name == "terms" && elem.parent.name == "annex" &&
+          elem.parent.xpath(ns("./terms")).size == 1 and return
+        elem.name == "clause" && elem["type"] == "toc" and return
         super
       end
 

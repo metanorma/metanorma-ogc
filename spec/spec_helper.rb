@@ -49,6 +49,7 @@ end
 def strip_guid(xml)
   xml.gsub(%r{ id="_[^"]+"}, ' id="_"')
     .gsub(%r{ target="_[^"]+"}, ' target="_"')
+    .gsub(%r{ name="_[^"]+"}, ' name="_"')
 end
 
 def htmlencode(xml)
@@ -226,6 +227,10 @@ HTML_HDR = <<~"HDR".freeze
   </div>
   <br/>
   <div class="main-section">
+    <br/>
+      <div class="TOC" id="_">
+      <h1 class="IntroTitle">Contents</h1>
+    </div>
 HDR
 
 WORD_HDR = <<~"HDR".freeze

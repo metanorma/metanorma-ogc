@@ -2,6 +2,7 @@ module Metanorma
   module Ogc
     class Converter < Standoc::Converter
       def validate(doc)
+        @doctype = doc.at("//bibdata/ext/doctype")&.text
         content_validate(doc)
         schema_validate(formattedstr_strip(doc.dup),
                         File.join(File.dirname(__FILE__), "ogc.rng"))
@@ -22,12 +23,13 @@ module Metanorma
       end
 
       def stage_validate(xmldoc)
+        @doctype == "engineering-report" and return
         stage = xmldoc&.at("//bibdata/status/stage")&.text
         %w(draft swg-draft oab-review public-rfc tc-vote work-item-draft
            approved deprecated retired rescinded).include? stage or
           @log.add("Document Attributes", nil,
                    "#{stage} is not a recognised status")
-        stage_type_validate(stage, xmldoc&.at("//bibdata/ext/doctype")&.text)
+        stage_type_validate(stage, @doctype)
       end
 
       def stage_type_validate(stage, doctype)
@@ -47,23 +49,21 @@ module Metanorma
 
       def version_validate(xmldoc)
         version = xmldoc.at("//bibdata/edition")&.text
-        doctype = xmldoc.at("//bibdata/ext/doctype")&.text
-        if %w(engineering-report discussion-paper).include? doctype
+        if %w(engineering-report discussion-paper).include? @doctype
           version.nil? or @log.add("Document Attributes", nil,
-                                   "Version not permitted for #{doctype}")
+                                   "Version not permitted for #{@doctype}")
         else
           version.nil? and @log.add("Document Attributes", nil,
-                                    "Version required for #{doctype}")
+                                    "Version required for #{@doctype}")
         end
       end
 
       def execsummary_validate(xmldoc)
-        doctype = xmldoc.at("//bibdata/ext/doctype")&.text
         sect = xmldoc.at("//clause[@type = 'executivesummary']")
-        doctype == "engineering-report" && sect.nil? and
+        @doctype == "engineering-report" && sect.nil? and
           @log.add("Style", nil,
                    "Executive Summary required for Engineering Reports!")
-        doctype != "engineering-report" && !sect.nil? and
+        @doctype != "engineering-report" && !sect.nil? and
           @log.add("Style", nil,
                    "Executive Summary only allowed for Engineering Reports!")
       end
@@ -109,9 +109,7 @@ module Metanorma
       end
 
       def sections_sequence_validate(root)
-        return unless STANDARDTYPE.include?(
-          root.at("//bibdata/ext/doctype")&.text,
-        )
+        return unless STANDARDTYPE.include?(@doctype)
 
         names = root.xpath("//sections/* | //bibliography/*")
         names = seqcheck(names, SEQ[0][:msg], SEQ[0][:val])
@@ -132,6 +130,7 @@ module Metanorma
       end
 
       def preface_sequence_validate(root)
+        @doctype == "engineering-report" and return
         root.at("//preface/abstract") or @log.add("Style", nil,
                                                   "Abstract is missing!")
         root.at("//bibdata/keyword | //bibdata/ext/keyword") or
@@ -143,6 +142,14 @@ module Metanorma
           @log.add("Style", nil, "Submitting Organizations is missing!")
         root.at("//submitters") or @log.add("Style", nil,
                                             "Submitters is missing!")
+      end
+
+      def norm_ref_validate(doc)
+        @doctype == "engineering-report" or return super
+        doc.xpath("//references[@normative = 'true']").each do |b|
+          @log.add("Bibliography", b,
+                   "Engineering report should not contain normative references")
+        end
       end
     end
   end

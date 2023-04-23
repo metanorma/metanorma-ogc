@@ -1,70 +1,70 @@
 module IsoDoc
   module Ogc
     module BaseConvert
+      def front(isoxml, out)
+        p = isoxml.at(ns("//preface")) or return
+        p.elements.each do |e|
+          if is_clause?(e.name)
+            case e.name
+            when "abstract" then abstract e, out
+            when "foreword" then foreword e, out
+            when "introduction" then introduction e, out
+            when "submitters" then intro_clause e, out
+            when "clause" then preface e, out
+            when "acknowledgements" then acknowledgements e, out
+            end
+          else
+            preface_block(e, out)
+          end
+        end
+      end
+
+      def preface(clause, out)
+        case clause["type"]
+        when "toc"
+          table_of_contents(clause, out)
+        when "executivesummary", "security", "submitting_orgs",
+          "keywords"
+          intro_clause(clause, out)
+        else
+          intro_clause(clause, out)
+        end
+      end
+
       def intro_clause(elem, out)
-        out.div **{ class: "Section3", id: elem["id"] } do |div|
-          clause_name(elem, elem&.at(ns("./title")), div, class: "IntroTitle")
-          elem.elements.each { |e| parse(e, div) unless e.name == "title" }
+        out.div class: "Section3", id: elem["id"] do |div|
+          clause_name(elem, elem&.at(ns("./title")), div,
+                      class: "IntroTitle")
+          elem.elements.each do |e|
+            parse(e, div) unless e.name == "title"
+          end
         end
       end
 
-      def keywords(docxml, out)
-        f = docxml.at(ns("//preface/clause[@type = 'keywords']")) || return
-        intro_clause(f, out)
-      end
-
-      def submittingorgs(docxml, out)
-        f = docxml.at(ns("//preface/clause[@type = 'submitting_orgs']")) or
-          return
-        intro_clause(f, out)
-      end
-
-      def security(docxml, out)
-        f = docxml.at(ns("//preface/clause[@type = 'security']")) or return
-        intro_clause(f, out)
-      end
-
-      def executivesummary(docxml, out)
-        f = docxml.at(ns("//preface/clause[@type = 'executivesummary']")) or
-          return
-        intro_clause(f, out)
-      end
-
-      def submitters(docxml, out)
-        f = docxml.at(ns("//submitters")) || return
-        intro_clause(f, out)
-      end
-
-      def preface(isoxml, out)
-        isoxml.xpath(ns("//preface/clause[not(@type = 'keywords' or "\
-                        "@type = 'submitting_orgs' or @type = 'security' or "\
-                        "@type = 'executivesummary')]"))
-          .each do |f|
-          intro_clause(f, out)
-        end
-      end
-
-      def abstract(isoxml, out)
-        f = isoxml.at(ns("//preface/abstract")) || return
+      def abstract(clause, out)
         page_break(out)
-        out.div **attr_code(id: f["id"]) do |s|
-          clause_name(f, f&.at(ns("./title")), s, class: "AbstractTitle")
-          f.elements.each { |e| parse(e, s) unless e.name == "title" }
+        out.div **attr_code(id: clause["id"]) do |s|
+          clause_name(clause, clause.at(ns("./title")), s,
+                      class: "AbstractTitle")
+          clause.elements.each do |e|
+            parse(e, s) unless e.name == "title"
+          end
         end
       end
 
-      def foreword(isoxml, out)
-        f = isoxml.at(ns("//foreword")) || return
+      def foreword(clause, out)
         page_break(out)
-        out.div **attr_code(id: f["id"]) do |s|
-          clause_name(f, f&.at(ns("./title")), s, class: "ForewordTitle")
-          f.elements.each { |e| parse(e, s) unless e.name == "title" }
+        out.div **attr_code(id: clause["id"]) do |s|
+          clause_name(clause, clause&.at(ns("./title")), s,
+                      class: "ForewordTitle")
+          clause.elements.each do |e|
+            parse(e, s) unless e.name == "title"
+          end
         end
       end
 
-      def acknowledgements(isoxml, out)
-        f = isoxml.at(ns("//acknowledgements")) || return
-        intro_clause(f, out)
+      def acknowledgements(clause, out)
+        intro_clause(clause, out)
       end
 
       def conformance(isoxml, out, num)

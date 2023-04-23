@@ -330,9 +330,12 @@ RSpec.describe IsoDoc::Ogc do
                   <bibdata>
                   <language current="true">en</language>
                   </bibdata>
-                  <preface><foreword id="A" displayorder="1">
+                  <preface>    <clause type="toc" id="_" displayorder="1">
+                  <title depth="1">Contents</title>
+                  </clause>
+                <foreword id="A" displayorder="2">
                   <title depth='1'>I.<tab/>Preface</title>
-                  <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">
+                  <p id="_">
                 <eref bibitemid="ISO712">[110]</eref>
                 <eref bibitemid="ISBN">[1]</eref>
                 <eref bibitemid="ISSN">[2]</eref>
@@ -346,7 +349,7 @@ RSpec.describe IsoDoc::Ogc do
       <eref bibitemid='ogc3'>OGC&#xa0;05-020r27 (draft)</eref>
                 </p>
                   </foreword></preface>
-                  <bibliography><references id="_normative_references" obligation="informative" normative="true" displayorder="2"><title depth="1">1.<tab/>Normative References</title>
+                  <bibliography><references id="_" obligation="informative" normative="true" displayorder="3"><title depth="1">1.<tab/>Normative References</title>
                   <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
               <bibitem id="ISO712" type="standard">
                 <formattedref>ISO: ISO&#xa0;712, <em>Cereals and cereal products</em>. International Organization for Standardization</formattedref>
@@ -401,7 +404,7 @@ RSpec.describe IsoDoc::Ogc do
            </status>
            <biblio-tag/>
          </bibitem>
-              </references><references id="_bibliography" obligation="informative" normative="false" displayorder="3">
+              </references><references id="_" obligation="informative" normative="false" displayorder="4">
                 <title depth="1">Bibliography</title>
                 <bibitem id='ISBN' type='book'>
                 <formattedref><em>Chemicals for analytical laboratory use</em>. ISBN Publishers, n.p. (n.d.).</formattedref>
@@ -468,7 +471,7 @@ RSpec.describe IsoDoc::Ogc do
                  <br/>
            <div id='A'>
              <h1 class='ForewordTitle'>I.&#xa0; Preface</h1>
-             <p id='_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f'>
+             <p id='_'>
                <a href='#ISO712'>[110]</a>
                <a href='#ISBN'>[1]</a>
                <a href='#ISSN'>[2]</a>
@@ -627,7 +630,7 @@ RSpec.describe IsoDoc::Ogc do
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
     xml.at("//xmlns:metanorma-extension").remove
-    expect(xmlpp((xml.to_xml)))
+    expect(xmlpp(strip_guid(xml.to_xml)))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", presxml, true)

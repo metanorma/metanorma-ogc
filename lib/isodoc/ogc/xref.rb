@@ -31,7 +31,7 @@ module IsoDoc
         end
         doc.xpath(ns("//preface/clause[not(@type = 'keywords' or " \
                      "@type = 'submitting_orgs' or @type = 'security' or " \
-                     "@type = 'executivesummary')]"))
+                     "@type = 'executivesummary' or @type = 'toc')]"))
           .each { |c| preface_names_numbered(c) }
         preface_names_numbered(doc.at(ns("//acknowledgements")))
         sequential_asset_names(

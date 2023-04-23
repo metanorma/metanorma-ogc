@@ -66,7 +66,7 @@ RSpec.describe IsoDoc::Ogc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <foreword displayorder='1'>
+      <foreword displayorder='2'>
         <p>
           <xref target='N1'>Introduction, a)</xref>
           <xref target='N2'>Clause II.A, 1)</xref>
@@ -150,7 +150,7 @@ RSpec.describe IsoDoc::Ogc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <foreword displayorder='1'>
+      <foreword displayorder='2'>
         <p>
           <xref target='N1'>Introduction, 1)</xref>
           <xref target='N11'>Introduction, 1) 1)</xref>
@@ -205,7 +205,7 @@ RSpec.describe IsoDoc::Ogc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <foreword displayorder="1">
+      <foreword displayorder="2">
         <p>
           <xref target='A'>Introduction</xref>
           <xref target='B'>Clause II.A</xref>
@@ -248,7 +248,7 @@ RSpec.describe IsoDoc::Ogc do
       <iso-standard>
     INPUT
     output = <<~OUTPUT
-      <foreword displayorder='1'>
+      <foreword displayorder='2'>
       <title depth='1'>Foreword</title>
         <p>
           <xref target='A'>Annex A</xref>
@@ -329,7 +329,7 @@ RSpec.describe IsoDoc::Ogc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-          <foreword displayorder='1'>
+          <foreword displayorder='2'>
             <p>
               <xref target='N1'>Requirement 1</xref>
       <xref target='N2'>Requirement (??)</xref>
@@ -414,7 +414,7 @@ RSpec.describe IsoDoc::Ogc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-          <foreword displayorder='1'>
+          <foreword displayorder='2'>
             <p>
               <xref target='N1'>Recommendation 1</xref>
       <xref target='N2'>Recommendation (??)</xref>
@@ -499,7 +499,7 @@ RSpec.describe IsoDoc::Ogc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-                 <foreword displayorder='1'>
+                 <foreword displayorder='2'>
                    <p>
                      <xref target='N1'>Permission 1</xref>
       <xref target='N2'>Permission (??)</xref>
@@ -567,7 +567,7 @@ RSpec.describe IsoDoc::Ogc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-                <foreword displayorder='1'>
+                <foreword displayorder='2'>
                   <p>
                      <xref target='N1'>Permission 1</xref>
       <xref target='N2'>Permission 1-1</xref>
