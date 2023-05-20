@@ -70,6 +70,16 @@ module IsoDoc
                                        "[role/@type = 'contributor']/person"))
         set(:contributors, extract_person_names(contributors))
         agency(isoxml)
+        copyright(isoxml)
+      end
+
+      def copyright(isoxml)
+        c = isoxml.xpath(ns("//bibdata/copyright/owner/organization/name"))
+          .each_with_object([]) do |n, m|
+          m << n.text
+        end
+        c.empty? and c = ["Open Geospatial Consortium"]
+        set(:copyright_holder, @i18n.boolean_conj(c, "and"))
       end
 
       def docid(isoxml, _out)
