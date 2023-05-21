@@ -86,6 +86,22 @@ RSpec.describe IsoDoc::Ogc do
             </organization>
           </owner>
         </copyright>
+        <copyright>
+          <from>2001</from>
+          <owner>
+            <organization>
+              <name>ISO</name>
+            </organization>
+          </owner>
+        </copyright>
+        <copyright>
+          <from>2001</from>
+          <owner>
+            <organization>
+              <name>IEC</name>
+            </organization>
+          </owner>
+        </copyright>
         <keyword>A</keyword>
         <keyword>B</keyword>
         <ext>
@@ -112,6 +128,7 @@ RSpec.describe IsoDoc::Ogc do
       :confirmeddate=>"XXX",
       :contributors=>["Pearl Slaghoople"],
       :copieddate=>"XXX",
+      :copyright_holder=>"OGC, ISO, and IEC",
       :createddate=>"1999-01-01",
       :doc=>"http://www.example.com/doc",
       :doclanguage=>"English",
@@ -182,6 +199,7 @@ RSpec.describe IsoDoc::Ogc do
       :circulateddate=>"XXX",
       :confirmeddate=>"XXX",
       :copieddate=>"XXX",
+      :copyright_holder=>"Open Geospatial Consortium",
       :createddate=>"XXX",
       :doclanguage=>"English",
       :docnumber=>"1000",
@@ -230,6 +248,7 @@ RSpec.describe IsoDoc::Ogc do
       :circulateddate=>"XXX",
       :confirmeddate=>"XXX",
       :copieddate=>"XXX",
+      :copyright_holder=>"Open Geospatial Consortium",
       :createddate=>"XXX",
       :doclanguage=>"English",
       :docnumber=>"1000",

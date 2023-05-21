@@ -4,7 +4,7 @@
       <title>Copyright notice</title>
 
       <p align="center">Copyright
-      © {{ docyear }} Open Geospatial Consortium<br/>
+      © {{ docyear }} {{ copyright_holder }}<br/>
       To obtain additional rights of use, visit
       <link target="https://www.ogc.org/legal">https://www.ogc.org/legal</link>
     </p>

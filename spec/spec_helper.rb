@@ -156,6 +156,7 @@ BOILERPLATE =
     .gsub(/\{% if doctype == "Standard" %\}\s*(<clause id="boilerplate-standard-feedback">.+?)\{% endif %\}/m, "\\1")
     .gsub(/\{\{ docyear \}\}/, Date.today.year.to_s)
     .gsub(/<p>/, '<p id="_">')
+    .gsub(/{{ copyright_holder }}/, 'Open Geospatial Consortium')
     .gsub(/<p align="center">/, '<p align="center" id="_">')
     .gsub(/<p align="left">/, '<p align="left" id="_">')
     .gsub(/\{% if unpublished %\}.+?\{% endif %\}/m, "")
