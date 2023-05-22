@@ -336,17 +336,17 @@ RSpec.describe IsoDoc::Ogc do
                 <foreword id="A" displayorder="2">
                   <title depth='1'>I.<tab/>Preface</title>
                   <p id="_">
-                <eref bibitemid="ISO712">[110]</eref>
-                <eref bibitemid="ISBN">[1]</eref>
-                <eref bibitemid="ISSN">[2]</eref>
-                <eref bibitemid="ISO16634">ISO 16634:-- (all parts)</eref>
-                <eref bibitemid="ref1">ICC&#xa0;167</eref>
-                <eref bibitemid="ref10">[4]</eref>
-                <eref bibitemid="ref12">Citn</eref>
-                <eref bibitemid="zip_ffs">[5]</eref>
-                <eref bibitemid='ogc1'>OGC&#xa0;19-025r1</eref>
-      <eref bibitemid='ogc2'>OGC&#xa0;00-027</eref>
-      <eref bibitemid='ogc3'>OGC&#xa0;05-020r27 (draft)</eref>
+                          <xref target="ISO712">[110]</xref>
+        <xref target="ISBN">[1]</xref>
+        <xref target="ISSN">[2]</xref>
+        <xref target="ISO16634">ISO 16634:-- (all parts)</xref>
+        <xref target="ref1">ICC&#xa0;167</xref>
+        <xref target="ref10">[4]</xref>
+        <xref target="ref12">Citn</xref>
+        <xref target="zip_ffs">[5]</xref>
+        <xref target="ogc1">OGC&#xa0;19-025r1</xref>
+        <xref target="ogc2">OGC&#xa0;00-027</xref>
+        <xref target="ogc3">OGC&#xa0;05-020r27 (draft)</xref>
                 </p>
                   </foreword></preface>
                   <bibliography><references id="_" obligation="informative" normative="true" displayorder="3"><title depth="1">1.<tab/>Normative References</title>
@@ -378,14 +378,14 @@ RSpec.describe IsoDoc::Ogc do
                   </bibitem>
                                <bibitem id="ogc1">
                <formattedref>
-                 Robert Thomas, Terry Idol: OGC 19-025r1,
+                 Robert Thomas, Terry Idol: OGC&#xa0;19-025r1,
                  <em>Development of Spatial Data Infrastructures for Marine Data Management</em>
                  . Open Geospatial Consortium (2019).
                  <link target="https://portal.opengeospatial.org/files/?artifact_id=88037">https://portal.opengeospatial.org/files/?artifact_id=88037</link>
                  .
                </formattedref>
                <uri type="obp">https://portal.opengeospatial.org/files/?artifact_id=88037</uri>
-               <docidentifier type="OGC">OGC 19-025r1</docidentifier>
+               <docidentifier type="OGC">OGC&#xa0;19-025r1</docidentifier>
                <biblio-tag/>
              </bibitem>
          <bibitem id='ogc2'>
