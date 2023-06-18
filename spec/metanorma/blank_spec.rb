@@ -8,7 +8,7 @@ RSpec.describe Metanorma::Ogc do
     INPUT
 
     output = xmlpp(<<~"OUTPUT")
-          #{BLANK_HDR}
+          #{blank_hdr_gen}
           <preface>#{SECURITY}</preface>
       <sections/>
       </ogc-standard>
@@ -29,7 +29,7 @@ RSpec.describe Metanorma::Ogc do
     INPUT
 
     output = xmlpp(<<~"OUTPUT")
-          #{BLANK_HDR}
+          #{blank_hdr_gen}
           <preface>#{SECURITY}</preface>
       <sections>
       <clause id='_' obligation='normative'>

@@ -31,7 +31,7 @@ RSpec.describe Metanorma::Ogc::Processor do
     INPUT
 
     output = <<~"OUTPUT"
-          #{BLANK_HDR}
+          #{blank_hdr_gen}
           <preface>#{SECURITY}</preface>
       <sections/>
       </ogc-standard>

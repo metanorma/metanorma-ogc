@@ -3,7 +3,7 @@ require "fileutils"
 
 RSpec.describe Metanorma::Ogc do
   it "processes default metadata" do
-    input = <<~"INPUT"
+    input = <<~INPUT
       = Document title
       Author
       :docfile: test.adoc
@@ -154,7 +154,48 @@ RSpec.describe Metanorma::Ogc do
            </editorialgroup>
           </ext>
          </bibdata>
-      #{BOILERPLATE.sub(/#{Date.today.year} Open Geospatial Consortium/, '2001 Open Geospatial Consortium').sub(%r{<title>Notice</title>}, '<title>Notice for Drafts</title>').sub(/This document is an OGC Member approved international standard. This document is available on a royalty free, non-discriminatory basis\. Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation\.\s*/, "This document is not an OGC Standard. This document is distributed for review and comment. This document is subject to change without notice and may not be referred to as an OGC Standard.</p><p id='_'>Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation.")}
+                  <boilerplate>
+           <copyright-statement>
+             <clause id="_" obligation="normative">
+               <title>Copyright notice</title>
+               <p id="_" align="center">
+                 Copyright © 2001 Open Geospatial Consortium
+                 <br/>
+                 To obtain additional rights of use, visit
+                 <link target="https://www.ogc.org/legal"/>
+               </p>
+             </clause>
+             <clause id="_" obligation="normative">
+               <title>Note</title>
+               <p id="_" align="left">Attention is drawn to the possibility that some of the elements of this document may be the subject of patent rights. The Open Geospatial Consortium shall not be held responsible for identifying any or all such patent rights.</p>
+               <p id="_" align="left">Recipients of this document are requested to submit, with their comments, notification of any relevant patent claims or other intellectual property rights of which they may be aware that might be infringed by any implementation of the standard set forth in this document, and to provide supporting documentation.</p>
+             </clause>
+           </copyright-statement>
+           <license-statement>
+             <clause id="_" obligation="normative">
+               <title>License Agreement</title>
+               <p id="_">
+                 &gt;Use of this document is subject to the license agreement at
+                 <link target="https://www.ogc.org/license"/>
+               </p>
+             </clause>
+           </license-statement>
+           <legal-statement>
+             <clause id="_" obligation="normative">
+               <title>Notice for Drafts</title>
+               <p id="_">This document is not an OGC Standard. This document is distributed for review and comment. This document is subject to change without notice and may not be referred to as an OGC Standard.</p>
+               <p id="_">Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation.</p>
+             </clause>
+           </legal-statement>
+           <feedback-statement>
+             <clause id="boilerplate-standard-feedback" obligation="normative">
+               <p id="_">
+                 Suggested additions, changes and comments on this document are welcome and encouraged. Such suggestions may be submitted using the online change request form on OGC web site:
+                 <link target="http://ogc.standardstracker.org/"/>
+               </p>
+             </clause>
+           </feedback-statement>
+         </boilerplate>
       <preface>#{SECURITY}</preface>
          <sections/>
          </ogc-standard>
@@ -167,7 +208,7 @@ RSpec.describe Metanorma::Ogc do
   end
 
   it "processes OGC synonyms for default metadata, default template for external-id, docidentifier override for internal-id" do
-    input = <<~"INPUT"
+    input = <<~INPUT
       = Document title
       Author
       :docfile: test.adoc
@@ -360,7 +401,7 @@ RSpec.describe Metanorma::Ogc do
       == References
     INPUT
 
-    output = xmlpp(<<~"OUTPUT")
+    output = xmlpp(<<~OUTPUT)
       <bibliography><references id="_" obligation="informative" normative="true">
         <title>Normative references</title>
         <p id="_">There are no normative references in this document.</p>
@@ -381,7 +422,7 @@ RSpec.describe Metanorma::Ogc do
     INPUT
 
     output = xmlpp(<<~"OUTPUT")
-      #{BLANK_HDR}
+      #{blank_hdr_gen}
                <preface><foreword id="_" obligation="informative">
            <title>Preface</title>
            <p id="_">This is a preamble</p>
@@ -399,7 +440,7 @@ RSpec.describe Metanorma::Ogc do
   end
 
   it "uses default fonts" do
-    input = <<~"INPUT"
+    input = <<~INPUT
       = Document title
       Author
       :docfile: test.adoc
@@ -420,7 +461,7 @@ RSpec.describe Metanorma::Ogc do
   end
 
   it "uses specified fonts" do
-    input = <<~"INPUT"
+    input = <<~INPUT
       = Document title
       Author
       :docfile: test.adoc
@@ -455,7 +496,7 @@ RSpec.describe Metanorma::Ogc do
       ====
     INPUT
     output = <<~OUTPUT
-        #{BLANK_HDR}
+        #{blank_hdr_gen}
       <preface>#{SECURITY}</preface>
          <sections>
            <example id="_"><name>Example Title</name><p id="_">This is an example</p>
@@ -477,7 +518,7 @@ RSpec.describe Metanorma::Ogc do
 
     INPUT
     output = <<~OUTPUT
-        #{BLANK_HDR}
+        #{blank_hdr_gen}
       <preface>#{SECURITY}</preface>
           <sections><terms id="_" obligation="normative">
            <title>Terms and definitions</title><p id="_">No terms and definitions are listed in this document.</p>
@@ -500,7 +541,7 @@ RSpec.describe Metanorma::Ogc do
 
     INPUT
     output = <<~OUTPUT
-      #{BLANK_HDR}
+      #{blank_hdr_gen}
        <preface>
            <foreword id='_' obligation='informative'>
              <title>Preface</title>
@@ -523,7 +564,7 @@ RSpec.describe Metanorma::Ogc do
 
     INPUT
     output = <<~OUTPUT
-        #{BLANK_HDR}
+        #{blank_hdr_gen}
       <preface>#{SECURITY}</preface>
          <sections>
              <clause id='_' obligation='normative' type="conformance">
@@ -546,7 +587,7 @@ RSpec.describe Metanorma::Ogc do
 
     INPUT
     output = <<~OUTPUT
-      #{BLANK_HDR}
+      #{blank_hdr_gen}
        <preface>
            <clause id='_' obligation='informative' type="security">
              <title>Security Considerations</title>
@@ -575,7 +616,7 @@ RSpec.describe Metanorma::Ogc do
 
     INPUT
     output = <<~OUTPUT
-      #{BLANK_HDR.sub(%r{</script>}, '</script><abstract><p>This is an abstract</p></abstract>')}
+      #{blank_hdr_gen.sub(%r{</script>}, '</script><abstract><p>This is an abstract</p></abstract>')}
       <preface>
       <abstract id='_'>
         <title>Abstract</title>
@@ -612,7 +653,7 @@ RSpec.describe Metanorma::Ogc do
 
     INPUT
     output = <<~OUTPUT
-            #{BLANK_HDR}
+            #{blank_hdr_gen}
             <preface>#{SECURITY}</preface>
                  <sections>
             <clause id='_' obligation='normative'>
@@ -637,7 +678,7 @@ RSpec.describe Metanorma::Ogc do
       This is #highlihgted text# inline.
     INPUT
     output = <<~OUTPUT
-            #{BLANK_HDR}
+            #{blank_hdr_gen}
           <preface>#{SECURITY}</preface>
              <sections>
              <p id='_'>
@@ -667,7 +708,7 @@ RSpec.describe Metanorma::Ogc do
       term:[Term]
     INPUT
     output = <<~OUTPUT
-      #{BLANK_HDR}
+      #{blank_hdr_gen}
       <preface>#{SECURITY}</preface>
       <sections> </sections>
       <annex id='_' obligation='informative'>
@@ -703,7 +744,7 @@ RSpec.describe Metanorma::Ogc do
 
     INPUT
     output = <<~OUTPUT
-            #{BLANK_HDR}
+            #{blank_hdr_gen}
           <preface>#{SECURITY}</preface>
           <sections> </sections>
       <annex id='_' obligation='informative'>
@@ -744,7 +785,7 @@ RSpec.describe Metanorma::Ogc do
 
     INPUT
     output = <<~OUTPUT
-      #{BLANK_HDR}
+      #{blank_hdr_gen}
       <preface>#{SECURITY}</preface>
       <sections>
       <clause id='_' obligation='normative'>
@@ -789,8 +830,8 @@ RSpec.describe Metanorma::Ogc do
                </annex>
              </ogc-standard>
     OUTPUT
-    expect(xmlpp((strip_guid(Asciidoctor.convert(input, *OPTIONS)))))
-      .to be_equivalent_to xmlpp((output))
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+      .to be_equivalent_to xmlpp(output)
   end
 
   it "overrides table valign" do
@@ -804,7 +845,7 @@ RSpec.describe Metanorma::Ogc do
       |===
     INPUT
     output = <<~OUTPUT
-      #{BLANK_HDR}
+      #{blank_hdr_gen}
       <preface>#{SECURITY}</preface>
       <sections>
         <table id='_'>
@@ -840,7 +881,7 @@ RSpec.describe Metanorma::Ogc do
 
     INPUT
     output = <<~OUTPUT
-      #{BLANK_HDR}
+      #{blank_hdr_gen}
         <preface>#{SECURITY}</preface>
          <sections> </sections>
         <bibliography>
@@ -873,7 +914,7 @@ RSpec.describe Metanorma::Ogc do
 
     INPUT
     output = <<~OUTPUT
-      #{BLANK_HDR}
+      #{blank_hdr_gen}
       <preface>#{SECURITY}</preface>
       <sections> </sections>
         <annex id='_' obligation='informative'>
@@ -911,7 +952,7 @@ RSpec.describe Metanorma::Ogc do
 
     INPUT
     output = <<~OUTPUT
-      #{BLANK_HDR}
+      #{blank_hdr_gen}
       <preface>#{SECURITY}</preface>
       <sections> </sections>
         <annex id='_' obligation='informative'>
