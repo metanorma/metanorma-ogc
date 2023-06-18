@@ -1,6 +1,10 @@
 module Metanorma
   module Ogc
     class Converter < Standoc::Converter
+      def boilerplate_file(_xmldoc)
+        File.join(@libdir, "boilerplate.adoc")
+      end
+
       def sections_cleanup(xml)
         super
         xml.xpath("//*[@inline-header]").each do |h|

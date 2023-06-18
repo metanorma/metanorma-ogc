@@ -1744,7 +1744,7 @@ RSpec.describe IsoDoc::Ogc do
       :no-pdf:
     INPUT
     output = xmlpp(<<~"OUTPUT")
-          #{BLANK_HDR}
+          #{blank_hdr_gen}
           <preface>#{SECURITY}</preface>
       <sections/>
       </ogc-standard>

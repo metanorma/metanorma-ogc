@@ -69,61 +69,61 @@ def xmlpp(xml)
     end
   end.join
   xsl = <<~XSL
-<!--
-    <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-      <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
-      <xsl:strip-space elements="*"/>
-      <xsl:template match="/">
-        <xsl:copy-of select="."/>
+    <!--
+        <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+          <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
+          <xsl:strip-space elements="*"/>
+          <xsl:template match="/">
+            <xsl:copy-of select="."/>
+          </xsl:template>
+        </xsl:stylesheet>
+    -->
+      <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+      <xsl:output method="xml" encoding="ISO-8859-1"/>
+      <xsl:param name="indent-increment" select="'  '"/>
+
+      <xsl:template name="newline">
+        <xsl:text disable-output-escaping="yes">
+    </xsl:text>
+      </xsl:template>
+
+      <xsl:template match="comment() | processing-instruction()">
+        <xsl:param name="indent" select="''"/>
+        <xsl:call-template name="newline"/>
+        <xsl:value-of select="$indent"/>
+        <xsl:copy />
+      </xsl:template>
+
+      <xsl:template match="text()">
+        <xsl:param name="indent" select="''"/>
+        <xsl:call-template name="newline"/>
+        <xsl:value-of select="$indent"/>
+        <xsl:value-of select="normalize-space(.)"/>
+      </xsl:template>
+
+      <xsl:template match="text()[normalize-space(.)='']"/>
+
+      <xsl:template match="*">
+        <xsl:param name="indent" select="''"/>
+        <xsl:call-template name="newline"/>
+        <xsl:value-of select="$indent"/>
+          <xsl:choose>
+           <xsl:when test="count(child::*) > 0">
+            <xsl:copy>
+             <xsl:copy-of select="@*"/>
+             <xsl:apply-templates select="*|text()">
+               <xsl:with-param name="indent" select="concat ($indent, $indent-increment)"/>
+             </xsl:apply-templates>
+             <xsl:call-template name="newline"/>
+             <xsl:value-of select="$indent"/>
+            </xsl:copy>
+           </xsl:when>
+           <xsl:otherwise>
+            <xsl:copy-of select="."/>
+           </xsl:otherwise>
+         </xsl:choose>
       </xsl:template>
     </xsl:stylesheet>
--->
-  <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-  <xsl:output method="xml" encoding="ISO-8859-1"/>
-  <xsl:param name="indent-increment" select="'  '"/>
-
-  <xsl:template name="newline">
-    <xsl:text disable-output-escaping="yes">
-</xsl:text>
-  </xsl:template>
-
-  <xsl:template match="comment() | processing-instruction()">
-    <xsl:param name="indent" select="''"/>
-    <xsl:call-template name="newline"/>
-    <xsl:value-of select="$indent"/>
-    <xsl:copy />
-  </xsl:template>
-
-  <xsl:template match="text()">
-    <xsl:param name="indent" select="''"/>
-    <xsl:call-template name="newline"/>
-    <xsl:value-of select="$indent"/>
-    <xsl:value-of select="normalize-space(.)"/>
-  </xsl:template>
-
-  <xsl:template match="text()[normalize-space(.)='']"/>
-
-  <xsl:template match="*">
-    <xsl:param name="indent" select="''"/>
-    <xsl:call-template name="newline"/>
-    <xsl:value-of select="$indent"/>
-      <xsl:choose>
-       <xsl:when test="count(child::*) > 0">
-        <xsl:copy>
-         <xsl:copy-of select="@*"/>
-         <xsl:apply-templates select="*|text()">
-           <xsl:with-param name="indent" select="concat ($indent, $indent-increment)"/>
-         </xsl:apply-templates>
-         <xsl:call-template name="newline"/>
-         <xsl:value-of select="$indent"/>
-        </xsl:copy>
-       </xsl:when>
-       <xsl:otherwise>
-        <xsl:copy-of select="."/>
-       </xsl:otherwise>
-     </xsl:choose>
-  </xsl:template>
-</xsl:stylesheet>
   XSL
   Nokogiri::XSLT(xsl).transform(Nokogiri::XML(xml, &:noblanks))
     .to_xml(indent: 2, encoding: "UTF-8")
@@ -131,7 +131,7 @@ def xmlpp(xml)
     .gsub(%r{ schema-version="[^"]+"}, "")
 end
 
-ASCIIDOC_BLANK_HDR = <<~"HDR".freeze
+ASCIIDOC_BLANK_HDR = <<~HDR.freeze
   = Document title
   Author
   :docfile: test.adoc
@@ -140,7 +140,7 @@ ASCIIDOC_BLANK_HDR = <<~"HDR".freeze
 
 HDR
 
-VALIDATING_BLANK_HDR = <<~"HDR".freeze
+VALIDATING_BLANK_HDR = <<~HDR.freeze
   = Document title
   Author
   :docfile: test.adoc
@@ -148,19 +148,26 @@ VALIDATING_BLANK_HDR = <<~"HDR".freeze
 
 HDR
 
-BOILERPLATE =
-  # HTMLEntities.new.decode(
+def boilerplate_read(file, xmldoc)
+  conv = Metanorma::Ogc::Converter.new(:ogc, {})
+  conv.init(Asciidoctor::Document.new([]))
+  x = conv.boilerplate_isodoc(xmldoc).populate_template(file, nil)
+  ret = conv.boilerplate_file_restructure(x)
+  ret.to_xml(encoding: "UTF-8", indent: 2,
+             save_with: Nokogiri::XML::Node::SaveOptions::AS_XML)
+    .gsub(/<(\/)?sections>/, "<\\1boilerplate>")
+    .gsub(/ id="_[^"]+"/, " id='_'")
+end
 
-  File.read(File.join(File.dirname(__FILE__), "..", "lib", "metanorma", "ogc", "boilerplate.xml"), encoding: "utf-8")
-    .gsub(/<legal-statement>.+<\/legal-statement>/m, "<legal-statement><clause> <title>Notice</title> <p>This document is an OGC Member approved international standard. This document is available on a royalty free, non-discriminatory basis. Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation.  </p> </clause></legal-statement>")
-    .gsub(/\{% if doctype == "Standard" %\}\s*(<clause id="boilerplate-standard-feedback">.+?)\{% endif %\}/m, "\\1")
-    .gsub(/\{\{ docyear \}\}/, Date.today.year.to_s)
-    .gsub(/<p>/, '<p id="_">')
-    .gsub(/{{ copyright_holder }}/, 'Open Geospatial Consortium')
-    .gsub(/<p align="center">/, '<p align="center" id="_">')
-    .gsub(/<p align="left">/, '<p align="left" id="_">')
-    .gsub(/\{% if unpublished %\}.+?\{% endif %\}/m, "")
-    .gsub(/\{% if ip_notice_received %\}\{% else %\}not\{% endif %\}/m, "")
+def boilerplate(xmldoc)
+  boilerplate_read(
+    File.read(
+      File.join(File.dirname(__FILE__), "..", "lib", "metanorma", "ogc",
+                "boilerplate.adoc"), encoding: "utf-8"
+    ),
+    xmldoc,
+  )
+end
 
 BLANK_HDR = <<~"HDR".freeze
   <?xml version="1.0" encoding="UTF-8"?>
@@ -207,17 +214,23 @@ BLANK_HDR = <<~"HDR".freeze
               <value>2</value>
             </presentation-metadata>
           </metanorma-extension>
-  #{BOILERPLATE}
 HDR
 
-SECURITY = <<~"HDR".freeze
+def blank_hdr_gen
+  <<~"HDR"
+    #{BLANK_HDR}
+    #{boilerplate(Nokogiri::XML("#{BLANK_HDR}</ogc-standard>"))}
+  HDR
+end
+
+SECURITY = <<~HDR.freeze
   <clause type='security' id='_' obligation='informative'>
     <title>Security considerations</title>
     <p id='_'>No security considerations have been made for this document.</p>
   </clause>
 HDR
 
-HTML_HDR = <<~"HDR".freeze
+HTML_HDR = <<~HDR.freeze
   <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US" class="container">
   <div class="title-section">
     <p>&#160;</p>
@@ -234,7 +247,7 @@ HTML_HDR = <<~"HDR".freeze
     </div>
 HDR
 
-WORD_HDR = <<~"HDR".freeze
+WORD_HDR = <<~HDR.freeze
   <body lang='EN-US' link='blue' vlink='#954F72'>
            <div class='WordSection1'>
              <p>&#160;</p>
@@ -249,7 +262,7 @@ WORD_HDR = <<~"HDR".freeze
 HDR
 
 def mock_pdf
-  allow(::Mn2pdf).to receive(:convert) do |url, output, _c, _d|
+  allow(Mn2pdf).to receive(:convert) do |url, output, _c, _d|
     FileUtils.cp(url.gsub(/"/, ""), output.gsub(/"/, ""))
   end
 end
