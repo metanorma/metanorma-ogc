@@ -306,7 +306,12 @@
 							<fo:block line-height="140%">
 								<xsl:apply-templates select="/ogc:ogc-standard/ogc:bibdata/ogc:edition[normalize-space(@language) = '']"/>
 								<fo:block>
-									<fo:inline font-weight="bold">Submission Date: </fo:inline>
+									<fo:inline font-weight="bold">
+										<!-- Submission Date:  -->
+										<xsl:call-template name="getLocalizedString">
+											<xsl:with-param name="key">submission_date</xsl:with-param>
+										</xsl:call-template><xsl:text>: </xsl:text>
+									</fo:inline>
 									<xsl:choose>
 										<xsl:when test="/ogc:ogc-standard/ogc:bibdata/ogc:date[@type = 'received']/ogc:on">
 											<xsl:value-of select="/ogc:ogc-standard/ogc:bibdata/ogc:date[@type = 'received']/ogc:on"/>
@@ -315,7 +320,12 @@
 									</xsl:choose>
 								</fo:block>
 								<fo:block>
-									<fo:inline font-weight="bold">Approval Date: </fo:inline>
+									<fo:inline font-weight="bold">
+									<!-- Approval Date:  -->
+									<xsl:call-template name="getLocalizedString">
+										<xsl:with-param name="key">approval_date</xsl:with-param>
+									</xsl:call-template><xsl:text>: </xsl:text>
+									</fo:inline>
 									<xsl:choose>
 										<xsl:when test="/ogc:ogc-standard/ogc:bibdata/ogc:date[@type = 'issued']/ogc:on">
 											<xsl:value-of select="/ogc:ogc-standard/ogc:bibdata/ogc:date[@type = 'issued']/ogc:on"/>
@@ -324,14 +334,24 @@
 									</xsl:choose>
 								</fo:block>
 								<fo:block>
-									<fo:inline font-weight="bold">Publication Date: </fo:inline>
+									<fo:inline font-weight="bold">
+										<!-- Publication Date:  -->
+										<xsl:call-template name="getLocalizedString">
+											<xsl:with-param name="key">publication_date</xsl:with-param>
+										</xsl:call-template><xsl:text>: </xsl:text>
+									</fo:inline>
 									<xsl:value-of select="/ogc:ogc-standard/ogc:bibdata/ogc:date[@type = 'published']/ogc:on"/>
 								</fo:block>
 
 								<fo:block margin-bottom="12pt">
 									<xsl:if test="/ogc:ogc-standard/ogc:bibdata/ogc:contributor[ogc:role/@type='author']/ogc:person/ogc:name/ogc:completename">
 										<fo:block>
-											<fo:inline font-weight="bold">Author: </fo:inline>
+											<fo:inline font-weight="bold">
+												<!-- Author:  -->
+												<xsl:call-template name="getLocalizedString">
+													<xsl:with-param name="key">author</xsl:with-param>
+												</xsl:call-template><xsl:text>: </xsl:text>
+											</fo:inline>
 											<xsl:for-each select="/ogc:ogc-standard/ogc:bibdata/ogc:contributor[ogc:role/@type='author']/ogc:person/ogc:name/ogc:completename">
 												<xsl:value-of select="."/>
 												<xsl:if test="position() != last()">, </xsl:if>
@@ -340,7 +360,12 @@
 									</xsl:if>
 									<xsl:if test="/ogc:ogc-standard/ogc:bibdata/ogc:contributor[ogc:role/@type='editor']/ogc:person/ogc:name/ogc:completename">
 										<fo:block>
-											<fo:inline font-weight="bold">Editor: </fo:inline>
+											<fo:inline font-weight="bold">
+												<!-- Editor:  -->
+												<xsl:call-template name="getLocalizedString">
+													<xsl:with-param name="key">editor</xsl:with-param>
+												</xsl:call-template><xsl:text>: </xsl:text>
+											</fo:inline>
 											<xsl:for-each select="/ogc:ogc-standard/ogc:bibdata/ogc:contributor[ogc:role/@type='editor']/ogc:person/ogc:name/ogc:completename">
 												<xsl:value-of select="."/>
 												<xsl:if test="position() != last()">, </xsl:if>
@@ -349,7 +374,12 @@
 									</xsl:if>
 									<xsl:if test="/ogc:ogc-standard/ogc:bibdata/ogc:contributor[ogc:role/@type='contributor']/ogc:person/ogc:name/ogc:completename">
 										<fo:block>
-											<fo:inline font-weight="bold">Contributor: </fo:inline>
+											<fo:inline font-weight="bold">
+												<!-- Contributor:  -->
+												<xsl:call-template name="getLocalizedString">
+													<xsl:with-param name="key">contributor</xsl:with-param>
+												</xsl:call-template><xsl:text>: </xsl:text>
+											</fo:inline>
 											<xsl:for-each select="/ogc:ogc-standard/ogc:bibdata/ogc:contributor[ogc:role/@type='contributor']/ogc:person/ogc:name/ogc:completename">
 												<xsl:value-of select="."/>
 												<xsl:if test="position() != last()">, </xsl:if>
@@ -1613,21 +1643,32 @@
 	<xsl:variable name="titles_">
 
 		<!-- These titles of Table of contents renders different than determined in localized-strings -->
-		<title-toc lang="en">
-
+		<!-- <title-toc lang="en">
+			<xsl:if test="$namespace = 'csd' or $namespace = 'ieee' or $namespace = 'iho' or $namespace = 'mpfd' or $namespace = 'ogc' or $namespace = 'unece-rec'">
 				<xsl:text>Contents</xsl:text>
-
-		</title-toc>
-		<title-toc lang="fr">
+			</xsl:if>
+			<xsl:if test="$namespace = 'csa' or $namespace = 'm3d' or $namespace = 'nist-sp' or $namespace = 'ogc-white-paper'">
+				<xsl:text>Table of Contents</xsl:text>
+			</xsl:if>
+			<xsl:if test="$namespace = 'gb'">
+				<xsl:text>Table of contents</xsl:text>
+			</xsl:if>
+		</title-toc> -->
+		<title-toc lang="en">Table of contents</title-toc>
+		<!-- <title-toc lang="fr">
 			<xsl:text>Sommaire</xsl:text>
-		</title-toc>
-		<title-toc lang="zh">
-
+		</title-toc> -->
+		<!-- <title-toc lang="zh">
+			<xsl:choose>
+				<xsl:when test="$namespace = 'gb'">
+					<xsl:text>目次</xsl:text>
+				</xsl:when>
+				<xsl:otherwise>
 					<xsl:text>Contents</xsl:text>
-
-		</title-toc>
-
-		<title-descriptors lang="en">Descriptors</title-descriptors>
+				</xsl:otherwise>
+			</xsl:choose>
+		</title-toc> -->
+		<title-toc lang="zh">目次</title-toc>
 
 		<title-part lang="en">
 
@@ -1643,20 +1684,6 @@
 		<title-subpart lang="en">Sub-part #</title-subpart>
 		<title-subpart lang="fr">Partie de sub #</title-subpart>
 
-		<title-list-tables lang="en">List of Tables</title-list-tables>
-
-		<title-list-figures lang="en">List of Figures</title-list-figures>
-
-		<title-table-figures lang="en">Table of Figures</title-table-figures>
-
-		<title-list-recommendations lang="en">List of Recommendations</title-list-recommendations>
-
-		<title-summary lang="en">Summary</title-summary>
-
-		<title-continued lang="ru">(продолжение)</title-continued>
-		<title-continued lang="en">(continued)</title-continued>
-		<title-continued lang="fr">(continué)</title-continued>
-
 	</xsl:variable>
 	<xsl:variable name="titles" select="xalan:nodeset($titles_)"/>
 
@@ -1664,8 +1691,8 @@
 		<xsl:variable name="toc_table_title" select="//*[contains(local-name(), '-standard')]/*[local-name() = 'metanorma-extension']/*[local-name() = 'toc'][@type='table']/*[local-name() = 'title']"/>
 		<xsl:value-of select="$toc_table_title"/>
 		<xsl:if test="normalize-space($toc_table_title) = ''">
-			<xsl:call-template name="getTitle">
-				<xsl:with-param name="name" select="'title-list-tables'"/>
+			<xsl:call-template name="getLocalizedString">
+				<xsl:with-param name="key">toc_tables</xsl:with-param>
 			</xsl:call-template>
 		</xsl:if>
 	</xsl:variable>
@@ -1674,8 +1701,8 @@
 		<xsl:variable name="toc_figure_title" select="//*[contains(local-name(), '-standard')]/*[local-name() = 'metanorma-extension']/*[local-name() = 'toc'][@type='figure']/*[local-name() = 'title']"/>
 		<xsl:value-of select="$toc_figure_title"/>
 		<xsl:if test="normalize-space($toc_figure_title) = ''">
-			<xsl:call-template name="getTitle">
-				<xsl:with-param name="name" select="'title-list-figures'"/>
+			<xsl:call-template name="getLocalizedString">
+				<xsl:with-param name="key">toc_figures</xsl:with-param>
 			</xsl:call-template>
 		</xsl:if>
 	</xsl:variable>
@@ -1684,8 +1711,8 @@
 		<xsl:variable name="toc_requirement_title" select="//*[contains(local-name(), '-standard')]/*[local-name() = 'metanorma-extension']/*[local-name() = 'toc'][@type='requirement']/*[local-name() = 'title']"/>
 		<xsl:value-of select="$toc_requirement_title"/>
 		<xsl:if test="normalize-space($toc_requirement_title) = ''">
-			<xsl:call-template name="getTitle">
-				<xsl:with-param name="name" select="'title-list-recommendations'"/>
+			<xsl:call-template name="getLocalizedString">
+				<xsl:with-param name="key">toc_recommendations</xsl:with-param>
 			</xsl:call-template>
 		</xsl:if>
 	</xsl:variable>
