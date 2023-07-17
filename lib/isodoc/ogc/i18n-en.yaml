@@ -11,6 +11,10 @@ abstracttest: Abstract test
 conformanceclass: Conformance class
 example: Example
 table_of_contents: Contents
+toc_figures: List of Figures
+toc_tables: List of Tables
+toc_recommendations: List of Recommendations
+table_of_figures: Table of Figures
 security_empty: No security considerations have been made for this document.
 internal_terms_boilerplate: |
   <p>This document uses the terms defined in <link target="https://portal.ogc.org/public_ogc/directives/directives.php">OGC Policy Directive 49</link>, which is based on the ISO/IEC Directives, Part 2, Rules for the structure and drafting of International Standards. In particular, the word “shall” (not “must”) is the verb form used to indicate a requirement to be strictly followed to conform to this document and OGC documents do not use the equivalent phrases in the ISO/IEC Directives, Part 2.</p>
@@ -25,6 +29,12 @@ internal_external_terms_boilerplate: |
   <p>This document also uses terms defined in the OGC Standard for Modular specifications (<link target="https://portal.opengeospatial.org/files/?artifact_id=34762">OGC 08-131r3</link>), also known as the 'ModSpec'. The definitions of terms such as standard, specification, requirement, and conformance test are provided in the ModSpec.</p>
   <p>For the purposes of this document, the terms and definitions given in % and the following additionally apply.</p>
 term_defined_in: "(%)"
+submission_date: Submission Date
+approval_date: Approval Date
+publication_date: Publication Date
+author: Author
+editor: Editor
+contributor: Contributor
 stage_dict:
   draft: Draft
   work-item-draft: Work Item Draft

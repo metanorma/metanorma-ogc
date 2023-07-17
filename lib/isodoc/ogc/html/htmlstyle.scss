@@ -72,7 +72,7 @@ dl {
     font-size: 14px;
   }
 
-  li:before {
+  li::before {
     content: " ";
     display: none;
   }
@@ -271,7 +271,7 @@ ul {
   > li {
     list-style: none;
 
-    &:before {
+    &::before {
       content: "\2014";
       display: inline-block;
       width: 1em;
