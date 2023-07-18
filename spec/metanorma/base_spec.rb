@@ -316,7 +316,7 @@ RSpec.describe Metanorma::Ogc do
         <doctype>white-paper</doctype>
         </ext>
       </bibdata>
-      <preface>#{SECURITY.sub(/standard/, 'document')}</preface>
+      <preface>#{SECURITY.sub('standard', 'document')}</preface>
       <sections/>
       </ogc-standard>
     OUTPUT
@@ -387,6 +387,86 @@ RSpec.describe Metanorma::Ogc do
     OUTPUT
 
     xml = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
+    xml.xpath("//xmlns:bibdata | //xmlns:boilerplate | " \
+              "//xmlns:metanorma-extension").each(&:remove)
+    expect(xmlpp(strip_guid(xml.to_xml)))
+      .to be_equivalent_to xmlpp(output)
+
+    xml = Nokogiri::XML(Asciidoctor
+      .convert(input.sub("Submitters", "Contributors"), *OPTIONS))
+    xml.xpath("//xmlns:bibdata | //xmlns:boilerplate | " \
+              "//xmlns:metanorma-extension").each(&:remove)
+    expect(xmlpp(strip_guid(xml.to_xml)))
+      .to be_equivalent_to xmlpp(output)
+  end
+
+  it "processes submitters in Engineering Reports" do
+    input = <<~"INPUT"
+      #{ASCIIDOC_BLANK_HDR.sub(':nodoc:', ":doctype: engineering-report\n:nodoc:")}
+      This is a preamble
+
+      [abstract]
+      Abstract
+
+      == Acknowledgements
+
+      == Clause
+      Clause 1
+
+      == Submitters
+      Clause 2
+
+      |===
+      |Name |Affiliation |OGC member
+
+      |Steve Liang | University of Calgary, Canada / SensorUp Inc. | Yes
+      |===
+    INPUT
+
+    output = <<~"OUTPUT"
+          <ogc-standard xmlns="https://www.metanorma.org/ns/ogc" type="semantic" version="#{Metanorma::Ogc::VERSION}">
+      <preface><foreword id="_" obligation="informative">
+      <title>Preface</title><p id="_">This is a preamble</p></foreword>
+      <acknowledgements id='_' obligation='informative'>
+        <title>Acknowledgements</title>
+      </acknowledgements>
+      #{SECURITY}
+      <submitters id="_">
+      <title>Submitters</title>
+        <p id="_">Clause 2</p>
+                <table id='_' unnumbered='true'>
+           <thead>
+             <tr>
+               <th valign='middle' align='left'>Name</th>
+               <th valign='middle' align='left'>Affiliation</th>
+               <th valign='middle' align='left'>OGC member</th>
+             </tr>
+           </thead>
+           <tbody>
+             <tr>
+               <td valign='middle' align='left'>Steve Liang</td>
+               <td valign='middle' align='left'>University of Calgary, Canada / SensorUp Inc.</td>
+               <td valign='middle' align='left'>Yes</td>
+             </tr>
+           </tbody>
+         </table>
+      </submitters>
+      </preface><sections>
+      <clause id="_" obligation="normative">
+        <title>Clause</title>
+        <p id="_">Clause 1</p>
+      </clause></sections>
+      </ogc-standard>
+    OUTPUT
+
+    xml = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
+    xml.xpath("//xmlns:bibdata | //xmlns:boilerplate | " \
+              "//xmlns:metanorma-extension").each(&:remove)
+    expect(xmlpp(strip_guid(xml.to_xml)))
+      .to be_equivalent_to xmlpp(output)
+
+    xml = Nokogiri::XML(Asciidoctor
+      .convert(input.sub("Submitters", "Contributors"), *OPTIONS))
     xml.xpath("//xmlns:bibdata | //xmlns:boilerplate | " \
               "//xmlns:metanorma-extension").each(&:remove)
     expect(xmlpp(strip_guid(xml.to_xml)))

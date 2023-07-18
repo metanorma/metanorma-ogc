@@ -11,12 +11,23 @@ module IsoDoc
           n = section_names(doc.at(ns("//clause[@type = 'scope']")), n, 1)
           n = section_names(doc.at(ns("//clause[@type = 'conformance']")), n, 1)
           n = section_names(doc.at(ns(@klass.norm_ref_xpath)), n, 1)
-          n = section_names(
-            doc.at(ns("//sections/terms | //sections/clause[descendant::terms]")),
-            n, 1
-          )
-          n = section_names(doc.at(ns("//sections/definitions")), n, 1)
-          clause_names(doc, n)
+          initial_anchor_names_middle(doc, n,
+                                      doc.at(ns("//bibdata/ext/doctype"))&.text)
+        end
+      end
+
+      TERMS_SECT = "//sections/terms | //sections/clause[descendant::terms]"
+        .freeze
+
+      def initial_anchor_names_middle(doc, num, doctype)
+        if doctype == "engineering-report"
+          doc.xpath(ns(@klass.middle_clause(doc)) +
+                       " | #{ns(TERMS_SECT)} | " + ns("//sections/definitions"))
+            .each_with_index { |c, _i| section_names(c, num, 1) }
+        else
+          num = section_names(doc.at(ns(TERMS_SECT)), num, 1)
+          num = section_names(doc.at(ns("//sections/definitions")), num, 1)
+          clause_names(doc, num)
         end
       end
 
