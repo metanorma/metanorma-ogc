@@ -176,7 +176,7 @@ RSpec.describe IsoDoc::Ogc do
     OUTPUT
     docxml, = csdc.convert_init(input, "test", true)
     expect(htmlencode(metadata(csdc.info(docxml, nil)).to_s)
-      .gsub(/, :/, ",\n:")).to be_equivalent_to output
+      .gsub(", :", ",\n:")).to be_equivalent_to output
   end
 
   it "processes metadata with new logo" do
@@ -225,7 +225,7 @@ RSpec.describe IsoDoc::Ogc do
     OUTPUT
     docxml, = csdc.convert_init(input, "test", true)
     expect(htmlencode(metadata(csdc.info(docxml, nil)).to_s)
-      .gsub(/, :/, ",\n:")).to be_equivalent_to output
+      .gsub(", :", ",\n:")).to be_equivalent_to output
   end
 
   it "uses new logo for invalid data" do
@@ -274,7 +274,7 @@ RSpec.describe IsoDoc::Ogc do
     OUTPUT
     docxml, = csdc.convert_init(input, "test", true)
     expect(htmlencode(metadata(csdc.info(docxml, nil)).to_s)
-      .gsub(/, :/, ",\n:")).to be_equivalent_to output
+      .gsub(", :", ",\n:")).to be_equivalent_to output
   end
 
   it "processes contributor" do
@@ -360,8 +360,116 @@ RSpec.describe IsoDoc::Ogc do
             <title depth="1">Contents</title>
           </clause>
            </preface>
-           <sections/>
+          <sections/>
       </ogc-standard>
+    OUTPUT
+    xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+          .convert("test", input, true))
+    xml.at("//xmlns:localized-strings").remove
+    xml.at("//xmlns:metanorma-extension").remove
+    expect(xmlpp(strip_guid(xml.to_xml)))
+      .to be_equivalent_to xmlpp(presxml)
+  end
+
+  it "orders terms in normal documents" do
+    input = <<~"INPUT"
+      <ogc-standard xmlns="#{Metanorma::Ogc::DOCUMENT_NAMESPACE}">
+      <bibdata>
+      <ext>
+      <doctype>technical-paper</doctype>
+      </ext>
+      <sections>
+      <clause id="A" type="scope"/>
+      <clause id="B"/>
+      <clause id="C"/>
+      <terms id="D"><title>Terms</title></terms>
+      </sections>
+      </ogc-standard>
+    INPUT
+
+    presxml = <<~OUTPUT
+      <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
+         <bibdata>
+           <ext>
+             <doctype>technical-paper</doctype>
+           </ext>
+           <preface>
+             <clause type="toc" id="_" displayorder="1">
+               <title depth="1">Contents</title>
+             </clause>
+           </preface>
+           <sections>
+             <clause id="A" type="scope" displayorder="2">
+               <title>1.</title>
+             </clause>
+             <clause id="B" displayorder="4">
+               <title>3.</title>
+             </clause>
+             <clause id="C" displayorder="5">
+               <title>4.</title>
+             </clause>
+             <terms id="D" displayorder="3">
+               <title depth="1">2.<tab/>Terms</title>
+             </terms>
+           </sections>
+         </bibdata>
+       </ogc-standard>
+    OUTPUT
+    xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+          .convert("test", input, true))
+    xml.at("//xmlns:localized-strings").remove
+    xml.at("//xmlns:metanorma-extension").remove
+    expect(xmlpp(strip_guid(xml.to_xml)))
+      .to be_equivalent_to xmlpp(presxml)
+  end
+
+  it "orders terms in engineering reports" do
+    input = <<~"INPUT"
+      <ogc-standard xmlns="#{Metanorma::Ogc::DOCUMENT_NAMESPACE}">
+      <bibdata>
+      <ext>
+      <doctype>engineering-report</doctype>
+      </ext>
+      <sections>
+      <clause id="A" type="scope"/>
+      <clause id="B"/>
+      <clause id="C"/>
+      <terms id="D"><title>Terms</title></terms>
+      </sections>
+      </ogc-standard>
+    INPUT
+
+    presxml = <<~OUTPUT
+      <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
+         <bibdata>
+           <ext>
+             <doctype>engineering-report</doctype>
+           </ext>
+           <preface>
+             <clause type="toc" id="_" displayorder="1">
+               <title depth="1">Contents</title>
+             </clause>
+           </preface>
+           <sections>
+             <clause id="A" type="scope" displayorder="2">
+               <title>1.</title>
+             </clause>
+             <clause id="B" displayorder="3">
+               <title>2.</title>
+             </clause>
+             <clause id="C" displayorder="4">
+               <title>3.</title>
+             </clause>
+             <terms id="D" displayorder="5">
+               <title depth="1">
+                 4.
+                 <tab/>
+                 Terms
+               </title>
+             </terms>
+           </sections>
+         </bibdata>
+       </ogc-standard>
     OUTPUT
     xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
           .convert("test", input, true))

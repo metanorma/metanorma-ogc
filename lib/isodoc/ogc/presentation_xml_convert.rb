@@ -62,8 +62,7 @@ module IsoDoc
       def insert_submitting_orgs(docxml)
         orgs = docxml.xpath(ns(submittingorgs_path))
           .each_with_object([]) { |org, m| m << org.text }
-        return if orgs.empty?
-
+        orgs.empty? and return
         if a = submit_orgs_append_pt(docxml)
           a.next = submitting_orgs_clause(orgs)
         else
@@ -76,8 +75,7 @@ module IsoDoc
         <<~SUBMITTING
           <clause id="_#{UUIDTools::UUID.random_create}" type="submitting_orgs">
           <title>Submitting Organizations</title>
-          <p>The following organizations submitted this Document to the
-             Open Geospatial Consortium (OGC):</p>
+          <p>The following organizations submitted this Document to the Open Geospatial Consortium (OGC):</p>
            <ul>#{orgs.map { |m| "<li>#{m}</li>" }.join("\n")}</ul>
            </clause>
         SUBMITTING
@@ -87,8 +85,7 @@ module IsoDoc
         <<~KEYWORDS
           <clause id="_#{UUIDTools::UUID.random_create}" type="keywords">
           <title>Keywords</title>
-          <p>The following are keywords to be used by search engines and
-              document catalogues.</p>
+          <p>The following are keywords to be used by search engines and document catalogues.</p>
           <p>#{kwords.join(', ')}</p></clause>
         KEYWORDS
       end
@@ -123,9 +120,7 @@ module IsoDoc
         super
         docxml.xpath(ns("//foreword | //preface/abstract | " \
                         "//submitters | //introduction | //acknowledgements"))
-          .each do |f|
-          clause1(f)
-        end
+          .each { |f| clause1(f) }
       end
 
       def clause1(elem)
@@ -159,16 +154,14 @@ module IsoDoc
       end
 
       def rename_doctype(doctype, date)
-        return unless doctype&.text == "white-paper" && date
-
+        (doctype&.text == "white-paper" && date) or return
         Date.iso8601(date.text) >= Date.iso8601("2021-12-16") and
           doctype.children = "technical-paper"
       end
 
       def ol_depth(node)
-        return super unless node["class"] == "steps" ||
-          node.at(".//ancestor::xmlns:ol[@class = 'steps']")
-
+        node["class"] == "steps" ||
+          node.at(".//ancestor::xmlns:ol[@class = 'steps']") or return super
         idx = node.xpath("./ancestor-or-self::xmlns:ol[@class = 'steps']").size
         %i(arabic alphabet roman alphabet_upper roman_upper)[(idx - 1) % 5]
       end
@@ -200,19 +193,31 @@ module IsoDoc
         xml.children = "#{f}#{xml.xpath(ns(keep)).to_xml}"
       end
 
+      SECT_TERMS = "//sections/terms | //sections/clause[descendant::terms]"
+        .freeze
+
       def display_order(docxml)
         i = 0
         i = display_order_xpath(docxml, "//preface/*", i)
         i = display_order_at(docxml, "//clause[@type = 'scope']", i)
         i = display_order_at(docxml, "//clause[@type = 'conformance']", i)
         i = display_order_at(docxml, @xrefs.klass.norm_ref_xpath, i)
-        i = display_order_at(docxml, "//sections/terms | " \
-                                     "//sections/clause[descendant::terms]", i)
-        i = display_order_at(docxml, "//sections/definitions", i)
-        i = display_order_xpath(docxml, @xrefs.klass.middle_clause(docxml), i)
+        i = display_order_clauses(docxml, i)
         i = display_order_xpath(docxml, "//annex", i)
         i = display_order_xpath(docxml, @xrefs.klass.bibliography_xpath, i)
         display_order_xpath(docxml, "//indexsect", i)
+      end
+
+      def display_order_clauses(docxml, idx)
+        if docxml.at(ns("//bibdata/ext/doctype"))&.text == "engineering-report"
+          xpath = "#{SECT_TERMS} | //sections/definitions | " +
+            @xrefs.klass.middle_clause(docxml)
+          return display_order_xpath(docxml, xpath, idx)
+        end
+        idx = display_order_at(docxml, SECT_TERMS, idx)
+        idx = display_order_at(docxml, "//sections/definitions", idx)
+        display_order_xpath(docxml, @xrefs.klass.middle_clause(docxml),
+                            idx)
       end
 
       def norm_ref_entry_code(_ordinal, _idents, _ids, _standard, _datefn, _bib)
