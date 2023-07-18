@@ -88,7 +88,8 @@ module Metanorma
 
       def clause_parse(attrs, xml, node)
         case node.attr("heading")&.downcase || node.title.downcase
-        when "submitters" then return submitters_parse(attrs, xml, node)
+        when "submitters", "contributors"
+          return submitters_parse(attrs, xml, node)
         when "conformance" then attrs = attrs.merge(type: "conformance")
         when "security considerations"
           attrs = attrs.merge(type: "security")
@@ -99,8 +100,11 @@ module Metanorma
       end
 
       def submitters_parse(attrs, xml, node)
+        title = @i18n.submitters
+        doctype(node) == "engineering-report" and
+          title = @i18n.contributors_clause
         xml.submitters **attr_code(attrs) do |xml_section|
-          xml_section.title @i18n.submitters
+          xml_section.title title
           xml_section << node.content
         end
       end
