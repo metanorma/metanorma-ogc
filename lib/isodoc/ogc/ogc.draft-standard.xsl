@@ -719,7 +719,10 @@
 		<!-- add zero-width space (#x200B) before character '(' if preceding and following are word chars -->
 		<xsl:variable name="content3" select="java:replaceAll(java:java.lang.String.new($content2), '(\w)(\()(\w)', '$1​$2$3')"/>
 
-		<xsl:value-of select="translate($content3, $thin_space, ' ')"/>
+		<!-- replace sequence #x200B to one &#x200B -->
+		<xsl:variable name="content4" select="java:replaceAll(java:java.lang.String.new($content3), '\u200b{2,}', '​')"/>
+
+		<xsl:value-of select="translate($content4, $thin_space, ' ')"/>
 	</xsl:template>
 
 	<xsl:template match="node()" mode="sections">
@@ -5654,7 +5657,7 @@
 	<xsl:variable name="regex_url_start">^(http://|https://|www\.)?(.*)</xsl:variable>
 	<xsl:template match="*[local-name()='tt']/text()" priority="2">
 		<xsl:choose>
-			<xsl:when test="java:replaceAll(java:java.lang.String.new(.), '$2', '') != ''">
+			<xsl:when test="java:replaceAll(java:java.lang.String.new(.), $regex_url_start, '$2') != ''">
 				 <!-- url -->
 				<xsl:call-template name="add-zero-spaces-link-java"/>
 			</xsl:when>
@@ -6116,10 +6119,13 @@
 			</xsl:choose>
 		</xsl:variable>
 
-		<!-- replace sequence #x200B and space TO space -->
-		<xsl:variable name="text10" select="java:replaceAll(java:java.lang.String.new($text9), '\u200b ', ' ')"/>
+		<!-- replace sequence #x200B to one &#x200B -->
+		<xsl:variable name="text10" select="java:replaceAll(java:java.lang.String.new($text9), '\u200b{2,}', '​')"/>
 
-		<xsl:value-of select="$text10"/>
+		<!-- replace sequence #x200B and space TO space -->
+		<xsl:variable name="text11" select="java:replaceAll(java:java.lang.String.new($text10), '\u200b ', ' ')"/>
+
+		<xsl:value-of select="$text11"/>
 	</xsl:template>
 
 	<xsl:template name="add-zero-spaces-link-java">
@@ -6129,8 +6135,12 @@
 		<xsl:variable name="url_continue" select="java:replaceAll(java:java.lang.String.new($text), $regex_url_start, '$2')"/>
 		<!-- add zero-width space (#x200B) after characters: dash, dot, colon, equal, underscore, em dash, thin space, comma, slash, @  -->
 		<xsl:variable name="url" select="java:replaceAll(java:java.lang.String.new($url_continue),'(-|\.|:|=|_|—| |,|/|@)','$1​')"/>
+
+		<!-- replace sequence #x200B to one &#x200B -->
+		<xsl:variable name="url2" select="java:replaceAll(java:java.lang.String.new($url), '\u200b{2,}', '​')"/>
+
 		<!-- remove zero-width space at the end -->
-		<xsl:value-of select="java:replaceAll(java:java.lang.String.new($url), '​$', '')"/>
+		<xsl:value-of select="java:replaceAll(java:java.lang.String.new($url2), '​$', '')"/>
 	</xsl:template>
 
 	<!-- add zero space after dash character (for table's entries) -->
