@@ -87,27 +87,8 @@ module IsoDoc
       end
 
       def make_body2(body, docxml)
-        body.div **{ class: "WordSection2" } do |div2|
-          @prefacenum = 0
-          info docxml, div2
-          boilerplate docxml, div2
-          front docxml, div2
-=begin
-          preface_block docxml, div2
-          abstract docxml, div2
-          executivesummary docxml, div2
-          keywords docxml, div2
-          foreword docxml, div2
-          introduction docxml, div2
-          security docxml, div2
-          submittingorgs docxml, div2
-          submitters docxml, div2
-          preface docxml, div2
-          acknowledgements docxml, div2
-=end
-          div2.p { |p| p << "&#xA0;" } # placeholder
-        end
-        section_break(body)
+        @prefacenum = 0
+        super
       end
 
       def word_cleanup(docxml)
@@ -160,7 +141,7 @@ module IsoDoc
 
       def toWord(result, filename, dir, header)
         result = from_xhtml(word_cleanup(to_xhtml(result)))
-          .gsub(/-DOUBLE_HYPHEN_ESCAPE-/, "--")
+          .gsub("-DOUBLE_HYPHEN_ESCAPE-", "--")
         @wordstylesheet = wordstylesheet_update
         Html2Doc.new(
           filename: filename, imagedir: @localdir,

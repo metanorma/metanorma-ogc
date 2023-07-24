@@ -65,26 +65,14 @@ module IsoDoc
 
       def middle_clause(_docxml)
         "//clause[parent::sections][not(@type = 'scope' or " \
-          "@type = 'conformance')][not(descendant::terms)]"
+          "@type = 'conformance')][not(descendant::terms)]" \
+          "[not(descendant::references)]"
       end
 
       def is_clause?(name)
         return true if name == "submitters"
 
         super
-      end
-
-      def middle(isoxml, out)
-        middle_title(isoxml, out)
-        middle_admonitions(isoxml, out)
-        i = scope isoxml, out, 0
-        i = conformance isoxml, out, i
-        i = norm_ref isoxml, out, i
-        i = terms_defs isoxml, out, i
-        i = symbols_abbrevs isoxml, out, i
-        clause isoxml, out
-        annex isoxml, out
-        bibliography isoxml, out
       end
 
       def table_attrs(node)
@@ -108,10 +96,13 @@ module IsoDoc
       end
 
       def para_class(node)
-        return node["class"] if node["class"] &&
-          node["class"] != "RecommendationLabel"
-
-        super
+        if node["class"] == "RecommendationLabel"
+          node["class"] = nil
+          ret = super
+          node["class"] = "RecommendationLabel"
+          ret
+        else super
+        end
       end
 
       def ol_depth(node)

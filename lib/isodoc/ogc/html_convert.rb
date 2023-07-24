@@ -6,9 +6,6 @@ require_relative "metadata"
 
 module IsoDoc
   module Ogc
-    # A {Converter} implementation that generates HTML output, and a document
-    # schema encapsulation of the document for validation
-    #
     class HtmlConvert < IsoDoc::HtmlConvert
       def initialize(options)
         @libdir = File.dirname(__FILE__)
@@ -61,14 +58,8 @@ module IsoDoc
       end
 
       def make_body3(body, docxml)
-        body.div class: "main-section" do |div3|
-          @prefacenum = 0
-          boilerplate docxml, div3
-          front docxml, div3
-          middle docxml, div3
-          footnotes div3
-          comments div3
-        end
+        @prefacenum = 0
+        super
       end
 
       def authority_cleanup(docxml)
