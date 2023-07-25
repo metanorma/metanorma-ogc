@@ -2,7 +2,7 @@ module IsoDoc
   module Ogc
     module BaseConvert
       def top_element_render(node, out)
-        case e.name
+        case node.name
         when "submitters" then intro_clause node, out
         else super
         end
