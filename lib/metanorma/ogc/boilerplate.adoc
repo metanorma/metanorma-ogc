@@ -16,7 +16,7 @@ Recipients of this document are requested to submit, with their comments, notifi
 == license-statement
 === License Agreement
 
->Use of this document is subject to the license agreement at https://www.ogc.org/license[]
+Use of this document is subject to the license agreement at https://www.ogc.org/license[]
 
 == legal-statement
 {% if doctype == "Standard" or doctype == "Community Standard" or doctype == "Abstract Specification" %}
@@ -35,7 +35,7 @@ Recipients of this document are invited to submit, with their comments, notifica
 
 {% elsif doctype == "Engineering Report" %}
 === Notice
-This document is not an OGC Standard. This document is an OGC Public Engineering Report created as a deliverable in an OGC Interoperability Initiative and is <em>not an official position</em> of the OGC membership. It is distributed for review and comment. It is subject to change without notice and may not be referred to as an OGC Standard.
+This document is not an OGC Standard. This document is an OGC Public Engineering Report created as a deliverable in an OGC Interoperability Initiative and is _not an official position_ of the OGC membership. It is distributed for review and comment. It is subject to change without notice and may not be referred to as an OGC Standard.
 
 Further, any OGC Engineering Report should not be referenced as required or mandatory technology in procurements. However, the discussions in this document could very well lead to the definition of an OGC Standard.
 
