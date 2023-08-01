@@ -4677,6 +4677,9 @@
 	<!-- END Definition List -->
 	<!-- ===================== -->
 
+	<!-- default: ignore title in sections/p -->
+	<xsl:template match="*[local-name() = 'sections']/*[local-name() = 'p'][starts-with(@class, 'zzSTDTitle')]" priority="3"/>
+
 	<!-- ========================= -->
 	<!-- Rich text formatting -->
 	<!-- ========================= -->
@@ -10462,7 +10465,7 @@
 	<xsl:template match="*[local-name() = 'span']" mode="update_xml_step1">
 		<xsl:apply-templates mode="update_xml_step1"/>
 	</xsl:template>
-	<xsl:template match="*[local-name() = 'sourcecode']//*[local-name() = 'span'][@class]" mode="update_xml_step1" priority="2">
+	<xsl:template match="*[local-name() = 'sections']/*[local-name() = 'p'][starts-with(@class, 'zzSTDTitle')]/*[local-name() = 'span'][@class] | *[local-name() = 'sourcecode']//*[local-name() = 'span'][@class]" mode="update_xml_step1" priority="2">
 		<xsl:copy>
 			<xsl:copy-of select="@*"/>
 			<xsl:apply-templates mode="update_xml_step1"/>
