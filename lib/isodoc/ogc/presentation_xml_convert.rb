@@ -10,6 +10,8 @@ module IsoDoc
         super
       end
 
+      def middle_title(docxml); end
+
       def convert1(docxml, filename, dir)
         info docxml, nil
         super

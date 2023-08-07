@@ -602,7 +602,7 @@ RSpec.describe IsoDoc::Ogc do
       <ogc-standard xmlns="#{Metanorma::Ogc::DOCUMENT_NAMESPACE}">
       <preface>
       <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
-      <foreword id="A"><title>Preface</title>
+      <foreword id="A" displayorder="2"><title>Preface</title>
       <pre>ABC</pre>
       </foreword></preface>
       </ogc-standard>
@@ -615,7 +615,6 @@ RSpec.describe IsoDoc::Ogc do
                  <h1 class="ForewordTitle">Preface</h1>
                  <pre>ABC</pre>
                </div>
-               <p class="zzSTDTitle1"/>
              </div>
            </body>
     OUTPUT
@@ -664,7 +663,6 @@ RSpec.describe IsoDoc::Ogc do
             <p>The following are keywords to be used by search engines and document catalogues.</p>
             <p>ABC, DEF</p>
           </div>
-          <p class="zzSTDTitle1"/>
         </div>
       </body>
     OUTPUT
@@ -731,7 +729,6 @@ RSpec.describe IsoDoc::Ogc do
             </p>
             <p>ABC, DEF</p>
           </div>
-          <p class='zzSTDTitle1'/>
         </div>
       </body>
     OUTPUT
@@ -813,7 +810,6 @@ RSpec.describe IsoDoc::Ogc do
         <li>DEF</li>
       </ul>
             </div>
-            <p class="zzSTDTitle1"/>
           </div>
         </body>
     OUTPUT
@@ -929,7 +925,6 @@ RSpec.describe IsoDoc::Ogc do
               <li>DEF</li>
             </ul>
           </div>
-          <p class='zzSTDTitle1'/>
         </div>
       </body>
     OUTPUT
@@ -1117,7 +1112,6 @@ RSpec.describe IsoDoc::Ogc do
         <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
       </div>
               </div>
-              <p class="zzSTDTitle1"/>
             </div>
           </body>
     OUTPUT
@@ -1170,7 +1164,6 @@ RSpec.describe IsoDoc::Ogc do
         <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
       </div>
               </div>
-              <p class="zzSTDTitle1"/>
             </div>
           </body>
     OUTPUT
@@ -1223,7 +1216,6 @@ RSpec.describe IsoDoc::Ogc do
         <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
       </div>
               </div>
-              <p class="zzSTDTitle1"/>
             </div>
           </body>
     OUTPUT
@@ -1275,7 +1267,6 @@ RSpec.describe IsoDoc::Ogc do
       <p id="_">This is an example</p>
       <p id="_">Amen</p></div>
             </div>
-            <p class="zzSTDTitle1"/>
           </div>
         </body>
     OUTPUT
@@ -1327,7 +1318,6 @@ RSpec.describe IsoDoc::Ogc do
       <p id="_">This is an example</p>
       <p id="_">Amen</p></div>
             </div>
-            <p class="zzSTDTitle1"/>
           </div>
         </body>
     OUTPUT
@@ -1555,6 +1545,9 @@ RSpec.describe IsoDoc::Ogc do
             <clause id="O" inline-header="false" obligation="normative">
               <title depth="2">6.2.<tab/>Clause 4.2</title>
             </clause></clause>
+            <references id="R" obligation="informative" normative="true" displayorder="13">
+              <title depth="1">3.<tab/>Normative References</title>
+            </references>
             </sections><annex id="P" inline-header="false" obligation="normative" displayorder="17">
               <title><strong>Annex A</strong><br/>(normative)<br/><strong>Annex</strong></title>
               <clause id="Q" inline-header="false" obligation="normative">
@@ -1587,9 +1580,8 @@ RSpec.describe IsoDoc::Ogc do
                         </term>
                       </terms>
                   </annex>
-             <bibliography><references id="R" obligation="informative" normative="true" displayorder="13">
-              <title depth="1">3.<tab/>Normative References</title>
-            </references><clause id="S" obligation="informative" displayorder="20">
+             <bibliography>
+            <clause id="S" obligation="informative" displayorder="20">
               <title depth="1">Bibliography</title>
               <references id="T" obligation="informative" normative="false">
               <title depth="2">Bibliography Subsection</title>
@@ -1649,7 +1641,6 @@ RSpec.describe IsoDoc::Ogc do
             <h1 class='IntroTitle'>IX.&#160; Acknowlegements</h1>
             <p>ABC</p>
           </div>
-          <p class='zzSTDTitle1'/>
           <div id='D'>
             <h1>1.&#160; Scope</h1>
             <p id='E'>Text</p>
@@ -1774,7 +1765,7 @@ RSpec.describe IsoDoc::Ogc do
     presxml = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
           <preface> <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
-        <foreword id="A"><title>Preface</title>
+        <foreword id="A" displayorder="2"><title>Preface</title>
       <p id="_">Amen <hi>highlight</hi> Amen</p>
           </foreword></preface>
           </iso-standard>
@@ -1791,7 +1782,6 @@ RSpec.describe IsoDoc::Ogc do
          Amen
       </p>
             </div>
-            <p class="zzSTDTitle1"/>
           </div>
         </body>
     OUTPUT
@@ -1801,17 +1791,17 @@ RSpec.describe IsoDoc::Ogc do
            <div class='WordSection1'>
              <p>&#160;</p>
            </div>
-           <p>
+           <p class="section-break">
              <br clear='all' class='section'/>
            </p>
            <div class='WordSection2'>
-             <p>
+             <p class="page-break">
                <br clear='all' style='mso-special-character:line-break;page-break-before:always'/>
              </p>
                  <div class="TOC" id="_">
             <p class="zzContents">Contents</p>
           </div>
-          <p>
+          <p class="page-break">
             <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
           </p>
              <div id='A'>
@@ -1824,11 +1814,10 @@ RSpec.describe IsoDoc::Ogc do
              </div>
              <p>&#160;</p>
            </div>
-           <p>
+           <p class="section-break">
              <br clear='all' class='section'/>
            </p>
            <div class='WordSection3'>
-             <p class='zzSTDTitle1'/>
            </div>
          </body>
     OUTPUT
@@ -1930,21 +1919,21 @@ RSpec.describe IsoDoc::Ogc do
         <div class="TOC" id="_">
           <h1 class="IntroTitle">Contents</h1>
         </div>
-        <br/><div id="A"><h1 class="ForewordTitle">I.</h1><div id="B" class="Note"><p><span class="note_label">NOTE:  </span>  Hello</p></div></div><p class="zzSTDTitle1"/><div id="C"><h1>
+        <br/><div id="A"><h1 class="ForewordTitle">I.</h1><div id="B" class="Note"><p><span class="note_label">NOTE:  </span>  Hello</p></div></div><div id="C"><h1>
           1.
            
           Clause
         </h1><div id="D" class="Note"><p><span class="note_label">NOTE:  </span>  Hello</p></div></div></div></body>
     OUTPUT
     word = <<~OUTPUT
-      <body lang="EN-US" link="blue" vlink="#954F72"><div class="WordSection1"><p> </p></div><p><br clear="all" class="section"/></p><div class="WordSection2"><p><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
+      <body lang="EN-US" link="blue" vlink="#954F72"><div class="WordSection1"><p> </p></div><p class="section-break"><br clear="all" class="section"/></p><div class="WordSection2"><p class="page-break"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
           <div class="TOC" id="_">
       <p class="zzContents">Contents</p>
       </div>
-      <p>
+      <p class="page-break">
        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
       </p>
-        <div id="A"><h1 class="ForewordTitle">I.</h1><div id="B" class="Note"><p class="Note"><span class="note_label">NOTE:<span style="mso-tab-count:1">  </span></span><span style="mso-tab-count:1">  </span>Hello</p></div></div><p> </p></div><p><br clear="all" class="section"/></p><div class="WordSection3"><p class="zzSTDTitle1"/><div id="C"><h1>
+        <div id="A"><h1 class="ForewordTitle">I.</h1><div id="B" class="Note"><p class="Note"><span class="note_label">NOTE:<span style="mso-tab-count:1">  </span></span><span style="mso-tab-count:1">  </span>Hello</p></div></div><p> </p></div><p class="section-break"><br clear="all" class="section"/></p><div class="WordSection3"><div id="C"><h1>
           1.
           <span style="mso-tab-count:1">  </span>
           Clause

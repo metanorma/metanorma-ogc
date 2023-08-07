@@ -22,7 +22,7 @@ RSpec.describe IsoDoc::Ogc do
         <eref bibitemid="ogc3"/>
         </p>
           </foreword></preface>
-          <bibliography><references id="_normative_references" obligation="informative" normative="true"><title>Normative References</title>
+          <sections><references id="_normative_references" obligation="informative" normative="true"><title>Normative References</title>
           <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
       <bibitem id="ISO712" type="standard">
         <title format="text/plain">Cereals or cereal products</title>
@@ -224,7 +224,10 @@ RSpec.describe IsoDoc::Ogc do
       </editorialgroup>
       </ext>
       </bibitem>
-      </references><references id="_bibliography" obligation="informative" normative="false">
+      </references>
+      </sections>
+      <bibliography>
+        <references id="_bibliography" obligation="informative" normative="false">
         <title>Bibliography</title>
       <bibitem id="ISBN" type="book">
         <title format="text/plain">Chemicals for analytical laboratory use</title>
@@ -349,7 +352,7 @@ RSpec.describe IsoDoc::Ogc do
         <xref target="ogc3">OGC&#xa0;05-020r27 (draft)</xref>
                 </p>
                   </foreword></preface>
-                  <bibliography><references id="_" obligation="informative" normative="true" displayorder="3"><title depth="1">1.<tab/>Normative References</title>
+                  <sections><references id="_" obligation="informative" normative="true" displayorder="3"><title depth="1">1.<tab/>Normative References</title>
                   <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
               <bibitem id="ISO712" type="standard">
                 <formattedref>ISO: ISO&#xa0;712, <em>Cereals and cereal products</em>. International Organization for Standardization</formattedref>
@@ -404,7 +407,10 @@ RSpec.describe IsoDoc::Ogc do
            </status>
            <biblio-tag/>
          </bibitem>
-              </references><references id="_" obligation="informative" normative="false" displayorder="4">
+              </references>
+              </sections>
+              <bibliography>
+            <references id="_" obligation="informative" normative="false" displayorder="4">
                 <title depth="1">Bibliography</title>
                 <bibitem id='ISBN' type='book'>
                 <formattedref><em>Chemicals for analytical laboratory use</em>. ISBN Publishers, n.p. (n.d.).</formattedref>
@@ -485,7 +491,6 @@ RSpec.describe IsoDoc::Ogc do
                <a href='#ogc3'>OGC&#xa0;05-020r27 (draft)</a>
              </p>
            </div>
-           <p class='zzSTDTitle1'/>
            <div>
              <h1>1.&#xa0; Normative References</h1>
              <p>

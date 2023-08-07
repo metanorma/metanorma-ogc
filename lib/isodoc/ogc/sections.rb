@@ -1,21 +1,10 @@
 module IsoDoc
   module Ogc
     module BaseConvert
-      def front(isoxml, out)
-        p = isoxml.at(ns("//preface")) or return
-        p.elements.each do |e|
-          if is_clause?(e.name)
-            case e.name
-            when "abstract" then abstract e, out
-            when "foreword" then foreword e, out
-            when "introduction" then introduction e, out
-            when "submitters" then intro_clause e, out
-            when "clause" then preface e, out
-            when "acknowledgements" then acknowledgements e, out
-            end
-          else
-            preface_block(e, out)
-          end
+      def top_element_render(node, out)
+        case node.name
+        when "submitters" then intro_clause node, out
+        else super
         end
       end
 
@@ -23,9 +12,6 @@ module IsoDoc
         case clause["type"]
         when "toc"
           table_of_contents(clause, out)
-        when "executivesummary", "security", "submitting_orgs",
-          "keywords"
-          intro_clause(clause, out)
         else
           intro_clause(clause, out)
         end
@@ -65,15 +51,6 @@ module IsoDoc
 
       def acknowledgements(clause, out)
         intro_clause(clause, out)
-      end
-
-      def conformance(isoxml, out, num)
-        f = isoxml.at(ns("//clause[@type = 'conformance']")) or return num
-        out.div **attr_code(id: f["id"]) do |div|
-          clause_name(f, f&.at(ns("./title")), div, nil)
-          f.elements.each { |e| parse(e, div) unless e.name == "title" }
-        end
-        num
       end
     end
   end

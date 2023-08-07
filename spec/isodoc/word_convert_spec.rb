@@ -7,7 +7,8 @@ RSpec.describe IsoDoc::Ogc do
           <ogc-standard xmlns="https://standards.opengeospatial.org/document">
           <preface/>
           <sections>
-          <terms id="_terms_and_definitions" obligation="normative"><title>1.<tab/>Terms and definitions</title><p id="_bf202ad0-7300-4cca-80ae-87ef7008f0fd">For the purposes of this document,
+          <terms id="_terms_and_definitions" obligation="normative" displayorder="1">
+        <title>1.<tab/>Terms and definitions</title><p id="_bf202ad0-7300-4cca-80ae-87ef7008f0fd">For the purposes of this document,
           the following terms and definitions apply.</p>
       <term id="_bounding_volume">
       <name>1.1.</name>
@@ -25,7 +26,6 @@ RSpec.describe IsoDoc::Ogc do
       .to be_equivalent_to xmlpp(<<~OUTPUT)
         <body>
           <div class='WordSection3'>
-            <p class='zzSTDTitle1'/>
             <div>
               <a name='_terms_and_definitions' id='_terms_and_definitions'/>
               <h1>
