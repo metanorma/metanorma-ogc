@@ -4,52 +4,22 @@ module IsoDoc
     end
 
     class Xref < IsoDoc::Xref
-      def initial_anchor_names(doc)
-        if @parse_settings.empty? || @parse_settings[:clauses]
-          preface_anchor_names(doc)
-          n = Counter.new
-          n = section_names(doc.at(ns("//clause[@type = 'scope']")), n, 1)
-          n = section_names(doc.at(ns("//clause[@type = 'conformance']")), n, 1)
-          n = section_names(doc.at(ns(@klass.norm_ref_xpath)), n, 1)
-          initial_anchor_names_middle(doc, n,
-                                      doc.at(ns("//bibdata/ext/doctype"))&.text)
-        end
+      def clause_order_main(docxml)
+        ret = [{ path: "//clause[@type = 'scope']" },
+               { path: "//clause[@type = 'conformance']" },
+               { path: @klass.norm_ref_xpath }]
+        a = ["//sections/terms | //sections/clause[descendant::terms]",
+             "//sections/definitions | " \
+             "//sections/clause[descendant::definitions][not(descendant::terms)]",
+             @klass.middle_clause(docxml)]
+        ret + if docxml.at(ns("//bibdata/ext/doctype"))&.text == "engineering-report"
+                [{ path: a.join(" | "), multi: true }]
+              else
+                [{ path: a[0] }, { path: a[1] }, { path: a[2], multi: true }]
+              end
       end
 
-      TERMS_SECT = "//sections/terms | //sections/clause[descendant::terms]"
-        .freeze
-
-      def initial_anchor_names_middle(doc, num, doctype)
-        if doctype == "engineering-report"
-          doc.xpath(ns(@klass.middle_clause(doc)) +
-                       " | #{ns(TERMS_SECT)} | " + ns("//sections/definitions"))
-            .each_with_index { |c, _i| section_names(c, num, 1) }
-        else
-          num = section_names(doc.at(ns(TERMS_SECT)), num, 1)
-          num = section_names(doc.at(ns("//sections/definitions")), num, 1)
-          clause_names(doc, num)
-        end
-      end
-
-      def preface_anchor_names(doc)
-        @prefacenum = 0
-        ["//preface/abstract", "//preface/clause[@type = 'executivesummary']",
-         "//preface/clause[@type = 'keywords']",
-         "//foreword", "//preface/clause[@type = 'security']",
-         "//preface/clause[@type = 'submitting_orgs']", "//submitters",
-         "//introduction"].each do |path|
-          preface_names_numbered(doc.at(ns(path)))
-        end
-        doc.xpath(ns("//preface/clause[not(@type = 'keywords' or " \
-                     "@type = 'submitting_orgs' or @type = 'security' or " \
-                     "@type = 'executivesummary' or @type = 'toc')]"))
-          .each { |c| preface_names_numbered(c) }
-        preface_names_numbered(doc.at(ns("//acknowledgements")))
-        sequential_asset_names(
-          doc.xpath(ns("//preface/abstract | //foreword | //introduction | " \
-                       "//submitters | //acknowledgements | //preface/clause")),
-        )
-      end
+      # ["//preface/abstract", "//preface/clause[@type = 'executivesummary']", "//preface/clause[@type = 'keywords']", "//foreword", "//preface/clause[@type = 'security']", "//preface/clause[@type = 'submitting_orgs']", "//submitters", "//introduction"]
 
       def middle_section_asset_names(doc)
         middle_sections =
@@ -61,9 +31,14 @@ module IsoDoc
         sequential_asset_names(doc.xpath(ns(middle_sections)))
       end
 
-      def preface_names_numbered(clause)
-        return if clause.nil?
+      def preface_anchor_names(xml)
+        @prefacenum = 0
+        super
+      end
 
+      def preface_names(clause)
+        clause.nil? and return
+        clause["type"] == "toc" and return
         @prefacenum += 1
         pref = preface_number(@prefacenum, 1)
         @anchors[clause["id"]] =
