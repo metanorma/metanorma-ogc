@@ -195,33 +195,6 @@ module IsoDoc
         xml.children = "#{f}#{xml.xpath(ns(keep)).to_xml}"
       end
 
-      SECT_TERMS = "//sections/terms | //sections/clause[descendant::terms]"
-        .freeze
-
-      def display_order(docxml)
-        i = 0
-        i = display_order_xpath(docxml, "//preface/*", i)
-        i = display_order_at(docxml, "//clause[@type = 'scope']", i)
-        i = display_order_at(docxml, "//clause[@type = 'conformance']", i)
-        i = display_order_at(docxml, @xrefs.klass.norm_ref_xpath, i)
-        i = display_order_clauses(docxml, i)
-        i = display_order_xpath(docxml, "//annex", i)
-        i = display_order_xpath(docxml, @xrefs.klass.bibliography_xpath, i)
-        display_order_xpath(docxml, "//indexsect", i)
-      end
-
-      def display_order_clauses(docxml, idx)
-        if docxml.at(ns("//bibdata/ext/doctype"))&.text == "engineering-report"
-          xpath = "#{SECT_TERMS} | //sections/definitions | " +
-            @xrefs.klass.middle_clause(docxml)
-          return display_order_xpath(docxml, xpath, idx)
-        end
-        idx = display_order_at(docxml, SECT_TERMS, idx)
-        idx = display_order_at(docxml, "//sections/definitions", idx)
-        display_order_xpath(docxml, @xrefs.klass.middle_clause(docxml),
-                            idx)
-      end
-
       def norm_ref_entry_code(_ordinal, _idents, _ids, _standard, _datefn, _bib)
         ""
       end
