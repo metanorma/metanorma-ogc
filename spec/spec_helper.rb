@@ -54,9 +54,9 @@ end
 
 def htmlencode(xml)
   HTMLEntities.new.encode(xml, :hexadecimal)
-    .gsub(/&#x3e;/, ">").gsub(/&#xa;/, "\n")
-    .gsub(/&#x22;/, '"').gsub(/&#x3c;/, "<")
-    .gsub(/&#x26;/, "&").gsub(/&#x27;/, "'")
+    .gsub("&#x3e;", ">").gsub("&#xa;", "\n")
+    .gsub("&#x22;", '"').gsub("&#x3c;", "<")
+    .gsub("&#x26;", "&").gsub("&#x27;", "'")
     .gsub(/\\u(....)/) { |_s| "&#x#{$1.downcase};" }
 end
 
@@ -263,6 +263,6 @@ HDR
 
 def mock_pdf
   allow(Mn2pdf).to receive(:convert) do |url, output, _c, _d|
-    FileUtils.cp(url.gsub(/"/, ""), output.gsub(/"/, ""))
+    FileUtils.cp(url.gsub('"', ""), output.gsub('"', ""))
   end
 end

@@ -430,7 +430,6 @@ RSpec.describe Metanorma::Ogc do
       <acknowledgements id='_' obligation='informative'>
         <title>Acknowledgements</title>
       </acknowledgements>
-      #{SECURITY}
       <submitters id="_">
       <title>Submitters</title>
         <p id="_">Clause 2</p>
@@ -678,6 +677,75 @@ RSpec.describe Metanorma::Ogc do
        </ogc-standard>
     OUTPUT
     expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+      .to be_equivalent_to xmlpp(output)
+
+    input = <<~INPUT
+      #{ASCIIDOC_BLANK_HDR}
+
+      == Clause
+
+    INPUT
+    output = <<~OUTPUT
+      #{blank_hdr_gen}
+        <preface>
+        <clause type="security" id="_" obligation="informative">
+          <title>Security considerations</title>
+          <p id="_">No security considerations have been made for this document.</p>
+        </clause>
+      </preface>
+         <sections><clause id="_" obligation="normative">
+            <title>Clause</title>
+         </sections>
+       </ogc-standard>
+    OUTPUT
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+      .to be_equivalent_to xmlpp(output)
+  end
+
+  it "ignores security consideration sections in engineering reports" do
+    input = <<~INPUT
+      #{ASCIIDOC_BLANK_HDR.sub(':nodoc:', ":nodoc:\n:doctype: engineering-report")}
+
+      == Security Considerations
+
+      This is a security consideration
+
+    INPUT
+    output = <<~OUTPUT
+      <ogc-standard xmlns="https://www.metanorma.org/ns/ogc" type="semantic" version="#{Metanorma::Ogc::VERSION}">
+      <sections>
+          <clause id='_' obligation='normative'>
+            <title>Security Considerations</title>
+            <p id="_">This is a security consideration</p>
+          </clause>
+        </sections>
+      </ogc-standard>
+    OUTPUT
+    xml = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
+    xml.xpath("//xmlns:bibdata | //xmlns:boilerplate | //xmlns:metanorma-extension")
+      .each(&:remove)
+    expect(xmlpp(strip_guid(xml.to_xml)))
+      .to be_equivalent_to xmlpp(output)
+
+    input = <<~INPUT
+      #{ASCIIDOC_BLANK_HDR.sub(':nodoc:', ":nodoc:\n:doctype: engineering-report")}
+
+      == Clause
+
+    INPUT
+    output = <<~OUTPUT
+      <ogc-standard xmlns="https://www.metanorma.org/ns/ogc" type="semantic" version="#{Metanorma::Ogc::VERSION}">
+               <sections>
+           <clause id="_" obligation="normative">
+             <title>Clause</title>
+           </clause>
+         </sections>
+      </ogc-standard>
+    OUTPUT
+    xml = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
+    xml.xpath("//xmlns:bibdata | //xmlns:boilerplate | //xmlns:metanorma-extension")
+      .each(&:remove)
+    expect(xmlpp(strip_guid(xml.to_xml)))
       .to be_equivalent_to xmlpp(output)
   end
 
