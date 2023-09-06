@@ -34,13 +34,13 @@ module Metanorma
       def insert_security(xml, sect)
         description = "document"
         description = "standard" if %w(standard community-standard)
-          .include?(sect.at("//bibdata/ext/doctype")&.text)
+          .include?(@doctype)
         preface = sect.at("//preface") ||
           sect.add_previous_sibling("<preface/>").first
         sect = xml.at("//clause[@type = 'security']")&.remove ||
           "<clause type='security' #{add_id}>" \
           "<title>Security considerations</title>" \
-          "<p>#{@i18n.security_empty.sub(/%/, description)}</p></clause>"
+          "<p>#{@i18n.security_empty.sub('%', description)}</p></clause>"
         preface.add_child sect
       end
 
@@ -62,9 +62,11 @@ module Metanorma
         super
         a = xmldoc.at("//bibdata/status/stage")
         a.text == "published" and a.children = "approved"
-        doctype = xmldoc.at("//bibdata/ext/doctype")
-        doctype.text == "technical-paper" and
+        if @doctype == "technical-paper"
+          doctype = xmldoc.at("//bibdata/ext/doctype")
           doctype.children = "white-paper"
+          @doctype = "white-paper"
+        end
       end
 
       def section_names_terms_cleanup(xml)
