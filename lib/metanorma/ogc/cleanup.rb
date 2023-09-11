@@ -32,8 +32,10 @@ module Metanorma
       end
 
       def insert_security(xml, sect)
-        doctype = xml.at("//bibdata/ext/doctype")&.text
-        doctype == "engineering-report" and return remove_security(xml)
+        description = "document"
+        description = "standard" if %w(standard community-standard)
+          .include?(@doctype)
+        @doctype == "engineering-report" and return remove_security(xml)
         preface = sect.at("//preface") ||
           sect.add_previous_sibling("<preface/>").first
         sect = xml.at("//clause[@type = 'security']")&.remove ||
@@ -76,9 +78,11 @@ module Metanorma
         super
         a = xmldoc.at("//bibdata/status/stage")
         a.text == "published" and a.children = "approved"
-        doctype = xmldoc.at("//bibdata/ext/doctype")
-        doctype.text == "technical-paper" and
+        if @doctype == "technical-paper"
+          doctype = xmldoc.at("//bibdata/ext/doctype")
           doctype.children = "white-paper"
+          @doctype = "white-paper"
+        end
       end
 
       def section_names_terms_cleanup(xml)

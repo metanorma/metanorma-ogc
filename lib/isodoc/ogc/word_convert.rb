@@ -40,13 +40,12 @@ module IsoDoc
       end
 
       def convert1(docxml, filename, dir)
-        if docxml&.at(ns("//bibdata/ext/doctype"))&.text == "white-paper"
+        if @doctype == "white-paper"
           @wordstylesheet_name = html_doc_path("wordstyle_wp.scss")
           @standardstylesheet_name = html_doc_path("ogc_wp.scss")
           @wordcoverpage = html_doc_path("word_ogc_titlepage_wp.html")
           @wordintropage = html_doc_path("word_ogc_intro_wp.html")
           @header = html_doc_path("header_wp.html")
-          @doctype = "white-paper"
           options[:bodyfont] = '"Arial",sans-serif'
           options[:headerfont] = '"Lato",sans-serif'
           options[:normalfontsize] = "11.0pt"

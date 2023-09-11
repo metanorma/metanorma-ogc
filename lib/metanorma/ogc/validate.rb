@@ -2,7 +2,6 @@ module Metanorma
   module Ogc
     class Converter < Standoc::Converter
       def validate(doc)
-        @doctype = doc.at("//bibdata/ext/doctype")&.text
         content_validate(doc)
         schema_validate(formattedstr_strip(doc.dup),
                         File.join(File.dirname(__FILE__), "ogc.rng"))

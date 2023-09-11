@@ -12,7 +12,7 @@ module IsoDoc
              "//sections/definitions | " \
              "//sections/clause[descendant::definitions][not(descendant::terms)]",
              @klass.middle_clause(docxml)]
-        ret + if docxml.at(ns("//bibdata/ext/doctype"))&.text == "engineering-report"
+        ret + if @doctype == "engineering-report"
                 [{ path: a.join(" | "), multi: true }]
               else
                 [{ path: a[0] }, { path: a[1] }, { path: a[2], multi: true }]
