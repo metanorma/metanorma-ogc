@@ -32,16 +32,30 @@ module Metanorma
       end
 
       def insert_security(xml, sect)
-        description = "document"
-        description = "standard" if %w(standard community-standard)
-          .include?(sect.at("//bibdata/ext/doctype")&.text)
+        doctype = xml.at("//bibdata/ext/doctype")&.text
+        doctype == "engineering-report" and return remove_security(xml)
         preface = sect.at("//preface") ||
           sect.add_previous_sibling("<preface/>").first
         sect = xml.at("//clause[@type = 'security']")&.remove ||
-          "<clause type='security' #{add_id}>" \
-          "<title>Security considerations</title>" \
-          "<p>#{@i18n.security_empty.sub(/%/, description)}</p></clause>"
+          create_security_clause(xml)
         preface.add_child sect
+      end
+
+      def remove_security(xml)
+        a = xml.at("//clause[@type = 'security']") and
+          a.delete("type")
+      end
+
+      def create_security_clause(xml)
+        doctype = xml.at("//bibdata/ext/doctype")&.text
+        description = "document"
+        description = "standard" if %w(standard community-standard)
+          .include?(doctype)
+        <<~CLAUSE
+          <clause type='security' #{add_id}>
+            <title>Security considerations</title>
+            <p>#{@i18n.security_empty.sub('%', description)}</p></clause>
+        CLAUSE
       end
 
       def insert_submitters(xml, sect)
