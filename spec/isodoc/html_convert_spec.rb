@@ -946,8 +946,10 @@ RSpec.describe IsoDoc::Ogc do
                <bibdata>
                  <keyword>ABC</keyword>
                  <keyword>DEF</keyword>
+                 <keyword>"Double quote"</keyword>
+                 <keyword>'Single quote'</keyword>
                  <abstract><p>This is a description.</p>
-              <quote>This is a <em>blockquote</em> within a description.</quote>
+              <quote>This is a <em>blockquote</em> within a description. "Double quote" and 'Single quote'.</quote>
                  </abstract>
                </bibdata>
                <preface>
@@ -966,8 +968,10 @@ RSpec.describe IsoDoc::Ogc do
     OUTPUT
 
     output = <<~OUTPUT
-      <meta name="keywords" content="ABC, DEF"/>
-      <meta name="description" content="This is a description. This is a blockquote within a description."/>
+      <html>
+        <meta name="keywords" content="ABC, DEF, &quot;Double quote&quot;, 'Single quote'"/>
+        <meta name="description" content="This is a description. This is a blockquote within a description. &quot;Double quote&quot; and 'Single quote'."/>
+      </html>
     OUTPUT
 
     FileUtils.rm_f("test.html")
@@ -975,7 +979,7 @@ RSpec.describe IsoDoc::Ogc do
       .convert("test", presxml, false)
     doc = Nokogiri::XML(File.read("test.html"))
     out = doc.xpath("//head/meta[@name = 'keywords' or @name = 'description']")
-    expect(xmlpp(out.to_xml))
+    expect(xmlpp("<html>#{out.to_xml}</html>"))
       .to be_equivalent_to xmlpp(output)
   end
 
