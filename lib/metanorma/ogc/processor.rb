@@ -40,6 +40,7 @@ module Metanorma
       end
 
       def output(isodoc_node, inname, outname, format, options={})
+        options_preprocess(options)
         case format
         when :html then IsoDoc::Ogc::HtmlConvert.new(options)
           .convert(inname, isodoc_node, nil, outname)
