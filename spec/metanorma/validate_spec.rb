@@ -114,7 +114,7 @@ RSpec.describe Metanorma::Ogc do
 
       text
     INPUT
-    expect(File.read("test.err.html")).to include "draft is not an allowed status for abstract-specificat­ion-topic"
+    expect(File.read("test.err.html")).to include "draft is not an allowed status for abstract-specification-topic"
   end
 
   it "does not issue section order warnings unless document is a standard" do
