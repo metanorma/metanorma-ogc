@@ -24,8 +24,7 @@ RSpec.describe Metanorma::Ogc do
       warn out.to_xml
       expect(out.xpath("//xmlns:references/xmlns:bibitem/@id")
         .map(&:value))
-        .to be_equivalent_to ["ogc1", "ogc3", "ogc2", "iso4", "iso3", "iso2",
-                              "iso1", "ref2", "ref1"]
+        .to be_equivalent_to ["iso4", "iso3", "iso2", "iso1", "ogc3", "ogc2", "ogc1", "ref2", "ref1"]
     end
   end
 end
