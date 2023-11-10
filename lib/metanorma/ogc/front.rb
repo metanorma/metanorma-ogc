@@ -186,7 +186,7 @@ module Metanorma
             s = "general"
           end
         end
-        xml.subdoctype s
+        s && !s.empty? and xml.subdoctype s
       end
 
       def title(node, xml)
