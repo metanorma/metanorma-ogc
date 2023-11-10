@@ -165,7 +165,7 @@ module Metanorma
       end
 
       def metadata_subdoctype(node, xml)
-        s = node.attr("docsubtype") or return
+        s = node.attr("docsubtype")
         s1 = ::IsoDoc::Ogc::DOCSUBTYPE_ABBR.invert[s] and s = s1
         case doctype(node)
         when "standard"
@@ -182,7 +182,7 @@ module Metanorma
                     profile-with-extension}.include? s
             @log.add("Document Attributes", nil,
                      "'#{s}' is not a permitted subtype of best-practice: " \
-                     "reverting to 'implementation'")
+                     "reverting to 'general'")
             s = "general"
           end
         end
