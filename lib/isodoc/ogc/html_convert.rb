@@ -69,9 +69,9 @@ module IsoDoc
 
       def html_head
         ret = super
-        k = @meta.get[:keywords].join(", ").gsub("'", "&#x27;")
+        k = @meta.get[:keywords].join(", ") and k = @c.encode(k).gsub("'", "&#x27;")
         k.empty? or ret += "<meta name='keywords' content='#{k}'/>"
-        k = @meta.get[:abstract]&.gsub("'", "&#x27;")
+        k = @meta.get[:abstract] and k = @c.encode(k)&.gsub("'", "&#x27;")
         (k.nil? || k.empty?) or
           ret += "<meta name='description' content='#{k}'/>"
         ret

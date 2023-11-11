@@ -946,9 +946,9 @@ RSpec.describe IsoDoc::Ogc do
                <bibdata>
                  <keyword>ABC</keyword>
                  <keyword>DEF</keyword>
-                 <keyword>"Double quote"</keyword>
+                 <keyword>"Double &#x3c;quote&#x3e;"</keyword>
                  <keyword>'Single quote'</keyword>
-                 <abstract><p>This is a description.</p>
+                 <abstract><p>This is a &#x3c;description&#x3e;.</p>
               <quote>This is a <em>blockquote</em> within a description. "Double quote" and 'Single quote'.</quote>
                  </abstract>
                </bibdata>
@@ -969,8 +969,8 @@ RSpec.describe IsoDoc::Ogc do
 
     output = <<~OUTPUT
       <html>
-        <meta name="keywords" content="ABC, DEF, &quot;Double quote&quot;, 'Single quote'"/>
-        <meta name="description" content="This is a description. This is a blockquote within a description. &quot;Double quote&quot; and 'Single quote'."/>
+         <meta name="keywords" content="ABC, DEF, &quot;Double &lt;quote&gt;&quot;, 'Single quote'"/>
+         <meta name="description" content="This is a &lt;description&gt;. This is a blockquote within a description. &quot;Double quote&quot; and 'Single quote'."/>
       </html>
     OUTPUT
 

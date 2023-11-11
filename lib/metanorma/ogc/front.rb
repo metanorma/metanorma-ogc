@@ -181,12 +181,12 @@ module Metanorma
           unless %w{general encoding extension profile
                     profile-with-extension}.include? s
             @log.add("Document Attributes", nil,
-                     "'#{s}' is not a permitted subtype of Standard: " \
-                     "reverting to 'implementation'")
+                     "'#{s}' is not a permitted subtype of best-practice: " \
+                     "reverting to 'general'")
             s = "general"
           end
         end
-        s and xml.subdoctype s
+        s && !s.empty? and xml.subdoctype s
       end
 
       def title(node, xml)

@@ -128,7 +128,7 @@ module IsoDoc
       end
 
       def docsubtype_abbr(subtype, _type)
-        IsoDoc::Ogc::DOCSUBTYPE_ABBR[subtype] || st
+        IsoDoc::Ogc::DOCSUBTYPE_ABBR[subtype] || subtype
       end
 
       def status_print(status)
