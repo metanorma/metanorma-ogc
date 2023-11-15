@@ -86,25 +86,26 @@ module Metanorma
       end
 
       def section_names_terms_cleanup(xml)
-        replace_title(xml, "//definitions[@type = 'symbols']", @i18n&.symbols)
+        @i18n or return
+        replace_title(xml, "//definitions[@type = 'symbols']", @i18n.symbols)
         replace_title(xml, "//definitions[@type = 'abbreviated_terms']",
-                      @i18n&.abbrev)
-        replace_title(xml, "//definitions[not(@type)]", @i18n&.symbolsabbrev)
+                      @i18n.abbrev)
+        replace_title(xml, "//definitions[not(@type)]", @i18n.symbolsabbrev)
         replace_title(xml, "//sections//terms#{SYMnoABBR} | " \
                            "//sections//clause[.//terms]#{SYMnoABBR}",
-                      @i18n&.termsdefsymbols, true)
+                      @i18n.termsdefsymbols, true)
         replace_title(xml, "//sections//terms#{ABBRnoSYM} | " \
                            "//sections//clause[.//terms]#{ABBRnoSYM}",
-                      @i18n&.termsdefabbrev, true)
+                      @i18n.termsdefabbrev, true)
         replace_title(xml, "//sections//terms#{SYMABBR} | " \
                            "//sections//clause[.//terms]#{SYMABBR}",
-                      @i18n&.termsdefsymbolsabbrev, true)
+                      @i18n.termsdefsymbolsabbrev, true)
         replace_title(xml, "//sections//terms#{NO_SYMABBR} | " \
                            "//sections//clause[.//terms]#{NO_SYMABBR}",
-                      @i18n&.termsdefsymbolsabbrev, true)
+                      @i18n.termsdefsymbolsabbrev, true)
         replace_title(xml, "//sections//terms[not(.//definitions)] | " \
                            "//sections//clause[.//terms][not(.//definitions)]",
-                      @i18n&.termsdef, true)
+                      @i18n.termsdef, true)
       end
 
       def termdef_cleanup(xmldoc)
@@ -115,8 +116,7 @@ module Metanorma
       # skip annex/terms/terms, which is empty node
       def termdef_subclause_cleanup(xmldoc)
         xmldoc.xpath("//annex//clause[terms]").each do |t|
-          next unless t.xpath("./clause | ./terms | ./definitions").size == 1
-
+          t.xpath("./clause | ./terms | ./definitions").size == 1 or next
           t.children.each { |n| n.parent = t.parent }
           t.remove
         end
@@ -223,6 +223,26 @@ module Metanorma
           abbrid: /^\[\d+\]$/.match?(metaid) ? metaid : nil,
           partid: partid&.to_i || 0,
           type: id ? id["type"] : nil }
+      end
+
+       # Numbers sort *before* letters; we leave out using thorn to force that sort order.
+      # case insensitive
+       def symbol_key(sym)
+        @c.decode(asciimath_key(sym).text)
+          .gsub(/[\[\]{}<>()]/, "").gsub(/\s/m, "")
+          .gsub(/[[:punct:]]|[_^]/, ":\\0").gsub("`", "")
+      end
+
+       def symbols_cleanup(docxml)
+        docxml.xpath("//definitions/dl").each do |dl|
+          dl_out = extract_symbols_list(dl)
+          dl_out.sort! do |a, b|
+            a[:key].downcase <=> b[:key].downcase || a[:key] <=> b[:key] ||
+              a[:dt] <=> b[:dt]
+          end
+          dl.children = dl_out.map { |d| d[:dt].to_s + d[:dd].to_s }.join("\n")
+        end
+        docxml
       end
     end
   end

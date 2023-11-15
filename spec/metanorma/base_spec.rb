@@ -1156,4 +1156,74 @@ RSpec.describe Metanorma::Ogc do
     expect(xml.at("//xmlns:permission/xmlns:permission/@model").text)
       .to eq("ogc")
   end
+
+  it "sorts symbols lists #1" do
+    input = <<~INPUT
+      #{ASCIIDOC_BLANK_HDR}
+
+      [[L]]
+      == Symbols and abbreviated terms
+
+      α:: Definition 1
+      Xa:: Definition 2
+      x_1_:: Definition 3
+      x_m_:: Definition 4
+      x:: Definition 5
+      stem:[n]:: Definition 6
+      m:: Definition 7
+      2d:: Definition 8
+    INPUT
+    output = <<~OUTPUT
+               <definitions id="L" obligation="normative">
+             <title>Symbols and abbreviated terms</title>
+             <dl id="_">
+               <dt id="symbol-_2d">2d</dt>
+               <dd>
+                 <p id="_">Definition 8</p>
+               </dd>
+               <dt id="symbol-m">m</dt>
+               <dd>
+                 <p id="_">Definition 7</p>
+               </dd>
+               <dt id="symbol-n">
+                 <stem type="MathML" block="false">
+                   <math xmlns="http://www.w3.org/1998/Math/MathML">
+                     <mstyle displaystyle="false">
+                       <mi>n</mi>
+                     </mstyle>
+                   </math>
+                   <asciimath>n</asciimath>
+                 </stem>
+               </dt>
+               <dd>
+                 <p id="_">Definition 6</p>
+               </dd>
+               <dt id="symbol-x">x</dt>
+               <dd>
+                 <p id="_">Definition 5</p>
+               </dd>
+               <dt id="symbol-x_1_">x_1_</dt>
+               <dd>
+                 <p id="_">Definition 3</p>
+               </dd>
+               <dt id="symbol-x_m_">x_m_</dt>
+               <dd>
+                 <p id="_">Definition 4</p>
+               </dd>
+               <dt id="symbol-Xa">Xa</dt>
+               <dd>
+                 <p id="_">Definition 2</p>
+               </dd>
+               <dt id="symbol-__x3b1_">α</dt>
+               <dd>
+                 <p id="_">Definition 1</p>
+               </dd>
+             </dl>
+           </definitions>
+    OUTPUT
+    doc = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
+    xml = doc.at("//xmlns:definitions")
+    expect(xmlpp(strip_guid(xml.to_xml)))
+      .to be_equivalent_to xmlpp(output)
+end
 end
