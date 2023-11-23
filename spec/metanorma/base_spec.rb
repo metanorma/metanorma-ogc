@@ -120,6 +120,7 @@ RSpec.describe Metanorma::Ogc do
              <role type="publisher"/>
              <organization>
                <name>Open Geospatial Consortium</name>
+               <abbreviation>OGC</abbreviation>
              </organization>
            </contributor>
            <edition>2.0</edition>
@@ -138,6 +139,7 @@ RSpec.describe Metanorma::Ogc do
              <owner>
                <organization>
                  <name>Open Geospatial Consortium</name>
+               <abbreviation>OGC</abbreviation>
                </organization>
              </owner>
            </copyright>
@@ -291,6 +293,7 @@ RSpec.describe Metanorma::Ogc do
           <role type="publisher"/>
           <organization>
             <name>Open Geospatial Consortium</name>
+               <abbreviation>OGC</abbreviation>
           </organization>
         </contributor>
       <edition>2.0</edition>
@@ -309,6 +312,7 @@ RSpec.describe Metanorma::Ogc do
           <owner>
             <organization>
               <name>Open Geospatial Consortium</name>
+               <abbreviation>OGC</abbreviation>
             </organization>
           </owner>
         </copyright>

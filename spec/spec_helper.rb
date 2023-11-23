@@ -179,6 +179,7 @@ BLANK_HDR = <<~"HDR".freeze
       <role type="publisher"/>
       <organization>
         <name>Open Geospatial Consortium</name>
+        <abbreviation>OGC</abbreviation>
       </organization>
     </contributor>
 
@@ -192,6 +193,7 @@ BLANK_HDR = <<~"HDR".freeze
       <owner>
         <organization>
           <name>Open Geospatial Consortium</name>
+        <abbreviation>OGC</abbreviation>
         </organization>
       </owner>
     </copyright>
