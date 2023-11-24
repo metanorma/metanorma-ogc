@@ -11,8 +11,7 @@ module Metanorma
       end
 
       def corporate_author(node, xml)
-        return unless node.attr("submitting-organizations")
-
+        node.attr("submitting-organizations") or return
         csv_split(HTMLEntities.new
           .decode(node.attr("submitting-organizations")), ";")&.each do |org|
           xml.contributor do |c|
@@ -49,8 +48,7 @@ module Metanorma
       end
 
       def ogc_editor(node, xml)
-        return unless node.attr("editor")
-
+        node.attr("editor") or return
         xml.contributor do |c|
           c.role type: "editor"
           c.person do |p|
@@ -78,12 +76,15 @@ module Metanorma
       end
 
       def default_publisher
-        "Open Geospatial Consortium"
+        "OGC"
+      end
+
+       def org_abbrev
+         { "Open Geospatial Consortium" => "OGC" }
       end
 
       def metadata_committee(node, xml)
-        return unless node.attr("committee")
-
+        node.attr("committee") or return
         xml.editorialgroup do |a|
           metadata_committee1(node, a)
         end
@@ -102,12 +103,10 @@ module Metanorma
       end
 
       def externalid(node)
-        return node.attr("external-id") if node.attr("external-id")
-
+        i = node.attr("external-id") and return i
         d = doctype(node)
         a = node.attr("abbrev")
-        return unless d && a
-
+        d && a or return
         url = "http://www.opengis.net/doc/#{IsoDoc::Ogc::DOCTYPE_ABBR[d]}/#{a}"
         v = (node.attr("edition") || node.attr("version")) and url += "/#{v}"
         url
