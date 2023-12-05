@@ -25,7 +25,7 @@ module Metanorma
         @doctype == "engineering-report" and return
         stage = xmldoc&.at("//bibdata/status/stage")&.text
         %w(draft swg-draft oab-review public-rfc tc-vote work-item-draft
-           approved deprecated retired rescinded).include? stage or
+           approved deprecated retired rescinded legacy).include? stage or
           @log.add("Document Attributes", nil,
                    "#{stage} is not a recognised status")
         stage_type_validate(stage, @doctype)
@@ -40,7 +40,7 @@ module Metanorma
               when "best-practice", "community-practice"
                 %w(draft swg-draft work-item-draft).include?(stage)
               else %w(swg-draft oab-review public-rfc tc-vote
-                      work-item-draft deprecated rescinded).include?(stage)
+                      work-item-draft deprecated rescinded legacy).include?(stage)
               end
         err and @log.add("Document Attributes", nil,
                          "#{stage} is not an allowed status for #{doctype}")
