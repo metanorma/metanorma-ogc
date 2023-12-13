@@ -10905,6 +10905,7 @@
 			$namespace = 'mpfd' or $namespace = 'ogc' or $namespace = 'ogc-white-paper' -->
 				<!-- Example: [1] ISO 9:1995, Information and documentation – Transliteration of Cyrillic characters into Latin characters – Slavic and non-Slavic languages -->
 				<fo:list-block id="{@id}" xsl:use-attribute-sets="bibitem-non-normative-list-style">
+
 					<fo:list-item>
 						<fo:list-item-label end-indent="label-end()">
 							<fo:block role="SKIP">
