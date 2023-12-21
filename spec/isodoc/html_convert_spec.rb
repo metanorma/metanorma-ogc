@@ -122,7 +122,9 @@ RSpec.describe IsoDoc::Ogc do
     output = <<~"OUTPUT"
       {:abstract=>"This is a description. This is a blockquote within a description.",
       :accesseddate=>"XXX",
+      :adapteddate=>"XXX",
       :agency=>"OGC",
+      :announceddate=>"XXX",
       :authors=>["Barney Rubble"],
       :circulateddate=>"XXX",
       :confirmeddate=>"XXX",
@@ -162,6 +164,7 @@ RSpec.describe IsoDoc::Ogc do
       :revdate=>"2000-01-01",
       :revdate_monthyear=>"January 2000",
       :script=>"Latn",
+      :stable_untildate=>"XXX",
       :stage=>"SWG Work",
       :stage_display=>"SWG Work",
       :stageabbr=>"SW",
@@ -197,6 +200,8 @@ RSpec.describe IsoDoc::Ogc do
     INPUT
     output = <<~OUTPUT
       {:accesseddate=>"XXX",
+      :adapteddate=>"XXX",
+      :announceddate=>"XXX",
       :circulateddate=>"XXX",
       :confirmeddate=>"XXX",
       :copieddate=>"XXX",
@@ -218,6 +223,7 @@ RSpec.describe IsoDoc::Ogc do
       :publisheddate=>"2030-01-01",
       :receiveddate=>"XXX",
       :script=>"Latn",
+      :stable_untildate=>"XXX",
       :transmitteddate=>"XXX",
       :unchangeddate=>"XXX",
       :unpublished=>true,
@@ -247,6 +253,8 @@ RSpec.describe IsoDoc::Ogc do
     INPUT
     output = <<~OUTPUT
       {:accesseddate=>"XXX",
+      :adapteddate=>"XXX",
+      :announceddate=>"XXX",
       :circulateddate=>"XXX",
       :confirmeddate=>"XXX",
       :copieddate=>"XXX",
@@ -268,6 +276,7 @@ RSpec.describe IsoDoc::Ogc do
       :publisheddate=>"yyyy-mm-dd",
       :receiveddate=>"XXX",
       :script=>"Latn",
+      :stable_untildate=>"XXX",
       :transmitteddate=>"XXX",
       :unchangeddate=>"XXX",
       :unpublished=>true,
