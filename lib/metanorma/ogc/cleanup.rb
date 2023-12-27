@@ -64,11 +64,12 @@ module Metanorma
         if xml.at("//submitters")
           preface = sect.at("//preface") ||
             sect.add_previous_sibling("<preface/>").first
-          submitters = xml.at("//submitters").remove
-          submitters.xpath(".//table").each do |t|
-            t["unnumbered"] = true
+          xml.xpath("//submitters").each do |s|
+            s.xpath(".//table").each do |t|
+              t["unnumbered"] = true
+            end
+            preface.add_child s.remove
           end
-          preface.add_child submitters.remove
         end
       end
 
@@ -225,15 +226,15 @@ module Metanorma
           type: id ? id["type"] : nil }
       end
 
-       # Numbers sort *before* letters; we leave out using thorn to force that sort order.
-      # case insensitive
-       def symbol_key(sym)
+      # Numbers sort *before* letters; we leave out using thorn to force
+      # that sort order. case insensitive
+      def symbol_key(sym)
         @c.decode(asciimath_key(sym).text)
           .gsub(/[\[\]{}<>()]/, "").gsub(/\s/m, "")
           .gsub(/[[:punct:]]|[_^]/, ":\\0").gsub("`", "")
       end
 
-       def symbols_cleanup(docxml)
+      def symbols_cleanup(docxml)
         docxml.xpath("//definitions/dl").each do |dl|
           dl_out = extract_symbols_list(dl)
           dl_out.sort! do |a, b|
