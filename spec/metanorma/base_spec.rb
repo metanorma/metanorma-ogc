@@ -396,6 +396,41 @@ RSpec.describe Metanorma::Ogc do
     expect(xmlpp(strip_guid(xml.to_xml)))
       .to be_equivalent_to xmlpp(output)
 
+    output = <<~OUTPUT
+              <ogc-standard xmlns="https://www.metanorma.org/ns/ogc" type="semantic" version="#{Metanorma::Ogc::VERSION}">
+      <preface><foreword id="_" obligation="informative">
+      <title>Preface</title><p id="_">This is a preamble</p></foreword>
+      <acknowledgements id='_' obligation='informative'>
+        <title>Acknowledgements</title>
+      </acknowledgements>
+      #{SECURITY}
+      <submitters id="_" type="contributors">
+      <title>Contributors</title>
+        <p id="_">Clause 2</p>
+                <table id='_' unnumbered='true'>
+           <thead>
+             <tr>
+               <th valign='middle' align='left'>Name</th>
+               <th valign='middle' align='left'>Affiliation</th>
+               <th valign='middle' align='left'>OGC member</th>
+             </tr>
+           </thead>
+           <tbody>
+             <tr>
+               <td valign='middle' align='left'>Steve Liang</td>
+               <td valign='middle' align='left'>University of Calgary, Canada / SensorUp Inc.</td>
+               <td valign='middle' align='left'>Yes</td>
+             </tr>
+           </tbody>
+         </table>
+      </submitters>
+      </preface><sections>
+      <clause id="_" obligation="normative">
+        <title>Clause</title>
+        <p id="_">Clause 1</p>
+      </clause></sections>
+      </ogc-standard>
+    OUTPUT
     xml = Nokogiri::XML(Asciidoctor
       .convert(input.sub("Submitters", "Contributors"), *OPTIONS))
     xml.xpath("//xmlns:bibdata | //xmlns:boilerplate | " \
@@ -470,6 +505,113 @@ RSpec.describe Metanorma::Ogc do
 
     xml = Nokogiri::XML(Asciidoctor
       .convert(input.sub("Submitters", "Contributors"), *OPTIONS))
+    xml.xpath("//xmlns:bibdata | //xmlns:boilerplate | " \
+              "//xmlns:metanorma-extension").each(&:remove)
+    output = <<~OUTPUT
+          <ogc-standard xmlns="https://www.metanorma.org/ns/ogc" type="semantic" version="#{Metanorma::Ogc::VERSION}">
+      <preface><foreword id="_" obligation="informative">
+      <title>Preface</title><p id="_">This is a preamble</p></foreword>
+      <acknowledgements id='_' obligation='informative'>
+        <title>Acknowledgements</title>
+      </acknowledgements>
+      <submitters id="_" type="contributors">
+      <title>Contributors</title>
+        <p id="_">Clause 2</p>
+                <table id='_' unnumbered='true'>
+           <thead>
+             <tr>
+               <th valign='middle' align='left'>Name</th>
+               <th valign='middle' align='left'>Affiliation</th>
+               <th valign='middle' align='left'>OGC member</th>
+             </tr>
+           </thead>
+           <tbody>
+             <tr>
+               <td valign='middle' align='left'>Steve Liang</td>
+               <td valign='middle' align='left'>University of Calgary, Canada / SensorUp Inc.</td>
+               <td valign='middle' align='left'>Yes</td>
+             </tr>
+           </tbody>
+         </table>
+      </submitters>
+      </preface><sections>
+      <clause id="_" obligation="normative">
+        <title>Clause</title>
+        <p id="_">Clause 1</p>
+      </clause></sections>
+      </ogc-standard>
+    OUTPUT
+    expect(xmlpp(strip_guid(xml.to_xml)))
+      .to be_equivalent_to xmlpp(output)
+  end
+
+  it "processes contributors plus submitters" do
+    input = <<~"INPUT"
+      #{ASCIIDOC_BLANK_HDR}
+      This is a preamble
+
+      [abstract]
+      Abstract
+
+      == Acknowledgements
+
+      == Clause
+      Clause 1
+
+      == Submitters
+      Clause 2
+
+      |===
+      |Name |Affiliation |OGC member
+
+      |Steve Liang | University of Calgary, Canada / SensorUp Inc. | Yes
+      |===
+
+      == Contributors
+      Clause 3
+    INPUT
+
+    output = <<~"OUTPUT"
+      <ogc-standard xmlns="https://www.metanorma.org/ns/ogc" type="semantic" version="#{Metanorma::Ogc::VERSION}">
+      <preface><foreword id="_" obligation="informative">
+      <title>Preface</title><p id="_">This is a preamble</p></foreword>
+      <acknowledgements id='_' obligation='informative'>
+        <title>Acknowledgements</title>
+      </acknowledgements>
+      #{SECURITY}
+      <submitters id="_">
+      <title>Submitters</title>
+        <p id="_">Clause 2</p>
+                <table id='_' unnumbered='true'>
+           <thead>
+             <tr>
+               <th valign='middle' align='left'>Name</th>
+               <th valign='middle' align='left'>Affiliation</th>
+               <th valign='middle' align='left'>OGC member</th>
+             </tr>
+           </thead>
+           <tbody>
+             <tr>
+               <td valign='middle' align='left'>Steve Liang</td>
+               <td valign='middle' align='left'>University of Calgary, Canada / SensorUp Inc.</td>
+               <td valign='middle' align='left'>Yes</td>
+             </tr>
+           </tbody>
+         </table>
+      </submitters>
+          <submitters id="_" type="contributors">
+      <title>Contributors</title>
+      <p id="_">Clause 3</p>
+      </submitters>
+      </preface><sections>
+      <clause id="_" obligation="normative">
+        <title>Clause</title>
+        <p id="_">Clause 1</p>
+      </clause></sections>
+      </ogc-standard>
+    OUTPUT
+
+    xml = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
     xml.xpath("//xmlns:bibdata | //xmlns:boilerplate | " \
               "//xmlns:metanorma-extension").each(&:remove)
     expect(xmlpp(strip_guid(xml.to_xml)))
@@ -1178,56 +1320,56 @@ RSpec.describe Metanorma::Ogc do
       2d:: Definition 8
     INPUT
     output = <<~OUTPUT
-               <definitions id="L" obligation="normative">
-             <title>Symbols and abbreviated terms</title>
-             <dl id="_">
-               <dt id="symbol-_2d">2d</dt>
-               <dd>
-                 <p id="_">Definition 8</p>
-               </dd>
-               <dt id="symbol-m">m</dt>
-               <dd>
-                 <p id="_">Definition 7</p>
-               </dd>
-               <dt id="symbol-n">
-                 <stem type="MathML" block="false">
-                   <math xmlns="http://www.w3.org/1998/Math/MathML">
-                     <mstyle displaystyle="false">
-                       <mi>n</mi>
-                     </mstyle>
-                   </math>
-                   <asciimath>n</asciimath>
-                 </stem>
-               </dt>
-               <dd>
-                 <p id="_">Definition 6</p>
-               </dd>
-               <dt id="symbol-x">x</dt>
-               <dd>
-                 <p id="_">Definition 5</p>
-               </dd>
-               <dt id="symbol-x_1_">x_1_</dt>
-               <dd>
-                 <p id="_">Definition 3</p>
-               </dd>
-               <dt id="symbol-x_m_">x_m_</dt>
-               <dd>
-                 <p id="_">Definition 4</p>
-               </dd>
-               <dt id="symbol-Xa">Xa</dt>
-               <dd>
-                 <p id="_">Definition 2</p>
-               </dd>
-               <dt id="symbol-__x3b1_">α</dt>
-               <dd>
-                 <p id="_">Definition 1</p>
-               </dd>
-             </dl>
-           </definitions>
+          <definitions id="L" obligation="normative">
+        <title>Symbols and abbreviated terms</title>
+        <dl id="_">
+          <dt id="symbol-_2d">2d</dt>
+          <dd>
+            <p id="_">Definition 8</p>
+          </dd>
+          <dt id="symbol-m">m</dt>
+          <dd>
+            <p id="_">Definition 7</p>
+          </dd>
+          <dt id="symbol-n">
+            <stem type="MathML" block="false">
+              <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mstyle displaystyle="false">
+                  <mi>n</mi>
+                </mstyle>
+              </math>
+              <asciimath>n</asciimath>
+            </stem>
+          </dt>
+          <dd>
+            <p id="_">Definition 6</p>
+          </dd>
+          <dt id="symbol-x">x</dt>
+          <dd>
+            <p id="_">Definition 5</p>
+          </dd>
+          <dt id="symbol-x_1_">x_1_</dt>
+          <dd>
+            <p id="_">Definition 3</p>
+          </dd>
+          <dt id="symbol-x_m_">x_m_</dt>
+          <dd>
+            <p id="_">Definition 4</p>
+          </dd>
+          <dt id="symbol-Xa">Xa</dt>
+          <dd>
+            <p id="_">Definition 2</p>
+          </dd>
+          <dt id="symbol-__x3b1_">α</dt>
+          <dd>
+            <p id="_">Definition 1</p>
+          </dd>
+        </dl>
+      </definitions>
     OUTPUT
     doc = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
     xml = doc.at("//xmlns:definitions")
     expect(xmlpp(strip_guid(xml.to_xml)))
       .to be_equivalent_to xmlpp(output)
-end
+  end
 end
