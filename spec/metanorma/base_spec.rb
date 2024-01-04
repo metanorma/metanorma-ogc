@@ -1372,4 +1372,314 @@ RSpec.describe Metanorma::Ogc do
     expect(xmlpp(strip_guid(xml.to_xml)))
       .to be_equivalent_to xmlpp(output)
   end
+
+  it "processes document history in misc-container" do
+    input = <<~"INPUT"
+      #{ASCIIDOC_BLANK_HDR}
+
+      [.preface]
+      == Misc-container
+
+      === document history
+
+      [source,yaml]
+      ----
+      - date:
+        - type: published
+          value:  2012-04-02
+        version:
+          draft: Draft
+        contributor:
+          person:
+            name:
+              completename: R Thakkar
+        amend:
+          location: whole
+          description: Original draft document
+      - date:
+        - type: published
+          value:  2002-08-30
+        version:
+          draft: 0.1 02-077
+        contributor:
+          - person:
+             name:
+                completename: Kurt Buehler
+             role:
+               type: editor
+          - person:
+             name:
+                completename: George Percivall
+             role:
+               type: editor
+          - person:
+             name:
+                completename: Sam Bacharach
+             role:
+               type: editor
+          - person:
+             name:
+                completename: Carl Reed
+             role:
+               type: editor
+          - person:
+             name:
+                completename: Cliff Kottman
+             role:
+               type: editor
+          - person:
+             name:
+                completename: Chuck Heazel
+             role:
+               type: editor
+          - person:
+             name:
+                completename: John Davidson
+             role:
+               type: editor
+          - person:
+             name:
+                completename: Yaser Bisher
+             role:
+               type: editor
+          - person:
+             name:
+                completename: Harry Niedzwiadek
+             role:
+               type: editor
+          - person:
+             name:
+                completename: John Evans
+             role:
+               type: editor
+          - person:
+              name:
+                completename: Jeffrey Simon
+              role:
+               type: editor
+        amend:
+          description: Initial version of ORM. Doc OGC
+      - date:
+        - type: published
+          value:  2018-06-04
+        version:
+          draft: 1.0
+        contributor:
+          person:
+            name:
+              completename: Gabby Getz
+        amend:
+          location: annex=A
+          description: |
+            * Put _3D Tiles_ specification document into OGC document template
+            * Miscellaneous updates
+      ----
+    INPUT
+    output = <<~OUTPUT
+      <bibdata type="standard">
+        <title language="en" format="text/plain">Document title</title>
+        <contributor>
+          <role type="publisher"/>
+          <organization>
+            <name>Open Geospatial Consortium</name>
+            <abbreviation>OGC</abbreviation>
+          </organization>
+        </contributor>
+        <language>en</language>
+        <script>Latn</script>
+        <status>
+          <stage>approved</stage>
+        </status>
+        <copyright>
+          <from>2024</from>
+          <owner>
+            <organization>
+              <name>Open Geospatial Consortium</name>
+              <abbreviation>OGC</abbreviation>
+            </organization>
+          </owner>
+        </copyright>
+        <relation type="updatedBy">
+          <bibitem>
+            <date type="published">
+              <on>2012-04-02</on>
+            </date>
+            <contributor>
+              <role type="author"/>
+              <person>
+                <name>
+                  <completename>R Thakkar</completename>
+                </name>
+              </person>
+            </contributor>
+            <version>
+              <draft>Draft</draft>
+            </version>
+            <amend change="modify">
+              <description>
+                <p id="_">Original draft document</p>
+              </description>
+              <location>
+                <localityStack>
+                  <locality type="whole"/>
+                </localityStack>
+              </location>
+            </amend>
+          </bibitem>
+        </relation>
+        <relation type="updatedBy">
+          <bibitem>
+            <date type="published">
+              <on>2002-08-30</on>
+            </date>
+            <contributor>
+              <role type="author"/>
+              <person>
+                <name>
+                  <completename>Kurt Buehler</completename>
+                </name>
+              </person>
+            </contributor>
+            <contributor>
+              <role type="author"/>
+              <person>
+                <name>
+                  <completename>George Percivall</completename>
+                </name>
+              </person>
+            </contributor>
+            <contributor>
+              <role type="author"/>
+              <person>
+                <name>
+                  <completename>Sam Bacharach</completename>
+                </name>
+              </person>
+            </contributor>
+            <contributor>
+              <role type="author"/>
+              <person>
+                <name>
+                  <completename>Carl Reed</completename>
+                </name>
+              </person>
+            </contributor>
+            <contributor>
+              <role type="author"/>
+              <person>
+                <name>
+                  <completename>Cliff Kottman</completename>
+                </name>
+              </person>
+            </contributor>
+            <contributor>
+              <role type="author"/>
+              <person>
+                <name>
+                  <completename>Chuck Heazel</completename>
+                </name>
+              </person>
+            </contributor>
+            <contributor>
+              <role type="author"/>
+              <person>
+                <name>
+                  <completename>John Davidson</completename>
+                </name>
+              </person>
+            </contributor>
+            <contributor>
+              <role type="author"/>
+              <person>
+                <name>
+                  <completename>Yaser Bisher</completename>
+                </name>
+              </person>
+            </contributor>
+            <contributor>
+              <role type="author"/>
+              <person>
+                <name>
+                  <completename>Harry Niedzwiadek</completename>
+                </name>
+              </person>
+            </contributor>
+            <contributor>
+              <role type="author"/>
+              <person>
+                <name>
+                  <completename>John Evans</completename>
+                </name>
+              </person>
+            </contributor>
+            <contributor>
+              <role type="author"/>
+              <person>
+                <name>
+                  <completename>Jeffrey Simon</completename>
+                </name>
+              </person>
+            </contributor>
+            <version>
+              <draft>0.1 02-077</draft>
+            </version>
+            <amend change="modify">
+              <description>
+                <p id="_">Initial version of ORM. Doc OGC</p>
+              </description>
+            </amend>
+          </bibitem>
+        </relation>
+        <relation type="updatedBy">
+          <bibitem>
+            <date type="published">
+              <on>2018-06-04</on>
+            </date>
+            <contributor>
+              <role type="author"/>
+              <person>
+                <name>
+                  <completename>Gabby Getz</completename>
+                </name>
+              </person>
+            </contributor>
+            <version>
+              <draft>1.0</draft>
+            </version>
+            <amend change="modify">
+              <description>
+                <ul id="_">
+                  <li>
+                    <p id="_">
+                      Put
+                      <em>3D Tiles</em>
+                      specification document into OGC document template
+                    </p>
+                  </li>
+                  <li>
+                    <p id="_">Miscellaneous updates</p>
+                  </li>
+                </ul>
+              </description>
+              <location>
+          <localityStack>
+            <locality type="annex">
+              <referenceFrom>A</referenceFrom>
+            </locality>
+          </localityStack>
+        </location>
+            </amend>
+          </bibitem>
+        </relation>
+        <ext>
+          <doctype>standard</doctype>
+          <subdoctype>implementation</subdoctype>
+        </ext>
+      </bibdata>
+    OUTPUT
+    xml = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
+    xml = xml.at("//xmlns:bibdata")
+    expect(xmlpp(strip_guid(xml.to_xml)))
+      .to be_equivalent_to xmlpp(output)
+  end
 end
