@@ -10,6 +10,7 @@ requirementclass: Requirements class
 permissionclass: Permissions class
 abstracttest: Abstract test
 conformanceclass: Conformance class
+dochistory: Revision history
 example: Example
 table_of_contents: Contents
 toc_figures: List of Figures
