@@ -20,7 +20,35 @@ Use of this document is subject to the license agreement at https://www.ogc.org/
 
 == legal-statement
 {% if doctype == "Standard" or doctype == "Community Standard" or doctype == "Abstract Specification" %}
-{% if stage == "Approved" or stage == "Withdrawn" %}
+{% if stage == "Deprecated" %}
+
+=== Notice
+This Standard has been deprecated by the OGC and is no longer supported. A newer version exists and is recommended for use. This document is available on a royalty free, non-discriminatory basis.
+
+Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation.
+
+{% elsif stage == "Legacy" %}
+
+=== Notice
+This Standard has been deprecated to Legacy status and is no longer supported. This Standard is still suitable for use, but newer Standards offer the same or improved functions and capabilities. This document is available on a royalty free, non-discriminatory basis.
+
+Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation.
+
+{% elsif stage == "Rescinded" %}
+
+=== Notice
+This Standard has been rescinded and is no longer an OGC Standard nor is it suitable for use. Rescinded Standards are not published on any public OGC resources.
+
+Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation.
+
+{% elsif stage == "Retired" %}
+
+=== Notice
+This Standard has been retired by the OGC and is no longer supported nor recommended for use. This document is available on a royalty free, non-discriminatory basis.
+
+Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation.
+
+{% elsif stage == "Approved" or stage == "Withdrawn" %}
 
 === Notice
 This document is an OGC Member approved international standard. This document is available on a royalty free, non-discriminatory basis. Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation.
