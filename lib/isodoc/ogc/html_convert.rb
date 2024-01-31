@@ -69,12 +69,59 @@ module IsoDoc
 
       def html_head
         ret = super
-        k = @meta.get[:keywords].join(", ") and k = @c.encode(k).gsub("'", "&#x27;")
-        k.empty? or ret += "<meta name='keywords' content='#{k}'/>"
-        k = @meta.get[:abstract] and k = @c.encode(k)&.gsub("'", "&#x27;")
-        (k.nil? || k.empty?) or
-          ret += "<meta name='description' content='#{k}'/>"
+        ret += html_head_kw
+        ret += html_head_abstract
+        ret += html_head_creator
+        ret += html_head_date
+        ret += html_head_title
+        ret += html_head_dc
         ret
+      end
+
+      def html_head_abstract
+        k = @meta.get[:abstract] and k = @c.encode(k)&.gsub("'", "&#x27;")
+        (k.nil? || k.empty?) and return ""
+        "<meta name='description' content='#{k}'/>\n" \
+          "<meta name='DC.description' lang='#{@lang}' content='#{k}' />"
+      end
+
+      def html_head_kw
+        k = @meta.get[:keywords].join(", ") and
+          k = @c.encode(k).gsub("'", "&#x27;")
+        k.empty? and return ""
+        "<meta name='keywords' content='#{k}'/>" \
+          "<meta name='DC.subject' lang='#{@lang}' content='#{k}' />"
+      end
+
+      def html_head_dc
+        <<~HTML
+          <link rel="profile" href="http://dublincore.org/documents/2008/08/04/dc-html/" />
+          <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
+          <meta name="DC.language" content="#{@lang}" />
+          <meta name="DC.rights" lang="#{@lang}" content="CC-BY-4.0"/>
+          <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
+          <link rel="DCTERMS.license" href="https://www.ogc.org/license" />
+        HTML
+      end
+
+      def html_head_creator
+        k = @meta.get[:authors] and
+          k = @c.encode(k.join(", ")).gsub("'", "&#x27;")
+        (k.nil? || k.empty?) and return ""
+        "<meta name='DC.creator' lang='#{@lang}' content='#{k}' />"
+      end
+
+      def html_head_date
+        k = @meta.get[:revdate] || @meta.get[:ipublisheddate] and
+          k = @c.encode(k)&.gsub("'", "&#x27;")
+        (k.nil? || k.empty?) and return ""
+        "<meta name='DC.date' content='#{k}' />"
+      end
+
+      def html_head_title
+        k = @meta.get[:doctitle] and k = @c.encode(k)&.gsub("'", "&#x27;")
+        (k.nil? || k.empty?) and return ""
+        "<meta name='DC.title' lang='#{@lang}' content='#{k}' />"
       end
 
       include BaseConvert
