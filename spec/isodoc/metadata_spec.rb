@@ -56,7 +56,7 @@ RSpec.describe IsoDoc::Ogc do
           </person>
         </contributor>
         <contributor>
-          <role type="contributor"/>
+          <role type="author"/>
           <person>
             <name>
               <forename>Pearl</forename>
@@ -125,10 +125,9 @@ RSpec.describe IsoDoc::Ogc do
       :adapteddate=>"XXX",
       :agency=>"OGC",
       :announceddate=>"XXX",
-      :authors=>["Barney Rubble"],
+      :authors=>["Barney Rubble", "Pearl Slaghoople"],
       :circulateddate=>"XXX",
       :confirmeddate=>"XXX",
-      :contributors=>["Pearl Slaghoople"],
       :copieddate=>"XXX",
       :copyright_holder=>"OGC, ISO, and IEC",
       :correcteddate=>"XXX",
@@ -181,6 +180,25 @@ RSpec.describe IsoDoc::Ogc do
     docxml, = csdc.convert_init(input, "test", true)
     expect(htmlencode(metadata(csdc.info(docxml, nil)).to_s)
       .gsub(", :", ",\n:")).to be_equivalent_to output
+
+    html = <<~HTML
+       <meta name="keywords" content="A, B" /><meta name="DC.subject" lang="en" content="A, B" xml:lang="en" /><meta name="description" content="This is a description. This is a blockquote within a description." />
+      <meta name="DC.description" lang="en" content="This is a description. This is a blockquote within a description." xml:lang="en" />
+      <meta name="DC.creator" lang="en" content="Barney Rubble, Pearl Slaghoople" xml:lang="en" />
+      <meta name="DC.date" content="2000-01-01" /><meta name="DC.title" lang="en" content="Main Title" xml:lang="en" />
+      <link rel="profile" href="http://dublincore.org/documents/2008/08/04/dc-html/" />
+      <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
+      <meta name="DC.language" content="en" />
+      <meta name="DC.rights" lang="en" content="CC-BY-4.0" xml:lang="en" />
+      <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
+      <link rel="DCTERMS.license" href="https://www.ogc.org/license" />
+    HTML
+    FileUtils.rm_f("test.html")
+    csdc.convert("test", input, false)
+    expect(File.read("test.html")
+      .gsub(%r{^.*<meta name="keywords"}m, '<meta name="keywords"')
+      .gsub(%r{</head>.*$}m, ""))
+      .to be_equivalent_to html
   end
 
   it "processes metadata with new logo" do
