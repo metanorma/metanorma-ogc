@@ -5,18 +5,19 @@
 });
   </script>
 
-<script>
+  <script>
   //TOC toggle animation
 $('#toggle').on('click', function(){
     if( $('nav').is(':visible') ) {
         $('nav').animate({ 'left': '-353px' }, 'slow', function(){
             $('nav').hide();
         });
-        $('.container').animate({ 'padding-left': '31px' }, 'slow');
+        $('body').animate({ 'margin-left': '-333px' }, 'slow');
     }
     else {
         $('nav').show();
         $('nav').animate({ 'left': '0px' }, 'slow');
+        $('body').animate({ 'margin-left': '0' }, 'slow');
     }
 });
 </script>
