@@ -119,7 +119,6 @@ module Metanorma
         docnumber = node.attr("docnumber") || node.attr("docreference")
         id = node.attr("docidentifier") || docnumber
         xml.docidentifier id, type: "ogc-internal"
-        docnumber and xml.docnumber docnumber
       end
 
       def externalurl(node)
