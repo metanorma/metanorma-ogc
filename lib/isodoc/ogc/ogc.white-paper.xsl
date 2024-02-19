@@ -1216,6 +1216,10 @@
 
 	</xsl:attribute-set>
 
+	<xsl:template name="refine_termexample-style">
+
+	</xsl:template>
+
 	<xsl:attribute-set name="example-style">
 
 			<xsl:attribute name="font-size">10pt</xsl:attribute>
@@ -2350,6 +2354,36 @@
 		<xsl:for-each select="/*/*[local-name()='bibliography']/*[not(@normative='true')] |          /*/*[local-name()='bibliography']/*[local-name()='clause'][*[local-name()='references'][not(@normative='true')]]">
 			<xsl:sort select="@displayorder" data-type="number"/>
 			<xsl:apply-templates select="."/>
+		</xsl:for-each>
+	</xsl:template>
+
+	<xsl:template name="processMainSectionsDefault_flatxml">
+		<xsl:for-each select="/*/*[local-name()='sections']/* | /*/*[local-name()='bibliography']/*[local-name()='references'][@normative='true']">
+			<xsl:sort select="@displayorder" data-type="number"/>
+			<xsl:variable name="flatxml">
+				<xsl:apply-templates select="." mode="flatxml"/>
+			</xsl:variable>
+			<!-- debug_flatxml='<xsl:copy-of select="$flatxml"/>' -->
+			<xsl:apply-templates select="xalan:nodeset($flatxml)/*"/>
+
+		</xsl:for-each>
+
+		<xsl:for-each select="/*/*[local-name()='annex']">
+			<xsl:sort select="@displayorder" data-type="number"/>
+			<xsl:variable name="flatxml">
+				<xsl:apply-templates select="." mode="flatxml"/>
+			</xsl:variable>
+			<!-- debug_flatxml='<xsl:copy-of select="$flatxml"/>' -->
+			<xsl:apply-templates select="xalan:nodeset($flatxml)/*"/>
+		</xsl:for-each>
+
+		<xsl:for-each select="/*/*[local-name()='bibliography']/*[not(@normative='true')] |          /*/*[local-name()='bibliography']/*[local-name()='clause'][*[local-name()='references'][not(@normative='true')]]">
+			<xsl:sort select="@displayorder" data-type="number"/>
+			<xsl:variable name="flatxml">
+				<xsl:apply-templates select="." mode="flatxml"/>
+			</xsl:variable>
+			<!-- debug_flatxml='<xsl:copy-of select="$flatxml"/>' -->
+			<xsl:apply-templates select="xalan:nodeset($flatxml)/*"/>
 		</xsl:for-each>
 	</xsl:template>
 
@@ -5094,6 +5128,10 @@
 	</xsl:template>
 	<xsl:template match="text()[not(ancestor::*[local-name() = 'table']) and preceding-sibling::*[1][local-name() = 'span'][@class = 'stdpublisher' or @class = 'stddocNumber' or @class = 'stddocPartNumber' or @class = 'stdyear'] and   following-sibling::*[1][local-name() = 'span'][@class = 'stdpublisher' or @class = 'stddocNumber' or @class = 'stddocPartNumber' or @class = 'stdyear']]" priority="2">
 		<fo:inline keep-with-next.within-line="always"><xsl:value-of select="."/></fo:inline>
+	</xsl:template>
+
+	<xsl:template match="*[local-name() = 'span'][contains(@style, 'text-transform:none')]//text()" priority="5">
+		<xsl:value-of select="."/>
 	</xsl:template>
 
 	<!-- ========================= -->
@@ -8621,7 +8659,7 @@
 	<!-- ====== -->
 	<xsl:template match="*[local-name() = 'termexample']">
 		<fo:block id="{@id}" xsl:use-attribute-sets="termexample-style">
-
+			<xsl:call-template name="refine_termexample-style"/>
 			<xsl:call-template name="setBlockSpanAll"/>
 
 			<xsl:apply-templates select="*[local-name()='name']"/>
