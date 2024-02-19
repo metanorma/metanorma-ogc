@@ -79,8 +79,8 @@ module Metanorma
         "OGC"
       end
 
-       def org_abbrev
-         { "Open Geospatial Consortium" => "OGC" }
+      def org_abbrev
+        { "Open Geospatial Consortium" => "OGC" }
       end
 
       def metadata_committee(node, xml)
@@ -108,7 +108,7 @@ module Metanorma
         a = node.attr("abbrev")
         d && a or return
         url = "http://www.opengis.net/doc/#{IsoDoc::Ogc::DOCTYPE_ABBR[d]}/#{a}"
-        v = (node.attr("edition") || node.attr("version")) and url += "/#{v}"
+        v = node.attr("edition") || node.attr("version") and url += "/#{v}"
         url
       end
 

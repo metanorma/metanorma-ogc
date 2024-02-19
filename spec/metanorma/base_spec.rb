@@ -251,7 +251,6 @@ RSpec.describe Metanorma::Ogc do
         <docidentifier type='ogc-external'>http://www.opengis.net/doc/TP/A/2.0</docidentifier>
         <docidentifier type='ogc-external'>http://www.example2.com</docidentifier>
         <docidentifier type="ogc-internal">OVERRIDE</docidentifier>
-        <docnumber>1000</docnumber>
                  <date type="created">
           <on>1999-01-01</on>
         </date>
