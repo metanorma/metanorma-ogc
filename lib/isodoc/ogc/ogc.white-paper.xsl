@@ -1686,6 +1686,10 @@
 
 	</xsl:attribute-set>
 
+	<xsl:template name="refine_figure-block-style">
+
+	</xsl:template>
+
 	<xsl:attribute-set name="figure-style">
 
 	</xsl:attribute-set>
@@ -6787,6 +6791,7 @@
 		<xsl:variable name="isAdded" select="@added"/>
 		<xsl:variable name="isDeleted" select="@deleted"/>
 		<fo:block-container id="{@id}" xsl:use-attribute-sets="figure-block-style">
+			<xsl:call-template name="refine_figure-block-style"/>
 
 			<xsl:call-template name="setTrackChangesStyles">
 				<xsl:with-param name="isAdded" select="$isAdded"/>
