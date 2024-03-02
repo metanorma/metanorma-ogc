@@ -157,10 +157,6 @@ module IsoDoc
           bibitem["hidden"] == "true" || bibitem.parent["hidden"] == "true"
       end
 
-      def bibrenderer
-        ::Relaton::Render::Ogc::General.new(language: @lang)
-      end
-
       def bibrender_formattedref(formattedref, xml); end
 
       def bibrender_relaton(xml, renderings)

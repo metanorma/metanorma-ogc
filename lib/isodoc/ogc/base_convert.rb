@@ -113,6 +113,11 @@ module IsoDoc
         styles = %i(arabic alphabet roman alphabet_upper roman_upper)
         ol_style(styles[(idx - 1) % 5])
       end
+
+      def bibrenderer(options = {})
+      ::Relaton::Render::Ogc::General.new(options.merge(language: @lang,
+                                                          i18nhash: @i18n.get))
+    end
     end
   end
 end

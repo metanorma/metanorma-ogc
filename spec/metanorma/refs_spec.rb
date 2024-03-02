@@ -2,6 +2,14 @@ require "spec_helper"
 require "fileutils"
 
 RSpec.describe Metanorma::Ogc do
+  before do
+    # Force to download Relaton index file
+    allow_any_instance_of(Relaton::Index::Type).to receive(:actual?)
+      .and_return(false)
+    allow_any_instance_of(Relaton::Index::FileIO).to receive(:check_file)
+      .and_return(nil)
+  end
+
   it "sort OGC and ISO references in Bibliography" do
     VCR.use_cassette "sort" do
       input = <<~INPUT
@@ -24,7 +32,8 @@ RSpec.describe Metanorma::Ogc do
       warn out.to_xml
       expect(out.xpath("//xmlns:references/xmlns:bibitem/@id")
         .map(&:value))
-        .to be_equivalent_to ["ogc1", "ogc3", "ogc2", "iso4", "iso3", "iso2", "iso1", "ref2", "ref1"]
+        .to be_equivalent_to ["ogc1", "ogc3", "ogc2", "iso4", "iso3", "iso2",
+                              "iso1", "ref2", "ref1"]
     end
   end
 end
