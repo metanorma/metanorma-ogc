@@ -10,14 +10,20 @@ module Metanorma
         personal_author(node, xml)
       end
 
+      def safe_xml_string(node, key, value)
+        node.send key do |n|
+          n << value
+        end
+      end
+
       def corporate_author(node, xml)
         node.attr("submitting-organizations") or return
-        csv_split(HTMLEntities.new
-          .decode(node.attr("submitting-organizations")), ";")&.each do |org|
+        csv_split(@c.decode(node.attr("submitting-organizations")),
+                  ";")&.each do |org|
           xml.contributor do |c|
             c.role type: "author"
             c.organization do |a|
-              a.name org
+              safe_xml_string(a, "name", org)
             end
           end
         end
@@ -39,9 +45,7 @@ module Metanorma
         type = node.attr("role#{suffix}")&.downcase || "editor"
         if type == "contributor"
           contrib.role type: "author" do |r|
-            r.description do |d|
-              d << type
-            end
+            safe_xml_string(r, "description", type)
           end
         else contrib.role type: type
         end
@@ -64,14 +68,18 @@ module Metanorma
           personal_role(node, c, suffix)
           c.person do |p|
             p.name do |n|
-              if node.attr("fullname#{suffix}")
-                n.completename node.attr("fullname#{suffix}")
-              else
-                n.forename node.attr("givenname#{suffix}")
-                n.surname node.attr("surname#{suffix}")
-              end
+              personal_author_name(node, n, suffix)
             end
           end
+        end
+      end
+
+      def personal_author_name(node, xml, suffix)
+        if node.attr("fullname#{suffix}")
+          safe_xml_string(xml, "completename", node.attr("fullname#{suffix}"))
+        else
+          safe_xml_string(xml, "forename", node.attr("givenname#{suffix}"))
+          safe_xml_string(xml, "surname", node.attr("surname#{suffix}"))
         end
       end
 

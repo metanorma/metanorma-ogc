@@ -177,7 +177,7 @@ RSpec.describe Metanorma::Ogc do
              <clause id="_" obligation="normative">
                <title>License Agreement</title>
                <p id="_">
-                 &gt;Use of this document is subject to the license agreement at
+                 Use of this document is subject to the license agreement at
                  <link target="https://www.ogc.org/license"/>
                </p>
              </clause>

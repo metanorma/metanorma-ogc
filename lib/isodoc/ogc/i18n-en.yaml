@@ -35,7 +35,7 @@ submission_date: Submission Date
 approval_date: Approval Date
 publication_date: Publication Date
 author: Author
-editor: Editor
+editor_full: Editor
 contributor: Contributor
 stage_dict:
   draft: Draft
