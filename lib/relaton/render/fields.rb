@@ -1,5 +1,3 @@
-require_relative "date"
-
 module Relaton
   module Render
     module Ogc

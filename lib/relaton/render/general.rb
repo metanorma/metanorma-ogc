@@ -1,6 +1,7 @@
 require "relaton-render"
 require_relative "parse"
 require_relative "fields"
+require_relative "date"
 
 module Relaton
   module Render
@@ -11,12 +12,9 @@ module Relaton
         end
 
         def klass_initialize(_options)
-          @nametemplateklass = Relaton::Render::Template::Name
-          @seriestemplateklass = Relaton::Render::Template::Series
-          @extenttemplateklass = Relaton::Render::Template::Extent
-          @sizetemplateklass = Relaton::Render::Template::Size
-          @generaltemplateklass = Relaton::Render::Template::General
+          super
           @fieldsklass = Relaton::Render::Ogc::Fields
+          @dateklass = Relaton::Render::Ogc::Date
           @parseklass = Relaton::Render::Ogc::Parse
         end
       end
