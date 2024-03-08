@@ -1,7 +1,7 @@
 module Relaton
   module Render
     module Ogc
-      class Date
+      class Date < ::Relaton::Render::Date
         def render
           @type == "accessed" or @date&.sub(/-.*$/, "")
           @date
