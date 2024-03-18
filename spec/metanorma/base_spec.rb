@@ -64,7 +64,7 @@ RSpec.describe Metanorma::Ogc do
            <uri type="previous">PREVIOUS URI</uri>
            <docidentifier type="ogc-external">http://www.example2.com</docidentifier>
            <docidentifier type="ogc-external">ABC</docidentifier>
-           <docidentifier type="ogc-internal">1000</docidentifier>
+           <docidentifier primary="true" type="ogc-internal">1000</docidentifier>
            <docnumber>1000</docnumber>
            <date type="published">
              <on>2002-01-01</on>
@@ -250,7 +250,7 @@ RSpec.describe Metanorma::Ogc do
         <uri>http://www.example.com</uri>
         <docidentifier type='ogc-external'>http://www.opengis.net/doc/TP/A/2.0</docidentifier>
         <docidentifier type='ogc-external'>http://www.example2.com</docidentifier>
-        <docidentifier type="ogc-internal">OVERRIDE</docidentifier>
+        <docidentifier primary="true" type="ogc-internal">OVERRIDE</docidentifier>
                  <date type="created">
           <on>1999-01-01</on>
         </date>
