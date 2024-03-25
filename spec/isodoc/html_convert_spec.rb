@@ -182,7 +182,7 @@ RSpec.describe IsoDoc::Ogc do
                      <referenceFrom>3.1</referenceFrom>
                    </locality>
                    ISO&#xa0;7301:2011, Clause 3.1
-                 </origin>, modified &#x2013; The term "cargo rice" is shown as deprecated, and
+                 </origin>, modified &#x2014; The term "cargo rice" is shown as deprecated, and
                  Note 1 to entry is not included here]
                </termsource>
         </term>
@@ -215,7 +215,7 @@ RSpec.describe IsoDoc::Ogc do
            [
            <b>SOURCE:</b>
            ISO&#xa0;7301:2011, Clause 3.1
-           , modified &#x2013; The term "cargo rice" is shown as deprecated, and Note 1
+           , modified &#x2014; The term "cargo rice" is shown as deprecated, and Note 1
            to entry is not included here]
          </p>
        </div>
