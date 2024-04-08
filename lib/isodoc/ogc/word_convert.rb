@@ -139,9 +139,6 @@ module IsoDoc
       end
 
       def toWord(result, filename, dir, header)
-        result = from_xhtml(word_cleanup(to_xhtml(result)))
-          .gsub("-DOUBLE_HYPHEN_ESCAPE-", "--")
-        @wordstylesheet = wordstylesheet_update
         Html2Doc.new(
           filename: filename, imagedir: @localdir,
           stylesheet: @wordstylesheet&.path,
