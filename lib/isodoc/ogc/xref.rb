@@ -19,8 +19,6 @@ module IsoDoc
               end
       end
 
-      # ["//preface/abstract", "//preface/clause[@type = 'executivesummary']", "//preface/clause[@type = 'keywords']", "//foreword", "//preface/clause[@type = 'security']", "//preface/clause[@type = 'submitting_orgs']", "//submitters", "//introduction"]
-
       def middle_section_asset_names(doc)
         middle_sections =
           "//clause[@type = 'scope' or @type = 'conformance'] | //foreword | " \
@@ -80,7 +78,8 @@ module IsoDoc
         @anchors[ref["id"]] = { xref: "#{@anchors[ref['id']][:xref]} (draft)" }
       end
 
-      def sequential_permission_body(id, block, label, klass, model, container: false)
+      def sequential_permission_body(id, block, label, klass, model,
+container: false)
         @anchors[block["id"]] = model.postprocess_anchor_struct(
           block, anchor_struct(id, container ? block : nil,
                                label, klass, block["unnumbered"])
@@ -88,6 +87,45 @@ module IsoDoc
         model.permission_parts(block, id, label, klass).each do |n|
           @anchors[n[:id]] = anchor_struct(n[:number], nil, n[:label],
                                            n[:klass], false)
+        end
+      end
+
+      FIGURE_NO_CLASS = ".//figure[not(@class)]".freeze
+
+      LISTING = <<~XPATH.freeze
+        .//figure[@class = 'pseudocode'] | .//sourcecode[not(ancestor::example)]
+      XPATH
+
+      def sequential_asset_names(clause, container: false)
+        super
+        sequential_sourcecode_names(clause, container: container)
+      end
+
+      def sequential_sourcecode_names(clause, container: false)
+        c = Counter.new
+        clause.xpath(ns(LISTING)).noblank.each do |t|
+          c.increment(t)
+          @anchors[t["id"]] = anchor_struct(
+            c.print, container ? t : nil,
+            @labels["sourcecode"], "sourcecode",
+            t["unnumbered"]
+          )
+        end
+      end
+
+      def hierarchical_asset_names(clause, num)
+        super
+        hierarchical_sourcecode_names(clause, num)
+      end
+
+      def hierarchical_sourcecode_names(clause, num)
+        c = Counter.new
+        clause.xpath(ns(LISTING)).noblank.each do |t|
+          c.increment(t)
+          label = "#{num}#{hiersep}#{c.print}"
+          @anchors[t["id"]] =
+            anchor_struct(label, nil, @labels["sourcecode"],
+                          "sourcecode", t["unnumbered"])
         end
       end
     end
