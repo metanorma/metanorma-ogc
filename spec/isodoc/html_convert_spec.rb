@@ -193,8 +193,10 @@ RSpec.describe IsoDoc::Ogc do
 
     output = xmlpp(<<~OUTPUT)
       <div id='H'>
-         <h1 id='_'>1.&#xA0; Terms, Definitions, Symbols and Abbreviated Terms</h1>
-         <h2 class='TermNum' style='text-align:left;' id='J'>1.1.&#xA0;Term2</h2>
+         <h1 id='_'><a class="anchor" href="#H"/><a class="header" href="#H">1.&#xA0; Terms, Definitions, Symbols and Abbreviated Terms</a></h1>
+         <div id="J">
+         <h2 class='TermNum' style='text-align:left;' id='_'><a class="anchor" href="#J"/><a class="header" href="#J">1.1.&#xA0;Term2</a></h2>
+         </div>
          <p class='AltTerms' style="text-align:left;">
            Term2A&#xA0;
            <span class='AdmittedLabel'>ALTERNATIVE</span>
@@ -228,11 +230,345 @@ RSpec.describe IsoDoc::Ogc do
       .to be_equivalent_to xmlpp(presxml)
     IsoDoc::Ogc::HtmlConvert.new({ filename: "test" })
       .convert("test", presxml, false)
-    expect(xmlpp(strip_guid(
-                   File.read("test.html")
-                .gsub(%r{^.*<div id="H">}m, '<div id="H">')
-                .gsub(%r{</div>.*}m, "</div>"),
-                 ))).to be_equivalent_to output
+    xml = Nokogiri::XML(File.read("test.html"))
+    xml = xml.at("//div[@id = 'H']")
+    expect(xmlpp(strip_guid(xml.to_xml))).to be_equivalent_to output
+  end
+
+  it "processes requirement and requirement test" do
+    presxml = <<~OUTPUT
+      <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
+      <bibdata/>
+           <preface>
+            <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
+             <foreword id='A' displayorder="2">
+               <title depth='1'>I.<tab/>Preface</title>
+                               <table id="A1" class="modspec" type="recommend">
+            <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Permission 1</p></th></tr></thead>
+            <tbody>
+              <tr><th>Identifier</th><td><tt>/ogc/recommendation/wfs/2</tt></td></tr>
+              <tr><th>Subject</th><td>user</td></tr>
+              <tr><th>Prerequisites</th><td>/ss/584/2015/level/1<br/>
+              <xref type="inline" target="rfc2616">RFC 2616 (HTTP/1.1)</xref></td></tr>
+            <tr>
+        <th>Control-CLASS</th>
+        <td>Technical</td>
+      </tr>
+      <tr>
+        <th>Priority</th>
+        <td>P0</td>
+      </tr>
+      <tr>
+        <th>Family</th>
+        <td>System and Communications Protection<br/>System and Communications Protocols</td>
+      </tr>
+      <tr>
+      <th>Statement</th>
+        <td>
+          <p id='_'>I recommend <em>this</em>.</p>
+        </td>
+      </tr>
+      <tr>
+        <th>A</th>
+        <td>B</td>
+      </tr>
+      <tr>
+        <th>C</th>
+        <td>D</td>
+      </tr>
+      <tr>
+        <td colspan='2'>
+          <p id='_'>The measurement target shall be measured as:</p>
+          <formula id='_'>
+            <name>1</name>
+            <stem type='AsciiMath'>r/1 = 0</stem>
+          </formula>
+        </td>
+      </tr>
+      <tr>
+        <td colspan='2'>
+          <p id='_'>The following code will be run for verification:</p>
+          <sourcecode id="_">CoreRoot(success): HttpResponse
+            if (success)
+            recommendation(label: success-response)
+            end
+          </sourcecode>
+        </td>
+      </tr>
+      </tbody></table>
+               <table id='A2' class='modspec' type='recommendtest'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTestTitle'>Conformance test 1</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                 <th>Identifier</th>
+                <td><tt>/ogc/recommendation/wfs/2</tt></td>
+                </tr>
+                 <tr>
+                   <th>Subject</th>
+                   <td>user</td>
+                 </tr>
+                 <tr>
+                   <th>Prerequisite</th>
+                   <td>/ss/584/2015/level/1</td>
+                 </tr>
+                 <tr>
+                   <th>Control-class</th>
+                   <td>Technical</td>
+                 </tr>
+                 <tr>
+                   <th>Priority</th>
+                   <td>P0</td>
+                 </tr>
+                 <tr>
+                   <th>Family</th>
+                   <td>System and Communications Protection<br/>
+                   System and Communications Protocols</td>
+                 </tr>
+                 <tr>
+                 <th>Description</th>
+                 <td>
+                     <p id='_'>
+                       I recommend
+                       <em>this</em>
+                       .
+                     </p>
+                   </td>
+                 </tr>
+                 <tr>
+                   <th>A</th>
+                   <td>B</td>
+                 </tr>
+                 <tr>
+                   <th>C</th>
+                   <td>D</td>
+                 </tr>
+                 <tr>
+                   <td colspan="2">
+                     <p id='_'>The measurement target shall be measured as:</p>
+                     <formula id='_'>
+                       <name>1</name>
+                       <stem type='AsciiMath'>r/1 = 0</stem>
+                     </formula>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td colspan='2'>
+                     <p id='_'>The following code will be run for verification:</p>
+                     <sourcecode id='_'>
+                       CoreRoot(success): HttpResponse if (success)
+                       recommendation(label: success-response) end
+                     </sourcecode>
+                   </td>
+                 </tr>
+               </tbody>
+             </table>
+             </foreword>
+           </preface>
+         </iso-standard>
+    OUTPUT
+
+    html = <<~OUTPUT
+           <div id="A">
+         <h1 class="ForewordTitle" id="_">
+           <a class="anchor" href="#A"/>
+           <a class="header" href="#A">I.  Preface</a>
+         </h1>
+         <table id="A1" class="modspec" style="border-width:1px;border-spacing:0;">
+           <thead>
+             <tr>
+               <th colspan="2" style="font-weight:bold;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;" scope="colgroup">
+                 <p class="RecommendationTitle">
+                   <a class="anchor" href="#A1"/>
+                   <a class="header" href="#A1">Permission 1</a>
+                 </p>
+               </th>
+             </tr>
+           </thead>
+           <tbody>
+             <tr>
+               <th style="font-weight:bold;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;" scope="row">Identifier</th>
+               <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">
+                 <tt>/ogc/recommendation/wfs/2</tt>
+               </td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Subject</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">user</td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Prerequisites</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">
+                 /ss/584/2015/level/1
+                 <br/>
+                 <a href="#rfc2616">RFC 2616 (HTTP/1.1)</a>
+               </td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Control-CLASS</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">Technical</td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Priority</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">P0</td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Family</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">
+                 System and Communications Protection
+                 <br/>
+                 System and Communications Protocols
+               </td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Statement</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">
+                 <p id="_">
+                   I recommend
+                   <i>this</i>
+                   .
+                 </p>
+               </td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">A</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">B</td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">C</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">D</td>
+             </tr>
+             <tr>
+               <td colspan="2" style="border-top:none;border-bottom:solid windowtext 1.0pt;">
+                 <p id="_">The measurement target shall be measured as:</p>
+                 <div id="_">
+                   <div class="formula">
+                     <p>
+                       <span class="stem">(#(r/1 = 0)#)</span>
+                         (1)
+                     </p>
+                   </div>
+                 </div>
+               </td>
+             </tr>
+             <tr>
+               <td colspan="2" style="border-top:none;border-bottom:solid windowtext 1.5pt;">
+                 <p id="_">The following code will be run for verification:</p>
+                 <pre id="_" class="sourcecode">
+                   CoreRoot(success): HttpResponse
+                   <br/>
+                         if (success)
+                   <br/>
+                         recommendation(label: success-response)
+                   <br/>
+                         end
+                   <br/>
+                      
+                 </pre>
+               </td>
+             </tr>
+           </tbody>
+         </table>
+         <table id="A2" class="modspec" style="border-width:1px;border-spacing:0;">
+           <thead>
+             <tr>
+               <th colspan="2" style="font-weight:bold;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;" scope="colgroup">
+                 <p class="RecommendationTestTitle">
+                   <a class="anchor" href="#A2"/>
+                   <a class="header" href="#A2">Conformance test 1</a>
+                 </p>
+               </th>
+             </tr>
+           </thead>
+           <tbody>
+             <tr>
+               <th style="font-weight:bold;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;" scope="row">Identifier</th>
+               <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">
+                 <tt>/ogc/recommendation/wfs/2</tt>
+               </td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Subject</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">user</td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Prerequisite</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">/ss/584/2015/level/1</td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Control-class</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">Technical</td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Priority</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">P0</td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Family</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">
+                 System and Communications Protection
+                 <br/>
+                 System and Communications Protocols
+               </td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Description</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">
+                 <p id="_">
+                   I recommend
+                   <i>this</i>
+                   .
+                 </p>
+               </td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">A</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">B</td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">C</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">D</td>
+             </tr>
+             <tr>
+               <td colspan="2" style="border-top:none;border-bottom:solid windowtext 1.0pt;">
+                 <p id="_">The measurement target shall be measured as:</p>
+                 <div id="_">
+                   <div class="formula">
+                     <p>
+                       <span class="stem">(#(r/1 = 0)#)</span>
+                         (1)
+                     </p>
+                   </div>
+                 </div>
+               </td>
+             </tr>
+             <tr>
+               <td colspan="2" style="border-top:none;border-bottom:solid windowtext 1.5pt;">
+                 <p id="_">The following code will be run for verification:</p>
+                 <pre id="_" class="sourcecode">
+                   <br/>
+                                    CoreRoot(success): HttpResponse if (success)
+                   <br/>
+                                    recommendation(label: success-response) end
+                   <br/>
+                                 
+                 </pre>
+               </td>
+             </tr>
+           </tbody>
+         </table>
+       </div>
+    OUTPUT
+    IsoDoc::Ogc::HtmlConvert.new({ filename: "test" })
+      .convert("test", presxml, false)
+    xml = Nokogiri::XML(File.read("test.html"))
+    xml = xml.at("//div[@id = 'A']")
+    expect(xmlpp(strip_guid(xml.to_xml))).to be_equivalent_to xmlpp(html)
   end
 
   it "processes admonitions" do
@@ -623,287 +959,287 @@ RSpec.describe IsoDoc::Ogc do
     INPUT
 
     presxml = <<~OUTPUT
-           <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
-         <bibdata>
-           <keyword>A</keyword>
-           <keyword>B</keyword>
-           <contributor>
-             <role type="author"/>
-             <organization>
-               <name>OGC</name>
-             </organization>
-           </contributor>
-           <contributor>
-             <role type="author"/>
-             <organization>
-               <name>DEF</name>
-             </organization>
-           </contributor>
-         </bibdata>
-         <preface>
-           <clause type="toc" id="_" displayorder="1">
-             <title depth="1">Contents</title>
-           </clause>
-           <abstract obligation="informative" id="1" displayorder="2">
-             <title depth="1">
-               I.
-               <tab/>
-               Abstract
-             </title>
-             <p>XYZ</p>
-           </abstract>
-           <clause id="DD0" obligation="normative" type="executivesummary" displayorder="3">
-             <title depth="1">
-               II.
-               <tab/>
-               Executive Summary
-             </title>
-             <p id="EE0">Text</p>
-           </clause>
-           <clause id="_" type="keywords" displayorder="4">
-             <title depth="1">
-               III.
-               <tab/>
-               Keywords
-             </title>
-             <p>The following are keywords to be used by search engines and document catalogues.</p>
-             <p>A, B</p>
-           </clause>
-           <foreword obligation="informative" id="2" displayorder="5">
-             <title depth="1">
-               IV.
-               <tab/>
-               Preface
-             </title>
-             <p id="A">This is a preamble</p>
-           </foreword>
-           <clause id="DD1" obligation="normative" type="security" displayorder="6">
-             <title depth="1">
-               V.
-               <tab/>
-               Security
-             </title>
-             <p id="EE1">Text</p>
-           </clause>
-           <clause id="_" type="submitting_orgs" displayorder="7">
-             <title depth="1">
-               VI.
-               <tab/>
-               Submitting Organizations
-             </title>
-             <p>The following organizations submitted this Document to the Open Geospatial Consortium (OGC):</p>
-             <ul>
-               <li>OGC</li>
-               <li>DEF</li>
-             </ul>
-           </clause>
-           <submitters obligation="informative" id="3" displayorder="8">
-             <title depth="1">
-               VII.
-               <tab/>
-               Submitters
-             </title>
-             <p>ABC</p>
-           </submitters>
-           <submitters type="contributors" obligation="informative" id="3a" displayorder="9">
-             <title depth="1">
-               VIII.
-               <tab/>
-               Contributors
-             </title>
-             <p>ABC</p>
-           </submitters>
-           <clause id="5" displayorder="10">
-             <title depth="1">
-               IX.
-               <tab/>
-               Dedication
-             </title>
-             <clause id="6">
-               <title depth="2">
-                 IX.A.
-                 <tab/>
-                 Note to readers
-               </title>
-             </clause>
-           </clause>
-           <acknowledgements obligation="informative" id="4" displayorder="11">
-             <title depth="1">
-               X.
-               <tab/>
-               Acknowlegements
-             </title>
-             <p>ABC</p>
-           </acknowledgements>
-         </preface>
-         <sections>
-           <clause id="D" obligation="normative" type="scope" displayorder="12">
-             <title depth="1">
-               1.
-               <tab/>
-               Scope
-             </title>
-             <p id="E">Text</p>
-           </clause>
-           <clause id="D1" obligation="normative" type="conformance" displayorder="13">
-             <title depth="1">
-               2.
-               <tab/>
-               Conformance
-             </title>
-             <p id="E1">Text</p>
-           </clause>
-           <clause id="H" obligation="normative" displayorder="15">
-             <title depth="1">
-               4.
-               <tab/>
-               Terms, definitions, symbols and abbreviated terms
-             </title>
-             <terms id="I" obligation="normative">
-               <title depth="2">
-                 4.1.
-                 <tab/>
-                 Normal Terms
-               </title>
-               <term id="J">
-                 <name>4.1.1.</name>
-                 <preferred>Term2</preferred>
-               </term>
-             </terms>
-             <definitions id="K">
-               <title depth="2">
-                 4.2.
-                 <tab/>
-                 Definitions
-               </title>
-               <dl>
-                 <dt>Symbol</dt>
-                 <dd>Definition</dd>
-               </dl>
-             </definitions>
-           </clause>
-           <definitions id="L" displayorder="16">
-             <title depth="1">
-               5.
-               <tab/>
-               Definitions
-             </title>
-             <dl>
-               <dt>Symbol</dt>
-               <dd>Definition</dd>
-             </dl>
-           </definitions>
-           <clause id="M" inline-header="false" obligation="normative" displayorder="17">
-             <title depth="1">
-               6.
-               <tab/>
-               Clause 4
-             </title>
-             <clause id="N" inline-header="false" obligation="normative">
-               <title depth="2">
-                 6.1.
-                 <tab/>
-                 Introduction
-               </title>
-             </clause>
-             <clause id="O" inline-header="false" obligation="normative">
-               <title depth="2">
-                 6.2.
-                 <tab/>
-                 Clause 4.2
-               </title>
-             </clause>
-           </clause>
-           <references id="R" obligation="informative" normative="true" displayorder="14">
-             <title depth="1">
-               3.
-               <tab/>
-               Normative References
-             </title>
-           </references>
-         </sections>
-         <annex id="P" inline-header="false" obligation="normative" displayorder="18">
-           <title>
-             <strong>Annex A</strong>
-             <br/>
-             (normative)
-             <br/>
-             <strong>Annex</strong>
-           </title>
-           <clause id="Q" inline-header="false" obligation="normative">
-             <title depth="2">
-               A.1.
-               <tab/>
-               Annex A.1
-             </title>
-             <clause id="Q1" inline-header="false" obligation="normative">
-               <title depth="3">
-                 A.1.1.
-                 <tab/>
-                 Annex A.1a
-               </title>
-             </clause>
-           </clause>
-         </annex>
-         <annex id="PP" obligation="normative" displayorder="19">
-           <title>
-             <strong>Annex B</strong>
-             <br/>
-             (normative)
-             <br/>
-             <strong>Glossary</strong>
-           </title>
-           <terms id="PP1" obligation="normative">
-             <term id="term-glossary">
-               <name>B.1.</name>
-               <preferred>Glossary</preferred>
-             </term>
-           </terms>
-         </annex>
-         <annex id="QQ" obligation="normative" displayorder="20">
-           <title>
-             <strong>Annex C</strong>
-             <br/>
-             (normative)
-             <br/>
-             <strong>Glossary</strong>
-           </title>
-           <terms id="QQ1" obligation="normative">
-             <title depth="2">
-               C.1.
-               <tab/>
-               Term Collection
-             </title>
-             <term id="term-term-1">
-               <name>C.1.1.</name>
-               <preferred>Term</preferred>
-             </term>
-           </terms>
-           <terms id="QQ2" obligation="normative">
-             <title depth="2">
-               C.2.
-               <tab/>
-               Term Collection 2
-             </title>
-             <term id="term-term-2">
-               <name>C.2.1.</name>
-               <preferred>Term</preferred>
-             </term>
-           </terms>
-         </annex>
-         <bibliography>
-           <clause id="S" obligation="informative" displayorder="21">
-             <title depth="1">Bibliography</title>
-             <references id="T" obligation="informative" normative="false">
-               <title depth="2">Bibliography Subsection</title>
-             </references>
-           </clause>
-         </bibliography>
-       </ogc-standard>
+          <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
+        <bibdata>
+          <keyword>A</keyword>
+          <keyword>B</keyword>
+          <contributor>
+            <role type="author"/>
+            <organization>
+              <name>OGC</name>
+            </organization>
+          </contributor>
+          <contributor>
+            <role type="author"/>
+            <organization>
+              <name>DEF</name>
+            </organization>
+          </contributor>
+        </bibdata>
+        <preface>
+          <clause type="toc" id="_" displayorder="1">
+            <title depth="1">Contents</title>
+          </clause>
+          <abstract obligation="informative" id="1" displayorder="2">
+            <title depth="1">
+              I.
+              <tab/>
+              Abstract
+            </title>
+            <p>XYZ</p>
+          </abstract>
+          <clause id="DD0" obligation="normative" type="executivesummary" displayorder="3">
+            <title depth="1">
+              II.
+              <tab/>
+              Executive Summary
+            </title>
+            <p id="EE0">Text</p>
+          </clause>
+          <clause id="_" type="keywords" displayorder="4">
+            <title depth="1">
+              III.
+              <tab/>
+              Keywords
+            </title>
+            <p>The following are keywords to be used by search engines and document catalogues.</p>
+            <p>A, B</p>
+          </clause>
+          <foreword obligation="informative" id="2" displayorder="5">
+            <title depth="1">
+              IV.
+              <tab/>
+              Preface
+            </title>
+            <p id="A">This is a preamble</p>
+          </foreword>
+          <clause id="DD1" obligation="normative" type="security" displayorder="6">
+            <title depth="1">
+              V.
+              <tab/>
+              Security
+            </title>
+            <p id="EE1">Text</p>
+          </clause>
+          <clause id="_" type="submitting_orgs" displayorder="7">
+            <title depth="1">
+              VI.
+              <tab/>
+              Submitting Organizations
+            </title>
+            <p>The following organizations submitted this Document to the Open Geospatial Consortium (OGC):</p>
+            <ul>
+              <li>OGC</li>
+              <li>DEF</li>
+            </ul>
+          </clause>
+          <submitters obligation="informative" id="3" displayorder="8">
+            <title depth="1">
+              VII.
+              <tab/>
+              Submitters
+            </title>
+            <p>ABC</p>
+          </submitters>
+          <submitters type="contributors" obligation="informative" id="3a" displayorder="9">
+            <title depth="1">
+              VIII.
+              <tab/>
+              Contributors
+            </title>
+            <p>ABC</p>
+          </submitters>
+          <clause id="5" displayorder="10">
+            <title depth="1">
+              IX.
+              <tab/>
+              Dedication
+            </title>
+            <clause id="6">
+              <title depth="2">
+                IX.A.
+                <tab/>
+                Note to readers
+              </title>
+            </clause>
+          </clause>
+          <acknowledgements obligation="informative" id="4" displayorder="11">
+            <title depth="1">
+              X.
+              <tab/>
+              Acknowlegements
+            </title>
+            <p>ABC</p>
+          </acknowledgements>
+        </preface>
+        <sections>
+          <clause id="D" obligation="normative" type="scope" displayorder="12">
+            <title depth="1">
+              1.
+              <tab/>
+              Scope
+            </title>
+            <p id="E">Text</p>
+          </clause>
+          <clause id="D1" obligation="normative" type="conformance" displayorder="13">
+            <title depth="1">
+              2.
+              <tab/>
+              Conformance
+            </title>
+            <p id="E1">Text</p>
+          </clause>
+          <clause id="H" obligation="normative" displayorder="15">
+            <title depth="1">
+              4.
+              <tab/>
+              Terms, definitions, symbols and abbreviated terms
+            </title>
+            <terms id="I" obligation="normative">
+              <title depth="2">
+                4.1.
+                <tab/>
+                Normal Terms
+              </title>
+              <term id="J">
+                <name>4.1.1.</name>
+                <preferred>Term2</preferred>
+              </term>
+            </terms>
+            <definitions id="K">
+              <title depth="2">
+                4.2.
+                <tab/>
+                Definitions
+              </title>
+              <dl>
+                <dt>Symbol</dt>
+                <dd>Definition</dd>
+              </dl>
+            </definitions>
+          </clause>
+          <definitions id="L" displayorder="16">
+            <title depth="1">
+              5.
+              <tab/>
+              Definitions
+            </title>
+            <dl>
+              <dt>Symbol</dt>
+              <dd>Definition</dd>
+            </dl>
+          </definitions>
+          <clause id="M" inline-header="false" obligation="normative" displayorder="17">
+            <title depth="1">
+              6.
+              <tab/>
+              Clause 4
+            </title>
+            <clause id="N" inline-header="false" obligation="normative">
+              <title depth="2">
+                6.1.
+                <tab/>
+                Introduction
+              </title>
+            </clause>
+            <clause id="O" inline-header="false" obligation="normative">
+              <title depth="2">
+                6.2.
+                <tab/>
+                Clause 4.2
+              </title>
+            </clause>
+          </clause>
+          <references id="R" obligation="informative" normative="true" displayorder="14">
+            <title depth="1">
+              3.
+              <tab/>
+              Normative References
+            </title>
+          </references>
+        </sections>
+        <annex id="P" inline-header="false" obligation="normative" displayorder="18">
+          <title>
+            <strong>Annex A</strong>
+            <br/>
+            (normative)
+            <br/>
+            <strong>Annex</strong>
+          </title>
+          <clause id="Q" inline-header="false" obligation="normative">
+            <title depth="2">
+              A.1.
+              <tab/>
+              Annex A.1
+            </title>
+            <clause id="Q1" inline-header="false" obligation="normative">
+              <title depth="3">
+                A.1.1.
+                <tab/>
+                Annex A.1a
+              </title>
+            </clause>
+          </clause>
+        </annex>
+        <annex id="PP" obligation="normative" displayorder="19">
+          <title>
+            <strong>Annex B</strong>
+            <br/>
+            (normative)
+            <br/>
+            <strong>Glossary</strong>
+          </title>
+          <terms id="PP1" obligation="normative">
+            <term id="term-glossary">
+              <name>B.1.</name>
+              <preferred>Glossary</preferred>
+            </term>
+          </terms>
+        </annex>
+        <annex id="QQ" obligation="normative" displayorder="20">
+          <title>
+            <strong>Annex C</strong>
+            <br/>
+            (normative)
+            <br/>
+            <strong>Glossary</strong>
+          </title>
+          <terms id="QQ1" obligation="normative">
+            <title depth="2">
+              C.1.
+              <tab/>
+              Term Collection
+            </title>
+            <term id="term-term-1">
+              <name>C.1.1.</name>
+              <preferred>Term</preferred>
+            </term>
+          </terms>
+          <terms id="QQ2" obligation="normative">
+            <title depth="2">
+              C.2.
+              <tab/>
+              Term Collection 2
+            </title>
+            <term id="term-term-2">
+              <name>C.2.1.</name>
+              <preferred>Term</preferred>
+            </term>
+          </terms>
+        </annex>
+        <bibliography>
+          <clause id="S" obligation="informative" displayorder="21">
+            <title depth="1">Bibliography</title>
+            <references id="T" obligation="informative" normative="false">
+              <title depth="2">Bibliography Subsection</title>
+            </references>
+          </clause>
+        </bibliography>
+      </ogc-standard>
     OUTPUT
 
     output = xmlpp(<<~"OUTPUT")
-             #{HTML_HDR}
+      #{HTML_HDR}
                         <br/>
            <div id="1">
              <h1 class="AbstractTitle">
@@ -1041,12 +1377,14 @@ RSpec.describe IsoDoc::Ogc do
                   
                  Definitions
                </h2>
+               <div class="figdl">
                <dl>
                  <dt>
                    <p>Symbol</p>
                  </dt>
                  <dd>Definition</dd>
                </dl>
+               </div>
              </div>
            </div>
            <div id="L" class="Symbols">
@@ -1055,12 +1393,14 @@ RSpec.describe IsoDoc::Ogc do
                 
                Definitions
              </h1>
+             <div class="figdl">
              <dl>
                <dt>
                  <p>Symbol</p>
                </dt>
                <dd>Definition</dd>
              </dl>
+             </div>
            </div>
            <div id="M">
              <h1>
