@@ -49,6 +49,17 @@ $docstage-colors-list: (
 @import 'base_style/all';
 @import 'coverpage';
 
+/* For Requirement Test anchors */
+p.RecommendationTitle:hover > a.anchor,
+p.RecommendationTitle > a.anchor:hover,
+p.RecommendationTestTitle:hover > a.anchor,
+p.RecommendationTestTitle > a.anchor:hover {
+  visibility: visible; }
+
+table a.anchor {
+  margin-left: -2em;
+}
+
 
 body {
   @include bodyStyle1(
