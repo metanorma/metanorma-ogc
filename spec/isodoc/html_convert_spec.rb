@@ -493,6 +493,82 @@ RSpec.describe IsoDoc::Ogc do
       .to be_equivalent_to xmlpp(html)
   end
 
+  it "processes figures and sourcecode" do
+    input = <<~INPUT
+          <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <bibdata/>
+          <preface><foreword id="A">
+                <figure id="B"><p id="_">This is an example</p></figure>
+                <figure id="C" class="pseudocode"><p id="_">This is an example</p></figure>
+                <sourcecode id="D"><p id="_">This is an example</p></sourcecode>
+          </foreword></preface>
+          </iso-standard>
+    INPUT
+    presxml = <<~OUTPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <bibdata/>
+         <preface>
+           <clause type="toc" id="_" displayorder="1">
+             <title depth="1">Contents</title>
+           </clause>
+           <foreword id="A" displayorder="2">
+             <title>I.</title>
+             <figure id="B">
+               <name>Figure 1</name>
+               <p id="_">This is an example</p>
+             </figure>
+             <figure id="C" class="pseudocode">
+               <name>Listing 1</name>
+               <p id="_">This is an example</p>
+             </figure>
+             <sourcecode id="D">
+               <name>Listing 2</name>
+               <p id="_">This is an example</p>
+             </sourcecode>
+           </foreword>
+         </preface>
+       </iso-standard>
+    OUTPUT
+
+    html = <<~OUTPUT
+      #{HTML_HDR}
+              <br/>
+              <div id="A">
+             <h1 class="ForewordTitle">I.</h1>
+             <div id="B" class="figure">
+               <p id="_">This is an example</p>
+               <p class="FigureTitle" style="text-align:center;">Figure 1</p>
+             </div>
+             <div id="C" class="pseudocode">
+               <p id="_">This is an example</p>
+               <p class="SourceTitle" style="text-align:center;">Listing 1</p>
+             </div>
+             <pre id="D" class="sourcecode">
+               <br/>
+                       
+               <br/>
+                       
+               <p id="_">This is an example</p>
+               <br/>
+                     
+             </pre>
+             <p class="SourceTitle" style="text-align:center;">Listing 2</p>
+           </div>
+         </div>
+       </body>
+    OUTPUT
+    xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+          .convert("test", input, true))
+    xml.at("//xmlns:localized-strings").remove
+    xml.at("//xmlns:metanorma-extension").remove
+    expect(xmlpp(strip_guid(xml.to_xml)))
+      .to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({})
+      .convert("test", presxml, true)
+      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
+      .to be_equivalent_to xmlpp(html)
+  end
+
   it "processes section names" do
     input = <<~INPUT
       <ogc-standard xmlns="https://standards.opengeospatial.org/document">

@@ -186,6 +186,13 @@ module IsoDoc
         elem << "&#xa0;<span class='AdmittedLabel'>#{@i18n.admitted}</span>"
       end
 
+      def source_label(elem)
+        labelled_ancestor(elem) and return
+        lbl = @xrefs.anchor(elem["id"], :label, false) or return
+        prefix_name(elem, block_delim,
+                    l10n("#{lower2cap @i18n.sourcecode} #{lbl}"), "name")
+      end
+
       include Init
     end
   end
