@@ -236,8 +236,343 @@ RSpec.describe IsoDoc::Ogc do
       .convert("test", presxml, false)
     xml = Nokogiri::XML(File.read("test.html"))
     xml = xml.at("//div[@id = 'H']")
-    expect(xmlpp(strip_guid(xml.to_xml)))
-      .to be_equivalent_to output
+    expect(xmlpp(strip_guid(xml.to_xml))).to be_equivalent_to output
+  end
+
+  it "processes requirement and requirement test" do
+    presxml = <<~OUTPUT
+      <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
+      <bibdata/>
+           <preface>
+            <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
+             <foreword id='A' displayorder="2">
+               <title depth='1'>I.<tab/>Preface</title>
+                               <table id="A1" class="modspec" type="recommend">
+            <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Permission 1</p></th></tr></thead>
+            <tbody>
+              <tr><th>Identifier</th><td><tt>/ogc/recommendation/wfs/2</tt></td></tr>
+              <tr><th>Subject</th><td>user</td></tr>
+              <tr><th>Prerequisites</th><td>/ss/584/2015/level/1<br/>
+              <xref type="inline" target="rfc2616">RFC 2616 (HTTP/1.1)</xref></td></tr>
+            <tr>
+        <th>Control-CLASS</th>
+        <td>Technical</td>
+      </tr>
+      <tr>
+        <th>Priority</th>
+        <td>P0</td>
+      </tr>
+      <tr>
+        <th>Family</th>
+        <td>System and Communications Protection<br/>System and Communications Protocols</td>
+      </tr>
+      <tr>
+      <th>Statement</th>
+        <td>
+          <p id='_'>I recommend <em>this</em>.</p>
+        </td>
+      </tr>
+      <tr>
+        <th>A</th>
+        <td>B</td>
+      </tr>
+      <tr>
+        <th>C</th>
+        <td>D</td>
+      </tr>
+      <tr>
+        <td colspan='2'>
+          <p id='_'>The measurement target shall be measured as:</p>
+          <formula id='_'>
+            <name>1</name>
+            <stem type='AsciiMath'>r/1 = 0</stem>
+          </formula>
+        </td>
+      </tr>
+      <tr>
+        <td colspan='2'>
+          <p id='_'>The following code will be run for verification:</p>
+          <sourcecode id="_">CoreRoot(success): HttpResponse
+            if (success)
+            recommendation(label: success-response)
+            end
+          </sourcecode>
+        </td>
+      </tr>
+      </tbody></table>
+               <table id='A2' class='modspec' type='recommendtest'>
+               <thead>
+                 <tr>
+                   <th scope='colgroup' colspan='2'>
+                     <p class='RecommendationTestTitle'>Conformance test 1</p>
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                 <th>Identifier</th>
+                <td><tt>/ogc/recommendation/wfs/2</tt></td>
+                </tr>
+                 <tr>
+                   <th>Subject</th>
+                   <td>user</td>
+                 </tr>
+                 <tr>
+                   <th>Prerequisite</th>
+                   <td>/ss/584/2015/level/1</td>
+                 </tr>
+                 <tr>
+                   <th>Control-class</th>
+                   <td>Technical</td>
+                 </tr>
+                 <tr>
+                   <th>Priority</th>
+                   <td>P0</td>
+                 </tr>
+                 <tr>
+                   <th>Family</th>
+                   <td>System and Communications Protection<br/>
+                   System and Communications Protocols</td>
+                 </tr>
+                 <tr>
+                 <th>Description</th>
+                 <td>
+                     <p id='_'>
+                       I recommend
+                       <em>this</em>
+                       .
+                     </p>
+                   </td>
+                 </tr>
+                 <tr>
+                   <th>A</th>
+                   <td>B</td>
+                 </tr>
+                 <tr>
+                   <th>C</th>
+                   <td>D</td>
+                 </tr>
+                 <tr>
+                   <td colspan="2">
+                     <p id='_'>The measurement target shall be measured as:</p>
+                     <formula id='_'>
+                       <name>1</name>
+                       <stem type='AsciiMath'>r/1 = 0</stem>
+                     </formula>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td colspan='2'>
+                     <p id='_'>The following code will be run for verification:</p>
+                     <sourcecode id='_'>
+                       CoreRoot(success): HttpResponse if (success)
+                       recommendation(label: success-response) end
+                     </sourcecode>
+                   </td>
+                 </tr>
+               </tbody>
+             </table>
+             </foreword>
+           </preface>
+         </iso-standard>
+    OUTPUT
+
+    html = <<~OUTPUT
+           <div id="A">
+         <h1 class="ForewordTitle" id="_">
+           <a class="anchor" href="#A"/>
+           <a class="header" href="#A">I.  Preface</a>
+         </h1>
+         <table id="A1" class="modspec" style="border-width:1px;border-spacing:0;">
+           <thead>
+             <tr>
+               <th colspan="2" style="font-weight:bold;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;" scope="colgroup">
+                 <p class="RecommendationTitle">
+                   <a class="anchor" href="#A1"/>
+                   <a class="header" href="#A1">Permission 1</a>
+                 </p>
+               </th>
+             </tr>
+           </thead>
+           <tbody>
+             <tr>
+               <th style="font-weight:bold;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;" scope="row">Identifier</th>
+               <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">
+                 <tt>/ogc/recommendation/wfs/2</tt>
+               </td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Subject</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">user</td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Prerequisites</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">
+                 /ss/584/2015/level/1
+                 <br/>
+                 <a href="#rfc2616">RFC 2616 (HTTP/1.1)</a>
+               </td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Control-CLASS</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">Technical</td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Priority</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">P0</td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Family</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">
+                 System and Communications Protection
+                 <br/>
+                 System and Communications Protocols
+               </td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Statement</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">
+                 <p id="_">
+                   I recommend
+                   <i>this</i>
+                   .
+                 </p>
+               </td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">A</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">B</td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">C</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">D</td>
+             </tr>
+             <tr>
+               <td colspan="2" style="border-top:none;border-bottom:solid windowtext 1.0pt;">
+                 <p id="_">The measurement target shall be measured as:</p>
+                 <div id="_">
+                   <div class="formula">
+                     <p>
+                       <span class="stem">(#(r/1 = 0)#)</span>
+                         (1)
+                     </p>
+                   </div>
+                 </div>
+               </td>
+             </tr>
+             <tr>
+               <td colspan="2" style="border-top:none;border-bottom:solid windowtext 1.5pt;">
+                 <p id="_">The following code will be run for verification:</p>
+                 <pre id="_" class="sourcecode">
+                   CoreRoot(success): HttpResponse
+                   <br/>
+                         if (success)
+                   <br/>
+                         recommendation(label: success-response)
+                   <br/>
+                         end
+                   <br/>
+                      
+                 </pre>
+               </td>
+             </tr>
+           </tbody>
+         </table>
+         <table id="A2" class="modspec" style="border-width:1px;border-spacing:0;">
+           <thead>
+             <tr>
+               <th colspan="2" style="font-weight:bold;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;" scope="colgroup">
+                 <p class="RecommendationTestTitle">
+                   <a class="anchor" href="#A2"/>
+                   <a class="header" href="#A2">Conformance test 1</a>
+                 </p>
+               </th>
+             </tr>
+           </thead>
+           <tbody>
+             <tr>
+               <th style="font-weight:bold;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;" scope="row">Identifier</th>
+               <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">
+                 <tt>/ogc/recommendation/wfs/2</tt>
+               </td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Subject</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">user</td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Prerequisite</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">/ss/584/2015/level/1</td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Control-class</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">Technical</td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Priority</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">P0</td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Family</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">
+                 System and Communications Protection
+                 <br/>
+                 System and Communications Protocols
+               </td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Description</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">
+                 <p id="_">
+                   I recommend
+                   <i>this</i>
+                   .
+                 </p>
+               </td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">A</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">B</td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">C</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">D</td>
+             </tr>
+             <tr>
+               <td colspan="2" style="border-top:none;border-bottom:solid windowtext 1.0pt;">
+                 <p id="_">The measurement target shall be measured as:</p>
+                 <div id="_">
+                   <div class="formula">
+                     <p>
+                       <span class="stem">(#(r/1 = 0)#)</span>
+                         (1)
+                     </p>
+                   </div>
+                 </div>
+               </td>
+             </tr>
+             <tr>
+               <td colspan="2" style="border-top:none;border-bottom:solid windowtext 1.5pt;">
+                 <p id="_">The following code will be run for verification:</p>
+                 <pre id="_" class="sourcecode">
+                   <br/>
+                                    CoreRoot(success): HttpResponse if (success)
+                   <br/>
+                                    recommendation(label: success-response) end
+                   <br/>
+                                 
+                 </pre>
+               </td>
+             </tr>
+           </tbody>
+         </table>
+       </div>
+    OUTPUT
+    IsoDoc::Ogc::HtmlConvert.new({ filename: "test" })
+      .convert("test", presxml, false)
+    xml = Nokogiri::XML(File.read("test.html"))
+    xml = xml.at("//div[@id = 'A']")
+    expect(xmlpp(strip_guid(xml.to_xml))).to be_equivalent_to xmlpp(html)
   end
 
   it "processes admonitions" do

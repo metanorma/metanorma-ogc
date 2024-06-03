@@ -124,6 +124,17 @@ module IsoDoc
         "<meta name='DC.title' lang='#{@lang}' content='#{k}' />"
       end
 
+      def heading_anchors(html)
+        super
+        html.xpath("//p[@class = 'RecommendationTitle'] | " \
+                   "//p[@class = 'RecommendationTestTitle']").each do |h|
+          div = h.xpath("./ancestor::table[@id]")
+          div.empty? and next
+          heading_anchor(h, div[-1]["id"])
+        end
+        html
+      end
+
       include BaseConvert
       include Init
     end
