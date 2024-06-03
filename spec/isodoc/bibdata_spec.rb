@@ -391,10 +391,12 @@ RSpec.describe IsoDoc::Ogc do
               <h1 class="IntroTitle">I.&#160; Submitting Organizations</h1>
               <p>The following organizations submitted this Document to the Open
       Geospatial Consortium (OGC):</p>
+      <div class="ul_wrap">
       <ul>
         <li>OGC</li>
         <li>DEF</li>
       </ul>
+      </div>
             </div>
           </div>
         </body>
@@ -506,10 +508,12 @@ RSpec.describe IsoDoc::Ogc do
               The following organizations submitted this Document to the Open
               Geospatial Consortium (OGC):
             </p>
+            <div class="ul_wrap">
             <ul>
               <li>OGC</li>
               <li>DEF</li>
             </ul>
+            </div>
           </div>
         </div>
       </body>

@@ -192,33 +192,37 @@ RSpec.describe IsoDoc::Ogc do
     INPUT
 
     output = xmlpp(<<~OUTPUT)
-      <div id='H'>
-         <h1 id='_'><a class="anchor" href="#H"/><a class="header" href="#H">1.&#xA0; Terms, Definitions, Symbols and Abbreviated Terms</a></h1>
+       <div id="H">
+         <h1 id="_">
+           <a class="anchor" href="#H"/>
+           <a class="header" href="#H">1.  Terms, Definitions, Symbols and Abbreviated Terms</a>
+         </h1>
          <div id="J">
-         <h2 class='TermNum' style='text-align:left;' id='_'><a class="anchor" href="#J"/><a class="header" href="#J">1.1.&#xA0;Term2</a></h2>
+           <h2 class="TermNum" style="text-align:left;" id="_">
+             <a class="anchor" href="#J"/>
+             <a class="header" href="#J">1.1. Term2</a>
+           </h2>
          </div>
-         <p class='AltTerms' style="text-align:left;">
-           Term2A&#xA0;
-           <span class='AdmittedLabel'>ALTERNATIVE</span>
+         <p class="AltTerms" style="text-align:left;">
+           Term2A 
+           <span class="AdmittedLabel">ALTERNATIVE</span>
          </p>
-         <p class='AltTerms' style="text-align:left;">
-           Term2B&#xA0;
-           <span class='AdmittedLabel'>ALTERNATIVE</span>
+         <p class="AltTerms" style="text-align:left;">
+           Term2B 
+           <span class="AdmittedLabel">ALTERNATIVE</span>
          </p>
-         <p class='DeprecatedTerms' style="text-align:left;">
-           Term2C&#xA0;
-           <span class='AdmittedLabel'>DEPRECATED</span>
+         <p class="DeprecatedTerms" style="text-align:left;">
+           Term2C 
+           <span class="AdmittedLabel">DEPRECATED</span>
          </p>
-         <p class='DeprecatedTerms' style="text-align:left;">
-           Term2D&#xA0;
-           <span class='AdmittedLabel'>DEPRECATED</span>
+         <p class="DeprecatedTerms" style="text-align:left;">
+           Term2D 
+           <span class="AdmittedLabel">DEPRECATED</span>
          </p>
          <p>
            [
            <b>SOURCE:</b>
-           ISO&#xa0;7301:2011, Clause 3.1
-           , modified &#x2014; The term "cargo rice" is shown as deprecated, and Note 1
-           to entry is not included here]
+           ISO 7301:2011, Clause 3.1 , modified — The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here]
          </p>
        </div>
     OUTPUT
@@ -829,6 +833,82 @@ RSpec.describe IsoDoc::Ogc do
       .to be_equivalent_to xmlpp(html)
   end
 
+  it "processes figures and sourcecode" do
+    input = <<~INPUT
+          <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <bibdata/>
+          <preface><foreword id="A">
+                <figure id="B"><p id="_">This is an example</p></figure>
+                <figure id="C" class="pseudocode"><p id="_">This is an example</p></figure>
+                <sourcecode id="D"><p id="_">This is an example</p></sourcecode>
+          </foreword></preface>
+          </iso-standard>
+    INPUT
+    presxml = <<~OUTPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <bibdata/>
+         <preface>
+           <clause type="toc" id="_" displayorder="1">
+             <title depth="1">Contents</title>
+           </clause>
+           <foreword id="A" displayorder="2">
+             <title>I.</title>
+             <figure id="B">
+               <name>Figure 1</name>
+               <p id="_">This is an example</p>
+             </figure>
+             <figure id="C" class="pseudocode">
+               <name>Listing 1</name>
+               <p id="_">This is an example</p>
+             </figure>
+             <sourcecode id="D">
+               <name>Listing 2</name>
+               <p id="_">This is an example</p>
+             </sourcecode>
+           </foreword>
+         </preface>
+       </iso-standard>
+    OUTPUT
+
+    html = <<~OUTPUT
+      #{HTML_HDR}
+              <br/>
+              <div id="A">
+             <h1 class="ForewordTitle">I.</h1>
+             <div id="B" class="figure">
+               <p id="_">This is an example</p>
+               <p class="FigureTitle" style="text-align:center;">Figure 1</p>
+             </div>
+             <div id="C" class="pseudocode">
+               <p id="_">This is an example</p>
+               <p class="SourceTitle" style="text-align:center;">Listing 1</p>
+             </div>
+             <pre id="D" class="sourcecode">
+               <br/>
+                       
+               <br/>
+                       
+               <p id="_">This is an example</p>
+               <br/>
+                     
+             </pre>
+             <p class="SourceTitle" style="text-align:center;">Listing 2</p>
+           </div>
+         </div>
+       </body>
+    OUTPUT
+    xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+          .convert("test", input, true))
+    xml.at("//xmlns:localized-strings").remove
+    xml.at("//xmlns:metanorma-extension").remove
+    expect(xmlpp(strip_guid(xml.to_xml)))
+      .to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({})
+      .convert("test", presxml, true)
+      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
+      .to be_equivalent_to xmlpp(html)
+  end
+
   it "processes section names" do
     input = <<~INPUT
       <ogc-standard xmlns="https://standards.opengeospatial.org/document">
@@ -1239,265 +1319,267 @@ RSpec.describe IsoDoc::Ogc do
     OUTPUT
 
     output = xmlpp(<<~"OUTPUT")
-      #{HTML_HDR}
-                        <br/>
-           <div id="1">
-             <h1 class="AbstractTitle">
-               I.
-                
-               Abstract
-             </h1>
-             <p>XYZ</p>
-           </div>
-           <div class="Section3" id="DD0">
-             <h1 class="IntroTitle">
-               II.
-                
-               Executive Summary
-             </h1>
-             <p id="EE0">Text</p>
-           </div>
-           <div class="Section3" id="_">
-             <h1 class="IntroTitle">
-               III.
-                
-               Keywords
-             </h1>
-             <p>The following are keywords to be used by search engines and document catalogues.</p>
-             <p>A, B</p>
-           </div>
-           <br/>
-           <div id="2">
-             <h1 class="ForewordTitle">
-               IV.
-                
-               Preface
-             </h1>
-             <p id="A">This is a preamble</p>
-           </div>
-           <div class="Section3" id="DD1">
-             <h1 class="IntroTitle">
-               V.
-                
-               Security
-             </h1>
-             <p id="EE1">Text</p>
-           </div>
-           <div class="Section3" id="_">
-             <h1 class="IntroTitle">
-               VI.
-                
-               Submitting Organizations
-             </h1>
-             <p>The following organizations submitted this Document to the Open Geospatial Consortium (OGC):</p>
-             <ul>
-               <li>OGC</li>
-               <li>DEF</li>
-             </ul>
-           </div>
-           <div class="Section3" id="3">
-             <h1 class="IntroTitle">
-               VII.
-                
-               Submitters
-             </h1>
-             <p>ABC</p>
-           </div>
-           <div class="Section3" id="3a">
-             <h1 class="IntroTitle">
-               VIII.
-                
-               Contributors
-             </h1>
-             <p>ABC</p>
-           </div>
-           <div class="Section3" id="5">
-             <h1 class="IntroTitle">
-               IX.
-                
-               Dedication
-             </h1>
-             <div id="6">
-               <h2>
-                 IX.A.
-                  
-                 Note to readers
-               </h2>
-             </div>
-           </div>
-           <div class="Section3" id="4">
-             <h1 class="IntroTitle">
-               X.
-                
-               Acknowlegements
-             </h1>
-             <p>ABC</p>
-           </div>
-           <div id="D">
-             <h1>
-               1.
-                
-               Scope
-             </h1>
-             <p id="E">Text</p>
-           </div>
-           <div id="D1">
-             <h1>
-               2.
-                
-               Conformance
-             </h1>
-             <p id="E1">Text</p>
-           </div>
-           <div>
-             <h1>
-               3.
-                
-               Normative References
-             </h1>
-           </div>
-           <div id="H">
-             <h1>
-               4.
-                
-               Terms, definitions, symbols and abbreviated terms
-             </h1>
-             <div id="I">
-               <h2>
-                 4.1.
-                  
-                 Normal Terms
-               </h2>
-               <p class="TermNum" id="J">4.1.1.</p>
-               <p class="Terms" style="text-align:left;">Term2</p>
-             </div>
-             <div id="K">
-               <h2>
-                 4.2.
-                  
-                 Definitions
-               </h2>
-               <div class="figdl">
-               <dl>
-                 <dt>
-                   <p>Symbol</p>
-                 </dt>
-                 <dd>Definition</dd>
-               </dl>
-               </div>
-             </div>
-           </div>
-           <div id="L" class="Symbols">
-             <h1>
-               5.
-                
-               Definitions
-             </h1>
-             <div class="figdl">
-             <dl>
-               <dt>
-                 <p>Symbol</p>
-               </dt>
-               <dd>Definition</dd>
-             </dl>
-             </div>
-           </div>
-           <div id="M">
-             <h1>
-               6.
-                
-               Clause 4
-             </h1>
-             <div id="N">
-               <h2>
-                 6.1.
-                  
-                 Introduction
-               </h2>
-             </div>
-             <div id="O">
-               <h2>
-                 6.2.
-                  
-                 Clause 4.2
-               </h2>
-             </div>
-           </div>
-           <br/>
-           <div id="P" class="Section3">
-             <h1 class="Annex">
-               <b>Annex A</b>
-               <br/>
-               (normative)
-               <br/>
-               <b>Annex</b>
-             </h1>
-             <div id="Q">
-               <h2>
-               A.1.
-                
-               Annex A.1
-             </h2>
-               <div id="Q1">
-                 <h3>
-                 A.1.1.
-                  
-                 Annex A.1a
-               </h3>
-               </div>
-             </div>
-           </div>
-           <br/>
-           <div id="PP" class="Section3">
-             <h1 class="Annex">
-               <b>Annex B</b>
-               <br/>
-               (normative)
-               <br/>
-               <b>Glossary</b>
-             </h1>
-             <div id="PP1">
-               <p class="TermNum" id="term-glossary">B.1.</p>
-               <p class="Terms" style="text-align:left;">Glossary</p>
-             </div>
-           </div>
-           <br/>
-           <div id="QQ" class="Section3">
-             <h1 class="Annex">
-               <b>Annex C</b>
-               <br/>
-               (normative)
-               <br/>
-               <b>Glossary</b>
-             </h1>
-             <div id="QQ1">
-               <h2>
-               C.1.
-                
-               Term Collection
-             </h2>
-               <p class="TermNum" id="term-term-1">C.1.1.</p>
-               <p class="Terms" style="text-align:left;">Term</p>
-             </div>
-             <div id="QQ2">
-               <h2>
-               C.2.
-                
-               Term Collection 2
-             </h2>
-               <p class="TermNum" id="term-term-2">C.2.1.</p>
-               <p class="Terms" style="text-align:left;">Term</p>
-             </div>
-           </div>
-           <br/>
-           <div>
-             <h1 class="Section3">Bibliography</h1>
-             <div>
-               <h2 class="Section3">Bibliography Subsection</h2>
-             </div>
-           </div>
-         </div>
-       </body>
+            #{HTML_HDR}
+          <br/>
+          <div id="1">
+            <h1 class="AbstractTitle">
+              I.
+               
+              Abstract
+            </h1>
+            <p>XYZ</p>
+          </div>
+          <div class="Section3" id="DD0">
+            <h1 class="IntroTitle">
+              II.
+               
+              Executive Summary
+            </h1>
+            <p id="EE0">Text</p>
+          </div>
+          <div class="Section3" id="_">
+            <h1 class="IntroTitle">
+              III.
+               
+              Keywords
+            </h1>
+            <p>The following are keywords to be used by search engines and document catalogues.</p>
+            <p>A, B</p>
+          </div>
+          <br/>
+          <div id="2">
+            <h1 class="ForewordTitle">
+              IV.
+               
+              Preface
+            </h1>
+            <p id="A">This is a preamble</p>
+          </div>
+          <div class="Section3" id="DD1">
+            <h1 class="IntroTitle">
+              V.
+               
+              Security
+            </h1>
+            <p id="EE1">Text</p>
+          </div>
+          <div class="Section3" id="_">
+            <h1 class="IntroTitle">
+              VI.
+               
+              Submitting Organizations
+            </h1>
+            <p>The following organizations submitted this Document to the Open Geospatial Consortium (OGC):</p>
+            <div class="ul_wrap">
+              <ul>
+                <li>OGC</li>
+                <li>DEF</li>
+              </ul>
+            </div>
+          </div>
+          <div class="Section3" id="3">
+            <h1 class="IntroTitle">
+              VII.
+               
+              Submitters
+            </h1>
+            <p>ABC</p>
+          </div>
+          <div class="Section3" id="3a">
+            <h1 class="IntroTitle">
+              VIII.
+               
+              Contributors
+            </h1>
+            <p>ABC</p>
+          </div>
+          <div class="Section3" id="5">
+            <h1 class="IntroTitle">
+              IX.
+               
+              Dedication
+            </h1>
+            <div id="6">
+              <h2>
+                IX.A.
+                 
+                Note to readers
+              </h2>
+            </div>
+          </div>
+          <div class="Section3" id="4">
+            <h1 class="IntroTitle">
+              X.
+               
+              Acknowlegements
+            </h1>
+            <p>ABC</p>
+          </div>
+          <div id="D">
+            <h1>
+              1.
+               
+              Scope
+            </h1>
+            <p id="E">Text</p>
+          </div>
+          <div id="D1">
+            <h1>
+              2.
+               
+              Conformance
+            </h1>
+            <p id="E1">Text</p>
+          </div>
+          <div>
+            <h1>
+              3.
+               
+              Normative References
+            </h1>
+          </div>
+          <div id="H">
+            <h1>
+              4.
+               
+              Terms, definitions, symbols and abbreviated terms
+            </h1>
+            <div id="I">
+              <h2>
+                4.1.
+                 
+                Normal Terms
+              </h2>
+              <p class="TermNum" id="J">4.1.1.</p>
+              <p class="Terms" style="text-align:left;">Term2</p>
+            </div>
+            <div id="K">
+              <h2>
+                4.2.
+                 
+                Definitions
+              </h2>
+              <div class="figdl">
+                <dl>
+                  <dt>
+                    <p>Symbol</p>
+                  </dt>
+                  <dd>Definition</dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+          <div id="L" class="Symbols">
+            <h1>
+              5.
+               
+              Definitions
+            </h1>
+            <div class="figdl">
+              <dl>
+                <dt>
+                  <p>Symbol</p>
+                </dt>
+                <dd>Definition</dd>
+              </dl>
+            </div>
+          </div>
+          <div id="M">
+            <h1>
+              6.
+               
+              Clause 4
+            </h1>
+            <div id="N">
+              <h2>
+                6.1.
+                 
+                Introduction
+              </h2>
+            </div>
+            <div id="O">
+              <h2>
+                6.2.
+                 
+                Clause 4.2
+              </h2>
+            </div>
+          </div>
+          <br/>
+          <div id="P" class="Section3">
+            <h1 class="Annex">
+              <b>Annex A</b>
+              <br/>
+              (normative)
+              <br/>
+              <b>Annex</b>
+            </h1>
+            <div id="Q">
+              <h2>
+              A.1.
+               
+              Annex A.1
+            </h2>
+              <div id="Q1">
+                <h3>
+                A.1.1.
+                 
+                Annex A.1a
+              </h3>
+              </div>
+            </div>
+          </div>
+          <br/>
+          <div id="PP" class="Section3">
+            <h1 class="Annex">
+              <b>Annex B</b>
+              <br/>
+              (normative)
+              <br/>
+              <b>Glossary</b>
+            </h1>
+            <div id="PP1">
+              <p class="TermNum" id="term-glossary">B.1.</p>
+              <p class="Terms" style="text-align:left;">Glossary</p>
+            </div>
+          </div>
+          <br/>
+          <div id="QQ" class="Section3">
+            <h1 class="Annex">
+              <b>Annex C</b>
+              <br/>
+              (normative)
+              <br/>
+              <b>Glossary</b>
+            </h1>
+            <div id="QQ1">
+              <h2>
+              C.1.
+               
+              Term Collection
+            </h2>
+              <p class="TermNum" id="term-term-1">C.1.1.</p>
+              <p class="Terms" style="text-align:left;">Term</p>
+            </div>
+            <div id="QQ2">
+              <h2>
+              C.2.
+               
+              Term Collection 2
+            </h2>
+              <p class="TermNum" id="term-term-2">C.2.1.</p>
+              <p class="Terms" style="text-align:left;">Term</p>
+            </div>
+          </div>
+          <br/>
+          <div>
+            <h1 class="Section3">Bibliography</h1>
+            <div>
+              <h2 class="Section3">Bibliography Subsection</h2>
+            </div>
+          </div>
+        </div>
+      </body>
     OUTPUT
 
     xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)

@@ -12,6 +12,7 @@ abstracttest: Abstract test
 conformanceclass: Conformance class
 dochistory: Revision history
 example: Example
+sourcecode: Listing
 table_of_contents: Contents
 toc_figures: List of Figures
 toc_tables: List of Tables

@@ -79,7 +79,8 @@ RSpec.describe IsoDoc::Ogc do
         </p>
       </foreword>
     OUTPUT
-    expect(xmlpp(Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+    expect(xmlpp(Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert
+      .new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
@@ -158,7 +159,8 @@ RSpec.describe IsoDoc::Ogc do
         </p>
       </foreword>
     OUTPUT
-    expect(xmlpp(Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+    expect(xmlpp(Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert
+      .new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
@@ -219,7 +221,8 @@ RSpec.describe IsoDoc::Ogc do
         </p>
       </foreword>
     OUTPUT
-    expect(xmlpp(Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+    expect(xmlpp(Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert
+      .new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
@@ -257,7 +260,8 @@ RSpec.describe IsoDoc::Ogc do
         </p>
       </foreword>
     OUTPUT
-    expect(xmlpp(Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+    expect(xmlpp(Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert
+      .new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
@@ -342,7 +346,8 @@ RSpec.describe IsoDoc::Ogc do
             </p>
           </foreword>
     OUTPUT
-    expect(xmlpp(Nokogiri.XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+    expect(xmlpp(Nokogiri.XML(IsoDoc::Ogc::PresentationXMLConvert
+      .new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
@@ -427,7 +432,8 @@ RSpec.describe IsoDoc::Ogc do
             </p>
           </foreword>
     OUTPUT
-    expect(xmlpp(Nokogiri.XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+    expect(xmlpp(Nokogiri.XML(IsoDoc::Ogc::PresentationXMLConvert
+      .new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
@@ -512,7 +518,8 @@ RSpec.describe IsoDoc::Ogc do
                    </p>
                  </foreword>
     OUTPUT
-    expect(xmlpp(Nokogiri.XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+    expect(xmlpp(Nokogiri.XML(IsoDoc::Ogc::PresentationXMLConvert
+      .new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)
@@ -582,7 +589,143 @@ RSpec.describe IsoDoc::Ogc do
                   </p>
                 </foreword>
     OUTPUT
-    expect(xmlpp(Nokogiri.XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+    expect(xmlpp(Nokogiri.XML(IsoDoc::Ogc::PresentationXMLConvert
+      .new(presxml_options)
+      .convert("test", input, true))
+      .at("//xmlns:foreword").to_xml))
+      .to be_equivalent_to xmlpp(output)
+  end
+
+  it "cross-references figure classes" do
+    input = <<~INPUT
+              <iso-standard xmlns="http://riboseinc.com/isoxml">
+              <preface>
+          <foreword id="fwd">
+          <p>
+          <xref target="N1"/>
+          <xref target="N2"/>
+          <xref target="N"/>
+          <xref target="note1"/>
+          <xref target="note3"/>
+          <xref target="note4"/>
+          <xref target="note2"/>
+          <xref target="note5"/>
+          <xref target="AN"/>
+          <xref target="Anote1"/>
+          <xref target="Anote2"/>
+          <xref target="Anote3"/>
+          <xref target="Anote31"/>
+          <xref target="Anote32"/>
+          <xref target="Anote4"/>
+          </p>
+          </foreword>
+              <introduction id="intro">
+              <figure id="N1">
+        <name>Split-it-right sample divider</name>
+        <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
+        </figure>
+        <clause id="xyz"><title>Preparatory</title>
+              <figure id="N2" unnumbered="true">
+        <name>Split-it-right sample divider</name>
+        <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
+        </figure>
+      </clause>
+          </introduction>
+          </preface>
+          <sections>
+          <clause id="scope" type="scope"><title>Scope</title>
+              <figure id="N" class="diagram">
+        <name>Split-it-right sample divider</name>
+        <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
+        </figure>
+      <p><xref target="N"/></p>
+          </clause>
+          <terms id="terms"/>
+          <clause id="widgets"><title>Widgets</title>
+          <clause id="widgets1">
+              <figure id="note1" class="plate">
+        <name>Split-it-right sample divider</name>
+        <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
+        </figure>
+        <figure id="note3" class="pseudocode">
+        <p>pseudocode</p>
+        </figure>
+        <sourcecode id="note4" class="diagram"><name>Source! Code!</name>
+        A B C
+        </sourcecode>
+        <figure id="note5">
+        <sourcecode id="note51">
+        A B C
+        </sourcecode>
+        </figure>
+          <figure id="note2" class="diagram">
+        <name>Split-it-right sample divider</name>
+        <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
+        </figure>
+        <p>    <xref target="note1"/> <xref target="note2"/> </p>
+          </clause>
+          </clause>
+          </sections>
+          <annex id="annex1">
+          <clause id="annex1a">
+              <figure id="AN" class="diagram">
+        <name>Split-it-right sample divider</name>
+        <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
+        </figure>
+          </clause>
+          <clause id="annex1b">
+              <figure id="Anote1" unnumbered="true" class="plate">
+        <name>Split-it-right sample divider</name>
+        <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
+        </figure>
+          <figure id="Anote2">
+        <name>Split-it-right sample divider</name>
+        <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
+        </figure>
+        <sourcecode id="Anote3"><name>Source! Code!</name>
+        A B C
+        </sourcecode>
+        <figure id="Anote31" class="pseudocode">
+        <p>pseudocode</p>
+        </figure>
+          <figure id="Anote32">
+        <name>Split-it-right sample divider</name>
+        <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
+        </figure>
+          </clause>
+          </annex>
+          <bibliography><references normative="false" id="biblio"><title>Bibliographical Section</title>
+          <figure id="Anote4">
+        <name>Split-it-right sample divider</name>
+        <image src="rice_images/rice_image1.png" id="_8357ede4-6d44-4672-bac4-9a85e82ab7f0" mimetype="image/png"/>
+        </figure>
+          </references></bibliography>
+          </iso-standard>
+    INPUT
+    output = <<~OUTPUT
+      <foreword id="fwd" displayorder="2">
+         <title>I.</title>
+         <p>
+           <xref target="N1">Figure 1</xref>
+           <xref target="N2">Figure (??)</xref>
+           <xref target="N">Diagram 1</xref>
+           <xref target="note1">Plate 1</xref>
+           <xref target="note3">Listing 1</xref>
+           <xref target="note4">Listing 2</xref>
+           <xref target="note2">Diagram 2</xref>
+           <xref target="note5">Figure 2</xref>
+           <xref target="AN">Diagram A.1</xref>
+           <xref target="Anote1">Plate (??)</xref>
+           <xref target="Anote2">Figure A.1</xref>
+           <xref target="Anote3">Listing A.1</xref>
+           <xref target="Anote31">Listing A.2</xref>
+           <xref target="Anote32">Figure A.2</xref>
+           <xref target="Anote4">Bibliographical Section, Figure 1</xref>
+         </p>
+       </foreword>
+    OUTPUT
+    expect(xmlpp(Nokogiri.XML(IsoDoc::Ogc::PresentationXMLConvert
+      .new(presxml_options)
       .convert("test", input, true))
       .at("//xmlns:foreword").to_xml))
       .to be_equivalent_to xmlpp(output)

@@ -51,7 +51,7 @@ module Metanorma
             @log.add("Document Attributes", nil,
                      "'#{d}' is not a legal document type: reverting to 'standard'")
           @warned_doctype = true
-          d = "standard"
+          d = @default_doctype
         end
         d
       end
