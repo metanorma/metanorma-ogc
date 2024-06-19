@@ -107,7 +107,7 @@ dl {
 }
 
 nav {
-  @include sidebarNav(#f1f8ff, 323px, 45px);
+  @include sidebarNav(#f1f8ff, 323px, 30px);
 
   @media screen and (min-width: $bigscreenBreakpoint) {
     margin-right: 30px;
