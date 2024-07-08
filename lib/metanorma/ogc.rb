@@ -7,8 +7,8 @@ module Metanorma
     def self.fonts_used
       {
         html: ["Overpass", "SpaceMono"],
-        doc: ["Times New Roman", "Cambria Math", "HanSans", "Courier New"],
-        pdf: ["Lato", "Arial"],
+        doc: ["EB Garamond", "STIX Two Math", "HanSans", "Courier Prime"],
+        pdf: ["Lato", "Roboto"],
       }
     end
 

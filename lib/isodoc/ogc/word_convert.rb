@@ -17,9 +17,9 @@ module IsoDoc
 
       def default_fonts(_options)
         {
-          bodyfont: '"Times New Roman",serif',
-          headerfont: '"Times New Roman",serif',
-          monospacefont: '"Courier New",monospace',
+          bodyfont: '"EB Garamond",serif',
+          headerfont: '"EB Garamond",serif',
+          monospacefont: '"Courier Prime",monospace',
           normalfontsize: "10.5pt",
           monospacefontsize: "10.0pt",
           footnotefontsize: "10.0pt",
@@ -46,7 +46,7 @@ module IsoDoc
           @wordcoverpage = html_doc_path("word_ogc_titlepage_wp.html")
           @wordintropage = html_doc_path("word_ogc_intro_wp.html")
           @header = html_doc_path("header_wp.html")
-          options[:bodyfont] = '"Arial",sans-serif'
+          options[:bodyfont] = '"Roboto",sans-serif'
           options[:headerfont] = '"Lato",sans-serif'
           options[:normalfontsize] = "11.0pt"
           options[:footnotefontsize] = "11.0pt"
