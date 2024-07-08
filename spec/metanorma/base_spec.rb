@@ -1081,7 +1081,7 @@ RSpec.describe Metanorma::Ogc do
       #{blank_hdr_gen}
       <preface>#{SECURITY}</preface>
       <sections>
-      <clause id='_' obligation='normative'>
+      <clause id='_' obligation='normative' type="terms">
       <title>Terms, definitions, symbols and abbreviated terms</title>
       <p id='_'>This document uses the terms defined in
         <link target='https://portal.ogc.org/public_ogc/directives/directives.php'>OGC Policy Directive 49</link>,
