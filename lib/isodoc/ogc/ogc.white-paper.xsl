@@ -1062,7 +1062,7 @@
 	<xsl:variable name="font_noto_serif">Noto Serif, Noto Serif HK, Noto Serif JP, Noto Serif KR, Noto Serif SC, Noto Serif TC</xsl:variable>
 	<xsl:attribute-set name="root-style">
 
-			<xsl:attribute name="font-family">Arial, STIX Two Math, <xsl:value-of select="$font_noto_sans"/></xsl:attribute>
+			<xsl:attribute name="font-family">Roboto, STIX Two Math, <xsl:value-of select="$font_noto_sans"/></xsl:attribute>
 			<xsl:attribute name="font-family-generic">Sans</xsl:attribute>
 			<xsl:attribute name="font-size">11pt</xsl:attribute>
 
