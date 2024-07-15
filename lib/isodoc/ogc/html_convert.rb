@@ -41,8 +41,13 @@ module IsoDoc
 
       def admonition_class(node)
         case node["type"]
-        when "important" then "Admonition.Important"
-        when "warning" then "Admonition.Warning"
+        when "important" then "Admonition Important"
+        when "warning" then "Admonition Warning"
+        when "caution" then "Admonition Caution"
+        when "todo" then "Admonition Todo"
+        when "editor" then "Admonition Editor"
+        when "tip" then "Admonition Tip"
+        when "safety-precaution" then "Admonition Safety-Precaution"
         else "Admonition"
         end
       end
@@ -135,8 +140,20 @@ module IsoDoc
         html
       end
 
+      # to pass on to imported _coverpage.scss
+      def scss_fontheader(is_html_css)
+        super + <<~SCSS
+          $color_text : #{@meta.get[:"presentation_metadata_color-text"].first};
+          $color_background_page : #{@meta.get[:"presentation_metadata_color-background-page"].first};
+          $color_background_definition_term : #{@meta.get[:"presentation_metadata_color-background-definition-term"].first};
+          $color_background_definition_description : #{@meta.get[:"presentation_metadata_color-background-definition-description"].first};
+          $color_secondary_shade_1 : #{@meta.get[:"presentation_metadata_color-secondary-shade-1"].first};
+        SCSS
+      end
+
       def generate_css(a, b)
-        #require "debug"; binding.b
+        require "debug"
+        binding.b
         super
       end
 
