@@ -135,6 +135,11 @@ module IsoDoc
         html
       end
 
+      def generate_css(a, b)
+        #require "debug"; binding.b
+        super
+      end
+
       include BaseConvert
       include Init
     end

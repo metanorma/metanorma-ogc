@@ -7,6 +7,7 @@ RSpec.describe IsoDoc::Ogc do
           <bibdata>
           <language>en</language>
           </bibdata>
+                        #{METANORMA_EXTENSION}
           <preface><foreword id="A"><title>Preface</title>
         <p id="_f06fd0d1-a203-4f3d-a515-0bdba0f8d83f">
         <eref bibitemid="ISO712"/>
@@ -333,6 +334,7 @@ RSpec.describe IsoDoc::Ogc do
                   <bibdata>
                   <language current="true">en</language>
                   </bibdata>
+                                #{METANORMA_EXTENSION}
                   <preface>    <clause type="toc" id="_" displayorder="1">
                   <title depth="1">Contents</title>
                   </clause>
@@ -646,7 +648,7 @@ RSpec.describe IsoDoc::Ogc do
     xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
-    xml.at("//xmlns:metanorma-extension").remove
+    xml.at("//xmlns:metanorma-extension/xmlns:render").remove
     expect(xmlpp(strip_guid(xml.to_xml)))
       .to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({})

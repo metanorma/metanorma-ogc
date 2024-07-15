@@ -62,11 +62,17 @@ table a.anchor {
 
 
 body {
+  /*
   @include bodyStyle1(
     $fontSize: $normalfontsize, $lineHeight: 1.5,
     $colorText: #00335b, $colorBackground: #f6f8fa,
     $fontWeight: 300);
-
+    */
+  @include bodyStyle1(
+    $fontSize: $normalfontsize, $lineHeight: 1.5,
+    $colorText: {{ presentation_metadata_color-text }}, $colorBackground: #f6f8fa,
+    $fontWeight: 300);
+ /* COLOR */
   @include sidebarNavContainer(360px);
 }
 
@@ -79,8 +85,9 @@ dl {
 }
 
 #toc, #toc > ul :is(.h1, .h2, .h3, .h4, .h5, .h6) {
-  @include toc($colorLink: #00335b, $colorLinkActiveBg: #00335b, $colorLinkActiveFg: white);
-
+  /* @include toc($colorLink: #00335b, $colorLinkActiveBg: #00335b, $colorLinkActiveFg: white); */
+  @include toc($colorLink: {{ presentation_metadata_color-text }} , $colorLinkActiveBg: {{ presentation_metadata_color-text }}, $colorLinkActiveFg: white);
+ /* COLOR */
   li a {
     font-size: 14px;
   }
@@ -115,11 +122,13 @@ nav {
 }
 
 #toggle {
-  @include sidebarNavToggle(white, #00335b);
+  /* @include sidebarNavToggle(white, #00335b); */
+  @include sidebarNavToggle(white, {{ presentation_metadata_color-text }});
 }
 
 .rule {
-  @include rule(1px, #00335b, 2em 0);
+  /* @include rule(1px, #00335b, 2em 0); */
+  @include rule(1px, {{ presentation_metadata_color-text }}, 2em 0);
 
   &.toc {
     @include tocSeparator();
@@ -201,7 +210,8 @@ p {
 
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
-  color: #00335b;
+  /* color: #00335b; */ /* COLOR */
+  color: {{ presentation_metadata_color-text-title }};
   font-weight: 400;
   margin-top: 1.6em;
   margin-bottom: 0.3em;
@@ -245,15 +255,20 @@ h4, .h4 {
     box-shadow: 0 0 0 0;
   }
   a, a:hover {
-    color: #00335b;
+    /* color: #00335b; */ /* COLOR */
+    color: {{ presentation_metadata_color-text }};
   }
 
   padding: 2em;
   margin-top: 5em;
   width: 280px;
   text-align: left;
-  border: #00335b solid 2px;
+  /*
+  border: #00335b solid 2px; 
   color: #00335b!important;
+  */
+  border: {{ presentation_metadata_color-text }} solid 2px; /* COLOR */
+  color: {{ presentation_metadata_color-text }}!important; /* COLOR */
   border-radius: 25px;
 
   p, a {
@@ -322,7 +337,7 @@ table {
   /*color: #010d16;*/
 
   thead tr th {
-    background-color: #5d99d6;
+    background-color: #5d99d6; /* COLOR */
   }
 
   td, th {
@@ -344,17 +359,17 @@ table {
 table.modspec {
   @include table($border: none !important);
 
-  color: #010d16;
+  color: #010d16; /* COLOR */
 
   tr:nth-child(even) {
-    background: #ffffff
+    background: #ffffff /* COLOR */
   }
   tr:nth-child(odd) {
-    background: #ffffff
+    background: #ffffff /* COLOR */
   }
 
   thead tr th {
-    background-color: #5d99d6;
+    background-color: #5d99d6; /* COLOR */
   }
 
   td, th {
@@ -388,7 +403,8 @@ p.TableTitle {
 }
 
 .TermNum, .Terms, .AltTerms {
-  color: #00335b;
+  /* color: #00335b; */ /* COLOR */
+  color: {{ presentation_metadata_color-text-title }};
   font-family: $headerfont;
 }
 
@@ -402,8 +418,19 @@ p.AltTerms {
 }
 
 span.AdmittedLabel {
-    color: #00335b;
-    background-color: #CFE2F3;
+    /* color: #00335b; */ /* COLOR */
+    color: {{ presentation_metadata_color-text-title }};
+    /* background-color: #CFE2F3; */
+    background-color: {{ presentation_metadata_color-background-term-admitted-label }};
+    font-size: 70%;
+    vertical-align: top;
+}
+
+span.DeprecatedLabel {
+    /* color: #00335b; */ /* COLOR */
+    color: {{ presentation_metadata_color-text-title }};
+    /* background-color: #CFE2F3; */
+    background-color: {{ presentation_metadata_color-background-term-deprecated-label }};
     font-size: 70%;
     vertical-align: top;
 }
@@ -411,7 +438,8 @@ span.AdmittedLabel {
 
 /* Links, selection */
 
-@include elementStyles(#2e81c2, #39CCCC, #00335b);
+/* @include elementStyles(#2e81c2, #39CCCC, #00335b); */ /* COLOR */
+@include elementStyles(#2e81c2, #39CCCC, {{ presentation_metadata_color-text }});
 
 
 /* Bibliograhy */
@@ -441,19 +469,19 @@ pre, .sourcecode {
   @include admonitionBlock();
   padding: 1em 1.2em 1.2em 1.2em;
   margin: 1em 0 1em 0;
-  background-color: #fcad88;
+  background-color: #fcad88; /* COLOR */
   border-top: 10px solid #eb5a06;
-  color: #290404;
+  color: #290404; /* COLOR */
 
   &.Important {
-    background-color: #f58cff;
-    color: #5d1364;
+    background-color: #f58cff; /* COLOR */
+    color: #5d1364; /* COLOR */
     border-top: 10px solid #9503a8;
   }
 
   &.Warning {
-    background-color: #ff989d;
-    color: #270204;
+    background-color: #ff989d; /* COLOR */
+    color: #270204; /* COLOR */
     border-top: 10px solid #e4010c;
   }
 
@@ -464,14 +492,14 @@ pre, .sourcecode {
 }
 
 .figure, pre, .pseudocode, .sourcecode {
-  background-color: #e1eef1;
-  color: #424242;
+  background-color: #e1eef1; /* COLOR */
+  color: #424242; /* COLOR */
   font-size: $monospacefontsize;
 }
 
 .Note {
-  background-color: #fff8bb;
-  color: #7d760b;
+  background-color: #fff8bb; /* COLOR */
+  color: #7d760b; /* COLOR */
   padding: 1.2em;
   margin: 1em 0 1em 0;
 
@@ -481,8 +509,8 @@ pre, .sourcecode {
 }
 
 .example {
-  background-color: #e1eef1;
-  color: #424242;
+  background-color: #e1eef1; /* COLOR */
+  color: #424242; /* COLOR */
   padding: 1.2em;
   margin: 2em 0 1em 0;
   padding-left: 2em;
@@ -572,7 +600,8 @@ tbody td.recommend p.RecommendationTitle, tbody td.recommend p.RecommendationTit
 }
 
 #myBtn {
-  @include toTopBtn(white, #00335b);
+  /* @include toTopBtn(white, #00335b); */ /* COLOR */
+  @include toTopBtn(white, {{ presentation_metadata_color-text }});
 }
 
 a.anchorjs-link {
@@ -617,8 +646,8 @@ a.anchorjs-link {
   }
 
   .Note {
-    background-color: #fff495;
-    color: #47430c;
+    background-color: #fff495; /* COLOR */
+    color: #47430c; /* COLOR */
     padding: 5px;
     margin: 2em 0 1em 0;
 
