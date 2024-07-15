@@ -156,6 +156,27 @@ module Metanorma
         end
       end
 
+      def metadata_attrs(node)
+        design = "rgb(237, 193, 35)"
+        design_light = "rgb(246, 223, 140)"
+        if document_scheme(node) == "2022"
+          design = "rgb(0, 177, 255)"
+          design_light = "rgb(0, 177, 255)"
+        end
+        super + <<~ATTRS
+          <presentation-metadata><name>color_main</name><value>rgb(88, 89, 91)</value></presentation-metadata>
+          <presentation-metadata><name>color_design</name><value>#{design}</value></presentation-metadata>
+          <presentation-metadata><name>color_design_light</name><value>#{design_light}</value></presentation-metadata>
+          <presentation-metadata><name>color_dl_dt</name><value>rgb(215, 243, 255)</value></presentation-metadata>
+          <presentation-metadata><name>color_dl_dd</name><value>rgb(242, 251, 255)</value></presentation-metadata>
+          <presentation-metadata><name>color_blue</name><value>rgb(33, 55, 92)</value></presentation-metadata>
+          <presentation-metadata><name>color_background_blue</name><value>rgb(33, 60, 107)</value></presentation-metadata>
+          <presentation-metadata><name>color_preferred</name><value>rgb(249, 235, 187)</value></presentation-metadata>
+          <presentation-metadata><name>color_deprecated</name><value>rgb(237, 237, 238)</value></presentation-metadata>
+          <presentation-metadata><name>color_admitted</name><value>rgb(223, 236, 249)</value></presentation-metadata>
+        ATTRS
+      end
+
       def presentation_xml_converter(node)
         IsoDoc::Ogc::PresentationXMLConvert
           .new(html_extract_attributes(node)

@@ -202,7 +202,47 @@ BLANK_HDR = <<~"HDR".freeze
     <subdoctype>implementation</subdoctype>
     </ext>
   </bibdata>
-                       <metanorma-extension>
+            <metanorma-extension>
+    <presentation-metadata>
+      <name>color_main</name>
+      <value>rgb(88, 89, 91)</value>
+    </presentation-metadata>
+    <presentation-metadata>
+      <name>color_design</name>
+      <value>rgb(237, 193, 35)</value>
+    </presentation-metadata>
+    <presentation-metadata>
+      <name>color_design_light</name>
+      <value>rgb(246, 223, 140)</value>
+    </presentation-metadata>
+    <presentation-metadata>
+      <name>color_dl_dt</name>
+      <value>rgb(215, 243, 255)</value>
+    </presentation-metadata>
+    <presentation-metadata>
+      <name>color_dl_dd</name>
+      <value>rgb(242, 251, 255)</value>
+    </presentation-metadata>
+    <presentation-metadata>
+      <name>color_blue</name>
+      <value>rgb(33, 55, 92)</value>
+    </presentation-metadata>
+    <presentation-metadata>
+      <name>color_background_blue</name>
+      <value>rgb(33, 60, 107)</value>
+    </presentation-metadata>
+    <presentation-metadata>
+      <name>color_preferred</name>
+      <value>rgb(249, 235, 187)</value>
+    </presentation-metadata>
+    <presentation-metadata>
+      <name>color_deprecated</name>
+      <value>rgb(237, 237, 238)</value>
+    </presentation-metadata>
+    <presentation-metadata>
+      <name>color_admitted</name>
+      <value>rgb(223, 236, 249)</value>
+    </presentation-metadata>
             <presentation-metadata>
               <name>TOC Heading Levels</name>
               <value>2</value>
