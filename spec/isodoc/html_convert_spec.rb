@@ -614,7 +614,7 @@ RSpec.describe IsoDoc::Ogc do
               <br/>
               <div id="A">
                 <h1 class="ForewordTitle">I.&#160; Preface</h1>
-                <div  id="_" class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">CAUTION</p>
+                <div  id="_" class="Admonition Caution"><p class="AdmonitionTitle" style="text-align:center;">CAUTION</p>
         <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
       </div>
               </div>
@@ -668,7 +668,7 @@ RSpec.describe IsoDoc::Ogc do
               <br/>
               <div id="A">
                 <h1 class="ForewordTitle">I.&#160; Preface</h1>
-                <div id="_" class="Admonition.Warning"><p class="AdmonitionTitle" style="text-align:center;">WARNING</p>
+                <div id="_" class="Admonition Warning"><p class="AdmonitionTitle" style="text-align:center;">WARNING</p>
         <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
       </div>
               </div>
@@ -722,7 +722,7 @@ RSpec.describe IsoDoc::Ogc do
               <br/>
               <div id="A">
                 <h1 class="ForewordTitle">I.&#160; Preface</h1>
-                <div  id="_" class="Admonition.Important"><p class="AdmonitionTitle" style="text-align:center;">IMPORTANT</p>
+                <div  id="_" class="Admonition Important"><p class="AdmonitionTitle" style="text-align:center;">IMPORTANT</p>
         <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
       </div>
               </div>
