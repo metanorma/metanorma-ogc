@@ -157,6 +157,17 @@ module IsoDoc
         end
         set(:logo_word, old ? get[:logo_old] : get[:logo_new])
       end
+
+      def presentation(xml, _out)
+        super
+        @metadata.each do |k, v|
+          /^presentation_metadata_color_/.match?(k) or next
+          v.is_a?(Array) or next
+          m = /^rgb\((\d+),\s*(\d+),\s*(\d+)\s*\)/.match(Array(v).first)
+          @metadata[k] =
+            sprintf("#%02x%02x%02x", m[1].to_i, m[2].to_i, m[3].to_i)
+        end
+      end
     end
   end
 end

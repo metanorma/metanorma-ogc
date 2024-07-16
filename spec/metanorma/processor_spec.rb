@@ -45,6 +45,7 @@ RSpec.describe Metanorma::Ogc::Processor do
     FileUtils.rm_f "test.xml"
     input = <<~INPUT
       <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+        #{METANORMA_EXTENSION}
         <sections>
           <terms id="H" obligation="normative" displayorder="1">
           <title>1.<tab/>Terms, Definitions, Symbols and Abbreviated Terms</title>
@@ -58,21 +59,21 @@ RSpec.describe Metanorma::Ogc::Processor do
     INPUT
 
     output = xmlpp(<<~OUTPUT)
-       <main class="main-section">
-         <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
-         <div id="H">
-           <h1 id="_">
-             <a class="anchor" href="#H"/>
-             <a class="header" href="#H">1.  Terms, Definitions, Symbols and Abbreviated Terms</a>
-           </h1>
-           <div id="J">
-             <h2 class="TermNum" style="text-align:left;" id="_">
-               <a class="anchor" href="#J"/>
-               <a class="header" href="#J">1.1. Term2</a>
-             </h2>
-           </div>
-         </div>
-       </main>
+      <main class="main-section">
+        <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+        <div id="H">
+          <h1 id="_">
+            <a class="anchor" href="#H"/>
+            <a class="header" href="#H">1.  Terms, Definitions, Symbols and Abbreviated Terms</a>
+          </h1>
+          <div id="J">
+            <h2 class="TermNum" style="text-align:left;" id="_">
+              <a class="anchor" href="#J"/>
+              <a class="header" href="#J">1.1. Term2</a>
+            </h2>
+          </div>
+        </div>
+      </main>
     OUTPUT
 
     processor.output(input, "test.xml", "test.html", :html)
