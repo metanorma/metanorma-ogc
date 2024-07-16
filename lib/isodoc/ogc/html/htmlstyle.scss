@@ -70,8 +70,8 @@ body {
     */
   @include bodyStyle1(
     $fontSize: $normalfontsize, $lineHeight: 1.5,
-    $colorText: {{ presentation_metadata_color-text }}, $colorBackground: #f6f8fa,
-    $fontWeight: 300);
+    $colorText: {{ presentation_metadata_color-text }}, $colorBackground: $color_background,
+    $fontWeight: 300)
  /* COLOR */
   @include sidebarNavContainer(360px);
 }
@@ -346,7 +346,7 @@ table {
   thead tr th {
     /* background-color: #5d99d6; */
     background-color: {{ presentation_metadata_color-background-table-header }};
-    color: #f6f8fa;
+    color: $color_background;
   }
 
   td, th {
@@ -478,7 +478,7 @@ p.Biblio, p.NormRef {
 
 pre, .sourcecode {
   /* @include sourceBlock(#f7f7f7); */ 
-  @include sourceBlock(#f6f8fa); 
+  @include sourceBlock($color_background); 
 
   font-family: $monospacefont;
   font-variant-ligatures: none;
@@ -577,13 +577,13 @@ pre, .sourcecode {
 
 .Quote {
   /* @include blockquoteBlock(#e1eef1); */ /* COLOR */
-  @include blockquoteBlock(#f6f8fa);
+  @include blockquoteBlock($color_background);
 }
 
 
 .formula {
   /* @include formulaBlock(#f6f6f6); */ /* COLOR */
-  @include formulaBlock(#f6f8fa); 
+  @include formulaBlock($color_background); 
 }
 
 .recommend, .recommendtest {

@@ -148,13 +148,8 @@ module IsoDoc
           $color_background_definition_term : #{@meta.get[:"presentation_metadata_color-background-definition-term"].first};
           $color_background_definition_description : #{@meta.get[:"presentation_metadata_color-background-definition-description"].first};
           $color_secondary_shade_1 : #{@meta.get[:"presentation_metadata_color-secondary-shade-1"].first};
+          $color_background : #f6f8fa;
         SCSS
-      end
-
-      def generate_css(a, b)
-        require "debug"
-        binding.b
-        super
       end
 
       include BaseConvert
