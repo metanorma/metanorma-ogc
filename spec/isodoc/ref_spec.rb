@@ -647,12 +647,12 @@ RSpec.describe IsoDoc::Ogc do
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
     xml.at("//xmlns:metanorma-extension").remove
-    expect(xmlpp(strip_guid(xml.to_xml)))
-      .to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({})
+    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", presxml, true)
       .sub(/^.*<body/m, "<body")
       .sub(%r{</body>.*$}m, "</body>")))
-      .to be_equivalent_to xmlpp(html)
+      .to be_equivalent_to Xml::C14n.format(html)
   end
 end

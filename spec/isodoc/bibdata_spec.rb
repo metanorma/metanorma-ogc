@@ -91,8 +91,8 @@ RSpec.describe IsoDoc::Ogc do
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
     xml.at("//xmlns:metanorma-extension").remove
-    expect(xmlpp(strip_guid(xml.to_xml)))
-      .to be_equivalent_to xmlpp(presxml)
+    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
   end
 
   it "changes approved to published" do
@@ -129,8 +129,8 @@ RSpec.describe IsoDoc::Ogc do
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
     xml.at("//xmlns:metanorma-extension").remove
-    expect(xmlpp(strip_guid(xml.to_xml)))
-      .to be_equivalent_to xmlpp(presxml)
+    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
   end
 
   it "renders white-paper as technical-paper after cutoff date" do
@@ -169,8 +169,8 @@ RSpec.describe IsoDoc::Ogc do
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
     xml.at("//xmlns:metanorma-extension").remove
-    expect(xmlpp(strip_guid(xml.to_xml)))
-      .to be_equivalent_to xmlpp(presxml)
+    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
   end
 
   it "renders white-paper as white-paper before cutoff date" do
@@ -209,8 +209,8 @@ RSpec.describe IsoDoc::Ogc do
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
     xml.at("//xmlns:metanorma-extension").remove
-    expect(xmlpp(strip_guid(xml.to_xml)))
-      .to be_equivalent_to xmlpp(presxml)
+    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
   end
 
   it "processes keyword with no preface" do
@@ -256,14 +256,14 @@ RSpec.describe IsoDoc::Ogc do
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
     xml.at("//xmlns:metanorma-extension").remove
-    expect(xmlpp(strip_guid(xml.to_xml)))
-      .to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(
+    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(
              IsoDoc::Ogc::HtmlConvert.new({})
              .convert("test", presxml, true)
              .gsub(%r{^.*<body}m, "<body")
              .gsub(%r{</body>.*}m, "</body>"),
-           )).to be_equivalent_to xmlpp(output)
+           )).to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "processes keyword with preface" do
@@ -322,14 +322,14 @@ RSpec.describe IsoDoc::Ogc do
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
     xml.at("//xmlns:metanorma-extension").remove
-    expect(xmlpp(strip_guid(xml.to_xml)))
-      .to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(
+    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(
              IsoDoc::Ogc::HtmlConvert.new({})
              .convert("test", presxml, true)
              .gsub(%r{^.*<body}m, "<body")
              .gsub(%r{</body>.*}m, "</body>"),
-           )).to be_equivalent_to xmlpp(output)
+           )).to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "processes submitting organisations with no preface" do
@@ -405,12 +405,12 @@ RSpec.describe IsoDoc::Ogc do
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
     xml.at("//xmlns:metanorma-extension").remove
-    expect(xmlpp(strip_guid(xml.to_xml)))
-      .to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({})
+    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", presxml, true)
       .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
-      .to be_equivalent_to xmlpp(output)
+      .to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "processes submitting organisations with preface" do
@@ -522,12 +522,12 @@ RSpec.describe IsoDoc::Ogc do
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
     xml.at("//xmlns:metanorma-extension").remove
-    expect(xmlpp(strip_guid(xml.to_xml)))
-      .to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({})
+    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", presxml, true)
       .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
-      .to be_equivalent_to xmlpp(output)
+      .to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "processes keyword and abstract in HTML head" do
@@ -569,8 +569,8 @@ RSpec.describe IsoDoc::Ogc do
       .convert("test", presxml, false)
     doc = Nokogiri::XML(File.read("test.html"))
     out = doc.xpath("//head/meta[@name = 'keywords' or @name = 'description']")
-    expect(xmlpp("<html>#{out.to_xml}</html>"))
-      .to be_equivalent_to xmlpp(output)
+    expect(Xml::C14n.format("<html>#{out.to_xml}</html>"))
+      .to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "processes document history" do
@@ -855,7 +855,7 @@ RSpec.describe IsoDoc::Ogc do
     xml.at("//xmlns:localized-strings").remove
     xml.at("//xmlns:metanorma-extension").remove
     xml.at("//xmlns:bibdata").remove
-    expect(xmlpp(strip_guid(xml.to_xml)))
-      .to be_equivalent_to xmlpp(presxml)
+    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
     end
 end

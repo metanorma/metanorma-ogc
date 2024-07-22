@@ -49,8 +49,8 @@ RSpec.describe IsoDoc::Ogc do
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
     xml.at("//xmlns:metanorma-extension").remove
-    expect(xmlpp(strip_guid(xml.to_xml)))
-      .to be_equivalent_to xmlpp(presxml)
+    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
   end
 
   it "orders terms in engineering reports" do
@@ -105,8 +105,8 @@ RSpec.describe IsoDoc::Ogc do
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
     xml.at("//xmlns:metanorma-extension").remove
-    expect(xmlpp(strip_guid(xml.to_xml)))
-      .to be_equivalent_to xmlpp(presxml)
+    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
   end
 
   it "processes pre" do
@@ -120,7 +120,7 @@ RSpec.describe IsoDoc::Ogc do
       </ogc-standard>
     INPUT
 
-    output = xmlpp(<<~"OUTPUT")
+    output = Xml::C14n.format(<<~"OUTPUT")
       #{HTML_HDR}
                <br/>
                <div id="A">
@@ -131,7 +131,7 @@ RSpec.describe IsoDoc::Ogc do
            </body>
     OUTPUT
 
-    expect(xmlpp(
+    expect(Xml::C14n.format(
              IsoDoc::Ogc::HtmlConvert.new({})
              .convert("test", input, true)
              .gsub(%r{^.*<body}m, "<body")
@@ -191,7 +191,7 @@ RSpec.describe IsoDoc::Ogc do
          </ogc-standard>
     INPUT
 
-    output = xmlpp(<<~OUTPUT)
+    output = Xml::C14n.format(<<~OUTPUT)
        <div id="H">
          <h1 id="_">
            <a class="anchor" href="#H"/>
@@ -230,13 +230,13 @@ RSpec.describe IsoDoc::Ogc do
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
     xml.at("//xmlns:metanorma-extension").remove
-    expect(xmlpp(strip_guid(xml.to_xml)))
-      .to be_equivalent_to xmlpp(presxml)
+    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
     IsoDoc::Ogc::HtmlConvert.new({ filename: "test" })
       .convert("test", presxml, false)
     xml = Nokogiri::XML(File.read("test.html"))
     xml = xml.at("//div[@id = 'H']")
-    expect(xmlpp(strip_guid(xml.to_xml))).to be_equivalent_to output
+    expect(Xml::C14n.format(strip_guid(xml.to_xml))).to be_equivalent_to output
   end
 
   it "processes requirement and requirement test" do
@@ -572,7 +572,7 @@ RSpec.describe IsoDoc::Ogc do
       .convert("test", presxml, false)
     xml = Nokogiri::XML(File.read("test.html"))
     xml = xml.at("//div[@id = 'A']")
-    expect(xmlpp(strip_guid(xml.to_xml))).to be_equivalent_to xmlpp(html)
+    expect(Xml::C14n.format(strip_guid(xml.to_xml))).to be_equivalent_to Xml::C14n.format(html)
   end
 
   it "processes admonitions" do
@@ -619,12 +619,12 @@ RSpec.describe IsoDoc::Ogc do
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
     xml.at("//xmlns:metanorma-extension").remove
-    expect(xmlpp(strip_guid(xml.to_xml)))
-      .to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({})
+    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", presxml, true)
       .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
-      .to be_equivalent_to xmlpp(html)
+      .to be_equivalent_to Xml::C14n.format(html)
   end
 
   it "processes warning admonitions" do
@@ -671,12 +671,12 @@ RSpec.describe IsoDoc::Ogc do
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
     xml.at("//xmlns:metanorma-extension").remove
-    expect(xmlpp(strip_guid(xml.to_xml)))
-      .to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({})
+    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", presxml, true)
       .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
-      .to be_equivalent_to xmlpp(html)
+      .to be_equivalent_to Xml::C14n.format(html)
   end
 
   it "processes important admonitions" do
@@ -723,12 +723,12 @@ RSpec.describe IsoDoc::Ogc do
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
     xml.at("//xmlns:metanorma-extension").remove
-    expect(xmlpp(strip_guid(xml.to_xml)))
-      .to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({})
+    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", presxml, true)
       .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
-      .to be_equivalent_to xmlpp(html)
+      .to be_equivalent_to Xml::C14n.format(html)
   end
 
   it "processes examples with titles" do
@@ -774,12 +774,12 @@ RSpec.describe IsoDoc::Ogc do
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
     xml.at("//xmlns:metanorma-extension").remove
-    expect(xmlpp(strip_guid(xml.to_xml)))
-      .to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({})
+    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", presxml, true)
       .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
-      .to be_equivalent_to xmlpp(html)
+      .to be_equivalent_to Xml::C14n.format(html)
   end
 
   it "processes examples without titles" do
@@ -825,12 +825,12 @@ RSpec.describe IsoDoc::Ogc do
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
     xml.at("//xmlns:metanorma-extension").remove
-    expect(xmlpp(strip_guid(xml.to_xml)))
-      .to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({})
+    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", presxml, true)
       .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
-      .to be_equivalent_to xmlpp(html)
+      .to be_equivalent_to Xml::C14n.format(html)
   end
 
   it "processes figures and sourcecode" do
@@ -901,12 +901,12 @@ RSpec.describe IsoDoc::Ogc do
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
     xml.at("//xmlns:metanorma-extension").remove
-    expect(xmlpp(strip_guid(xml.to_xml)))
-      .to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({})
+    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", presxml, true)
       .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
-      .to be_equivalent_to xmlpp(html)
+      .to be_equivalent_to Xml::C14n.format(html)
   end
 
   it "processes section names" do
@@ -1318,7 +1318,7 @@ RSpec.describe IsoDoc::Ogc do
       </ogc-standard>
     OUTPUT
 
-    output = xmlpp(<<~"OUTPUT")
+    output = Xml::C14n.format(<<~"OUTPUT")
             #{HTML_HDR}
           <br/>
           <div id="1">
@@ -1586,9 +1586,9 @@ RSpec.describe IsoDoc::Ogc do
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
     xml.at("//xmlns:metanorma-extension").remove
-    expect(xmlpp(strip_guid(xml.to_xml)))
-      .to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(
+    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(
              IsoDoc::Ogc::HtmlConvert.new({}).convert("test", presxml, true)
              .gsub(%r{^.*<body}m, "<body")
              .gsub(%r{</body>.*}m, "</body>"),
@@ -1655,14 +1655,14 @@ RSpec.describe IsoDoc::Ogc do
            </div>
          </body>
     OUTPUT
-    expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({})
+    expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", presxml, true)
       .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
-      .to be_equivalent_to xmlpp(html)
-    expect(xmlpp(IsoDoc::Ogc::WordConvert.new({})
+      .to be_equivalent_to Xml::C14n.format(html)
+    expect(Xml::C14n.format(IsoDoc::Ogc::WordConvert.new({})
       .convert("test", presxml, true)
       .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
-      .to be_equivalent_to xmlpp(doc)
+      .to be_equivalent_to Xml::C14n.format(doc)
   end
 
   it "injects JS into blank html" do
@@ -1674,15 +1674,15 @@ RSpec.describe IsoDoc::Ogc do
       :novalid:
       :no-pdf:
     INPUT
-    output = xmlpp(<<~"OUTPUT")
+    output = Xml::C14n.format(<<~"OUTPUT")
           #{blank_hdr_gen}
           <preface>#{SECURITY}</preface>
       <sections/>
       </ogc-standard>
     OUTPUT
-    expect(xmlpp(strip_guid(Asciidoctor
+    expect(Xml::C14n.format(strip_guid(Asciidoctor
       .convert(input, backend: :ogc, header_footer: true))))
-      .to be_equivalent_to xmlpp(output)
+      .to be_equivalent_to Xml::C14n.format(output)
     html = File.read("test.html", encoding: "utf-8")
     expect(html).to match(%r{jquery\.min\.js})
     expect(html).to match(%r{Overpass})
@@ -1776,17 +1776,17 @@ RSpec.describe IsoDoc::Ogc do
     xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
-    expect(xmlpp(strip_guid(xml.to_xml)))
-      .to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(
+    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(
              IsoDoc::Ogc::HtmlConvert.new({}).convert("test", presxml, true)
              .gsub(%r{^.*<body}m, "<body")
              .gsub(%r{</body>.*}m, "</body>"),
-           )).to be_equivalent_to xmlpp(html)
-    expect(xmlpp(
+           )).to be_equivalent_to Xml::C14n.format(html)
+    expect(Xml::C14n.format(
              IsoDoc::Ogc::WordConvert.new({}).convert("test", presxml, true)
              .gsub(%r{^.*<body}m, "<body")
       .gsub(%r{</body>.*}m, "</body>"),
-           )).to be_equivalent_to xmlpp(word)
+           )).to be_equivalent_to Xml::C14n.format(word)
   end
 end
