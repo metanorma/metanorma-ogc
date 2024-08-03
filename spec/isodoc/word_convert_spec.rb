@@ -19,11 +19,11 @@ RSpec.describe IsoDoc::Ogc do
       </sections>
       </ogc-standard>
     INPUT
-    expect(xmlpp(File.read("test.doc")
+    expect(Xml::C14n.format(File.read("test.doc")
       .gsub(%r{^.*<div class="WordSection3">}m,
             "<body><div class='WordSection3'>")
       .gsub(%r{</body>.*}m, "</body>")))
-      .to be_equivalent_to xmlpp(<<~OUTPUT)
+      .to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
         <body>
           <div class='WordSection3'>
             <div>
@@ -102,8 +102,8 @@ RSpec.describe IsoDoc::Ogc do
       .gsub(%r{<o:p>&#xA0;</o:p>}, "")
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
       .sub(%r{</span>\s*<p class="MsoNormal">&#xA0;</p>\s*</div>\s*$}, "</div>")
-    expect(xmlpp(strip_guid(word.gsub(/_Toc\d\d+/, "_Toc"))))
-      .to be_equivalent_to xmlpp(<<~'OUTPUT')
+    expect(Xml::C14n.format(strip_guid(word.gsub(/_Toc\d\d+/, "_Toc"))))
+      .to be_equivalent_to Xml::C14n.format(<<~'OUTPUT')
            <div class="WordSection2">
          <div class="license">
            <div>
@@ -413,11 +413,11 @@ RSpec.describe IsoDoc::Ogc do
         </sections>
         </ogc-standard>
       INPUT
-    expect(xmlpp(File.read("test.doc")
+    expect(Xml::C14n.format(File.read("test.doc")
       .gsub(%r{^.*<div class="boilerplate-copyright">}m,
             "<div class='boilerplate-copyright'>")
       .gsub(%r{<div class="warning">.*}m, "")))
-      .to be_equivalent_to xmlpp(<<~OUTPUT)
+      .to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
         <div class='boilerplate-copyright'>
             <div><p class="TitlePageSubhead">Copyright notice</p>
             <p align="center" class="MsoNormal">A</p>
@@ -427,11 +427,11 @@ RSpec.describe IsoDoc::Ogc do
             </div>
             </div>
       OUTPUT
-    expect(xmlpp(File.read("test.doc")
+    expect(Xml::C14n.format(File.read("test.doc")
       .gsub(%r{^.*<div class="boilerplate-license">}m,
             "<div class='boilerplate-license'>")
       .gsub(%r{<p class="license">.*}m, '<p class="license"/></div></div>')))
-      .to be_equivalent_to xmlpp(<<~OUTPUT)
+      .to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
         <div class='boilerplate-license'>
             <div><p class="TitlePageSubhead">License Agreement</p>
             <p class="license"/></div></div>
@@ -514,9 +514,9 @@ RSpec.describe IsoDoc::Ogc do
        </table>
     OUTPUT
     IsoDoc::Ogc::WordConvert.new({}).convert("test", presxml, false)
-    expect(xmlpp(File.read("test.doc")
+    expect(Xml::C14n.format(File.read("test.doc")
       .gsub(%r{^.*<table}m, "<table")
       .gsub(%r{</table>.*$}m, "</table>")))
-      .to be_equivalent_to xmlpp(doc)
+      .to be_equivalent_to Xml::C14n.format(doc)
   end
 end

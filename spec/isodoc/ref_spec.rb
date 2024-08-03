@@ -648,13 +648,13 @@ RSpec.describe IsoDoc::Ogc do
     xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
-    xml.at("//xmlns:metanorma-extension/xmlns:render").remove
-    expect(xmlpp(strip_guid(xml.to_xml)))
-      .to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(IsoDoc::Ogc::HtmlConvert.new({})
+    xml.at("//xmlns:metanorma-extension").remove
+    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", presxml, true)
       .sub(/^.*<body/m, "<body")
       .sub(%r{</body>.*$}m, "</body>")))
-      .to be_equivalent_to xmlpp(html)
+      .to be_equivalent_to Xml::C14n.format(html)
   end
 end

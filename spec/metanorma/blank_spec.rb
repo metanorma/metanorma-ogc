@@ -7,14 +7,14 @@ RSpec.describe Metanorma::Ogc do
       #{ASCIIDOC_BLANK_HDR}
     INPUT
 
-    output = xmlpp(<<~"OUTPUT")
+    output = Xml::C14n.format(<<~"OUTPUT")
           #{blank_hdr_gen}
           <preface>#{SECURITY}</preface>
       <sections/>
       </ogc-standard>
     OUTPUT
 
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+    expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
       .to be_equivalent_to output
   end
 
@@ -28,7 +28,7 @@ RSpec.describe Metanorma::Ogc do
       == Clause
     INPUT
 
-    output = xmlpp(<<~"OUTPUT")
+    output = Xml::C14n.format(<<~"OUTPUT")
           #{blank_hdr_gen}
           <preface>#{SECURITY}</preface>
       <sections>
@@ -42,7 +42,7 @@ RSpec.describe Metanorma::Ogc do
     FileUtils.rm_f "test.html"
     FileUtils.rm_f "test.doc"
     FileUtils.rm_f "test.pdf"
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+    expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
       .to be_equivalent_to output
     expect(File.exist?("test.html")).to be true
     expect(File.exist?("test.doc")).to be true
