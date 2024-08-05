@@ -489,7 +489,7 @@ pre, .sourcecode {
   padding: 1em 1.2em 1.2em 1.2em;
   margin: 1em 0 1em 0;
   /* background-color: #fcad88; */
-  /* border-top: 10px solid #eb5a06; */
+  border-top: 10px solid {{ presentation_metadata_color-secondary-shade-1 }}; 
   border: 1px solid {{ presentation_metadata_color-admonition-important }};
   /* color: #290404; */
   color: {{ presentation_metadata_color-admonition-important }};
