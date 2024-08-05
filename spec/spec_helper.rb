@@ -21,6 +21,7 @@ require "rspec/matchers"
 require "equivalent-xml"
 require "htmlentities"
 require "metanorma"
+require "relaton_iso"
 require "xml-c14n"
 
 RSpec.configure do |config|
