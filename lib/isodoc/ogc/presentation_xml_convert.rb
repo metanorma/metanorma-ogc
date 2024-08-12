@@ -12,6 +12,7 @@ module IsoDoc
 
       def convert1(docxml, filename, dir)
         info docxml, nil
+        unnumber_biblio(docxml)
         super
       end
 
@@ -191,6 +192,19 @@ module IsoDoc
         lbl = @xrefs.anchor(elem["id"], :label, false) or return
         prefix_name(elem, block_delim,
                     l10n("#{lower2cap @i18n.sourcecode} #{lbl}"), "name")
+      end
+
+      def references(docxml)
+        unnumber_biblio(docxml)
+        super
+      end
+
+      # prevent Eng Rept Biblio, which appears before Annexes, being numbered
+      # needs to happen before xrefs first invoked
+      def unnumber_biblio(docxml)
+        @doctype == "engineering-report" or return
+        b = docxml.at(ns(@xrefs.klass.bibliography_xpath)) or return
+        b["unnumbered"] = true
       end
 
       include Init

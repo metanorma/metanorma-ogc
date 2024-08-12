@@ -19,6 +19,26 @@ module IsoDoc
               end
       end
 
+      def clause_order_annex(_docxml)
+        if  @doctype == "engineering-report"
+          [
+            { path: @klass.bibliography_xpath },
+            { path: "//annex", multi: true },
+          ]
+        else super
+        end
+      end
+
+      def clause_order_back(_docxml)
+        if @doctype == "engineering-report"
+          [
+            { path: "//indexsect", multi: true },
+            { path: "//colophon/*", multi: true },
+          ]
+        else super
+        end
+      end
+
       def middle_section_asset_names(doc)
         middle_sections =
           "//clause[@type = 'scope' or @type = 'conformance'] | //foreword | " \
