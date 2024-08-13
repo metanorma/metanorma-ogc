@@ -806,7 +806,7 @@ RSpec.describe Metanorma::Ogc do
     OUTPUT
     xml = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
     xml = xml.xpath("//xmlns:metanorma-extension")
-    expect(xmlpp(strip_guid(xml.to_xml))).to be_equivalent_to xmlpp(output)
+    expect(Xml::C14n.format(strip_guid(xml.to_xml))).to be_equivalent_to Xml::C14n.format(output)
 
     output = <<~OUTPUT
       <metanorma-extension>
@@ -923,7 +923,7 @@ RSpec.describe Metanorma::Ogc do
     xml = Nokogiri::XML(Asciidoctor.convert(input
       .sub(/:novalid:/, ":novalid:\n:document-scheme: 2022"), *OPTIONS))
     xml = xml.xpath("//xmlns:metanorma-extension")
-    expect(xmlpp(strip_guid(xml.to_xml))).to be_equivalent_to xmlpp(output)
+    expect(Xml::C14n.format(strip_guid(xml.to_xml))).to be_equivalent_to Xml::C14n.format(output)
 
     output = <<~OUTPUT
       <metanorma-extension>
@@ -1036,7 +1036,7 @@ RSpec.describe Metanorma::Ogc do
     xml = Nokogiri::XML(Asciidoctor.convert(input
       .sub(/:novalid:/, ":novalid:\n:doctype: white-paper"), *OPTIONS))
     xml = xml.xpath("//xmlns:metanorma-extension")
-    expect(xmlpp(strip_guid(xml.to_xml))).to be_equivalent_to xmlpp(output)
+    expect(Xml::C14n.format(strip_guid(xml.to_xml))).to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "uses specified fonts" do
