@@ -70,11 +70,14 @@ module Metanorma
       end
 
       def override_style(node)
+        s = node.attr("style")
         if %w(executive_summary overview future_outlook value_proposition
-              contributors).include?(node.attr("style"))
-          s = node.attr("style")
+              contributors).include?(s)
           node.set_attr("style", "preface")
           s == "executive_summary" and s = "executivesummary"
+          node.set_attr("type", s)
+        end
+        if %w(aims objectives topics outlook security).include?(s)
           node.set_attr("type", s)
         end
       end
@@ -103,7 +106,8 @@ module Metanorma
 
       def clause_parse(attrs, xml, node)
         %w(executivesummary overview future_outlook value_proposition
-           contributors).include?(node.attr("type")) and
+           contributors aims objectives topics outlook security)
+          .include?(node.attr("type")) and
           attrs = attrs.merge(type: node.attr("type"))
         case node.attr("heading")&.downcase || node.title.downcase
         when "submitters"

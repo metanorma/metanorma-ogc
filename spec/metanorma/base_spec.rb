@@ -1703,6 +1703,24 @@ RSpec.describe Metanorma::Ogc do
 
       [random]
       == Rand
+
+      [introduction]
+      == Introduction
+
+      [aims]
+      === Aims
+
+      [objectives]
+      === Objectives
+
+      [topics]
+      == Topics
+
+      [outlook]
+      == Outlook
+
+      [security]
+      == Security etc
     INPUT
 
     output = <<~OUTPUT
@@ -1728,6 +1746,24 @@ RSpec.describe Metanorma::Ogc do
              <clause id="_" obligation="normative">
                 <title>Rand</title>
              </clause>
+                   <clause id="_" obligation="normative">
+         <title>Introduction</title>
+         <clause id="_" type="aims" obligation="normative">
+            <title>Aims</title>
+         </clause>
+         <clause id="_" type="objectives" obligation="normative">
+            <title>Objectives</title>
+         </clause>
+      </clause>
+      <clause id="_" type="topics" obligation="normative">
+         <title>Topics</title>
+      </clause>
+      <clause id="_" type="outlook" obligation="normative">
+         <title>Outlook</title>
+      </clause>
+      <clause id="_" obligation="normative">
+         <title>Security etc</title>
+      </clause>
           </sections>
        </ogc-standard>
     OUTPUT
