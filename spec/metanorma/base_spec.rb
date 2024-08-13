@@ -1724,7 +1724,7 @@ RSpec.describe Metanorma::Ogc do
     INPUT
 
     output = <<~OUTPUT
-      <ogc-standard xmlns="https://www.metanorma.org/ns/ogc" type="semantic" version="2.5.14">
+      <ogc-standard xmlns="https://www.metanorma.org/ns/ogc" type="semantic" version="#{Metanorma::Ogc::VERSION}">
           <preface>
              <clause id="_" type="overview" obligation="informative">
                 <title>Ovrvw</title>

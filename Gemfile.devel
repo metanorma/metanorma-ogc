@@ -1,4 +1,4 @@
 #gem "metanorma-plugin-glossarist", git: "https://github.com/metanorma/metanorma-plugin-glossarist"
-#gem "isodoc", git: "https://github.com/metanorma/isodoc", branch: "fix/annex-unnumbered"
+gem "isodoc", git: "https://github.com/metanorma/isodoc", branch: "fix/annex-unnumbered"
 #gem "metanorma-cli"
 #gem "ruby-prof"
