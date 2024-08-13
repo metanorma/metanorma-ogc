@@ -62,17 +62,11 @@ table a.anchor {
 
 
 body {
-  /*
   @include bodyStyle1(
     $fontSize: $normalfontsize, $lineHeight: 1.5,
     $colorText: #00335b, $colorBackground: #f6f8fa,
     $fontWeight: 300);
-    */
-  @include bodyStyle1(
-    $fontSize: $normalfontsize, $lineHeight: 1.5,
-    $colorText: {{ presentation_metadata_color-text }}, $colorBackground: $color_background,
-    $fontWeight: 300)
- /* COLOR */
+
   @include sidebarNavContainer(360px);
 }
 
@@ -85,8 +79,8 @@ dl {
 }
 
 #toc, #toc > ul :is(.h1, .h2, .h3, .h4, .h5, .h6) {
-  /* @include toc($colorLink: #00335b, $colorLinkActiveBg: #00335b, $colorLinkActiveFg: white); */
-  @include toc($colorLink: {{ presentation_metadata_color-text }} , $colorLinkActiveBg: {{ presentation_metadata_color-text }}, $colorLinkActiveFg: white);
+  @include toc($colorLink: #00335b, $colorLinkActiveBg: #00335b, $colorLinkActiveFg: white);
+
   li a {
     font-size: 14px;
   }
@@ -121,13 +115,11 @@ nav {
 }
 
 #toggle {
-  /* @include sidebarNavToggle(white, #00335b); */
-  @include sidebarNavToggle(white, {{ presentation_metadata_color-text }});
+  @include sidebarNavToggle(white, #00335b);
 }
 
 .rule {
-  /* @include rule(1px, #00335b, 2em 0); */
-  @include rule(1px, {{ presentation_metadata_color-text }}, 2em 0);
+  @include rule(1px, #00335b, 2em 0);
 
   &.toc {
     @include tocSeparator();
@@ -209,8 +201,7 @@ p {
 
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
-  /* color: #00335b; */
-  color: {{ presentation_metadata_color-text-title }};
+  color: #00335b;
   font-weight: 400;
   margin-top: 1.6em;
   margin-bottom: 0.3em;
@@ -254,20 +245,15 @@ h4, .h4 {
     box-shadow: 0 0 0 0;
   }
   a, a:hover {
-    /* color: #00335b; */
-    color: {{ presentation_metadata_color-text }};
+    color: #00335b;
   }
 
   padding: 2em;
   margin-top: 5em;
   width: 280px;
   text-align: left;
-  /*
-  border: #00335b solid 2px; 
+  border: #00335b solid 2px;
   color: #00335b!important;
-  */
-  border: {{ presentation_metadata_color-text }} solid 2px;
-  color: {{ presentation_metadata_color-text }}!important;
   border-radius: 25px;
 
   p, a {
@@ -322,14 +308,6 @@ ol ul > li:first-child {
       margin-top: 0;
 }
 
-dt {
-  background-color: {{ presentation_metadata_color-background-definition-term }};
-}
-
-dd {
-  background-color: {{ presentation_metadata_color-background-definition-description }};
-}
-
 
 span.keyword {
   font-weight: 600;
@@ -344,20 +322,11 @@ table {
   /*color: #010d16;*/
 
   thead tr th {
-    /* background-color: #5d99d6; */
-    background-color: {{ presentation_metadata_color-background-table-header }};
-    color: $color_background;
+    background-color: #5d99d6;
   }
 
   td, th {
     padding: 1em;
-  }
-
-  tbody  tr:nth-child(even) {
-    background: {{ presentation_metadata_color-background-table-row-even }};
-  }
-  tbody tr:nth-child(odd) {
-    background: {{ presentation_metadata_color-background-table-row-odd }};
   }
 
   td.header {
@@ -372,11 +341,10 @@ table {
   }
 }
 
-/*
 table.modspec {
   @include table($border: none !important);
 
-  color: #010d16; 
+  color: #010d16;
 
   tr:nth-child(even) {
     background: #ffffff
@@ -386,7 +354,7 @@ table.modspec {
   }
 
   thead tr th {
-    background-color: #5d99d6; 
+    background-color: #5d99d6;
   }
 
   td, th {
@@ -397,7 +365,6 @@ table.modspec {
     font-weight: 400;
   }
 }
-*/ /* COLOR */
 
 td > p:first-child, th > p:first-child {
   margin-top: 0em;
@@ -421,8 +388,7 @@ p.TableTitle {
 }
 
 .TermNum, .Terms, .AltTerms {
-  /* color: #00335b; */
-  color: {{ presentation_metadata_color-text-title }};
+  color: #00335b;
   font-family: $headerfont;
 }
 
@@ -436,19 +402,8 @@ p.AltTerms {
 }
 
 span.AdmittedLabel {
-    /* color: #00335b; */
-    color: {{ presentation_metadata_color-text-title }};
-    /* background-color: #CFE2F3; */
-    background-color: {{ presentation_metadata_color-background-term-admitted-label }};
-    font-size: 70%;
-    vertical-align: top;
-}
-
-span.DeprecatedLabel {
-    /* color: #00335b; */
-    color: {{ presentation_metadata_color-text-title }};
-    /* background-color: #CFE2F3; */
-    background-color: {{ presentation_metadata_color-background-term-deprecated-label }};
+    color: #00335b;
+    background-color: #CFE2F3;
     font-size: 70%;
     vertical-align: top;
 }
@@ -456,8 +411,7 @@ span.DeprecatedLabel {
 
 /* Links, selection */
 
-/* @include elementStyles(#2e81c2, #39CCCC, #00335b); */ /* COLOR */
-@include elementStyles(#2e81c2, #39CCCC, {{ presentation_metadata_color-text }});
+@include elementStyles(#2e81c2, #39CCCC, #00335b);
 
 
 /* Bibliograhy */
@@ -477,8 +431,7 @@ p.Biblio, p.NormRef {
 @include listBlock();
 
 pre, .sourcecode {
-  /* @include sourceBlock(#f7f7f7); */ 
-  @include sourceBlock($color_background); 
+  @include sourceBlock(#f7f7f7);
 
   font-family: $monospacefont;
   font-variant-ligatures: none;
@@ -488,66 +441,37 @@ pre, .sourcecode {
   @include admonitionBlock();
   padding: 1em 1.2em 1.2em 1.2em;
   margin: 1em 0 1em 0;
-  /* background-color: #fcad88; */
-  border-top: 10px solid {{ presentation_metadata_color-secondary-shade-1 }}; 
-  border: 1px solid {{ presentation_metadata_color-admonition-important }};
-  /* color: #290404; */
-  color: {{ presentation_metadata_color-admonition-important }};
+  background-color: #fcad88;
+  border-top: 10px solid #eb5a06;
+  color: #290404;
 
   &.Important {
-    /* background-color: #f58cff; */ 
-    /* color: #5d1364; */
-    color: {{ presentation_metadata_color-admonition-important }};
-    border-color: {{ presentation_metadata_color-admonition-important }};
+    background-color: #f58cff;
+    color: #5d1364;
+    border-top: 10px solid #9503a8;
   }
 
   &.Warning {
-    /* background-color: #ff989d; */ 
-    /* color: #270204; */
-    color: {{ presentation_metadata_color-admonition-warning }};
-    border-color: {{ presentation_metadata_color-admonition-warning }};
+    background-color: #ff989d;
+    color: #270204;
+    border-top: 10px solid #e4010c;
   }
 
-  &.Tip {
-    color: {{ presentation_metadata_color-admonition-tip }};
-    border-color: {{ presentation_metadata_color-admonition-tip }};
-  }
 
-  &.Editor {
-    color: {{ presentation_metadata_color-admonition-editor }};
-    border-color: {{ presentation_metadata_color-admonition-editor }};
-  }
-
-  &.Caution {
-    color: {{ presentation_metadata_color-admonition-caution }};
-    border-color: {{ presentation_metadata_color-admonition-caution }};
-  }
-
-  &.Todo {
-    color: {{ presentation_metadata_color-admonition-todo }};
-    border-color: {{ presentation_metadata_color-admonition-todo }};
-  }
-
-  &.Safety-Precaution {
-    color: {{ presentation_metadata_color-admonition-safety-precaution }};
-    border-color: {{ presentation_metadata_color-admonition-safety-precaution }};
-  }
-
-  p {
+  p, &.Important p, &.Warning p {
     margin: 0;
   }
 }
 
 .figure, pre, .pseudocode, .sourcecode {
-  /* background-color: #e1eef1; */ /* COLOR */
-  /* color: #424242; */ /* COLOR */
+  background-color: #e1eef1;
+  color: #424242;
   font-size: $monospacefontsize;
 }
 
 .Note {
-  /* background-color: #fff8bb; */ /* COLOR */
-  /* color: #7d760b; */
-  /* color: {{ presentation_metadata_color-admonition-note }}; */
+  background-color: #fff8bb;
+  color: #7d760b;
   padding: 1.2em;
   margin: 1em 0 1em 0;
 
@@ -557,8 +481,8 @@ pre, .sourcecode {
 }
 
 .example {
-  /* background-color: #e1eef1; */ /* COLOR */
-  /* color: #424242; */ /* COLOR */
+  background-color: #e1eef1;
+  color: #424242;
   padding: 1.2em;
   margin: 2em 0 1em 0;
   padding-left: 2em;
@@ -576,14 +500,12 @@ pre, .sourcecode {
 }
 
 .Quote {
-  /* @include blockquoteBlock(#e1eef1); */ /* COLOR */
-  @include blockquoteBlock($color_background);
+  @include blockquoteBlock(#e1eef1);
 }
 
 
 .formula {
-  /* @include formulaBlock(#f6f6f6); */ /* COLOR */
-  @include formulaBlock($color_background); 
+  @include formulaBlock(#f6f6f6);
 }
 
 .recommend, .recommendtest {
@@ -650,12 +572,11 @@ tbody td.recommend p.RecommendationTitle, tbody td.recommend p.RecommendationTit
 }
 
 #myBtn {
-  /* @include toTopBtn(white, #00335b); */
-  @include toTopBtn(white, {{ presentation_metadata_color-text }});
+  @include toTopBtn(white, #00335b);
 }
 
 a.anchorjs-link {
-  @include anchorLink(#2e81c2); /* COLOR */
+  @include anchorLink(#2e81c2);
 }
 
 
@@ -696,8 +617,8 @@ a.anchorjs-link {
   }
 
   .Note {
-    background-color: #fff495; /* COLOR */
-    color: #47430c; /* COLOR */
+    background-color: #fff495;
+    color: #47430c;
     padding: 5px;
     margin: 2em 0 1em 0;
 
