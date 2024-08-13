@@ -1,4 +1,4 @@
-#gem "metanorma-plugin-glossarist", git: "https://github.com/metanorma/metanorma-plugin-glossarist", branch: "make_section_title_level_dynamic"
-gem "isodoc", git: "https://github.com/metanorma/isodoc", branch: "fix/annex-unnumbered"
-gem "metanorma-cli"
-gem "ruby-prof"
+#gem "metanorma-plugin-glossarist", git: "https://github.com/metanorma/metanorma-plugin-glossarist"
+#gem "isodoc", git: "https://github.com/metanorma/isodoc", branch: "fix/annex-unnumbered"
+#gem "metanorma-cli"
+#gem "ruby-prof"

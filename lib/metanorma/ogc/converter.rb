@@ -64,6 +64,21 @@ module Metanorma
         super
       end
 
+      def section(node)
+        override_style(node)
+        super
+      end
+
+      def override_style(node)
+        if %w(executive_summary overview future_outlook value_proposition
+              contributors).include?(node.attr("style"))
+          s = node.attr("style")
+          node.set_attr("style", "preface")
+          s == "executive_summary" and s = "executivesummary"
+          node.set_attr("type", s)
+        end
+      end
+
       def sectiontype_streamline(ret)
         case ret
         when "preface" then "foreword"
@@ -87,6 +102,9 @@ module Metanorma
       end
 
       def clause_parse(attrs, xml, node)
+        %w(executivesummary overview future_outlook value_proposition
+           contributors).include?(node.attr("type")) and
+          attrs = attrs.merge(type: node.attr("type"))
         case node.attr("heading")&.downcase || node.title.downcase
         when "submitters"
           return submitters_parse(attrs, xml, node)
