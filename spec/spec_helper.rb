@@ -102,6 +102,115 @@ def boilerplate(xmldoc)
   )
 end
 
+METANORMA_EXTENSION = <<~"HDR".freeze
+  <metanorma-extension>
+       <presentation-metadata>
+       <name>color-admonition-caution</name>
+       <value>rgb(79, 129, 189)</value>
+     </presentation-metadata>
+     <presentation-metadata>
+       <name>color-admonition-editor</name>
+       <value>rgb(79, 129, 189)</value>
+     </presentation-metadata>
+     <presentation-metadata>
+       <name>color-admonition-important</name>
+       <value>rgb(79, 129, 189)</value>
+     </presentation-metadata>
+     <presentation-metadata>
+       <name>color-admonition-note</name>
+       <value>rgb(79, 129, 189)</value>
+     </presentation-metadata>
+     <presentation-metadata>
+       <name>color-admonition-safety-precaution</name>
+       <value>rgb(79, 129, 189)</value>
+     </presentation-metadata>
+     <presentation-metadata>
+       <name>color-admonition-tip</name>
+       <value>rgb(79, 129, 189)</value>
+     </presentation-metadata>
+     <presentation-metadata>
+       <name>color-admonition-todo</name>
+       <value>rgb(79, 129, 189)</value>
+     </presentation-metadata>
+     <presentation-metadata>
+       <name>color-admonition-warning</name>
+       <value>rgb(79, 129, 189)</value>
+     </presentation-metadata>
+     <presentation-metadata>
+       <name>color-background-definition-description</name>
+       <value>rgb(242, 251, 255)</value>
+     </presentation-metadata>
+     <presentation-metadata>
+       <name>color-background-definition-term</name>
+       <value>rgb(215, 243, 255)</value>
+     </presentation-metadata>
+     <presentation-metadata>
+       <name>color-background-page</name>
+       <value>rgb(33, 55, 92)</value>
+     </presentation-metadata>
+     <presentation-metadata>
+       <name>color-background-table-header</name>
+       <value>rgb(33, 55, 92)</value>
+     </presentation-metadata>
+     <presentation-metadata>
+       <name>color-background-table-row-even</name>
+       <value>rgb(252, 246, 222)</value>
+     </presentation-metadata>
+     <presentation-metadata>
+       <name>color-background-table-row-odd</name>
+       <value>rgb(254, 252, 245)</value>
+     </presentation-metadata>
+     <presentation-metadata>
+       <name>color-background-term-admitted-label</name>
+       <value>rgb(223, 236, 249)</value>
+     </presentation-metadata>
+     <presentation-metadata>
+       <name>color-background-term-deprecated-label</name>
+       <value>rgb(237, 237, 238)</value>
+     </presentation-metadata>
+     <presentation-metadata>
+       <name>color-background-term-preferred-label</name>
+       <value>rgb(249, 235, 187)</value>
+     </presentation-metadata>
+     <presentation-metadata>
+       <name>color-background-text-label-legacy</name>
+       <value>rgb(33, 60, 107)</value>
+     </presentation-metadata>
+     <presentation-metadata>
+       <name>color-secondary-shade-1</name>
+       <value>rgb(237, 193, 35)</value>
+     </presentation-metadata>
+     <presentation-metadata>
+       <name>color-secondary-shade-2</name>
+       <value>rgb(246, 223, 140)</value>
+     </presentation-metadata>
+     <presentation-metadata>
+       <name>color-text</name>
+       <value>rgb(88, 89, 91)</value>
+     </presentation-metadata>
+     <presentation-metadata>
+       <name>color-text-title</name>
+       <value>rgb(33, 55, 92)</value>
+     </presentation-metadata>
+      <presentation-metadata>
+        <name>TOC Heading Levels</name>
+        <value>2</value>
+      </presentation-metadata>
+      <presentation-metadata>
+        <name>HTML TOC Heading Levels</name>
+        <value>2</value>
+      </presentation-metadata>
+      <presentation-metadata>
+        <name>DOC TOC Heading Levels</name>
+        <value>2</value>
+      </presentation-metadata>
+      <presentation-metadata>
+        <name>PDF TOC Heading Levels</name>
+        <value>2</value>
+      </presentation-metadata>
+    </metanorma-extension>
+HDR
+
 BLANK_HDR = <<~"HDR".freeze
   <?xml version="1.0" encoding="UTF-8"?>
   <ogc-standard xmlns="https://www.metanorma.org/ns/ogc" type="semantic" version="#{Metanorma::Ogc::VERSION}">
@@ -135,24 +244,7 @@ BLANK_HDR = <<~"HDR".freeze
     <subdoctype>implementation</subdoctype>
     </ext>
   </bibdata>
-                       <metanorma-extension>
-            <presentation-metadata>
-              <name>TOC Heading Levels</name>
-              <value>2</value>
-            </presentation-metadata>
-            <presentation-metadata>
-              <name>HTML TOC Heading Levels</name>
-              <value>2</value>
-            </presentation-metadata>
-            <presentation-metadata>
-              <name>DOC TOC Heading Levels</name>
-              <value>2</value>
-            </presentation-metadata>
-            <presentation-metadata>
-              <name>PDF TOC Heading Levels</name>
-              <value>2</value>
-            </presentation-metadata>
-          </metanorma-extension>
+  #{METANORMA_EXTENSION}
 HDR
 
 def blank_hdr_gen

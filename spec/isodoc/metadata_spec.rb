@@ -115,6 +115,7 @@ RSpec.describe IsoDoc::Ogc do
         </editorialgroup>
         </ext>
       </bibdata>
+      #{METANORMA_EXTENSION}
       <sections/>
       </ogc-standard>
     INPUT
@@ -157,6 +158,32 @@ RSpec.describe IsoDoc::Ogc do
       :logo_word=>"#{File.join(logoloc, 'logo.png')}",
       :obsoleteddate=>"XXX",
       :pdf=>"http://www.example.com/pdf",
+       :"presentation_metadata_DOC TOC Heading Levels"=>["2"],
+       :"presentation_metadata_HTML TOC Heading Levels"=>["2"],
+       :"presentation_metadata_PDF TOC Heading Levels"=>["2"],
+       :"presentation_metadata_TOC Heading Levels"=>["2"],
+       :"presentation_metadata_color-admonition-caution"=>["rgb(79, 129, 189)"],
+       :"presentation_metadata_color-admonition-editor"=>["rgb(79, 129, 189)"],
+       :"presentation_metadata_color-admonition-important"=>["rgb(79, 129, 189)"],
+       :"presentation_metadata_color-admonition-note"=>["rgb(79, 129, 189)"],
+       :"presentation_metadata_color-admonition-safety-precaution"=>["rgb(79, 129, 189)"],
+       :"presentation_metadata_color-admonition-tip"=>["rgb(79, 129, 189)"],
+       :"presentation_metadata_color-admonition-todo"=>["rgb(79, 129, 189)"],
+       :"presentation_metadata_color-admonition-warning"=>["rgb(79, 129, 189)"],
+       :"presentation_metadata_color-background-definition-description"=>["rgb(242, 251, 255)"],
+       :"presentation_metadata_color-background-definition-term"=>["rgb(215, 243, 255)"],
+       :"presentation_metadata_color-background-page"=>["rgb(33, 55, 92)"],
+       :"presentation_metadata_color-background-table-header"=>["rgb(33, 55, 92)"],
+       :"presentation_metadata_color-background-table-row-even"=>["rgb(252, 246, 222)"],
+       :"presentation_metadata_color-background-table-row-odd"=>["rgb(254, 252, 245)"],
+       :"presentation_metadata_color-background-term-admitted-label"=>["rgb(223, 236, 249)"],
+       :"presentation_metadata_color-background-term-deprecated-label"=>["rgb(237, 237, 238)"],
+       :"presentation_metadata_color-background-term-preferred-label"=>["rgb(249, 235, 187)"],
+       :"presentation_metadata_color-background-text-label-legacy"=>["rgb(33, 60, 107)"],
+       :"presentation_metadata_color-secondary-shade-1"=>["rgb(237, 193, 35)"],
+       :"presentation_metadata_color-secondary-shade-2"=>["rgb(246, 223, 140)"],
+       :"presentation_metadata_color-text"=>["rgb(88, 89, 91)"],
+       :"presentation_metadata_color-text-title"=>["rgb(33, 55, 92)"],
       :publisheddate=>"2002-01-01",
       :publisher=>"OGC",
       :receiveddate=>"XXX",
