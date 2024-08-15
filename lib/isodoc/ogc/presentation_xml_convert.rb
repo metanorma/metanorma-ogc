@@ -180,7 +180,7 @@ module IsoDoc
       end
 
       def deprecates(elem)
-        elem << "&#xa0;<span class='AdmittedLabel'>#{@i18n.deprecated}</span>"
+        elem << "&#xa0;<span class='DeprecatedLabel'>#{@i18n.deprecated}</span>"
       end
 
       def admits(elem)

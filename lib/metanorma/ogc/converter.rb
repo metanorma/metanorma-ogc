@@ -178,6 +178,54 @@ module Metanorma
         end
       end
 
+      OGC_COLORS = {
+        "text": "rgb(88, 89, 91)",
+        "secondary-shade-1": "rgb(237, 193, 35)",
+        "secondary-shade-2": "rgb(246, 223, 140)",
+        "background-definition-term": "rgb(215, 243, 255)",
+        "background-definition-description": "rgb(242, 251, 255)",
+        "text-title": "rgb(33, 55, 92)",
+        "background-page": "rgb(33, 55, 92)",
+        "background-text-label-legacy": "rgb(33, 60, 107)",
+        "background-term-preferred-label": "rgb(249, 235, 187)",
+        "background-term-deprecated-label": "rgb(237, 237, 238)",
+        "background-term-admitted-label": "rgb(223, 236, 249)",
+        "background-table-header": "rgb(33, 55, 92)",
+        "background-table-row-even": "rgb(252, 246, 222)",
+        "background-table-row-odd": "rgb(254, 252, 245)",
+        "admonition-note": "rgb(79, 129, 189)",
+        "admonition-tip": "rgb(79, 129, 189)",
+        "admonition-editor": "rgb(79, 129, 189)",
+        "admonition-important": "rgb(79, 129, 189)",
+        "admonition-warning": "rgb(79, 129, 189)",
+        "admonition-caution": "rgb(79, 129, 189)",
+        "admonition-todo": "rgb(79, 129, 189)",
+        "admonition-safety-precaution": "rgb(79, 129, 189)",
+      }.freeze
+
+      def metadata_attrs(node)
+        c = update_colors(node)
+        ret = super
+        c.keys.sort.each do |k|
+          ret += "<presentation-metadata><name>color-#{k}</name>" \
+            "<value>#{c[k]}</value></presentation-metadata>"
+        end
+        ret
+      end
+
+      def update_colors(node)
+        c = OGC_COLORS.dup
+        if document_scheme(node) == "2022"
+          c[:"secondary-shade-1"] = "rgb(0, 177, 255)"
+          c[:"secondary-shade-2"] = "rgb(0, 177, 255)"
+        end
+        if node.attr("doctype") == "white-paper"
+          c[:"text-title"] = "rgb(68, 84, 106)"
+          c[:"background-page"] = "rgb(68, 84, 106)"
+        end
+        c
+      end
+
       def presentation_xml_converter(node)
         IsoDoc::Ogc::PresentationXMLConvert
           .new(html_extract_attributes(node)

@@ -45,6 +45,7 @@ RSpec.describe Metanorma::Ogc::Processor do
     FileUtils.rm_f "test.xml"
     input = <<~INPUT
       <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+        #{METANORMA_EXTENSION}
         <sections>
           <terms id="H" obligation="normative" displayorder="1">
           <title>1.<tab/>Terms, Definitions, Symbols and Abbreviated Terms</title>

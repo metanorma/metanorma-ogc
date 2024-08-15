@@ -231,7 +231,7 @@ module Metanorma
       def symbol_key(sym)
         @c.decode(asciimath_key(sym).text)
           .gsub(/[\[\]{}<>()]/, "").gsub(/\s/m, "")
-          .gsub(/[[:punct:]]|[_^]/, ":\\0").gsub("`", "")
+          .gsub(/[[:punct:]]|[_^]/, ":\\0").delete("`")
       end
 
       def symbols_cleanup(docxml)

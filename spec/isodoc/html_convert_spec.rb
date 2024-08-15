@@ -4,6 +4,7 @@ RSpec.describe IsoDoc::Ogc do
   it "processes pre" do
     input = <<~"INPUT"
       <ogc-standard xmlns="#{Metanorma::Ogc::DOCUMENT_NAMESPACE}">
+        #{METANORMA_EXTENSION}
       <preface>
       <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
       <foreword id="A" displayorder="2"><title>Preface</title>
@@ -35,6 +36,7 @@ RSpec.describe IsoDoc::Ogc do
     presxml = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
       <bibdata/>
+        #{METANORMA_EXTENSION}
            <preface>
             <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
              <foreword id='A' displayorder="2">
@@ -372,6 +374,7 @@ RSpec.describe IsoDoc::Ogc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
       <bibdata/>
+              #{METANORMA_EXTENSION}
           <preface><foreword id="A"><title>Preface</title>
           <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" type="caution">
         <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
@@ -383,6 +386,7 @@ RSpec.describe IsoDoc::Ogc do
     presxml = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
       <bibdata/>
+              #{METANORMA_EXTENSION}
            <preface>
             <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
              <foreword id='A' displayorder="2">
@@ -401,7 +405,7 @@ RSpec.describe IsoDoc::Ogc do
               <br/>
               <div id="A">
                 <h1 class="ForewordTitle">I.&#160; Preface</h1>
-                <div  id="_" class="Admonition"><p class="AdmonitionTitle" style="text-align:center;">CAUTION</p>
+                <div  id="_" class="Admonition Caution"><p class="AdmonitionTitle" style="text-align:center;">CAUTION</p>
         <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
       </div>
               </div>
@@ -410,8 +414,8 @@ RSpec.describe IsoDoc::Ogc do
     OUTPUT
     xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
           .convert("test", input, true))
+    xml.at("//xmlns:metanorma-extension/xmlns:render").remove
     xml.at("//xmlns:localized-strings").remove
-    xml.at("//xmlns:metanorma-extension").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
@@ -424,6 +428,7 @@ RSpec.describe IsoDoc::Ogc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
       <bibdata/>
+              #{METANORMA_EXTENSION}
           <preface><foreword id="A"><title>Preface</title>
           <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" type="warning">
         <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
@@ -435,6 +440,7 @@ RSpec.describe IsoDoc::Ogc do
     presxml = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
       <bibdata/>
+              #{METANORMA_EXTENSION}
            <preface>
             <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
              <foreword id='A' displayorder="2">
@@ -453,7 +459,7 @@ RSpec.describe IsoDoc::Ogc do
               <br/>
               <div id="A">
                 <h1 class="ForewordTitle">I.&#160; Preface</h1>
-                <div id="_" class="Admonition.Warning"><p class="AdmonitionTitle" style="text-align:center;">WARNING</p>
+                <div id="_" class="Admonition Warning"><p class="AdmonitionTitle" style="text-align:center;">WARNING</p>
         <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
       </div>
               </div>
@@ -462,8 +468,8 @@ RSpec.describe IsoDoc::Ogc do
     OUTPUT
     xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
           .convert("test", input, true))
+    xml.at("//xmlns:metanorma-extension/xmlns:render").remove
     xml.at("//xmlns:localized-strings").remove
-    xml.at("//xmlns:metanorma-extension").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
@@ -476,6 +482,7 @@ RSpec.describe IsoDoc::Ogc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
       <bibdata/>
+              #{METANORMA_EXTENSION}
           <preface><foreword id="A"><title>Preface</title>
           <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" type="important">
         <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
@@ -487,6 +494,7 @@ RSpec.describe IsoDoc::Ogc do
     presxml = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
       <bibdata/>
+              #{METANORMA_EXTENSION}
            <preface>
             <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
              <foreword id='A' displayorder="2">
@@ -505,7 +513,7 @@ RSpec.describe IsoDoc::Ogc do
               <br/>
               <div id="A">
                 <h1 class="ForewordTitle">I.&#160; Preface</h1>
-                <div  id="_" class="Admonition.Important"><p class="AdmonitionTitle" style="text-align:center;">IMPORTANT</p>
+                <div  id="_" class="Admonition Important"><p class="AdmonitionTitle" style="text-align:center;">IMPORTANT</p>
         <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
       </div>
               </div>
@@ -514,8 +522,8 @@ RSpec.describe IsoDoc::Ogc do
     OUTPUT
     xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
           .convert("test", input, true))
+    xml.at("//xmlns:metanorma-extension/xmlns:render").remove
     xml.at("//xmlns:localized-strings").remove
-    xml.at("//xmlns:metanorma-extension").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
@@ -528,6 +536,7 @@ RSpec.describe IsoDoc::Ogc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
       <bibdata/>
+              #{METANORMA_EXTENSION}
           <preface><foreword id="A"><title>Preface</title>
                 <example id="_"><name>Example Title</name><p id="_">This is an example</p>
       <p id="_">Amen</p></example>
@@ -537,6 +546,7 @@ RSpec.describe IsoDoc::Ogc do
     presxml = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
       <bibdata/>
+              #{METANORMA_EXTENSION}
         <preface>
          <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
           <foreword id='A' displayorder="2"><title depth='1'>I.<tab/>Preface</title>
@@ -565,8 +575,8 @@ RSpec.describe IsoDoc::Ogc do
     OUTPUT
     xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
           .convert("test", input, true))
+    xml.at("//xmlns:metanorma-extension/xmlns:render").remove
     xml.at("//xmlns:localized-strings").remove
-    xml.at("//xmlns:metanorma-extension").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
@@ -579,6 +589,7 @@ RSpec.describe IsoDoc::Ogc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
       <bibdata/>
+              #{METANORMA_EXTENSION}
           <preface><foreword id="A">
                 <example id="_"><p id="_">This is an example</p>
       <p id="_">Amen</p></example>
@@ -588,6 +599,7 @@ RSpec.describe IsoDoc::Ogc do
     presxml = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
       <bibdata/>
+              #{METANORMA_EXTENSION}
         <preface>
          <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
           <foreword id='A' displayorder="2"><title>I.</title>
@@ -616,8 +628,8 @@ RSpec.describe IsoDoc::Ogc do
     OUTPUT
     xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
           .convert("test", input, true))
+    xml.at("//xmlns:metanorma-extension/xmlns:render").remove
     xml.at("//xmlns:localized-strings").remove
-    xml.at("//xmlns:metanorma-extension").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
@@ -630,6 +642,7 @@ RSpec.describe IsoDoc::Ogc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
       <bibdata/>
+              #{METANORMA_EXTENSION}
           <preface><foreword id="A">
                 <figure id="B"><p id="_">This is an example</p></figure>
                 <figure id="C" class="pseudocode"><p id="_">This is an example</p></figure>
@@ -640,6 +653,7 @@ RSpec.describe IsoDoc::Ogc do
     presxml = <<~OUTPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
          <bibdata/>
+              #{METANORMA_EXTENSION}
          <preface>
            <clause type="toc" id="_" displayorder="1">
              <title depth="1">Contents</title>
@@ -692,8 +706,8 @@ RSpec.describe IsoDoc::Ogc do
     OUTPUT
     xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
           .convert("test", input, true))
+    xml.at("//xmlns:metanorma-extension/xmlns:render").remove
     xml.at("//xmlns:localized-strings").remove
-    xml.at("//xmlns:metanorma-extension").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
@@ -705,6 +719,7 @@ RSpec.describe IsoDoc::Ogc do
   it "processes hi" do
     presxml = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
+              #{METANORMA_EXTENSION}
           <preface> <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
         <foreword id="A" displayorder="2"><title>Preface</title>
       <p id="_">Amen <hi>highlight</hi> Amen</p>
@@ -799,6 +814,7 @@ RSpec.describe IsoDoc::Ogc do
     input = <<~INPUT
       <iso-standard xmlns="https://www.metanorma.org/ns/ogc">
       <bibdata/>
+              #{METANORMA_EXTENSION}
       <preface>
       <foreword id="A">
       <note id="B"><p>Hello</p></note>
@@ -815,6 +831,7 @@ RSpec.describe IsoDoc::Ogc do
       <iso-standard xmlns="https://www.metanorma.org/ns/ogc" type="presentation">
                      <bibdata/>
                <metanorma-extension>
+                       #{METANORMA_EXTENSION.gsub(%r{</?metanorma-extension>}, '')}
                  <render>
                  <preprocess-xslt>
         <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:mn="https://www.metanorma.org/ns/ogc" version="1.0">
