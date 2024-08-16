@@ -220,6 +220,7 @@ RSpec.describe IsoDoc::Ogc do
       <keyword>ABC</keyword>
       <keyword>DEF</keyword>
       </bibdata>
+      #{METANORMA_EXTENSION}
       <sections/>
       </ogc-standard>
     INPUT
@@ -230,6 +231,7 @@ RSpec.describe IsoDoc::Ogc do
              <keyword>ABC</keyword>
              <keyword>DEF</keyword>
            </bibdata>
+        #{METANORMA_EXTENSION}
            <preface>
                <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
              <clause id="_" type='keywords' displayorder="2">
@@ -254,8 +256,8 @@ RSpec.describe IsoDoc::Ogc do
     OUTPUT
     xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
           .convert("test", input, true))
+    xml.at("//xmlns:metanorma-extension/xmlns:render").remove
     xml.at("//xmlns:localized-strings").remove
-    xml.at("//xmlns:metanorma-extension").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(
@@ -273,6 +275,7 @@ RSpec.describe IsoDoc::Ogc do
       <keyword>ABC</keyword>
       <keyword>DEF</keyword>
       </bibdata>
+      #{METANORMA_EXTENSION}
       <preface>
       <abstract id="A"/>
       </preface>
@@ -286,6 +289,7 @@ RSpec.describe IsoDoc::Ogc do
                  <keyword>ABC</keyword>
                  <keyword>DEF</keyword>
                </bibdata>
+        #{METANORMA_EXTENSION}
                <preface>
                    <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
                <abstract id='A' displayorder="2">
@@ -320,8 +324,8 @@ RSpec.describe IsoDoc::Ogc do
     OUTPUT
     xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
           .convert("test", input, true))
+    xml.at("//xmlns:metanorma-extension/xmlns:render").remove
     xml.at("//xmlns:localized-strings").remove
-    xml.at("//xmlns:metanorma-extension").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(
@@ -349,6 +353,7 @@ RSpec.describe IsoDoc::Ogc do
                  </organization>
                </contributor>
             </bibdata>
+      #{METANORMA_EXTENSION}
       <sections/>
       </ogc-standard>
     INPUT
@@ -369,6 +374,7 @@ RSpec.describe IsoDoc::Ogc do
                  </organization>
                </contributor>
             </bibdata>
+      #{METANORMA_EXTENSION}
             <preface>
                 <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
         <clause id='_' type='submitting_orgs' displayorder="2">
@@ -403,8 +409,8 @@ RSpec.describe IsoDoc::Ogc do
     OUTPUT
     xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
           .convert("test", input, true))
+    xml.at("//xmlns:metanorma-extension/xmlns:render").remove
     xml.at("//xmlns:localized-strings").remove
-    xml.at("//xmlns:metanorma-extension").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
@@ -430,6 +436,7 @@ RSpec.describe IsoDoc::Ogc do
                  </organization>
                </contributor>
             </bibdata>
+      #{METANORMA_EXTENSION}
       <preface>
       <abstract id="A"/>
       <clause type="security" id="B"/>
@@ -454,6 +461,7 @@ RSpec.describe IsoDoc::Ogc do
                  </organization>
                </contributor>
             </bibdata>
+      #{METANORMA_EXTENSION}
             <preface>
                 <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
                  <abstract id='A' displayorder="2">
@@ -520,8 +528,8 @@ RSpec.describe IsoDoc::Ogc do
     OUTPUT
     xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
           .convert("test", input, true))
+    xml.at("//xmlns:metanorma-extension/xmlns:render").remove
     xml.at("//xmlns:localized-strings").remove
-    xml.at("//xmlns:metanorma-extension").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
@@ -542,6 +550,7 @@ RSpec.describe IsoDoc::Ogc do
               <quote>This is a <em>blockquote</em> within a description. "Double quote" and 'Single quote'.</quote>
                  </abstract>
                </bibdata>
+      #{METANORMA_EXTENSION}
                <preface>
                 <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
                <abstract id='A' displayorder="2">

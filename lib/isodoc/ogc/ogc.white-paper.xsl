@@ -23,12 +23,9 @@
 	<xsl:variable name="selectedStyle" select="normalize-space($selectedStyle_)"/>
 
 	<xsl:variable name="color">rgb(0, 51, 102)</xsl:variable>
-	<xsl:variable name="color_design">
-		<xsl:choose>
-			<xsl:when test="$selectedStyle = '2'">rgb(0, 177, 255)</xsl:when>
-			<xsl:otherwise>rgb(237, 193, 35)</xsl:otherwise>
-		</xsl:choose>
-	</xsl:variable>
+
+	<xsl:variable name="color_text_title" select="/ogc:ogc-standard/ogc:metanorma-extension/ogc:presentation-metadata[ogc:name = 'color-text-title']/ogc:value"/>
+	<xsl:variable name="color_table_header_row" select="/ogc:ogc-standard/ogc:metanorma-extension/ogc:presentation-metadata[ogc:name = 'color-background-table-header']/ogc:value"/>
 
 	<xsl:attribute-set name="title-toc-style">
 		<xsl:attribute name="font-size">26pt</xsl:attribute>
@@ -2642,12 +2639,34 @@
 			</xsl:for-each>
 		</xsl:element>
 
-		<xsl:call-template name="insertAnnexInSeparatePageSequences"/>
+		<xsl:call-template name="insertAnnexAndBibliographyInSeparatePageSequences"/>
 
-		<xsl:call-template name="insertBibliographyInSeparatePageSequences"/>
+		<!-- <xsl:call-template name="insertBibliographyInSeparatePageSequences"/> -->
 
 		<!-- <xsl:call-template name="insertIndexInSeparatePageSequences"/> -->
 	</xsl:template> <!-- END: insertMainSectionsInSeparatePageSequences -->
+
+  <xsl:template name="insertAnnexAndBibliographyInSeparatePageSequences">
+		<xsl:for-each select="/*/*[local-name()='annex'] |           /*/*[local-name()='bibliography']/*[not(@normative='true')] |           /*/*[local-name()='bibliography']/*[local-name()='clause'][*[local-name()='references'][not(@normative='true')]] |          /*/*[local-name()='indexsect']">
+			<xsl:sort select="@displayorder" data-type="number"/>
+			<xsl:choose>
+				<xsl:when test="local-name() = 'annex' or local-name() = 'indexsect'">
+					<xsl:element name="page_sequence" namespace="{$namespace_full}">
+						<xsl:attribute name="main_page_sequence"/>
+						<xsl:apply-templates select="." mode="update_xml_step_move_pagebreak"/>
+					</xsl:element>
+				</xsl:when>
+				<xsl:otherwise> <!-- bibliography -->
+					<xsl:element name="bibliography" namespace="{$namespace_full}"> <!-- save context element -->
+						<xsl:element name="page_sequence" namespace="{$namespace_full}">
+							<xsl:attribute name="main_page_sequence"/>
+							<xsl:apply-templates select="." mode="update_xml_step_move_pagebreak"/>
+						</xsl:element>
+					</xsl:element>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:for-each>
+	</xsl:template>
 
 	<xsl:template name="insertAnnexInSeparatePageSequences">
 		<xsl:for-each select="/*/*[local-name()='annex']">
@@ -9325,7 +9344,7 @@
 
 					<xsl:attribute name="font-weight">normal</xsl:attribute>
 					<xsl:if test="parent::*[local-name()='thead']"> <!-- and not(ancestor::*[local-name() = 'table'][@class = 'recommendation' or @class='requirement' or @class='permission']) -->
-						<xsl:attribute name="background-color">rgb(33, 55, 92)</xsl:attribute>
+						<xsl:attribute name="background-color"><xsl:value-of select="$color_table_header_row"/></xsl:attribute>
 					</xsl:if>
 					<xsl:if test="starts-with(*[local-name()='td'][1], 'Requirement ')">
 						<xsl:attribute name="background-color">rgb(252, 246, 222)</xsl:attribute>
@@ -11256,6 +11275,12 @@
 				<fo:block-container id="{@id}" xsl:use-attribute-sets="admonition-style">
 
 					<xsl:call-template name="setBlockSpanAll"/>
+
+						<xsl:variable name="admonition_color" select="normalize-space(/ogc:ogc-standard/ogc:metanorma-extension/ogc:presentation-metadata[ogc:name = concat('color-admonition-', @type)]/ogc:value)"/>
+						<xsl:if test="$admonition_color != ''">
+							<xsl:attribute name="border">0.5pt solid <xsl:value-of select="$admonition_color"/></xsl:attribute>
+							<xsl:attribute name="color"><xsl:value-of select="$admonition_color"/></xsl:attribute>
+						</xsl:if>
 
 							<fo:block-container xsl:use-attribute-sets="admonition-container-style" role="SKIP">
 
