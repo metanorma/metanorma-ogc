@@ -135,6 +135,27 @@ module IsoDoc
         html
       end
 
+      def html_cleanup(html)
+        collapsible(super)
+      end
+
+      def collapsible(html)
+        html.xpath("//*[@class = 'sourcecode' or @class = 'figure']")
+          .each do |d|
+          d["class"] += " hidable"
+          d.previous = "<p class='collapsible active'>&#xa0;</p>"
+        end
+        html
+      end
+
+      def inject_script(doc)
+        a = super.split(%{</body>})
+        scripts = File.read(File.join(File.dirname(__FILE__),
+                                      "html/scripts.html"),
+                            encoding: "UTF-8")
+        "#{a[0]}#{scripts}#{a[1]}"
+      end
+
       include BaseConvert
       include Init
     end
