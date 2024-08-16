@@ -671,8 +671,8 @@ RSpec.describe IsoDoc::Ogc do
               <h1 class="ForewordTitle">I.</h1>
               <div id="B" class="figure">
                 <p id="_">This is an example</p>
-                <p class="FigureTitle" style="text-align:center;">Figure 1</p>
               </div>
+                <p class="FigureTitle" style="text-align:center;">Figure 1</p>
               <div id="C" class="pseudocode">
                 <p id="_">This is an example</p>
                 <p class="SourceTitle" style="text-align:center;">Listing 1</p>
@@ -993,7 +993,7 @@ RSpec.describe IsoDoc::Ogc do
             </iso-standard>
     OUTPUT
     html = <<~OUTPUT
-      <main class="main-section">
+          <main class="main-section">
           <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
           <br/>
           <br/>
@@ -1028,36 +1028,36 @@ RSpec.describe IsoDoc::Ogc do
                       ]
                    </p>
                 </div>
-                <p class="FigureTitle" style="text-align:center;">
-                   Figure 1 — Split-it-right
-                   <i>sample</i>
-                   divider
-                   <a class="FootnoteRef" href="#fn:1" id="fnref:1">
-                      <sup>1</sup>
-                   </a>
-                </p>
              </div>
+             <p class="FigureTitle" style="text-align:center;">
+                Figure 1 — Split-it-right
+                <i>sample</i>
+                divider
+                <a class="FootnoteRef" href="#fn:1" id="fnref:1">
+                   <sup>1</sup>
+                </a>
+             </p>
              <p class="collapsible active"> </p>
              <div id="figure-B" class="figure hidable">
                 <pre>A &lt;
          B</pre>
-                <p class="FigureTitle" style="text-align:center;">Figure 2</p>
              </div>
+             <p class="FigureTitle" style="text-align:center;">Figure 2</p>
              <p class="collapsible active"> </p>
              <div id="figure-C" class="figure hidable">
                 <pre>A &lt;
          B</pre>
              </div>
           </div>
-            <aside id="fn:1" class="footnote">
-          <p>
-              <a class="FootnoteRef" href="#fn:1">
-                <sup>1</sup>
-              </a>
-              X
-          </p>
-          <a href="#fnref:1">↩</a>
-        </aside>
+          <aside id="fn:1" class="footnote">
+             <p>
+                <a class="FootnoteRef" href="#fn:1">
+                   <sup>1</sup>
+                </a>
+                X
+             </p>
+             <a href="#fnref:1">↩</a>
+          </aside>
        </main>
     OUTPUT
     FileUtils.rm_f "test.html"

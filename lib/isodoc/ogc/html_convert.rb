@@ -135,6 +135,16 @@ module IsoDoc
         html
       end
 
+      def figure_parse1(node, out)
+        out.div **figure_attrs(node) do |div|
+          node.children.each do |n|
+            figure_key(out) if n.name == "dl"
+            parse(n, div) unless n.name == "name"
+          end
+        end
+        figure_name_parse(node, out, node.at(ns("./name")))
+      end
+
       def html_cleanup(html)
         collapsible(super)
       end
