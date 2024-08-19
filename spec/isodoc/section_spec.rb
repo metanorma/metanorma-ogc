@@ -113,6 +113,9 @@ RSpec.describe IsoDoc::Ogc do
     input = <<~INPUT
       <ogc-standard xmlns="https://standards.opengeospatial.org/document">
       <bibdata/>
+        <metanorma-extension>
+                       #{METANORMA_EXTENSION}
+        </metanorma-extension>
         <sections>
         <terms id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title>
           <term id="J">
@@ -136,6 +139,9 @@ RSpec.describe IsoDoc::Ogc do
     presxml = <<~INPUT
       <ogc-standard xmlns="https://standards.opengeospatial.org/document" type='presentation'>
       <bibdata/>
+        <metanorma-extension>
+                       #{METANORMA_EXTENSION}
+        </metanorma-extension>
         <preface> <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause></preface>
         <sections>
         <terms id="H" obligation="normative" displayorder='2'><title depth='1'>1.<tab/>Terms, Definitions, Symbols and Abbreviated Terms</title>
@@ -144,8 +150,8 @@ RSpec.describe IsoDoc::Ogc do
           <preferred>Term2</preferred>
           <admitted>Term2A&#xa0;<span class="AdmittedLabel">ALTERNATIVE</span></admitted>
           <admitted>Term2B&#xa0;<span class="AdmittedLabel">ALTERNATIVE</span></admitted>
-          <deprecates>Term2C&#xa0;<span class="AdmittedLabel">DEPRECATED</span></deprecates>
-          <deprecates>Term2D&#xa0;<span class="AdmittedLabel">DEPRECATED</span></deprecates>
+          <deprecates>Term2C&#xa0;<span class="DeprecatedLabel">DEPRECATED</span></deprecates>
+          <deprecates>Term2D&#xa0;<span class="DeprecatedLabel">DEPRECATED</span></deprecates>
           <termsource status='modified'>[<strong>SOURCE:</strong>
                  <origin bibitemid='ISO7301' type='inline' citeas='ISO 7301:2011'>
                    <locality type='clause'>
@@ -183,11 +189,11 @@ RSpec.describe IsoDoc::Ogc do
          </p>
          <p class="DeprecatedTerms" style="text-align:left;">
            Term2C 
-           <span class="AdmittedLabel">DEPRECATED</span>
+           <span class="DeprecatedLabel">DEPRECATED</span>
          </p>
          <p class="DeprecatedTerms" style="text-align:left;">
            Term2D 
-           <span class="AdmittedLabel">DEPRECATED</span>
+           <span class="DeprecatedLabel">DEPRECATED</span>
          </p>
          <p>
            [
@@ -220,11 +226,11 @@ RSpec.describe IsoDoc::Ogc do
                 </p>
                 <p class="DeprecatedTerms" style="text-align:left;">
                    Term2C 
-                   <span class="AdmittedLabel">DEPRECATED</span>
+                   <span class="DeprecatedLabel">DEPRECATED</span>
                 </p>
                 <p class="DeprecatedTerms" style="text-align:left;">
                    Term2D 
-                   <span class="AdmittedLabel">DEPRECATED</span>
+                   <span class="DeprecatedLabel">DEPRECATED</span>
                 </p>
                 <p class="MsoNormal">
                    [
@@ -239,7 +245,7 @@ RSpec.describe IsoDoc::Ogc do
     xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
-    xml.at("//xmlns:metanorma-extension").remove
+    xml.at("//xmlns:metanorma-extension/xmlns:render").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     IsoDoc::Ogc::HtmlConvert.new({ filename: "test" })
@@ -276,6 +282,9 @@ RSpec.describe IsoDoc::Ogc do
                </contributor>
                <ext><doctype>technical-paper</doctype></ext>
         </bibdata>
+        <metanorma-extension>
+                       #{METANORMA_EXTENSION}
+        </metanorma-extension>
         <preface>
          <abstract obligation="informative" id="1"><title>Abstract</title>
          <p>XYZ</p>
@@ -405,6 +414,9 @@ RSpec.describe IsoDoc::Ogc do
         </contributor>
         <ext><doctype>technical-paper</doctype></ext>
       </bibdata>
+        <metanorma-extension>
+                       #{METANORMA_EXTENSION}
+        </metanorma-extension>
       <preface>
         <clause type="toc" id="_" displayorder="1">
           <title depth="1">Contents</title>
@@ -940,7 +952,7 @@ RSpec.describe IsoDoc::Ogc do
     xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
-    xml.at("//xmlns:metanorma-extension").remove
+    xml.at("//xmlns:metanorma-extension/xmlns:render").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml + presxml1)
     expect(Xml::C14n.format(
@@ -1112,7 +1124,7 @@ RSpec.describe IsoDoc::Ogc do
       .convert("test", input.sub("technical-paper", "engineering-report"),
                true))
     xml.at("//xmlns:localized-strings").remove
-    xml.at("//xmlns:metanorma-extension").remove
+    xml.at("//xmlns:metanorma-extension/xmlns:render").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(
         presxml.sub("technical-paper", "engineering-report") + presxml1,
