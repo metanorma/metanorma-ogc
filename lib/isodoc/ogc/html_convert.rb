@@ -140,6 +140,37 @@ module IsoDoc
         html
       end
 
+      def figure_parse1(node, out)
+        out.div **figure_attrs(node) do |div|
+          node.children.each do |n|
+            figure_key(out) if n.name == "dl"
+            parse(n, div) unless n.name == "name"
+          end
+        end
+        figure_name_parse(node, out, node.at(ns("./name")))
+      end
+
+      def html_cleanup(html)
+        collapsible(super)
+      end
+
+      def collapsible(html)
+        html.xpath("//*[@class = 'sourcecode' or @class = 'figure']")
+          .each do |d|
+          d["class"] += " hidable"
+          d.previous = "<p class='collapsible active'>&#xa0;</p>"
+        end
+        html
+      end
+
+      def inject_script(doc)
+        a = super.split(%{</body>})
+        scripts = File.read(File.join(File.dirname(__FILE__),
+                                      "html/scripts.html"),
+                            encoding: "UTF-8")
+        "#{a[0]}#{scripts}#{a[1]}"
+      end
+        
       # to pass on to imported _coverpage.scss
       def scss_fontheader(is_html_css)
         super + <<~SCSS

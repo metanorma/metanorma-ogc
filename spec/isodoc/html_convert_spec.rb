@@ -4,7 +4,7 @@ RSpec.describe IsoDoc::Ogc do
   it "processes pre" do
     input = <<~"INPUT"
       <ogc-standard xmlns="#{Metanorma::Ogc::DOCUMENT_NAMESPACE}">
-        #{METANORMA_EXTENSION}
+       #{METANORMA_EXTENSION}
       <preface>
       <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
       <foreword id="A" displayorder="2"><title>Preface</title>
@@ -36,7 +36,7 @@ RSpec.describe IsoDoc::Ogc do
     presxml = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
       <bibdata/>
-        #{METANORMA_EXTENSION}
+       #{METANORMA_EXTENSION}
            <preface>
             <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
              <foreword id='A' displayorder="2">
@@ -172,209 +172,210 @@ RSpec.describe IsoDoc::Ogc do
     OUTPUT
 
     html = <<~OUTPUT
-      <div id="A">
-         <h1 class="ForewordTitle" id="_">
-           <a class="anchor" href="#A"/>
-           <a class="header" href="#A">I.  Preface</a>
-         </h1>
-         <table id="A1" class="modspec" style="border-width:1px;border-spacing:0;">
-           <thead>
-             <tr>
-               <th colspan="2" style="font-weight:bold;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;" scope="colgroup">
-                 <p class="RecommendationTitle">
-                   <a class="anchor" href="#A1"/>
-                   <a class="header" href="#A1">Permission 1</a>
-                 </p>
-               </th>
-             </tr>
-           </thead>
-           <tbody>
-             <tr>
-               <th style="font-weight:bold;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;" scope="row">Identifier</th>
-               <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">
-                 <tt>/ogc/recommendation/wfs/2</tt>
-               </td>
-             </tr>
-             <tr>
-               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Subject</th>
-               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">user</td>
-             </tr>
-             <tr>
-               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Prerequisites</th>
-               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">
-                 /ss/584/2015/level/1
-                 <br/>
-                 <a href="#rfc2616">RFC 2616 (HTTP/1.1)</a>
-               </td>
-             </tr>
-             <tr>
-               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Control-CLASS</th>
-               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">Technical</td>
-             </tr>
-             <tr>
-               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Priority</th>
-               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">P0</td>
-             </tr>
-             <tr>
-               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Family</th>
-               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">
-                 System and Communications Protection
-                 <br/>
-                 System and Communications Protocols
-               </td>
-             </tr>
-             <tr>
-               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Statement</th>
-               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">
-                 <p id="_">
-                   I recommend
-                   <i>this</i>
-                   .
-                 </p>
-               </td>
-             </tr>
-             <tr>
-               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">A</th>
-               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">B</td>
-             </tr>
-             <tr>
-               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">C</th>
-               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">D</td>
-             </tr>
-             <tr>
-               <td colspan="2" style="border-top:none;border-bottom:solid windowtext 1.0pt;">
-                 <p id="_">The measurement target shall be measured as:</p>
-                 <div id="_">
-                   <div class="formula">
-                     <p>
-                       <span class="stem">(#(r/1 = 0)#)</span>
-                         (1)
-                     </p>
-                   </div>
-                 </div>
-               </td>
-             </tr>
-             <tr>
-               <td colspan="2" style="border-top:none;border-bottom:solid windowtext 1.5pt;">
-                 <p id="_">The following code will be run for verification:</p>
-                 <pre id="_" class="sourcecode">
-                   CoreRoot(success): HttpResponse
-                   <br/>
-                         if (success)
-                   <br/>
-                         recommendation(label: success-response)
-                   <br/>
-                         end
-                   <br/>
-                      
-                 </pre>
-               </td>
-             </tr>
-           </tbody>
-         </table>
-         <table id="A2" class="modspec" style="border-width:1px;border-spacing:0;">
-           <thead>
-             <tr>
-               <th colspan="2" style="font-weight:bold;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;" scope="colgroup">
-                 <p class="RecommendationTestTitle">
-                   <a class="anchor" href="#A2"/>
-                   <a class="header" href="#A2">Conformance test 1</a>
-                 </p>
-               </th>
-             </tr>
-           </thead>
-           <tbody>
-             <tr>
-               <th style="font-weight:bold;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;" scope="row">Identifier</th>
-               <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">
-                 <tt>/ogc/recommendation/wfs/2</tt>
-               </td>
-             </tr>
-             <tr>
-               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Subject</th>
-               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">user</td>
-             </tr>
-             <tr>
-               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Prerequisite</th>
-               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">/ss/584/2015/level/1</td>
-             </tr>
-             <tr>
-               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Control-class</th>
-               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">Technical</td>
-             </tr>
-             <tr>
-               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Priority</th>
-               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">P0</td>
-             </tr>
-             <tr>
-               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Family</th>
-               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">
-                 System and Communications Protection
-                 <br/>
-                 System and Communications Protocols
-               </td>
-             </tr>
-             <tr>
-               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Description</th>
-               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">
-                 <p id="_">
-                   I recommend
-                   <i>this</i>
-                   .
-                 </p>
-               </td>
-             </tr>
-             <tr>
-               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">A</th>
-               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">B</td>
-             </tr>
-             <tr>
-               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">C</th>
-               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">D</td>
-             </tr>
-             <tr>
-               <td colspan="2" style="border-top:none;border-bottom:solid windowtext 1.0pt;">
-                 <p id="_">The measurement target shall be measured as:</p>
-                 <div id="_">
-                   <div class="formula">
-                     <p>
-                       <span class="stem">(#(r/1 = 0)#)</span>
-                         (1)
-                     </p>
-                   </div>
-                 </div>
-               </td>
-             </tr>
-             <tr>
-               <td colspan="2" style="border-top:none;border-bottom:solid windowtext 1.5pt;">
-                 <p id="_">The following code will be run for verification:</p>
-                 <pre id="_" class="sourcecode">
-                   <br/>
-                                    CoreRoot(success): HttpResponse if (success)
-                   <br/>
-                                    recommendation(label: success-response) end
-                   <br/>
-                                 
-                 </pre>
-               </td>
-             </tr>
-           </tbody>
-         </table>
-       </div>
+          <div id="A">
+        <h1 class="ForewordTitle" id="_">
+          <a class="anchor" href="#A"/>
+          <a class="header" href="#A">I.  Preface</a>
+        </h1>
+        <table id="A1" class="modspec" style="border-width:1px;border-spacing:0;">
+          <thead>
+            <tr>
+              <th colspan="2" style="font-weight:bold;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;" scope="colgroup">
+                <p class="RecommendationTitle">
+                  <a class="anchor" href="#A1"/>
+                  <a class="header" href="#A1">Permission 1</a>
+                </p>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th style="font-weight:bold;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;" scope="row">Identifier</th>
+              <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">
+                <tt>/ogc/recommendation/wfs/2</tt>
+              </td>
+            </tr>
+            <tr>
+              <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Subject</th>
+              <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">user</td>
+            </tr>
+            <tr>
+              <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Prerequisites</th>
+              <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">
+                /ss/584/2015/level/1
+                <br/>
+                <a href="#rfc2616">RFC 2616 (HTTP/1.1)</a>
+              </td>
+            </tr>
+            <tr>
+              <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Control-CLASS</th>
+              <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">Technical</td>
+            </tr>
+            <tr>
+              <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Priority</th>
+              <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">P0</td>
+            </tr>
+            <tr>
+              <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Family</th>
+              <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">
+                System and Communications Protection
+                <br/>
+                System and Communications Protocols
+              </td>
+            </tr>
+            <tr>
+              <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Statement</th>
+              <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">
+                <p id="_">
+                  I recommend
+                  <i>this</i>
+                  .
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">A</th>
+              <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">B</td>
+            </tr>
+            <tr>
+              <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">C</th>
+              <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">D</td>
+            </tr>
+            <tr>
+              <td colspan="2" style="border-top:none;border-bottom:solid windowtext 1.0pt;">
+                <p id="_">The measurement target shall be measured as:</p>
+                <div id="_">
+                  <div class="formula">
+                    <p>
+                      <span class="stem">(#(r/1 = 0)#)</span>
+                        (1)
+                    </p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" style="border-top:none;border-bottom:solid windowtext 1.5pt;">
+                <p id="_">The following code will be run for verification:</p>
+                <p class="collapsible active"> </p>
+                 <pre id="_" class="sourcecode hidable">
+                  CoreRoot(success): HttpResponse
+                  <br/>
+                        if (success)
+                  <br/>
+                        recommendation(label: success-response)
+                  <br/>
+                        end
+                  <br/>
+                     
+                </pre>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table id="A2" class="modspec" style="border-width:1px;border-spacing:0;">
+          <thead>
+            <tr>
+              <th colspan="2" style="font-weight:bold;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;" scope="colgroup">
+                <p class="RecommendationTestTitle">
+                  <a class="anchor" href="#A2"/>
+                  <a class="header" href="#A2">Conformance test 1</a>
+                </p>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th style="font-weight:bold;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;" scope="row">Identifier</th>
+              <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">
+                <tt>/ogc/recommendation/wfs/2</tt>
+              </td>
+            </tr>
+            <tr>
+              <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Subject</th>
+              <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">user</td>
+            </tr>
+            <tr>
+              <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Prerequisite</th>
+              <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">/ss/584/2015/level/1</td>
+            </tr>
+            <tr>
+              <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Control-class</th>
+              <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">Technical</td>
+            </tr>
+            <tr>
+              <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Priority</th>
+              <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">P0</td>
+            </tr>
+            <tr>
+              <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Family</th>
+              <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">
+                System and Communications Protection
+                <br/>
+                System and Communications Protocols
+              </td>
+            </tr>
+            <tr>
+              <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Description</th>
+              <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">
+                <p id="_">
+                  I recommend
+                  <i>this</i>
+                  .
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">A</th>
+              <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">B</td>
+            </tr>
+            <tr>
+              <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">C</th>
+              <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">D</td>
+            </tr>
+            <tr>
+              <td colspan="2" style="border-top:none;border-bottom:solid windowtext 1.0pt;">
+                <p id="_">The measurement target shall be measured as:</p>
+                <div id="_">
+                  <div class="formula">
+                    <p>
+                      <span class="stem">(#(r/1 = 0)#)</span>
+                        (1)
+                    </p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" style="border-top:none;border-bottom:solid windowtext 1.5pt;">
+                <p id="_">The following code will be run for verification:</p>
+                <p class="collapsible active"> </p>
+                 <pre id="_" class="sourcecode hidable">
+                  <br/>
+                                   CoreRoot(success): HttpResponse if (success)
+                  <br/>
+                                   recommendation(label: success-response) end
+                  <br/>
+                                
+                </pre>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     OUTPUT
     IsoDoc::Ogc::HtmlConvert.new({ filename: "test" })
       .convert("test", presxml, false)
     xml = Nokogiri::XML(File.read("test.html"))
     xml = xml.at("//div[@id = 'A']")
-    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Xml::C14n.format(html)
+    expect(Xml::C14n.format(strip_guid(xml.to_xml))).to be_equivalent_to Xml::C14n.format(html)
   end
 
   it "processes admonitions" do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
       <bibdata/>
-              #{METANORMA_EXTENSION}
+       #{METANORMA_EXTENSION}
           <preface><foreword id="A"><title>Preface</title>
           <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" type="caution">
         <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
@@ -386,7 +387,7 @@ RSpec.describe IsoDoc::Ogc do
     presxml = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
       <bibdata/>
-              #{METANORMA_EXTENSION}
+       #{METANORMA_EXTENSION}
            <preface>
             <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
              <foreword id='A' displayorder="2">
@@ -414,8 +415,8 @@ RSpec.describe IsoDoc::Ogc do
     OUTPUT
     xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
           .convert("test", input, true))
-    xml.at("//xmlns:metanorma-extension/xmlns:render").remove
     xml.at("//xmlns:localized-strings").remove
+    xml.at("//xmlns:metanorma-extension/xmlns:render").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
@@ -428,7 +429,7 @@ RSpec.describe IsoDoc::Ogc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
       <bibdata/>
-              #{METANORMA_EXTENSION}
+       #{METANORMA_EXTENSION}
           <preface><foreword id="A"><title>Preface</title>
           <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" type="warning">
         <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
@@ -440,7 +441,7 @@ RSpec.describe IsoDoc::Ogc do
     presxml = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
       <bibdata/>
-              #{METANORMA_EXTENSION}
+       #{METANORMA_EXTENSION}
            <preface>
             <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
              <foreword id='A' displayorder="2">
@@ -468,8 +469,8 @@ RSpec.describe IsoDoc::Ogc do
     OUTPUT
     xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
           .convert("test", input, true))
-    xml.at("//xmlns:metanorma-extension/xmlns:render").remove
     xml.at("//xmlns:localized-strings").remove
+    xml.at("//xmlns:metanorma-extension/xmlns:render").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
@@ -482,7 +483,7 @@ RSpec.describe IsoDoc::Ogc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
       <bibdata/>
-              #{METANORMA_EXTENSION}
+       #{METANORMA_EXTENSION}
           <preface><foreword id="A"><title>Preface</title>
           <admonition id="_70234f78-64e5-4dfc-8b6f-f3f037348b6a" type="important">
         <p id="_e94663cc-2473-4ccc-9a72-983a74d989f2">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
@@ -494,7 +495,7 @@ RSpec.describe IsoDoc::Ogc do
     presxml = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
       <bibdata/>
-              #{METANORMA_EXTENSION}
+       #{METANORMA_EXTENSION}
            <preface>
             <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
              <foreword id='A' displayorder="2">
@@ -522,8 +523,8 @@ RSpec.describe IsoDoc::Ogc do
     OUTPUT
     xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
           .convert("test", input, true))
-    xml.at("//xmlns:metanorma-extension/xmlns:render").remove
     xml.at("//xmlns:localized-strings").remove
+    xml.at("//xmlns:metanorma-extension/xmlns:render").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
@@ -536,7 +537,7 @@ RSpec.describe IsoDoc::Ogc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
       <bibdata/>
-              #{METANORMA_EXTENSION}
+       #{METANORMA_EXTENSION}
           <preface><foreword id="A"><title>Preface</title>
                 <example id="_"><name>Example Title</name><p id="_">This is an example</p>
       <p id="_">Amen</p></example>
@@ -546,7 +547,7 @@ RSpec.describe IsoDoc::Ogc do
     presxml = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
       <bibdata/>
-              #{METANORMA_EXTENSION}
+       #{METANORMA_EXTENSION}
         <preface>
          <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
           <foreword id='A' displayorder="2"><title depth='1'>I.<tab/>Preface</title>
@@ -575,8 +576,8 @@ RSpec.describe IsoDoc::Ogc do
     OUTPUT
     xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
           .convert("test", input, true))
-    xml.at("//xmlns:metanorma-extension/xmlns:render").remove
     xml.at("//xmlns:localized-strings").remove
+    xml.at("//xmlns:metanorma-extension/xmlns:render").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
@@ -589,7 +590,7 @@ RSpec.describe IsoDoc::Ogc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
       <bibdata/>
-              #{METANORMA_EXTENSION}
+       #{METANORMA_EXTENSION}
           <preface><foreword id="A">
                 <example id="_"><p id="_">This is an example</p>
       <p id="_">Amen</p></example>
@@ -599,7 +600,7 @@ RSpec.describe IsoDoc::Ogc do
     presxml = <<~OUTPUT
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
       <bibdata/>
-              #{METANORMA_EXTENSION}
+       #{METANORMA_EXTENSION}
         <preface>
          <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
           <foreword id='A' displayorder="2"><title>I.</title>
@@ -628,8 +629,8 @@ RSpec.describe IsoDoc::Ogc do
     OUTPUT
     xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
           .convert("test", input, true))
-    xml.at("//xmlns:metanorma-extension/xmlns:render").remove
     xml.at("//xmlns:localized-strings").remove
+    xml.at("//xmlns:metanorma-extension/xmlns:render").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
@@ -642,7 +643,7 @@ RSpec.describe IsoDoc::Ogc do
     input = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
       <bibdata/>
-              #{METANORMA_EXTENSION}
+       #{METANORMA_EXTENSION}
           <preface><foreword id="A">
                 <figure id="B"><p id="_">This is an example</p></figure>
                 <figure id="C" class="pseudocode"><p id="_">This is an example</p></figure>
@@ -653,7 +654,7 @@ RSpec.describe IsoDoc::Ogc do
     presxml = <<~OUTPUT
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
          <bibdata/>
-              #{METANORMA_EXTENSION}
+       #{METANORMA_EXTENSION}
          <preface>
            <clause type="toc" id="_" displayorder="1">
              <title depth="1">Contents</title>
@@ -684,8 +685,8 @@ RSpec.describe IsoDoc::Ogc do
              <h1 class="ForewordTitle">I.</h1>
              <div id="B" class="figure">
                <p id="_">This is an example</p>
-               <p class="FigureTitle" style="text-align:center;">Figure 1</p>
              </div>
+               <p class="FigureTitle" style="text-align:center;">Figure 1</p>
              <div id="C" class="pseudocode">
                <p id="_">This is an example</p>
                <p class="SourceTitle" style="text-align:center;">Listing 1</p>
@@ -706,8 +707,8 @@ RSpec.describe IsoDoc::Ogc do
     OUTPUT
     xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
           .convert("test", input, true))
-    xml.at("//xmlns:metanorma-extension/xmlns:render").remove
     xml.at("//xmlns:localized-strings").remove
+    xml.at("//xmlns:metanorma-extension/xmlns:render").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
@@ -719,7 +720,7 @@ RSpec.describe IsoDoc::Ogc do
   it "processes hi" do
     presxml = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
-              #{METANORMA_EXTENSION}
+           #{METANORMA_EXTENSION}
           <preface> <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
         <foreword id="A" displayorder="2"><title>Preface</title>
       <p id="_">Amen <hi>highlight</hi> Amen</p>
@@ -814,7 +815,7 @@ RSpec.describe IsoDoc::Ogc do
     input = <<~INPUT
       <iso-standard xmlns="https://www.metanorma.org/ns/ogc">
       <bibdata/>
-              #{METANORMA_EXTENSION}
+       #{METANORMA_EXTENSION}
       <preface>
       <foreword id="A">
       <note id="B"><p>Hello</p></note>
@@ -831,7 +832,7 @@ RSpec.describe IsoDoc::Ogc do
       <iso-standard xmlns="https://www.metanorma.org/ns/ogc" type="presentation">
                      <bibdata/>
                <metanorma-extension>
-                       #{METANORMA_EXTENSION.gsub(%r{</?metanorma-extension>}, '')}
+               #{METANORMA_EXTENSION.gsub(%r{</?metanorma-extension>}, '')}
                  <render>
                  <preprocess-xslt>
         <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:mn="https://www.metanorma.org/ns/ogc" version="1.0">
@@ -912,5 +913,178 @@ RSpec.describe IsoDoc::Ogc do
              .gsub(%r{^.*<body}m, "<body")
       .gsub(%r{</body>.*}m, "</body>"),
            )).to be_equivalent_to Xml::C14n.format(word)
+  end
+
+  it "processes collapsible sourcecode" do
+    presxml = <<~OUTPUT
+      <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
+       #{METANORMA_EXTENSION}
+        <preface>
+      <foreword displayorder="1" id="A">
+            <sourcecode lang='ruby' id='samplecode'>
+              <name>
+                Figure 1&#xA0;&#x2014; Ruby
+                <em>code</em>
+              </name>
+               puts x
+            </sourcecode>
+            <sourcecode unnumbered='true' linenums="true">Hey
+             Que? </sourcecode>
+          </foreword>
+        </preface>
+        <sections/>
+      </iso-standard>
+    OUTPUT
+
+    html = <<~OUTPUT
+      <main class="main-section">
+          <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+          <br/>
+          <div id="A">
+             <h1 class="ForewordTitle">
+                <a class="anchor" href="#A"/>
+                <a class="header" href="#A"/>
+             </h1>
+             <p class="collapsible active"> </p>
+             <pre id="samplecode" class="sourcecode hidable">
+                <br/>
+                       
+                <br/>
+                         puts x
+                <br/>
+                     
+             </pre>
+             <p class="SourceTitle" style="text-align:center;">
+                Figure 1 — Ruby
+                <i>code</i>
+             </p>
+             <p class="collapsible active"> </p>
+             <pre class="sourcecode hidable">
+                Hey
+                <br/>
+                       Que?
+             </pre>
+          </div>
+       </main>
+    OUTPUT
+    FileUtils.rm_f "test.html"
+    IsoDoc::Ogc::HtmlConvert.new({ filename: "test" })
+      .convert("test", presxml, false)
+    out = File.read("test.html")
+      .sub(/^.*<main/m, "<main")
+      .sub(%r{</main>.*$}m, "</main>")
+    expect(Xml::C14n.format(out)).to be_equivalent_to Xml::C14n.format(html)
+  end
+
+  it "processes collapsible figures" do
+    presxml = <<~OUTPUT
+        <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         #{METANORMA_EXTENSION}
+            <preface>
+      <clause type="toc" id="_" displayorder="1">
+        <title depth="1">Table of contents</title>
+      </clause>
+            <foreword displayorder="2" id="A">
+            <figure id="figureA-1" keep-with-next="true" keep-lines-together="true">
+          <name>Figure 1&#xA0;&#x2014; Split-it-right <em>sample</em> divider<fn reference="1"><p>X</p></fn></name>
+          <image src="data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7" height="20" width="auto" id="_" mimetype="image/png"/>
+          <image src='data:application/xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+Cjw/eG1sLXN0eWxlc2hlZXQgdHlwZT0idGV4dC94c2wiIGhyZWY9Ii4uLy4uLy4uL3hzbC9yZXNfZG9jL2ltZ2ZpbGUueHNsIj8+CjwhRE9DVFlQRSBpbWdmaWxlLmNvbnRlbnQgU1lTVEVNICIuLi8uLi8uLi9kdGQvdGV4dC5lbnQiPgo8aW1nZmlsZS5jb250ZW50IG1vZHVsZT0iZnVuZGFtZW50YWxzX29mX3Byb2R1Y3RfZGVzY3JpcHRpb25fYW5kX3N1cHBvcnQiIGZpbGU9ImFjdGlvbl9zY2hlbWFleHBnMS54bWwiPgo8aW1nIHNyYz0iYWN0aW9uX3NjaGVtYWV4cGcxLmdpZiI+CjxpbWcuYXJlYSBzaGFwZT0icmVjdCIgY29vcmRzPSIyMTAsMTg2LDM0MywyMjciIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9iYXNpY19hdHRyaWJ1dGVfc2NoZW1hL2Jhc2ljX2F0dHJpYnV0ZV9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMTAsMTAsOTYsNTEiIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9hY3Rpb25fc2NoZW1hL2FjdGlvbl9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMjEwLDI2NCwzNTgsMzA1IiBocmVmPSIuLi8uLi9yZXNvdXJjZXMvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEueG1sIiAvPgo8L2ltZz4KPC9pbWdmaWxlLmNvbnRlbnQ+Cg==' height='20' width='auto' id='_' mimetype='application/xml'/>
+          <dl>
+          <dt>A</dt>
+          <dd><p>B</p></dd>
+          </dl>
+          <source status="generalisation">[SOURCE: <xref target="ISO712" type="inline">ISO&#xa0;712, Section 1</xref> &#x2014; with adjustments ; <xref type="inline" target="ISO712">ISO 712, Section 2</xref>]</source>
+        </figure>
+        <figure id="figure-B">
+        <name>Figure 2</name>
+        <pre alt="A B">A &#x3c;
+        B</pre>
+        </figure>
+        <figure id="figure-C" unnumbered="true">
+        <pre>A &#x3c;
+        B</pre>
+        </figure>
+            </foreword></preface>
+                     <sections>
+             </sections>
+           <bibliography>
+           </bibliography>
+            </iso-standard>
+    OUTPUT
+    html = <<~OUTPUT
+         <main class="main-section">
+         <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+         <br/>
+         <br/>
+         <div id="A">
+            <h1 class="ForewordTitle">
+               <a class="anchor" href="#A"/>
+               <a class="header" href="#A"/>
+            </h1>
+            <p class="collapsible active"> </p>
+            <div id="figureA-1" class="figure hidable" style="page-break-after: avoid;page-break-inside: avoid;">
+               <img src="data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7" height="20" width="20"/>
+               <img src="data:application/xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+Cjw/eG1sLXN0eWxlc2hlZXQgdHlwZT0idGV4dC94c2wiIGhyZWY9Ii4uLy4uLy4uL3hzbC9yZXNfZG9jL2ltZ2ZpbGUueHNsIj8+CjwhRE9DVFlQRSBpbWdmaWxlLmNvbnRlbnQgU1lTVEVNICIuLi8uLi8uLi9kdGQvdGV4dC5lbnQiPgo8aW1nZmlsZS5jb250ZW50IG1vZHVsZT0iZnVuZGFtZW50YWxzX29mX3Byb2R1Y3RfZGVzY3JpcHRpb25fYW5kX3N1cHBvcnQiIGZpbGU9ImFjdGlvbl9zY2hlbWFleHBnMS54bWwiPgo8aW1nIHNyYz0iYWN0aW9uX3NjaGVtYWV4cGcxLmdpZiI+CjxpbWcuYXJlYSBzaGFwZT0icmVjdCIgY29vcmRzPSIyMTAsMTg2LDM0MywyMjciIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9iYXNpY19hdHRyaWJ1dGVfc2NoZW1hL2Jhc2ljX2F0dHJpYnV0ZV9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMTAsMTAsOTYsNTEiIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9hY3Rpb25fc2NoZW1hL2FjdGlvbl9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMjEwLDI2NCwzNTgsMzA1IiBocmVmPSIuLi8uLi9yZXNvdXJjZXMvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEueG1sIiAvPgo8L2ltZz4KPC9pbWdmaWxlLmNvbnRlbnQ+Cg==" height="20" width="0"/>
+               <p style="page-break-after:avoid;">
+                  <b>Key</b>
+               </p>
+               <div class="figdl">
+                  <dl>
+                     <dt>
+                        <p>A</p>
+                     </dt>
+                     <dd>
+                        <p>B</p>
+                     </dd>
+                  </dl>
+               </div>
+               <div class="BlockSource">
+                  <p>
+                     [SOURCE:
+                     <a href="#ISO712">ISO 712, Section 1</a>
+                     — with adjustments ;
+                     <a href="#ISO712">ISO 712, Section 2</a>
+                     ]
+                  </p>
+               </div>
+            </div>
+            <p class="FigureTitle" style="text-align:center;">
+               Figure 1 — Split-it-right
+               <i>sample</i>
+               divider
+               <a class="FootnoteRef" href="#fn:1" id="fnref:1">
+                  <sup>1</sup>
+               </a>
+            </p>
+            <p class="collapsible active"> </p>
+            <div id="figure-B" class="figure hidable">
+               <pre>A &lt;
+        B</pre>
+            </div>
+            <p class="FigureTitle" style="text-align:center;">Figure 2</p>
+            <p class="collapsible active"> </p>
+            <div id="figure-C" class="figure hidable">
+               <pre>A &lt;
+        B</pre>
+            </div>
+         </div>
+         <aside id="fn:1" class="footnote">
+            <p>
+               <a class="FootnoteRef" href="#fn:1">
+                  <sup>1</sup>
+               </a>
+               X
+            </p>
+            <a href="#fnref:1">↩</a>
+         </aside>
+      </main>
+    OUTPUT
+    FileUtils.rm_f "test.html"
+    IsoDoc::Ogc::HtmlConvert.new({ filename: "test" })
+      .convert("test", presxml, false)
+    out = File.read("test.html")
+      .sub(/^.*<main/m, "<main")
+      .sub(%r{</main>.*$}m, "</main>")
+    expect(Xml::C14n.format(out)).to be_equivalent_to Xml::C14n.format(html)
   end
 end
