@@ -26,7 +26,7 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = Gem::Requirement.new(">= 3.1.0")
 
   spec.add_dependency "iso-639"
-  spec.add_dependency "metanorma-standoc", "~> 2.9.0"
+  spec.add_dependency "metanorma-standoc", "~> 2.9.3"
 
   spec.add_development_dependency "debug"
   spec.add_development_dependency "equivalent-xml", "~> 0.6"

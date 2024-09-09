@@ -2036,4 +2036,97 @@ RSpec.describe Metanorma::Ogc do
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(output)
   end
+
+  it "applies engineering report style attribues" do
+    input = <<~INPUT
+      #{ASCIIDOC_BLANK_HDR.sub(':nodoc:', ":doctype: engineering-report\n:nodoc:")}
+
+      [executive_summary]
+      == Exec Summ
+
+      [overview]
+      == Ovrvw
+
+      [future_outlook]
+      == F O
+
+      [value_proposition]
+      == V P
+
+      [contributors]
+      == Contr
+
+      [random]
+      == Rand
+
+      [introduction]
+      == Introduction
+
+      [aims]
+      === Aims
+
+      [objectives]
+      === Objectives
+
+      [topics]
+      == Topics
+
+      [outlook]
+      == Outlook
+
+      [security]
+      == Security etc
+    INPUT
+
+    output = <<~OUTPUT
+      <ogc-standard xmlns="https://www.metanorma.org/ns/ogc" type="semantic" version="#{Metanorma::Ogc::VERSION}">
+          <preface>
+             <clause id="_" type="overview" obligation="informative">
+                <title>Ovrvw</title>
+             </clause>
+             <clause id="_" type="future_outlook" obligation="informative">
+                <title>F O</title>
+             </clause>
+             <clause id="_" type="value_proposition" obligation="informative">
+                <title>V P</title>
+             </clause>
+             <clause id="_" type="contributors" obligation="informative">
+                <title>Contr</title>
+             </clause>
+             <clause id="_" type="executivesummary" obligation="informative">
+                <title>Exec Summ</title>
+             </clause>
+          </preface>
+          <sections>
+             <clause id="_" obligation="normative">
+                <title>Rand</title>
+             </clause>
+                   <clause id="_" obligation="normative">
+         <title>Introduction</title>
+         <clause id="_" type="aims" obligation="normative">
+            <title>Aims</title>
+         </clause>
+         <clause id="_" type="objectives" obligation="normative">
+            <title>Objectives</title>
+         </clause>
+      </clause>
+      <clause id="_" type="topics" obligation="normative">
+         <title>Topics</title>
+      </clause>
+      <clause id="_" type="outlook" obligation="normative">
+         <title>Outlook</title>
+      </clause>
+      <clause id="_" obligation="normative">
+         <title>Security etc</title>
+      </clause>
+          </sections>
+       </ogc-standard>
+    OUTPUT
+
+    xml = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
+    xml.xpath("//xmlns:boilerplate | //xmlns:bibdata | //xmlns:metanorma-extension")
+      .each(&:remove)
+    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Xml::C14n.format(output)
+  end
 end

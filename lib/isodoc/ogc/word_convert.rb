@@ -64,7 +64,7 @@ module IsoDoc
       end
 
       def header_strip(hdr)
-        hdr = hdr.to_s.gsub(/<\/?p[^>]*>/, "")
+        hdr = hdr.to_s.gsub(/<\/?p[^<>]*>/, "")
         super
       end
 

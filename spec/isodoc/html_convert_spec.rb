@@ -11,7 +11,7 @@ RSpec.describe IsoDoc::Ogc do
        </foreword></preface>
        </ogc-standard>
      INPUT
-  #
+
      output = Xml::C14n.format(<<~"OUTPUT")
        #{HTML_HDR}
                 <br/>
@@ -22,7 +22,7 @@ RSpec.describe IsoDoc::Ogc do
               </div>
             </body>
      OUTPUT
-  #
+
      expect(Xml::C14n.format(
               IsoDoc::Ogc::HtmlConvert.new({})
               .convert("test", input, true)
@@ -30,7 +30,7 @@ RSpec.describe IsoDoc::Ogc do
               .gsub(%r{</body>.*}m, "</body>"),
             )).to be_equivalent_to output
    end
-  #
+
    it "processes requirement and requirement test" do
      presxml = <<~OUTPUT
        <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
@@ -168,7 +168,7 @@ RSpec.describe IsoDoc::Ogc do
             </preface>
           </iso-standard>
      OUTPUT
-  #
+
      html = <<~OUTPUT
            <div id="A">
          <h1 class="ForewordTitle" id="_">
@@ -368,7 +368,7 @@ RSpec.describe IsoDoc::Ogc do
      xml = xml.at("//div[@id = 'A']")
      expect(Xml::C14n.format(strip_guid(xml.to_xml))).to be_equivalent_to Xml::C14n.format(html)
    end
-  #
+
    it "processes admonitions" do
      input = <<~INPUT
            <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -380,7 +380,7 @@ RSpec.describe IsoDoc::Ogc do
            </foreword></preface>
            </iso-standard>
      INPUT
-  #
+
      presxml = <<~OUTPUT
        <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
        <bibdata/>
@@ -396,7 +396,7 @@ RSpec.describe IsoDoc::Ogc do
             </preface>
           </iso-standard>
      OUTPUT
-  #
+
      html = <<~OUTPUT
         #{HTML_HDR}
                <br/>
@@ -420,7 +420,7 @@ RSpec.describe IsoDoc::Ogc do
        .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
        .to be_equivalent_to Xml::C14n.format(html)
    end
-  #
+
    it "processes warning admonitions" do
      input = <<~INPUT
            <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -432,7 +432,7 @@ RSpec.describe IsoDoc::Ogc do
            </foreword></preface>
            </iso-standard>
      INPUT
-  #
+
      presxml = <<~OUTPUT
        <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
        <bibdata/>
@@ -448,7 +448,7 @@ RSpec.describe IsoDoc::Ogc do
             </preface>
           </iso-standard>
      OUTPUT
-  #
+
      html = <<~OUTPUT
         #{HTML_HDR}
                <br/>
@@ -472,7 +472,7 @@ RSpec.describe IsoDoc::Ogc do
        .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
        .to be_equivalent_to Xml::C14n.format(html)
    end
-  #
+
    it "processes important admonitions" do
      input = <<~INPUT
            <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -484,7 +484,7 @@ RSpec.describe IsoDoc::Ogc do
            </foreword></preface>
            </iso-standard>
      INPUT
-  #
+
      presxml = <<~OUTPUT
        <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
        <bibdata/>
@@ -500,7 +500,7 @@ RSpec.describe IsoDoc::Ogc do
             </preface>
           </iso-standard>
      OUTPUT
-  #
+
      html = <<~OUTPUT
         #{HTML_HDR}
                <br/>
@@ -524,7 +524,7 @@ RSpec.describe IsoDoc::Ogc do
        .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
        .to be_equivalent_to Xml::C14n.format(html)
    end
-  #
+
    it "processes examples with titles" do
      input = <<~INPUT
            <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -550,7 +550,7 @@ RSpec.describe IsoDoc::Ogc do
          </preface>
        </iso-standard>
      OUTPUT
-  #
+
      html = <<~OUTPUT
                #{HTML_HDR}
                <br/>
@@ -575,7 +575,7 @@ RSpec.describe IsoDoc::Ogc do
        .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
        .to be_equivalent_to Xml::C14n.format(html)
    end
-  #
+
    it "processes examples without titles" do
      input = <<~INPUT
            <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -601,7 +601,7 @@ RSpec.describe IsoDoc::Ogc do
          </preface>
        </iso-standard>
      OUTPUT
-  #
+
      html = <<~OUTPUT
                #{HTML_HDR}
                <br/>
@@ -626,7 +626,7 @@ RSpec.describe IsoDoc::Ogc do
        .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
        .to be_equivalent_to Xml::C14n.format(html)
    end
-  #
+
    it "processes figures and sourcecode" do
      input = <<~INPUT
            <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -663,7 +663,7 @@ RSpec.describe IsoDoc::Ogc do
           </preface>
         </iso-standard>
      OUTPUT
-  #
+
      html = <<~OUTPUT
        #{HTML_HDR}
                <br/>
@@ -702,7 +702,7 @@ RSpec.describe IsoDoc::Ogc do
        .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
        .to be_equivalent_to Xml::C14n.format(html)
    end
-  #
+
    it "processes hi" do
      presxml = <<~INPUT
            <iso-standard xmlns="http://riboseinc.com/isoxml">
@@ -712,7 +712,7 @@ RSpec.describe IsoDoc::Ogc do
            </foreword></preface>
            </iso-standard>
      INPUT
-  #
+
      html = <<~OUTPUT
                #{HTML_HDR}
                <br/>
@@ -727,7 +727,7 @@ RSpec.describe IsoDoc::Ogc do
            </div>
          </body>
      OUTPUT
-  #
+
      doc = <<~OUTPUT
        <body lang='EN-US' link='blue' vlink='#954F72'>
             <div class='WordSection1'>
@@ -772,7 +772,7 @@ RSpec.describe IsoDoc::Ogc do
        .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
        .to be_equivalent_to Xml::C14n.format(doc)
    end
-  #
+
    it "injects JS into blank html" do
      system "rm -f test.html"
      input = <<~INPUT
@@ -795,7 +795,7 @@ RSpec.describe IsoDoc::Ogc do
      expect(html).to match(%r{jquery\.min\.js})
      expect(html).to match(%r{Overpass})
    end
-  #
+
    it "processes preprocessing XSLT" do
      input = <<~INPUT
        <iso-standard xmlns="https://www.metanorma.org/ns/ogc">

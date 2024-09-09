@@ -36,7 +36,7 @@ RSpec.describe Metanorma::Ogc do
 
       text
     INPUT
-    expect(File.read("test.err.html")).to include "Version not permitted for engineering-report"
+    expect(File.read("test.err.html")).to include("Version not permitted for engineering-report")
   end
 
   it "Warns of missing version on document type other than engineering-report or discussion paper" do
@@ -51,7 +51,7 @@ RSpec.describe Metanorma::Ogc do
 
       text
     INPUT
-    expect(File.read("test.err.html")).to include "Version required for standard"
+    expect(File.read("test.err.html")).to include("Version required for standard")
   end
 
   it "Warns of illegal doctype" do
@@ -66,7 +66,7 @@ RSpec.describe Metanorma::Ogc do
 
       text
     INPUT
-    expect(File.read("test.err.html")).to include "'pizza' is not a legal document type"
+    expect(File.read("test.err.html")).to include("'pizza' is not a legal document type")
   end
 
   it "Warns of illegal doc subtype" do
@@ -83,7 +83,7 @@ RSpec.describe Metanorma::Ogc do
       text
     INPUT
     expect(File.read("test.err.html")).to include \
-      "'pizza' is not a permitted subtype of Standard:​ reverting to 'implementation'"
+      ("'pizza' is not a permitted subtype of Standard:​ reverting to 'implementation'")
   end
 
   it "Warns of illegal status" do
@@ -98,7 +98,7 @@ RSpec.describe Metanorma::Ogc do
 
       text
     INPUT
-    expect(File.read("test.err.html")).to include "pizza is not a recognised status"
+    expect(File.read("test.err.html")).to include("pizza is not a recognised status")
   end
 
   it "Warns of status inconsistent with doctype" do
@@ -114,7 +114,7 @@ RSpec.describe Metanorma::Ogc do
 
       text
     INPUT
-    expect(File.read("test.err.html")).to include "draft is not an allowed status for abstract-specification-topic"
+    expect(File.read("test.err.html")).to include("draft is not an allowed status for abstract-specification-topic")
   end
 
   it "does not issue section order warnings unless document is a standard" do
@@ -128,7 +128,7 @@ RSpec.describe Metanorma::Ogc do
 
       == Symbols and Abbreviated Terms
     INPUT
-    expect(File.read("test.err.html")).not_to include "Prefatory material must be followed by (clause) Scope"
+    expect(File.read("test.err.html")).not_to include("Prefatory material must be followed by (clause) Scope")
   end
 
   it "Warning if do not start with scope or introduction" do
@@ -140,7 +140,7 @@ RSpec.describe Metanorma::Ogc do
 
       Paragraph
     INPUT
-    expect(File.read("test.err.html")).to include "Prefatory material must be followed by (clause) Scope"
+    expect(File.read("test.err.html")).to include("Prefatory material must be followed by (clause) Scope")
   end
 
   it "Warning if introduction not followed by scope" do
@@ -155,7 +155,7 @@ RSpec.describe Metanorma::Ogc do
 
       Paragraph
     INPUT
-    expect(File.read("test.err.html")).to include "Prefatory material must be followed by (clause) Scope"
+    expect(File.read("test.err.html")).to include("Prefatory material must be followed by (clause) Scope")
   end
 
   it "Warning if scope not followed by conformance" do
@@ -172,7 +172,7 @@ RSpec.describe Metanorma::Ogc do
 
       Paragraph
     INPUT
-    expect(File.read("test.err.html")).to include "Scope must be followed by Conformance"
+    expect(File.read("test.err.html")).to include("Scope must be followed by Conformance")
   end
 
   it "Warning if normative references not followed by terms and definitions" do
@@ -192,7 +192,7 @@ RSpec.describe Metanorma::Ogc do
 
       Paragraph
     INPUT
-    expect(File.read("test.err.html")).to include "Normative References must be followed by Terms and Definitions"
+    expect(File.read("test.err.html")).to include("Normative References must be followed by Terms and Definitions")
   end
 
   it "Warning if there are no clauses in the document" do
@@ -215,7 +215,7 @@ RSpec.describe Metanorma::Ogc do
       == Symbols and Abbreviated Terms
 
     INPUT
-    expect(File.read("test.err.html")).to include "Document must contain at least one clause"
+    expect(File.read("test.err.html")).to include("Document must contain at least one clause")
   end
 
   it "Warning if no normative references" do
@@ -244,7 +244,7 @@ RSpec.describe Metanorma::Ogc do
       == Appendix C
 
     INPUT
-    expect(File.read("test.err.html")).to include "Normative References are mandatory"
+    expect(File.read("test.err.html")).to include("Normative References are mandatory")
   end
 
   it "Warning if missing abstract" do
@@ -256,7 +256,7 @@ RSpec.describe Metanorma::Ogc do
 
       Paragraph
     INPUT
-    expect(File.read("test.err.html")).to include "Abstract is missing"
+    expect(File.read("test.err.html")).to include("Abstract is missing")
   end
 
   it "Warning if missing keywords" do
@@ -268,7 +268,7 @@ RSpec.describe Metanorma::Ogc do
 
       Paragraph
     INPUT
-    expect(File.read("test.err.html")).to include "Keywords are missing"
+    expect(File.read("test.err.html")).to include("Keywords are missing")
   end
 
   it "Warning if missing preface" do
@@ -280,7 +280,7 @@ RSpec.describe Metanorma::Ogc do
 
       Paragraph
     INPUT
-    expect(File.read("test.err.html")).to include "Preface is missing"
+    expect(File.read("test.err.html")).to include("Preface is missing")
   end
 
   it "Warning if missing submitting organizations" do
@@ -292,7 +292,7 @@ RSpec.describe Metanorma::Ogc do
 
       Paragraph
     INPUT
-    expect(File.read("test.err.html")).to include "Submitting Organizations is missing"
+    expect(File.read("test.err.html")).to include("Submitting Organizations is missing")
   end
 
   it "Warning if missing submitters" do
@@ -304,7 +304,7 @@ RSpec.describe Metanorma::Ogc do
 
       Paragraph
     INPUT
-    expect(File.read("test.err.html")).to include "Submitters is missing"
+    expect(File.read("test.err.html")).to include("Submitters is missing")
   end
 
   it "does not warn if not missing abstract" do
@@ -321,7 +321,7 @@ RSpec.describe Metanorma::Ogc do
 
       Paragraph
     INPUT
-    expect(File.read("test.err.html")).not_to include "Abstract is missing"
+    expect(File.read("test.err.html")).not_to include("Abstract is missing")
   end
 
   it "does not warn if not missing keywords" do
@@ -337,7 +337,7 @@ RSpec.describe Metanorma::Ogc do
 
       Paragraph
     INPUT
-    expect(File.read("test.err.html")).not_to include "Keywords are missing"
+    expect(File.read("test.err.html")).not_to include("Keywords are missing")
   end
 
   it "does not warn if not missing preface" do
@@ -353,7 +353,7 @@ RSpec.describe Metanorma::Ogc do
 
       Paragraph
     INPUT
-    expect(File.read("test.err.html")).not_to include "Preface is missing"
+    expect(File.read("test.err.html")).not_to include("Preface is missing")
   end
 
   it "does not warn if not missing submitting organizations" do
@@ -369,7 +369,7 @@ RSpec.describe Metanorma::Ogc do
 
       Paragraph
     INPUT
-    expect(File.read("test.err.html")).not_to include "Submitting Organizations is missing"
+    expect(File.read("test.err.html")).not_to include("Submitting Organizations is missing")
   end
 
   it "does not warn if not missing submitters" do
@@ -385,7 +385,7 @@ RSpec.describe Metanorma::Ogc do
 
       Paragraph
     INPUT
-    expect(File.read("test.err.html")).not_to include "Submitters is missing"
+    expect(File.read("test.err.html")).not_to include("Submitters is missing")
   end
 
   it "warns of missing executive summary in engineering report" do
@@ -400,7 +400,7 @@ RSpec.describe Metanorma::Ogc do
       Paragraph
     INPUT
     expect(File.read("test.err.html"))
-      .to include "Executive Summary required for Engineering Reports!"
+      .to include("Executive Summary required for Engineering Reports!")
 
     Asciidoctor.convert(<<~INPUT, backend: :ogc, header_footer: true)
       = Document title
@@ -414,7 +414,7 @@ RSpec.describe Metanorma::Ogc do
       Paragraph
     INPUT
     expect(File.read("test.err.html"))
-      .not_to include "Executive Summary required for Engineering Reports!"
+      .not_to include("Executive Summary required for Engineering Reports!")
   end
 
   it "warns of missing executive summary outside of engineering report" do
@@ -428,7 +428,7 @@ RSpec.describe Metanorma::Ogc do
       Paragraph
     INPUT
     expect(File.read("test.err.html"))
-      .not_to include "Executive Summary only allowed for Engineering Reports!"
+      .not_to include("Executive Summary only allowed for Engineering Reports!")
 
     Asciidoctor.convert(<<~INPUT, backend: :ogc, header_footer: true)
       = Document title
@@ -441,6 +441,6 @@ RSpec.describe Metanorma::Ogc do
       Paragraph
     INPUT
     expect(File.read("test.err.html"))
-      .to include "Executive Summary only allowed for Engineering Reports!"
+      .to include("Executive Summary only allowed for Engineering Reports!")
   end
 end

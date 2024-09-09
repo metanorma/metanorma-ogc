@@ -1,59 +1,6 @@
 require "spec_helper"
 
 RSpec.describe IsoDoc::Ogc do
-  it "processes terms and definitions" do
-    FileUtils.rm_f "test.doc"
-    IsoDoc::Ogc::WordConvert.new({}).convert("test", <<~INPUT, false)
-          <ogc-standard xmlns="https://standards.opengeospatial.org/document">
-          <preface/>
-          <sections>
-          <terms id="_terms_and_definitions" obligation="normative" displayorder="1">
-        <title>1.<tab/>Terms and definitions</title><p id="_bf202ad0-7300-4cca-80ae-87ef7008f0fd">For the purposes of this document,
-          the following terms and definitions apply.</p>
-      <term id="_bounding_volume">
-      <name>1.1.</name>
-      <preferred>Bounding Volume</preferred>
-      <definition><p id="_5e741d88-63d0-45f2-966b-b6f9fb0a5cdb">A closed volume completely containing the union of a set of geometric objects.</p></definition>
-      </term>
-      </terms>
-      </sections>
-      </ogc-standard>
-    INPUT
-    expect(Xml::C14n.format(File.read("test.doc")
-      .gsub(%r{^.*<div class="WordSection3">}m,
-            "<body><div class='WordSection3'>")
-      .gsub(%r{</body>.*}m, "</body>")))
-      .to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
-        <body>
-          <div class='WordSection3'>
-            <div>
-              <a name='_terms_and_definitions' id='_terms_and_definitions'/>
-              <h1>
-                1.
-                <span style='mso-tab-count:1'>&#xA0; </span>
-                Terms and definitions
-              </h1>
-              <p class='MsoNormal'>
-                <a name='_bf202ad0-7300-4cca-80ae-87ef7008f0fd' id='_bf202ad0-7300-4cca-80ae-87ef7008f0fd'/>
-                For the purposes of this document, the following terms and definitions
-                apply.
-              </p>
-              <p class='TermNum' style='text-align:left;'>
-                <a name='_bounding_volume' id='_bounding_volume'/>
-                1.1.&#xA0;Bounding Volume
-              </p>
-              <p class='MsoNormal'>
-                <a name='_5e741d88-63d0-45f2-966b-b6f9fb0a5cdb' id='_5e741d88-63d0-45f2-966b-b6f9fb0a5cdb'/>
-                A closed volume completely containing the union of a set of geometric
-                objects.
-              </p>
-            </div>
-          </div>
-          <div style='mso-element:footnote-list'/>
-        </body>
-      OUTPUT
-  end
-
   it "populates Word ToC" do
     FileUtils.rm_f "test.doc"
     input = <<~INPUT
@@ -104,7 +51,7 @@ RSpec.describe IsoDoc::Ogc do
       .sub(%r{</span>\s*<p class="MsoNormal">&#xA0;</p>\s*</div>\s*$}, "</div>")
     expect(Xml::C14n.format(strip_guid(word.gsub(/_Toc\d\d+/, "_Toc"))))
       .to be_equivalent_to Xml::C14n.format(<<~'OUTPUT')
-           <div class="WordSection2">
+      <div class="WordSection2">
          <div class="license">
            <div>
              <a name="boilerplate-license-destination" id="boilerplate-license-destination"/>

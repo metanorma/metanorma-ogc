@@ -236,12 +236,6 @@
 	<xsl:template match="/">
 		<xsl:call-template name="namespaceCheck"/>
 
-		<xsl:variable name="updated_xml_step1">
-			<xsl:apply-templates mode="update_xml_step1"/>
-		</xsl:variable>
-
-		<xsl:for-each select="xalan:nodeset($updated_xml_step1)">
-
 			<fo:root xml:lang="{$lang}">
 				<xsl:variable name="root-style">
 					<root-style xsl:use-attribute-sets="root-style"/>
@@ -591,6 +585,12 @@
 				
 				<xsl:for-each select="xalan:nodeset($updated_xml)/*"> -->
 
+			<xsl:variable name="updated_xml_step1">
+				<xsl:apply-templates mode="update_xml_step1"/>
+			</xsl:variable>
+
+			<xsl:for-each select="xalan:nodeset($updated_xml_step1)">
+
 					<xsl:variable name="updated_xml_with_pages">
 						<xsl:call-template name="processPrefaceAndMainSectionsOGC_items"/>
 					</xsl:variable>
@@ -704,9 +704,10 @@
 
 				<xsl:apply-templates select="//ogc:indexsect" mode="sections"/>
 
-			</fo:root>
+			</xsl:for-each>
 
-		</xsl:for-each>
+		</fo:root>
+
 	</xsl:template>
 
 	<xsl:template name="processPrefaceAndMainSectionsOGC_items">
@@ -3854,7 +3855,7 @@
 		<!-- <xsl:call-template name="insertIndexInSeparatePageSequences"/> -->
 	</xsl:template> <!-- END: insertMainSectionsInSeparatePageSequences -->
 
-  <xsl:template name="insertAnnexAndBibliographyInSeparatePageSequences">
+	<xsl:template name="insertAnnexAndBibliographyInSeparatePageSequences">
 		<xsl:for-each select="/*/*[local-name()='annex'] |           /*/*[local-name()='bibliography']/*[not(@normative='true')] |           /*/*[local-name()='bibliography']/*[local-name()='clause'][*[local-name()='references'][not(@normative='true')]] |          /*/*[local-name()='indexsect']">
 			<xsl:sort select="@displayorder" data-type="number"/>
 			<xsl:choose>
@@ -8102,6 +8103,12 @@
 		<xsl:for-each select="//*[contains(local-name(), '-standard')]/*[local-name() = 'metanorma-extension']/*[local-name() = 'attachment']">
 			<attachment filename="{@name}"/>
 		</xsl:for-each>
+		<xsl:if test="not(//*[contains(local-name(), '-standard')]/*[local-name() = 'metanorma-extension']/*[local-name() = 'attachment'])">
+			<xsl:for-each select="//*[local-name() = 'bibitem'][@hidden = 'true'][*[local-name() = 'uri'][@type = 'attachment']]">
+				<xsl:variable name="attachment_path" select="*[local-name() = 'uri'][@type = 'attachment']"/>
+				<attachment filename="{$attachment_path}"/>
+			</xsl:for-each>
+		</xsl:if>
 	</xsl:variable>
 	<xsl:variable name="pdfAttachmentsList" select="xalan:nodeset($pdfAttachmentsList_)"/>
 
@@ -8114,7 +8121,7 @@
 					<xsl:value-of select="concat(normalize-space(@target), '.pdf')"/>
 				</xsl:when>
 				<!-- link to the PDF attachment -->
-				<xsl:when test="$pdfAttachmentsList//attachment[@filename = current()/@target]">
+				<xsl:when test="@attachment = 'true' and $pdfAttachmentsList//attachment[@filename = current()/@target]">
 					<xsl:value-of select="concat('url(embedded-file:', @target, ')')"/>
 				</xsl:when>
 				<!-- <xsl:when test="starts-with($target_normalized, '_') and contains($target_normalized, '_attachments/') and $pdfAttachmentsList//attachment[@filename = $target_attachment_name]">
@@ -8769,7 +8776,16 @@
 		</xsl:variable>
 		<xsl:variable name="img_src">
 			<xsl:choose>
-				<xsl:when test="not(starts-with(@src, 'data:'))"><xsl:value-of select="concat($basepath, @src)"/></xsl:when>
+				<xsl:when test="not(starts-with(@src, 'data:'))">
+					<xsl:choose>
+						<xsl:when test="@extracted = 'true'"> <!-- added in mn2pdf v1.97 -->
+							<xsl:value-of select="@src"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="concat($basepath, @src)"/>
+						</xsl:otherwise>
+					</xsl:choose>
+				</xsl:when>
 				<xsl:otherwise><xsl:value-of select="@src"/></xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>
@@ -8782,7 +8798,7 @@
 		<!-- <xsl:message>width_effective=<xsl:value-of select="$width_effective"/></xsl:message>
 		<xsl:message>indent_left=<xsl:value-of select="$indent_left"/></xsl:message>
 		<xsl:message>image_width_effective=<xsl:value-of select="$image_width_effective"/> for <xsl:value-of select="ancestor::ogc:p[1]/@id"/></xsl:message> -->
-		<xsl:variable name="scale" select="java:org.metanorma.fop.Util.getImageScale($img_src, $image_width_effective, $height_effective)"/>
+		<xsl:variable name="scale" select="java:org.metanorma.fop.utils.ImageUtils.getImageScale($img_src, $image_width_effective, $height_effective)"/>
 		<xsl:value-of select="$scale"/>
 	</xsl:template>
 
@@ -8801,7 +8817,14 @@
 				<xsl:value-of select="concat('url(file:///',$basepath, $src_png, ')')"/>
 			</xsl:when>
 			<xsl:when test="not(starts-with(@src, 'data:'))">
-				<xsl:value-of select="concat('url(file:///',$basepath, @src, ')')"/>
+				<xsl:choose>
+					<xsl:when test="@extracted = 'true'"> <!-- added in mn2pdf v1.97 -->
+						<xsl:value-of select="concat('url(file:///', @src, ')')"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="concat('url(file:///',$basepath, @src, ')')"/>
+					</xsl:otherwise>
+				</xsl:choose>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:value-of select="@src"/>
@@ -8823,7 +8846,14 @@
 			</xsl:when>
 			<xsl:when test="not(starts-with(@src, 'data:'))">
 				<xsl:variable name="src">
-					<xsl:value-of select="concat('url(file:///',$basepath, @src, ')')"/>
+					<xsl:choose>
+						<xsl:when test="@extracted = 'true'"> <!-- added in mn2pdf v1.97 -->
+							<xsl:value-of select="concat('url(file:///', @src, ')')"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="concat('url(file:///',$basepath, @src, ')')"/>
+						</xsl:otherwise>
+					</xsl:choose>
 				</xsl:variable>
 				<xsl:variable name="file" select="java:java.io.File.new(@src)"/>
 				<xsl:variable name="bufferedImage" select="java:javax.imageio.ImageIO.read($file)"/>
@@ -12780,10 +12810,12 @@
 	<xsl:template match="*[local-name() = 'metanorma-extension']/*[local-name() = 'attachment']" mode="update_xml_step1">
 		<xsl:copy>
 			<xsl:copy-of select="@*"/>
-			<xsl:variable name="name_filepath" select="concat($inputxml_basepath, @name)"/>
-			<xsl:variable name="file_exists" select="normalize-space(java:exists(java:java.io.File.new($name_filepath)))"/>
-			<xsl:if test="$file_exists = 'false'"> <!-- copy attachment content only if file on disk doesnt exist -->
-				<xsl:value-of select="."/>
+			<xsl:if test="1 = 2"> <!-- remove attachment/text(), because attachments added in the template 'addPDFUAmeta' before applying 'update_xml_step1' -->
+				<xsl:variable name="name_filepath" select="concat($inputxml_basepath, @name)"/>
+				<xsl:variable name="file_exists" select="normalize-space(java:exists(java:java.io.File.new($name_filepath)))"/>
+				<xsl:if test="$file_exists = 'false'"> <!-- copy attachment content only if file on disk doesnt exist -->
+					<xsl:value-of select="normalize-space(.)"/>
+				</xsl:if>
 			</xsl:if>
 		</xsl:copy>
 	</xsl:template>
@@ -13656,25 +13688,37 @@
 		</x:xmpmeta>
 		<!-- add attachments -->
 		<xsl:for-each select="//*[contains(local-name(), '-standard')]/*[local-name() = 'metanorma-extension']/*[local-name() = 'attachment']">
-			<xsl:choose>
-				<xsl:when test="normalize-space() != ''">
-					<pdf:embedded-file src="{.}" filename="{@name}"/>
-				</xsl:when>
-				<xsl:otherwise>
-					<!-- _{filename}_attachments -->
-					<!-- <xsl:variable name="url" select="concat('url(file:///',$inputxml_basepath, '_', $inputxml_filename_prefix, '_attachments', '/', @name, ')')"/> -->
-					<xsl:variable name="url" select="concat('url(file:///',$inputxml_basepath , @name, ')')"/>
-					<pdf:embedded-file src="{$url}" filename="{@name}"/>
-				</xsl:otherwise>
-			</xsl:choose>
+			<xsl:variable name="description" select="normalize-space(//*[local-name() = 'bibitem'][@hidden = 'true'][*[local-name() = 'uri'][@type = 'attachment'] = current()/@name]/*[local-name() = 'formattedref'])"/>
+
+			<pdf:embedded-file filename="{@name}">
+				<xsl:attribute name="src">
+					<xsl:choose>
+						<xsl:when test="normalize-space() != ''">
+							<xsl:variable name="src_attachment" select="java:replaceAll(java:java.lang.String.new(.),'(&#13;&#10;|&#13;|&#10;)', '')"/> <!-- remove line breaks -->
+							<xsl:value-of select="$src_attachment"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:variable name="url" select="concat('url(file:///',$inputxml_basepath , @name, ')')"/>
+							<xsl:value-of select="$url"/>
+						</xsl:otherwise>
+					</xsl:choose>
+				</xsl:attribute>
+				<xsl:if test="$description != ''">
+					<xsl:attribute name="description"><xsl:value-of select="$description"/></xsl:attribute>
+				</xsl:if>
+			</pdf:embedded-file>
 		</xsl:for-each>
 		<!-- references to external attachments (no binary-encoded within the Metanorma XML file) -->
 		<xsl:if test="not(//*[contains(local-name(), '-standard')]/*[local-name() = 'metanorma-extension']/*[local-name() = 'attachment'])">
 			<xsl:for-each select="//*[local-name() = 'bibitem'][@hidden = 'true'][*[local-name() = 'uri'][@type = 'attachment']]">
 				<xsl:variable name="attachment_path" select="*[local-name() = 'uri'][@type = 'attachment']"/>
-				<xsl:variable name="url" select="concat('url(file:///',$inputxml_basepath, $attachment_path, ')')"/>
-				<xsl:variable name="filename_embedded" select="substring-after($attachment_path, concat('_', $inputxml_filename_prefix, '_attachments', '/'))"/>
-				<pdf:embedded-file src="{$url}" filename="{$filename_embedded}"/>
+				<xsl:variable name="url" select="concat('url(file:///',$basepath, $attachment_path, ')')"/>
+				<xsl:variable name="description" select="normalize-space(*[local-name() = 'formattedref'])"/>
+				<pdf:embedded-file src="{$url}" filename="{$attachment_path}">
+					<xsl:if test="$description != ''">
+						<xsl:attribute name="description"><xsl:value-of select="$description"/></xsl:attribute>
+					</xsl:if>
+				</pdf:embedded-file>
 			</xsl:for-each>
 		</xsl:if>
 	</xsl:template> <!-- addPDFUAmeta -->
@@ -14052,7 +14096,14 @@
 				<xsl:value-of select="$src"/>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:value-of select="concat('url(file:///',$basepath, $src, ')')"/>
+				<xsl:choose>
+					<xsl:when test="@extracted = 'true'"> <!-- added in mn2pdf v1.97 -->
+						<xsl:value-of select="concat('url(file:///', @src, ')')"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="concat('url(file:///',$basepath, $src, ')')"/>
+					</xsl:otherwise>
+				</xsl:choose>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
