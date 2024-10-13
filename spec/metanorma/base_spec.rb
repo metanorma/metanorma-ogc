@@ -153,6 +153,7 @@ RSpec.describe Metanorma::Ogc do
            <ext>
            <doctype>standard</doctype>
            <subdoctype>conceptual-model</subdoctype>
+           <flavor>ogc</flavor>
            <editorialgroup>
              <committee>TC</committee>
              <subcommittee type="B" number="2">SC</subcommittee>
@@ -321,6 +322,7 @@ RSpec.describe Metanorma::Ogc do
         </copyright>
         <ext>
         <doctype>white-paper</doctype>
+           <flavor>ogc</flavor>
         </ext>
       </bibdata>
       <preface>#{SECURITY.sub('standard', 'document')}</preface>
@@ -2028,6 +2030,7 @@ RSpec.describe Metanorma::Ogc do
         <ext>
           <doctype>standard</doctype>
           <subdoctype>implementation</subdoctype>
+           <flavor>ogc</flavor>
         </ext>
       </bibdata>
     OUTPUT

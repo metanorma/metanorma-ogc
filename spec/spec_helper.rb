@@ -242,6 +242,7 @@ BLANK_HDR = <<~"HDR".freeze
     <ext>
     <doctype>standard</doctype>
     <subdoctype>implementation</subdoctype>
+    <flavor>ogc</flavor>
     </ext>
   </bibdata>
   #{METANORMA_EXTENSION}

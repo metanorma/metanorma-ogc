@@ -205,6 +205,7 @@ module Metanorma
       def metadata_ext(node, xml)
         metadata_doctype(node, xml)
         metadata_subdoctype(node, xml)
+        metadata_flavor(node, xml)
         metadata_committee(node, xml)
       end
     end
