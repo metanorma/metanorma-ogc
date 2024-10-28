@@ -201,13 +201,6 @@ module Metanorma
         a = node.attr("abbrev") and
           xml.title a, **attr_code(at)
       end
-
-      def metadata_ext(node, xml)
-        metadata_doctype(node, xml)
-        metadata_subdoctype(node, xml)
-        metadata_flavor(node, xml)
-        metadata_committee(node, xml)
-      end
     end
   end
 end
