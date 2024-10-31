@@ -78,7 +78,7 @@ RSpec.describe IsoDoc::Ogc do
         <td colspan='2'>
           <p id='_'>The measurement target shall be measured as:</p>
           <formula id='_'>
-            <name>1</name>
+            <name>(1)</name>
             <stem type='AsciiMath'>r/1 = 0</stem>
           </formula>
         </td>
@@ -150,7 +150,7 @@ RSpec.describe IsoDoc::Ogc do
                    <td colspan="2">
                      <p id='_'>The measurement target shall be measured as:</p>
                      <formula id='_'>
-                       <name>1</name>
+                       <name>(1)</name>
                        <stem type='AsciiMath'>r/1 = 0</stem>
                      </formula>
                    </td>
@@ -416,7 +416,6 @@ RSpec.describe IsoDoc::Ogc do
     xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
-    xml.at("//xmlns:metanorma-extension/xmlns:render").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
@@ -470,7 +469,6 @@ RSpec.describe IsoDoc::Ogc do
     xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
-    xml.at("//xmlns:metanorma-extension/xmlns:render").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
@@ -524,7 +522,6 @@ RSpec.describe IsoDoc::Ogc do
     xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
-    xml.at("//xmlns:metanorma-extension/xmlns:render").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
@@ -577,7 +574,6 @@ RSpec.describe IsoDoc::Ogc do
     xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
-    xml.at("//xmlns:metanorma-extension/xmlns:render").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
@@ -630,7 +626,6 @@ RSpec.describe IsoDoc::Ogc do
     xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
-    xml.at("//xmlns:metanorma-extension/xmlns:render").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
@@ -708,7 +703,6 @@ RSpec.describe IsoDoc::Ogc do
     xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
-    xml.at("//xmlns:metanorma-extension/xmlns:render").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
@@ -811,7 +805,7 @@ RSpec.describe IsoDoc::Ogc do
     expect(html).to match(%r{Overpass})
   end
 
-  it "processes preprocessing XSLT" do
+  it "processes notes" do
     input = <<~INPUT
       <iso-standard xmlns="https://www.metanorma.org/ns/ogc">
       <bibdata/>
@@ -833,27 +827,13 @@ RSpec.describe IsoDoc::Ogc do
                      <bibdata/>
                <metanorma-extension>
                #{METANORMA_EXTENSION.gsub(%r{</?metanorma-extension>}, '')}
-                 <render>
-                 <preprocess-xslt>
-        <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:mn="https://www.metanorma.org/ns/ogc" version="1.0">
-          <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no"/>
-          <xsl:preserve-space elements="*"/>
-          <xsl:template match="@* | node()">
-            <xsl:copy><xsl:apply-templates select="@* | node()"/></xsl:copy>
-          </xsl:template>
-          <xsl:template match="mn:note/mn:name">
-            <xsl:copy><xsl:apply-templates select="@*|node()"/><xsl:if test="normalize-space() != ''">:<mn:tab/></xsl:if></xsl:copy>
-          </xsl:template>
-        </xsl:stylesheet>
-      </preprocess-xslt>
-                 </render>
                </metanorma-extension>
               <preface>
                   <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
                 <foreword id="A" displayorder="2">
                   <title>I.</title>
                   <note id="B">
-                    <name>NOTE</name>
+                    <name>NOTE:<tab/></name>
                     <p>Hello</p>
                   </note>
                 </foreword>
@@ -866,7 +846,7 @@ RSpec.describe IsoDoc::Ogc do
                     Clause
                   </title>
                   <note id="D">
-                    <name>NOTE</name>
+                    <name>NOTE:<tab/></name>
                     <p>Hello</p>
                   </note>
                 </clause>
@@ -1025,9 +1005,6 @@ RSpec.describe IsoDoc::Ogc do
             <div id="figureA-1" class="figure hidable" style="page-break-after: avoid;page-break-inside: avoid;">
                <img src="data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7" height="20" width="20"/>
                <img src="data:application/xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+Cjw/eG1sLXN0eWxlc2hlZXQgdHlwZT0idGV4dC94c2wiIGhyZWY9Ii4uLy4uLy4uL3hzbC9yZXNfZG9jL2ltZ2ZpbGUueHNsIj8+CjwhRE9DVFlQRSBpbWdmaWxlLmNvbnRlbnQgU1lTVEVNICIuLi8uLi8uLi9kdGQvdGV4dC5lbnQiPgo8aW1nZmlsZS5jb250ZW50IG1vZHVsZT0iZnVuZGFtZW50YWxzX29mX3Byb2R1Y3RfZGVzY3JpcHRpb25fYW5kX3N1cHBvcnQiIGZpbGU9ImFjdGlvbl9zY2hlbWFleHBnMS54bWwiPgo8aW1nIHNyYz0iYWN0aW9uX3NjaGVtYWV4cGcxLmdpZiI+CjxpbWcuYXJlYSBzaGFwZT0icmVjdCIgY29vcmRzPSIyMTAsMTg2LDM0MywyMjciIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9iYXNpY19hdHRyaWJ1dGVfc2NoZW1hL2Jhc2ljX2F0dHJpYnV0ZV9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMTAsMTAsOTYsNTEiIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9hY3Rpb25fc2NoZW1hL2FjdGlvbl9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMjEwLDI2NCwzNTgsMzA1IiBocmVmPSIuLi8uLi9yZXNvdXJjZXMvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEueG1sIiAvPgo8L2ltZz4KPC9pbWdmaWxlLmNvbnRlbnQ+Cg==" height="20" width="0"/>
-               <p style="page-break-after:avoid;">
-                  <b>Key</b>
-               </p>
                <div class="figdl">
                   <dl>
                      <dt>

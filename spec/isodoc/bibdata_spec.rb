@@ -90,7 +90,7 @@ RSpec.describe IsoDoc::Ogc do
     xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
-    xml.at("//xmlns:metanorma-extension").remove
+    xml.at("//xmlns:metanorma-extension")&.remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
   end
@@ -128,7 +128,7 @@ RSpec.describe IsoDoc::Ogc do
     xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
-    xml.at("//xmlns:metanorma-extension").remove
+    xml.at("//xmlns:metanorma-extension")&.remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
   end
@@ -168,7 +168,7 @@ RSpec.describe IsoDoc::Ogc do
     xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
-    xml.at("//xmlns:metanorma-extension").remove
+    xml.at("//xmlns:metanorma-extension")&.remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
   end
@@ -208,7 +208,7 @@ RSpec.describe IsoDoc::Ogc do
     xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
-    xml.at("//xmlns:metanorma-extension").remove
+    xml.at("//xmlns:metanorma-extension")&.remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
   end
@@ -256,7 +256,6 @@ RSpec.describe IsoDoc::Ogc do
     OUTPUT
     xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
           .convert("test", input, true))
-    xml.at("//xmlns:metanorma-extension/xmlns:render").remove
     xml.at("//xmlns:localized-strings").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
@@ -324,7 +323,6 @@ RSpec.describe IsoDoc::Ogc do
     OUTPUT
     xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
           .convert("test", input, true))
-    xml.at("//xmlns:metanorma-extension/xmlns:render").remove
     xml.at("//xmlns:localized-strings").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
@@ -409,7 +407,6 @@ RSpec.describe IsoDoc::Ogc do
     OUTPUT
     xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
           .convert("test", input, true))
-    xml.at("//xmlns:metanorma-extension/xmlns:render").remove
     xml.at("//xmlns:localized-strings").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
@@ -528,7 +525,6 @@ RSpec.describe IsoDoc::Ogc do
     OUTPUT
     xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
           .convert("test", input, true))
-    xml.at("//xmlns:metanorma-extension/xmlns:render").remove
     xml.at("//xmlns:localized-strings").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
@@ -862,7 +858,7 @@ RSpec.describe IsoDoc::Ogc do
     xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
-    xml.at("//xmlns:metanorma-extension").remove
+    xml.at("//xmlns:metanorma-extension")&.remove
     xml.at("//xmlns:bibdata").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)

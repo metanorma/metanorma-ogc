@@ -295,6 +295,6 @@ HDR
 
 def mock_pdf
   allow(Mn2pdf).to receive(:convert) do |url, output, _c, _d|
-    FileUtils.cp(url.gsub('"', ""), output.gsub('"', ""))
+    FileUtils.cp(url.delete('"'), output.delete('"'))
   end
 end

@@ -48,7 +48,7 @@ RSpec.describe IsoDoc::Ogc do
     xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
-    xml.at("//xmlns:metanorma-extension").remove
+    xml.at("//xmlns:metanorma-extension")&.remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
   end
@@ -104,7 +104,7 @@ RSpec.describe IsoDoc::Ogc do
     xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
-    xml.at("//xmlns:metanorma-extension").remove
+    xml.at("//xmlns:metanorma-extension")&.remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
   end
@@ -245,7 +245,6 @@ RSpec.describe IsoDoc::Ogc do
     xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
-    xml.at("//xmlns:metanorma-extension/xmlns:render").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     IsoDoc::Ogc::HtmlConvert.new({ filename: "test" })
@@ -952,7 +951,6 @@ RSpec.describe IsoDoc::Ogc do
     xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
-    xml.at("//xmlns:metanorma-extension/xmlns:render").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml + presxml1)
     expect(Xml::C14n.format(
@@ -1124,7 +1122,6 @@ RSpec.describe IsoDoc::Ogc do
       .convert("test", input.sub("technical-paper", "engineering-report"),
                true))
     xml.at("//xmlns:localized-strings").remove
-    xml.at("//xmlns:metanorma-extension/xmlns:render").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(
         presxml.sub("technical-paper", "engineering-report") + presxml1,

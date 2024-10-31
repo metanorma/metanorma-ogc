@@ -207,6 +207,10 @@ module IsoDoc
         b["unnumbered"] = true
       end
 
+      def note_delim(_elem)
+        ":<tab/>"
+      end
+
       include Init
     end
   end
