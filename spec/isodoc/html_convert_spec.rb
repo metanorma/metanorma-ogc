@@ -588,6 +588,9 @@ RSpec.describe IsoDoc::Ogc do
       <bibdata/>
        #{METANORMA_EXTENSION}
           <preface><foreword id="A">
+                   <title depth="1">
+            Preface
+         </title>
                 <example id="_"><p id="_">This is an example</p>
       <p id="_">Amen</p></example>
           </foreword></preface>
@@ -599,7 +602,11 @@ RSpec.describe IsoDoc::Ogc do
        #{METANORMA_EXTENSION}
         <preface>
          <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
-          <foreword id='A' displayorder="2"><title>I.</title>
+          <foreword id='A' displayorder="2">         <title depth="1">
+            I.
+            <tab/>
+            Preface
+         </title>
             <example id='_'>
               <name>Example</name>
               <p id='_'>This is an example</p>
@@ -611,10 +618,14 @@ RSpec.describe IsoDoc::Ogc do
     OUTPUT
 
     html = <<~OUTPUT
-              #{HTML_HDR}
+      #{HTML_HDR}
               <br/>
             <div id="A">
-              <h1 class="ForewordTitle">I.</h1>
+                     <h1 class="ForewordTitle">
+          I.
+           
+          Preface
+      </h1>
               <p class='SourceTitle' style='text-align:center;'>Example </p>
               <div id="_" class="example">
       <p id="_">This is an example</p>
@@ -655,7 +666,11 @@ RSpec.describe IsoDoc::Ogc do
              <title depth="1">Contents</title>
            </clause>
            <foreword id="A" displayorder="2">
-             <title>I.</title>
+                    <title depth="1">
+            I.
+            <tab/>
+            Preface
+         </title>
              <figure id="B">
                <name>Figure 1</name>
                <p id="_">This is an example</p>
@@ -677,7 +692,11 @@ RSpec.describe IsoDoc::Ogc do
       #{HTML_HDR}
               <br/>
               <div id="A">
-             <h1 class="ForewordTitle">I.</h1>
+         <h1 class="ForewordTitle">
+      I.
+       
+      Preface
+   </h1>
              <div id="B" class="figure">
                <p id="_">This is an example</p>
              </div>
@@ -831,7 +850,11 @@ RSpec.describe IsoDoc::Ogc do
               <preface>
                   <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
                 <foreword id="A" displayorder="2">
-                  <title>I.</title>
+                         <title depth="1">
+            I.
+            <tab/>
+            Preface
+         </title>
                   <note id="B">
                     <name>NOTE:<tab/></name>
                     <p>Hello</p>
@@ -858,7 +881,13 @@ RSpec.describe IsoDoc::Ogc do
         <div class="TOC" id="_">
           <h1 class="IntroTitle">Contents</h1>
         </div>
-        <br/><div id="A"><h1 class="ForewordTitle">I.</h1><div id="B" class="Note"><p><span class="note_label">NOTE:  </span>  Hello</p></div></div><div id="C"><h1>
+        <br/><div id="A">
+                 <h1 class="ForewordTitle">
+      I.
+       
+      Preface
+   </h1>
+        <div id="B" class="Note"><p><span class="note_label">NOTE:  </span>  Hello</p></div></div><div id="C"><h1>
           1.
            
           Clause
@@ -872,7 +901,7 @@ RSpec.describe IsoDoc::Ogc do
       <p class="page-break">
        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
       </p>
-        <div id="A"><h1 class="ForewordTitle">I.</h1><div id="B" class="Note"><p class="Note"><span class="note_label">NOTE:<span style="mso-tab-count:1">  </span></span><span style="mso-tab-count:1">  </span>Hello</p></div></div><p> </p></div><p class="section-break"><br clear="all" class="section"/></p><div class="WordSection3"><div id="C"><h1>
+        <div id="A"><h1 class="ForewordTitle">I.<span style="mso-tab-count:1">  </span>Preface</h1><div id="B" class="Note"><p class="Note"><span class="note_label">NOTE:<span style="mso-tab-count:1">  </span></span><span style="mso-tab-count:1">  </span>Hello</p></div></div><p> </p></div><p class="section-break"><br clear="all" class="section"/></p><div class="WordSection3"><div id="C"><h1>
           1.
           <span style="mso-tab-count:1">  </span>
           Clause
