@@ -36,8 +36,8 @@ module IsoDoc
         h2 = term.at("./preceding-sibling::*[@class = 'TermNum'][1]")
         term["class"] = h2["class"]
         term["id"] = h2["id"]
-        term.children.first.previous = "&#xa0;"
-        term.children.first.previous = h2.remove.children
+        term.add_first_child "&#xa0;"
+        term.add_first_child h2.remove.children
       end
 
       def term_cleanup_merge_admitted(term)
