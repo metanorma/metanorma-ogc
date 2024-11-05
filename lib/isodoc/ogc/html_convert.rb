@@ -169,7 +169,7 @@ module IsoDoc
                             encoding: "UTF-8")
         "#{a[0]}#{scripts}#{a[1]}"
       end
-        
+
       # to pass on to imported _coverpage.scss
       def scss_fontheader(is_html_css)
         super + <<~SCSS
