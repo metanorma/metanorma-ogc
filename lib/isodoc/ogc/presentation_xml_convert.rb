@@ -211,6 +211,20 @@ module IsoDoc
         ":<tab/>"
       end
 
+      def reference_name(ref)
+        super
+        ogc_draft_ref?(ref) or return
+        @xrefs.get[ref["id"]] =
+          { xref: "#{@xrefs.get[ref['id']][:xref]} (draft)" }
+      end
+
+      def ogc_draft_ref?(ref)
+        ref.at(ns("./docidentifier[@type = 'OGC']")) or return
+        status = ref.at(ns("./status/stage"))&.text or return
+        %w(approved published deprecated retired).include? status and return
+        true
+      end
+
       include Init
     end
   end

@@ -11,7 +11,7 @@ module IsoDoc
       end
 
       def xref_init(lang, script, _klass, labels, options)
-        html = PresentationXMLConvert.new(language: lang, script: script)
+        html = HtmlConvert.new(language: lang, script: script)
         @xrefs = Xref.new(lang, script, html, labels, options)
       end
 
@@ -31,15 +31,6 @@ module IsoDoc
 
       def submittingorgs_path
         "//bibdata/contributor[role/@type = 'author']/organization/name"
-      end
-
-      def ogc_draft_ref?(ref)
-        return unless ref.at(ns("./docidentifier[@type = 'OGC']"))
-
-        status = ref.at(ns("./status/stage"))&.text or return
-        return if %w(approved published deprecated retired).include? status
-
-        true
       end
     end
   end

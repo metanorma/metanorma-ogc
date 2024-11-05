@@ -91,13 +91,6 @@ module IsoDoc
         end
       end
 
-      def reference_names(ref)
-        super
-        return unless @klass.ogc_draft_ref?(ref)
-
-        @anchors[ref["id"]] = { xref: "#{@anchors[ref['id']][:xref]} (draft)" }
-      end
-
       def sequential_permission_body(id, block, label, klass, model,
 container: false)
         @anchors[block["id"]] = model.postprocess_anchor_struct(
