@@ -67,6 +67,7 @@ RSpec.describe IsoDoc::Ogc do
     INPUT
     output = <<~OUTPUT
       <foreword displayorder='2'>
+      <title depth="1">Preface</title>
         <p>
           <xref target='N1'>Introduction, a)</xref>
           <xref target='N2'>Clause II.A, 1)</xref>
@@ -152,6 +153,7 @@ RSpec.describe IsoDoc::Ogc do
     INPUT
     output = <<~OUTPUT
       <foreword displayorder='2'>
+      <title depth="1">Preface</title>
         <p>
           <xref target='N1'>Introduction, 1)</xref>
           <xref target='N11'>Introduction, 1) 1)</xref>
@@ -208,6 +210,7 @@ RSpec.describe IsoDoc::Ogc do
     INPUT
     output = <<~OUTPUT
       <foreword displayorder="2">
+      <title depth="1">Preface</title>
         <p>
           <xref target='A'>Introduction</xref>
           <xref target='B'>Clause II.A</xref>
@@ -334,6 +337,7 @@ RSpec.describe IsoDoc::Ogc do
     INPUT
     output = <<~OUTPUT
           <foreword displayorder='2'>
+          <title depth="1">Preface</title>
             <p>
               <xref target='N1'>Requirement 1</xref>
       <xref target='N2'>Requirement (??)</xref>
@@ -420,6 +424,7 @@ RSpec.describe IsoDoc::Ogc do
     INPUT
     output = <<~OUTPUT
           <foreword displayorder='2'>
+          <title depth="1">Preface</title>
             <p>
               <xref target='N1'>Recommendation 1</xref>
       <xref target='N2'>Recommendation (??)</xref>
@@ -506,6 +511,7 @@ RSpec.describe IsoDoc::Ogc do
     INPUT
     output = <<~OUTPUT
                  <foreword displayorder='2'>
+                 <title depth="1">Preface</title>
                    <p>
                      <xref target='N1'>Permission 1</xref>
       <xref target='N2'>Permission (??)</xref>
@@ -575,6 +581,7 @@ RSpec.describe IsoDoc::Ogc do
     INPUT
     output = <<~OUTPUT
                 <foreword displayorder='2'>
+                <title depth="1">Preface</title>
                   <p>
                      <xref target='N1'>Permission 1</xref>
       <xref target='N2'>Permission 1-1</xref>
@@ -704,7 +711,11 @@ RSpec.describe IsoDoc::Ogc do
     INPUT
     output = <<~OUTPUT
       <foreword id="fwd" displayorder="2">
-         <title>I.</title>
+            <title depth="1">
+       I.
+       <tab/>
+       Preface
+      </title>
          <p>
            <xref target="N1">Figure 1</xref>
            <xref target="N2">Figure (??)</xref>

@@ -153,7 +153,7 @@ module IsoDoc
       end
 
       def bibliography_bibitem_number_skip(bibitem)
-        @xrefs.klass.implicit_reference(bibitem) ||
+        implicit_reference(bibitem) ||
           bibitem.at(ns(".//docidentifier[@type = 'metanorma-ordinal']")) ||
           bibitem["hidden"] == "true" || bibitem.parent["hidden"] == "true"
       end
@@ -205,6 +205,24 @@ module IsoDoc
         @doctype == "engineering-report" or return
         b = docxml.at(ns(@xrefs.klass.bibliography_xpath)) or return
         b["unnumbered"] = true
+      end
+
+      def note_delim(_elem)
+        ":<tab/>"
+      end
+
+      def reference_name(ref)
+        super
+        ogc_draft_ref?(ref) or return
+        @xrefs.get[ref["id"]] =
+          { xref: "#{@xrefs.get[ref['id']][:xref]} (draft)" }
+      end
+
+      def ogc_draft_ref?(ref)
+        ref.at(ns("./docidentifier[@type = 'OGC']")) or return
+        status = ref.at(ns("./status/stage"))&.text or return
+        %w(approved published deprecated retired).include? status and return
+        true
       end
 
       include Init

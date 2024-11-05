@@ -143,7 +143,6 @@ module IsoDoc
       def figure_parse1(node, out)
         out.div **figure_attrs(node) do |div|
           node.children.each do |n|
-            figure_key(out) if n.name == "dl"
             parse(n, div) unless n.name == "name"
           end
         end
@@ -170,7 +169,7 @@ module IsoDoc
                             encoding: "UTF-8")
         "#{a[0]}#{scripts}#{a[1]}"
       end
-        
+
       # to pass on to imported _coverpage.scss
       def scss_fontheader(is_html_css)
         super + <<~SCSS

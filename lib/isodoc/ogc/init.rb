@@ -32,15 +32,6 @@ module IsoDoc
       def submittingorgs_path
         "//bibdata/contributor[role/@type = 'author']/organization/name"
       end
-
-      def ogc_draft_ref?(ref)
-        return unless ref.at(ns("./docidentifier[@type = 'OGC']"))
-
-        status = ref.at(ns("./status/stage"))&.text or return
-        return if %w(approved published deprecated retired).include? status
-
-        true
-      end
     end
   end
 end
