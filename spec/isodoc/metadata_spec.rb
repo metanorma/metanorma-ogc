@@ -120,7 +120,7 @@ RSpec.describe IsoDoc::Ogc do
       </ogc-standard>
     INPUT
 
-    output = <<~"OUTPUT"
+    output = 
       {:abstract=>"This is a description. This is a blockquote within a description.",
       :accesseddate=>"XXX",
       :adapteddate=>"XXX",
@@ -203,10 +203,9 @@ RSpec.describe IsoDoc::Ogc do
       :vote_endeddate=>"XXX",
       :vote_starteddate=>"XXX",
       :xml=>"http://www.example.com/xml"}
-    OUTPUT
     docxml, = csdc.convert_init(input, "test", true)
-    expect(htmlencode(metadata(csdc.info(docxml, nil)).to_s)
-      .gsub(", :", ",\n:")).to be_equivalent_to output
+    expect(metadata(csdc.info(docxml, nil)))
+      .to be_equivalent_to output
 
     html = <<~HTML
        <meta name="keywords" content="A, B" /><meta name="DC.subject" lang="en" content="A, B" xml:lang="en" /><meta name="description" content="This is a description. This is a blockquote within a description." />
@@ -243,7 +242,7 @@ RSpec.describe IsoDoc::Ogc do
       </bibdata>
       </ogc-standard>
     INPUT
-    output = <<~OUTPUT
+    output = 
       {:accesseddate=>"XXX",
       :adapteddate=>"XXX",
       :announceddate=>"XXX",
@@ -275,10 +274,9 @@ RSpec.describe IsoDoc::Ogc do
       :updateddate=>"XXX",
       :vote_endeddate=>"XXX",
       :vote_starteddate=>"XXX"}
-    OUTPUT
     docxml, = csdc.convert_init(input, "test", true)
-    expect(htmlencode(metadata(csdc.info(docxml, nil)).to_s)
-      .gsub(", :", ",\n:")).to be_equivalent_to output
+    expect(metadata(csdc.info(docxml, nil)))
+      .to be_equivalent_to output
   end
 
   it "uses new logo for invalid data" do
@@ -296,7 +294,7 @@ RSpec.describe IsoDoc::Ogc do
       </bibdata>
       </ogc-standard>
     INPUT
-    output = <<~OUTPUT
+    output = 
       {:accesseddate=>"XXX",
       :adapteddate=>"XXX",
       :announceddate=>"XXX",
@@ -328,9 +326,8 @@ RSpec.describe IsoDoc::Ogc do
       :updateddate=>"XXX",
       :vote_endeddate=>"XXX",
       :vote_starteddate=>"XXX"}
-    OUTPUT
     docxml, = csdc.convert_init(input, "test", true)
-    expect(htmlencode(metadata(csdc.info(docxml, nil)).to_s)
-      .gsub(", :", ",\n:")).to be_equivalent_to output
+    expect(metadata(csdc.info(docxml, nil)))
+      .to be_equivalent_to output
   end
 end
