@@ -254,14 +254,15 @@ RSpec.describe IsoDoc::Ogc do
         </div>
       </body>
     OUTPUT
-    xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
-          .convert("test", input, true))
+    pres_output = IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+          .convert("test", input, true)
+    xml = Nokogiri::XML(pres_output)
     xml.at("//xmlns:localized-strings").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(
              IsoDoc::Ogc::HtmlConvert.new({})
-             .convert("test", presxml, true)
+             .convert("test", pres_output, true)
              .gsub(%r{^.*<body}m, "<body")
              .gsub(%r{</body>.*}m, "</body>"),
            )).to be_equivalent_to Xml::C14n.format(output)
@@ -321,14 +322,15 @@ RSpec.describe IsoDoc::Ogc do
         </div>
       </body>
     OUTPUT
-    xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
-          .convert("test", input, true))
+    pres_output = IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+          .convert("test", input, true)
+    xml = Nokogiri::XML(pres_output)
     xml.at("//xmlns:localized-strings").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(
              IsoDoc::Ogc::HtmlConvert.new({})
-             .convert("test", presxml, true)
+             .convert("test", pres_output, true)
              .gsub(%r{^.*<body}m, "<body")
              .gsub(%r{</body>.*}m, "</body>"),
            )).to be_equivalent_to Xml::C14n.format(output)
@@ -405,13 +407,14 @@ RSpec.describe IsoDoc::Ogc do
           </div>
         </body>
     OUTPUT
-    xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
-          .convert("test", input, true))
+    pres_output = IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+          .convert("test", input, true)
+    xml = Nokogiri::XML(pres_output)
     xml.at("//xmlns:localized-strings").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
-      .convert("test", presxml, true)
+      .convert("test", pres_output, true)
       .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
       .to be_equivalent_to Xml::C14n.format(output)
   end
@@ -523,13 +526,14 @@ RSpec.describe IsoDoc::Ogc do
         </div>
       </body>
     OUTPUT
-    xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
-          .convert("test", input, true))
+    pres_output = IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+          .convert("test", input, true)
+    xml = Nokogiri::XML(pres_output)
     xml.at("//xmlns:localized-strings").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
-      .convert("test", presxml, true)
+      .convert("test", pres_output, true)
       .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
       .to be_equivalent_to Xml::C14n.format(output)
   end
@@ -548,12 +552,12 @@ RSpec.describe IsoDoc::Ogc do
                </bibdata>
       #{METANORMA_EXTENSION}
                <preface>
-                <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
+                <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Contents</fmt-title> </clause>
                <abstract id='A' displayorder="2">
         <title>I.</title>
       </abstract>
                  <clause id="_" type='keywords' displayorder="3">
-                   <title depth='1'>II.<tab/>Keywords</title>
+                   <fmt-title depth='1'>II.<tab/>Keywords</fmt-title>
                    <p>The following are keywords to be used by search engines and document catalogues.</p>
                    <p>ABC, DEF</p>
                  </clause>

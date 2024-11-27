@@ -242,18 +242,19 @@ RSpec.describe IsoDoc::Ogc do
           <div style="mso-element:footnote-list"/>
        </body>
     OUTPUT
-    xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
-          .convert("test", input, true))
+    pres_output = IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+          .convert("test", input, true)
+    xml = Nokogiri::XML(pres_output)
     xml.at("//xmlns:localized-strings").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     IsoDoc::Ogc::HtmlConvert.new({ filename: "test" })
-      .convert("test", presxml, false)
+      .convert("test", pres_output, false)
     xml = Nokogiri::XML(File.read("test.html"))
     xml = xml.at("//div[@id = 'H']")
     expect(Xml::C14n.format(strip_guid(xml.to_xml))).to be_equivalent_to html
     IsoDoc::Ogc::WordConvert.new({ filename: "test" })
-      .convert("test", presxml, false)
+      .convert("test", pres_output, false)
     expect(Xml::C14n.format(File.read("test.doc")
       .gsub(%r{^.*<div class="WordSection3">}m,
             "<body><div class='WordSection3'>")
@@ -948,14 +949,15 @@ RSpec.describe IsoDoc::Ogc do
       </body>
     OUTPUT
 
-    xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
-          .convert("test", input, true))
+    pres_output = IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+          .convert("test", input, true)
+    xml = Nokogiri::XML(pres_output)
     xml.at("//xmlns:localized-strings").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml + presxml1)
     expect(Xml::C14n.format(
              IsoDoc::Ogc::HtmlConvert.new({})
-      .convert("test", presxml + presxml1, true)
+      .convert("test", pres_output, true)
              .gsub(%r{^.*<body}m, "<body")
              .gsub(%r{</body>.*}m, "</body>"),
            )).to be_equivalent_to Xml::C14n.format(output + output1)
@@ -1118,9 +1120,9 @@ RSpec.describe IsoDoc::Ogc do
       </body>
     OUTPUT
 
-    xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
-      .convert("test", input.sub("technical-paper", "engineering-report"),
-               true))
+    pres_output = IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input.sub("technical-paper", "engineering-report"), true)
+    xml = Nokogiri::XML(pres_output)
     xml.at("//xmlns:localized-strings").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(
@@ -1128,8 +1130,7 @@ RSpec.describe IsoDoc::Ogc do
       )
     expect(Xml::C14n.format(
              IsoDoc::Ogc::HtmlConvert.new({})
-      .convert("test", presxml.sub("technical-paper",
-                                   "engineering-report") + presxml1, true)
+      .convert("test", pres_output, true)
              .gsub(%r{^.*<body}m, "<body")
              .gsub(%r{</body>.*}m, "</body>"),
            )).to be_equivalent_to Xml::C14n.format(output + output1)

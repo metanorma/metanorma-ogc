@@ -58,7 +58,7 @@ module IsoDoc
       def submitting_orgs_clause(orgs)
         <<~SUBMITTING
           <clause id="_#{UUIDTools::UUID.random_create}" type="submitting_orgs">
-          <title>Submitting Organizations</title>
+          <fmt-title>Submitting Organizations</fmt-title>
           <p>The following organizations submitted this Document to the Open Geospatial Consortium (OGC):</p>
            <ul>#{orgs.map { |m| "<li>#{m}</li>" }.join("\n")}</ul>
            </clause>
@@ -68,7 +68,7 @@ module IsoDoc
       def keyword_clause(kwords)
         <<~KEYWORDS
           <clause id="_#{UUIDTools::UUID.random_create}" type="keywords">
-          <title>Keywords</title>
+          <fmt-title>Keywords</fmt-title>
           <p>The following are keywords to be used by search engines and document catalogues.</p>
           <p>#{kwords.join(', ')}</p></clause>
         KEYWORDS
@@ -91,7 +91,7 @@ module IsoDoc
         lbl = @xrefs.anchor(elem["id"], :label)
         t = elem.at(ns("./title")) and
           t.children = "<strong>#{to_xml(t.children)}</strong>"
-        prefix_name(elem, "<br/>", lbl, "title")
+        prefix_name(elem, { caption: "<br/>" }, lbl, "title")
       end
 
       def clause(docxml)

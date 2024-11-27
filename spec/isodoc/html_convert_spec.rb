@@ -6,8 +6,8 @@ RSpec.describe IsoDoc::Ogc do
       <ogc-standard xmlns="#{Metanorma::Ogc::DOCUMENT_NAMESPACE}">
        #{METANORMA_EXTENSION}
       <preface>
-      <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
-      <foreword id="A" displayorder="2"><title>Preface</title>
+      <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Contents</fmt-title> </clause>
+      <foreword id="A" displayorder="2"><fmt-title>Preface</fmt-title>
       <pre>ABC</pre>
       </foreword></preface>
       </ogc-standard>
@@ -38,9 +38,9 @@ RSpec.describe IsoDoc::Ogc do
       <bibdata/>
        #{METANORMA_EXTENSION}
            <preface>
-            <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
+            <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Contents</fmt-title> </clause>
              <foreword id='A' displayorder="2">
-               <title depth='1'>I.<tab/>Preface</title>
+               <fmt-title depth='1'>I.<tab/>Preface</fmt-title>
                                <table id="A1" class="modspec" type="recommend">
             <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Permission 1</p></th></tr></thead>
             <tbody>
@@ -413,13 +413,14 @@ RSpec.describe IsoDoc::Ogc do
             </div>
           </body>
     OUTPUT
-    xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
-          .convert("test", input, true))
+    pres_output = IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+          .convert("test", input, true)
+    xml = Nokogiri::XML(pres_output)
     xml.at("//xmlns:localized-strings").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
-      .convert("test", presxml, true)
+      .convert("test", pres_output, true)
       .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
       .to be_equivalent_to Xml::C14n.format(html)
   end
@@ -466,13 +467,14 @@ RSpec.describe IsoDoc::Ogc do
             </div>
           </body>
     OUTPUT
-    xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
-          .convert("test", input, true))
+    pres_output = IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+          .convert("test", input, true)
+    xml = Nokogiri::XML(pres_output)
     xml.at("//xmlns:localized-strings").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
-      .convert("test", presxml, true)
+      .convert("test", pres_output, true)
       .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
       .to be_equivalent_to Xml::C14n.format(html)
   end
@@ -519,13 +521,14 @@ RSpec.describe IsoDoc::Ogc do
             </div>
           </body>
     OUTPUT
-    xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
-          .convert("test", input, true))
+    pres_output = IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+          .convert("test", input, true)
+    xml = Nokogiri::XML(pres_output)
     xml.at("//xmlns:localized-strings").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
-      .convert("test", presxml, true)
+      .convert("test", pres_output, true)
       .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
       .to be_equivalent_to Xml::C14n.format(html)
   end
@@ -571,13 +574,14 @@ RSpec.describe IsoDoc::Ogc do
           </div>
         </body>
     OUTPUT
-    xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
-          .convert("test", input, true))
+    pres_output = IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+          .convert("test", input, true)
+    xml = Nokogiri::XML(pres_output)
     xml.at("//xmlns:localized-strings").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
-      .convert("test", presxml, true)
+      .convert("test", pres_output, true)
       .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
       .to be_equivalent_to Xml::C14n.format(html)
   end
@@ -634,13 +638,14 @@ RSpec.describe IsoDoc::Ogc do
           </div>
         </body>
     OUTPUT
-    xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
-          .convert("test", input, true))
+    pres_output = IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+          .convert("test", input, true)
+    xml = Nokogiri::XML(pres_output)
     xml.at("//xmlns:localized-strings").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
-      .convert("test", presxml, true)
+      .convert("test", pres_output, true)
       .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
       .to be_equivalent_to Xml::C14n.format(html)
   end
@@ -719,13 +724,14 @@ RSpec.describe IsoDoc::Ogc do
          </div>
        </body>
     OUTPUT
-    xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
-          .convert("test", input, true))
+    pres_output = IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+          .convert("test", input, true)
+    xml = Nokogiri::XML(pres_output)
     xml.at("//xmlns:localized-strings").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
-      .convert("test", presxml, true)
+      .convert("test", pres_output, true)
       .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
       .to be_equivalent_to Xml::C14n.format(html)
   end
@@ -734,8 +740,8 @@ RSpec.describe IsoDoc::Ogc do
     presxml = <<~INPUT
           <iso-standard xmlns="http://riboseinc.com/isoxml">
            #{METANORMA_EXTENSION}
-          <preface> <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
-        <foreword id="A" displayorder="2"><title>Preface</title>
+          <preface> <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Contents</fmt-title> </clause>
+        <foreword id="A" displayorder="2"><fmt-title>Preface</fmt-title>
       <p id="_">Amen <hi>highlight</hi> Amen</p>
           </foreword></preface>
           </iso-standard>
@@ -907,18 +913,19 @@ RSpec.describe IsoDoc::Ogc do
           Clause
         </h1><div id="D" class="Note"><p class="Note"><span class="note_label">NOTE:<span style="mso-tab-count:1">  </span></span><span style="mso-tab-count:1">  </span>Hello</p></div></div></div></body>
     OUTPUT
-    xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
-          .convert("test", input, true))
+    pres_output = IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+          .convert("test", input, true)
+    xml = Nokogiri::XML(pres_output)
     xml.at("//xmlns:localized-strings").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(
-             IsoDoc::Ogc::HtmlConvert.new({}).convert("test", presxml, true)
+             IsoDoc::Ogc::HtmlConvert.new({}).convert("test", pres_output, true)
              .gsub(%r{^.*<body}m, "<body")
              .gsub(%r{</body>.*}m, "</body>"),
            )).to be_equivalent_to Xml::C14n.format(html)
     expect(Xml::C14n.format(
-             IsoDoc::Ogc::WordConvert.new({}).convert("test", presxml, true)
+             IsoDoc::Ogc::WordConvert.new({}).convert("test", pres_output, true)
              .gsub(%r{^.*<body}m, "<body")
       .gsub(%r{</body>.*}m, "</body>"),
            )).to be_equivalent_to Xml::C14n.format(word)
@@ -931,10 +938,10 @@ RSpec.describe IsoDoc::Ogc do
         <preface>
       <foreword displayorder="1" id="A">
             <sourcecode lang='ruby' id='samplecode'>
-              <name>
+              <fmt-name>
                 Figure 1&#xA0;&#x2014; Ruby
                 <em>code</em>
-              </name>
+              </fmt-name>
                puts x
             </sourcecode>
             <sourcecode unnumbered='true' linenums="true">Hey
@@ -991,11 +998,11 @@ RSpec.describe IsoDoc::Ogc do
          #{METANORMA_EXTENSION}
             <preface>
       <clause type="toc" id="_" displayorder="1">
-        <title depth="1">Table of contents</title>
+        <fmt-title depth="1">Table of contents</fmt-title>
       </clause>
             <foreword displayorder="2" id="A">
             <figure id="figureA-1" keep-with-next="true" keep-lines-together="true">
-          <name>Figure 1&#xA0;&#x2014; Split-it-right <em>sample</em> divider<fn reference="1"><p>X</p></fn></name>
+          <fmt-name>Figure 1&#xA0;&#x2014; Split-it-right <em>sample</em> divider<fn reference="1"><p>X</p></fn></fmt-name>
           <image src="data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7" height="20" width="auto" id="_" mimetype="image/png"/>
           <image src='data:application/xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+Cjw/eG1sLXN0eWxlc2hlZXQgdHlwZT0idGV4dC94c2wiIGhyZWY9Ii4uLy4uLy4uL3hzbC9yZXNfZG9jL2ltZ2ZpbGUueHNsIj8+CjwhRE9DVFlQRSBpbWdmaWxlLmNvbnRlbnQgU1lTVEVNICIuLi8uLi8uLi9kdGQvdGV4dC5lbnQiPgo8aW1nZmlsZS5jb250ZW50IG1vZHVsZT0iZnVuZGFtZW50YWxzX29mX3Byb2R1Y3RfZGVzY3JpcHRpb25fYW5kX3N1cHBvcnQiIGZpbGU9ImFjdGlvbl9zY2hlbWFleHBnMS54bWwiPgo8aW1nIHNyYz0iYWN0aW9uX3NjaGVtYWV4cGcxLmdpZiI+CjxpbWcuYXJlYSBzaGFwZT0icmVjdCIgY29vcmRzPSIyMTAsMTg2LDM0MywyMjciIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9iYXNpY19hdHRyaWJ1dGVfc2NoZW1hL2Jhc2ljX2F0dHJpYnV0ZV9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMTAsMTAsOTYsNTEiIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9hY3Rpb25fc2NoZW1hL2FjdGlvbl9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMjEwLDI2NCwzNTgsMzA1IiBocmVmPSIuLi8uLi9yZXNvdXJjZXMvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEueG1sIiAvPgo8L2ltZz4KPC9pbWdmaWxlLmNvbnRlbnQ+Cg==' height='20' width='auto' id='_' mimetype='application/xml'/>
           <dl>
@@ -1005,7 +1012,7 @@ RSpec.describe IsoDoc::Ogc do
           <source status="generalisation">[SOURCE: <xref target="ISO712" type="inline">ISO&#xa0;712, Section 1</xref> &#x2014; with adjustments ; <xref type="inline" target="ISO712">ISO 712, Section 2</xref>]</source>
         </figure>
         <figure id="figure-B">
-        <name>Figure 2</name>
+        <fmt-name>Figure 2</fmt-name>
         <pre alt="A B">A &#x3c;
         B</pre>
         </figure>

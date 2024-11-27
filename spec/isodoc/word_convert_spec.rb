@@ -388,7 +388,7 @@ RSpec.describe IsoDoc::Ogc do
   it "processes modspec permissions" do
     presxml = <<~OUTPUT
       <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
-                <preface><foreword id="A" displayorder="1"><title>Preface</title>
+                <preface><foreword id="A" displayorder="1"><fmt-title>Preface</fmt-title>
                 <table id="A1" class="modspec" type="recommend">
             <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Permission 1</p></th></tr></thead>
             <tbody>

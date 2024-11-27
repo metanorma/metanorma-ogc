@@ -19,10 +19,10 @@ module IsoDoc
 
       def intro_clause(elem, out)
         out.div class: "Section3", id: elem["id"] do |div|
-          clause_name(elem, elem&.at(ns("./title")), div,
+          clause_name(elem, elem&.at(ns("./fmt-title")), div,
                       class: "IntroTitle")
           elem.elements.each do |e|
-            parse(e, div) unless e.name == "title"
+            parse(e, div) unless e.name == "fmt-title"
           end
         end
       end
@@ -30,10 +30,10 @@ module IsoDoc
       def abstract(clause, out)
         page_break(out)
         out.div **attr_code(id: clause["id"]) do |s|
-          clause_name(clause, clause.at(ns("./title")), s,
+          clause_name(clause, clause.at(ns("./fmt-title")), s,
                       class: "AbstractTitle")
           clause.elements.each do |e|
-            parse(e, s) unless e.name == "title"
+            parse(e, s) unless e.name == "fmt-title"
           end
         end
       end
@@ -41,10 +41,10 @@ module IsoDoc
       def foreword(clause, out)
         page_break(out)
         out.div **attr_code(id: clause["id"]) do |s|
-          clause_name(clause, clause&.at(ns("./title")), s,
+          clause_name(clause, clause&.at(ns("./fmt-title")), s,
                       class: "ForewordTitle")
           clause.elements.each do |e|
-            parse(e, s) unless e.name == "title"
+            parse(e, s) unless e.name == "fmt-title"
           end
         end
       end

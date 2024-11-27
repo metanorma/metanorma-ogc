@@ -20,8 +20,9 @@ module IsoDoc
         File.read(File.join(@libdir, "html", "rouge.css"))
       end
 
-      def example1(elem)
-        lbl = @xrefs.anchor(elem["id"], :label, false) or return
+      # KILL
+      def example1x(elem)
+        lbl = @xrefs.anchor(elem["id"], :label, false)
         prefix_name(elem, block_delim, l10n("#{@i18n.example} #{lbl}"),
                     "name")
       end
@@ -54,7 +55,7 @@ module IsoDoc
         ret = updates.map { |u| generate_dochistory_row(u) }.flatten.join("\n")
         pref.next = <<~XML
           <annex id='_#{UUIDTools::UUID.random_create}' obligation='informative'>
-          <title>#{@i18n.dochistory}</title>
+          <fmt-title>#{@i18n.dochistory}</fmt-title>
           <table><thead>
           <tr><th>Date</th><th>Release</th><th>Author</th><th>Paragraph Modified</th><th>Description</th></tr>
           </thead><tbody>
