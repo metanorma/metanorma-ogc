@@ -24,12 +24,12 @@ RSpec.describe IsoDoc::Ogc do
            </body>
     OUTPUT
 
-    expect(Xml::C14n.format(
+    expect(Xml::C14n.format(strip_guid(
              IsoDoc::Ogc::HtmlConvert.new({})
              .convert("test", input, true)
              .gsub(%r{^.*<body}m, "<body")
              .gsub(%r{</body>.*}m, "</body>"),
-           )).to be_equivalent_to output
+    ))).to be_equivalent_to output
   end
 
   it "processes requirement and requirement test" do
@@ -78,7 +78,7 @@ RSpec.describe IsoDoc::Ogc do
         <td colspan='2'>
           <p id='_'>The measurement target shall be measured as:</p>
           <formula id='_'>
-            <name>(1)</name>
+            <fmt-name>(1)</fmt-name>
             <stem type='AsciiMath'>r/1 = 0</stem>
           </formula>
         </td>
@@ -150,7 +150,7 @@ RSpec.describe IsoDoc::Ogc do
                    <td colspan="2">
                      <p id='_'>The measurement target shall be measured as:</p>
                      <formula id='_'>
-                       <name>(1)</name>
+                       <fmt-name>(1)</fmt-name>
                        <stem type='AsciiMath'>r/1 = 0</stem>
                      </formula>
                    </td>
@@ -388,17 +388,36 @@ RSpec.describe IsoDoc::Ogc do
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
       <bibdata/>
        #{METANORMA_EXTENSION}
-           <preface>
-            <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Contents</fmt-title> </clause>
-             <foreword id='A' displayorder="2">
-               <title depth='1'>I.<tab/>Preface</title>
-               <admonition id='_' type='caution'>
-               <name>CAUTION</name>
-                 <p id='_'>Only use paddy or parboiled rice for the determination of husked rice yield.</p>
-               </admonition>
+          <preface>
+             <clause type="toc" id="_" displayorder="1">
+                <fmt-title depth="1">Contents</fmt-title>
+             </clause>
+             <foreword id="A" displayorder="2">
+                <title id="_">Preface</title>
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="A">I</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                   <span class="fmt-caption-delim">
+                      <tab/>
+                   </span>
+                   <semx element="title" source="_">Preface</semx>
+                </fmt-title>
+                <fmt-xref-label>
+                   <semx element="title" source="A">Preface</semx>
+                </fmt-xref-label>
+                <admonition id="_" type="caution">
+                   <fmt-name>
+                      <span class="fmt-caption-label">
+                         <span class="fmt-element-name">CAUTION</span>
+                      </span>
+                   </fmt-name>
+                   <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+                </admonition>
              </foreword>
-           </preface>
-         </iso-standard>
+          </preface>
+       </iso-standard>
     OUTPUT
 
     html = <<~OUTPUT
@@ -419,9 +438,9 @@ RSpec.describe IsoDoc::Ogc do
     xml.at("//xmlns:localized-strings").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
+    expect(Xml::C14n.format(strip_guid(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", pres_output, true)
-      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
+      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))))
       .to be_equivalent_to Xml::C14n.format(html)
   end
 
@@ -442,17 +461,36 @@ RSpec.describe IsoDoc::Ogc do
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
       <bibdata/>
        #{METANORMA_EXTENSION}
-           <preface>
-            <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Contents</fmt-title> </clause>
-             <foreword id='A' displayorder="2">
-               <title depth='1'>I.<tab/>Preface</title>
-               <admonition id='_' type='warning'>
-               <name>WARNING</name>
-                 <p id='_'>Only use paddy or parboiled rice for the determination of husked rice yield.</p>
-               </admonition>
+         <preface>
+             <clause type="toc" id="_" displayorder="1">
+                <fmt-title depth="1">Contents</fmt-title>
+             </clause>
+             <foreword id="A" displayorder="2">
+                <title id="_">Preface</title>
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="A">I</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                   <span class="fmt-caption-delim">
+                      <tab/>
+                   </span>
+                   <semx element="title" source="_">Preface</semx>
+                </fmt-title>
+                <fmt-xref-label>
+                   <semx element="title" source="A">Preface</semx>
+                </fmt-xref-label>
+                <admonition id="_" type="warning">
+                   <fmt-name>
+                      <span class="fmt-caption-label">
+                         <span class="fmt-element-name">WARNING</span>
+                      </span>
+                   </fmt-name>
+                   <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+                </admonition>
              </foreword>
-           </preface>
-         </iso-standard>
+          </preface>
+       </iso-standard>
     OUTPUT
 
     html = <<~OUTPUT
@@ -473,9 +511,9 @@ RSpec.describe IsoDoc::Ogc do
     xml.at("//xmlns:localized-strings").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
+    expect(Xml::C14n.format(strip_guid(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", pres_output, true)
-      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
+      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))))
       .to be_equivalent_to Xml::C14n.format(html)
   end
 
@@ -496,17 +534,36 @@ RSpec.describe IsoDoc::Ogc do
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
       <bibdata/>
        #{METANORMA_EXTENSION}
-           <preface>
-            <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Contents</fmt-title> </clause>
-             <foreword id='A' displayorder="2">
-               <title depth='1'>I.<tab/>Preface</title>
-               <admonition id='_' type='important'>
-               <name>IMPORTANT</name>
-                 <p id='_'>Only use paddy or parboiled rice for the determination of husked rice yield.</p>
-               </admonition>
+          <preface>
+             <clause type="toc" id="_" displayorder="1">
+                <fmt-title depth="1">Contents</fmt-title>
+             </clause>
+             <foreword id="A" displayorder="2">
+                <title id="_">Preface</title>
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="A">I</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                   <span class="fmt-caption-delim">
+                      <tab/>
+                   </span>
+                   <semx element="title" source="_">Preface</semx>
+                </fmt-title>
+                <fmt-xref-label>
+                   <semx element="title" source="A">Preface</semx>
+                </fmt-xref-label>
+                <admonition id="_" type="important">
+                   <fmt-name>
+                      <span class="fmt-caption-label">
+                         <span class="fmt-element-name">IMPORTANT</span>
+                      </span>
+                   </fmt-name>
+                   <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
+                </admonition>
              </foreword>
-           </preface>
-         </iso-standard>
+          </preface>
+       </iso-standard>
     OUTPUT
 
     html = <<~OUTPUT
@@ -527,9 +584,9 @@ RSpec.describe IsoDoc::Ogc do
     xml.at("//xmlns:localized-strings").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
+    expect(Xml::C14n.format(strip_guid(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", pres_output, true)
-      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
+      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))))
       .to be_equivalent_to Xml::C14n.format(html)
   end
 
@@ -548,17 +605,43 @@ RSpec.describe IsoDoc::Ogc do
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
       <bibdata/>
        #{METANORMA_EXTENSION}
-        <preface>
-         <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Contents</fmt-title> </clause>
-          <foreword id='A' displayorder="2"><title depth='1'>I.<tab/>Preface</title>
-            <example id='_'>
-              <name>Example&#xA0;&#x2014; Example Title</name>
-              <p id='_'>This is an example</p>
-              <p id='_'>Amen</p>
-            </example>
-          </foreword>
-        </preface>
-      </iso-standard>
+                  <preface>
+              <clause type="toc" id="_" displayorder="1">
+                 <fmt-title depth="1">Contents</fmt-title>
+              </clause>
+              <foreword id="A" displayorder="2">
+                 <title id="_">Preface</title>
+                 <fmt-title depth="1">
+                    <span class="fmt-caption-label">
+                       <semx element="autonum" source="A">I</semx>
+                       <span class="fmt-autonum-delim">.</span>
+                    </span>
+                    <span class="fmt-caption-delim">
+                       <tab/>
+                    </span>
+                    <semx element="title" source="_">Preface</semx>
+                 </fmt-title>
+                 <fmt-xref-label>
+                    <semx element="title" source="A">Preface</semx>
+                 </fmt-xref-label>
+                 <example id="_" autonum="">
+                    <name id="_">Example Title</name>
+                    <fmt-name>
+                       <span class="fmt-caption-label">
+                          <span class="fmt-element-name">Example</span>
+                       </span>
+                       <span class="fmt-caption-delim"> — </span>
+                       <semx element="name" source="_">Example Title</semx>
+                    </fmt-name>
+                    <fmt-xref-label>
+                       <span class="fmt-element-name">Example</span>
+                    </fmt-xref-label>
+                    <p id="_">This is an example</p>
+                    <p id="_">Amen</p>
+                 </example>
+              </foreword>
+           </preface>
+        </iso-standard>
     OUTPUT
 
     html = <<~OUTPUT
@@ -580,9 +663,9 @@ RSpec.describe IsoDoc::Ogc do
     xml.at("//xmlns:localized-strings").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
+    expect(Xml::C14n.format(strip_guid(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", pres_output, true)
-      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
+      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))))
       .to be_equivalent_to Xml::C14n.format(html)
   end
 
@@ -604,33 +687,56 @@ RSpec.describe IsoDoc::Ogc do
       <iso-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
       <bibdata/>
        #{METANORMA_EXTENSION}
-        <preface>
-         <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Contents</fmt-title> </clause>
-          <foreword id='A' displayorder="2">         <title depth="1">
-            I.
-            <tab/>
-            Preface
-         </title>
-            <example id='_'>
-              <name>Example</name>
-              <p id='_'>This is an example</p>
-              <p id='_'>Amen</p>
-            </example>
-          </foreword>
-        </preface>
-      </iso-standard>
+           <preface>
+              <clause type="toc" id="_" displayorder="1">
+                 <fmt-title depth="1">Contents</fmt-title>
+              </clause>
+              <foreword id="A" displayorder="2">
+                 <title depth="1" id="_">
+              Preface
+           </title>
+                 <fmt-title depth="1">
+                    <span class="fmt-caption-label">
+                       <semx element="autonum" source="A">I</semx>
+                       <span class="fmt-autonum-delim">.</span>
+                    </span>
+                    <span class="fmt-caption-delim">
+                       <tab/>
+                    </span>
+                    <semx element="title" source="_">
+              Preface
+           </semx>
+                 </fmt-title>
+                 <fmt-xref-label>
+                    <semx element="title" source="A">
+              Preface
+           </semx>
+                 </fmt-xref-label>
+                 <example id="_" autonum="">
+                    <fmt-name>
+                       <span class="fmt-caption-label">
+                          <span class="fmt-element-name">Example</span>
+                       </span>
+                    </fmt-name>
+                    <fmt-xref-label>
+                       <span class="fmt-element-name">Example</span>
+                    </fmt-xref-label>
+                    <p id="_">This is an example</p>
+                    <p id="_">Amen</p>
+                 </example>
+              </foreword>
+           </preface>
+        </iso-standard>
     OUTPUT
 
     html = <<~OUTPUT
       #{HTML_HDR}
               <br/>
             <div id="A">
-                     <h1 class="ForewordTitle">
-          I.
-           
+                     <h1 class="ForewordTitle">I. 
           Preface
-      </h1>
-              <p class='SourceTitle' style='text-align:center;'>Example </p>
+        </h1>
+              <p class='SourceTitle' style='text-align:center;'>Example</p>
               <div id="_" class="example">
       <p id="_">This is an example</p>
       <p id="_">Amen</p></div>
@@ -644,9 +750,9 @@ RSpec.describe IsoDoc::Ogc do
     xml.at("//xmlns:localized-strings").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
+    expect(Xml::C14n.format(strip_guid(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", pres_output, true)
-      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
+      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))))
       .to be_equivalent_to Xml::C14n.format(html)
   end
 
@@ -666,42 +772,74 @@ RSpec.describe IsoDoc::Ogc do
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
          <bibdata/>
        #{METANORMA_EXTENSION}
-         <preface>
-           <clause type="toc" id="_" displayorder="1">
-             <fmt-title depth="1">Contents</fmt-title>
-           </clause>
-           <foreword id="A" displayorder="2">
-                    <title depth="1">
-            I.
-            <tab/>
-            Preface
-         </title>
-             <figure id="B">
-               <name>Figure 1</name>
-               <p id="_">This is an example</p>
-             </figure>
-             <figure id="C" class="pseudocode">
-               <name>Listing 1</name>
-               <p id="_">This is an example</p>
-             </figure>
-             <sourcecode id="D">
-               <name>Listing 2</name>
-               <p id="_">This is an example</p>
-             </sourcecode>
-           </foreword>
-         </preface>
-       </iso-standard>
+           <preface>
+              <clause type="toc" id="_" displayorder="1">
+                 <fmt-title depth="1">Contents</fmt-title>
+              </clause>
+              <foreword id="A" displayorder="2">
+                 <title id="_">Preface</title>
+                 <fmt-title depth="1">
+                    <span class="fmt-caption-label">
+                       <semx element="autonum" source="A">I</semx>
+                       <span class="fmt-autonum-delim">.</span>
+                    </span>
+                    <span class="fmt-caption-delim">
+                       <tab/>
+                    </span>
+                    <semx element="title" source="_">Preface</semx>
+                 </fmt-title>
+                 <fmt-xref-label>
+                    <semx element="title" source="A">Preface</semx>
+                 </fmt-xref-label>
+                 <figure id="B" autonum="1">
+                    <fmt-name>
+                       <span class="fmt-caption-label">
+                          <span class="fmt-element-name">Figure</span>
+                          <semx element="autonum" source="B">1</semx>
+                       </span>
+                    </fmt-name>
+                    <fmt-xref-label>
+                       <span class="fmt-element-name">Figure</span>
+                       <semx element="autonum" source="B">1</semx>
+                    </fmt-xref-label>
+                    <p id="_">This is an example</p>
+                 </figure>
+                 <figure id="C" class="pseudocode" autonum="1">
+                    <fmt-name>
+                       <span class="fmt-caption-label">
+                          <span class="fmt-element-name">Listing</span>
+                          <semx element="autonum" source="C">1</semx>
+                       </span>
+                    </fmt-name>
+                    <fmt-xref-label>
+                       <span class="fmt-element-name">Listing</span>
+                       <semx element="autonum" source="C">1</semx>
+                    </fmt-xref-label>
+                    <p id="_">This is an example</p>
+                 </figure>
+                 <sourcecode id="D" autonum="2">
+                    <fmt-name>
+                       <span class="fmt-caption-label">
+                          <span class="fmt-element-name">Listing</span>
+                          <semx element="autonum" source="D">2</semx>
+                       </span>
+                    </fmt-name>
+                    <fmt-xref-label>
+                       <span class="fmt-element-name">Listing</span>
+                       <semx element="autonum" source="D">2</semx>
+                    </fmt-xref-label>
+                    <p id="_">This is an example</p>
+                 </sourcecode>
+              </foreword>
+           </preface>
+        </iso-standard>
     OUTPUT
 
     html = <<~OUTPUT
       #{HTML_HDR}
               <br/>
               <div id="A">
-         <h1 class="ForewordTitle">
-      I.
-       
-      Preface
-   </h1>
+              <h1 class="ForewordTitle">I.  Preface</h1>
              <div id="B" class="figure">
                <p id="_">This is an example</p>
              </div>
@@ -711,13 +849,7 @@ RSpec.describe IsoDoc::Ogc do
                <p class="SourceTitle" style="text-align:center;">Listing 1</p>
              </div>
              <pre id="D" class="sourcecode">
-               <br/>
-                       
-               <br/>
-                       
                <p id="_">This is an example</p>
-               <br/>
-                     
              </pre>
              <p class="SourceTitle" style="text-align:center;">Listing 2</p>
            </div>
@@ -730,9 +862,9 @@ RSpec.describe IsoDoc::Ogc do
     xml.at("//xmlns:localized-strings").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
+    expect(Xml::C14n.format(strip_guid(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", pres_output, true)
-      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
+      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))))
       .to be_equivalent_to Xml::C14n.format(html)
   end
 
@@ -853,34 +985,77 @@ RSpec.describe IsoDoc::Ogc do
                <metanorma-extension>
                #{METANORMA_EXTENSION.gsub(%r{</?metanorma-extension>}, '')}
                </metanorma-extension>
-              <preface>
-                  <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Contents</fmt-title> </clause>
-                <foreword id="A" displayorder="2">
-                         <title depth="1">
-            I.
-            <tab/>
-            Preface
-         </title>
-                  <note id="B">
-                    <name>NOTE:<tab/></name>
+           <preface>
+              <clause type="toc" id="_" displayorder="1">
+                 <fmt-title depth="1">Contents</fmt-title>
+              </clause>
+              <foreword id="A" displayorder="2">
+                 <title id="_">Preface</title>
+                 <fmt-title depth="1">
+                    <span class="fmt-caption-label">
+                       <semx element="autonum" source="A">I</semx>
+                       <span class="fmt-autonum-delim">.</span>
+                    </span>
+                    <span class="fmt-caption-delim">
+                       <tab/>
+                    </span>
+                    <semx element="title" source="_">Preface</semx>
+                 </fmt-title>
+                 <fmt-xref-label>
+                    <semx element="title" source="A">Preface</semx>
+                 </fmt-xref-label>
+                 <note id="B" autonum="">
+                    <fmt-name>
+                       <span class="fmt-caption-label">
+                          <span class="fmt-element-name">NOTE</span>
+                       </span>
+                       <span class="fmt-label-delim">
+                          :
+                          <tab/>
+                       </span>
+                    </fmt-name>
+                    <fmt-xref-label>
+                       <span class="fmt-element-name">Note</span>
+                    </fmt-xref-label>
                     <p>Hello</p>
-                  </note>
-                </foreword>
-              </preface>
-              <sections>
-                <clause id="C" displayorder="3">
-                  <title depth="1">
-                    1.
-                    <tab/>
-                    Clause
-                  </title>
-                  <note id="D">
-                    <name>NOTE:<tab/></name>
+                 </note>
+              </foreword>
+           </preface>
+           <sections>
+              <clause id="C" displayorder="3">
+                 <title id="_">Clause</title>
+                 <fmt-title depth="1">
+                    <span class="fmt-caption-label">
+                       <semx element="autonum" source="C">1</semx>
+                       <span class="fmt-autonum-delim">.</span>
+                    </span>
+                    <span class="fmt-caption-delim">
+                       <tab/>
+                    </span>
+                    <semx element="title" source="_">Clause</semx>
+                 </fmt-title>
+                 <fmt-xref-label>
+                    <span class="fmt-element-name">Clause</span>
+                    <semx element="autonum" source="C">1</semx>
+                 </fmt-xref-label>
+                 <note id="D" autonum="">
+                    <fmt-name>
+                       <span class="fmt-caption-label">
+                          <span class="fmt-element-name">NOTE</span>
+                       </span>
+                       <span class="fmt-label-delim">
+                          :
+                          <tab/>
+                       </span>
+                    </fmt-name>
+                    <fmt-xref-label>
+                       <span class="fmt-element-name">Note</span>
+                    </fmt-xref-label>
                     <p>Hello</p>
-                  </note>
-                </clause>
-              </sections>
-            </iso-standard>
+                 </note>
+              </clause>
+           </sections>
+        </iso-standard>
     OUTPUT
     html = <<~OUTPUT
       <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US" class="container"><div class="title-section"><p> </p></div><br/><div class="prefatory-section"><p> </p></div><br/><div class="main-section">    <br/>
@@ -888,16 +1063,10 @@ RSpec.describe IsoDoc::Ogc do
           <h1 class="IntroTitle">Contents</h1>
         </div>
         <br/><div id="A">
-                 <h1 class="ForewordTitle">
-      I.
-       
-      Preface
-   </h1>
-        <div id="B" class="Note"><p><span class="note_label">NOTE:  </span>  Hello</p></div></div><div id="C"><h1>
-          1.
-           
-          Clause
-        </h1><div id="D" class="Note"><p><span class="note_label">NOTE:  </span>  Hello</p></div></div></div></body>
+        <h1 class="ForewordTitle">I.  Preface</h1>
+        <div id="B" class="Note"><p><span class="note_label">NOTE:  </span>Hello</p></div></div><div id="C">
+        <h1>1.  Clause</h1>
+        <div id="D" class="Note"><p><span class="note_label">NOTE:  </span>Hello</p></div></div></div></body>
     OUTPUT
     word = <<~OUTPUT
       <body lang="EN-US" link="blue" vlink="#954F72"><div class="WordSection1"><p> </p></div><p class="section-break"><br clear="all" class="section"/></p><div class="WordSection2"><p class="page-break"><br clear="all" style="mso-special-character:line-break;page-break-before:always"/></p>
@@ -907,11 +1076,11 @@ RSpec.describe IsoDoc::Ogc do
       <p class="page-break">
        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
       </p>
-        <div id="A"><h1 class="ForewordTitle">I.<span style="mso-tab-count:1">  </span>Preface</h1><div id="B" class="Note"><p class="Note"><span class="note_label">NOTE:<span style="mso-tab-count:1">  </span></span><span style="mso-tab-count:1">  </span>Hello</p></div></div><p> </p></div><p class="section-break"><br clear="all" class="section"/></p><div class="WordSection3"><div id="C"><h1>
+        <div id="A"><h1 class="ForewordTitle">I.<span style="mso-tab-count:1">  </span>Preface</h1><div id="B" class="Note"><p class="Note"><span class="note_label">NOTE:<span style="mso-tab-count:1">  </span></span>Hello</p></div></div><p> </p></div><p class="section-break"><br clear="all" class="section"/></p><div class="WordSection3"><div id="C"><h1>
           1.
           <span style="mso-tab-count:1">  </span>
           Clause
-        </h1><div id="D" class="Note"><p class="Note"><span class="note_label">NOTE:<span style="mso-tab-count:1">  </span></span><span style="mso-tab-count:1">  </span>Hello</p></div></div></div></body>
+        </h1><div id="D" class="Note"><p class="Note"><span class="note_label">NOTE:<span style="mso-tab-count:1">  </span></span>Hello</p></div></div></div></body>
     OUTPUT
     pres_output = IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
           .convert("test", input, true)
@@ -919,16 +1088,16 @@ RSpec.describe IsoDoc::Ogc do
     xml.at("//xmlns:localized-strings").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(
+    expect(Xml::C14n.format(strip_guid(
              IsoDoc::Ogc::HtmlConvert.new({}).convert("test", pres_output, true)
              .gsub(%r{^.*<body}m, "<body")
              .gsub(%r{</body>.*}m, "</body>"),
-           )).to be_equivalent_to Xml::C14n.format(html)
-    expect(Xml::C14n.format(
+    ))).to be_equivalent_to Xml::C14n.format(html)
+    expect(Xml::C14n.format(strip_guid(
              IsoDoc::Ogc::WordConvert.new({}).convert("test", pres_output, true)
              .gsub(%r{^.*<body}m, "<body")
       .gsub(%r{</body>.*}m, "</body>"),
-           )).to be_equivalent_to Xml::C14n.format(word)
+    ))).to be_equivalent_to Xml::C14n.format(word)
   end
 
   it "processes collapsible sourcecode" do

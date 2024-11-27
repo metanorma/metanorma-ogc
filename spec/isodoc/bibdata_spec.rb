@@ -235,8 +235,21 @@ RSpec.describe IsoDoc::Ogc do
            <preface>
                <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Contents</fmt-title> </clause>
              <clause id="_" type='keywords' displayorder="2">
-               <title depth='1'>I.<tab/>Keywords</title>
-               <p>The following are keywords to be used by search engines and document catalogues.</p>
+                      <title id="_">Keywords</title>
+         <fmt-title depth="1">
+            <span class="fmt-caption-label">
+               <semx element="autonum" source="_">I</semx>
+               <span class="fmt-autonum-delim">.</span>
+            </span>
+            <span class="fmt-caption-delim">
+               <tab/>
+            </span>
+            <semx element="title" source="_">Keywords</semx>
+         </fmt-title>
+         <fmt-xref-label>
+            <semx element="title" source="_">Keywords</semx>
+         </fmt-xref-label>
+         <p>The following are keywords to be used by search engines and document catalogues.</p>
                <p>ABC, DEF</p>
              </clause>
            </preface>
@@ -260,12 +273,12 @@ RSpec.describe IsoDoc::Ogc do
     xml.at("//xmlns:localized-strings").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(
+    expect(Xml::C14n.format(strip_guid(
              IsoDoc::Ogc::HtmlConvert.new({})
              .convert("test", pres_output, true)
              .gsub(%r{^.*<body}m, "<body")
              .gsub(%r{</body>.*}m, "</body>"),
-           )).to be_equivalent_to Xml::C14n.format(output)
+    ))).to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "processes keyword with preface" do
@@ -290,19 +303,42 @@ RSpec.describe IsoDoc::Ogc do
                  <keyword>DEF</keyword>
                </bibdata>
         #{METANORMA_EXTENSION}
-               <preface>
-                   <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Contents</fmt-title> </clause>
-               <abstract id='A' displayorder="2">
-        <title>I.</title>
-      </abstract>
-                 <clause id="_" type='keywords' displayorder="3">
-                   <title depth='1'>II.<tab/>Keywords</title>
-                   <p>The following are keywords to be used by search engines and document catalogues.</p>
-                   <p>ABC, DEF</p>
-                 </clause>
-               </preface>
-               <sections/>
-             </ogc-standard>
+                  <preface>
+             <clause type="toc" id="_" displayorder="1">
+                <fmt-title depth="1">Contents</fmt-title>
+             </clause>
+             <abstract id="A" displayorder="2">
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="A">I</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                </fmt-title>
+                <fmt-xref-label>
+                   <semx element="title" source="A"/>
+                </fmt-xref-label>
+             </abstract>
+             <clause id="_" type="keywords" displayorder="3">
+                <title id="_">Keywords</title>
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="_">II</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                   <span class="fmt-caption-delim">
+                      <tab/>
+                   </span>
+                   <semx element="title" source="_">Keywords</semx>
+                </fmt-title>
+                <fmt-xref-label>
+                   <semx element="title" source="_">Keywords</semx>
+                </fmt-xref-label>
+                <p>The following are keywords to be used by search engines and document catalogues.</p>
+                <p>ABC, DEF</p>
+             </clause>
+          </preface>
+          <sections/>
+       </ogc-standard>
     OUTPUT
 
     output = <<~"OUTPUT"
@@ -328,12 +364,12 @@ RSpec.describe IsoDoc::Ogc do
     xml.at("//xmlns:localized-strings").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(
+    expect(Xml::C14n.format(strip_guid(
              IsoDoc::Ogc::HtmlConvert.new({})
              .convert("test", pres_output, true)
              .gsub(%r{^.*<body}m, "<body")
              .gsub(%r{</body>.*}m, "</body>"),
-           )).to be_equivalent_to Xml::C14n.format(output)
+    ))).to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "processes submitting organisations with no preface" do
@@ -378,9 +414,21 @@ RSpec.describe IsoDoc::Ogc do
             <preface>
                 <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Contents</fmt-title> </clause>
         <clause id='_' type='submitting_orgs' displayorder="2">
-          <title depth='1'>I.<tab/>Submitting Organizations</title>
-          <p>The following organizations submitted this Document to the Open
-            Geospatial Consortium (OGC):</p>
+                 <title id="_">Submitting Organizations</title>
+         <fmt-title depth="1">
+            <span class="fmt-caption-label">
+               <semx element="autonum" source="_">I</semx>
+               <span class="fmt-autonum-delim">.</span>
+            </span>
+            <span class="fmt-caption-delim">
+               <tab/>
+            </span>
+            <semx element="title" source="_">Submitting Organizations</semx>
+         </fmt-title>
+         <fmt-xref-label>
+            <semx element="title" source="_">Submitting Organizations</semx>
+         </fmt-xref-label>
+         <p>The following organizations submitted this Document to the Open Geospatial Consortium (OGC):</p>
           <ul>
             <li>OGC</li>
             <li>DEF</li>
@@ -413,9 +461,9 @@ RSpec.describe IsoDoc::Ogc do
     xml.at("//xmlns:localized-strings").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
+    expect(Xml::C14n.format(strip_guid(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", pres_output, true)
-      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
+      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))))
       .to be_equivalent_to Xml::C14n.format(output)
   end
 
@@ -462,30 +510,56 @@ RSpec.describe IsoDoc::Ogc do
                </contributor>
             </bibdata>
       #{METANORMA_EXTENSION}
-            <preface>
-                <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Contents</fmt-title> </clause>
-                 <abstract id='A' displayorder="2">
-                   <title>I.</title>
-                 </abstract>
-                 <clause type='security' id='B' displayorder="3">
-        <title>II.</title>
-      </clause>
-                 <clause id='_' type='submitting_orgs' displayorder="4">
-                   <title depth='1'>
-                     III.
-                     <tab/>
-                     Submitting Organizations
-                   </title>
-                   <p>The following organizations submitted this Document to the Open
-      Geospatial Consortium (OGC):</p>
-                   <ul>
-                     <li>OGC</li>
-                     <li>DEF</li>
-                   </ul>
-                 </clause>
-               </preface>
-      <sections/>
-      </ogc-standard>
+          <preface>
+             <clause type="toc" id="_" displayorder="1">
+                <fmt-title depth="1">Contents</fmt-title>
+             </clause>
+             <abstract id="A" displayorder="2">
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="A">I</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                </fmt-title>
+                <fmt-xref-label>
+                   <semx element="title" source="A"/>
+                </fmt-xref-label>
+             </abstract>
+             <clause type="security" id="B" displayorder="3">
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="B">II</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                </fmt-title>
+                <fmt-xref-label>
+                   <semx element="title" source="B"/>
+                </fmt-xref-label>
+             </clause>
+             <clause id="_" type="submitting_orgs" displayorder="4">
+                <title id="_">Submitting Organizations</title>
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="_">III</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                   <span class="fmt-caption-delim">
+                      <tab/>
+                   </span>
+                   <semx element="title" source="_">Submitting Organizations</semx>
+                </fmt-title>
+                <fmt-xref-label>
+                   <semx element="title" source="_">Submitting Organizations</semx>
+                </fmt-xref-label>
+                <p>The following organizations submitted this Document to the Open Geospatial Consortium (OGC):</p>
+                <ul>
+                   <li>OGC</li>
+                   <li>DEF</li>
+                </ul>
+             </clause>
+          </preface>
+          <sections/>
+       </ogc-standard>
     OUTPUT
 
     output = <<~OUTPUT
@@ -511,11 +585,8 @@ RSpec.describe IsoDoc::Ogc do
         <h1 class='IntroTitle'>II.</h1>
       </div>
           <div class='Section3' id='_'>
-            <h1 class='IntroTitle'> III. &#160; Submitting Organizations </h1>
-            <p>
-              The following organizations submitted this Document to the Open
-              Geospatial Consortium (OGC):
-            </p>
+          <h1 class="IntroTitle">III.  Submitting Organizations</h1>
+            <p>The following organizations submitted this Document to the Open Geospatial Consortium (OGC):</p>
             <div class="ul_wrap">
             <ul>
               <li>OGC</li>
@@ -532,9 +603,9 @@ RSpec.describe IsoDoc::Ogc do
     xml.at("//xmlns:localized-strings").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
+    expect(Xml::C14n.format(strip_guid(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", pres_output, true)
-      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
+      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))))
       .to be_equivalent_to Xml::C14n.format(output)
   end
 
@@ -790,73 +861,86 @@ RSpec.describe IsoDoc::Ogc do
     INPUT
     presxml = <<~OUTPUT
       <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
-         <preface>
-           <clause type="toc" id="_" displayorder="1">
-             <title depth="1">Contents</title>
-           </clause>
-         </preface>
-         <sections/>
-         <annex id="_" obligation="informative" displayorder="2">
-           <title>
-             <strong>Annex A</strong>
-             <br/>
-             (informative)
-             <br/>
-             <strong>Revision history</strong>
-           </title>
-           <table>
-             <name>Table</name>
-             <thead>
-               <tr>
-                 <th>Date</th>
-                 <th>Release</th>
-                 <th>Author</th>
-                 <th>Paragraph Modified</th>
-                 <th>Description</th>
-               </tr>
-             </thead>
-             <tbody>
-               <tr>
-                 <td>2012-04-02</td>
-                 <td>Draft</td>
-                 <td>R Thakkar</td>
-                 <td>All</td>
-                 <td>
-                   <p id="_">Original draft document</p>
-                 </td>
-               </tr>
-               <tr>
-                 <td>2002-08-30</td>
-                 <td>0.1 02-077</td>
-                 <td>Kurt Buehler, George Percivall, Sam Bacharach, Carl Reed, Cliff Kottman, Chuck Heazel, John Davidson, Yaser Bisher, Harry Niedzwiadek, John Evans, Jeffrey Simon</td>
-                 <td>All</td>
-                 <td>
-                   <p id="_">Initial version of ORM. Doc OGC</p>
-                 </td>
-               </tr>
-               <tr>
-                 <td>2018-06-04</td>
-                 <td>1.0</td>
-                 <td>Gabby Getz</td>
-                 <td>Annex A</td>
-                 <td>
-                   <ul id="_">
-                     <li>
-                       <p id="_">
-                         Put
-                         <em>3D Tiles</em>
-                         specification document into OGC document template
-                       </p>
-                     </li>
-                     <li>
-                       <p id="_">Miscellaneous updates</p>
-                     </li>
-                   </ul>
-                 </td>
-               </tr>
-             </tbody>
-           </table>
-         </annex>
+          <preface>
+             <clause type="toc" id="_" displayorder="1">
+                <fmt-title depth="1">Contents</fmt-title>
+             </clause>
+          </preface>
+          <sections/>
+          <annex id="_" obligation="informative" autonum="A" displayorder="2">
+             <fmt-title>
+                <strong>
+                   <span class="fmt-caption-label">
+                      <span class="fmt-element-name">Annex</span>
+                      <semx element="autonum" source="_">A</semx>
+                   </span>
+                </strong>
+                <br/>
+                <span class="fmt-obligation">(informative)</span>
+             </fmt-title>
+             <fmt-xref-label>
+                <span class="fmt-element-name">Annex</span>
+                <semx element="autonum" source="_">A</semx>
+             </fmt-xref-label>
+             <fmt-title>Revision history</fmt-title>
+             <table>
+                <fmt-name>
+                   <span class="fmt-caption-label">
+                      <span class="fmt-element-name">Table</span>
+                      <semx element="autonum" source=""/>
+                   </span>
+                </fmt-name>
+                <thead>
+                   <tr>
+                      <th>Date</th>
+                      <th>Release</th>
+                      <th>Author</th>
+                      <th>Paragraph Modified</th>
+                      <th>Description</th>
+                   </tr>
+                </thead>
+                <tbody>
+                   <tr>
+                      <td>2012-04-02</td>
+                      <td>Draft</td>
+                      <td>R Thakkar</td>
+                      <td>All</td>
+                      <td>
+                         <p id="_">Original draft document</p>
+                      </td>
+                   </tr>
+                   <tr>
+                      <td>2002-08-30</td>
+                      <td>0.1 02-077</td>
+                      <td>Kurt Buehler, George Percivall, Sam Bacharach, Carl Reed, Cliff Kottman, Chuck Heazel, John Davidson, Yaser Bisher, Harry Niedzwiadek, John Evans, Jeffrey Simon</td>
+                      <td>All</td>
+                      <td>
+                         <p id="_">Initial version of ORM. Doc OGC</p>
+                      </td>
+                   </tr>
+                   <tr>
+                      <td>2018-06-04</td>
+                      <td>1.0</td>
+                      <td>Gabby Getz</td>
+                      <td>Annex A</td>
+                      <td>
+                         <ul id="_">
+                            <li>
+                               <p id="_">
+                                  Put
+                                  <em>3D Tiles</em>
+                                  specification document into OGC document template
+                               </p>
+                            </li>
+                            <li>
+                               <p id="_">Miscellaneous updates</p>
+                            </li>
+                         </ul>
+                      </td>
+                   </tr>
+                </tbody>
+             </table>
+          </annex>
        </ogc-standard>
     OUTPUT
     xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)

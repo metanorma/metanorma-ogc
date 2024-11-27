@@ -81,7 +81,7 @@ module IsoDoc
           m << n.text
         end
         c.empty? and c = ["Open Geospatial Consortium"]
-        set(:copyright_holder, @i18n.boolean_conj(c, "and"))
+        set(:copyright_holder, connectives_strip(@i18n.boolean_conj(c, "and")))
       end
 
       def docid(isoxml, _out)
