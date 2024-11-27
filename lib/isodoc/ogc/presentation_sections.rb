@@ -96,9 +96,7 @@ module IsoDoc
 
       def clause(docxml)
         super
-        docxml.xpath(ns("//foreword | //preface/abstract | " \
-                        "//submitters | //introduction | //acknowledgements"))
-          .each { |f| clause1(f) }
+        docxml.xpath(ns("//submitters")).each { |f| clause1(f) }
       end
 
       def clause1(elem)

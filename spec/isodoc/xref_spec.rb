@@ -66,24 +66,94 @@ RSpec.describe IsoDoc::Ogc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <foreword displayorder='2'>
-      <title depth="1">Preface</title>
-        <p>
-          <xref target='N1'>Introduction, a)</xref>
-          <xref target='N2'>Clause II.A, 1)</xref>
-          <xref target='N'>Clause 1, i)</xref>
-          <xref target='note1'>Clause 3.1, List 1 a)</xref>
-          <xref target='note2'>Clause 3.1, List 2 I)</xref>
-          <xref target='AN'>Annex A.1, A)</xref>
-          <xref target='Anote1'>Annex A.2, List 1 iv)</xref>
-          <xref target='Anote2'>Annex A.2, List 2 a)</xref>
-        </p>
-      </foreword>
+        <foreword displayorder="2">
+           <title id="_">Preface</title>
+           <fmt-title depth="1">
+              <semx element="title" source="_">Preface</semx>
+           </fmt-title>
+           <p>
+              <xref target="N1">
+                 <semx element="title" source="intro">Introduction</semx>
+                 <span class="fmt-comma">,</span>
+                 <semx element="autonum" source="N1">a</semx>
+                 <span class="fmt-autonum-delim">)</span>
+              </xref>
+              <xref target="N2">
+                 <span class="fmt-element-name">Clause</span>
+                 <semx element="autonum" source="intro">II</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="xyz">A</semx>
+                 <span class="fmt-comma">,</span>
+                 <semx element="autonum" source="N2">1</semx>
+                 <span class="fmt-autonum-delim">)</span>
+              </xref>
+              <xref target="N">
+                 <span class="fmt-element-name">Clause</span>
+                 <semx element="autonum" source="scope">1</semx>
+                 <span class="fmt-comma">,</span>
+                 <semx element="autonum" source="N">i</semx>
+                 <span class="fmt-autonum-delim">)</span>
+              </xref>
+              <xref target="note1">
+                 <span class="fmt-element-name">Clause</span>
+                 <semx element="autonum" source="widgets">3</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="widgets1">1</semx>
+                 <span class="fmt-comma">,</span>
+                 <span class="fmt-element-name">List</span>
+                 <semx element="autonum" source="note1l">1</semx>
+                 <semx element="autonum" source="note1">a</semx>
+                 <span class="fmt-autonum-delim">)</span>
+              </xref>
+              <xref target="note2">
+                 <span class="fmt-element-name">Clause</span>
+                 <semx element="autonum" source="widgets">3</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="widgets1">1</semx>
+                 <span class="fmt-comma">,</span>
+                 <span class="fmt-element-name">List</span>
+                 <semx element="autonum" source="note2l">2</semx>
+                 <semx element="autonum" source="note2">I</semx>
+                 <span class="fmt-autonum-delim">)</span>
+              </xref>
+              <xref target="AN">
+                 <span class="fmt-element-name">Annex</span>
+                 <semx element="autonum" source="annex1">A</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="annex1a">1</semx>
+                 <span class="fmt-comma">,</span>
+                 <semx element="autonum" source="AN">A</semx>
+                 <span class="fmt-autonum-delim">)</span>
+              </xref>
+              <xref target="Anote1">
+                 <span class="fmt-element-name">Annex</span>
+                 <semx element="autonum" source="annex1">A</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="annex1b">2</semx>
+                 <span class="fmt-comma">,</span>
+                 <span class="fmt-element-name">List</span>
+                 <semx element="autonum" source="Anote1l">1</semx>
+                 <semx element="autonum" source="Anote1">iv</semx>
+                 <span class="fmt-autonum-delim">)</span>
+              </xref>
+              <xref target="Anote2">
+                 <span class="fmt-element-name">Annex</span>
+                 <semx element="autonum" source="annex1">A</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="annex1b">2</semx>
+                 <span class="fmt-comma">,</span>
+                 <span class="fmt-element-name">List</span>
+                 <semx element="autonum" source="Anote2l">2</semx>
+                 <semx element="autonum" source="Anote2">a</semx>
+                 <span class="fmt-autonum-delim">)</span>
+              </xref>
+           </p>
+        </foreword>
     OUTPUT
-    expect(Xml::C14n.format(Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert
+    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
-      .at("//xmlns:foreword").to_xml))
+      .at("//xmlns:foreword").to_xml)))
       .to be_equivalent_to Xml::C14n.format(output)
   end
 
@@ -152,19 +222,43 @@ RSpec.describe IsoDoc::Ogc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <foreword displayorder='2'>
-      <title depth="1">Preface</title>
-        <p>
-          <xref target='N1'>Introduction, 1)</xref>
-          <xref target='N11'>Introduction, 1) 1)</xref>
-          <xref target='N12'>Introduction, 1) 1) 1)</xref>
-        </p>
-      </foreword>
+        <foreword displayorder="2">
+           <title id="_">Preface</title>
+           <fmt-title depth="1">
+              <semx element="title" source="_">Preface</semx>
+           </fmt-title>
+           <p>
+              <xref target="N1">
+                 <semx element="title" source="intro">Introduction</semx>
+                 <span class="fmt-comma">,</span>
+                 <semx element="autonum" source="N1">1</semx>
+                 <span class="fmt-autonum-delim">)</span>
+              </xref>
+              <xref target="N11">
+                 <semx element="title" source="intro">Introduction</semx>
+                 <span class="fmt-comma">,</span>
+                 <semx element="autonum" source="N1">1</semx>
+                 <span class="fmt-autonum-delim">)</span>
+                 <semx element="autonum" source="N11">1</semx>
+                 <span class="fmt-autonum-delim">)</span>
+              </xref>
+              <xref target="N12">
+                 <semx element="title" source="intro">Introduction</semx>
+                 <span class="fmt-comma">,</span>
+                 <semx element="autonum" source="N1">1</semx>
+                 <span class="fmt-autonum-delim">)</span>
+                 <semx element="autonum" source="N11">1</semx>
+                 <span class="fmt-autonum-delim">)</span>
+                 <semx element="autonum" source="N12">1</semx>
+                 <span class="fmt-autonum-delim">)</span>
+              </xref>
+           </p>
+        </foreword>
     OUTPUT
-    expect(Xml::C14n.format(Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert
+    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
-      .at("//xmlns:foreword").to_xml))
+      .at("//xmlns:foreword").to_xml)))
       .to be_equivalent_to Xml::C14n.format(output)
   end
 
@@ -209,25 +303,126 @@ RSpec.describe IsoDoc::Ogc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <foreword displayorder="2">
-      <title depth="1">Preface</title>
-        <p>
-          <xref target='A'>Introduction</xref>
-          <xref target='B'>Clause II.A</xref>
-          <xref target='C'>Clause II.A.1</xref>
-          <xref target='D'>Clause II.A.1.a</xref>
-          <xref target='E'>Clause II.A.1.a.i</xref>
-          <xref target='F'>Clause II.A.1.a.i.(1)</xref>
-          <xref target='G'>Clause II.A.1.a.i.(1).(a)</xref>
-          <xref target='H'>Clause II.A.1.a.i.(1).(a).(i)</xref>
-          <xref target='I'>Clause II.A.1.a.i.(1).(a).(i).1</xref>
-        </p>
-      </foreword>
+        <foreword displayorder="2">
+           <title id="_">Preface</title>
+           <fmt-title depth="1">
+              <semx element="title" source="_">Preface</semx>
+           </fmt-title>
+           <p>
+              <xref target="A">
+                  <semx element="title" source="A">Introduction</semx>
+               </xref>
+              <xref target="B">
+                 <span class="fmt-element-name">Clause</span>
+                 <semx element="autonum" source="A">II</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="B">A</semx>
+              </xref>
+              <xref target="C">
+                 <span class="fmt-element-name">Clause</span>
+                 <semx element="autonum" source="A">II</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="B">A</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="C">1</semx>
+              </xref>
+              <xref target="D">
+                 <span class="fmt-element-name">Clause</span>
+                 <semx element="autonum" source="A">II</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="B">A</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="C">1</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="D">a</semx>
+              </xref>
+              <xref target="E">
+                 <span class="fmt-element-name">Clause</span>
+                 <semx element="autonum" source="A">II</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="B">A</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="C">1</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="D">a</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="E">i</semx>
+              </xref>
+              <xref target="F">
+                 <span class="fmt-element-name">Clause</span>
+                 <semx element="autonum" source="A">II</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="B">A</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="C">1</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="D">a</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="E">i</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="F">(1)</semx>
+              </xref>
+              <xref target="G">
+                 <span class="fmt-element-name">Clause</span>
+                 <semx element="autonum" source="A">II</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="B">A</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="C">1</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="D">a</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="E">i</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="F">(1)</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="G">(a)</semx>
+              </xref>
+              <xref target="H">
+                 <span class="fmt-element-name">Clause</span>
+                 <semx element="autonum" source="A">II</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="B">A</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="C">1</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="D">a</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="E">i</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="F">(1)</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="G">(a)</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="H">(i)</semx>
+              </xref>
+              <xref target="I">
+                 <span class="fmt-element-name">Clause</span>
+                 <semx element="autonum" source="A">II</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="B">A</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="C">1</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="D">a</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="E">i</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="F">(1)</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="G">(a)</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="H">(i)</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="I">1</semx>
+              </xref>
+           </p>
+        </foreword>
     OUTPUT
-    expect(Xml::C14n.format(Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert
+    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
-      .at("//xmlns:foreword").to_xml))
+      .at("//xmlns:foreword").to_xml)))
       .to be_equivalent_to Xml::C14n.format(output)
   end
 
@@ -254,19 +449,35 @@ RSpec.describe IsoDoc::Ogc do
       <iso-standard>
     INPUT
     output = <<~OUTPUT
-      <foreword displayorder='2'>
-      <title depth='1'>Foreword</title>
-        <p>
-          <xref target='A'>Annex A</xref>
-          <xref target='B'>Annex A.1</xref>
-          <xref target='C'>Annex A.2</xref>
-        </p>
-      </foreword>
+        <foreword displayorder="2">
+           <title id="_">Foreword</title>
+           <fmt-title depth="1">
+              <semx element="title" source="_">Foreword</semx>
+           </fmt-title>
+           <p>
+              <xref target="A">
+                 <span class="fmt-element-name">Annex</span>
+                 <semx element="autonum" source="A">A</semx>
+              </xref>
+              <xref target="B">
+                 <span class="fmt-element-name">Annex</span>
+                 <semx element="autonum" source="">A</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="B">1</semx>
+              </xref>
+              <xref target="C">
+                 <span class="fmt-element-name">Annex</span>
+                 <semx element="autonum" source="">A</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="C">2</semx>
+              </xref>
+           </p>
+        </foreword>
     OUTPUT
-    expect(Xml::C14n.format(Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert
+    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
-      .at("//xmlns:foreword").to_xml))
+      .at("//xmlns:foreword").to_xml)))
       .to be_equivalent_to Xml::C14n.format(output)
   end
 
@@ -336,24 +547,55 @@ RSpec.describe IsoDoc::Ogc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-          <foreword displayorder='2'>
-          <title depth="1">Preface</title>
-            <p>
-              <xref target='N1'>Requirement 1</xref>
-      <xref target='N2'>Requirement (??)</xref>
-      <xref target='N'>Requirement 2</xref>
-      <xref target='note1'>Requirement 3</xref>
-      <xref target='note2'>Requirement 4</xref>
-      <xref target='AN'>Requirement A.1</xref>
-      <xref target='Anote1'>Requirement (??)</xref>
-      <xref target='Anote2'>Requirement A.2</xref>
-            </p>
-          </foreword>
+        <foreword displayorder="2">
+           <title id="_">Preface</title>
+           <fmt-title depth="1">
+              <semx element="title" source="_">Preface</semx>
+           </fmt-title>
+           <p>
+              <xref target="N1">
+                 <span class="fmt-element-name">Requirement</span>
+                 <semx element="autonum" source="N1">1</semx>
+              </xref>
+              <xref target="N2">
+                 <span class="fmt-element-name">Requirement</span>
+                 <semx element="autonum" source="N2">(??)</semx>
+              </xref>
+              <xref target="N">
+                 <span class="fmt-element-name">Requirement</span>
+                 <semx element="autonum" source="N">2</semx>
+              </xref>
+              <xref target="note1">
+                 <span class="fmt-element-name">Requirement</span>
+                 <semx element="autonum" source="note1">3</semx>
+              </xref>
+              <xref target="note2">
+                 <span class="fmt-element-name">Requirement</span>
+                 <semx element="autonum" source="note2">4</semx>
+              </xref>
+              <xref target="AN">
+                 <span class="fmt-element-name">Requirement</span>
+                 <semx element="autonum" source="annex1">A</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="AN">1</semx>
+              </xref>
+              <xref target="Anote1">
+                 <span class="fmt-element-name">Requirement</span>
+                 <semx element="autonum" source="Anote1">(??)</semx>
+              </xref>
+              <xref target="Anote2">
+                 <span class="fmt-element-name">Requirement</span>
+                 <semx element="autonum" source="annex1">A</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="Anote2">2</semx>
+              </xref>
+           </p>
+        </foreword>
     OUTPUT
-    expect(Xml::C14n.format(Nokogiri.XML(IsoDoc::Ogc::PresentationXMLConvert
+    expect(Xml::C14n.format(strip_guid(Nokogiri.XML(IsoDoc::Ogc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
-      .at("//xmlns:foreword").to_xml))
+      .at("//xmlns:foreword").to_xml)))
       .to be_equivalent_to Xml::C14n.format(output)
   end
 
@@ -423,24 +665,55 @@ RSpec.describe IsoDoc::Ogc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-          <foreword displayorder='2'>
-          <title depth="1">Preface</title>
-            <p>
-              <xref target='N1'>Recommendation 1</xref>
-      <xref target='N2'>Recommendation (??)</xref>
-      <xref target='N'>Recommendation 2</xref>
-      <xref target='note1'>Recommendation 3</xref>
-      <xref target='note2'>Recommendation 4</xref>
-      <xref target='AN'>Recommendation A.1</xref>
-      <xref target='Anote1'>Recommendation (??)</xref>
-      <xref target='Anote2'>Recommendation A.2</xref>
-            </p>
-          </foreword>
+       <foreword displayorder="2">
+           <title id="_">Preface</title>
+           <fmt-title depth="1">
+              <semx element="title" source="_">Preface</semx>
+           </fmt-title>
+           <p>
+              <xref target="N1">
+                 <span class="fmt-element-name">Recommendation</span>
+                 <semx element="autonum" source="N1">1</semx>
+              </xref>
+              <xref target="N2">
+                 <span class="fmt-element-name">Recommendation</span>
+                 <semx element="autonum" source="N2">(??)</semx>
+              </xref>
+              <xref target="N">
+                 <span class="fmt-element-name">Recommendation</span>
+                 <semx element="autonum" source="N">2</semx>
+              </xref>
+              <xref target="note1">
+                 <span class="fmt-element-name">Recommendation</span>
+                 <semx element="autonum" source="note1">3</semx>
+              </xref>
+              <xref target="note2">
+                 <span class="fmt-element-name">Recommendation</span>
+                 <semx element="autonum" source="note2">4</semx>
+              </xref>
+              <xref target="AN">
+                 <span class="fmt-element-name">Recommendation</span>
+                 <semx element="autonum" source="annex1">A</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="AN">1</semx>
+              </xref>
+              <xref target="Anote1">
+                 <span class="fmt-element-name">Recommendation</span>
+                 <semx element="autonum" source="Anote1">(??)</semx>
+              </xref>
+              <xref target="Anote2">
+                 <span class="fmt-element-name">Recommendation</span>
+                 <semx element="autonum" source="annex1">A</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="Anote2">2</semx>
+              </xref>
+           </p>
+        </foreword>
     OUTPUT
-    expect(Xml::C14n.format(Nokogiri.XML(IsoDoc::Ogc::PresentationXMLConvert
+    expect(Xml::C14n.format(strip_guid(Nokogiri.XML(IsoDoc::Ogc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
-      .at("//xmlns:foreword").to_xml))
+      .at("//xmlns:foreword").to_xml)))
       .to be_equivalent_to Xml::C14n.format(output)
   end
 
@@ -510,24 +783,55 @@ RSpec.describe IsoDoc::Ogc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-                 <foreword displayorder='2'>
-                 <title depth="1">Preface</title>
-                   <p>
-                     <xref target='N1'>Permission 1</xref>
-      <xref target='N2'>Permission (??)</xref>
-      <xref target='N'>Permission 2</xref>
-      <xref target='note1'>Permission 3</xref>
-      <xref target='note2'>Permission 4</xref>
-      <xref target='AN'>Permission A.1</xref>
-      <xref target='Anote1'>Permission (??)</xref>
-      <xref target='Anote2'>Permission A.2</xref>
-                   </p>
-                 </foreword>
+        <foreword displayorder="2">
+           <title id="_">Preface</title>
+           <fmt-title depth="1">
+              <semx element="title" source="_">Preface</semx>
+           </fmt-title>
+           <p>
+              <xref target="N1">
+                 <span class="fmt-element-name">Permission</span>
+                 <semx element="autonum" source="N1">1</semx>
+              </xref>
+              <xref target="N2">
+                 <span class="fmt-element-name">Permission</span>
+                 <semx element="autonum" source="N2">(??)</semx>
+              </xref>
+              <xref target="N">
+                 <span class="fmt-element-name">Permission</span>
+                 <semx element="autonum" source="N">2</semx>
+              </xref>
+              <xref target="note1">
+                 <span class="fmt-element-name">Permission</span>
+                 <semx element="autonum" source="note1">3</semx>
+              </xref>
+              <xref target="note2">
+                 <span class="fmt-element-name">Permission</span>
+                 <semx element="autonum" source="note2">4</semx>
+              </xref>
+              <xref target="AN">
+                 <span class="fmt-element-name">Permission</span>
+                 <semx element="autonum" source="annex1">A</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="AN">1</semx>
+              </xref>
+              <xref target="Anote1">
+                 <span class="fmt-element-name">Permission</span>
+                 <semx element="autonum" source="Anote1">(??)</semx>
+              </xref>
+              <xref target="Anote2">
+                 <span class="fmt-element-name">Permission</span>
+                 <semx element="autonum" source="annex1">A</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="Anote2">2</semx>
+              </xref>
+           </p>
+        </foreword>
     OUTPUT
-    expect(Xml::C14n.format(Nokogiri.XML(IsoDoc::Ogc::PresentationXMLConvert
+    expect(Xml::C14n.format(strip_guid(Nokogiri.XML(IsoDoc::Ogc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
-      .at("//xmlns:foreword").to_xml))
+      .at("//xmlns:foreword").to_xml)))
       .to be_equivalent_to Xml::C14n.format(output)
   end
 
@@ -580,26 +884,89 @@ RSpec.describe IsoDoc::Ogc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-                <foreword displayorder='2'>
-                <title depth="1">Preface</title>
-                  <p>
-                     <xref target='N1'>Permission 1</xref>
-      <xref target='N2'>Permission 1-1</xref>
-      <xref target='N'>Permission 1-1-1</xref>
-      <xref target='Q1'>Requirement 1-1</xref>
-      <xref target='R1'>Recommendation 1-1</xref>
-      <xref target='AN1'>Permission A.1</xref>
-      <xref target='AN2'>Permission A.1-1</xref>
-      <xref target='AN'>Permission A.1-1-1</xref>
-      <xref target='AQ1'>Requirement A.1-1</xref>
-      <xref target='AR1'>Recommendation A.1-1</xref>
-                  </p>
-                </foreword>
+       <foreword displayorder="2">
+           <title id="_">Preface</title>
+           <fmt-title depth="1">
+              <semx element="title" source="_">Preface</semx>
+           </fmt-title>
+           <p>
+              <xref target="N1">
+                 <span class="fmt-element-name">Permission</span>
+                 <semx element="autonum" source="N1">1</semx>
+              </xref>
+              <xref target="N2">
+                 <span class="fmt-element-name">Permission</span>
+                 <semx element="autonum" source="N1">1</semx>
+                 <span class="fmt-autonum-delim">-</span>
+                 <semx element="autonum" source="N2">1</semx>
+              </xref>
+              <xref target="N">
+                 <span class="fmt-element-name">Permission</span>
+                 <semx element="autonum" source="N1">1</semx>
+                 <span class="fmt-autonum-delim">-</span>
+                 <semx element="autonum" source="N2">1</semx>
+                 <span class="fmt-autonum-delim">-</span>
+                 <semx element="autonum" source="N">1</semx>
+              </xref>
+              <xref target="Q1">
+                 <span class="fmt-element-name">Requirement</span>
+                 <semx element="autonum" source="N1">1</semx>
+                 <span class="fmt-autonum-delim">-</span>
+                 <semx element="autonum" source="Q1">1</semx>
+              </xref>
+              <xref target="R1">
+                 <span class="fmt-element-name">Recommendation</span>
+                 <semx element="autonum" source="N1">1</semx>
+                 <span class="fmt-autonum-delim">-</span>
+                 <semx element="autonum" source="R1">1</semx>
+              </xref>
+              <xref target="AN1">
+                 <span class="fmt-element-name">Permission</span>
+                 <semx element="autonum" source="Axyz">A</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="AN1">1</semx>
+              </xref>
+              <xref target="AN2">
+                 <span class="fmt-element-name">Permission</span>
+                 <semx element="autonum" source="Axyz">A</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="AN1">1</semx>
+                 <span class="fmt-autonum-delim">-</span>
+                 <semx element="autonum" source="AN2">1</semx>
+              </xref>
+              <xref target="AN">
+                 <span class="fmt-element-name">Permission</span>
+                 <semx element="autonum" source="Axyz">A</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="AN1">1</semx>
+                 <span class="fmt-autonum-delim">-</span>
+                 <semx element="autonum" source="AN2">1</semx>
+                 <span class="fmt-autonum-delim">-</span>
+                 <semx element="autonum" source="AN">1</semx>
+              </xref>
+              <xref target="AQ1">
+                 <span class="fmt-element-name">Requirement</span>
+                 <semx element="autonum" source="Axyz">A</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="AN1">1</semx>
+                 <span class="fmt-autonum-delim">-</span>
+                 <semx element="autonum" source="AQ1">1</semx>
+              </xref>
+              <xref target="AR1">
+                 <span class="fmt-element-name">Recommendation</span>
+                 <semx element="autonum" source="Axyz">A</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="AN1">1</semx>
+                 <span class="fmt-autonum-delim">-</span>
+                 <semx element="autonum" source="AR1">1</semx>
+              </xref>
+           </p>
+        </foreword>
     OUTPUT
-    expect(Xml::C14n.format(Nokogiri.XML(IsoDoc::Ogc::PresentationXMLConvert
+    expect(Xml::C14n.format(strip_guid(Nokogiri.XML(IsoDoc::Ogc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
-      .at("//xmlns:foreword").to_xml))
+      .at("//xmlns:foreword").to_xml)))
       .to be_equivalent_to Xml::C14n.format(output)
   end
 
@@ -710,35 +1077,101 @@ RSpec.describe IsoDoc::Ogc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-      <foreword id="fwd" displayorder="2">
-            <title depth="1">
-       I.
-       <tab/>
-       Preface
-      </title>
-         <p>
-           <xref target="N1">Figure 1</xref>
-           <xref target="N2">Figure (??)</xref>
-           <xref target="N">Diagram 1</xref>
-           <xref target="note1">Plate 1</xref>
-           <xref target="note3">Listing 1</xref>
-           <xref target="note4">Listing 2</xref>
-           <xref target="note2">Diagram 2</xref>
-           <xref target="note5">Figure 2</xref>
-           <xref target="AN">Diagram A.1</xref>
-           <xref target="Anote1">Plate (??)</xref>
-           <xref target="Anote2">Figure A.1</xref>
-           <xref target="Anote3">Listing A.1</xref>
-           <xref target="Anote31">Listing A.2</xref>
-           <xref target="Anote32">Figure A.2</xref>
-           <xref target="Anote4">Bibliographical Section, Figure 1</xref>
-         </p>
-       </foreword>
+        <foreword id="fwd" displayorder="2">
+           <title id="_">Preface</title>
+           <fmt-title depth="1">
+              <span class="fmt-caption-label">
+                 <semx element="autonum" source="fwd">I</semx>
+                 <span class="fmt-autonum-delim">.</span>
+              </span>
+              <span class="fmt-caption-delim">
+                 <tab/>
+              </span>
+              <semx element="title" source="_">Preface</semx>
+           </fmt-title>
+           <fmt-xref-label>
+           <semx element="title" source="fwd">Preface</semx>
+          </fmt-xref-label>
+           <p>
+              <xref target="N1">
+                 <span class="fmt-element-name">Figure</span>
+                 <semx element="autonum" source="N1">1</semx>
+              </xref>
+              <xref target="N2">
+                 <span class="fmt-element-name">Figure</span>
+                 <semx element="autonum" source="N2">(??)</semx>
+              </xref>
+              <xref target="N">
+                 <span class="fmt-element-name">Diagram</span>
+                 <semx element="autonum" source="N">1</semx>
+              </xref>
+              <xref target="note1">
+                 <span class="fmt-element-name">Plate</span>
+                 <semx element="autonum" source="note1">1</semx>
+              </xref>
+              <xref target="note3">
+                 <span class="fmt-element-name">Listing</span>
+                 <semx element="autonum" source="note3">1</semx>
+              </xref>
+              <xref target="note4">
+                 <span class="fmt-element-name">Listing</span>
+                 <semx element="autonum" source="note4">2</semx>
+              </xref>
+              <xref target="note2">
+                 <span class="fmt-element-name">Diagram</span>
+                 <semx element="autonum" source="note2">2</semx>
+              </xref>
+              <xref target="note5">
+                 <span class="fmt-element-name">Figure</span>
+                 <semx element="autonum" source="note5">2</semx>
+              </xref>
+              <xref target="AN">
+                 <span class="fmt-element-name">Diagram</span>
+                 <semx element="autonum" source="annex1">A</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="AN">1</semx>
+              </xref>
+              <xref target="Anote1">
+                 <span class="fmt-element-name">Plate</span>
+                 <semx element="autonum" source="Anote1">(??)</semx>
+              </xref>
+              <xref target="Anote2">
+                 <span class="fmt-element-name">Figure</span>
+                 <semx element="autonum" source="annex1">A</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="Anote2">1</semx>
+              </xref>
+              <xref target="Anote3">
+                 <span class="fmt-element-name">Listing</span>
+                 <semx element="autonum" source="annex1">A</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="Anote3">1</semx>
+              </xref>
+              <xref target="Anote31">
+                 <span class="fmt-element-name">Listing</span>
+                 <semx element="autonum" source="annex1">A</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="Anote31">2</semx>
+              </xref>
+              <xref target="Anote32">
+                 <span class="fmt-element-name">Figure</span>
+                 <semx element="autonum" source="annex1">A</semx>
+                 <span class="fmt-autonum-delim">.</span>
+                 <semx element="autonum" source="Anote32">2</semx>
+              </xref>
+              <xref target="Anote4">
+                 <semx element="references" source="biblio">Bibliographical Section</semx>
+                 <span class="fmt-comma">,</span>
+                 <span class="fmt-element-name">Figure</span>
+                 <semx element="autonum" source="Anote4">1</semx>
+              </xref>
+           </p>
+        </foreword>
     OUTPUT
-    expect(Xml::C14n.format(Nokogiri.XML(IsoDoc::Ogc::PresentationXMLConvert
+    expect(Xml::C14n.format(strip_guid(Nokogiri.XML(IsoDoc::Ogc::PresentationXMLConvert
       .new(presxml_options)
       .convert("test", input, true))
-      .at("//xmlns:foreword").to_xml))
+      .at("//xmlns:foreword").to_xml)))
       .to be_equivalent_to Xml::C14n.format(output)
   end
 end

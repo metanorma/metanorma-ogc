@@ -242,7 +242,7 @@ RSpec.describe IsoDoc::Ogc do
              <span class="MsoHyperlink">
                <span lang="EN-GB" style="mso-no-proof:yes" xml:lang="EN-GB">
                  <a href="#_Toc">
-                   Recommendation 1
+                   Abstract test 1
                    <span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
                      <span style="mso-tab-count:1 dotted">. </span>
                    </span>
@@ -266,7 +266,7 @@ RSpec.describe IsoDoc::Ogc do
              <span class="MsoHyperlink">
                <span lang="EN-GB" style="mso-no-proof:yes" xml:lang="EN-GB">
                  <a href="#_Toc">
-                   Abstract test 1
+                   Recommendation 1
                    <span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
                      <span style="mso-tab-count:1 dotted">. </span>
                    </span>
@@ -334,23 +334,23 @@ RSpec.describe IsoDoc::Ogc do
             <boilerplate>
             <copyright-statement>
             <clause>
-            <title>Copyright notice</title>
+            <fmt-title>Copyright notice</fmt-title>
             <p>A</p>
             </clause>
             <clause>
-            <title>Note</title>
+            <fmt-title>Note</fmt-title>
             <p>B</p>
             </clause>
             </copyright-statement>
             <license-statement>
             <clause>
-            <title>License Agreement</title>
+            <fmt-title>License Agreement</fmt-title>
             <p>C</p>
             </clause>
             </license-statement>
             </boilerplate>
             <sections>
-            <terms id="_terms_and_definitions" obligation="normative"><title>Terms and definitions</title><p id="_bf202ad0-7300-4cca-80ae-87ef7008f0fd">For the purposes of this document,
+            <terms id="_terms_and_definitions" obligation="normative"><fmt-title>Terms and definitions</fmt-title><p id="_bf202ad0-7300-4cca-80ae-87ef7008f0fd">For the purposes of this document,
             the following terms and definitions apply.</p>
         <term id="_bounding_volume">
         <preferred>Bounding Volume</preferred>

@@ -336,7 +336,7 @@ RSpec.describe IsoDoc::Ogc do
                   </bibdata>
                                 #{METANORMA_EXTENSION}
                   <preface>    <clause type="toc" id="_" displayorder="1">
-                  <title depth="1">Contents</title>
+                  <fmt-title depth="1">Contents</fmt-title>
                   </clause>
                 <foreword id="A" displayorder="2">
                   <title depth='1'>I.<tab/>Preface</title>

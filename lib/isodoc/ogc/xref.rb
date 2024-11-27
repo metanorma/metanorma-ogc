@@ -55,13 +55,12 @@ module IsoDoc
       end
 
       def preface_names(clause)
-        clause.nil? and return
-        clause["type"] == "toc" and return
+        clause.nil? || clause["type"] == "toc" and return
         @prefacenum += 1
-        pref = preface_number(@prefacenum, 1)
+        pref = semx(clause, preface_number(@prefacenum, 1))
         @anchors[clause["id"]] =
-          { label: pref,
-            level: 1, xref: clause_title(clause), type: "clause" }
+          { label: pref, level: 1,  type: "clause",
+            xref: semx(clause, clause_title(clause), "title") }
         clause.xpath(ns(SUBCLAUSES)).each_with_index do |c, i|
           preface_names_numbered1(c, pref, preface_number(i + 1, 2), 2)
         end
@@ -70,10 +69,12 @@ module IsoDoc
       def preface_names_numbered1(clause, parentnum, num, level)
         lbl = clause_number_semx(parentnum, clause, num)
         @anchors[clause["id"]] =
-          { label: lbl, level: level, xref: labelled_autonum(@labels["clause"], lbl),
+          { label: lbl, level: level, 
+            xref: labelled_autonum(@labels["clause"], lbl),
             type: "clause", elem: @labels["clause"] }
         clause.xpath(ns(SUBCLAUSES)).each_with_index do |c, i|
-          preface_names_numbered1(c, lbl, preface_number(i + 1, level + 1), level + 1)
+          preface_names_numbered1(c, lbl, preface_number(i + 1, level + 1),
+                                  level + 1)
         end
       end
 
@@ -136,7 +137,9 @@ module IsoDoc
         nodeSet(clauses).each do |clause|
         clause.xpath(ns(LISTING)).noblank.each do |t|
           @anchors[t["id"]] =
-            anchor_struct("#{num}#{hier_separator}#{c.increment(t).print}", t, @labels["sourcecode"],
+            anchor_struct(#"#{num}#{hier_separator}#{c.increment(t).print}", 
+                          hiersemx(clause, num, c.increment(t), t),
+                          t, @labels["sourcecode"],
                           "sourcecode", { unnumb:t["unnumbered"] })
         end
         end

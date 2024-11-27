@@ -81,7 +81,7 @@ RSpec.describe IsoDoc::Ogc do
            </bibdata>
            <preface>
                <clause type="toc" id="_" displayorder="1">
-            <title depth="1">Contents</title>
+            <fmt-title depth="1">Contents</fmt-title>
           </clause>
            </preface>
           <sections/>
@@ -121,7 +121,7 @@ RSpec.describe IsoDoc::Ogc do
              <doctype>community-practice</doctype>
            </ext>
          </bibdata>
-           <preface> <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause> </preface>
+           <preface> <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Contents</fmt-title> </clause> </preface>
          <sections/>
        </ogc-standard>
     OUTPUT
@@ -161,7 +161,7 @@ RSpec.describe IsoDoc::Ogc do
              <doctype>technical-paper</doctype>
            </ext>
          </bibdata>
-           <preface> <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause> </preface>
+           <preface> <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Contents</fmt-title> </clause> </preface>
          <sections/>
        </ogc-standard>
     OUTPUT
@@ -201,7 +201,7 @@ RSpec.describe IsoDoc::Ogc do
              <doctype>white-paper</doctype>
            </ext>
          </bibdata>
-           <preface> <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause> </preface>
+           <preface> <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Contents</fmt-title> </clause> </preface>
          <sections/>
        </ogc-standard>
     OUTPUT
@@ -233,7 +233,7 @@ RSpec.describe IsoDoc::Ogc do
            </bibdata>
         #{METANORMA_EXTENSION}
            <preface>
-               <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
+               <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Contents</fmt-title> </clause>
              <clause id="_" type='keywords' displayorder="2">
                <title depth='1'>I.<tab/>Keywords</title>
                <p>The following are keywords to be used by search engines and document catalogues.</p>
@@ -291,7 +291,7 @@ RSpec.describe IsoDoc::Ogc do
                </bibdata>
         #{METANORMA_EXTENSION}
                <preface>
-                   <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
+                   <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Contents</fmt-title> </clause>
                <abstract id='A' displayorder="2">
         <title>I.</title>
       </abstract>
@@ -376,7 +376,7 @@ RSpec.describe IsoDoc::Ogc do
             </bibdata>
       #{METANORMA_EXTENSION}
             <preface>
-                <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
+                <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Contents</fmt-title> </clause>
         <clause id='_' type='submitting_orgs' displayorder="2">
           <title depth='1'>I.<tab/>Submitting Organizations</title>
           <p>The following organizations submitted this Document to the Open
@@ -463,7 +463,7 @@ RSpec.describe IsoDoc::Ogc do
             </bibdata>
       #{METANORMA_EXTENSION}
             <preface>
-                <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
+                <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Contents</fmt-title> </clause>
                  <abstract id='A' displayorder="2">
                    <title>I.</title>
                  </abstract>

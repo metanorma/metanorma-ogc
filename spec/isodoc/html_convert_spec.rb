@@ -389,7 +389,7 @@ RSpec.describe IsoDoc::Ogc do
       <bibdata/>
        #{METANORMA_EXTENSION}
            <preface>
-            <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
+            <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Contents</fmt-title> </clause>
              <foreword id='A' displayorder="2">
                <title depth='1'>I.<tab/>Preface</title>
                <admonition id='_' type='caution'>
@@ -443,7 +443,7 @@ RSpec.describe IsoDoc::Ogc do
       <bibdata/>
        #{METANORMA_EXTENSION}
            <preface>
-            <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
+            <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Contents</fmt-title> </clause>
              <foreword id='A' displayorder="2">
                <title depth='1'>I.<tab/>Preface</title>
                <admonition id='_' type='warning'>
@@ -497,7 +497,7 @@ RSpec.describe IsoDoc::Ogc do
       <bibdata/>
        #{METANORMA_EXTENSION}
            <preface>
-            <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
+            <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Contents</fmt-title> </clause>
              <foreword id='A' displayorder="2">
                <title depth='1'>I.<tab/>Preface</title>
                <admonition id='_' type='important'>
@@ -549,7 +549,7 @@ RSpec.describe IsoDoc::Ogc do
       <bibdata/>
        #{METANORMA_EXTENSION}
         <preface>
-         <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
+         <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Contents</fmt-title> </clause>
           <foreword id='A' displayorder="2"><title depth='1'>I.<tab/>Preface</title>
             <example id='_'>
               <name>Example&#xA0;&#x2014; Example Title</name>
@@ -605,7 +605,7 @@ RSpec.describe IsoDoc::Ogc do
       <bibdata/>
        #{METANORMA_EXTENSION}
         <preface>
-         <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
+         <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Contents</fmt-title> </clause>
           <foreword id='A' displayorder="2">         <title depth="1">
             I.
             <tab/>
@@ -668,7 +668,7 @@ RSpec.describe IsoDoc::Ogc do
        #{METANORMA_EXTENSION}
          <preface>
            <clause type="toc" id="_" displayorder="1">
-             <title depth="1">Contents</title>
+             <fmt-title depth="1">Contents</fmt-title>
            </clause>
            <foreword id="A" displayorder="2">
                     <title depth="1">
@@ -854,7 +854,7 @@ RSpec.describe IsoDoc::Ogc do
                #{METANORMA_EXTENSION.gsub(%r{</?metanorma-extension>}, '')}
                </metanorma-extension>
               <preface>
-                  <clause type="toc" id="_" displayorder="1"> <title depth="1">Contents</title> </clause>
+                  <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Contents</fmt-title> </clause>
                 <foreword id="A" displayorder="2">
                          <title depth="1">
             I.
