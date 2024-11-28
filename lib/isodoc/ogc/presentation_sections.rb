@@ -87,7 +87,12 @@ module IsoDoc
         end
       end
 
-      def annex1(elem)
+      def annex_delim(_elem)
+      "<br/>"
+    end
+
+      # KILL
+      def annex1x(elem)
         lbl = @xrefs.anchor(elem["id"], :label)
         t = elem.at(ns("./title")) and
           t.children = "<strong>#{to_xml(t.children)}</strong>"
