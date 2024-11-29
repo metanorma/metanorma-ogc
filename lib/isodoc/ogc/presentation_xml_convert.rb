@@ -55,7 +55,7 @@ module IsoDoc
         ret = updates.map { |u| generate_dochistory_row(u) }.flatten.join("\n")
         pref.next = <<~XML
           <annex id='_#{UUIDTools::UUID.random_create}' obligation='informative'>
-          <fmt-title>#{@i18n.dochistory}</fmt-title>
+          <title>#{@i18n.dochistory}</title>
           <table><thead>
           <tr><th>Date</th><th>Release</th><th>Author</th><th>Paragraph Modified</th><th>Description</th></tr>
           </thead><tbody>

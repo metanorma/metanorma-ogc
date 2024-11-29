@@ -636,6 +636,13 @@ RSpec.describe IsoDoc::Ogc do
                     <fmt-xref-label>
                        <span class="fmt-element-name">Example</span>
                     </fmt-xref-label>
+            <fmt-xref-label container="A">
+               <span class="fmt-xref-container">
+                  <semx element="title" source="A">Preface</semx>
+               </span>
+               <span class="fmt-comma">,</span>
+               <span class="fmt-element-name">Example</span>
+            </fmt-xref-label>
                     <p id="_">This is an example</p>
                     <p id="_">Amen</p>
                  </example>
@@ -721,6 +728,15 @@ RSpec.describe IsoDoc::Ogc do
                     <fmt-xref-label>
                        <span class="fmt-element-name">Example</span>
                     </fmt-xref-label>
+                                       <fmt-xref-label container="A">
+                      <span class="fmt-xref-container">
+                         <semx element="title" source="A">
+             Preface
+          </semx>
+                      </span>
+                      <span class="fmt-comma">,</span>
+                      <span class="fmt-element-name">Example</span>
+                   </fmt-xref-label>
                     <p id="_">This is an example</p>
                     <p id="_">Amen</p>
                  </example>
@@ -985,77 +1001,92 @@ RSpec.describe IsoDoc::Ogc do
                <metanorma-extension>
                #{METANORMA_EXTENSION.gsub(%r{</?metanorma-extension>}, '')}
                </metanorma-extension>
-           <preface>
-              <clause type="toc" id="_" displayorder="1">
-                 <fmt-title depth="1">Contents</fmt-title>
-              </clause>
-              <foreword id="A" displayorder="2">
-                 <title id="_">Preface</title>
-                 <fmt-title depth="1">
-                    <span class="fmt-caption-label">
-                       <semx element="autonum" source="A">I</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                    </span>
-                    <span class="fmt-caption-delim">
-                       <tab/>
-                    </span>
-                    <semx element="title" source="_">Preface</semx>
-                 </fmt-title>
-                 <fmt-xref-label>
-                    <semx element="title" source="A">Preface</semx>
-                 </fmt-xref-label>
-                 <note id="B" autonum="">
-                    <fmt-name>
-                       <span class="fmt-caption-label">
-                          <span class="fmt-element-name">NOTE</span>
-                       </span>
-                       <span class="fmt-label-delim">
-                          :
-                          <tab/>
-                       </span>
-                    </fmt-name>
-                    <fmt-xref-label>
-                       <span class="fmt-element-name">Note</span>
-                    </fmt-xref-label>
-                    <p>Hello</p>
-                 </note>
-              </foreword>
-           </preface>
-           <sections>
-              <clause id="C" displayorder="3">
-                 <title id="_">Clause</title>
-                 <fmt-title depth="1">
-                    <span class="fmt-caption-label">
-                       <semx element="autonum" source="C">1</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                    </span>
-                    <span class="fmt-caption-delim">
-                       <tab/>
-                    </span>
-                    <semx element="title" source="_">Clause</semx>
-                 </fmt-title>
-                 <fmt-xref-label>
-                    <span class="fmt-element-name">Clause</span>
-                    <semx element="autonum" source="C">1</semx>
-                 </fmt-xref-label>
-                 <note id="D" autonum="">
-                    <fmt-name>
-                       <span class="fmt-caption-label">
-                          <span class="fmt-element-name">NOTE</span>
-                       </span>
-                       <span class="fmt-label-delim">
-                          :
-                          <tab/>
-                       </span>
-                    </fmt-name>
-                    <fmt-xref-label>
-                       <span class="fmt-element-name">Note</span>
-                    </fmt-xref-label>
-                    <p>Hello</p>
-                 </note>
-              </clause>
-           </sections>
-        </iso-standard>
+         <preface>
+             <clause type="toc" id="_" displayorder="1">
+                <fmt-title depth="1">Contents</fmt-title>
+             </clause>
+             <foreword id="A" displayorder="2">
+                <title id="_">Preface</title>
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="A">I</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                   <span class="fmt-caption-delim">
+                      <tab/>
+                   </span>
+                   <semx element="title" source="_">Preface</semx>
+                </fmt-title>
+                <fmt-xref-label>
+                   <semx element="title" source="A">Preface</semx>
+                </fmt-xref-label>
+                <note id="B" autonum="">
+                   <fmt-name>
+                      <span class="fmt-caption-label">
+                         <span class="fmt-element-name">NOTE</span>
+                      </span>
+                      <span class="fmt-label-delim">
+                         :
+                         <tab/>
+                      </span>
+                   </fmt-name>
+                   <fmt-xref-label>
+                      <span class="fmt-element-name">Note</span>
+                   </fmt-xref-label>
+                   <fmt-xref-label container="A">
+                      <span class="fmt-xref-container">
+                         <semx element="title" source="A">Preface</semx>
+                      </span>
+                      <span class="fmt-comma">,</span>
+                      <span class="fmt-element-name">Note</span>
+                   </fmt-xref-label>
+                   <p>Hello</p>
+                </note>
+             </foreword>
+          </preface>
+          <sections>
+             <clause id="C" displayorder="3">
+                <title id="_">Clause</title>
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="C">1</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                   <span class="fmt-caption-delim">
+                      <tab/>
+                   </span>
+                   <semx element="title" source="_">Clause</semx>
+                </fmt-title>
+                <fmt-xref-label>
+                   <span class="fmt-element-name">Clause</span>
+                   <semx element="autonum" source="C">1</semx>
+                </fmt-xref-label>
+                <note id="D" autonum="">
+                   <fmt-name>
+                      <span class="fmt-caption-label">
+                         <span class="fmt-element-name">NOTE</span>
+                      </span>
+                      <span class="fmt-label-delim">
+                         :
+                         <tab/>
+                      </span>
+                   </fmt-name>
+                   <fmt-xref-label>
+                      <span class="fmt-element-name">Note</span>
+                   </fmt-xref-label>
+                   <fmt-xref-label container="C">
+                      <span class="fmt-xref-container">
+                         <span class="fmt-element-name">Clause</span>
+                         <semx element="autonum" source="C">1</semx>
+                      </span>
+                      <span class="fmt-comma">,</span>
+                      <span class="fmt-element-name">Note</span>
+                   </fmt-xref-label>
+                   <p>Hello</p>
+                </note>
+             </clause>
+          </sections>
+       </iso-standard>
     OUTPUT
     html = <<~OUTPUT
       <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US" class="container"><div class="title-section"><p> </p></div><br/><div class="prefatory-section"><p> </p></div><br/><div class="main-section">    <br/>
