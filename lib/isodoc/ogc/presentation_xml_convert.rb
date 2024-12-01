@@ -190,10 +190,11 @@ module IsoDoc
 
       def source_label(elem)
         labelled_ancestor(elem) and return
-        lbl = "<span class='fmt-element-name'>#{lower2cap @i18n.sourcecode}</span>"
+        #lbl = "<span class='fmt-element-name'>#{lower2cap @i18n.sourcecode}</span>"
         n = @xrefs.get[elem["id"]]
-        (n.nil? || n[:label].nil? || n[:label].empty?) or
-          lbl = l10n("#{lbl} #{autonum(elem['id'], n[:label])}")
+        #(n.nil? || n[:label].nil? || n[:label].empty?) or
+          #lbl = l10n("#{lbl} #{autonum(elem['id'], n[:label])}")
+        lbl = labelled_autonum(lower2cap(@i18n.sourcecode), elem["id"], n&.dig(:label))
         prefix_name(elem, { caption: block_delim }, lbl, "name")
       end
 

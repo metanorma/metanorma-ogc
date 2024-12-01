@@ -895,7 +895,6 @@ RSpec.describe IsoDoc::Ogc do
                 <fmt-name>
                    <span class="fmt-caption-label">
                       <span class="fmt-element-name">Table</span>
-                      <semx element="autonum" source=""/>
                    </span>
                 </fmt-name>
                 <thead>
