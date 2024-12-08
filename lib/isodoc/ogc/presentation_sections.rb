@@ -68,7 +68,7 @@ module IsoDoc
       def keyword_clause(kwords)
         <<~KEYWORDS
           <clause id="_#{UUIDTools::UUID.random_create}" type="keywords">
-          <title>Keywords</title>
+          <title>Keywords</fmt>
           <p>The following are keywords to be used by search engines and document catalogues.</p>
           <p>#{kwords.join(', ')}</p></clause>
         KEYWORDS
@@ -87,18 +87,21 @@ module IsoDoc
         end
       end
 
-      def annex1(elem)
+      def annex_delim(_elem)
+      "<br/>"
+    end
+
+      # KILL
+      def annex1x(elem)
         lbl = @xrefs.anchor(elem["id"], :label)
         t = elem.at(ns("./title")) and
           t.children = "<strong>#{to_xml(t.children)}</strong>"
-        prefix_name(elem, "<br/>", lbl, "title")
+        prefix_name(elem, { caption: "<br/>" }, lbl, "title")
       end
 
       def clause(docxml)
         super
-        docxml.xpath(ns("//foreword | //preface/abstract | " \
-                        "//submitters | //introduction | //acknowledgements"))
-          .each { |f| clause1(f) }
+        docxml.xpath(ns("//submitters")).each { |f| clause1(f) }
       end
 
       def clause1(elem)

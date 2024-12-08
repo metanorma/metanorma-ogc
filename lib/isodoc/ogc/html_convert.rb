@@ -143,10 +143,10 @@ module IsoDoc
       def figure_parse1(node, out)
         out.div **figure_attrs(node) do |div|
           node.children.each do |n|
-            parse(n, div) unless n.name == "name"
+            parse(n, div) unless n.name == "fmt-name"
           end
         end
-        figure_name_parse(node, out, node.at(ns("./name")))
+        figure_name_parse(node, out, node.at(ns("./fmt-name")))
       end
 
       def html_cleanup(html)

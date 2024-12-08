@@ -36,6 +36,7 @@ module IsoDoc
         h2 = term.at("./preceding-sibling::*[@class = 'TermNum'][1]")
         term["class"] = h2["class"]
         term["id"] = h2["id"]
+        # TODO to PresentationXML
         term.add_first_child "&#xa0;"
         term.add_first_child h2.remove.children
       end
@@ -50,7 +51,7 @@ module IsoDoc
       end
 
       def example_parse(node, out)
-        name = node.at(ns("./name"))
+        name = node.at(ns("./fmt-name"))
         example_name_parse(node, out, name) # if name
         super
       end

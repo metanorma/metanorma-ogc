@@ -55,25 +55,26 @@ module IsoDoc
       end
 
       def preface_names(clause)
-        clause.nil? and return
-        clause["type"] == "toc" and return
+        clause.nil? || clause["type"] == "toc" and return
         @prefacenum += 1
-        pref = preface_number(@prefacenum, 1)
+        pref = semx(clause, preface_number(@prefacenum, 1))
         @anchors[clause["id"]] =
-          { label: pref,
-            level: 1, xref: clause_title(clause), type: "clause" }
+          { label: pref, level: 1,  type: "clause",
+            xref: semx(clause, clause_title(clause), "title") }
         clause.xpath(ns(SUBCLAUSES)).each_with_index do |c, i|
-          preface_names_numbered1(c, "#{pref}.#{preface_number(i + 1, 2)}", 2)
+          preface_names_numbered1(c, pref, preface_number(i + 1, 2), 2)
         end
       end
 
-      def preface_names_numbered1(clause, num, level)
+      def preface_names_numbered1(clause, parentnum, num, level)
+        lbl = clause_number_semx(parentnum, clause, num)
         @anchors[clause["id"]] =
-          { label: num, level: level, xref: l10n("#{@labels['clause']} #{num}"),
+          { label: lbl, level: level, 
+            xref: labelled_autonum(@labels["clause"], lbl),
             type: "clause", elem: @labels["clause"] }
         clause.xpath(ns(SUBCLAUSES)).each_with_index do |c, i|
-          lbl = "#{num}.#{preface_number(i + 1, level + 1)}"
-          preface_names_numbered1(c, lbl, level + 1)
+          preface_names_numbered1(c, lbl, preface_number(i + 1, level + 1),
+                                  level + 1)
         end
       end
 
@@ -91,15 +92,15 @@ module IsoDoc
         end
       end
 
-      def sequential_permission_body(id, block, label, klass, model,
-container: false)
+      # KILL
+      def sequential_permission_bodyx(id, block, label, klass, model, container: false)
         @anchors[block["id"]] = model.postprocess_anchor_struct(
           block, anchor_struct(id, container ? block : nil,
                                label, klass, block["unnumbered"])
         )
         model.permission_parts(block, id, label, klass).each do |n|
-          @anchors[n[:id]] = anchor_struct(n[:number], nil, n[:label],
-                                           n[:klass], false)
+          @anchors[n[:id]] = anchor_struct(n[:number], n[:elem], n[:label],
+                                           n[:klass], { unnumb: false, container: container })
         end
       end
 
@@ -119,9 +120,9 @@ container: false)
         clause.xpath(ns(LISTING)).noblank.each do |t|
           c.increment(t)
           @anchors[t["id"]] = anchor_struct(
-            c.print, container ? t : nil,
+            c.print, t,
             @labels["sourcecode"], "sourcecode",
-            t["unnumbered"]
+            { unnumb: t["unnumbered"], container: container}
           )
         end
       end
@@ -131,14 +132,16 @@ container: false)
         hierarchical_sourcecode_names(clause, num)
       end
 
-      def hierarchical_sourcecode_names(clause, num)
+      def hierarchical_sourcecode_names(clauses, num)
         c = Counter.new
+        nodeSet(clauses).each do |clause|
         clause.xpath(ns(LISTING)).noblank.each do |t|
-          c.increment(t)
-          label = "#{num}#{hiersep}#{c.print}"
           @anchors[t["id"]] =
-            anchor_struct(label, nil, @labels["sourcecode"],
-                          "sourcecode", t["unnumbered"])
+            anchor_struct(#"#{num}#{hier_separator}#{c.increment(t).print}", 
+                          hiersemx(clause, num, c.increment(t), t),
+                          t, @labels["sourcecode"],
+                          "sourcecode", { unnumb:t["unnumbered"] })
+        end
         end
       end
     end

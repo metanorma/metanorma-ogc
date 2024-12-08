@@ -335,167 +335,323 @@ RSpec.describe IsoDoc::Ogc do
                   <language current="true">en</language>
                   </bibdata>
                                 #{METANORMA_EXTENSION}
-                  <preface>    <clause type="toc" id="_" displayorder="1">
-                  <title depth="1">Contents</title>
-                  </clause>
-                <foreword id="A" displayorder="2">
-                  <title depth='1'>I.<tab/>Preface</title>
-                  <p id="_">
-                          <xref target="ISO712">[110]</xref>
-        <xref target="ISBN">[1]</xref>
-        <xref target="ISSN">[2]</xref>
-        <xref target="ISO16634">ISO 16634:-- (all parts)</xref>
-        <xref target="ref1">ICC&#xa0;167</xref>
-        <xref target="ref10">[4]</xref>
-        <xref target="ref12">Citn</xref>
-        <xref target="zip_ffs">[5]</xref>
-        <xref target="ogc1">OGC&#xa0;19-025r1</xref>
-        <xref target="ogc2">OGC&#xa0;00-027</xref>
-        <xref target="ogc3">OGC&#xa0;05-020r27 (draft)</xref>
+          <preface>
+             <clause type="toc" id="_" displayorder="1">
+                <fmt-title depth="1">Contents</fmt-title>
+             </clause>
+             <foreword id="A" displayorder="2">
+                <title id="_">Preface</title>
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="A">I</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                   <span class="fmt-caption-delim">
+                      <tab/>
+                   </span>
+                   <semx element="title" source="_">Preface</semx>
+                </fmt-title>
+                <fmt-xref-label>
+                   <semx element="title" source="A">Preface</semx>
+                </fmt-xref-label>
+                <p id="_">
+                   <xref target="ISO712">[110]</xref>
+                   <xref target="ISBN">[1]</xref>
+                   <xref target="ISSN">[2]</xref>
+                   <xref target="ISO16634">ISO 16634:-- (all parts)</xref>
+                   <xref target="ref1">ICC 167</xref>
+                   <xref target="ref10">[4]</xref>
+                   <xref target="ref12">Citn</xref>
+                   <xref target="zip_ffs">[5]</xref>
+                   <xref target="ogc1">OGC 19-025r1</xref>
+                   <xref target="ogc2">OGC 00-027</xref>
+                   <xref target="ogc3">OGC 05-020r27 (draft)</xref>
                 </p>
-                  </foreword></preface>
-                  <sections><references id="_" obligation="informative" normative="true" displayorder="3"><title depth="1">1.<tab/>Normative References</title>
-                  <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
-              <bibitem id="ISO712" type="standard">
-                <formattedref>ISO: ISO&#xa0;712, <em>Cereals and cereal products</em>. International Organization for Standardization</formattedref>
-                <docidentifier type="ISO">ISO&#xa0;712</docidentifier>
-                <docidentifier type="metanorma">[110]</docidentifier>
-                <docidentifier scope="biblio-tag">ISO 712</docidentifier>
-                <biblio-tag/>
-              </bibitem>
-              <bibitem id="ISO16634" type="standard">
-                <formattedref>ISO: ISO 16634:-- (all parts), <em>Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</em>. International Organization for Standardization</formattedref>
-                <docidentifier type="ISO">ISO 16634:-- (all parts)</docidentifier>
-                <docidentifier scope="biblio-tag">ISO 16634:-- (all parts)</docidentifier>
-                <biblio-tag/>
-              </bibitem>
-              <bibitem id="ISO20483" type="standard">
-                <formattedref>ISO: ISO&#xa0;20483:2013-2014, <em>Cereals and pulses</em>. International Organization for Standardization (2013&#x2013;2014).</formattedref>
-                <docidentifier type="ISO">ISO&#xa0;20483:2013-2014</docidentifier>
-                <docidentifier scope="biblio-tag">ISO 20483:2013-2014</docidentifier>
-                <biblio-tag/>
-              </bibitem>
-              <bibitem id="ref1">
-                <formattedref format="application/x-isodoc+xml"><smallcap>Standard No I.C.C 167</smallcap>. <em>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</em> (see <link target="http://www.icc.or.at"/>)</formattedref>
-                <docidentifier type="ICC">ICC&#xa0;167</docidentifier>
-                <docidentifier scope="biblio-tag">ICC 167</docidentifier>
-                <biblio-tag/>
-              </bibitem>
-              <note><name>NOTE:<tab/></name><p>This is an annotation of ISO 20483:2013-2014</p></note>
-                  <bibitem id="zip_ffs"><formattedref format="application/x-isodoc+xml">Title 5</formattedref><docidentifier type="metanorma">[5]</docidentifier>
-                  <biblio-tag/>
-                  </bibitem>
-                               <bibitem id="ogc1">
-               <formattedref>
-                 Robert Thomas, Terry Idol: OGC&#xa0;19-025r1,
-                 <em>Development of Spatial Data Infrastructures for Marine Data Management</em>
-                 . Open Geospatial Consortium (2019).
-                 <link target="https://portal.opengeospatial.org/files/?artifact_id=88037">https://portal.opengeospatial.org/files/?artifact_id=88037</link>
-                 .
-               </formattedref>
-               <uri type="obp">https://portal.opengeospatial.org/files/?artifact_id=88037</uri>
-               <docidentifier type="OGC">OGC&#xa0;19-025r1</docidentifier>
-               <docidentifier scope="biblio-tag">OGC 19-025r1</docidentifier>
-               <biblio-tag/>
-             </bibitem>
-         <bibitem id='ogc2'>
-           <formattedref>Geodan Holding bv, the Netherlands: OGC&#xa0;00-027, <em>Conformance Test Guidelines for OpenGIS Catalog Services Specification for CORBA</em>. Open Geospatial Consortium (2000).</formattedref>
-           <docidentifier type='OGC'>OGC&#xa0;00-027</docidentifier>
-           <docidentifier scope="biblio-tag">OGC 00-027</docidentifier>
-                           <status>
-                  <stage>published</stage>
-                </status>
-                <biblio-tag/>
-         </bibitem>
-         <bibitem id='ogc3'>
-           <formattedref>Scott Simmons (ed.): OGC&#xa0;05-020r27 (Draft), <em>Technical Committee Policies and Procedures</em>.  Open Geospatial Consortium (2019).</formattedref>
-           <docidentifier type='OGC'>OGC&#xa0;05-020r27</docidentifier>
-           <docidentifier scope="biblio-tag">OGC 05-020r27</docidentifier>
-           <status>
-             <stage>draft</stage>
-           </status>
-           <biblio-tag/>
-         </bibitem>
-              </references>
-              </sections>
-              <bibliography>
-            <references id="_" obligation="informative" normative="false" displayorder="4">
-                <title depth="1">Bibliography</title>
-                <bibitem id='ISBN' type='book'>
-                <formattedref><em>Chemicals for analytical laboratory use</em>. ISBN Publishers, n.p. (n.d.).</formattedref>
-                <docidentifier type='metanorma-ordinal'>[1]</docidentifier>
-                <docidentifier type="ISBN">ISBN</docidentifier>
-                <biblio-tag>[1]<tab/></biblio-tag>
-              </bibitem>
-              <bibitem id='ISSN' type='journal'>
-                <formattedref><em>Instruments for analytical laboratory use</em>. ISSN Publishers. (n.d.).</formattedref>
-                <docidentifier type='metanorma-ordinal'>[2]</docidentifier>
-                <docidentifier type="ISSN">ISSN</docidentifier>
-        <uri>http://www.example.com</uri>
-                <biblio-tag>[2]<tab/></biblio-tag>
-              </bibitem>
-              <note><name>NOTE:<tab/></name><p>This is an annotation of document ISSN.</p></note>
-              <note><name>NOTE:<tab/></name><p>This is another annotation of document ISSN.</p></note>
-              <bibitem id="ISO3696" type="standard">
-                <formattedref>ISO: ISO&#xa0;3696, <em>Water for analytical laboratory use</em>. International Organization for Standardization</formattedref>
-                <docidentifier type='metanorma-ordinal'>[3]</docidentifier>
-                <docidentifier type="ISO">ISO&#xa0;3696</docidentifier>
-                <docidentifier scope="biblio-tag">ISO 3696</docidentifier>
-                <biblio-tag>[3]<tab/></biblio-tag>
-              </bibitem>
-              <bibitem id="ref10">
-                <formattedref format="application/x-isodoc+xml"><smallcap>Standard No I.C.C 167</smallcap>. <em>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</em> (see <link target="http://www.icc.or.at"/>)</formattedref>
-                <docidentifier type='metanorma-ordinal'>[4]</docidentifier>
-                <biblio-tag>[4]<tab/></biblio-tag>
-              </bibitem>
-              <bibitem id='ref10a'>
-        <formattedref format='application/x-isodoc+xml'><em>Appelation of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</em> (see <link target='http://www.icc.or.at'/>)</formattedref>
-        <docidentifier type='metanorma-ordinal'>[5]</docidentifier>
-        <docidentifier>ABC</docidentifier>
-        <docidentifier scope="biblio-tag">ABC</docidentifier>
-        <biblio-tag>[5]<tab/></biblio-tag>
-      </bibitem>
-              <bibitem id="ref11">
-                <formattedref>Fred Johnson, Jackson KG, Nixon RM: IETF&#xa0;RFC&#xa0;10, <em>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</em>.</formattedref>
-                <docidentifier type='metanorma-ordinal'>[6]</docidentifier>
-                <docidentifier type="IETF">IETF&#xa0;RFC&#xa0;10</docidentifier>
-                <docidentifier scope="biblio-tag">IETF RFC 10</docidentifier>
-                <biblio-tag>[6]<tab/></biblio-tag>
-              </bibitem>
-              <bibitem id="ref12">
-                <formattedref format="application/x-isodoc+xml">CitationWorks. 2019. <em>How to cite a reference</em>.</formattedref>
-                <docidentifier type='metanorma-ordinal'>[7]</docidentifier>
-                <docidentifier type="metanorma">[Citn]</docidentifier>
-                <docidentifier type="IETF">IETF&#xa0;RFC&#xa0;20</docidentifier>
-                <docidentifier scope="biblio-tag">IETF RFC 20</docidentifier>
-                <biblio-tag>[7]<tab/></biblio-tag>
-              </bibitem>
-                    <bibitem id='rfc2616' type='standard'>
-                      <formattedref>R. Fielding, J. Gettys, J. Mogul, H. Frystyk, L. Masinter, P. Leach, T. Berners-Lee: IETF&#xa0;RFC&#xa0;2616, <em>Hypertext Transfer Protocol&#x2009;&#x2014;&#x2009;HTTP/1.1</em>. Fremont, CA (1999). <link target='https://www.rfc-editor.org/info/rfc2616'>https://www.rfc-editor.org/info/rfc2616</link>.</formattedref>
-        <uri type='xml'>https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</uri>
-        <uri type='src'>https://www.rfc-editor.org/info/rfc2616</uri>
-        <docidentifier type='metanorma-ordinal'>[8]</docidentifier>
-        <docidentifier type='IETF'>IETF&#xa0;RFC&#xa0;2616</docidentifier>
-        <docidentifier type='IETF' scope="anchor">IETF&#xa0;RFC2616</docidentifier>
-        <docidentifier type='DOI'>DOI 10.17487/RFC2616</docidentifier>
-         <docidentifier scope="biblio-tag">IETF RFC 2616</docidentifier>
-                <biblio-tag>[8]<tab/></biblio-tag>
-      </bibitem>
-              </references>
-              </bibliography>
-                  </iso-standard>
+             </foreword>
+          </preface>
+          <sections>
+             <references id="_" obligation="informative" normative="true" displayorder="3">
+                <title id="_">Normative References</title>
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="_">1</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                   <span class="fmt-caption-delim">
+                      <tab/>
+                   </span>
+                   <semx element="title" source="_">Normative References</semx>
+                </fmt-title>
+                <fmt-xref-label>
+                   <span class="fmt-element-name">Clause</span>
+                   <semx element="autonum" source="_">1</semx>
+                </fmt-xref-label>
+                <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
+                <bibitem id="ISO712" type="standard">
+                   <formattedref>
+                      ISO: ISO 712,
+                      <em>Cereals and cereal products</em>
+                      . International Organization for Standardization
+                   </formattedref>
+                   <docidentifier type="ISO">ISO 712</docidentifier>
+                   <docidentifier type="metanorma">[110]</docidentifier>
+                   <docidentifier scope="biblio-tag">ISO 712</docidentifier>
+                   <biblio-tag/>
+                </bibitem>
+                <bibitem id="ISO16634" type="standard">
+                   <formattedref>
+                      ISO: ISO 16634:-- (all parts),
+                      <em>Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</em>
+                      . International Organization for Standardization
+                   </formattedref>
+                   <docidentifier type="ISO">ISO 16634:-- (all parts)</docidentifier>
+                   <docidentifier scope="biblio-tag">ISO 16634:-- (all parts)</docidentifier>
+                   <biblio-tag/>
+                </bibitem>
+                <bibitem id="ISO20483" type="standard">
+                   <formattedref>
+                      ISO: ISO 20483:2013-2014,
+                      <em>Cereals and pulses</em>
+                      . International Organization for Standardization (2013–2014).
+                   </formattedref>
+                   <docidentifier type="ISO">ISO 20483:2013-2014</docidentifier>
+                   <docidentifier scope="biblio-tag">ISO 20483:2013-2014</docidentifier>
+                   <biblio-tag/>
+                </bibitem>
+                <bibitem id="ref1">
+                   <formattedref format="application/x-isodoc+xml">
+                      <smallcap>Standard No I.C.C 167</smallcap>
+                      .
+                      <em>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</em>
+                      (see
+                      <link target="http://www.icc.or.at"/>
+                      )
+                   </formattedref>
+                   <docidentifier type="ICC">ICC 167</docidentifier>
+                   <docidentifier scope="biblio-tag">ICC 167</docidentifier>
+                   <biblio-tag/>
+                </bibitem>
+                <note>
+                   <fmt-name>
+                      <span class="fmt-caption-label">
+                         <span class="fmt-element-name">NOTE</span>
+                      </span>
+                      <span class="fmt-label-delim">
+                         :
+                         <tab/>
+                      </span>
+                   </fmt-name>
+                   <p>This is an annotation of ISO 20483:2013-2014</p>
+                </note>
+                <bibitem id="zip_ffs">
+                   <formattedref format="application/x-isodoc+xml">Title 5</formattedref>
+                   <docidentifier type="metanorma">[5]</docidentifier>
+                   <biblio-tag/>
+                </bibitem>
+                <bibitem id="ogc1">
+                   <formattedref>
+                      Robert Thomas, Terry Idol: OGC 19-025r1,
+                      <em>Development of Spatial Data Infrastructures for Marine Data Management</em>
+                      . Open Geospatial Consortium (2019).
+                      <link target="https://portal.opengeospatial.org/files/?artifact_id=88037">https://portal.opengeospatial.org/files/?artifact_id=88037</link>
+                      .
+                   </formattedref>
+                   <uri type="obp">https://portal.opengeospatial.org/files/?artifact_id=88037</uri>
+                   <docidentifier type="OGC">OGC 19-025r1</docidentifier>
+                   <docidentifier scope="biblio-tag">OGC 19-025r1</docidentifier>
+                   <biblio-tag/>
+                </bibitem>
+                <bibitem id="ogc2">
+                   <formattedref>
+                      Geodan Holding bv, the Netherlands: OGC 00-027,
+                      <em>Conformance Test Guidelines for OpenGIS Catalog Services Specification for CORBA</em>
+                      . Open Geospatial Consortium (2000).
+                   </formattedref>
+                   <docidentifier type="OGC">OGC 00-027</docidentifier>
+                   <docidentifier scope="biblio-tag">OGC 00-027</docidentifier>
+                   <status>
+                      <stage>published</stage>
+                   </status>
+                   <biblio-tag/>
+                </bibitem>
+                <bibitem id="ogc3">
+                   <formattedref>
+                      Scott Simmons (ed.): OGC 05-020r27 (Draft),
+                      <em>Technical Committee Policies and Procedures</em>
+                      . Open Geospatial Consortium (2019).
+                   </formattedref>
+                   <docidentifier type="OGC">OGC 05-020r27</docidentifier>
+                   <docidentifier scope="biblio-tag">OGC 05-020r27</docidentifier>
+                   <status>
+                      <stage>draft</stage>
+                   </status>
+                   <biblio-tag/>
+                </bibitem>
+             </references>
+          </sections>
+          <bibliography>
+             <references id="_" obligation="informative" normative="false" displayorder="4">
+                <title id="_">Bibliography</title>
+                <fmt-title depth="1">
+                   <semx element="title" source="_">Bibliography</semx>
+                </fmt-title>
+                <bibitem id="ISBN" type="book">
+                   <formattedref>
+                      <em>Chemicals for analytical laboratory use</em>
+                      . ISBN Publishers, n.p. (n.d.).
+                   </formattedref>
+                   <docidentifier type="metanorma-ordinal">[1]</docidentifier>
+                   <docidentifier type="ISBN">ISBN</docidentifier>
+                   <biblio-tag>
+                      [1]
+                      <tab/>
+                   </biblio-tag>
+                </bibitem>
+                <bibitem id="ISSN" type="journal">
+                   <formattedref>
+                      <em>Instruments for analytical laboratory use</em>
+                      . ISSN Publishers. (n.d.).
+                   </formattedref>
+                   <docidentifier type="metanorma-ordinal">[2]</docidentifier>
+                   <docidentifier type="ISSN">ISSN</docidentifier>
+                   <uri>http://www.example.com</uri>
+                   <biblio-tag>
+                      [2]
+                      <tab/>
+                   </biblio-tag>
+                </bibitem>
+                <note>
+                   <fmt-name>
+                      <span class="fmt-caption-label">
+                         <span class="fmt-element-name">NOTE</span>
+                      </span>
+                      <span class="fmt-label-delim">
+                         :
+                         <tab/>
+                      </span>
+                   </fmt-name>
+                   <p>This is an annotation of document ISSN.</p>
+                </note>
+                <note>
+                   <fmt-name>
+                      <span class="fmt-caption-label">
+                         <span class="fmt-element-name">NOTE</span>
+                      </span>
+                      <span class="fmt-label-delim">
+                         :
+                         <tab/>
+                      </span>
+                   </fmt-name>
+                   <p>This is another annotation of document ISSN.</p>
+                </note>
+                <bibitem id="ISO3696" type="standard">
+                   <formattedref>
+                      ISO: ISO 3696,
+                      <em>Water for analytical laboratory use</em>
+                      . International Organization for Standardization
+                   </formattedref>
+                   <docidentifier type="metanorma-ordinal">[3]</docidentifier>
+                   <docidentifier type="ISO">ISO 3696</docidentifier>
+                   <docidentifier scope="biblio-tag">ISO 3696</docidentifier>
+                   <biblio-tag>
+                      [3]
+                      <tab/>
+                   </biblio-tag>
+                </bibitem>
+                <bibitem id="ref10">
+                   <formattedref format="application/x-isodoc+xml">
+                      <smallcap>Standard No I.C.C 167</smallcap>
+                      .
+                      <em>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</em>
+                      (see
+                      <link target="http://www.icc.or.at"/>
+                      )
+                   </formattedref>
+                   <docidentifier type="metanorma-ordinal">[4]</docidentifier>
+                   <biblio-tag>
+                      [4]
+                      <tab/>
+                   </biblio-tag>
+                </bibitem>
+                <bibitem id="ref10a">
+                   <formattedref format="application/x-isodoc+xml">
+                      <em>Appelation of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</em>
+                      (see
+                      <link target="http://www.icc.or.at"/>
+                      )
+                   </formattedref>
+                   <docidentifier type="metanorma-ordinal">[5]</docidentifier>
+                   <docidentifier>ABC</docidentifier>
+                   <docidentifier scope="biblio-tag">ABC</docidentifier>
+                   <biblio-tag>
+                      [5]
+                      <tab/>
+                   </biblio-tag>
+                </bibitem>
+                <bibitem id="ref11">
+                   <formattedref>
+                      Fred Johnson, Jackson KG, Nixon RM: IETF RFC 10,
+                      <em>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</em>
+                      .
+                   </formattedref>
+                   <docidentifier type="metanorma-ordinal">[6]</docidentifier>
+                   <docidentifier type="IETF">IETF RFC 10</docidentifier>
+                   <docidentifier scope="biblio-tag">IETF RFC 10</docidentifier>
+                   <biblio-tag>
+                      [6]
+                      <tab/>
+                   </biblio-tag>
+                </bibitem>
+                <bibitem id="ref12">
+                   <formattedref format="application/x-isodoc+xml">
+                      CitationWorks. 2019.
+                      <em>How to cite a reference</em>
+                      .
+                   </formattedref>
+                   <docidentifier type="metanorma-ordinal">[7]</docidentifier>
+                   <docidentifier type="metanorma">[Citn]</docidentifier>
+                   <docidentifier type="IETF">IETF RFC 20</docidentifier>
+                   <docidentifier scope="biblio-tag">IETF RFC 20</docidentifier>
+                   <biblio-tag>
+                      [7]
+                      <tab/>
+                   </biblio-tag>
+                </bibitem>
+                <bibitem id="rfc2616" type="standard">
+                   <formattedref>
+                      R. Fielding, J. Gettys, J. Mogul, H. Frystyk, L. Masinter, P. Leach, T. Berners-Lee: IETF RFC 2616,
+                      <em>Hypertext Transfer Protocol — HTTP/1.1</em>
+                      . Fremont, CA (1999).
+                      <link target="https://www.rfc-editor.org/info/rfc2616">https://www.rfc-editor.org/info/rfc2616</link>
+                      .
+                   </formattedref>
+                   <uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</uri>
+                   <uri type="src">https://www.rfc-editor.org/info/rfc2616</uri>
+                   <docidentifier type="metanorma-ordinal">[8]</docidentifier>
+                   <docidentifier type="IETF">IETF RFC 2616</docidentifier>
+                   <docidentifier type="IETF" scope="anchor">IETF RFC2616</docidentifier>
+                   <docidentifier type="DOI">DOI 10.17487/RFC2616</docidentifier>
+                   <docidentifier scope="biblio-tag">IETF RFC 2616</docidentifier>
+                   <biblio-tag>
+                      [8]
+                      <tab/>
+                   </biblio-tag>
+                </bibitem>
+             </references>
+          </bibliography>
+       </iso-standard>
     OUTPUT
 
     html = <<~OUTPUT
       #{HTML_HDR}
                  <br/>
-                             <div id="A">
+             <div id="A">
                 <h1 class="ForewordTitle">I.  Preface</h1>
                 <p id="_">
                    <a href="#ISO712">[110]</a>
                    <a href="#ISBN">[1]</a>
                    <a href="#ISSN">[2]</a>
-                   <a href="#ISO16634">ISO 16634:-- (all parts)</a>
+                   <a href="#ISO16634">ISO 16634:-- (all parts)</a>
                    <a href="#ref1">ICC 167</a>
                    <a href="#ref10">[4]</a>
                    <a href="#ref12">Citn</a>
@@ -514,7 +670,7 @@ RSpec.describe IsoDoc::Ogc do
                    . International Organization for Standardization
                 </p>
                 <p id="ISO16634" class="NormRef">
-                   ISO: ISO 16634:-- (all parts),
+                   ISO: ISO 16634:-- (all parts),
                    <i>Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</i>
                    . International Organization for Standardization
                 </p>
@@ -534,7 +690,7 @@ RSpec.describe IsoDoc::Ogc do
                 <div class="Note">
                    <p>
                       <span class="note_label">NOTE:  </span>
-                        This is an annotation of ISO 20483:2013-2014
+                      This is an annotation of ISO 20483:2013-2014
                    </p>
                 </div>
                 <p id="zip_ffs" class="NormRef">Title 5</p>
@@ -572,13 +728,13 @@ RSpec.describe IsoDoc::Ogc do
                 <div class="Note">
                    <p>
                       <span class="note_label">NOTE:  </span>
-                        This is an annotation of document ISSN.
+                      This is an annotation of document ISSN.
                    </p>
                 </div>
                 <div class="Note">
                    <p>
                       <span class="note_label">NOTE:  </span>
-                        This is another annotation of document ISSN.
+                      This is another annotation of document ISSN.
                    </p>
                 </div>
                 <p id="ISO3696" class="Biblio">
@@ -621,17 +777,18 @@ RSpec.describe IsoDoc::Ogc do
                 </p>
              </div>
           </div>
-       </body>
+       </body
     OUTPUT
-    xml = Nokogiri::XML(IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
-          .convert("test", input, true))
+    pres_output = IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+          .convert("test", input, true)
+    xml = Nokogiri::XML(pres_output)
     xml.at("//xmlns:localized-strings").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
-      .convert("test", presxml, true)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::Ogc::HtmlConvert.new({})
+      .convert("test", pres_output, true)
       .sub(/^.*<body/m, "<body")
-      .sub(%r{</body>.*$}m, "</body>")))
+      .sub(%r{</body>.*$}m, "</body>"))))
       .to be_equivalent_to Xml::C14n.format(html)
   end
 end
