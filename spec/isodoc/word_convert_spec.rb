@@ -51,7 +51,7 @@ RSpec.describe IsoDoc::Ogc do
       .sub(%r{</span>\s*<p class="MsoNormal">&#xA0;</p>\s*</div>\s*$}, "</div>")
     expect(Xml::C14n.format(strip_guid(word.gsub(/_Toc\d\d+/, "_Toc"))))
       .to be_equivalent_to Xml::C14n.format(<<~'OUTPUT')
-       <div class="WordSection2">
+      <div class="WordSection2">
           <div class="license">
              <div>
                 <a name="boilerplate-license-destination" id="boilerplate-license-destination"/>
