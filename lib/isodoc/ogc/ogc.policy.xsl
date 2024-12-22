@@ -665,7 +665,7 @@
 
 					<xsl:for-each select="xalan:nodeset($updated_xml_with_pages)"> <!-- set context to preface/sections -->
 
-						<xsl:for-each select=".//*[local-name() = 'page_sequence'][parent::*[local-name() = 'preface']][normalize-space() != '' or .//image or .//svg]">
+						<xsl:for-each select=".//*[local-name() = 'page_sequence'][parent::*[local-name() = 'preface']][normalize-space() != '' or .//*[local-name() = 'image'] or .//*[local-name() = 'svg']]">
 							<!-- Copyright, Content, Foreword, etc. pages -->
 							<fo:page-sequence master-reference="document" format="i" force-page-count="no-force">
 
@@ -727,7 +727,7 @@
 
 						</xsl:for-each>
 
-						<xsl:for-each select=".//*[local-name() = 'page_sequence'][not(parent::*[local-name() = 'preface'] or parent::*[local-name() = 'boilerplate'])][normalize-space() != '' or .//image or .//svg]">
+						<xsl:for-each select=".//*[local-name() = 'page_sequence'][not(parent::*[local-name() = 'preface'] or parent::*[local-name() = 'boilerplate'])][normalize-space() != '' or .//*[local-name() = 'image'] or .//*[local-name() = 'svg']]">
 
 							<!-- Document Pages -->
 							<!-- <xsl:for-each select="/*/*[local-name()='sections']/* | /*/*[local-name()='bibliography']/*[local-name()='references'][@normative='true']">
