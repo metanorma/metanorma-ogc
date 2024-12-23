@@ -355,14 +355,14 @@ RSpec.describe IsoDoc::Ogc do
                    <semx element="title" source="A">Preface</semx>
                 </fmt-xref-label>
                 <p id="_">
-                   <xref target="ISO712">[110]</xref>
-                   <xref target="ISBN">[1]</xref>
-                   <xref target="ISSN">[2]</xref>
+                   <xref target="ISO712">ISO 712</xref>
+                   <xref target="ISBN">[3]</xref>
+                   <xref target="ISSN">[4]</xref>
                    <xref target="ISO16634">ISO 16634:-- (all parts)</xref>
                    <xref target="ref1">ICC 167</xref>
-                   <xref target="ref10">[4]</xref>
+                   <xref target="ref10">[6]</xref>
                    <xref target="ref12">Citn</xref>
-                   <xref target="zip_ffs">[5]</xref>
+                   <xref target="zip_ffs">[2]</xref>
                    <xref target="ogc1">OGC 19-025r1</xref>
                    <xref target="ogc2">OGC 00-027</xref>
                    <xref target="ogc3">OGC 05-020r27 (draft)</xref>
@@ -393,8 +393,8 @@ RSpec.describe IsoDoc::Ogc do
                       <em>Cereals and cereal products</em>
                       . International Organization for Standardization
                    </formattedref>
+                   <docidentifier type="metanorma-ordinal">[1]</docidentifier>
                    <docidentifier type="ISO">ISO 712</docidentifier>
-                   <docidentifier type="metanorma">[110]</docidentifier>
                    <docidentifier scope="biblio-tag">ISO 712</docidentifier>
                    <biblio-tag/>
                 </bibitem>
@@ -445,7 +445,7 @@ RSpec.describe IsoDoc::Ogc do
                 </note>
                 <bibitem id="zip_ffs">
                    <formattedref format="application/x-isodoc+xml">Title 5</formattedref>
-                   <docidentifier type="metanorma">[5]</docidentifier>
+                   <docidentifier type="metanorma-ordinal">[2]</docidentifier>
                    <biblio-tag/>
                 </bibitem>
                 <bibitem id="ogc1">
@@ -500,7 +500,7 @@ RSpec.describe IsoDoc::Ogc do
                       <em>Chemicals for analytical laboratory use</em>
                       . ISBN Publishers, n.p. (n.d.).
                    </formattedref>
-                   <docidentifier type="metanorma-ordinal">[1]</docidentifier>
+                   <docidentifier type="metanorma-ordinal">[3]</docidentifier>
                    <docidentifier type="ISBN">ISBN</docidentifier>
                    <biblio-tag>
                       [1]
@@ -512,7 +512,7 @@ RSpec.describe IsoDoc::Ogc do
                       <em>Instruments for analytical laboratory use</em>
                       . ISSN Publishers. (n.d.).
                    </formattedref>
-                   <docidentifier type="metanorma-ordinal">[2]</docidentifier>
+                   <docidentifier type="metanorma-ordinal">[4]</docidentifier>
                    <docidentifier type="ISSN">ISSN</docidentifier>
                    <uri>http://www.example.com</uri>
                    <biblio-tag>
@@ -550,7 +550,7 @@ RSpec.describe IsoDoc::Ogc do
                       <em>Water for analytical laboratory use</em>
                       . International Organization for Standardization
                    </formattedref>
-                   <docidentifier type="metanorma-ordinal">[3]</docidentifier>
+                   <docidentifier type="metanorma-ordinal">[5]</docidentifier>
                    <docidentifier type="ISO">ISO 3696</docidentifier>
                    <docidentifier scope="biblio-tag">ISO 3696</docidentifier>
                    <biblio-tag>
@@ -567,7 +567,7 @@ RSpec.describe IsoDoc::Ogc do
                       <link target="http://www.icc.or.at"/>
                       )
                    </formattedref>
-                   <docidentifier type="metanorma-ordinal">[4]</docidentifier>
+                   <docidentifier type="metanorma-ordinal">[6]</docidentifier>
                    <biblio-tag>
                       [4]
                       <tab/>
@@ -580,7 +580,7 @@ RSpec.describe IsoDoc::Ogc do
                       <link target="http://www.icc.or.at"/>
                       )
                    </formattedref>
-                   <docidentifier type="metanorma-ordinal">[5]</docidentifier>
+                   <docidentifier type="metanorma-ordinal">[7]</docidentifier>
                    <docidentifier>ABC</docidentifier>
                    <docidentifier scope="biblio-tag">ABC</docidentifier>
                    <biblio-tag>
@@ -594,7 +594,7 @@ RSpec.describe IsoDoc::Ogc do
                       <em>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</em>
                       .
                    </formattedref>
-                   <docidentifier type="metanorma-ordinal">[6]</docidentifier>
+                   <docidentifier type="metanorma-ordinal">[8]</docidentifier>
                    <docidentifier type="IETF">IETF RFC 10</docidentifier>
                    <docidentifier scope="biblio-tag">IETF RFC 10</docidentifier>
                    <biblio-tag>
@@ -608,7 +608,7 @@ RSpec.describe IsoDoc::Ogc do
                       <em>How to cite a reference</em>
                       .
                    </formattedref>
-                   <docidentifier type="metanorma-ordinal">[7]</docidentifier>
+                   <docidentifier type="metanorma-ordinal">[9]</docidentifier>
                    <docidentifier type="metanorma">[Citn]</docidentifier>
                    <docidentifier type="IETF">IETF RFC 20</docidentifier>
                    <docidentifier scope="biblio-tag">IETF RFC 20</docidentifier>
@@ -627,7 +627,7 @@ RSpec.describe IsoDoc::Ogc do
                    </formattedref>
                    <uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</uri>
                    <uri type="src">https://www.rfc-editor.org/info/rfc2616</uri>
-                   <docidentifier type="metanorma-ordinal">[8]</docidentifier>
+                   <docidentifier type="metanorma-ordinal">[10]</docidentifier>
                    <docidentifier type="IETF">IETF RFC 2616</docidentifier>
                    <docidentifier type="IETF" scope="anchor">IETF RFC2616</docidentifier>
                    <docidentifier type="DOI">DOI 10.17487/RFC2616</docidentifier>
@@ -648,14 +648,14 @@ RSpec.describe IsoDoc::Ogc do
              <div id="A">
                 <h1 class="ForewordTitle">I.  Preface</h1>
                 <p id="_">
-                   <a href="#ISO712">[110]</a>
-                   <a href="#ISBN">[1]</a>
-                   <a href="#ISSN">[2]</a>
+                   <a href="#ISO712">ISO 712</a>
+                   <a href="#ISBN">[3]</a>
+                   <a href="#ISSN">[4]</a>
                    <a href="#ISO16634">ISO 16634:-- (all parts)</a>
                    <a href="#ref1">ICC 167</a>
-                   <a href="#ref10">[4]</a>
+                   <a href="#ref10">[6]</a>
                    <a href="#ref12">Citn</a>
-                   <a href="#zip_ffs">[5]</a>
+                   <a href="#zip_ffs">[2]</a>
                    <a href="#ogc1">OGC 19-025r1</a>
                    <a href="#ogc2">OGC 00-027</a>
                    <a href="#ogc3">OGC 05-020r27 (draft)</a>
