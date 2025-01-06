@@ -1847,7 +1847,7 @@ RSpec.describe Metanorma::Ogc do
           <stage>approved</stage>
         </status>
         <copyright>
-          <from>2024</from>
+          <from>#{Date.today.year}</from>
           <owner>
             <organization>
               <name>Open Geospatial Consortium</name>
