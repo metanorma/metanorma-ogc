@@ -197,11 +197,11 @@ RSpec.describe IsoDoc::Ogc do
         <sections>
         <terms id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title>
           <term id="J">
-          <preferred>Term2</preferred>
-          <admitted>Term2A</admitted>
-          <admitted>Term2B</admitted>
-          <deprecates>Term2C</deprecates>
-          <deprecates>Term2D</deprecates>
+          <preferred><expression><name>Term2</name></expression></preferred>
+          <admitted><expression><name>Term2A</name></expression></admitted>
+          <admitted><expression><name>Term2B</name></expression></admitted>
+          <deprecates><expression><name>Term2C</name></expression></deprecates>
+          <deprecates><expression><name>Term2D</name></expression></deprecates>
           <termsource status="modified">
         <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011"><locality type="clause"><referenceFrom>3.1</referenceFrom></locality></origin>
           <modification>
@@ -221,60 +221,124 @@ RSpec.describe IsoDoc::Ogc do
                        #{METANORMA_EXTENSION}
         </metanorma-extension>
           <preface>
-              <clause type="toc" id="_" displayorder="1">
-                 <fmt-title depth="1">Contents</fmt-title>
-              </clause>
-           </preface>
-           <sections>
-              <terms id="H" obligation="normative" displayorder="2">
-                 <title id="_">Terms, Definitions, Symbols and Abbreviated Terms</title>
-                 <fmt-title depth="1">
-                    <span class="fmt-caption-label">
-                       <semx element="autonum" source="H">1</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                    </span>
-                    <span class="fmt-caption-delim">
-                       <tab/>
-                    </span>
-                    <semx element="title" source="_">Terms, Definitions, Symbols and Abbreviated Terms</semx>
-                 </fmt-title>
-                 <fmt-xref-label>
-                    <span class="fmt-element-name">Clause</span>
-                    <semx element="autonum" source="H">1</semx>
-                 </fmt-xref-label>
-                 <term id="J">
-                    <fmt-name>
-                       <span class="fmt-caption-label">
-                          <semx element="autonum" source="H">1</semx>
-                          <span class="fmt-autonum-delim">.</span>
-                          <semx element="autonum" source="J">1</semx>
-                          <span class="fmt-autonum-delim">.</span>
-                       </span>
-                    </fmt-name>
-                    <fmt-xref-label>
-                       <span class="fmt-element-name">Clause</span>
-                       <semx element="autonum" source="H">1</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                       <semx element="autonum" source="J">1</semx>
-                    </fmt-xref-label>
-          <preferred>Term2</preferred>
-          <admitted>Term2A&#xa0;<span class="AdmittedLabel">ALTERNATIVE</span></admitted>
-          <admitted>Term2B&#xa0;<span class="AdmittedLabel">ALTERNATIVE</span></admitted>
-          <deprecates>Term2C&#xa0;<span class="DeprecatedLabel">DEPRECATED</span></deprecates>
-          <deprecates>Term2D&#xa0;<span class="DeprecatedLabel">DEPRECATED</span></deprecates>
-          <termsource status='modified'>[<strong>SOURCE:</strong>
-                 <origin bibitemid='ISO7301' type='inline' citeas='ISO 7301:2011'>
-                   <locality type='clause'>
-                     <referenceFrom>3.1</referenceFrom>
-                   </locality>
-                   ISO&#xa0;7301:2011, Clause 3.1
-                 </origin>, modified &#x2014; The term "cargo rice" is shown as deprecated, and
-                 Note 1 to entry is not included here]
-               </termsource>
-        </term>
-         </terms>
-         </sections>
-         </ogc-standard>
+             <clause type="toc" id="_" displayorder="1">
+                <fmt-title depth="1">Contents</fmt-title>
+             </clause>
+          </preface>
+          <sections>
+             <terms id="H" obligation="normative" displayorder="2">
+                <title id="_">Terms, Definitions, Symbols and Abbreviated Terms</title>
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="H">1</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                   <span class="fmt-caption-delim">
+                      <tab/>
+                   </span>
+                   <semx element="title" source="_">Terms, Definitions, Symbols and Abbreviated Terms</semx>
+                </fmt-title>
+                <fmt-xref-label>
+                   <span class="fmt-element-name">Clause</span>
+                   <semx element="autonum" source="H">1</semx>
+                </fmt-xref-label>
+                <term id="J">
+                   <fmt-name>
+                      <span class="fmt-caption-label">
+                         <semx element="autonum" source="H">1</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                         <semx element="autonum" source="J">1</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                      </span>
+                   </fmt-name>
+                   <fmt-xref-label>
+                      <span class="fmt-element-name">Clause</span>
+                      <semx element="autonum" source="H">1</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="J">1</semx>
+                   </fmt-xref-label>
+                   <preferred id="_">
+                      <expression>
+                         <name>Term2</name>
+                      </expression>
+                   </preferred>
+                   <fmt-preferred>
+                      <p>
+                         <semx element="preferred" source="_">Term2</semx>
+                      </p>
+                   </fmt-preferred>
+                   <admitted id="_">
+                      <expression>
+                         <name>Term2A</name>
+                      </expression>
+                   </admitted>
+                   <admitted id="_">
+                      <expression>
+                         <name>Term2B</name>
+                      </expression>
+                   </admitted>
+                   <fmt-admitted>
+                      <p>
+                         <semx element="admitted" source="_">Term2A</semx>
+                          
+                         <span class="AdmittedLabel">ALTERNATIVE</span>
+                      </p>
+                      <p>
+                         <semx element="admitted" source="_">Term2B</semx>
+                   
+                  <span class="AdmittedLabel">ALTERNATIVE</span>
+                      </p>
+                   </fmt-admitted>
+                   <deprecates id="_">
+                      <expression>
+                         <name>Term2C</name>
+                      </expression>
+                   </deprecates>
+                   <deprecates id="_">
+                      <expression>
+                         <name>Term2D</name>
+                      </expression>
+                   </deprecates>
+                   <fmt-deprecates>
+                      <p>
+                         <semx element="deprecates" source="_">Term2C</semx>
+                          
+                         <span class="DeprecatedLabel">DEPRECATED</span>
+                      </p>
+                      <p>
+                         <semx element="deprecates" source="_">Term2D</semx>
+                   
+                  <span class="DeprecatedLabel">DEPRECATED</span>
+                      </p>
+                   </fmt-deprecates>
+                   <termsource status="modified" id="_">
+                      <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011">
+                         <locality type="clause">
+                            <referenceFrom>3.1</referenceFrom>
+                         </locality>
+                      </origin>
+                      <modification>
+                         <p original-id="_e73a417d-ad39-417d-a4c8-20e4e2529489">The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here</p>
+                      </modification>
+                   </termsource>
+                   <fmt-termsource status="modified">
+                      [
+                      <strong>SOURCE:</strong>
+                      <semx element="termsource" source="_">
+                         <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011">
+                            <locality type="clause">
+                               <referenceFrom>3.1</referenceFrom>
+                            </locality>
+                            ISO 7301:2011, Clause 3.1
+                         </origin>
+                         , modified — The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here
+                      </semx>
+                      ]
+                   </fmt-termsource>
+                </term>
+             </terms>
+          </sections>
+       </ogc-standard>
     INPUT
 
     html = Xml::C14n.format(<<~OUTPUT)
@@ -438,7 +502,7 @@ RSpec.describe IsoDoc::Ogc do
          <clause id="H" obligation="normative"><title>Terms, definitions, symbols and abbreviated terms</title><terms id="I" obligation="normative">
            <title>Normal Terms</title>
            <term id="J">
-           <preferred>Term2</preferred>
+           <preferred><expression><name>Term2</name></expression></preferred>
          </term>
          </terms>
          <definitions id="K"><title>Definitions</title>
@@ -474,7 +538,7 @@ RSpec.describe IsoDoc::Ogc do
         <title>Glossary</title>
         <terms id='PP1' obligation='normative'><title>Title</title>
           <term id='term-glossary'>
-            <preferred>Glossary</preferred>
+            <preferred><expression><name>Glossary</name></expression></preferred>
           </term>
         </terms>
       </annex>
@@ -483,13 +547,13 @@ RSpec.describe IsoDoc::Ogc do
                    <terms id='QQ1' obligation='normative'>
                      <title>Term Collection</title>
                      <term id='term-term-1'>
-                       <preferred>Term</preferred>
+                       <preferred><expression><name>Term</name></expression></preferred>
                      </term>
                    </terms>
                    <terms id='QQ2' obligation='normative'>
                      <title>Term Collection 2</title>
                      <term id='term-term-2'>
-                       <preferred>Term</preferred>
+                       <preferred><expression><name>Term</name></expression></preferred>
                      </term>
                    </terms>
                </annex>
@@ -527,425 +591,434 @@ RSpec.describe IsoDoc::Ogc do
         <metanorma-extension>
                        #{METANORMA_EXTENSION}
         </metanorma-extension>
-           <preface>
-              <clause type="toc" id="_" displayorder="1">
-                 <fmt-title depth="1">Contents</fmt-title>
-              </clause>
-              <abstract obligation="informative" id="1" displayorder="2">
-                 <title id="_">Abstract</title>
-                 <fmt-title depth="1">
-                    <span class="fmt-caption-label">
-                       <semx element="autonum" source="1">I</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                    </span>
-                    <span class="fmt-caption-delim">
-                       <tab/>
-                    </span>
-                    <semx element="title" source="_">Abstract</semx>
-                 </fmt-title>
-                 <fmt-xref-label>
-                    <semx element="title" source="1">Abstract</semx>
-                 </fmt-xref-label>
-                 <p>XYZ</p>
-              </abstract>
-              <clause id="DD0" obligation="normative" type="executivesummary" displayorder="3">
-                 <title id="_">Executive Summary</title>
-                 <fmt-title depth="1">
-                    <span class="fmt-caption-label">
-                       <semx element="autonum" source="DD0">II</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                    </span>
-                    <span class="fmt-caption-delim">
-                       <tab/>
-                    </span>
-                    <semx element="title" source="_">Executive Summary</semx>
-                 </fmt-title>
-                 <fmt-xref-label>
-                    <semx element="title" source="DD0">Executive Summary</semx>
-                 </fmt-xref-label>
-                 <p id="EE0">Text</p>
-              </clause>
-              <clause id="_" type="keywords" displayorder="4">
-                 <title id="_">Keywords</title>
-                 <fmt-title depth="1">
-                    <span class="fmt-caption-label">
-                       <semx element="autonum" source="_">III</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                    </span>
-                    <span class="fmt-caption-delim">
-                       <tab/>
-                    </span>
-                    <semx element="title" source="_">Keywords</semx>
-                 </fmt-title>
-                 <fmt-xref-label>
-                    <semx element="title" source="_">Keywords</semx>
-                 </fmt-xref-label>
-                 <p>The following are keywords to be used by search engines and document catalogues.</p>
-                 <p>A, B</p>
-              </clause>
-              <foreword obligation="informative" id="2" displayorder="5">
-                 <title id="_">Preface</title>
-                 <fmt-title depth="1">
-                    <span class="fmt-caption-label">
-                       <semx element="autonum" source="2">IV</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                    </span>
-                    <span class="fmt-caption-delim">
-                       <tab/>
-                    </span>
-                    <semx element="title" source="_">Preface</semx>
-                 </fmt-title>
-                 <fmt-xref-label>
-                    <semx element="title" source="2">Preface</semx>
-                 </fmt-xref-label>
-                 <p id="A">This is a preamble</p>
-              </foreword>
-              <clause id="DD1" obligation="normative" type="security" displayorder="6">
-                 <title id="_">Security</title>
-                 <fmt-title depth="1">
-                    <span class="fmt-caption-label">
-                       <semx element="autonum" source="DD1">V</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                    </span>
-                    <span class="fmt-caption-delim">
-                       <tab/>
-                    </span>
-                    <semx element="title" source="_">Security</semx>
-                 </fmt-title>
-                 <fmt-xref-label>
-                    <semx element="title" source="DD1">Security</semx>
-                 </fmt-xref-label>
-                 <p id="EE1">Text</p>
-              </clause>
-              <clause id="_" type="submitting_orgs" displayorder="7">
-                 <title id="_">Submitting Organizations</title>
-                 <fmt-title depth="1">
-                    <span class="fmt-caption-label">
-                       <semx element="autonum" source="_">VI</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                    </span>
-                    <span class="fmt-caption-delim">
-                       <tab/>
-                    </span>
-                    <semx element="title" source="_">Submitting Organizations</semx>
-                 </fmt-title>
-                 <fmt-xref-label>
-                    <semx element="title" source="_">Submitting Organizations</semx>
-                 </fmt-xref-label>
-                 <p>The following organizations submitted this Document to the Open Geospatial Consortium (OGC):</p>
-                 <ul>
-                    <li>OGC</li>
-                    <li>DEF</li>
-                 </ul>
-              </clause>
-              <submitters obligation="informative" id="3" displayorder="8">
-                 <title id="_">Submitters</title>
-                 <fmt-title depth="1">
-                    <span class="fmt-caption-label">
-                       <semx element="autonum" source="3">VII</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                    </span>
-                    <span class="fmt-caption-delim">
-                       <tab/>
-                    </span>
-                    <semx element="title" source="_">Submitters</semx>
-                 </fmt-title>
-                 <fmt-xref-label>
-                    <semx element="title" source="3">Submitters</semx>
-                 </fmt-xref-label>
-                 <p>ABC</p>
-              </submitters>
-              <submitters type="contributors" obligation="informative" id="3a" displayorder="9">
-                 <title id="_">Contributors</title>
-                 <fmt-title depth="1">
-                    <span class="fmt-caption-label">
-                       <semx element="autonum" source="3a">VIII</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                    </span>
-                    <span class="fmt-caption-delim">
-                       <tab/>
-                    </span>
-                    <semx element="title" source="_">Contributors</semx>
-                 </fmt-title>
-                 <fmt-xref-label>
-                    <semx element="title" source="3a">Contributors</semx>
-                 </fmt-xref-label>
-                 <p>ABC</p>
-              </submitters>
-              <clause id="5" displayorder="10">
-                 <title id="_">Dedication</title>
-                 <fmt-title depth="1">
-                    <span class="fmt-caption-label">
-                       <semx element="autonum" source="5">IX</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                    </span>
-                    <span class="fmt-caption-delim">
-                       <tab/>
-                    </span>
-                    <semx element="title" source="_">Dedication</semx>
-                 </fmt-title>
-                 <fmt-xref-label>
-                    <semx element="title" source="5">Dedication</semx>
-                 </fmt-xref-label>
-                 <clause id="6">
-                    <title id="_">Note to readers</title>
-                    <fmt-title depth="2">
-                       <span class="fmt-caption-label">
-                          <semx element="autonum" source="5">IX</semx>
-                          <span class="fmt-autonum-delim">.</span>
-                          <semx element="autonum" source="6">A</semx>
-                          <span class="fmt-autonum-delim">.</span>
-                       </span>
-                       <span class="fmt-caption-delim">
-                          <tab/>
-                       </span>
-                       <semx element="title" source="_">Note to readers</semx>
-                    </fmt-title>
-                    <fmt-xref-label>
-                       <span class="fmt-element-name">Clause</span>
-                       <semx element="autonum" source="5">IX</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                       <semx element="autonum" source="6">A</semx>
-                    </fmt-xref-label>
-                 </clause>
-              </clause>
-              <acknowledgements obligation="informative" id="4" displayorder="11">
-                 <title id="_">Acknowlegements</title>
-                 <fmt-title depth="1">
-                    <span class="fmt-caption-label">
-                       <semx element="autonum" source="4">X</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                    </span>
-                    <span class="fmt-caption-delim">
-                       <tab/>
-                    </span>
-                    <semx element="title" source="_">Acknowlegements</semx>
-                 </fmt-title>
-                 <fmt-xref-label>
-                    <semx element="title" source="4">Acknowlegements</semx>
-                 </fmt-xref-label>
-                 <p>ABC</p>
-              </acknowledgements>
-           </preface>
-           <sections>
-              <clause id="D" obligation="normative" type="scope" displayorder="12">
-                 <title id="_">Scope</title>
-                 <fmt-title depth="1">
-                    <span class="fmt-caption-label">
-                       <semx element="autonum" source="D">1</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                    </span>
-                    <span class="fmt-caption-delim">
-                       <tab/>
-                    </span>
-                    <semx element="title" source="_">Scope</semx>
-                 </fmt-title>
-                 <fmt-xref-label>
-                    <span class="fmt-element-name">Clause</span>
-                    <semx element="autonum" source="D">1</semx>
-                 </fmt-xref-label>
-                 <p id="E">Text</p>
-              </clause>
-              <clause id="D1" obligation="normative" type="conformance" displayorder="13">
-                 <title id="_">Conformance</title>
-                 <fmt-title depth="1">
-                    <span class="fmt-caption-label">
-                       <semx element="autonum" source="D1">2</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                    </span>
-                    <span class="fmt-caption-delim">
-                       <tab/>
-                    </span>
-                    <semx element="title" source="_">Conformance</semx>
-                 </fmt-title>
-                 <fmt-xref-label>
-                    <span class="fmt-element-name">Clause</span>
-                    <semx element="autonum" source="D1">2</semx>
-                 </fmt-xref-label>
-                 <p id="E1">Text</p>
-              </clause>
-              <clause id="H" obligation="normative" displayorder="15">
-                 <title id="_">Terms, definitions, symbols and abbreviated terms</title>
-                 <fmt-title depth="1">
-                    <span class="fmt-caption-label">
-                       <semx element="autonum" source="H">4</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                    </span>
-                    <span class="fmt-caption-delim">
-                       <tab/>
-                    </span>
-                    <semx element="title" source="_">Terms, definitions, symbols and abbreviated terms</semx>
-                 </fmt-title>
-                 <fmt-xref-label>
-                    <span class="fmt-element-name">Clause</span>
-                    <semx element="autonum" source="H">4</semx>
-                 </fmt-xref-label>
-                 <terms id="I" obligation="normative">
-                    <title id="_">Normal Terms</title>
-                    <fmt-title depth="2">
-                       <span class="fmt-caption-label">
-                          <semx element="autonum" source="H">4</semx>
-                          <span class="fmt-autonum-delim">.</span>
-                          <semx element="autonum" source="I">1</semx>
-                          <span class="fmt-autonum-delim">.</span>
-                       </span>
-                       <span class="fmt-caption-delim">
-                          <tab/>
-                       </span>
-                       <semx element="title" source="_">Normal Terms</semx>
-                    </fmt-title>
-                    <fmt-xref-label>
-                       <span class="fmt-element-name">Clause</span>
-                       <semx element="autonum" source="H">4</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                       <semx element="autonum" source="I">1</semx>
-                    </fmt-xref-label>
-                    <term id="J">
-                       <fmt-name>
-                          <span class="fmt-caption-label">
-                             <semx element="autonum" source="H">4</semx>
-                             <span class="fmt-autonum-delim">.</span>
-                             <semx element="autonum" source="I">1</semx>
-                             <span class="fmt-autonum-delim">.</span>
-                             <semx element="autonum" source="J">1</semx>
-                             <span class="fmt-autonum-delim">.</span>
-                          </span>
-                       </fmt-name>
-                       <fmt-xref-label>
-                          <span class="fmt-element-name">Clause</span>
-                          <semx element="autonum" source="H">4</semx>
-                          <span class="fmt-autonum-delim">.</span>
-                          <semx element="autonum" source="I">1</semx>
-                          <span class="fmt-autonum-delim">.</span>
-                          <semx element="autonum" source="J">1</semx>
-                       </fmt-xref-label>
-                       <preferred>Term2</preferred>
-                    </term>
-                 </terms>
-                 <definitions id="K">
-                    <title id="_">Definitions</title>
-                    <fmt-title depth="2">
-                       <span class="fmt-caption-label">
-                          <semx element="autonum" source="H">4</semx>
-                          <span class="fmt-autonum-delim">.</span>
-                          <semx element="autonum" source="K">2</semx>
-                          <span class="fmt-autonum-delim">.</span>
-                       </span>
-                       <span class="fmt-caption-delim">
-                          <tab/>
-                       </span>
-                       <semx element="title" source="_">Definitions</semx>
-                    </fmt-title>
-                    <fmt-xref-label>
-                       <span class="fmt-element-name">Clause</span>
-                       <semx element="autonum" source="H">4</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                       <semx element="autonum" source="K">2</semx>
-                    </fmt-xref-label>
-                    <dl>
-                       <dt>Symbol</dt>
-                       <dd>Definition</dd>
-                    </dl>
-                 </definitions>
-              </clause>
-              <definitions id="L" displayorder="16">
-                 <title id="_">Definitions</title>
-                 <fmt-title depth="1">
-                    <span class="fmt-caption-label">
-                       <semx element="autonum" source="L">5</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                    </span>
-                    <span class="fmt-caption-delim">
-                       <tab/>
-                    </span>
-                    <semx element="title" source="_">Definitions</semx>
-                 </fmt-title>
-                 <fmt-xref-label>
-                    <span class="fmt-element-name">Clause</span>
-                    <semx element="autonum" source="L">5</semx>
-                 </fmt-xref-label>
-                 <dl>
-                    <dt>Symbol</dt>
-                    <dd>Definition</dd>
-                 </dl>
-              </definitions>
-              <clause id="M" inline-header="false" obligation="normative" displayorder="17">
-                 <title id="_">Clause 4</title>
-                 <fmt-title depth="1">
-                    <span class="fmt-caption-label">
-                       <semx element="autonum" source="M">6</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                    </span>
-                    <span class="fmt-caption-delim">
-                       <tab/>
-                    </span>
-                    <semx element="title" source="_">Clause 4</semx>
-                 </fmt-title>
-                 <fmt-xref-label>
-                    <span class="fmt-element-name">Clause</span>
-                    <semx element="autonum" source="M">6</semx>
-                 </fmt-xref-label>
-                 <clause id="N" inline-header="false" obligation="normative">
-                    <title id="_">Introduction</title>
-                    <fmt-title depth="2">
-                       <span class="fmt-caption-label">
-                          <semx element="autonum" source="M">6</semx>
-                          <span class="fmt-autonum-delim">.</span>
-                          <semx element="autonum" source="N">1</semx>
-                          <span class="fmt-autonum-delim">.</span>
-                       </span>
-                       <span class="fmt-caption-delim">
-                          <tab/>
-                       </span>
-                       <semx element="title" source="_">Introduction</semx>
-                    </fmt-title>
-                    <fmt-xref-label>
-                       <span class="fmt-element-name">Clause</span>
-                       <semx element="autonum" source="M">6</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                       <semx element="autonum" source="N">1</semx>
-                    </fmt-xref-label>
-                 </clause>
-                 <clause id="O" inline-header="false" obligation="normative">
-                    <title id="_">Clause 4.2</title>
-                    <fmt-title depth="2">
-                       <span class="fmt-caption-label">
-                          <semx element="autonum" source="M">6</semx>
-                          <span class="fmt-autonum-delim">.</span>
-                          <semx element="autonum" source="O">2</semx>
-                          <span class="fmt-autonum-delim">.</span>
-                       </span>
-                       <span class="fmt-caption-delim">
-                          <tab/>
-                       </span>
-                       <semx element="title" source="_">Clause 4.2</semx>
-                    </fmt-title>
-                    <fmt-xref-label>
-                       <span class="fmt-element-name">Clause</span>
-                       <semx element="autonum" source="M">6</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                       <semx element="autonum" source="O">2</semx>
-                    </fmt-xref-label>
-                 </clause>
-              </clause>
-              <references id="R" obligation="informative" normative="true" displayorder="14">
-                 <title id="_">Normative References</title>
-                 <fmt-title depth="1">
-                    <span class="fmt-caption-label">
-                       <semx element="autonum" source="R">3</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                    </span>
-                    <span class="fmt-caption-delim">
-                       <tab/>
-                    </span>
-                    <semx element="title" source="_">Normative References</semx>
-                 </fmt-title>
-                 <fmt-xref-label>
-                    <span class="fmt-element-name">Clause</span>
-                    <semx element="autonum" source="R">3</semx>
-                 </fmt-xref-label>
-              </references>
-           </sections>
+          <preface>
+             <clause type="toc" id="_" displayorder="1">
+                <fmt-title depth="1">Contents</fmt-title>
+             </clause>
+             <abstract obligation="informative" id="1" displayorder="2">
+                <title id="_">Abstract</title>
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="1">I</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                   <span class="fmt-caption-delim">
+                      <tab/>
+                   </span>
+                   <semx element="title" source="_">Abstract</semx>
+                </fmt-title>
+                <fmt-xref-label>
+                   <semx element="title" source="1">Abstract</semx>
+                </fmt-xref-label>
+                <p>XYZ</p>
+             </abstract>
+             <clause id="DD0" obligation="normative" type="executivesummary" displayorder="3">
+                <title id="_">Executive Summary</title>
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="DD0">II</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                   <span class="fmt-caption-delim">
+                      <tab/>
+                   </span>
+                   <semx element="title" source="_">Executive Summary</semx>
+                </fmt-title>
+                <fmt-xref-label>
+                   <semx element="title" source="DD0">Executive Summary</semx>
+                </fmt-xref-label>
+                <p id="EE0">Text</p>
+             </clause>
+             <clause id="_" type="keywords" displayorder="4">
+                <title id="_">Keywords</title>
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="_">III</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                   <span class="fmt-caption-delim">
+                      <tab/>
+                   </span>
+                   <semx element="title" source="_">Keywords</semx>
+                </fmt-title>
+                <fmt-xref-label>
+                   <semx element="title" source="_">Keywords</semx>
+                </fmt-xref-label>
+                <p>The following are keywords to be used by search engines and document catalogues.</p>
+                <p>A, B</p>
+             </clause>
+             <foreword obligation="informative" id="2" displayorder="5">
+                <title id="_">Preface</title>
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="2">IV</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                   <span class="fmt-caption-delim">
+                      <tab/>
+                   </span>
+                   <semx element="title" source="_">Preface</semx>
+                </fmt-title>
+                <fmt-xref-label>
+                   <semx element="title" source="2">Preface</semx>
+                </fmt-xref-label>
+                <p id="A">This is a preamble</p>
+             </foreword>
+             <clause id="DD1" obligation="normative" type="security" displayorder="6">
+                <title id="_">Security</title>
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="DD1">V</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                   <span class="fmt-caption-delim">
+                      <tab/>
+                   </span>
+                   <semx element="title" source="_">Security</semx>
+                </fmt-title>
+                <fmt-xref-label>
+                   <semx element="title" source="DD1">Security</semx>
+                </fmt-xref-label>
+                <p id="EE1">Text</p>
+             </clause>
+             <clause id="_" type="submitting_orgs" displayorder="7">
+                <title id="_">Submitting Organizations</title>
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="_">VI</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                   <span class="fmt-caption-delim">
+                      <tab/>
+                   </span>
+                   <semx element="title" source="_">Submitting Organizations</semx>
+                </fmt-title>
+                <fmt-xref-label>
+                   <semx element="title" source="_">Submitting Organizations</semx>
+                </fmt-xref-label>
+                <p>The following organizations submitted this Document to the Open Geospatial Consortium (OGC):</p>
+                <ul>
+                   <li>OGC</li>
+                   <li>DEF</li>
+                </ul>
+             </clause>
+             <submitters obligation="informative" id="3" displayorder="8">
+                <title id="_">Submitters</title>
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="3">VII</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                   <span class="fmt-caption-delim">
+                      <tab/>
+                   </span>
+                   <semx element="title" source="_">Submitters</semx>
+                </fmt-title>
+                <fmt-xref-label>
+                   <semx element="title" source="3">Submitters</semx>
+                </fmt-xref-label>
+                <p>ABC</p>
+             </submitters>
+             <submitters type="contributors" obligation="informative" id="3a" displayorder="9">
+                <title id="_">Contributors</title>
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="3a">VIII</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                   <span class="fmt-caption-delim">
+                      <tab/>
+                   </span>
+                   <semx element="title" source="_">Contributors</semx>
+                </fmt-title>
+                <fmt-xref-label>
+                   <semx element="title" source="3a">Contributors</semx>
+                </fmt-xref-label>
+                <p>ABC</p>
+             </submitters>
+             <clause id="5" displayorder="10">
+                <title id="_">Dedication</title>
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="5">IX</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                   <span class="fmt-caption-delim">
+                      <tab/>
+                   </span>
+                   <semx element="title" source="_">Dedication</semx>
+                </fmt-title>
+                <fmt-xref-label>
+                   <semx element="title" source="5">Dedication</semx>
+                </fmt-xref-label>
+                <clause id="6">
+                   <title id="_">Note to readers</title>
+                   <fmt-title depth="2">
+                      <span class="fmt-caption-label">
+                         <semx element="autonum" source="5">IX</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                         <semx element="autonum" source="6">A</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                      </span>
+                      <span class="fmt-caption-delim">
+                         <tab/>
+                      </span>
+                      <semx element="title" source="_">Note to readers</semx>
+                   </fmt-title>
+                   <fmt-xref-label>
+                      <span class="fmt-element-name">Clause</span>
+                      <semx element="autonum" source="5">IX</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="6">A</semx>
+                   </fmt-xref-label>
+                </clause>
+             </clause>
+             <acknowledgements obligation="informative" id="4" displayorder="11">
+                <title id="_">Acknowlegements</title>
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="4">X</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                   <span class="fmt-caption-delim">
+                      <tab/>
+                   </span>
+                   <semx element="title" source="_">Acknowlegements</semx>
+                </fmt-title>
+                <fmt-xref-label>
+                   <semx element="title" source="4">Acknowlegements</semx>
+                </fmt-xref-label>
+                <p>ABC</p>
+             </acknowledgements>
+          </preface>
+          <sections>
+             <clause id="D" obligation="normative" type="scope" displayorder="12">
+                <title id="_">Scope</title>
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="D">1</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                   <span class="fmt-caption-delim">
+                      <tab/>
+                   </span>
+                   <semx element="title" source="_">Scope</semx>
+                </fmt-title>
+                <fmt-xref-label>
+                   <span class="fmt-element-name">Clause</span>
+                   <semx element="autonum" source="D">1</semx>
+                </fmt-xref-label>
+                <p id="E">Text</p>
+             </clause>
+             <clause id="D1" obligation="normative" type="conformance" displayorder="13">
+                <title id="_">Conformance</title>
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="D1">2</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                   <span class="fmt-caption-delim">
+                      <tab/>
+                   </span>
+                   <semx element="title" source="_">Conformance</semx>
+                </fmt-title>
+                <fmt-xref-label>
+                   <span class="fmt-element-name">Clause</span>
+                   <semx element="autonum" source="D1">2</semx>
+                </fmt-xref-label>
+                <p id="E1">Text</p>
+             </clause>
+             <clause id="H" obligation="normative" displayorder="15">
+                <title id="_">Terms, definitions, symbols and abbreviated terms</title>
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="H">4</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                   <span class="fmt-caption-delim">
+                      <tab/>
+                   </span>
+                   <semx element="title" source="_">Terms, definitions, symbols and abbreviated terms</semx>
+                </fmt-title>
+                <fmt-xref-label>
+                   <span class="fmt-element-name">Clause</span>
+                   <semx element="autonum" source="H">4</semx>
+                </fmt-xref-label>
+                <terms id="I" obligation="normative">
+                   <title id="_">Normal Terms</title>
+                   <fmt-title depth="2">
+                      <span class="fmt-caption-label">
+                         <semx element="autonum" source="H">4</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                         <semx element="autonum" source="I">1</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                      </span>
+                      <span class="fmt-caption-delim">
+                         <tab/>
+                      </span>
+                      <semx element="title" source="_">Normal Terms</semx>
+                   </fmt-title>
+                   <fmt-xref-label>
+                      <span class="fmt-element-name">Clause</span>
+                      <semx element="autonum" source="H">4</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="I">1</semx>
+                   </fmt-xref-label>
+                   <term id="J">
+                      <fmt-name>
+                         <span class="fmt-caption-label">
+                            <semx element="autonum" source="H">4</semx>
+                            <span class="fmt-autonum-delim">.</span>
+                            <semx element="autonum" source="I">1</semx>
+                            <span class="fmt-autonum-delim">.</span>
+                            <semx element="autonum" source="J">1</semx>
+                            <span class="fmt-autonum-delim">.</span>
+                         </span>
+                      </fmt-name>
+                      <fmt-xref-label>
+                         <span class="fmt-element-name">Clause</span>
+                         <semx element="autonum" source="H">4</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                         <semx element="autonum" source="I">1</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                         <semx element="autonum" source="J">1</semx>
+                      </fmt-xref-label>
+                      <preferred id="_">
+                         <expression>
+                            <name>Term2</name>
+                         </expression>
+                      </preferred>
+                      <fmt-preferred>
+                         <p>
+                            <semx element="preferred" source="_">Term2</semx>
+                         </p>
+                      </fmt-preferred>
+                   </term>
+                </terms>
+                <definitions id="K">
+                   <title id="_">Definitions</title>
+                   <fmt-title depth="2">
+                      <span class="fmt-caption-label">
+                         <semx element="autonum" source="H">4</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                         <semx element="autonum" source="K">2</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                      </span>
+                      <span class="fmt-caption-delim">
+                         <tab/>
+                      </span>
+                      <semx element="title" source="_">Definitions</semx>
+                   </fmt-title>
+                   <fmt-xref-label>
+                      <span class="fmt-element-name">Clause</span>
+                      <semx element="autonum" source="H">4</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="K">2</semx>
+                   </fmt-xref-label>
+                   <dl>
+                      <dt>Symbol</dt>
+                      <dd>Definition</dd>
+                   </dl>
+                </definitions>
+             </clause>
+             <definitions id="L" displayorder="16">
+                <title id="_">Definitions</title>
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="L">5</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                   <span class="fmt-caption-delim">
+                      <tab/>
+                   </span>
+                   <semx element="title" source="_">Definitions</semx>
+                </fmt-title>
+                <fmt-xref-label>
+                   <span class="fmt-element-name">Clause</span>
+                   <semx element="autonum" source="L">5</semx>
+                </fmt-xref-label>
+                <dl>
+                   <dt>Symbol</dt>
+                   <dd>Definition</dd>
+                </dl>
+             </definitions>
+             <clause id="M" inline-header="false" obligation="normative" displayorder="17">
+                <title id="_">Clause 4</title>
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="M">6</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                   <span class="fmt-caption-delim">
+                      <tab/>
+                   </span>
+                   <semx element="title" source="_">Clause 4</semx>
+                </fmt-title>
+                <fmt-xref-label>
+                   <span class="fmt-element-name">Clause</span>
+                   <semx element="autonum" source="M">6</semx>
+                </fmt-xref-label>
+                <clause id="N" inline-header="false" obligation="normative">
+                   <title id="_">Introduction</title>
+                   <fmt-title depth="2">
+                      <span class="fmt-caption-label">
+                         <semx element="autonum" source="M">6</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                         <semx element="autonum" source="N">1</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                      </span>
+                      <span class="fmt-caption-delim">
+                         <tab/>
+                      </span>
+                      <semx element="title" source="_">Introduction</semx>
+                   </fmt-title>
+                   <fmt-xref-label>
+                      <span class="fmt-element-name">Clause</span>
+                      <semx element="autonum" source="M">6</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="N">1</semx>
+                   </fmt-xref-label>
+                </clause>
+                <clause id="O" inline-header="false" obligation="normative">
+                   <title id="_">Clause 4.2</title>
+                   <fmt-title depth="2">
+                      <span class="fmt-caption-label">
+                         <semx element="autonum" source="M">6</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                         <semx element="autonum" source="O">2</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                      </span>
+                      <span class="fmt-caption-delim">
+                         <tab/>
+                      </span>
+                      <semx element="title" source="_">Clause 4.2</semx>
+                   </fmt-title>
+                   <fmt-xref-label>
+                      <span class="fmt-element-name">Clause</span>
+                      <semx element="autonum" source="M">6</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="O">2</semx>
+                   </fmt-xref-label>
+                </clause>
+             </clause>
+             <references id="R" obligation="informative" normative="true" displayorder="14">
+                <title id="_">Normative References</title>
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="R">3</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                   <span class="fmt-caption-delim">
+                      <tab/>
+                   </span>
+                   <semx element="title" source="_">Normative References</semx>
+                </fmt-title>
+                <fmt-xref-label>
+                   <span class="fmt-element-name">Clause</span>
+                   <semx element="autonum" source="R">3</semx>
+                </fmt-xref-label>
+             </references>
+          </sections>
     OUTPUT
 
     presxml1 = <<~OUTPUT
@@ -1060,7 +1133,16 @@ RSpec.describe IsoDoc::Ogc do
                        <span class="fmt-autonum-delim">.</span>
                        <semx element="autonum" source="term-glossary">1</semx>
                     </fmt-xref-label>
-                    <preferred>Glossary</preferred>
+                                <preferred id="_">
+               <expression>
+                  <name>Glossary</name>
+               </expression>
+            </preferred>
+            <fmt-preferred>
+               <p>
+                  <semx element="preferred" source="_">Glossary</semx>
+               </p>
+            </fmt-preferred>
                  </term>
               </terms>
            </annex>
@@ -1127,7 +1209,16 @@ RSpec.describe IsoDoc::Ogc do
                        <span class="fmt-autonum-delim">.</span>
                        <semx element="autonum" source="term-term-1">1</semx>
                     </fmt-xref-label>
-                    <preferred>Term</preferred>
+            <preferred id="_">
+               <expression>
+                  <name>Term</name>
+               </expression>
+            </preferred>
+            <fmt-preferred>
+               <p>
+                  <semx element="preferred" source="_">Term</semx>
+               </p>
+            </fmt-preferred>
                  </term>
               </terms>
               <terms id="QQ2" obligation="normative" autonum="C.2">
@@ -1169,7 +1260,16 @@ RSpec.describe IsoDoc::Ogc do
                        <span class="fmt-autonum-delim">.</span>
                        <semx element="autonum" source="term-term-2">1</semx>
                     </fmt-xref-label>
-                    <preferred>Term</preferred>
+            <preferred id="_">
+               <expression>
+                  <name>Term</name>
+               </expression>
+            </preferred>
+            <fmt-preferred>
+               <p>
+                  <semx element="preferred" source="_">Term</semx>
+               </p>
+            </fmt-preferred>
                  </term>
               </terms>
            </annex>
@@ -1372,249 +1472,276 @@ RSpec.describe IsoDoc::Ogc do
              .gsub(%r{</body>.*}m, "</body>"),
     ))).to be_equivalent_to Xml::C14n.format(output + output1)
 
-    presxml1 = <<~OUTPUT
+    presxml2 = <<~OUTPUT
           <annex id="P" inline-header="false" obligation="normative" autonum="A" displayorder="19">
-              <title id="_">
-                 <strong>Annex</strong>
-              </title>
-              <fmt-title>
-                 <strong>
-                    <span class="fmt-caption-label">
-                       <span class="fmt-element-name">Annex</span>
-                       <semx element="autonum" source="P">A</semx>
-                    </span>
-                 </strong>
-                 <br/>
-                 <span class="fmt-obligation">(normative)</span>
-                 <span class="fmt-caption-delim">
-                    <br/>
-                 </span>
-                 <semx element="title" source="_">
-                    <strong>Annex</strong>
-                 </semx>
-              </fmt-title>
-              <fmt-xref-label>
-                 <span class="fmt-element-name">Annex</span>
-                 <semx element="autonum" source="P">A</semx>
-              </fmt-xref-label>
-              <clause id="Q" inline-header="false" obligation="normative" autonum="A.1">
-                 <title id="_">Annex A.1</title>
-                 <fmt-title depth="2">
-                    <span class="fmt-caption-label">
-                       <semx element="autonum" source="P">A</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                       <semx element="autonum" source="Q">1</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                    </span>
-                    <span class="fmt-caption-delim">
-                       <tab/>
-                    </span>
-                    <semx element="title" source="_">Annex A.1</semx>
-                 </fmt-title>
-                 <fmt-xref-label>
-                    <span class="fmt-element-name">Annex</span>
-                    <semx element="autonum" source="P">A</semx>
-                    <span class="fmt-autonum-delim">.</span>
-                    <semx element="autonum" source="Q">1</semx>
-                 </fmt-xref-label>
-                 <clause id="Q1" inline-header="false" obligation="normative" autonum="A.1.1">
-                    <title id="_">Annex A.1a</title>
-                    <fmt-title depth="3">
-                       <span class="fmt-caption-label">
-                          <semx element="autonum" source="P">A</semx>
-                          <span class="fmt-autonum-delim">.</span>
-                          <semx element="autonum" source="Q">1</semx>
-                          <span class="fmt-autonum-delim">.</span>
-                          <semx element="autonum" source="Q1">1</semx>
-                          <span class="fmt-autonum-delim">.</span>
-                       </span>
-                       <span class="fmt-caption-delim">
-                          <tab/>
-                       </span>
-                       <semx element="title" source="_">Annex A.1a</semx>
-                    </fmt-title>
-                    <fmt-xref-label>
-                       <span class="fmt-element-name">Annex</span>
-                       <semx element="autonum" source="P">A</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                       <semx element="autonum" source="Q">1</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                       <semx element="autonum" source="Q1">1</semx>
-                    </fmt-xref-label>
-                 </clause>
-              </clause>
-           </annex>
-           <annex id="PP" obligation="normative" autonum="B" displayorder="20">
-              <title id="_">
-                 <strong>Glossary</strong>
-              </title>
-              <fmt-title>
-                 <strong>
-                    <span class="fmt-caption-label">
-                       <span class="fmt-element-name">Annex</span>
-                       <semx element="autonum" source="PP">B</semx>
-                    </span>
-                 </strong>
-                 <br/>
-                 <span class="fmt-obligation">(normative)</span>
-                 <span class="fmt-caption-delim">
-                    <br/>
-                 </span>
-                 <semx element="title" source="_">
-                    <strong>Glossary</strong>
-                 </semx>
-              </fmt-title>
-              <fmt-xref-label>
-                 <span class="fmt-element-name">Annex</span>
-                 <semx element="autonum" source="PP">B</semx>
-              </fmt-xref-label>
-              <terms id="PP1" obligation="normative">
-                 <term id="term-glossary" autonum="B.1">
-                    <fmt-name>
-                       <span class="fmt-caption-label">
-                          <semx element="autonum" source="PP1">B</semx>
-                          <span class="fmt-autonum-delim">.</span>
-                          <semx element="autonum" source="term-glossary">1</semx>
-                          <span class="fmt-autonum-delim">.</span>
-                       </span>
-                    </fmt-name>
-                    <fmt-xref-label>
-                       <span class="fmt-element-name">Annex</span>
-                       <semx element="autonum" source="PP1">B</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                       <semx element="autonum" source="term-glossary">1</semx>
-                    </fmt-xref-label>
-                    <preferred>Glossary</preferred>
-                 </term>
-              </terms>
-           </annex>
-           <annex id="QQ" obligation="normative" autonum="C" displayorder="21">
-              <title id="_">
-                 <strong>Glossary</strong>
-              </title>
-              <fmt-title>
-                 <strong>
-                    <span class="fmt-caption-label">
-                       <span class="fmt-element-name">Annex</span>
-                       <semx element="autonum" source="QQ">C</semx>
-                    </span>
-                 </strong>
-                 <br/>
-                 <span class="fmt-obligation">(normative)</span>
-                 <span class="fmt-caption-delim">
-                    <br/>
-                 </span>
-                 <semx element="title" source="_">
-                    <strong>Glossary</strong>
-                 </semx>
-              </fmt-title>
-              <fmt-xref-label>
-                 <span class="fmt-element-name">Annex</span>
-                 <semx element="autonum" source="QQ">C</semx>
-              </fmt-xref-label>
-              <terms id="QQ1" obligation="normative" autonum="C.1">
-                 <title id="_">Term Collection</title>
-                 <fmt-title depth="2">
-                    <span class="fmt-caption-label">
-                       <semx element="autonum" source="QQ">C</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                       <semx element="autonum" source="QQ1">1</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                    </span>
-                    <span class="fmt-caption-delim">
-                       <tab/>
-                    </span>
-                    <semx element="title" source="_">Term Collection</semx>
-                 </fmt-title>
-                 <fmt-xref-label>
-                    <span class="fmt-element-name">Annex</span>
-                    <semx element="autonum" source="QQ">C</semx>
-                    <span class="fmt-autonum-delim">.</span>
-                    <semx element="autonum" source="QQ1">1</semx>
-                 </fmt-xref-label>
-                 <term id="term-term-1" autonum="C.1.1">
-                    <fmt-name>
-                       <span class="fmt-caption-label">
-                          <semx element="autonum" source="QQ">C</semx>
-                          <span class="fmt-autonum-delim">.</span>
-                          <semx element="autonum" source="QQ1">1</semx>
-                          <span class="fmt-autonum-delim">.</span>
-                          <semx element="autonum" source="term-term-1">1</semx>
-                          <span class="fmt-autonum-delim">.</span>
-                       </span>
-                    </fmt-name>
-                    <fmt-xref-label>
-                       <span class="fmt-element-name">Annex</span>
-                       <semx element="autonum" source="QQ">C</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                       <semx element="autonum" source="QQ1">1</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                       <semx element="autonum" source="term-term-1">1</semx>
-                    </fmt-xref-label>
-                    <preferred>Term</preferred>
-                 </term>
-              </terms>
-              <terms id="QQ2" obligation="normative" autonum="C.2">
-                 <title id="_">Term Collection 2</title>
-                 <fmt-title depth="2">
-                    <span class="fmt-caption-label">
-                       <semx element="autonum" source="QQ">C</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                       <semx element="autonum" source="QQ2">2</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                    </span>
-                    <span class="fmt-caption-delim">
-                       <tab/>
-                    </span>
-                    <semx element="title" source="_">Term Collection 2</semx>
-                 </fmt-title>
-                 <fmt-xref-label>
-                    <span class="fmt-element-name">Annex</span>
-                    <semx element="autonum" source="QQ">C</semx>
-                    <span class="fmt-autonum-delim">.</span>
-                    <semx element="autonum" source="QQ2">2</semx>
-                 </fmt-xref-label>
-                 <term id="term-term-2" autonum="C.2.1">
-                    <fmt-name>
-                       <span class="fmt-caption-label">
-                          <semx element="autonum" source="QQ">C</semx>
-                          <span class="fmt-autonum-delim">.</span>
-                          <semx element="autonum" source="QQ2">2</semx>
-                          <span class="fmt-autonum-delim">.</span>
-                          <semx element="autonum" source="term-term-2">1</semx>
-                          <span class="fmt-autonum-delim">.</span>
-                       </span>
-                    </fmt-name>
-                    <fmt-xref-label>
-                       <span class="fmt-element-name">Annex</span>
-                       <semx element="autonum" source="QQ">C</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                       <semx element="autonum" source="QQ2">2</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                       <semx element="autonum" source="term-term-2">1</semx>
-                    </fmt-xref-label>
-                    <preferred>Term</preferred>
-                 </term>
-              </terms>
-           </annex>
-           <bibliography>
-              <clause id="S" obligation="informative" unnumbered="true" displayorder="18">
-                 <title id="_">Bibliography</title>
-                 <fmt-title depth="1">
-                    <semx element="title" source="_">Bibliography</semx>
-                 </fmt-title>
-                 <references id="T" obligation="informative" normative="false">
-                    <title id="_">Bibliography Subsection</title>
-                    <fmt-title depth="2">
-                       <semx element="title" source="_">Bibliography Subsection</semx>
-                    </fmt-title>
-                 </references>
-              </clause>
-           </bibliography>
-        </ogc-standard>
+             <title id="_">
+                <strong>Annex</strong>
+             </title>
+             <fmt-title>
+                <strong>
+                   <span class="fmt-caption-label">
+                      <span class="fmt-element-name">Annex</span>
+                      <semx element="autonum" source="P">A</semx>
+                   </span>
+                </strong>
+                <br/>
+                <span class="fmt-obligation">(normative)</span>
+                <span class="fmt-caption-delim">
+                   <br/>
+                </span>
+                <semx element="title" source="_">
+                   <strong>Annex</strong>
+                </semx>
+             </fmt-title>
+             <fmt-xref-label>
+                <span class="fmt-element-name">Annex</span>
+                <semx element="autonum" source="P">A</semx>
+             </fmt-xref-label>
+             <clause id="Q" inline-header="false" obligation="normative" autonum="A.1">
+                <title id="_">Annex A.1</title>
+                <fmt-title depth="2">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="P">A</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="Q">1</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                   <span class="fmt-caption-delim">
+                      <tab/>
+                   </span>
+                   <semx element="title" source="_">Annex A.1</semx>
+                </fmt-title>
+                <fmt-xref-label>
+                   <span class="fmt-element-name">Annex</span>
+                   <semx element="autonum" source="P">A</semx>
+                   <span class="fmt-autonum-delim">.</span>
+                   <semx element="autonum" source="Q">1</semx>
+                </fmt-xref-label>
+                <clause id="Q1" inline-header="false" obligation="normative" autonum="A.1.1">
+                   <title id="_">Annex A.1a</title>
+                   <fmt-title depth="3">
+                      <span class="fmt-caption-label">
+                         <semx element="autonum" source="P">A</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                         <semx element="autonum" source="Q">1</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                         <semx element="autonum" source="Q1">1</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                      </span>
+                      <span class="fmt-caption-delim">
+                         <tab/>
+                      </span>
+                      <semx element="title" source="_">Annex A.1a</semx>
+                   </fmt-title>
+                   <fmt-xref-label>
+                      <span class="fmt-element-name">Annex</span>
+                      <semx element="autonum" source="P">A</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="Q">1</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="Q1">1</semx>
+                   </fmt-xref-label>
+                </clause>
+             </clause>
+          </annex>
+          <annex id="PP" obligation="normative" autonum="B" displayorder="20">
+             <title id="_">
+                <strong>Glossary</strong>
+             </title>
+             <fmt-title>
+                <strong>
+                   <span class="fmt-caption-label">
+                      <span class="fmt-element-name">Annex</span>
+                      <semx element="autonum" source="PP">B</semx>
+                   </span>
+                </strong>
+                <br/>
+                <span class="fmt-obligation">(normative)</span>
+                <span class="fmt-caption-delim">
+                   <br/>
+                </span>
+                <semx element="title" source="_">
+                   <strong>Glossary</strong>
+                </semx>
+             </fmt-title>
+             <fmt-xref-label>
+                <span class="fmt-element-name">Annex</span>
+                <semx element="autonum" source="PP">B</semx>
+             </fmt-xref-label>
+             <terms id="PP1" obligation="normative">
+                <term id="term-glossary" autonum="B.1">
+                   <fmt-name>
+                      <span class="fmt-caption-label">
+                         <semx element="autonum" source="PP1">B</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                         <semx element="autonum" source="term-glossary">1</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                      </span>
+                   </fmt-name>
+                   <fmt-xref-label>
+                      <span class="fmt-element-name">Annex</span>
+                      <semx element="autonum" source="PP1">B</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="term-glossary">1</semx>
+                   </fmt-xref-label>
+                   <preferred id="_">
+                      <expression>
+                         <name>Glossary</name>
+                      </expression>
+                   </preferred>
+                   <fmt-preferred>
+                      <p>
+                         <semx element="preferred" source="_">Glossary</semx>
+                      </p>
+                   </fmt-preferred>
+                </term>
+             </terms>
+          </annex>
+          <annex id="QQ" obligation="normative" autonum="C" displayorder="21">
+             <title id="_">
+                <strong>Glossary</strong>
+             </title>
+             <fmt-title>
+                <strong>
+                   <span class="fmt-caption-label">
+                      <span class="fmt-element-name">Annex</span>
+                      <semx element="autonum" source="QQ">C</semx>
+                   </span>
+                </strong>
+                <br/>
+                <span class="fmt-obligation">(normative)</span>
+                <span class="fmt-caption-delim">
+                   <br/>
+                </span>
+                <semx element="title" source="_">
+                   <strong>Glossary</strong>
+                </semx>
+             </fmt-title>
+             <fmt-xref-label>
+                <span class="fmt-element-name">Annex</span>
+                <semx element="autonum" source="QQ">C</semx>
+             </fmt-xref-label>
+             <terms id="QQ1" obligation="normative" autonum="C.1">
+                <title id="_">Term Collection</title>
+                <fmt-title depth="2">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="QQ">C</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="QQ1">1</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                   <span class="fmt-caption-delim">
+                      <tab/>
+                   </span>
+                   <semx element="title" source="_">Term Collection</semx>
+                </fmt-title>
+                <fmt-xref-label>
+                   <span class="fmt-element-name">Annex</span>
+                   <semx element="autonum" source="QQ">C</semx>
+                   <span class="fmt-autonum-delim">.</span>
+                   <semx element="autonum" source="QQ1">1</semx>
+                </fmt-xref-label>
+                <term id="term-term-1" autonum="C.1.1">
+                   <fmt-name>
+                      <span class="fmt-caption-label">
+                         <semx element="autonum" source="QQ">C</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                         <semx element="autonum" source="QQ1">1</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                         <semx element="autonum" source="term-term-1">1</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                      </span>
+                   </fmt-name>
+                   <fmt-xref-label>
+                      <span class="fmt-element-name">Annex</span>
+                      <semx element="autonum" source="QQ">C</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="QQ1">1</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="term-term-1">1</semx>
+                   </fmt-xref-label>
+                   <preferred id="_">
+                      <expression>
+                         <name>Term</name>
+                      </expression>
+                   </preferred>
+                   <fmt-preferred>
+                      <p>
+                         <semx element="preferred" source="_">Term</semx>
+                      </p>
+                   </fmt-preferred>
+                </term>
+             </terms>
+             <terms id="QQ2" obligation="normative" autonum="C.2">
+                <title id="_">Term Collection 2</title>
+                <fmt-title depth="2">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="QQ">C</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="QQ2">2</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                   <span class="fmt-caption-delim">
+                      <tab/>
+                   </span>
+                   <semx element="title" source="_">Term Collection 2</semx>
+                </fmt-title>
+                <fmt-xref-label>
+                   <span class="fmt-element-name">Annex</span>
+                   <semx element="autonum" source="QQ">C</semx>
+                   <span class="fmt-autonum-delim">.</span>
+                   <semx element="autonum" source="QQ2">2</semx>
+                </fmt-xref-label>
+                <term id="term-term-2" autonum="C.2.1">
+                   <fmt-name>
+                      <span class="fmt-caption-label">
+                         <semx element="autonum" source="QQ">C</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                         <semx element="autonum" source="QQ2">2</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                         <semx element="autonum" source="term-term-2">1</semx>
+                         <span class="fmt-autonum-delim">.</span>
+                      </span>
+                   </fmt-name>
+                   <fmt-xref-label>
+                      <span class="fmt-element-name">Annex</span>
+                      <semx element="autonum" source="QQ">C</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="QQ2">2</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                      <semx element="autonum" source="term-term-2">1</semx>
+                   </fmt-xref-label>
+                   <preferred id="_">
+                      <expression>
+                         <name>Term</name>
+                      </expression>
+                   </preferred>
+                   <fmt-preferred>
+                      <p>
+                         <semx element="preferred" source="_">Term</semx>
+                      </p>
+                   </fmt-preferred>
+                </term>
+             </terms>
+          </annex>
+          <bibliography>
+             <clause id="S" obligation="informative" unnumbered="true" displayorder="18">
+                <title id="_">Bibliography</title>
+                <fmt-title depth="1">
+                   <semx element="title" source="_">Bibliography</semx>
+                </fmt-title>
+                <references id="T" obligation="informative" normative="false">
+                   <title id="_">Bibliography Subsection</title>
+                   <fmt-title depth="2">
+                      <semx element="title" source="_">Bibliography Subsection</semx>
+                   </fmt-title>
+                </references>
+             </clause>
+          </bibliography>
+       </ogc-standard>
     OUTPUT
 
-    output1 = <<~OUTPUT
+    output2 = <<~OUTPUT
               <div>
             <h1 class="Section3">Bibliography</h1>
             <div>
@@ -1681,13 +1808,13 @@ RSpec.describe IsoDoc::Ogc do
     xml.at("//xmlns:localized-strings").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(
-        presxml.sub("technical-paper", "engineering-report") + presxml1,
+        presxml.sub("technical-paper", "engineering-report") + presxml2,
       )
     expect(Xml::C14n.format(strip_guid(
              IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", pres_output, true)
              .gsub(%r{^.*<body}m, "<body")
              .gsub(%r{</body>.*}m, "</body>"),
-    ))).to be_equivalent_to Xml::C14n.format(output + output1)
+    ))).to be_equivalent_to Xml::C14n.format(output + output2)
   end
 end

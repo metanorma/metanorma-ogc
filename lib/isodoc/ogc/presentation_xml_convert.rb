@@ -145,12 +145,18 @@ module IsoDoc
         %i(arabic alphabet roman alphabet_upper roman_upper)[(idx - 1) % 5]
       end
 
-      def termsource1(elem)
+      # KILL
+      def termsource1xx(elem)
         while elem&.next_element&.name == "termsource"
           elem << "; #{to_xml(elem.next_element.remove.children)}"
         end
         elem.children = l10n("[<strong>#{@i18n.source}:</strong> " \
                              "#{to_xml(elem.children).strip}]")
+      end
+
+      def termsource_label(elem, sources)
+        elem.replace(l10n("[<strong>#{@i18n.source}:</strong> " \
+                             "#{sources}]"))
       end
 
       def bibliography_bibitem_number_skip(bibitem)
@@ -181,12 +187,18 @@ module IsoDoc
       end
 
       def deprecates(elem)
-        elem << "&#xa0;<span class='DeprecatedLabel'>#{@i18n.deprecated}</span>"
+        elem.xpath(ns(".//semx[@element = 'deprecates']")).each do |s|
+          s.next = "&#xa0;<span class='DeprecatedLabel'>#{@i18n.deprecated}</span>"
+        end
       end
 
       def admits(elem)
-        elem << "&#xa0;<span class='AdmittedLabel'>#{@i18n.admitted}</span>"
+        elem.xpath(ns(".//semx[@element = 'admitted']")).each do |s|
+          s.next = "&#xa0;<span class='AdmittedLabel'>#{@i18n.admitted}</span>"
+        end
       end
+
+      def designation_boldface(desgn); end
 
       def source_label(elem)
         labelled_ancestor(elem) and return
