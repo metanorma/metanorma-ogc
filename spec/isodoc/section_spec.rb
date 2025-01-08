@@ -331,7 +331,7 @@ RSpec.describe IsoDoc::Ogc do
                             </locality>
                             ISO 7301:2011, Clause 3.1
                          </origin>
-                         , modified — The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here
+                         , modified — <semx element="modification" source="_">The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here</semx>
                       </semx>
                       ]
                    </fmt-termsource>
