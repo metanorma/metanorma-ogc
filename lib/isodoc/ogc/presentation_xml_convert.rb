@@ -198,7 +198,7 @@ module IsoDoc
         end
       end
 
-      def designation_boldface(desgn); end
+      #def designation_boldface(desgn); end
 
       def source_label(elem)
         labelled_ancestor(elem) and return

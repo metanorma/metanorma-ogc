@@ -264,7 +264,7 @@ RSpec.describe IsoDoc::Ogc do
                    </preferred>
                    <fmt-preferred>
                       <p>
-                         <semx element="preferred" source="_">Term2</semx>
+                         <semx element="preferred" source="_"><strong>Term2</strong></semx>
                       </p>
                    </fmt-preferred>
                    <admitted id="_">
@@ -350,7 +350,7 @@ RSpec.describe IsoDoc::Ogc do
          <div id="J">
            <h2 class="TermNum" style="text-align:left;" id="_">
              <a class="anchor" href="#J"/>
-             <a class="header" href="#J">1.1. Term2</a>
+             <a class="header" href="#J">1.1. <b>Term2</b></a>
            </h2>
          </div>
          <p class="AltTerms" style="text-align:left;">
@@ -388,7 +388,7 @@ RSpec.describe IsoDoc::Ogc do
                 </h1>
                 <p class="TermNum" style="text-align:left;">
                    <a name="J" id="J"/>
-                   1.1. Term2
+                   1.1. <b>Term2</b>
                 </p>
                 <p class="AltTerms" style="text-align:left;">
                    Term2A 
@@ -890,7 +890,9 @@ RSpec.describe IsoDoc::Ogc do
                       </preferred>
                       <fmt-preferred>
                          <p>
-                            <semx element="preferred" source="_">Term2</semx>
+                            <semx element="preferred" source="_">
+                               <strong>Term2</strong>
+                            </semx>
                          </p>
                       </fmt-preferred>
                    </term>
@@ -1140,7 +1142,7 @@ RSpec.describe IsoDoc::Ogc do
             </preferred>
             <fmt-preferred>
                <p>
-                  <semx element="preferred" source="_">Glossary</semx>
+                  <semx element="preferred" source="_"><strong>Glossary</strong></semx>
                </p>
             </fmt-preferred>
                  </term>
@@ -1216,7 +1218,7 @@ RSpec.describe IsoDoc::Ogc do
             </preferred>
             <fmt-preferred>
                <p>
-                  <semx element="preferred" source="_">Term</semx>
+                  <semx element="preferred" source="_"><strong>Term</strong></semx>
                </p>
             </fmt-preferred>
                  </term>
@@ -1267,7 +1269,7 @@ RSpec.describe IsoDoc::Ogc do
             </preferred>
             <fmt-preferred>
                <p>
-                  <semx element="preferred" source="_">Term</semx>
+                  <semx element="preferred" source="_"><strong>Term</strong></semx>
                </p>
             </fmt-preferred>
                  </term>
@@ -1361,7 +1363,7 @@ RSpec.describe IsoDoc::Ogc do
                  <div id="I">
                     <h2>4.1.  Normal Terms</h2>
                     <p class="TermNum" id="J">4.1.1.</p>
-                    <p class="Terms" style="text-align:left;">Term2</p>
+                    <p class="Terms" style="text-align:left;"><b>Term2</b></p>
                  </div>
                  <div id="K">
                     <h2>4.2.  Definitions</h2>
@@ -1425,7 +1427,7 @@ RSpec.describe IsoDoc::Ogc do
                  </h1>
                  <div id="PP1">
                     <p class="TermNum" id="term-glossary">B.1.</p>
-                    <p class="Terms" style="text-align:left;">Glossary</p>
+                    <p class="Terms" style="text-align:left;"><b>Glossary</b></p>
                  </div>
               </div>
               <br/>
@@ -1440,12 +1442,12 @@ RSpec.describe IsoDoc::Ogc do
                  <div id="QQ1">
                     <h2>C.1.  Term Collection</h2>
                     <p class="TermNum" id="term-term-1">C.1.1.</p>
-                    <p class="Terms" style="text-align:left;">Term</p>
+                    <p class="Terms" style="text-align:left;"><b>Term</b></p>
                  </div>
                  <div id="QQ2">
                     <h2>C.2.  Term Collection 2</h2>
                     <p class="TermNum" id="term-term-2">C.2.1.</p>
-                    <p class="Terms" style="text-align:left;">Term</p>
+                    <p class="Terms" style="text-align:left;"><b>Term</b></p>
                  </div>
               </div>
               <br/>
@@ -1591,7 +1593,7 @@ RSpec.describe IsoDoc::Ogc do
                    </preferred>
                    <fmt-preferred>
                       <p>
-                         <semx element="preferred" source="_">Glossary</semx>
+                         <semx element="preferred" source="_"><strong>Glossary</strong></semx>
                       </p>
                    </fmt-preferred>
                 </term>
@@ -1667,7 +1669,7 @@ RSpec.describe IsoDoc::Ogc do
                    </preferred>
                    <fmt-preferred>
                       <p>
-                         <semx element="preferred" source="_">Term</semx>
+                         <semx element="preferred" source="_"><strong>Term</strong></semx>
                       </p>
                    </fmt-preferred>
                 </term>
@@ -1718,7 +1720,7 @@ RSpec.describe IsoDoc::Ogc do
                    </preferred>
                    <fmt-preferred>
                       <p>
-                         <semx element="preferred" source="_">Term</semx>
+                         <semx element="preferred" source="_"><strong>Term</strong></semx>
                       </p>
                    </fmt-preferred>
                 </term>
@@ -1775,7 +1777,7 @@ RSpec.describe IsoDoc::Ogc do
                  </h1>
                  <div id="PP1">
                     <p class="TermNum" id="term-glossary">B.1.</p>
-                    <p class="Terms" style="text-align:left;">Glossary</p>
+                    <p class="Terms" style="text-align:left;"><b>Glossary</b></p>
                  </div>
               </div>
               <br/>
@@ -1790,12 +1792,12 @@ RSpec.describe IsoDoc::Ogc do
                  <div id="QQ1">
                     <h2>C.1.  Term Collection</h2>
                     <p class="TermNum" id="term-term-1">C.1.1.</p>
-                    <p class="Terms" style="text-align:left;">Term</p>
+                    <p class="Terms" style="text-align:left;"><b>Term</b></p>
                  </div>
                  <div id="QQ2">
                     <h2>C.2.  Term Collection 2</h2>
                     <p class="TermNum" id="term-term-2">C.2.1.</p>
-                    <p class="Terms" style="text-align:left;">Term</p>
+                    <p class="Terms" style="text-align:left;"><b>Term</b></p>
                  </div>
               </div>
            </div>
