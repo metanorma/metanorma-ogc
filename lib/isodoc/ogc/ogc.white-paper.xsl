@@ -2026,6 +2026,9 @@
 
 	</xsl:attribute-set>
 
+	<xsl:attribute-set name="related-block-style" use-attribute-sets="preferred-block-style">
+	</xsl:attribute-set>
+
 	<xsl:attribute-set name="definition-style">
 
 			<xsl:attribute name="space-after">6pt</xsl:attribute>
@@ -4306,7 +4309,9 @@
 					<xsl:with-param name="element">
 						<fo:basic-link internal-destination="{$ref_id}" fox:alt-text="footnote {$current_fn_number}"> <!-- note: role="Lbl" removed in https://github.com/metanorma/mn2pdf/issues/291 -->
 							<fo:inline role="Lbl"> <!-- need for https://github.com/metanorma/metanorma-iso/issues/1003 -->
+
 								<xsl:copy-of select="$current_fn_number_text"/>
+
 							</fo:inline>
 						</fo:basic-link>
 					</xsl:with-param>
@@ -4325,8 +4330,7 @@
 
 						<fo:block-container xsl:use-attribute-sets="fn-container-body-style" role="SKIP">
 
-							<fo:block xsl:use-attribute-sets="fn-body-style" role="SKIP">
-
+							<xsl:variable name="fn_block">
 								<xsl:call-template name="refine_fn-body-style"/>
 
 								<fo:inline id="{$ref_id}" xsl:use-attribute-sets="fn-body-num-style" role="Lbl">
@@ -4334,9 +4338,15 @@
 									<xsl:call-template name="refine_fn-body-num-style"/>
 
 									<xsl:value-of select="$current_fn_number_text"/>
+
 								</fo:inline>
 								<xsl:apply-templates/>
-							</fo:block>
+							</xsl:variable>
+
+									<fo:block xsl:use-attribute-sets="fn-body-style" role="SKIP">
+										<xsl:copy-of select="$fn_block"/>
+									</fo:block>
+
 						</fo:block-container>
 					</fo:footnote-body>
 				</fo:footnote>
@@ -10384,14 +10394,17 @@
 		</fo:block>
 	</xsl:template>
 
-	<xsl:template match="*[local-name() = 'domain']">
+	<!-- <xsl:template match="*[local-name() = 'domain']"> -->
 		<!-- https://github.com/metanorma/isodoc/issues/607 
 		<fo:inline xsl:use-attribute-sets="domain-style">&lt;<xsl:apply-templates/>&gt;</fo:inline>
 		<xsl:text> </xsl:text> -->
-		<xsl:if test="not(@hidden = 'true')">
+		<!-- <xsl:if test="not(@hidden = 'true')">
 			<xsl:apply-templates/>
 		</xsl:if>
-	</xsl:template>
+	</xsl:template> -->
+
+	<!-- https://github.com/metanorma/isodoc/issues/632#issuecomment-2567163931 -->
+	<xsl:template match="*[local-name() = 'domain']"/>
 
 	<xsl:template match="*[local-name() = 'admitted']">
 		<fo:block xsl:use-attribute-sets="admitted-style">
@@ -10406,9 +10419,11 @@
 	</xsl:template>
 
 	<xsl:template name="setStyle_preferred">
-		<xsl:if test="*[local-name() = 'strong']">
-			<xsl:attribute name="font-weight">normal</xsl:attribute>
-		</xsl:if>
+
+				<xsl:if test="*[local-name() = 'strong']">
+					<xsl:attribute name="font-weight">normal</xsl:attribute>
+				</xsl:if>
+
 	</xsl:template>
 
 	<!-- regarding ISO 10241-1:2011,  If there is more than one preferred term, each preferred term follows the previous one on a new line. -->
@@ -10417,6 +10432,17 @@
 		<xsl:value-of select="java:replaceAll(java:java.lang.String.new(.), ';', $linebreak)"/>
 	</xsl:template>
 	<!--  End Preferred, admitted, deprecated -->
+
+	<xsl:template match="*[local-name() = 'fmt-related']">
+		<fo:block role="SKIP" xsl:use-attribute-sets="related-block-style">
+			<xsl:apply-templates/>
+		</fo:block>
+	</xsl:template>
+	<xsl:template match="*[local-name() = 'fmt-related']/*[local-name() = 'p']" priority="4">
+		<fo:block>
+			<xsl:apply-templates/>
+		</fo:block>
+	</xsl:template>
 
 	<!-- ========== -->
 	<!-- definition -->
@@ -11322,6 +11348,7 @@
 
 	<!-- Normative references -->
 	<xsl:template match="*[local-name() = 'references'][@normative='true']/*[local-name() = 'bibitem']" name="bibitem" priority="2">
+		<xsl:param name="skip" select="normalize-space(preceding-sibling::*[1][local-name() = 'bibitem'] and 1 = 1)"/> <!-- current bibiitem is non-first -->
 
 				<fo:block id="{@id}" xsl:use-attribute-sets="bibitem-normative-style">
 
@@ -12045,7 +12072,8 @@
 			<!-- add @id - first element with @id plus '_element_name' -->
 			<xsl:variable name="prefix_id_" select="(.//*[@id])[1]/@id"/>
 			<xsl:variable name="prefix_id"><xsl:value-of select="$prefix_id_"/><xsl:if test="normalize-space($prefix_id_) = ''"><xsl:value-of select="generate-id()"/></xsl:if></xsl:variable>
-			<xsl:attribute name="id"><xsl:value-of select="$prefix_id"/>_<xsl:value-of select="local-name()"/></xsl:attribute>
+			<xsl:variable name="document_suffix" select="ancestor::*[contains(local-name(), '-standard')]/@document_suffix"/>
+			<xsl:attribute name="id"><xsl:value-of select="concat($prefix_id, '_', local-name(), '_', $document_suffix)"/></xsl:attribute>
 		</xsl:if>
 	</xsl:template>
 
@@ -12102,6 +12130,31 @@
 	<xsl:template match="*[local-name() = 'name'][following-sibling::*[1][local-name() = 'fmt-name']]" mode="update_xml_pres"/>
 	<xsl:template match="*[local-name() = 'section-title'][following-sibling::*[1][local-name() = 'p'][@type = 'section-title' or @type = 'floating-title']]" mode="update_xml_step1"/>
 	<xsl:template match="*[local-name() = 'section-title'][following-sibling::*[1][local-name() = 'p'][@type = 'section-title' or @type = 'floating-title']]" mode="update_xml_pres"/>
+	<!-- <xsl:template match="*[local-name() = 'preferred'][following-sibling::*[not(local-name() = 'preferred')][1][local-name() = 'fmt-preferred']]" mode="update_xml_step1"/> -->
+	<xsl:template match="*[local-name() = 'preferred']" mode="update_xml_step1"/>
+	<!-- <xsl:template match="*[local-name() = 'preferred'][following-sibling::*[not(local-name() = 'preferred')][1][local-name() = 'fmt-preferred']]" mode="update_xml_pres"/> -->
+	<xsl:template match="*[local-name() = 'preferred']" mode="update_xml_pres"/>
+	<!-- <xsl:template match="*[local-name() = 'admitted'][following-sibling::*[not(local-name() = 'admitted')][1][local-name() = 'fmt-admitted']]" mode="update_xml_step1"/> -->
+	<xsl:template match="*[local-name() = 'admitted']" mode="update_xml_step1"/>
+	<!-- <xsl:template match="*[local-name() = 'admitted'][following-sibling::*[not(local-name() = 'admitted')][1][local-name() = 'fmt-admitted']]" mode="update_xml_pres"/> -->
+	<xsl:template match="*[local-name() = 'admitted']" mode="update_xml_pres"/>
+	<!-- <xsl:template match="*[local-name() = 'deprecates'][following-sibling::*[not(local-name() = 'deprecates')][1][local-name() = 'fmt-deprecates']]" mode="update_xml_step1"/> -->
+	<xsl:template match="*[local-name() = 'deprecates']" mode="update_xml_step1"/>
+	<xsl:template match="*[local-name() = 'related']" mode="update_xml_step1"/>
+	<!-- <xsl:template match="*[local-name() = 'deprecates'][following-sibling::*[not(local-name() = 'deprecates')][1][local-name() = 'fmt-deprecates']]" mode="update_xml_pres"/> -->
+	<xsl:template match="*[local-name() = 'deprecates']" mode="update_xml_pres"/>
+	<xsl:template match="*[local-name() = 'related']" mode="update_xml_pres"/>
+	<!-- <xsl:template match="*[local-name() = 'definition'][following-sibling::*[1][local-name() = 'fmt-definition']]" mode="update_xml_step1"/> -->
+	<xsl:template match="*[local-name() = 'definition']" mode="update_xml_step1"/>
+	<!-- <xsl:template match="*[local-name() = 'definition'][following-sibling::*[1][local-name() = 'fmt-definition']]" mode="update_xml_pres"/> -->
+	<xsl:template match="*[local-name() = 'definition']" mode="update_xml_pres"/>
+	<!-- <xsl:template match="*[local-name() = 'termsource'][following-sibling::*[1][local-name() = 'fmt-termsource']]" mode="update_xml_step1"/> -->
+	<xsl:template match="*[local-name() = 'termsource']" mode="update_xml_step1"/>
+	<!-- <xsl:template match="*[local-name() = 'termsource'][following-sibling::*[1][local-name() = 'fmt-termsource']]" mode="update_xml_pres"/> -->
+	<xsl:template match="*[local-name() = 'termsource']" mode="update_xml_pres"/>
+
+	<xsl:template match="*[local-name() = 'term'][@unnumbered = 'true'][not(.//*[starts-with(local-name(), 'fmt-')])]" mode="update_xml_step1"/>
+	<xsl:template match="*[local-name() = 'term'][@unnumbered = 'true'][not(.//*[starts-with(local-name(), 'fmt-')])]" mode="update_xml_pres"/>
 
 	<xsl:template match="*[local-name() = 'p'][@type = 'section-title' or @type = 'floating-title'][preceding-sibling::*[1][local-name() = 'section-title']]" mode="update_xml_step1">
 		<xsl:copy>
@@ -12141,6 +12194,94 @@
 	</xsl:template>
 	<xsl:template match="*[local-name() = 'fmt-name']" mode="update_xml_pres">
 		<xsl:element name="name" namespace="{$namespace_full}">
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates mode="update_xml_pres"/>
+		</xsl:element>
+	</xsl:template>
+
+	<xsl:template match="*[local-name() = 'fmt-preferred']"/>
+	<xsl:template match="*[local-name() = 'fmt-preferred'][*[local-name() = 'p']]" mode="update_xml_step1">
+		<xsl:apply-templates mode="update_xml_step1"/>
+	</xsl:template>
+	<xsl:template match="*[local-name() = 'fmt-preferred'][not(*[local-name() = 'p'])] | *[local-name() = 'fmt-preferred']/*[local-name() = 'p']" mode="update_xml_step1">
+		<xsl:element name="preferred" namespace="{$namespace_full}">
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates mode="update_xml_step1"/>
+		</xsl:element>
+	</xsl:template>
+	<xsl:template match="*[local-name() = 'fmt-preferred'][*[local-name() = 'p']]" mode="update_xml_pres">
+		<xsl:apply-templates mode="update_xml_pres"/>
+	</xsl:template>
+	<xsl:template match="*[local-name() = 'fmt-preferred'][not(*[local-name() = 'p'])] | *[local-name() = 'fmt-preferred']/*[local-name() = 'p']" mode="update_xml_pres">
+		<xsl:element name="preferred" namespace="{$namespace_full}">
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates mode="update_xml_pres"/>
+		</xsl:element>
+	</xsl:template>
+
+	<xsl:template match="*[local-name() = 'fmt-admitted']"/>
+	<xsl:template match="*[local-name() = 'fmt-admitted'][*[local-name() = 'p']]" mode="update_xml_step1">
+		<xsl:apply-templates mode="update_xml_step1"/>
+	</xsl:template>
+	<xsl:template match="*[local-name() = 'fmt-admitted'][not(*[local-name() = 'p'])] | *[local-name() = 'fmt-admitted']/*[local-name() = 'p']" mode="update_xml_step1">
+		<xsl:element name="admitted" namespace="{$namespace_full}">
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates mode="update_xml_step1"/>
+		</xsl:element>
+	</xsl:template>
+	<xsl:template match="*[local-name() = 'fmt-admitted'][*[local-name() = 'p']]" mode="update_xml_pres">
+		<xsl:apply-templates mode="update_xml_pres"/>
+	</xsl:template>
+	<xsl:template match="*[local-name() = 'fmt-admitted'][not(*[local-name() = 'p'])] | *[local-name() = 'fmt-admitted']/*[local-name() = 'p']" mode="update_xml_pres">
+		<xsl:element name="admitted" namespace="{$namespace_full}">
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates mode="update_xml_pres"/>
+		</xsl:element>
+	</xsl:template>
+
+	<xsl:template match="*[local-name() = 'fmt-deprecates']"/>
+	<xsl:template match="*[local-name() = 'fmt-deprecates'][*[local-name() = 'p']]" mode="update_xml_step1">
+		<xsl:apply-templates mode="update_xml_step1"/>
+	</xsl:template>
+	<xsl:template match="*[local-name() = 'fmt-deprecates'][not(*[local-name() = 'p'])] | *[local-name() = 'fmt-deprecates']/*[local-name() = 'p']" mode="update_xml_step1">
+		<xsl:element name="deprecates" namespace="{$namespace_full}">
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates mode="update_xml_step1"/>
+		</xsl:element>
+	</xsl:template>
+	<xsl:template match="*[local-name() = 'fmt-deprecates'][*[local-name() = 'p']]" mode="update_xml_pres">
+		<xsl:apply-templates mode="update_xml_pres"/>
+	</xsl:template>
+	<xsl:template match="*[local-name() = 'fmt-deprecates'][not(*[local-name() = 'p'])] | *[local-name() = 'fmt-deprecates']/*[local-name() = 'p']" mode="update_xml_pres">
+		<xsl:element name="deprecates" namespace="{$namespace_full}">
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates mode="update_xml_pres"/>
+		</xsl:element>
+	</xsl:template>
+
+	<xsl:template match="*[local-name() = 'fmt-definition']"/>
+	<xsl:template match="*[local-name() = 'fmt-definition']" mode="update_xml_step1">
+		<xsl:element name="definition" namespace="{$namespace_full}">
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates mode="update_xml_step1"/>
+		</xsl:element>
+	</xsl:template>
+	<xsl:template match="*[local-name() = 'fmt-definition']" mode="update_xml_pres">
+		<xsl:element name="definition" namespace="{$namespace_full}">
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates mode="update_xml_pres"/>
+		</xsl:element>
+	</xsl:template>
+
+	<xsl:template match="*[local-name() = 'fmt-termsource']"/>
+	<xsl:template match="*[local-name() = 'fmt-termsource']" mode="update_xml_step1">
+		<xsl:element name="termsource" namespace="{$namespace_full}">
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates mode="update_xml_step1"/>
+		</xsl:element>
+	</xsl:template>
+	<xsl:template match="*[local-name() = 'fmt-termsource']" mode="update_xml_pres">
+		<xsl:element name="termsource" namespace="{$namespace_full}">
 			<xsl:copy-of select="@*"/>
 			<xsl:apply-templates mode="update_xml_pres"/>
 		</xsl:element>
@@ -13277,7 +13418,7 @@
 	</xsl:template>
 
 	<xsl:template name="namespaceCheck">
-		<xsl:variable name="documentNS" select="namespace-uri(/*)"/>
+		<xsl:variable name="documentNS" select="$namespace_full"/> <!-- namespace-uri(/*) -->
 		<xsl:variable name="XSLNS">
 
 				<xsl:value-of select="document('')//*/namespace::ogc"/>
@@ -13366,6 +13507,9 @@
 			<xsl:choose>
 				<xsl:when test="$formatted = 'true' and string-length($bibdata_updated) != ''">
 					<xsl:apply-templates select="xalan:nodeset($bibdata_updated)//*[local-name() = 'localized-string'][@key = $key and @language = $curr_lang]"/>
+				</xsl:when>
+				<xsl:when test="string-length($bibdata_updated) != ''">
+					<xsl:value-of select="xalan:nodeset($bibdata_updated)//*[local-name() = 'localized-string'][@key = $key and @language = $curr_lang]"/>
 				</xsl:when>
 				<xsl:when test="$formatted = 'true'">
 					<xsl:apply-templates select="xalan:nodeset($bibdata)//*[local-name() = 'localized-string'][@key = $key and @language = $curr_lang]"/>
