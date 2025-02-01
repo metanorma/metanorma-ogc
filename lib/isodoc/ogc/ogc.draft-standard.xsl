@@ -158,23 +158,23 @@
 	<xsl:variable name="toc_recommendations_">
 		<xsl:for-each select="//ogc:table[.//ogc:p[@class = 'RecommendationTitle']]">
 			<xsl:variable name="table_id" select="@id"/>
-			<recommendation alt-text="{.//ogc:p[@class = 'RecommendationTitle'][1]/text()}">
+			<recommendation alt-text="{.//ogc:p[@class = 'RecommendationTitle'][1]}">
 				<xsl:copy-of select="@id"/>
 				<xsl:variable name="title">
-					<xsl:apply-templates select=".//ogc:p[@class = 'RecommendationTitle'][ancestor::ogc:table[1][@id= $table_id]]/node()"/>
+					<xsl:apply-templates select=".//ogc:p[@class = 'RecommendationTitle'][ancestor::ogc:table[1][@id= $table_id]]/ogc:fmt-name/node()"/>
 					<xsl:if test=".//ogc:p[@class = 'RecommendationLabel'][ancestor::ogc:table[1][@id= $table_id]]/node()">
 						<xsl:text>: </xsl:text>
 						<xsl:variable name="recommendationLabel">
-							<tt><xsl:copy-of select=".//ogc:p[@class = 'RecommendationLabel'][ancestor::ogc:table[1][@id= $table_id]]/node()"/></tt>
+							<tt><xsl:copy-of select=".//ogc:p[@class = 'RecommendationLabel'][ancestor::ogc:table[1][@id= $table_id]]/ogc:fmt-name/node()"/></tt>
 						</xsl:variable>
 						<xsl:apply-templates select="xalan:nodeset($recommendationLabel)/node()"/>
 					</xsl:if>
 				</xsl:variable>
 				<xsl:variable name="bookmark">
-					<xsl:value-of select="normalize-space(.//ogc:p[@class = 'RecommendationTitle'][ancestor::ogc:table[1][@id= $table_id]]/node())"/>
+					<xsl:value-of select="normalize-space(.//ogc:p[@class = 'RecommendationTitle'][ancestor::ogc:table[1][@id= $table_id]]/ogc:fmt-name)"/>
 					<xsl:if test=".//ogc:p[@class = 'RecommendationLabel'][ancestor::ogc:table[1][@id= $table_id]]/node()">
 						<xsl:text>: </xsl:text>
-						<xsl:value-of select="normalize-space(.//ogc:p[@class = 'RecommendationLabel'][ancestor::ogc:table[1][@id= $table_id]]/node())"/>
+						<xsl:value-of select="normalize-space(.//ogc:p[@class = 'RecommendationLabel'][ancestor::ogc:table[1][@id= $table_id]]/ogc:fmt-name)"/>
 					</xsl:if>
 				</xsl:variable>
 				<xsl:variable name="regex_str" select="'^([^0-9]+) (\d+).*'"/>
@@ -13428,16 +13428,30 @@
 
 	<xsl:template match="*[local-name() = 'fmt-name']"/>
 	<xsl:template match="*[local-name() = 'fmt-name']" mode="update_xml_step1">
-		<xsl:element name="name" namespace="{$namespace_full}">
-			<xsl:copy-of select="@*"/>
-			<xsl:apply-templates mode="update_xml_step1"/>
-		</xsl:element>
+		<xsl:choose>
+			<xsl:when test="local-name(..) = 'p' and ancestor::*[local-name() = 'table']">
+				<xsl:apply-templates mode="update_xml_step1"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:element name="name" namespace="{$namespace_full}">
+					<xsl:copy-of select="@*"/>
+					<xsl:apply-templates mode="update_xml_step1"/>
+				</xsl:element>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="*[local-name() = 'fmt-name']" mode="update_xml_pres">
-		<xsl:element name="name" namespace="{$namespace_full}">
-			<xsl:copy-of select="@*"/>
-			<xsl:apply-templates mode="update_xml_pres"/>
-		</xsl:element>
+		<xsl:choose>
+			<xsl:when test="local-name(..) = 'p' and ancestor::*[local-name() = 'table']">
+				<xsl:apply-templates mode="update_xml_step1"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:element name="name" namespace="{$namespace_full}">
+					<xsl:copy-of select="@*"/>
+					<xsl:apply-templates mode="update_xml_pres"/>
+				</xsl:element>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 
 	<xsl:template match="*[local-name() = 'fmt-preferred']"/>
