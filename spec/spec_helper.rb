@@ -214,7 +214,7 @@ HDR
 
 BLANK_HDR = <<~"HDR".freeze
   <?xml version="1.0" encoding="UTF-8"?>
-  <ogc-standard xmlns="https://www.metanorma.org/ns/ogc" type="semantic" version="#{Metanorma::Ogc::VERSION}">
+  <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ogc::VERSION}">
   <bibdata type="standard">
 
    <title language="en" format="text/plain">Document title</title>
@@ -252,7 +252,7 @@ HDR
 def blank_hdr_gen
   <<~"HDR"
     #{BLANK_HDR}
-    #{boilerplate(Nokogiri::XML("#{BLANK_HDR}</ogc-standard>"))}
+    #{boilerplate(Nokogiri::XML("#{BLANK_HDR}</metanorma>"))}
   HDR
 end
 

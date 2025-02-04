@@ -34,7 +34,7 @@ RSpec.describe Metanorma::Ogc::Processor do
           #{blank_hdr_gen}
           <preface>#{SECURITY}</preface>
       <sections/>
-      </ogc-standard>
+      </metanorma>
     OUTPUT
 
     expect(Xml::C14n.format(strip_guid(processor
@@ -44,7 +44,7 @@ RSpec.describe Metanorma::Ogc::Processor do
   it "generates HTML from IsoDoc XML" do
     FileUtils.rm_f "test.xml"
     input = <<~INPUT
-      <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+      <metanorma xmlns="https://standards.opengeospatial.org/document">
         #{METANORMA_EXTENSION}
         <sections>
           <terms id="H" obligation="normative" displayorder="1">
@@ -55,7 +55,7 @@ RSpec.describe Metanorma::Ogc::Processor do
             </term>
           </terms>
         </sections>
-      </ogc-standard>
+      </metanorma>
     INPUT
 
     output = Xml::C14n.format(<<~OUTPUT)
