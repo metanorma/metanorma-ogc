@@ -1329,12 +1329,10 @@ RSpec.describe IsoDoc::Ogc do
               </div>
               <div class="Section3" id="3">
                  <h1 class="IntroTitle">VII.  Submitters</h1>
-                 <h1>Submitters</h1>
                  <p>ABC</p>
               </div>
               <div class="Section3" id="3a">
                  <h1 class="IntroTitle">VIII.  Contributors</h1>
-                 <h1>Contributors</h1>
                  <p>ABC</p>
               </div>
               <div class="Section3" id="5">

@@ -17,6 +17,10 @@ module IsoDoc
         end
       end
 
+      def sections_names
+        super + %w[submitters]
+      end
+
       def intro_clause(elem, out)
         out.div class: "Section3", id: elem["id"] do |div|
           clause_name(elem, elem&.at(ns("./fmt-title")), div,
