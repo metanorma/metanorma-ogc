@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:ogc="https://www.metanorma.org/ns/ogc" xmlns:mathml="http://www.w3.org/1998/Math/MathML" xmlns:xalan="http://xml.apache.org/xalan" xmlns:fox="http://xmlgraphics.apache.org/fop/extensions" xmlns:pdf="http://xmlgraphics.apache.org/fop/extensions/pdf" xmlns:redirect="http://xml.apache.org/xalan/redirect" xmlns:java="http://xml.apache.org/xalan/java" exclude-result-prefixes="java redirect" extension-element-prefixes="redirect" version="1.0">
+<?xml version="1.0" encoding="UTF-8"?><xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:ogc="https://www.metanorma.org/ns/standoc" xmlns:mathml="http://www.w3.org/1998/Math/MathML" xmlns:xalan="http://xml.apache.org/xalan" xmlns:fox="http://xmlgraphics.apache.org/fop/extensions" xmlns:pdf="http://xmlgraphics.apache.org/fop/extensions/pdf" xmlns:redirect="http://xml.apache.org/xalan/redirect" xmlns:java="http://xml.apache.org/xalan/java" exclude-result-prefixes="java redirect" extension-element-prefixes="redirect" version="1.0">
 
 	<xsl:output version="1.0" method="xml" encoding="UTF-8" indent="no"/>
 
@@ -6,8 +6,8 @@
 
 	<xsl:variable name="debug">false</xsl:variable>
 
-	<xsl:variable name="docnumber" select="java:toUpperCase(java:java.lang.String.new(/ogc:ogc-standard/ogc:bibdata/ogc:docnumber))"/>
-	<xsl:variable name="doctitle" select="/ogc:ogc-standard/ogc:bibdata/ogc:title[@language = 'en']"/>
+	<xsl:variable name="docnumber" select="java:toUpperCase(java:java.lang.String.new(/ogc:metanorma/ogc:bibdata/ogc:docnumber))"/>
+	<xsl:variable name="doctitle" select="/ogc:metanorma/ogc:bibdata/ogc:title[@language = 'en']"/>
 
 	<!-- <xsl:variable name="docLatestDate_">
 		<xsl:for-each select="/*/ogc:bibdata/ogc:date[normalize-space(ogc:on) != '']">
@@ -35,13 +35,13 @@
 
 	<xsl:variable name="doctype">
 		<xsl:call-template name="capitalizeWords">
-			<xsl:with-param name="str" select="/ogc:ogc-standard/ogc:bibdata/ogc:ext/ogc:doctype"/>
+			<xsl:with-param name="str" select="/ogc:metanorma/ogc:bibdata/ogc:ext/ogc:doctype"/>
 		</xsl:call-template>
 	</xsl:variable>
 
-	<xsl:variable name="copyright-owner" select="java:toUpperCase(java:java.lang.String.new(/ogc:ogc-standard/ogc:bibdata/ogc:copyright/ogc:owner/ogc:organization/ogc:name))"/>
+	<xsl:variable name="copyright-owner" select="java:toUpperCase(java:java.lang.String.new(/ogc:metanorma/ogc:bibdata/ogc:copyright/ogc:owner/ogc:organization/ogc:name))"/>
 
-	<xsl:variable name="presentation_metadata_color_text" select="normalize-space(/ogc:ogc-standard/ogc:metanorma-extension/ogc:presentation-metadata[ogc:name = 'color-text']/ogc:value)"/>
+	<xsl:variable name="presentation_metadata_color_text" select="normalize-space(/ogc:metanorma/ogc:metanorma-extension/ogc:presentation-metadata[ogc:name = 'color-text']/ogc:value)"/>
 	<xsl:variable name="color_main">
 		<xsl:choose>
 			<xsl:when test="$presentation_metadata_color_text != ''"><xsl:value-of select="$presentation_metadata_color_text"/></xsl:when>
@@ -49,7 +49,7 @@
 		</xsl:choose>
 	</xsl:variable>
 
-	<xsl:variable name="presentation_metadata_color_secondary_shade_1" select="normalize-space(/ogc:ogc-standard/ogc:metanorma-extension/ogc:presentation-metadata[ogc:name = 'color-secondary-shade-1']/ogc:value)"/>
+	<xsl:variable name="presentation_metadata_color_secondary_shade_1" select="normalize-space(/ogc:metanorma/ogc:metanorma-extension/ogc:presentation-metadata[ogc:name = 'color-secondary-shade-1']/ogc:value)"/>
 	<xsl:variable name="color_design">
 		<xsl:choose>
 			<xsl:when test="$presentation_metadata_color_secondary_shade_1 != ''"><xsl:value-of select="$presentation_metadata_color_secondary_shade_1"/></xsl:when>
@@ -58,7 +58,7 @@
 		</xsl:choose>
 	</xsl:variable>
 
-	<xsl:variable name="presentation_metadata_color_secondary_shade_2" select="normalize-space(/ogc:ogc-standard/ogc:metanorma-extension/ogc:presentation-metadata[ogc:name = 'color-secondary-shade-2']/ogc:value)"/>
+	<xsl:variable name="presentation_metadata_color_secondary_shade_2" select="normalize-space(/ogc:metanorma/ogc:metanorma-extension/ogc:presentation-metadata[ogc:name = 'color-secondary-shade-2']/ogc:value)"/>
 	<xsl:variable name="color_design_light">
 		<xsl:choose>
 			<xsl:when test="$presentation_metadata_color_secondary_shade_2 != ''"><xsl:value-of select="$presentation_metadata_color_secondary_shade_2"/></xsl:when>
@@ -67,7 +67,7 @@
 		</xsl:choose>
 	</xsl:variable>
 
-	<xsl:variable name="presentation_metadata_color_background_definition_term" select="normalize-space(/ogc:ogc-standard/ogc:metanorma-extension/ogc:presentation-metadata[ogc:name = 'color-background-definition-term']/ogc:value)"/>
+	<xsl:variable name="presentation_metadata_color_background_definition_term" select="normalize-space(/ogc:metanorma/ogc:metanorma-extension/ogc:presentation-metadata[ogc:name = 'color-background-definition-term']/ogc:value)"/>
 	<xsl:variable name="color_dl_dt">
 		<xsl:choose>
 			<xsl:when test="$presentation_metadata_color_background_definition_term != ''"><xsl:value-of select="$presentation_metadata_color_background_definition_term"/></xsl:when>
@@ -75,7 +75,7 @@
 		</xsl:choose>
 	</xsl:variable>
 
-	<xsl:variable name="presentation_metadata_color_background_definition_description" select="normalize-space(/ogc:ogc-standard/ogc:metanorma-extension/ogc:presentation-metadata[ogc:name = 'color-background-definition-description']/ogc:value)"/>
+	<xsl:variable name="presentation_metadata_color_background_definition_description" select="normalize-space(/ogc:metanorma/ogc:metanorma-extension/ogc:presentation-metadata[ogc:name = 'color-background-definition-description']/ogc:value)"/>
 	<xsl:variable name="color_dl_dd">
 		<xsl:choose>
 			<xsl:when test="$presentation_metadata_color_background_definition_description != ''"><xsl:value-of select="$presentation_metadata_color_background_definition_description"/></xsl:when>
@@ -83,7 +83,7 @@
 		</xsl:choose>
 	</xsl:variable>
 
-	<xsl:variable name="presentation_metadata_color_text_title" select="normalize-space(/ogc:ogc-standard/ogc:metanorma-extension/ogc:presentation-metadata[ogc:name = 'color-text-title']/ogc:value)"/>
+	<xsl:variable name="presentation_metadata_color_text_title" select="normalize-space(/ogc:metanorma/ogc:metanorma-extension/ogc:presentation-metadata[ogc:name = 'color-text-title']/ogc:value)"/>
 	<xsl:variable name="color_text_title">
 		<xsl:choose>
 			<xsl:when test="$presentation_metadata_color_text_title != ''"><xsl:value-of select="$presentation_metadata_color_text_title"/></xsl:when>
@@ -91,7 +91,7 @@
 		</xsl:choose>
 	</xsl:variable>
 
-	<xsl:variable name="presentation_metadata_color_background_page" select="normalize-space(/ogc:ogc-standard/ogc:metanorma-extension/ogc:presentation-metadata[ogc:name = 'color-background-page']/ogc:value)"/>
+	<xsl:variable name="presentation_metadata_color_background_page" select="normalize-space(/ogc:metanorma/ogc:metanorma-extension/ogc:presentation-metadata[ogc:name = 'color-background-page']/ogc:value)"/>
 	<xsl:variable name="color-background-page">
 		<xsl:choose>
 			<xsl:when test="$presentation_metadata_color_background_page != ''"><xsl:value-of select="$presentation_metadata_color_background_page"/></xsl:when>
@@ -99,7 +99,7 @@
 		</xsl:choose>
 	</xsl:variable>
 
-	<xsl:variable name="presentation_metadata_color_background_text_label_legacy" select="normalize-space(/ogc:ogc-standard/ogc:metanorma-extension/ogc:presentation-metadata[ogc:name = 'color-background-text-label-legacy']/ogc:value)"/>
+	<xsl:variable name="presentation_metadata_color_background_text_label_legacy" select="normalize-space(/ogc:metanorma/ogc:metanorma-extension/ogc:presentation-metadata[ogc:name = 'color-background-text-label-legacy']/ogc:value)"/>
 	<xsl:variable name="color_background_blue">
 		<xsl:choose>
 			<xsl:when test="$presentation_metadata_color_background_text_label_legacy != ''"><xsl:value-of select="$presentation_metadata_color_background_text_label_legacy"/></xsl:when>
@@ -107,7 +107,7 @@
 		</xsl:choose>
 	</xsl:variable>
 
-	<xsl:variable name="presentation_metadata_color_background_term_preferred_label" select="normalize-space(/ogc:ogc-standard/ogc:metanorma-extension/ogc:presentation-metadata[ogc:name = 'color-background-term-preferred-label']/ogc:value)"/>
+	<xsl:variable name="presentation_metadata_color_background_term_preferred_label" select="normalize-space(/ogc:metanorma/ogc:metanorma-extension/ogc:presentation-metadata[ogc:name = 'color-background-term-preferred-label']/ogc:value)"/>
 	<xsl:variable name="color_term_preferred">
 		<xsl:choose>
 			<xsl:when test="$presentation_metadata_color_background_term_preferred_label != ''"><xsl:value-of select="$presentation_metadata_color_background_term_preferred_label"/></xsl:when>
@@ -115,7 +115,7 @@
 		</xsl:choose>
 	</xsl:variable>
 
-	<xsl:variable name="presentation_metadata_color_background_term_deprecated_label" select="normalize-space(/ogc:ogc-standard/ogc:metanorma-extension/ogc:presentation-metadata[ogc:name = 'color-background-term-deprecated-label']/ogc:value)"/>
+	<xsl:variable name="presentation_metadata_color_background_term_deprecated_label" select="normalize-space(/ogc:metanorma/ogc:metanorma-extension/ogc:presentation-metadata[ogc:name = 'color-background-term-deprecated-label']/ogc:value)"/>
 	<xsl:variable name="color_term_deprecated">
 		<xsl:choose>
 			<xsl:when test="$presentation_metadata_color_background_term_deprecated_label != ''"><xsl:value-of select="$presentation_metadata_color_background_term_deprecated_label"/></xsl:when>
@@ -123,7 +123,7 @@
 		</xsl:choose>
 	</xsl:variable>
 
-	<xsl:variable name="presentation_metadata_color_background_term_admitted_label" select="normalize-space(/ogc:ogc-standard/ogc:metanorma-extension/ogc:presentation-metadata[ogc:name = 'color-background-term-admitted-label']/ogc:value)"/>
+	<xsl:variable name="presentation_metadata_color_background_term_admitted_label" select="normalize-space(/ogc:metanorma/ogc:metanorma-extension/ogc:presentation-metadata[ogc:name = 'color-background-term-admitted-label']/ogc:value)"/>
 	<xsl:variable name="color_term_admitted">
 		<xsl:choose>
 			<xsl:when test="$presentation_metadata_color_background_term_admitted_label != ''"><xsl:value-of select="$presentation_metadata_color_background_term_admitted_label"/></xsl:when>
@@ -131,7 +131,7 @@
 		</xsl:choose>
 	</xsl:variable>
 
-	<xsl:variable name="presentation_metadata_color_background_table_header" select="normalize-space(/ogc:ogc-standard/ogc:metanorma-extension/ogc:presentation-metadata[ogc:name = 'color-background-table-header']/ogc:value)"/>
+	<xsl:variable name="presentation_metadata_color_background_table_header" select="normalize-space(/ogc:metanorma/ogc:metanorma-extension/ogc:presentation-metadata[ogc:name = 'color-background-table-header']/ogc:value)"/>
 	<xsl:variable name="color_table_header_row">
 		<xsl:choose>
 			<xsl:when test="$presentation_metadata_color_background_table_header != ''"><xsl:value-of select="$presentation_metadata_color_background_table_header"/></xsl:when>
@@ -139,7 +139,7 @@
 		</xsl:choose>
 	</xsl:variable>
 
-	<xsl:variable name="presentation_metadata_color_background_table_row_even" select="normalize-space(/ogc:ogc-standard/ogc:metanorma-extension/ogc:presentation-metadata[ogc:name = 'color-background-table-row-even']/ogc:value)"/>
+	<xsl:variable name="presentation_metadata_color_background_table_row_even" select="normalize-space(/ogc:metanorma/ogc:metanorma-extension/ogc:presentation-metadata[ogc:name = 'color-background-table-row-even']/ogc:value)"/>
 	<xsl:variable name="color_table_row_even">
 		<xsl:choose>
 			<xsl:when test="$presentation_metadata_color_background_table_row_even != ''"><xsl:value-of select="$presentation_metadata_color_background_table_row_even"/></xsl:when>
@@ -147,7 +147,7 @@
 		</xsl:choose>
 	</xsl:variable>
 
-	<xsl:variable name="presentation_metadata_color_background_table_row_odd" select="normalize-space(/ogc:ogc-standard/ogc:metanorma-extension/ogc:presentation-metadata[ogc:name = 'color-background-table-row-odd']/ogc:value)"/>
+	<xsl:variable name="presentation_metadata_color_background_table_row_odd" select="normalize-space(/ogc:metanorma/ogc:metanorma-extension/ogc:presentation-metadata[ogc:name = 'color-background-table-row-odd']/ogc:value)"/>
 	<xsl:variable name="color_table_row_odd">
 		<xsl:choose>
 			<xsl:when test="$presentation_metadata_color_background_table_row_odd != ''"><xsl:value-of select="$presentation_metadata_color_background_table_row_odd"/></xsl:when>
@@ -357,8 +357,8 @@
 
 					<fo:flow flow-name="xsl-region-body" color="white">
 
-						<xsl:variable name="curr_lang" select="/ogc:ogc-standard/ogc:bibdata/ogc:language[@current = 'true']"/>
-						<xsl:variable name="stage" select="/ogc:ogc-standard/ogc:bibdata/ogc:status/ogc:stage[@language = $curr_lang] | /ogc:ogc-standard/ogc:bibdata/ogc:status/ogc:stage[not(@language)]"/>
+						<xsl:variable name="curr_lang" select="/ogc:metanorma/ogc:bibdata/ogc:language[@current = 'true']"/>
+						<xsl:variable name="stage" select="/ogc:metanorma/ogc:bibdata/ogc:status/ogc:stage[@language = $curr_lang] | /ogc:metanorma/ogc:bibdata/ogc:status/ogc:stage[not(@language)]"/>
 						<xsl:variable name="isLegacy" select="normalize-space($stage = 'deprecated' or $stage = 'legacy' or $stage = 'retired' or $stage = 'rescinded')"/>
 
 						<!-- background image -->
@@ -389,7 +389,7 @@
 													<xsl:with-param name="letter-spacing" select="0.3"/>
 												</xsl:call-template>
 											</fo:block>
-											<xsl:variable name="ogc_external" select="/ogc:ogc-standard/ogc:bibdata/ogc:docidentifier[@type='ogc-external']"/>
+											<xsl:variable name="ogc_external" select="/ogc:metanorma/ogc:bibdata/ogc:docidentifier[@type='ogc-external']"/>
 											<xsl:if test="normalize-space($ogc_external) != ''">
 												<fo:block font-size="10pt">External identifier of this OGC<fo:inline font-size="58%" baseline-shift="30%">®</fo:inline>  document: <fo:inline font-weight="normal"><xsl:value-of select="$ogc_external"/></fo:inline></fo:block>
 											</xsl:if>
@@ -434,7 +434,7 @@
 											<xsl:with-param name="text" select="java:toUpperCase(java:java.lang.String.new($doctype))"/>
 										</xsl:call-template>
 										<xsl:value-of select="$linebreak"/>
-										<xsl:variable name="docsubtype" select="normalize-space(/ogc:ogc-standard/ogc:bibdata/ogc:ext/ogc:subdoctype)"/>
+										<xsl:variable name="docsubtype" select="normalize-space(/ogc:metanorma/ogc:bibdata/ogc:ext/ogc:subdoctype)"/>
 										<xsl:variable name="docsubtype_str">
 											<xsl:choose>
 												<xsl:when test="$docsubtype = 'implementation'">Implementation</xsl:when>
@@ -484,7 +484,7 @@
 
 						<fo:block-container absolute-position="fixed" left="16.5mm" top="204mm" height="60mm" width="180mm" display-align="after" font-size="10pt">
 							<fo:block line-height="140%">
-								<xsl:apply-templates select="/ogc:ogc-standard/ogc:bibdata/ogc:edition[normalize-space(@language) = '']"/>
+								<xsl:apply-templates select="/ogc:metanorma/ogc:bibdata/ogc:edition[normalize-space(@language) = '']"/>
 								<fo:block>
 									<fo:inline font-weight="bold">
 										<!-- Submission Date:  -->
@@ -493,8 +493,8 @@
 										</xsl:call-template><xsl:text>: </xsl:text>
 									</fo:inline>
 									<xsl:choose>
-										<xsl:when test="/ogc:ogc-standard/ogc:bibdata/ogc:date[@type = 'received']/ogc:on">
-											<xsl:value-of select="/ogc:ogc-standard/ogc:bibdata/ogc:date[@type = 'received']/ogc:on"/>
+										<xsl:when test="/ogc:metanorma/ogc:bibdata/ogc:date[@type = 'received']/ogc:on">
+											<xsl:value-of select="/ogc:metanorma/ogc:bibdata/ogc:date[@type = 'received']/ogc:on"/>
 										</xsl:when>
 										<xsl:otherwise>XXX</xsl:otherwise>
 									</xsl:choose>
@@ -507,8 +507,8 @@
 									</xsl:call-template><xsl:text>: </xsl:text>
 									</fo:inline>
 									<xsl:choose>
-										<xsl:when test="/ogc:ogc-standard/ogc:bibdata/ogc:date[@type = 'issued']/ogc:on">
-											<xsl:value-of select="/ogc:ogc-standard/ogc:bibdata/ogc:date[@type = 'issued']/ogc:on"/>
+										<xsl:when test="/ogc:metanorma/ogc:bibdata/ogc:date[@type = 'issued']/ogc:on">
+											<xsl:value-of select="/ogc:metanorma/ogc:bibdata/ogc:date[@type = 'issued']/ogc:on"/>
 										</xsl:when>
 										<xsl:otherwise>XXX</xsl:otherwise>
 									</xsl:choose>
@@ -520,11 +520,11 @@
 											<xsl:with-param name="key">publication_date</xsl:with-param>
 										</xsl:call-template><xsl:text>: </xsl:text>
 									</fo:inline>
-									<xsl:value-of select="/ogc:ogc-standard/ogc:bibdata/ogc:date[@type = 'published']/ogc:on"/>
+									<xsl:value-of select="/ogc:metanorma/ogc:bibdata/ogc:date[@type = 'published']/ogc:on"/>
 								</fo:block>
 
 								<fo:block margin-bottom="12pt">
-									<xsl:if test="/ogc:ogc-standard/ogc:bibdata/ogc:contributor[ogc:role/@type='author']/ogc:person/ogc:name/ogc:completename">
+									<xsl:if test="/ogc:metanorma/ogc:bibdata/ogc:contributor[ogc:role/@type='author']/ogc:person/ogc:name/ogc:completename">
 										<fo:block>
 											<fo:inline font-weight="bold">
 												<!-- Author:  -->
@@ -532,13 +532,13 @@
 													<xsl:with-param name="key">author</xsl:with-param>
 												</xsl:call-template><xsl:text>: </xsl:text>
 											</fo:inline>
-											<xsl:for-each select="/ogc:ogc-standard/ogc:bibdata/ogc:contributor[ogc:role/@type='author']/ogc:person/ogc:name/ogc:completename">
+											<xsl:for-each select="/ogc:metanorma/ogc:bibdata/ogc:contributor[ogc:role/@type='author']/ogc:person/ogc:name/ogc:completename">
 												<xsl:value-of select="."/>
 												<xsl:if test="position() != last()">, </xsl:if>
 											</xsl:for-each>
 										</fo:block>
 									</xsl:if>
-									<xsl:if test="/ogc:ogc-standard/ogc:bibdata/ogc:contributor[ogc:role/@type='editor']/ogc:person/ogc:name/ogc:completename">
+									<xsl:if test="/ogc:metanorma/ogc:bibdata/ogc:contributor[ogc:role/@type='editor']/ogc:person/ogc:name/ogc:completename">
 										<fo:block>
 											<fo:inline font-weight="bold">
 												<!-- Editor:  -->
@@ -546,13 +546,13 @@
 													<xsl:with-param name="key">editor_full</xsl:with-param>
 												</xsl:call-template><xsl:text>: </xsl:text>
 											</fo:inline>
-											<xsl:for-each select="/ogc:ogc-standard/ogc:bibdata/ogc:contributor[ogc:role/@type='editor']/ogc:person/ogc:name/ogc:completename">
+											<xsl:for-each select="/ogc:metanorma/ogc:bibdata/ogc:contributor[ogc:role/@type='editor']/ogc:person/ogc:name/ogc:completename">
 												<xsl:value-of select="."/>
 												<xsl:if test="position() != last()">, </xsl:if>
 											</xsl:for-each>
 										</fo:block>
 									</xsl:if>
-									<xsl:if test="/ogc:ogc-standard/ogc:bibdata/ogc:contributor[ogc:role/@type='contributor']/ogc:person/ogc:name/ogc:completename">
+									<xsl:if test="/ogc:metanorma/ogc:bibdata/ogc:contributor[ogc:role/@type='contributor']/ogc:person/ogc:name/ogc:completename">
 										<fo:block>
 											<fo:inline font-weight="bold">
 												<!-- Contributor:  -->
@@ -560,7 +560,7 @@
 													<xsl:with-param name="key">contributor</xsl:with-param>
 												</xsl:call-template><xsl:text>: </xsl:text>
 											</fo:inline>
-											<xsl:for-each select="/ogc:ogc-standard/ogc:bibdata/ogc:contributor[ogc:role/@type='contributor']/ogc:person/ogc:name/ogc:completename">
+											<xsl:for-each select="/ogc:metanorma/ogc:bibdata/ogc:contributor[ogc:role/@type='contributor']/ogc:person/ogc:name/ogc:completename">
 												<xsl:value-of select="."/>
 												<xsl:if test="position() != last()">, </xsl:if>
 											</xsl:for-each>
@@ -576,7 +576,7 @@
 											<fo:block-container margin-left="0mm" margin-right="0mm">
 												<fo:block>
 													<xsl:variable name="legal_statement">
-														<xsl:apply-templates select="/ogc:ogc-standard/ogc:boilerplate/ogc:legal-statement" mode="update_xml_step1"/>
+														<xsl:apply-templates select="/ogc:metanorma/ogc:boilerplate/ogc:legal-statement" mode="update_xml_step1"/>
 													</xsl:variable>
 													<xsl:apply-templates select="xalan:nodeset($legal_statement)/*">
 														<xsl:with-param name="isLegacy" select="$isLegacy"/>
@@ -588,7 +588,7 @@
 								</xsl:when>
 								<xsl:otherwise>
 									<xsl:variable name="legal_statement">
-										<xsl:apply-templates select="/ogc:ogc-standard/ogc:boilerplate/ogc:legal-statement" mode="update_xml_step1"/>
+										<xsl:apply-templates select="/ogc:metanorma/ogc:boilerplate/ogc:legal-statement" mode="update_xml_step1"/>
 									</xsl:variable>
 									<xsl:apply-templates select="xalan:nodeset($legal_statement)/*"/>
 								</xsl:otherwise>
@@ -628,18 +628,18 @@
 						<xsl:call-template name="insertLogoPreface"/>
 
 						<xsl:variable name="license_statement">
-							<xsl:apply-templates select="/ogc:ogc-standard/ogc:boilerplate/ogc:license-statement" mode="update_xml_step1"/>
+							<xsl:apply-templates select="/ogc:metanorma/ogc:boilerplate/ogc:license-statement" mode="update_xml_step1"/>
 						</xsl:variable>
 						<xsl:apply-templates select="xalan:nodeset($license_statement)/*"/>
 
 						<xsl:variable name="feedback_statement">
-							<xsl:apply-templates select="/ogc:ogc-standard/ogc:boilerplate/ogc:feedback-statement" mode="update_xml_step1"/>
+							<xsl:apply-templates select="/ogc:metanorma/ogc:boilerplate/ogc:feedback-statement" mode="update_xml_step1"/>
 						</xsl:variable>
 						<xsl:apply-templates select="xalan:nodeset($feedback_statement)/*"/>
 
 						<!-- Copyright notice -->
 						<xsl:variable name="copyright_statement">
-							<xsl:apply-templates select="/ogc:ogc-standard/ogc:boilerplate/ogc:copyright-statement" mode="update_xml_step1"/>
+							<xsl:apply-templates select="/ogc:metanorma/ogc:boilerplate/ogc:copyright-statement" mode="update_xml_step1"/>
 						</xsl:variable>
 						<xsl:apply-templates select="xalan:nodeset($copyright_statement)/*"/>
 
@@ -787,8 +787,8 @@
 
 				<xsl:element name="boilerplate" namespace="{$namespace_full}"> <!-- save context element -->
 					<xsl:element name="page_sequence" namespace="{$namespace_full}">
-						<xsl:apply-templates select="/ogc:ogc-standard/ogc:boilerplate/ogc:license-statement" mode="update_xml_step_move_pagebreak"/>
-						<xsl:apply-templates select="/ogc:ogc-standard/ogc:boilerplate/ogc:feedback-statement" mode="update_xml_step_move_pagebreak"/>
+						<xsl:apply-templates select="/ogc:metanorma/ogc:boilerplate/ogc:license-statement" mode="update_xml_step_move_pagebreak"/>
+						<xsl:apply-templates select="/ogc:metanorma/ogc:boilerplate/ogc:feedback-statement" mode="update_xml_step_move_pagebreak"/>
 					</xsl:element>
 				</xsl:element>
 
@@ -1250,14 +1250,14 @@
 	<!-- ============================= -->
 	<!-- ============================= -->
 
-	<xsl:template match="/ogc:ogc-standard/ogc:bibdata/ogc:uri[not(@type)]">
+	<xsl:template match="/ogc:metanorma/ogc:bibdata/ogc:uri[not(@type)]">
 		<fo:block margin-bottom="12pt">
 			<xsl:text>URL for this OGC® document: </xsl:text>
 			<xsl:value-of select="."/><xsl:text> </xsl:text>
 		</fo:block>
 	</xsl:template>
 
-	<xsl:template match="/ogc:ogc-standard/ogc:bibdata/ogc:edition">
+	<xsl:template match="/ogc:metanorma/ogc:bibdata/ogc:edition">
 		<fo:block>
 			<xsl:variable name="title-version">
 				<xsl:call-template name="capitalize">
@@ -1978,21 +1978,21 @@
 
 	<xsl:variable name="namespace_full_">
 		<xsl:choose>
-			<xsl:when test="local-name(/*) = 'metanorma-collection'"><xsl:value-of select="namespace-uri(//*[contains(local-name(), '-standard')][1])"/></xsl:when>
-			<xsl:otherwise><xsl:value-of select="namespace-uri(/*)"/></xsl:otherwise><!-- example: https://www.metanorma.org/ns/iso -->
+			<xsl:when test="local-name(/*) = 'metanorma-collection'"><xsl:value-of select="namespace-uri(//*[local-name() = 'metanorma'][1])"/></xsl:when>
+			<xsl:otherwise><xsl:value-of select="namespace-uri(/*)"/></xsl:otherwise><!-- example: https://www.metanorma.org/ns/standoc -->
 		</xsl:choose>
 	</xsl:variable>
 	<xsl:variable name="namespace_full" select="normalize-space($namespace_full_)"/>
 
 	<xsl:variable name="root_element_">
 		<xsl:choose>
-			<xsl:when test="local-name(/*) = 'metanorma-collection'"><xsl:value-of select="local-name(//*[contains(local-name(), '-standard')][1])"/></xsl:when>
-			<xsl:otherwise><xsl:value-of select="local-name(/*)"/></xsl:otherwise><!-- example: iso-standard -->
+			<xsl:when test="local-name(/*) = 'metanorma-collection'"><xsl:value-of select="local-name(//*[local-name() = 'metanorma'][1])"/></xsl:when>
+			<xsl:otherwise><xsl:value-of select="local-name(/*)"/></xsl:otherwise><!-- example: metanorma (former iso-standard) -->
 		</xsl:choose>
 	</xsl:variable>
 	<xsl:variable name="root_element" select="normalize-space($root_element_)"/>
 
-	<xsl:variable name="document_scheme" select="normalize-space(//*[contains(local-name(), '-standard')]/*[local-name() = 'metanorma-extension']/*[local-name() = 'presentation-metadata'][*[local-name() = 'name'] = 'document-scheme']/*[local-name() = 'value'])"/>
+	<xsl:variable name="document_scheme" select="normalize-space(//*[local-name() = 'metanorma']/*[local-name() = 'metanorma-extension']/*[local-name() = 'presentation-metadata'][*[local-name() = 'name'] = 'document-scheme']/*[local-name() = 'value'])"/>
 
 	<!-- external parameters -->
 
@@ -2093,7 +2093,7 @@
 	</metanorma-extension>
 	-->
 
-	<xsl:variable name="papersize" select="java:toLowerCase(java:java.lang.String.new(normalize-space(//*[contains(local-name(), '-standard')]/*[local-name() = 'metanorma-extension']/*[local-name() = 'presentation-metadata']/*[local-name() = 'papersize'])))"/>
+	<xsl:variable name="papersize" select="java:toLowerCase(java:java.lang.String.new(normalize-space(//*[local-name() = 'metanorma']/*[local-name() = 'metanorma-extension']/*[local-name() = 'presentation-metadata']/*[local-name() = 'papersize'])))"/>
 	<xsl:variable name="papersize_width_">
 		<xsl:choose>
 			<xsl:when test="$papersize = 'letter'">215.9</xsl:when>
@@ -2155,7 +2155,7 @@
 	<xsl:variable name="marginBottom" select="normalize-space($marginBottom_)"/>
 
 	<xsl:variable name="layout_columns_default">1</xsl:variable>
-	<xsl:variable name="layout_columns_" select="normalize-space((//*[contains(local-name(), '-standard')])[1]/*[local-name() = 'metanorma-extension']/*[local-name() = 'presentation-metadata']/*[local-name() = 'layout-columns'])"/>
+	<xsl:variable name="layout_columns_" select="normalize-space((//*[local-name() = 'metanorma'])[1]/*[local-name() = 'metanorma-extension']/*[local-name() = 'presentation-metadata']/*[local-name() = 'layout-columns'])"/>
 	<xsl:variable name="layout_columns">
 		<xsl:choose>
 			<xsl:when test="$layout_columns_ != ''"><xsl:value-of select="$layout_columns_"/></xsl:when>
@@ -2216,7 +2216,7 @@
 	<xsl:variable name="titles" select="xalan:nodeset($titles_)"/>
 
 	<xsl:variable name="title-list-tables">
-		<xsl:variable name="toc_table_title" select="//*[contains(local-name(), '-standard')]/*[local-name() = 'metanorma-extension']/*[local-name() = 'toc'][@type='table']/*[local-name() = 'title']"/>
+		<xsl:variable name="toc_table_title" select="//*[local-name() = 'metanorma']/*[local-name() = 'metanorma-extension']/*[local-name() = 'toc'][@type='table']/*[local-name() = 'title']"/>
 		<xsl:value-of select="$toc_table_title"/>
 		<xsl:if test="normalize-space($toc_table_title) = ''">
 			<xsl:call-template name="getLocalizedString">
@@ -2226,7 +2226,7 @@
 	</xsl:variable>
 
 	<xsl:variable name="title-list-figures">
-		<xsl:variable name="toc_figure_title" select="//*[contains(local-name(), '-standard')]/*[local-name() = 'metanorma-extension']/*[local-name() = 'toc'][@type='figure']/*[local-name() = 'title']"/>
+		<xsl:variable name="toc_figure_title" select="//*[local-name() = 'metanorma']/*[local-name() = 'metanorma-extension']/*[local-name() = 'toc'][@type='figure']/*[local-name() = 'title']"/>
 		<xsl:value-of select="$toc_figure_title"/>
 		<xsl:if test="normalize-space($toc_figure_title) = ''">
 			<xsl:call-template name="getLocalizedString">
@@ -2236,7 +2236,7 @@
 	</xsl:variable>
 
 	<xsl:variable name="title-list-recommendations">
-		<xsl:variable name="toc_requirement_title" select="//*[contains(local-name(), '-standard')]/*[local-name() = 'metanorma-extension']/*[local-name() = 'toc'][@type='requirement']/*[local-name() = 'title']"/>
+		<xsl:variable name="toc_requirement_title" select="//*[local-name() = 'metanorma']/*[local-name() = 'metanorma-extension']/*[local-name() = 'toc'][@type='requirement']/*[local-name() = 'title']"/>
 		<xsl:value-of select="$toc_requirement_title"/>
 		<xsl:if test="normalize-space($toc_requirement_title) = ''">
 			<xsl:call-template name="getLocalizedString">
@@ -2246,8 +2246,8 @@
 	</xsl:variable>
 
 	<xsl:variable name="bibdata">
-		<xsl:copy-of select="//*[contains(local-name(), '-standard')]/*[local-name() = 'bibdata']"/>
-		<xsl:copy-of select="//*[contains(local-name(), '-standard')]/*[local-name() = 'localized-strings']"/>
+		<xsl:copy-of select="//*[local-name() = 'metanorma']/*[local-name() = 'bibdata']"/>
+		<xsl:copy-of select="//*[local-name() = 'metanorma']/*[local-name() = 'localized-strings']"/>
 	</xsl:variable>
 
 	<!-- Characters -->
@@ -2313,7 +2313,7 @@
 		<xsl:variable name="root-style_" select="xalan:nodeset($root-style)"/>
 
 		<xsl:variable name="additional_fonts_">
-			<xsl:for-each select="//*[contains(local-name(), '-standard')][1]/*[local-name() = 'metanorma-extension']/*[local-name() = 'presentation-metadata'][*[local-name() = 'name'] = 'fonts']/*[local-name() = 'value'] |       //*[contains(local-name(), '-standard')][1]/*[local-name() = 'presentation-metadata'][*[local-name() = 'name'] = 'fonts']/*[local-name() = 'value']">
+			<xsl:for-each select="//*[local-name() = 'metanorma'][1]/*[local-name() = 'metanorma-extension']/*[local-name() = 'presentation-metadata'][*[local-name() = 'name'] = 'fonts']/*[local-name() = 'value'] |       //*[local-name() = 'metanorma'][1]/*[local-name() = 'presentation-metadata'][*[local-name() = 'name'] = 'fonts']/*[local-name() = 'value']">
 				<xsl:value-of select="."/><xsl:if test="position() != last()">, </xsl:if>
 			</xsl:for-each>
 		</xsl:variable>
@@ -3774,10 +3774,10 @@
 
 	<xsl:template name="processTablesFigures_Contents">
 		<xsl:param name="always"/>
-		<xsl:if test="(//*[contains(local-name(), '-standard')]/*[local-name() = 'metanorma-extension']/*[local-name() = 'toc'][@type='table']/*[local-name() = 'title']) or normalize-space($always) = 'true'">
+		<xsl:if test="(//*[local-name() = 'metanorma']/*[local-name() = 'metanorma-extension']/*[local-name() = 'toc'][@type='table']/*[local-name() = 'title']) or normalize-space($always) = 'true'">
 			<xsl:call-template name="processTables_Contents"/>
 		</xsl:if>
-		<xsl:if test="(//*[contains(local-name(), '-standard')]/*[local-name() = 'metanorma-extension']/*[local-name() = 'toc'][@type='figure']/*[local-name() = 'title']) or normalize-space($always) = 'true'">
+		<xsl:if test="(//*[local-name() = 'metanorma']/*[local-name() = 'metanorma-extension']/*[local-name() = 'toc'][@type='figure']/*[local-name() = 'title']) or normalize-space($always) = 'true'">
 			<xsl:call-template name="processFigures_Contents"/>
 		</xsl:if>
 	</xsl:template>
@@ -3857,7 +3857,7 @@
 	</xsl:template><!-- END: processMainSectionsDefault -->
 
 	<!-- Example:
-	<iso-standard>
+	<metanorma>
 		<preface>
 			<page_sequence>
 				<clause...
@@ -3880,7 +3880,7 @@
 		<page_sequence>
 			<annex ..
 		</page_sequence>
-	</iso-standard>
+	</metanorma>
 	-->
 	<xsl:template name="processPrefaceAndMainSectionsDefault_items">
 
@@ -5482,7 +5482,7 @@
 		<xsl:variable name="p_fn" select="xalan:nodeset($p_fn_)"/>
 
 		<xsl:variable name="gen_id" select="generate-id(.)"/>
-		<xsl:variable name="lang" select="ancestor::*[contains(local-name(), '-standard')]/*[local-name()='bibdata']//*[local-name()='language'][@current = 'true']"/>
+		<xsl:variable name="lang" select="ancestor::*[local-name() = 'metanorma']/*[local-name()='bibdata']//*[local-name()='language'][@current = 'true']"/>
 		<xsl:variable name="reference_">
 			<xsl:value-of select="@reference"/>
 			<xsl:if test="normalize-space(@reference) = ''"><xsl:value-of select="$gen_id"/></xsl:if>
@@ -5603,13 +5603,13 @@
 				footnotes in bibliography
 				footnotes in document's body (except table's head/body/foot and figure text) 
 				-->
-				<xsl:for-each select="ancestor::*[contains(local-name(), '-standard')]/*[local-name() = 'bibdata']/*[local-name() = 'note'][@type='title-footnote']">
+				<xsl:for-each select="ancestor::*[local-name() = 'metanorma']/*[local-name() = 'bibdata']/*[local-name() = 'note'][@type='title-footnote']">
 					<fn gen_id="{generate-id(.)}">
 						<xsl:copy-of select="@*"/>
 						<xsl:copy-of select="node()"/>
 					</fn>
 				</xsl:for-each>
-				<xsl:for-each select="ancestor::*[contains(local-name(), '-standard')]/*[local-name()='boilerplate']/* |       ancestor::*[contains(local-name(), '-standard')]//*[local-name()='preface']/* |      ancestor::*[contains(local-name(), '-standard')]//*[local-name()='sections']/* |       ancestor::*[contains(local-name(), '-standard')]//*[local-name()='annex'] |      ancestor::*[contains(local-name(), '-standard')]//*[local-name()='bibliography']/*">
+				<xsl:for-each select="ancestor::*[local-name() = 'metanorma']/*[local-name()='boilerplate']/* |       ancestor::*[local-name() = 'metanorma']//*[local-name()='preface']/* |      ancestor::*[local-name() = 'metanorma']//*[local-name()='sections']/* |       ancestor::*[local-name() = 'metanorma']//*[local-name()='annex'] |      ancestor::*[local-name() = 'metanorma']//*[local-name()='bibliography']/*">
 					<xsl:sort select="@displayorder" data-type="number"/>
 					<!-- commented:
 					 .//*[local-name() = 'bibitem'][ancestor::*[local-name() = 'references']]/*[local-name() = 'note'] |
@@ -8352,10 +8352,10 @@
 	<xsl:template match="*[local-name()='localityStack']"/>
 
 	<xsl:variable name="pdfAttachmentsList_">
-		<xsl:for-each select="//*[contains(local-name(), '-standard')]/*[local-name() = 'metanorma-extension']/*[local-name() = 'attachment']">
+		<xsl:for-each select="//*[local-name() = 'metanorma']/*[local-name() = 'metanorma-extension']/*[local-name() = 'attachment']">
 			<attachment filename="{@name}"/>
 		</xsl:for-each>
-		<xsl:if test="not(//*[contains(local-name(), '-standard')]/*[local-name() = 'metanorma-extension']/*[local-name() = 'attachment'])">
+		<xsl:if test="not(//*[local-name() = 'metanorma']/*[local-name() = 'metanorma-extension']/*[local-name() = 'attachment'])">
 			<xsl:for-each select="//*[local-name() = 'bibitem'][@hidden = 'true'][*[local-name() = 'uri'][@type = 'attachment']]">
 				<xsl:variable name="attachment_path" select="*[local-name() = 'uri'][@type = 'attachment']"/>
 				<attachment filename="{$attachment_path}"/>
@@ -9846,6 +9846,13 @@
 		<xsl:apply-templates mode="contents"/>
 	</xsl:template>
 
+	<xsl:template match="*[local-name() = 'concept']" mode="contents"/>
+	<xsl:template match="*[local-name() = 'eref']" mode="contents"/>
+	<xsl:template match="*[local-name() = 'xref']" mode="contents"/>
+	<xsl:template match="*[local-name() = 'link']" mode="contents"/>
+	<xsl:template match="*[local-name() = 'origin']" mode="contents"/>
+	<xsl:template match="*[local-name() = 'erefstack ']" mode="contents"/>
+
 	<xsl:template match="*[local-name() = 'stem']" mode="bookmarks"/>
 	<xsl:template match="*[local-name() = 'fmt-stem']" mode="bookmarks">
 		<xsl:apply-templates mode="bookmarks"/>
@@ -9859,6 +9866,13 @@
 	<xsl:template match="*[local-name() = 'semx']" mode="bookmarks">
 		<xsl:apply-templates mode="bookmarks"/>
 	</xsl:template>
+
+	<xsl:template match="*[local-name() = 'concept']" mode="bookmarks"/>
+	<xsl:template match="*[local-name() = 'eref']" mode="bookmarks"/>
+	<xsl:template match="*[local-name() = 'xref']" mode="bookmarks"/>
+	<xsl:template match="*[local-name() = 'link']" mode="bookmarks"/>
+	<xsl:template match="*[local-name() = 'origin']" mode="bookmarks"/>
+	<xsl:template match="*[local-name() = 'erefstack ']" mode="bookmarks"/>
 
 	<!-- Bookmarks -->
 	<xsl:template name="addBookmarks">
@@ -10110,6 +10124,13 @@
 
 	<xsl:template match="*[local-name() = 'fmt-xref-label']" mode="contents_item"/>
 
+	<xsl:template match="*[local-name() = 'concept']" mode="contents_item"/>
+	<xsl:template match="*[local-name() = 'eref']" mode="contents_item"/>
+	<xsl:template match="*[local-name() = 'xref']" mode="contents_item"/>
+	<xsl:template match="*[local-name() = 'link']" mode="contents_item"/>
+	<xsl:template match="*[local-name() = 'origin']" mode="contents_item"/>
+	<xsl:template match="*[local-name() = 'erefstack ']" mode="contents_item"/>
+
 	<xsl:template name="getSection">
 		<xsl:choose>
 			<xsl:when test="*[local-name() = 'fmt-title']">
@@ -10294,7 +10315,7 @@
 	<!-- sourcecode  -->
 	<!-- =============== -->
 
-	<xsl:variable name="source-highlighter-css_" select="//*[contains(local-name(), '-standard')]/*[local-name() = 'metanorma-extension']/*[local-name() = 'source-highlighter-css']"/>
+	<xsl:variable name="source-highlighter-css_" select="//*[local-name() = 'metanorma']/*[local-name() = 'metanorma-extension']/*[local-name() = 'source-highlighter-css']"/>
 	<xsl:variable name="sourcecode_css_" select="java:org.metanorma.fop.Util.parseCSS($source-highlighter-css_)"/>
 	<xsl:variable name="sourcecode_css" select="xalan:nodeset($sourcecode_css_)"/>
 
@@ -11783,7 +11804,7 @@
 
 	</xsl:template> <!-- sections_element_style -->
 
-	<xsl:template match="//*[contains(local-name(), '-standard')]/*[local-name() = 'preface']/*" priority="2" name="preface_node"> <!-- /*/*[local-name() = 'preface']/* -->
+	<xsl:template match="//*[local-name() = 'metanorma']/*[local-name() = 'preface']/*" priority="2" name="preface_node"> <!-- /*/*[local-name() = 'preface']/* -->
 
 				<fo:block break-after="page"/>
 
@@ -11887,7 +11908,7 @@
 				<fo:block id="{@id}" font-size="1pt" role="SKIP"><xsl:value-of select="$hair_space"/><fo:basic-link internal-destination="{@id}" fox:alt-text="Annot___{@id}" role="Annot"><xsl:value-of select="$hair_space"/></fo:basic-link></fo:block>
 			</xsl:when>
 			<!-- if there isn't element with id 'from', then create 'bookmark' here -->
-			<xsl:when test="ancestor::*[contains(local-name(), '-standard')] and not(ancestor::*[contains(local-name(), '-standard')]//*[@id = $id_from])">
+			<xsl:when test="ancestor::*[local-name() = 'metanorma'] and not(ancestor::*[local-name() = 'metanorma']//*[@id = $id_from])">
 				<fo:block id="{@from}" font-size="1pt" role="SKIP"><xsl:value-of select="$hair_space"/><fo:basic-link internal-destination="{@from}" fox:alt-text="Annot___{@id}" role="Annot"><xsl:value-of select="$hair_space"/></fo:basic-link></fo:block>
 			</xsl:when>
 			<xsl:when test="not(/*[@id = $id_from]) and not(/*//*[@id = $id_from]) and not(preceding-sibling::*[@id = $id_from])">
@@ -13003,7 +13024,7 @@
 
 					<xsl:call-template name="setBlockSpanAll"/>
 
-						<xsl:variable name="admonition_color" select="normalize-space(/ogc:ogc-standard/ogc:metanorma-extension/ogc:presentation-metadata[ogc:name = concat('color-admonition-', @type)]/ogc:value)"/>
+						<xsl:variable name="admonition_color" select="normalize-space(/ogc:metanorma/ogc:metanorma-extension/ogc:presentation-metadata[ogc:name = concat('color-admonition-', @type)]/ogc:value)"/>
 						<xsl:if test="$admonition_color != ''">
 							<xsl:attribute name="border">0.5pt solid <xsl:value-of select="$admonition_color"/></xsl:attribute>
 							<xsl:attribute name="color"><xsl:value-of select="$admonition_color"/></xsl:attribute>
@@ -13229,7 +13250,7 @@
 			<xsl:variable name="nodes_sections" select="xalan:nodeset($nodes_sections_)"/>
 
 			<!-- move section 'Normative references' inside 'sections' -->
-			<xsl:for-each select="* |      ancestor::*[contains(local-name(), '-standard')]/*[local-name()='bibliography']/*[local-name()='references'][@normative='true'] |     ancestor::*[contains(local-name(), '-standard')]/*[local-name()='bibliography']/*[local-name()='clause'][*[local-name()='references'][@normative='true']]">
+			<xsl:for-each select="* |      ancestor::*[local-name() = 'metanorma']/*[local-name()='bibliography']/*[local-name()='references'][@normative='true'] |     ancestor::*[local-name() = 'metanorma']/*[local-name()='bibliography']/*[local-name()='clause'][*[local-name()='references'][@normative='true']]">
 				<xsl:sort select="@displayorder" data-type="number"/>
 
 				<!-- process Section's title -->
@@ -13320,9 +13341,95 @@
 		</xsl:element>
 	</xsl:template>
 
-	<xsl:template match="*[local-name() = 'image'][not(.//*[local-name() = 'passthrough'])] |        *[local-name() = 'sourcecode'][not(.//*[local-name() = 'passthrough']) and not(.//*[local-name() = 'fmt-name'])] |        *[local-name() = 'bibdata'][not(.//*[local-name() = 'passthrough'])] |        *[local-name() = 'localized-strings']" mode="update_xml_step1">
+	<xsl:template match="*[local-name() = 'image'][not(.//*[local-name() = 'passthrough'])] |        *[local-name() = 'bibdata'][not(.//*[local-name() = 'passthrough'])] |        *[local-name() = 'localized-strings']" mode="update_xml_step1">
 		<xsl:copy-of select="."/>
 	</xsl:template>
+
+	<!-- https://github.com/metanorma/isodoc/issues/651 -->
+	<!-- *[local-name() = 'sourcecode'][not(.//*[local-name() = 'passthrough']) and not(.//*[local-name() = 'fmt-name'])] -->
+	<xsl:template match="*[local-name() = 'sourcecode']" mode="update_xml_step1">
+		<xsl:copy>
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates select="*[local-name() = 'fmt-name']" mode="update_xml_step1"/>
+			<xsl:choose>
+				<xsl:when test="*[local-name() = 'fmt-sourcecode']">
+					<xsl:choose>
+						<xsl:when test="*[local-name() = 'fmt-sourcecode'][not(.//*[local-name() = 'passthrough'])] and not(.//*[local-name() = 'fmt-name'])">
+							<xsl:copy-of select="*[local-name() = 'fmt-sourcecode']/node()"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:apply-templates select="*[local-name() = 'fmt-sourcecode']/node()" mode="update_xml_step1"/>
+						</xsl:otherwise>
+					</xsl:choose>
+				</xsl:when>
+				<xsl:otherwise> <!-- If fmt-sourcecode is not present -->
+					<xsl:choose>
+						<xsl:when test="not(.//*[local-name() = 'passthrough']) and not(.//*[local-name() = 'fmt-name'])">
+							<xsl:copy-of select="node()"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:apply-templates select="node()[not(local-name() = 'fmt-name')]" mode="update_xml_step1"/>
+						</xsl:otherwise>
+					</xsl:choose>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:copy>
+	</xsl:template>
+	<xsl:template match="*[local-name() = 'sourcecode']" mode="update_xml_pres">
+		<xsl:copy>
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates select="*[local-name() = 'fmt-name']" mode="update_xml_pres"/>
+			<xsl:choose>
+				<xsl:when test="*[local-name() = 'fmt-sourcecode']">
+					<xsl:choose>
+						<xsl:when test="*[local-name() = 'fmt-sourcecode'][not(.//*[local-name() = 'passthrough'])] and not(.//*[local-name() = 'fmt-name'])">
+							<xsl:copy-of select="*[local-name() = 'fmt-sourcecode']/node()"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:apply-templates select="*[local-name() = 'fmt-sourcecode']/node()" mode="update_xml_pres"/>
+						</xsl:otherwise>
+					</xsl:choose>
+				</xsl:when>
+				<xsl:otherwise> <!-- If fmt-sourcecode is not present -->
+					<xsl:choose>
+						<xsl:when test="not(.//*[local-name() = 'passthrough']) and not(.//*[local-name() = 'fmt-name'])">
+							<xsl:copy-of select="node()"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:apply-templates select="node()[not(local-name() = 'fmt-name')]" mode="update_xml_pres"/>
+						</xsl:otherwise>
+					</xsl:choose>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:copy>
+	</xsl:template>
+
+	<!-- https://github.com/metanorma/isodoc/issues/651 -->
+	<xsl:template match="*[local-name() = 'figure'][*[local-name() = 'fmt-figure']]" mode="update_xml_step1" priority="2">
+		<xsl:copy>
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates select="*[local-name() = 'fmt-name']" mode="update_xml_step1"/>
+			<xsl:apply-templates select="*[local-name() = 'fmt-figure']/node()" mode="update_xml_step1"/>
+		</xsl:copy>
+	</xsl:template>
+	<xsl:template match="*[local-name() = 'figure'][*[local-name() = 'fmt-figure']]" mode="update_xml_pres" priority="2">
+		<xsl:copy>
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates select="*[local-name() = 'fmt-name']" mode="update_xml_pres"/>
+			<xsl:apply-templates select="*[local-name() = 'fmt-figure']/node()" mode="update_xml_pres"/>
+		</xsl:copy>
+	</xsl:template>
+
+	<!-- https://github.com/metanorma/isodoc/issues/652 -->
+	<xsl:template match="*[local-name() = 'quote']/*[local-name() = 'source']"/>
+	<xsl:template match="*[local-name() = 'quote']/*[local-name() = 'author']"/>
+	<xsl:template match="*[local-name() = 'amend']"/>
+	<xsl:template match="*[local-name() = 'quote']/*[local-name() = 'source']" mode="update_xml_step1"/>
+	<xsl:template match="*[local-name() = 'quote']/*[local-name() = 'author']" mode="update_xml_step1"/>
+	<xsl:template match="*[local-name() = 'quote']/*[local-name() = 'source']" mode="update_xml_pres"/>
+	<xsl:template match="*[local-name() = 'quote']/*[local-name() = 'author']" mode="update_xml_pres"/>
+	<xsl:template match="*[local-name() = 'amend']" mode="update_xml_step1"/>
+	<xsl:template match="*[local-name() = 'amend']" mode="update_xml_pres"/>
 
 	<xsl:template match="*[local-name() = 'metanorma-extension']/*[local-name() = 'attachment']" mode="update_xml_step1">
 		<xsl:copy>
@@ -13354,7 +13461,7 @@
 			<!-- add @id - first element with @id plus '_element_name' -->
 			<xsl:variable name="prefix_id_" select="(.//*[@id])[1]/@id"/>
 			<xsl:variable name="prefix_id"><xsl:value-of select="$prefix_id_"/><xsl:if test="normalize-space($prefix_id_) = ''"><xsl:value-of select="generate-id()"/></xsl:if></xsl:variable>
-			<xsl:variable name="document_suffix" select="ancestor::*[contains(local-name(), '-standard')]/@document_suffix"/>
+			<xsl:variable name="document_suffix" select="ancestor::*[local-name() = 'metanorma']/@document_suffix"/>
 			<xsl:attribute name="id"><xsl:value-of select="concat($prefix_id, '_', local-name(), '_', $document_suffix)"/></xsl:attribute>
 		</xsl:if>
 	</xsl:template>
@@ -13638,6 +13745,92 @@
 		</xsl:element>
 	</xsl:template>
 
+	<xsl:template match="*[local-name() = 'concept']"/>
+	<xsl:template match="*[local-name() = 'concept']" mode="update_xml_step1"/>
+	<xsl:template match="*[local-name() = 'concept']" mode="update_xml_pres"/>
+
+	<xsl:template match="*[local-name() = 'fmt-concept']">
+		<xsl:apply-templates/>
+	</xsl:template>
+	<xsl:template match="*[local-name() = 'fmt-concept']" mode="update_xml_step1">
+		<xsl:apply-templates mode="update_xml_step1"/>
+	</xsl:template>
+	<xsl:template match="*[local-name() = 'fmt-concept']" mode="update_xml_pres">
+		<xsl:apply-templates mode="update_xml_pres"/>
+	</xsl:template>
+
+	<xsl:template match="*[local-name() = 'eref']" mode="update_xml_step1"/>
+	<xsl:template match="*[local-name() = 'eref']" mode="update_xml_pres"/>
+
+	<xsl:template match="*[local-name() = 'fmt-eref']" mode="update_xml_step1">
+		<xsl:element name="eref" namespace="{$namespace_full}">
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates mode="update_xml_step1"/>
+		</xsl:element>
+	</xsl:template>
+  <xsl:template match="*[local-name() = 'fmt-eref']" mode="update_xml_pres">
+		<xsl:element name="eref" namespace="{$namespace_full}">
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates mode="update_xml_pres"/>
+		</xsl:element>
+	</xsl:template>
+
+	<xsl:template match="*[local-name() = 'xref']" mode="update_xml_step1"/>
+	<xsl:template match="*[local-name() = 'xref']" mode="update_xml_pres"/>
+
+	<xsl:template match="*[local-name() = 'fmt-xref']" mode="update_xml_step1">
+		<xsl:element name="xref" namespace="{$namespace_full}">
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates mode="update_xml_step1"/>
+		</xsl:element>
+	</xsl:template>
+  <xsl:template match="*[local-name() = 'fmt-xref']" mode="update_xml_pres">
+		<xsl:element name="xref" namespace="{$namespace_full}">
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates mode="update_xml_pres"/>
+		</xsl:element>
+	</xsl:template>
+
+	<xsl:template match="*[local-name() = 'link']" mode="update_xml_step1"/>
+	<xsl:template match="*[local-name() = 'link']" mode="update_xml_pres"/>
+
+	<xsl:template match="*[local-name() = 'fmt-link']" mode="update_xml_step1">
+		<xsl:element name="link" namespace="{$namespace_full}">
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates mode="update_xml_step1"/>
+		</xsl:element>
+	</xsl:template>
+  <xsl:template match="*[local-name() = 'fmt-link']" mode="update_xml_pres">
+		<xsl:element name="link" namespace="{$namespace_full}">
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates mode="update_xml_pres"/>
+		</xsl:element>
+	</xsl:template>
+
+	<xsl:template match="*[local-name() = 'origin']" mode="update_xml_step1"/>
+	<xsl:template match="*[local-name() = 'origin']" mode="update_xml_pres"/>
+
+	<xsl:template match="*[local-name() = 'fmt-origin']" mode="update_xml_step1">
+		<xsl:element name="origin" namespace="{$namespace_full}">
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates mode="update_xml_step1"/>
+		</xsl:element>
+	</xsl:template>
+  <xsl:template match="*[local-name() = 'fmt-origin']" mode="update_xml_pres">
+		<xsl:element name="origin" namespace="{$namespace_full}">
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates mode="update_xml_pres"/>
+		</xsl:element>
+	</xsl:template>
+
+	<xsl:template match="*[local-name() = 'erefstack']"/>
+	<xsl:template match="*[local-name() = 'erefstack']" mode="update_xml_step1"/>
+	<xsl:template match="*[local-name() = 'erefstack']" mode="update_xml_pres"/>
+
+	<xsl:template match="*[local-name() = 'svgmap']"/>
+	<xsl:template match="*[local-name() = 'svgmap']" mode="update_xml_step1"/>
+	<xsl:template match="*[local-name() = 'svgmap']" mode="update_xml_pres"/>
+
 	<!-- END: update new Presentation XML -->
 
 	<!-- =========================================================================== -->
@@ -13710,7 +13903,7 @@
 
 		<xsl:choose>
 			<xsl:when test="$page_sequence_at_top = 'true'">
-				<xsl:for-each select="ancestor::*[ancestor::*[contains(local-name(), '-standard')]]">
+				<xsl:for-each select="ancestor::*[ancestor::*[local-name() = 'metanorma']]">
 					<element pos="{position()}">
 						<xsl:copy-of select="@*[local-name() != 'id']"/>
 						<xsl:value-of select="name()"/>
@@ -14138,7 +14331,7 @@
 			</xsl:when>
 			<xsl:when test="contains($text, $replace)">
 				<xsl:value-of select="substring-before($text,$replace)"/>
-				<xsl:element name="inlineChar" namespace="https://www.metanorma.org/ns/jis"><xsl:value-of select="$by"/></xsl:element>
+				<xsl:element name="inlineChar" namespace="https://www.metanorma.org/ns/standoc"><xsl:value-of select="$by"/></xsl:element>
 				<xsl:call-template name="replaceChar">
 						<xsl:with-param name="text" select="substring-after($text,$replace)"/>
 						<xsl:with-param name="replace" select="$replace"/>
@@ -14175,7 +14368,7 @@
 		</xsl:variable>
 		<xsl:variable name="p_fn" select="xalan:nodeset($p_fn_)"/>
 		<xsl:variable name="gen_id" select="generate-id(.)"/>
-		<xsl:variable name="lang" select="ancestor::*[contains(local-name(), '-standard')]/*[local-name()='bibdata']//*[local-name()='language'][@current = 'true']"/>
+		<xsl:variable name="lang" select="ancestor::*[local-name() = 'metanorma']/*[local-name()='bibdata']//*[local-name()='language'][@current = 'true']"/>
 		<xsl:variable name="reference" select="@reference"/>
 		<!-- fn sequence number in document -->
 		<xsl:variable name="current_fn_number" select="count($p_fn//fn[@reference = $reference]/preceding-sibling::fn) + 1"/>
@@ -14220,7 +14413,7 @@
 	</xsl:template>
 
 	<xsl:template name="printEdition">
-		<xsl:variable name="edition_i18n" select="normalize-space((//*[contains(local-name(), '-standard')])[1]/*[local-name() = 'bibdata']/*[local-name() = 'edition'][normalize-space(@language) != ''])"/>
+		<xsl:variable name="edition_i18n" select="normalize-space((//*[local-name() = 'metanorma'])[1]/*[local-name() = 'bibdata']/*[local-name() = 'edition'][normalize-space(@language) != ''])"/>
 
 		<xsl:choose>
 			<xsl:when test="$edition_i18n != ''">
@@ -14230,7 +14423,7 @@
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:variable name="edition" select="normalize-space((//*[contains(local-name(), '-standard')])[1]/*[local-name() = 'bibdata']/*[local-name() = 'edition'])"/>
+				<xsl:variable name="edition" select="normalize-space((//*[local-name() = 'metanorma'])[1]/*[local-name() = 'bibdata']/*[local-name() = 'edition'])"/>
 				<xsl:if test="$edition != ''"> <!-- Example: 1.3 -->
 					<xsl:call-template name="capitalize">
 						<xsl:with-param name="str">
@@ -14364,7 +14557,7 @@
 		<xsl:param name="charDelim" select="', '"/>
 		<xsl:choose>
 			<xsl:when test="$sorting = 'true' or $sorting = 'yes'">
-				<xsl:for-each select="//*[contains(local-name(), '-standard')]/*[local-name() = 'bibdata']//*[local-name() = 'keyword']">
+				<xsl:for-each select="//*[local-name() = 'metanorma']/*[local-name() = 'bibdata']//*[local-name() = 'keyword']">
 					<xsl:sort data-type="text" order="ascending"/>
 					<xsl:call-template name="insertKeyword">
 						<xsl:with-param name="meta" select="$meta"/>
@@ -14374,7 +14567,7 @@
 				</xsl:for-each>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:for-each select="//*[contains(local-name(), '-standard')]/*[local-name() = 'bibdata']//*[local-name() = 'keyword']">
+				<xsl:for-each select="//*[local-name() = 'metanorma']/*[local-name() = 'bibdata']//*[local-name() = 'keyword']">
 					<xsl:call-template name="insertKeyword">
 						<xsl:with-param name="meta" select="$meta"/>
 						<xsl:with-param name="charAtEnd" select="$charAtEnd"/>
@@ -14449,7 +14642,7 @@
 				<!-- Dublin Core properties go here -->
 					<dc:title>
 						<xsl:variable name="title">
-							<xsl:for-each select="(//*[contains(local-name(), '-standard')])[1]/*[local-name() = 'bibdata']">
+							<xsl:for-each select="(//*[local-name() = 'metanorma'])[1]/*[local-name() = 'bibdata']">
 
 										<xsl:value-of select="*[local-name() = 'title'][@language = $lang]"/>
 
@@ -14469,7 +14662,7 @@
 						</rdf:Alt>
 					</dc:title>
 					<xsl:variable name="dc_creator">
-						<xsl:for-each select="(//*[contains(local-name(), '-standard')])[1]/*[local-name() = 'bibdata']">
+						<xsl:for-each select="(//*[local-name() = 'metanorma'])[1]/*[local-name() = 'bibdata']">
 
 									<rdf:Seq>
 										<xsl:for-each select="*[local-name() = 'contributor'][*[local-name() = 'role']/@type='author']">
@@ -14491,7 +14684,7 @@
 					<xsl:variable name="dc_description">
 						<xsl:variable name="abstract">
 
-									<xsl:copy-of select="//*[contains(local-name(), '-standard')]/*[local-name() = 'preface']/*[local-name() = 'abstract']//text()[not(ancestor::*[local-name() = 'fmt-title']) and not(ancestor::*[local-name() = 'title']) and not(ancestor::*[local-name() = 'fmt-xref-label'])]"/>
+									<xsl:copy-of select="//*[local-name() = 'metanorma']/*[local-name() = 'preface']/*[local-name() = 'abstract']//text()[not(ancestor::*[local-name() = 'fmt-title']) and not(ancestor::*[local-name() = 'title']) and not(ancestor::*[local-name() = 'fmt-xref-label'])]"/>
 
 						</xsl:variable>
 						<rdf:Alt>
@@ -14519,7 +14712,7 @@
 			</rdf:RDF>
 		</x:xmpmeta>
 		<!-- add attachments -->
-		<xsl:for-each select="//*[contains(local-name(), '-standard')]/*[local-name() = 'metanorma-extension']/*[local-name() = 'attachment']">
+		<xsl:for-each select="//*[local-name() = 'metanorma']/*[local-name() = 'metanorma-extension']/*[local-name() = 'attachment']">
 			<xsl:variable name="bibitem_attachment_" select="//*[local-name() = 'bibitem'][@hidden = 'true'][*[local-name() = 'uri'][@type = 'attachment'] = current()/@name]"/>
 			<xsl:variable name="bibitem_attachment" select="xalan:nodeset($bibitem_attachment_)"/>
 			<xsl:variable name="description" select="normalize-space($bibitem_attachment/*[local-name() = 'formattedref'])"/>
@@ -14553,7 +14746,7 @@
 			</pdf:embedded-file>
 		</xsl:for-each>
 		<!-- references to external attachments (no binary-encoded within the Metanorma XML file) -->
-		<xsl:if test="not(//*[contains(local-name(), '-standard')]/*[local-name() = 'metanorma-extension']/*[local-name() = 'attachment'])">
+		<xsl:if test="not(//*[local-name() = 'metanorma']/*[local-name() = 'metanorma-extension']/*[local-name() = 'attachment'])">
 			<xsl:for-each select="//*[local-name() = 'bibitem'][@hidden = 'true'][*[local-name() = 'uri'][@type = 'attachment']]">
 				<xsl:variable name="attachment_path" select="*[local-name() = 'uri'][@type = 'attachment']"/>
 				<xsl:variable name="attachment_name" select="java:org.metanorma.fop.Util.getFilenameFromPath($attachment_path)"/>
@@ -14979,7 +15172,7 @@
 		<!-- background image -->
 		<fo:block-container absolute-position="fixed" left="0mm" top="0mm" font-size="0" id="__internal_layout__coverpage{$suffix}_{$name}_{$number}_{generate-id()}">
 			<fo:block>
-				<xsl:for-each select="/*[contains(local-name(), '-standard')]/*[local-name() = 'metanorma-extension']/*[local-name() = 'presentation-metadata'][*[local-name() = 'name'] = $name][1]/*[local-name() = 'value']/*[local-name() = 'image'][$num]">
+				<xsl:for-each select="/*[local-name() = 'metanorma']/*[local-name() = 'metanorma-extension']/*[local-name() = 'presentation-metadata'][*[local-name() = 'name'] = $name][1]/*[local-name() = 'value']/*[local-name() = 'image'][$num]">
 					<xsl:choose>
 						<xsl:when test="*[local-name() = 'svg'] or java:endsWith(java:java.lang.String.new(@src), '.svg')">
 							<fo:instream-foreign-object fox:alt-text="Image Front">
