@@ -60,7 +60,7 @@ RSpec.describe Metanorma::Ogc do
 
     output = <<~"OUTPUT"
       <?xml version='1.0' encoding='UTF-8'?>
-         <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ogc::VERSION}">
+         <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ogc::VERSION}" flavor="ogc">
          <bibdata type="standard">
            <title language="en" format="text/plain">Main Title</title>
            <title format='text/plain' type='abbrev'>MT</title>
@@ -248,7 +248,7 @@ RSpec.describe Metanorma::Ogc do
     INPUT
 
     output = <<~"OUTPUT"
-      <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ogc::VERSION}">
+      <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ogc::VERSION}" flavor="ogc">
       <bibdata type="standard">
         <title language="en" format="text/plain">Main Title</title>
         <title format='text/plain' type='abbrev'>A</title>
@@ -360,7 +360,7 @@ RSpec.describe Metanorma::Ogc do
     INPUT
 
     output = <<~"OUTPUT"
-          <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ogc::VERSION}">
+          <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ogc::VERSION}" flavor="ogc">
       <preface><foreword id="_" obligation="informative">
       <title>Preface</title><p id="_">This is a preamble</p></foreword>
       <acknowledgements id='_' obligation='informative'>
@@ -402,7 +402,7 @@ RSpec.describe Metanorma::Ogc do
       .to be_equivalent_to Xml::C14n.format(output)
 
     output = <<~OUTPUT
-              <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ogc::VERSION}">
+              <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ogc::VERSION}" flavor="ogc">
       <preface><foreword id="_" obligation="informative">
       <title>Preface</title><p id="_">This is a preamble</p></foreword>
       <acknowledgements id='_' obligation='informative'>
@@ -468,7 +468,7 @@ RSpec.describe Metanorma::Ogc do
     INPUT
 
     output = <<~"OUTPUT"
-          <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ogc::VERSION}">
+          <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ogc::VERSION}" flavor="ogc">
       <preface><foreword id="_" obligation="informative">
       <title>Preface</title><p id="_">This is a preamble</p></foreword>
       <acknowledgements id='_' obligation='informative'>
@@ -513,7 +513,7 @@ RSpec.describe Metanorma::Ogc do
     xml.xpath("//xmlns:bibdata | //xmlns:boilerplate | " \
               "//xmlns:metanorma-extension").each(&:remove)
     output = <<~OUTPUT
-          <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ogc::VERSION}">
+          <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ogc::VERSION}" flavor="ogc">
       <preface><foreword id="_" obligation="informative">
       <title>Preface</title><p id="_">This is a preamble</p></foreword>
       <acknowledgements id='_' obligation='informative'>
@@ -577,7 +577,7 @@ RSpec.describe Metanorma::Ogc do
     INPUT
 
     output = <<~"OUTPUT"
-      <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ogc::VERSION}">
+      <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ogc::VERSION}" flavor="ogc">
       <preface><foreword id="_" obligation="informative">
       <title>Preface</title><p id="_">This is a preamble</p></foreword>
       <acknowledgements id='_' obligation='informative'>
@@ -1214,7 +1214,7 @@ RSpec.describe Metanorma::Ogc do
 
     INPUT
     output = <<~OUTPUT
-      <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ogc::VERSION}">
+      <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ogc::VERSION}" flavor="ogc">
       <sections>
           <clause id='_' obligation='normative'>
             <title>Security Considerations</title>
@@ -1236,7 +1236,7 @@ RSpec.describe Metanorma::Ogc do
 
     INPUT
     output = <<~OUTPUT
-      <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ogc::VERSION}">
+      <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ogc::VERSION}" flavor="ogc">
                <sections>
            <clause id="_" obligation="normative">
              <title>Clause</title>
@@ -2082,7 +2082,7 @@ RSpec.describe Metanorma::Ogc do
     INPUT
 
     output = <<~OUTPUT
-      <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ogc::VERSION}">
+      <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ogc::VERSION}" flavor="ogc">
           <preface>
              <clause id="_" type="overview" obligation="informative">
                 <title>Ovrvw</title>

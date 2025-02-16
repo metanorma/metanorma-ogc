@@ -264,7 +264,9 @@ RSpec.describe IsoDoc::Ogc do
                    </preferred>
                    <fmt-preferred>
                       <p>
-                         <semx element="preferred" source="_"><strong>Term2</strong></semx>
+                         <semx element="preferred" source="_">
+                            <strong>Term2</strong>
+                         </semx>
                       </p>
                    </fmt-preferred>
                    <admitted id="_">
@@ -285,8 +287,8 @@ RSpec.describe IsoDoc::Ogc do
                       </p>
                       <p>
                          <semx element="admitted" source="_">Term2B</semx>
-                   
-                  <span class="AdmittedLabel">ALTERNATIVE</span>
+                          
+                         <span class="AdmittedLabel">ALTERNATIVE</span>
                       </p>
                    </fmt-admitted>
                    <deprecates id="_">
@@ -307,8 +309,8 @@ RSpec.describe IsoDoc::Ogc do
                       </p>
                       <p>
                          <semx element="deprecates" source="_">Term2D</semx>
-                   
-                  <span class="DeprecatedLabel">DEPRECATED</span>
+                          
+                         <span class="DeprecatedLabel">DEPRECATED</span>
                       </p>
                    </fmt-deprecates>
                    <termsource status="modified" id="_">
@@ -325,13 +327,21 @@ RSpec.describe IsoDoc::Ogc do
                       [
                       <strong>SOURCE:</strong>
                       <semx element="termsource" source="_">
-                         <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011">
+                         <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011" id="_">
                             <locality type="clause">
                                <referenceFrom>3.1</referenceFrom>
                             </locality>
-                            ISO 7301:2011, Clause 3.1
                          </origin>
-                         , modified — <semx element="modification" source="_">The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here</semx>
+                         <semx element="origin" source="_">
+                            <fmt-origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011">
+                               <locality type="clause">
+                                  <referenceFrom>3.1</referenceFrom>
+                               </locality>
+                               ISO 7301:2011, Clause 3.1
+                            </fmt-origin>
+                         </semx>
+                         , modified —
+                         <semx element="modification" source="_">The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here</semx>
                       </semx>
                       ]
                    </fmt-termsource>
