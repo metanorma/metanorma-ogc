@@ -355,17 +355,50 @@ RSpec.describe IsoDoc::Ogc do
                    <semx element="title" source="A">Preface</semx>
                 </fmt-xref-label>
                 <p id="_">
-                   <xref target="ISO712">ISO 712</xref>
-                   <xref target="ISBN">[3]</xref>
-                   <xref target="ISSN">[4]</xref>
-                   <xref target="ISO16634">ISO 16634:-- (all parts)</xref>
-                   <xref target="ref1">ICC 167</xref>
-                   <xref target="ref10">[6]</xref>
-                   <xref target="ref12">Citn</xref>
-                   <xref target="zip_ffs">[2]</xref>
-                   <xref target="ogc1">OGC 19-025r1</xref>
-                   <xref target="ogc2">OGC 00-027</xref>
-                   <xref target="ogc3">OGC 05-020r27 (draft)</xref>
+                   <eref bibitemid="ISO712" id="_"/>
+                   <semx element="eref" source="_">
+                      <fmt-xref target="ISO712">ISO 712</fmt-xref>
+                   </semx>
+                   <eref bibitemid="ISBN" id="_"/>
+                   <semx element="eref" source="_">
+                      <fmt-xref target="ISBN">[3]</fmt-xref>
+                   </semx>
+                   <eref bibitemid="ISSN" id="_"/>
+                   <semx element="eref" source="_">
+                      <fmt-xref target="ISSN">[4]</fmt-xref>
+                   </semx>
+                   <eref bibitemid="ISO16634" id="_"/>
+                   <semx element="eref" source="_">
+                      <fmt-xref target="ISO16634">ISO 16634:-- (all parts)</fmt-xref>
+                   </semx>
+                   <eref bibitemid="ref1" id="_"/>
+                   <semx element="eref" source="_">
+                      <fmt-xref target="ref1">ICC 167</fmt-xref>
+                   </semx>
+                   <eref bibitemid="ref10" id="_"/>
+                   <semx element="eref" source="_">
+                      <fmt-xref target="ref10">[6]</fmt-xref>
+                   </semx>
+                   <eref bibitemid="ref12" id="_"/>
+                   <semx element="eref" source="_">
+                      <fmt-xref target="ref12">Citn</fmt-xref>
+                   </semx>
+                   <eref bibitemid="zip_ffs" id="_"/>
+                   <semx element="eref" source="_">
+                      <fmt-xref target="zip_ffs">[2]</fmt-xref>
+                   </semx>
+                   <eref bibitemid="ogc1" id="_"/>
+                   <semx element="eref" source="_">
+                      <fmt-xref target="ogc1">OGC 19-025r1</fmt-xref>
+                   </semx>
+                   <eref bibitemid="ogc2" id="_"/>
+                   <semx element="eref" source="_">
+                      <fmt-xref target="ogc2">OGC 00-027</fmt-xref>
+                   </semx>
+                   <eref bibitemid="ogc3" id="_"/>
+                   <semx element="eref" source="_">
+                      <fmt-xref target="ogc3">OGC 05-020r27 (draft)</fmt-xref>
+                   </semx>
                 </p>
              </foreword>
           </preface>
@@ -424,7 +457,10 @@ RSpec.describe IsoDoc::Ogc do
                       .
                       <em>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</em>
                       (see
-                      <link target="http://www.icc.or.at"/>
+                      <link target="http://www.icc.or.at" id="_"/>
+                      <semx element="link" source="_">
+                         <fmt-link target="http://www.icc.or.at"/>
+                      </semx>
                       )
                    </formattedref>
                    <docidentifier type="ICC">ICC 167</docidentifier>
@@ -453,7 +489,10 @@ RSpec.describe IsoDoc::Ogc do
                       Robert Thomas, Terry Idol: OGC 19-025r1,
                       <em>Development of Spatial Data Infrastructures for Marine Data Management</em>
                       . Open Geospatial Consortium (2019).
-                      <link target="https://portal.opengeospatial.org/files/?artifact_id=88037">https://portal.opengeospatial.org/files/?artifact_id=88037</link>
+                      <link target="https://portal.opengeospatial.org/files/?artifact_id=88037" id="_">https://portal.opengeospatial.org/files/?artifact_id=88037</link>
+                      <semx element="link" source="_">
+                         <fmt-link target="https://portal.opengeospatial.org/files/?artifact_id=88037">https://portal.opengeospatial.org/files/?artifact_id=88037</fmt-link>
+                      </semx>
                       .
                    </formattedref>
                    <uri type="obp">https://portal.opengeospatial.org/files/?artifact_id=88037</uri>
@@ -564,7 +603,10 @@ RSpec.describe IsoDoc::Ogc do
                       .
                       <em>Determination of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</em>
                       (see
-                      <link target="http://www.icc.or.at"/>
+                      <link target="http://www.icc.or.at" id="_"/>
+                      <semx element="link" source="_">
+                         <fmt-link target="http://www.icc.or.at"/>
+                      </semx>
                       )
                    </formattedref>
                    <docidentifier type="metanorma-ordinal">[6]</docidentifier>
@@ -577,7 +619,10 @@ RSpec.describe IsoDoc::Ogc do
                    <formattedref format="application/x-isodoc+xml">
                       <em>Appelation of the protein content in cereal and cereal products for food and animal feeding stuffs according to the Dumas combustion method</em>
                       (see
-                      <link target="http://www.icc.or.at"/>
+                      <link target="http://www.icc.or.at" id="_"/>
+                      <semx element="link" source="_">
+                         <fmt-link target="http://www.icc.or.at"/>
+                      </semx>
                       )
                    </formattedref>
                    <docidentifier type="metanorma-ordinal">[7]</docidentifier>
@@ -622,7 +667,10 @@ RSpec.describe IsoDoc::Ogc do
                       R. Fielding, J. Gettys, J. Mogul, H. Frystyk, L. Masinter, P. Leach, T. Berners-Lee: IETF RFC 2616,
                       <em>Hypertext Transfer Protocol — HTTP/1.1</em>
                       . Fremont, CA (1999).
-                      <link target="https://www.rfc-editor.org/info/rfc2616">https://www.rfc-editor.org/info/rfc2616</link>
+                      <link target="https://www.rfc-editor.org/info/rfc2616" id="_">https://www.rfc-editor.org/info/rfc2616</link>
+                      <semx element="link" source="_">
+                         <fmt-link target="https://www.rfc-editor.org/info/rfc2616">https://www.rfc-editor.org/info/rfc2616</fmt-link>
+                      </semx>
                       .
                    </formattedref>
                    <uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</uri>

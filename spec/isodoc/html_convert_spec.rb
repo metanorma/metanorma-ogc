@@ -47,7 +47,7 @@ RSpec.describe IsoDoc::Ogc do
               <tr><th>Identifier</th><td><tt>/ogc/recommendation/wfs/2</tt></td></tr>
               <tr><th>Subject</th><td>user</td></tr>
               <tr><th>Prerequisites</th><td>/ss/584/2015/level/1<br/>
-              <xref type="inline" target="rfc2616">RFC 2616 (HTTP/1.1)</xref></td></tr>
+              <fmt-xref type="inline" target="rfc2616">RFC 2616 (HTTP/1.1)</fmt-xref></td></tr>
             <tr>
         <th>Control-CLASS</th>
         <td>Technical</td>
@@ -79,18 +79,18 @@ RSpec.describe IsoDoc::Ogc do
           <p id='_'>The measurement target shall be measured as:</p>
           <formula id='_'>
             <fmt-name>(1)</fmt-name>
-            <stem type='AsciiMath'>r/1 = 0</stem>
+            <fmt-stem type='AsciiMath'>r/1 = 0</fmt-stem>
           </formula>
         </td>
       </tr>
       <tr>
         <td colspan='2'>
           <p id='_'>The following code will be run for verification:</p>
-          <sourcecode id="_">CoreRoot(success): HttpResponse
+          <sourcecode id="_"><fmt-sourcecode>CoreRoot(success): HttpResponse
             if (success)
             recommendation(label: success-response)
             end
-          </sourcecode>
+          </fmt-sourcecode></sourcecode>
         </td>
       </tr>
       </tbody></table>
@@ -151,17 +151,17 @@ RSpec.describe IsoDoc::Ogc do
                      <p id='_'>The measurement target shall be measured as:</p>
                      <formula id='_'>
                        <fmt-name>(1)</fmt-name>
-                       <stem type='AsciiMath'>r/1 = 0</stem>
+                       <fmt-stem type='AsciiMath'>r/1 = 0</fmt-stem>
                      </formula>
                    </td>
                  </tr>
                  <tr>
                    <td colspan='2'>
                      <p id='_'>The following code will be run for verification:</p>
-                     <sourcecode id='_'>
+                     <sourcecode id='_'><fmt-sourcecode>
                        CoreRoot(success): HttpResponse if (success)
                        recommendation(label: success-response) end
-                     </sourcecode>
+                     </fmt-sourcecode></sourcecode>
                    </td>
                  </tr>
                </tbody>
@@ -788,67 +788,73 @@ RSpec.describe IsoDoc::Ogc do
       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
          <bibdata/>
        #{METANORMA_EXTENSION}
-           <preface>
-              <clause type="toc" id="_" displayorder="1">
-                 <fmt-title depth="1">Contents</fmt-title>
-              </clause>
-              <foreword id="A" displayorder="2">
-                 <title id="_">Preface</title>
-                 <fmt-title depth="1">
-                    <span class="fmt-caption-label">
-                       <semx element="autonum" source="A">I</semx>
-                       <span class="fmt-autonum-delim">.</span>
-                    </span>
-                    <span class="fmt-caption-delim">
-                       <tab/>
-                    </span>
-                    <semx element="title" source="_">Preface</semx>
-                 </fmt-title>
-                 <fmt-xref-label>
-                    <semx element="title" source="A">Preface</semx>
-                 </fmt-xref-label>
-                 <figure id="B" autonum="1">
-                    <fmt-name>
-                       <span class="fmt-caption-label">
-                          <span class="fmt-element-name">Figure</span>
-                          <semx element="autonum" source="B">1</semx>
-                       </span>
-                    </fmt-name>
-                    <fmt-xref-label>
-                       <span class="fmt-element-name">Figure</span>
-                       <semx element="autonum" source="B">1</semx>
-                    </fmt-xref-label>
-                    <p id="_">This is an example</p>
-                 </figure>
-                 <figure id="C" class="pseudocode" autonum="1">
-                    <fmt-name>
-                       <span class="fmt-caption-label">
-                          <span class="fmt-element-name">Listing</span>
-                          <semx element="autonum" source="C">1</semx>
-                       </span>
-                    </fmt-name>
-                    <fmt-xref-label>
-                       <span class="fmt-element-name">Listing</span>
-                       <semx element="autonum" source="C">1</semx>
-                    </fmt-xref-label>
-                    <p id="_">This is an example</p>
-                 </figure>
-                 <sourcecode id="D" autonum="2">
-                    <fmt-name>
-                       <span class="fmt-caption-label">
-                          <span class="fmt-element-name">Listing</span>
-                          <semx element="autonum" source="D">2</semx>
-                       </span>
-                    </fmt-name>
-                    <fmt-xref-label>
-                       <span class="fmt-element-name">Listing</span>
-                       <semx element="autonum" source="D">2</semx>
-                    </fmt-xref-label>
-                    <p id="_">This is an example</p>
-                 </sourcecode>
-              </foreword>
-           </preface>
-        </iso-standard>
+          <preface>
+             <clause type="toc" id="_" displayorder="1">
+                <fmt-title depth="1">Contents</fmt-title>
+             </clause>
+             <foreword id="A" displayorder="2">
+                <title id="_">Preface</title>
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="A">I</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                   <span class="fmt-caption-delim">
+                      <tab/>
+                   </span>
+                   <semx element="title" source="_">Preface</semx>
+                </fmt-title>
+                <fmt-xref-label>
+                   <semx element="title" source="A">Preface</semx>
+                </fmt-xref-label>
+                <figure id="B" autonum="1">
+                   <fmt-name>
+                      <span class="fmt-caption-label">
+                         <span class="fmt-element-name">Figure</span>
+                         <semx element="autonum" source="B">1</semx>
+                      </span>
+                   </fmt-name>
+                   <fmt-xref-label>
+                      <span class="fmt-element-name">Figure</span>
+                      <semx element="autonum" source="B">1</semx>
+                   </fmt-xref-label>
+                   <p id="_">This is an example</p>
+                </figure>
+                <figure id="C" class="pseudocode" autonum="1">
+                   <fmt-name>
+                      <span class="fmt-caption-label">
+                         <span class="fmt-element-name">Listing</span>
+                         <semx element="autonum" source="C">1</semx>
+                      </span>
+                   </fmt-name>
+                   <fmt-xref-label>
+                      <span class="fmt-element-name">Listing</span>
+                      <semx element="autonum" source="C">1</semx>
+                   </fmt-xref-label>
+                   <p original-id="_">This is an example</p>
+                   <fmt-figure class="pseudocode" autonum="1">
+                      <p id="_">This is an example</p>
+                   </fmt-figure>
+                </figure>
+                <sourcecode id="D" autonum="2">
+                   <fmt-name>
+                      <span class="fmt-caption-label">
+                         <span class="fmt-element-name">Listing</span>
+                         <semx element="autonum" source="D">2</semx>
+                      </span>
+                   </fmt-name>
+                   <fmt-xref-label>
+                      <span class="fmt-element-name">Listing</span>
+                      <semx element="autonum" source="D">2</semx>
+                   </fmt-xref-label>
+                   <p original-id="_">This is an example</p>
+                   <fmt-sourcecode autonum="2">
+                      <p id="_">This is an example</p>
+                   </fmt-sourcecode>
+                </sourcecode>
+             </foreword>
+          </preface>
+       </iso-standard>
     OUTPUT
 
     html = <<~OUTPUT
@@ -1209,7 +1215,7 @@ RSpec.describe IsoDoc::Ogc do
           <dt>A</dt>
           <dd><p>B</p></dd>
           </dl>
-          <source status="generalisation">[SOURCE: <xref target="ISO712" type="inline">ISO&#xa0;712, Section 1</xref> &#x2014; with adjustments ; <xref type="inline" target="ISO712">ISO 712, Section 2</xref>]</source>
+          <source status="generalisation">[SOURCE: <fmt-xref target="ISO712" type="inline">ISO&#xa0;712, Section 1</fmt-xref> &#x2014; with adjustments ; <fmt-xref type="inline" target="ISO712">ISO 712, Section 2</fmt-xref>]</source>
         </figure>
         <figure id="figure-B">
         <fmt-name>Figure 2</fmt-name>

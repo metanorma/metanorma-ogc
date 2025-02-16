@@ -26,7 +26,7 @@ RSpec.describe Metanorma::Ogc do
     INPUT
 
     output = <<~"OUTPUT"
-          <ogc-standard xmlns="https://www.metanorma.org/ns/ogc" type="semantic" version="#{Metanorma::Ogc::VERSION}">
+          <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ogc::VERSION}" flavor="ogc">
       <preface><foreword id="_" obligation="informative">
       <title>Preface</title><p id="_">This is a preamble</p></foreword>
       <acknowledgements id='_' obligation='informative'>
@@ -58,7 +58,7 @@ RSpec.describe Metanorma::Ogc do
         <title>Clause</title>
         <p id="_">Clause 1</p>
       </clause></sections>
-      </ogc-standard>
+      </metanorma>
     OUTPUT
 
     xml = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
@@ -68,7 +68,7 @@ RSpec.describe Metanorma::Ogc do
       .to be_equivalent_to Xml::C14n.format(output)
 
     output = <<~OUTPUT
-              <ogc-standard xmlns="https://www.metanorma.org/ns/ogc" type="semantic" version="#{Metanorma::Ogc::VERSION}">
+              <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ogc::VERSION}" flavor="ogc">
       <preface><foreword id="_" obligation="informative">
       <title>Preface</title><p id="_">This is a preamble</p></foreword>
       <acknowledgements id='_' obligation='informative'>
@@ -100,7 +100,7 @@ RSpec.describe Metanorma::Ogc do
         <title>Clause</title>
         <p id="_">Clause 1</p>
       </clause></sections>
-      </ogc-standard>
+      </metanorma>
     OUTPUT
     xml = Nokogiri::XML(Asciidoctor
       .convert(input.sub("Submitters", "Contributors"), *OPTIONS))
@@ -134,7 +134,7 @@ RSpec.describe Metanorma::Ogc do
     INPUT
 
     output = <<~"OUTPUT"
-          <ogc-standard xmlns="https://www.metanorma.org/ns/ogc" type="semantic" version="#{Metanorma::Ogc::VERSION}">
+          <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ogc::VERSION}" flavor="ogc">
       <preface><foreword id="_" obligation="informative">
       <title>Preface</title><p id="_">This is a preamble</p></foreword>
       <acknowledgements id='_' obligation='informative'>
@@ -165,7 +165,7 @@ RSpec.describe Metanorma::Ogc do
         <title>Clause</title>
         <p id="_">Clause 1</p>
       </clause></sections>
-      </ogc-standard>
+      </metanorma>
     OUTPUT
 
     xml = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
@@ -179,7 +179,7 @@ RSpec.describe Metanorma::Ogc do
     xml.xpath("//xmlns:bibdata | //xmlns:boilerplate | " \
               "//xmlns:metanorma-extension").each(&:remove)
     output = <<~OUTPUT
-          <ogc-standard xmlns="https://www.metanorma.org/ns/ogc" type="semantic" version="#{Metanorma::Ogc::VERSION}">
+          <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ogc::VERSION}" flavor="ogc">
       <preface><foreword id="_" obligation="informative">
       <title>Preface</title><p id="_">This is a preamble</p></foreword>
       <acknowledgements id='_' obligation='informative'>
@@ -210,7 +210,7 @@ RSpec.describe Metanorma::Ogc do
         <title>Clause</title>
         <p id="_">Clause 1</p>
       </clause></sections>
-      </ogc-standard>
+      </metanorma>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(output)
@@ -243,7 +243,7 @@ RSpec.describe Metanorma::Ogc do
     INPUT
 
     output = <<~"OUTPUT"
-      <ogc-standard xmlns="https://www.metanorma.org/ns/ogc" type="semantic" version="#{Metanorma::Ogc::VERSION}">
+      <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ogc::VERSION}" flavor="ogc">
       <preface><foreword id="_" obligation="informative">
       <title>Preface</title><p id="_">This is a preamble</p></foreword>
       <acknowledgements id='_' obligation='informative'>
@@ -279,7 +279,7 @@ RSpec.describe Metanorma::Ogc do
         <title>Clause</title>
         <p id="_">Clause 1</p>
       </clause></sections>
-      </ogc-standard>
+      </metanorma>
     OUTPUT
 
     xml = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
@@ -328,7 +328,7 @@ RSpec.describe Metanorma::Ogc do
          <clause id="_" obligation="normative">
            <title>Section 1</title>
          </clause></sections>
-         </ogc-standard>
+         </metanorma>
     OUTPUT
 
     expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
@@ -352,7 +352,7 @@ RSpec.describe Metanorma::Ogc do
            <p id="_">This is a prefatory paragraph</p>
          </terms>
          </sections>
-         </ogc-standard>
+         </metanorma>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
       .to be_equivalent_to Xml::C14n.format(output)
@@ -377,7 +377,7 @@ RSpec.describe Metanorma::Ogc do
            #{SECURITY}
          </preface>
          <sections> </sections>
-       </ogc-standard>
+       </metanorma>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
       .to be_equivalent_to Xml::C14n.format(output)
@@ -398,7 +398,7 @@ RSpec.describe Metanorma::Ogc do
                <title>Conformance</title>
              </clause>
            </sections>
-         </ogc-standard>
+         </metanorma>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
       .to be_equivalent_to Xml::C14n.format(output)
@@ -422,7 +422,7 @@ RSpec.describe Metanorma::Ogc do
            </clause>
          </preface>
          <sections/>
-       </ogc-standard>
+       </metanorma>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
       .to be_equivalent_to Xml::C14n.format(output)
@@ -444,7 +444,7 @@ RSpec.describe Metanorma::Ogc do
          <sections><clause id="_" obligation="normative">
             <title>Clause</title>
          </sections>
-       </ogc-standard>
+       </metanorma>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
       .to be_equivalent_to Xml::C14n.format(output)
@@ -460,14 +460,14 @@ RSpec.describe Metanorma::Ogc do
 
     INPUT
     output = <<~OUTPUT
-      <ogc-standard xmlns="https://www.metanorma.org/ns/ogc" type="semantic" version="#{Metanorma::Ogc::VERSION}">
+      <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ogc::VERSION}" flavor="ogc">
       <sections>
           <clause id='_' obligation='normative'>
             <title>Security Considerations</title>
             <p id="_">This is a security consideration</p>
           </clause>
         </sections>
-      </ogc-standard>
+      </metanorma>
     OUTPUT
     xml = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
     xml.xpath("//xmlns:bibdata | //xmlns:boilerplate | //xmlns:metanorma-extension")
@@ -482,13 +482,13 @@ RSpec.describe Metanorma::Ogc do
 
     INPUT
     output = <<~OUTPUT
-      <ogc-standard xmlns="https://www.metanorma.org/ns/ogc" type="semantic" version="#{Metanorma::Ogc::VERSION}">
+      <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ogc::VERSION}" flavor="ogc">
                <sections>
            <clause id="_" obligation="normative">
              <title>Clause</title>
            </clause>
          </sections>
-      </ogc-standard>
+      </metanorma>
     OUTPUT
     xml = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
     xml.xpath("//xmlns:bibdata | //xmlns:boilerplate | //xmlns:metanorma-extension")
@@ -529,7 +529,7 @@ RSpec.describe Metanorma::Ogc do
          </preface>
          <sections>
          </sections>
-       </ogc-standard>
+       </metanorma>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
       .to be_equivalent_to Xml::C14n.format(output)
@@ -561,7 +561,7 @@ RSpec.describe Metanorma::Ogc do
         <p id='_'>And so is this</p>
       </clause>
           </sections>
-        </ogc-standard>
+        </metanorma>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
       .to be_equivalent_to Xml::C14n.format(output)
@@ -603,7 +603,7 @@ RSpec.describe Metanorma::Ogc do
           </term>
         </terms>
       </annex>
-      </ogc-standard>
+      </metanorma>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
       .to be_equivalent_to Xml::C14n.format(output)
@@ -629,7 +629,7 @@ RSpec.describe Metanorma::Ogc do
           </term>
         </terms>
       </annex>
-      </ogc-standard>
+      </metanorma>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
       .to be_equivalent_to Xml::C14n.format(output)
@@ -702,7 +702,7 @@ RSpec.describe Metanorma::Ogc do
                      </term>
                    </terms>
                </annex>
-             </ogc-standard>
+             </metanorma>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
       .to be_equivalent_to Xml::C14n.format(output)
@@ -732,7 +732,7 @@ RSpec.describe Metanorma::Ogc do
             <title>References</title>
           </references>
         </bibliography>
-      </ogc-standard>
+      </metanorma>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
       .to be_equivalent_to Xml::C14n.format(output)
@@ -765,7 +765,7 @@ RSpec.describe Metanorma::Ogc do
         <annex id='_' obligation='informative'>
           <title>Revision History</title>
         </annex>
-      </ogc-standard>
+      </metanorma>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
       .to be_equivalent_to Xml::C14n.format(output)
@@ -815,7 +815,7 @@ RSpec.describe Metanorma::Ogc do
         <annex id='_' obligation='informative'>
           <title>Revision History</title>
         </annex>
-      </ogc-standard>
+      </metanorma>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
       .to be_equivalent_to Xml::C14n.format(output)

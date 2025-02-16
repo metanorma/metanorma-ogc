@@ -11,7 +11,7 @@ RSpec.describe Metanorma::Ogc do
           #{blank_hdr_gen}
           <preface>#{SECURITY}</preface>
       <sections/>
-      </ogc-standard>
+      </metanorma>
     OUTPUT
 
     expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
@@ -36,7 +36,7 @@ RSpec.describe Metanorma::Ogc do
              <title>Clause</title>
              </clause>
              </sections>
-      </ogc-standard>
+      </metanorma>
     OUTPUT
 
     FileUtils.rm_f "test.html"

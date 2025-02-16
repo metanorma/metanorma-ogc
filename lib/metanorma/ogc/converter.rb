@@ -11,8 +11,8 @@ module Metanorma
     # schema encapsulation of the document for validation
     #
     class Converter < Standoc::Converter
-      XML_ROOT_TAG = "ogc-standard".freeze
-      XML_NAMESPACE = "https://www.metanorma.org/ns/ogc".freeze
+      #XML_ROOT_TAG = "ogc-standard".freeze
+      #XML_NAMESPACE = "https://www.metanorma.org/ns/ogc".freeze
 
       register_for "ogc"
 
