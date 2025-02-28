@@ -167,7 +167,8 @@ module IsoDoc
 
       def bibrender_formattedref(formattedref, xml); end
 
-      def bibrender_relaton(xml, renderings)
+      # KILL
+      def bibrender_relatonx(xml, renderings)
         f = renderings[xml["id"]][:formattedref]
         f &&= "<formattedref>#{f}</formattedref>"
         keep = "./docidentifier | ./uri | ./note | ./status | ./biblio-tag"
