@@ -1,3 +1,5 @@
+@use 'variables' as *;
+
 .coverpage-maturity, .coverpage-stage {
   font-family: $headerfont;
   font-weight: 400;
