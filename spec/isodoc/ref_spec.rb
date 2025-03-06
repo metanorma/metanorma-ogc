@@ -426,9 +426,18 @@ RSpec.describe IsoDoc::Ogc do
                       <em>Cereals and cereal products</em>
                       . International Organization for Standardization
                    </formattedref>
+                   <title format="text/plain">Cereals or cereal products</title>
+                   <title type="main" format="text/plain">Cereals and cereal products</title>
                    <docidentifier type="metanorma-ordinal">[1]</docidentifier>
                    <docidentifier type="ISO">ISO 712</docidentifier>
                    <docidentifier scope="biblio-tag">ISO 712</docidentifier>
+                   <contributor>
+                      <role type="publisher"/>
+                      <organization>
+                         <name>International Organization for Standardization</name>
+                         <abbreviation>ISO</abbreviation>
+                      </organization>
+                   </contributor>
                    <biblio-tag/>
                 </bibitem>
                 <bibitem id="ISO16634" type="standard">
@@ -437,8 +446,23 @@ RSpec.describe IsoDoc::Ogc do
                       <em>Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</em>
                       . International Organization for Standardization
                    </formattedref>
+                   <title language="x" format="text/plain">Cereals, pulses, milled cereal products, xxxx, oilseeds and animal feeding stuffs</title>
+                   <title language="en" format="text/plain">Cereals, pulses, milled cereal products, oilseeds and animal feeding stuffs</title>
                    <docidentifier type="ISO">ISO 16634:-- (all parts)</docidentifier>
                    <docidentifier scope="biblio-tag">ISO 16634:-- (all parts)</docidentifier>
+                   <date type="published">
+                      <on>--</on>
+                   </date>
+                   <contributor>
+                      <role type="publisher"/>
+                      <organization>
+                         <name>International Organization for Standardization</name>
+                         <abbreviation>ISO</abbreviation>
+                      </organization>
+                   </contributor>
+                   <extent type="part">
+                      <referenceFrom>all</referenceFrom>
+                   </extent>
                    <biblio-tag/>
                 </bibitem>
                 <bibitem id="ISO20483" type="standard">
@@ -447,8 +471,20 @@ RSpec.describe IsoDoc::Ogc do
                       <em>Cereals and pulses</em>
                       . International Organization for Standardization (2013–2014).
                    </formattedref>
+                   <title format="text/plain">Cereals and pulses</title>
                    <docidentifier type="ISO">ISO 20483:2013-2014</docidentifier>
                    <docidentifier scope="biblio-tag">ISO 20483:2013-2014</docidentifier>
+                   <date type="published">
+                      <from>2013</from>
+                      <to>2014</to>
+                   </date>
+                   <contributor>
+                      <role type="publisher"/>
+                      <organization>
+                         <name>International Organization for Standardization</name>
+                         <abbreviation>ISO</abbreviation>
+                      </organization>
+                   </contributor>
                    <biblio-tag/>
                 </bibitem>
                 <bibitem id="ref1">
@@ -495,9 +531,46 @@ RSpec.describe IsoDoc::Ogc do
                       </semx>
                       .
                    </formattedref>
+                   <title type="title-main" format="text/plain" language="en" script="Latn">Development of Spatial Data Infrastructures for Marine Data Management</title>
                    <uri type="obp">https://portal.opengeospatial.org/files/?artifact_id=88037</uri>
                    <docidentifier type="OGC">OGC 19-025r1</docidentifier>
                    <docidentifier scope="biblio-tag">OGC 19-025r1</docidentifier>
+                   <date type="published">
+                      <on>2019-05</on>
+                   </date>
+                   <contributor>
+                      <role type="author"/>
+                      <person>
+                         <name>
+                            <completename>Robert Thomas</completename>
+                         </name>
+                      </person>
+                   </contributor>
+                   <contributor>
+                      <role type="author"/>
+                      <person>
+                         <name>
+                            <completename>Terry Idol</completename>
+                         </name>
+                      </person>
+                   </contributor>
+                   <contributor>
+                      <role type="publisher"/>
+                      <organization>
+                         <name>Open Geospatial Consortium</name>
+                      </organization>
+                   </contributor>
+                   <edition>1</edition>
+                   <language>en</language>
+                   <script>Latn</script>
+                   <ext>
+                      <doctype>engineering-report</doctype>
+                      <editorialgroup>
+                         <committee>technical</committee>
+                         <subcommittee number="11" type="OGC">Subcommittee</subcommittee>
+                         <workgroup number="22" type="WG">Working</workgroup>
+                      </editorialgroup>
+                   </ext>
                    <biblio-tag/>
                 </bibitem>
                 <bibitem id="ogc2">
@@ -506,11 +579,69 @@ RSpec.describe IsoDoc::Ogc do
                       <em>Conformance Test Guidelines for OpenGIS Catalog Services Specification for CORBA</em>
                       . Open Geospatial Consortium (2000).
                    </formattedref>
+                   <title language="en" format="text/plain">Conformance Test Guidelines for OpenGIS Catalog Services Specification for CORBA</title>
                    <docidentifier type="OGC">OGC 00-027</docidentifier>
                    <docidentifier scope="biblio-tag">OGC 00-027</docidentifier>
+                   <docnumber>00-027</docnumber>
+                   <date type="published">
+                      <on>2000</on>
+                   </date>
+                   <contributor>
+                      <role type="author"/>
+                      <organization>
+                         <name>Geodan Holding bv, the Netherlands</name>
+                      </organization>
+                   </contributor>
+                   <contributor>
+                      <role type="editor"/>
+                      <person>
+                         <name>
+                            <completename>Laura Diaz</completename>
+                         </name>
+                      </person>
+                   </contributor>
+                   <contributor>
+                      <role type="editor"/>
+                      <person>
+                         <name>
+                            <completename>Bart van der Eijnden</completename>
+                         </name>
+                      </person>
+                   </contributor>
+                   <contributor>
+                      <role type="editor"/>
+                      <person>
+                         <name>
+                            <completename>Barend Gehrels</completename>
+                         </name>
+                      </person>
+                   </contributor>
+                   <contributor>
+                      <role type="publisher"/>
+                      <organization>
+                         <name>Open Geospatial Consortium</name>
+                      </organization>
+                   </contributor>
+                   <edition>1.0</edition>
+                   <language>en</language>
+                   <script>Latn</script>
                    <status>
                       <stage>published</stage>
                    </status>
+                   <copyright>
+                      <from>2020</from>
+                      <owner>
+                         <organization>
+                            <name>Open Geospatial Consortium</name>
+                         </organization>
+                      </owner>
+                   </copyright>
+                   <ext>
+                      <doctype>test-suite</doctype>
+                      <editorialgroup>
+                         <committee>technical</committee>
+                      </editorialgroup>
+                   </ext>
                    <biblio-tag/>
                 </bibitem>
                 <bibitem id="ogc3">
@@ -519,11 +650,53 @@ RSpec.describe IsoDoc::Ogc do
                       <em>Technical Committee Policies and Procedures</em>
                       . Open Geospatial Consortium (2019).
                    </formattedref>
+                   <title language="en" format="text/plain">Technical Committee Policies and Procedures</title>
                    <docidentifier type="OGC">OGC 05-020r27</docidentifier>
                    <docidentifier scope="biblio-tag">OGC 05-020r27</docidentifier>
+                   <docnumber>05-020r27</docnumber>
+                   <date type="published">
+                      <on>2019-06-03</on>
+                   </date>
+                   <date type="issued">
+                      <on>2019-05-29</on>
+                   </date>
+                   <date type="received">
+                      <on>2019-03-28</on>
+                   </date>
+                   <contributor>
+                      <role type="editor"/>
+                      <person>
+                         <name>
+                            <completename>Scott Simmons</completename>
+                         </name>
+                      </person>
+                   </contributor>
+                   <contributor>
+                      <role type="publisher"/>
+                      <organization>
+                         <name>Open Geospatial Consortium</name>
+                      </organization>
+                   </contributor>
+                   <edition>27.0</edition>
+                   <language>en</language>
+                   <script>Latn</script>
                    <status>
                       <stage>draft</stage>
                    </status>
+                   <copyright>
+                      <from>2019</from>
+                      <owner>
+                         <organization>
+                            <name>Open Geospatial Consortium</name>
+                         </organization>
+                      </owner>
+                   </copyright>
+                   <ext>
+                      <doctype>policy</doctype>
+                      <editorialgroup>
+                         <committee>Technical Committee</committee>
+                      </editorialgroup>
+                   </ext>
                    <biblio-tag/>
                 </bibitem>
              </references>
@@ -539,8 +712,16 @@ RSpec.describe IsoDoc::Ogc do
                       <em>Chemicals for analytical laboratory use</em>
                       . ISBN Publishers, n.p. (n.d.).
                    </formattedref>
+                   <title format="text/plain">Chemicals for analytical laboratory use</title>
                    <docidentifier type="metanorma-ordinal">[3]</docidentifier>
                    <docidentifier type="ISBN">ISBN</docidentifier>
+                   <contributor>
+                      <role type="publisher"/>
+                      <organization>
+                         <name>ISBN Publishers</name>
+                         <abbreviation>ISBN</abbreviation>
+                      </organization>
+                   </contributor>
                    <biblio-tag>
                       [1]
                       <tab/>
@@ -551,9 +732,24 @@ RSpec.describe IsoDoc::Ogc do
                       <em>Instruments for analytical laboratory use</em>
                       . ISSN Publishers. (n.d.).
                    </formattedref>
+                   <title format="text/plain">Instruments for analytical laboratory use</title>
                    <docidentifier type="metanorma-ordinal">[4]</docidentifier>
                    <docidentifier type="ISSN">ISSN</docidentifier>
                    <uri>http://www.example.com</uri>
+                   <contributor>
+                      <role type="editor"/>
+                      <person>
+                         <name>
+                            <completename>Euclid</completename>
+                         </name>
+                      </person>
+                   </contributor>
+                   <contributor>
+                      <role type="publisher"/>
+                      <organization>
+                         <name>ISSN Publishers</name>
+                      </organization>
+                   </contributor>
                    <biblio-tag>
                       [2]
                       <tab/>
@@ -589,9 +785,17 @@ RSpec.describe IsoDoc::Ogc do
                       <em>Water for analytical laboratory use</em>
                       . International Organization for Standardization
                    </formattedref>
+                   <title format="text/plain">Water for analytical laboratory use</title>
                    <docidentifier type="metanorma-ordinal">[5]</docidentifier>
                    <docidentifier type="ISO">ISO 3696</docidentifier>
                    <docidentifier scope="biblio-tag">ISO 3696</docidentifier>
+                   <contributor>
+                      <role type="publisher"/>
+                      <organization>
+                         <name>International Organization for Standardization</name>
+                         <abbreviation>ISO</abbreviation>
+                      </organization>
+                   </contributor>
                    <biblio-tag>
                       [3]
                       <tab/>
@@ -639,6 +843,42 @@ RSpec.describe IsoDoc::Ogc do
                       <em>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</em>
                       .
                    </formattedref>
+                   <contributor>
+                      <role type="author"/>
+                      <person>
+                         <name>
+                            <completename>Fred Johnson</completename>
+                         </name>
+                      </person>
+                   </contributor>
+                   <contributor>
+                      <role type="author"/>
+                      <person>
+                         <name>
+                            <surname>Jackson</surname>
+                            <formatted-initials>K. G.</formatted-initials>
+                         </name>
+                      </person>
+                   </contributor>
+                   <contributor>
+                      <role type="author"/>
+                      <person>
+                         <name>
+                            <surname>Nixon</surname>
+                            <forename>Richard</forename>
+                            <forename>Milhouse</forename>
+                         </name>
+                      </person>
+                   </contributor>
+                   <contributor>
+                      <role type="editor"/>
+                      <person>
+                         <name>
+                            <completename>Euclid</completename>
+                         </name>
+                      </person>
+                   </contributor>
+                   <title>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</title>
                    <docidentifier type="metanorma-ordinal">[8]</docidentifier>
                    <docidentifier type="IETF">IETF RFC 10</docidentifier>
                    <docidentifier scope="biblio-tag">IETF RFC 10</docidentifier>
@@ -673,6 +913,8 @@ RSpec.describe IsoDoc::Ogc do
                       </semx>
                       .
                    </formattedref>
+                   <fetched/>
+                   <title format="text/plain" language="en" script="Latn">Hypertext Transfer Protocol — HTTP/1.1</title>
                    <uri type="xml">https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2616.xml</uri>
                    <uri type="src">https://www.rfc-editor.org/info/rfc2616</uri>
                    <docidentifier type="metanorma-ordinal">[10]</docidentifier>
@@ -680,6 +922,115 @@ RSpec.describe IsoDoc::Ogc do
                    <docidentifier type="IETF" scope="anchor">IETF RFC2616</docidentifier>
                    <docidentifier type="DOI">DOI 10.17487/RFC2616</docidentifier>
                    <docidentifier scope="biblio-tag">IETF RFC 2616</docidentifier>
+                   <date type="published">
+                      <on>1999-06</on>
+                   </date>
+                   <contributor>
+                      <role type="author"/>
+                      <person>
+                         <name>
+                            <completename language="en">R. Fielding</completename>
+                         </name>
+                         <affiliation>
+                            <organization>
+                               <name>IETF</name>
+                               <abbreviation>IETF</abbreviation>
+                            </organization>
+                         </affiliation>
+                      </person>
+                   </contributor>
+                   <contributor>
+                      <role type="author"/>
+                      <person>
+                         <name>
+                            <completename language="en">J. Gettys</completename>
+                         </name>
+                         <affiliation>
+                            <organization>
+                               <name>IETF</name>
+                               <abbreviation>IETF</abbreviation>
+                            </organization>
+                         </affiliation>
+                      </person>
+                   </contributor>
+                   <contributor>
+                      <role type="author"/>
+                      <person>
+                         <name>
+                            <completename language="en">J. Mogul</completename>
+                         </name>
+                         <affiliation>
+                            <organization>
+                               <name>IETF</name>
+                               <abbreviation>IETF</abbreviation>
+                            </organization>
+                         </affiliation>
+                      </person>
+                   </contributor>
+                   <contributor>
+                      <role type="author"/>
+                      <person>
+                         <name>
+                            <completename language="en">H. Frystyk</completename>
+                         </name>
+                         <affiliation>
+                            <organization>
+                               <name>IETF</name>
+                               <abbreviation>IETF</abbreviation>
+                            </organization>
+                         </affiliation>
+                      </person>
+                   </contributor>
+                   <contributor>
+                      <role type="author"/>
+                      <person>
+                         <name>
+                            <completename language="en">L. Masinter</completename>
+                         </name>
+                         <affiliation>
+                            <organization>
+                               <name>IETF</name>
+                               <abbreviation>IETF</abbreviation>
+                            </organization>
+                         </affiliation>
+                      </person>
+                   </contributor>
+                   <contributor>
+                      <role type="author"/>
+                      <person>
+                         <name>
+                            <completename language="en">P. Leach</completename>
+                         </name>
+                         <affiliation>
+                            <organization>
+                               <name>IETF</name>
+                               <abbreviation>IETF</abbreviation>
+                            </organization>
+                         </affiliation>
+                      </person>
+                   </contributor>
+                   <contributor>
+                      <role type="author"/>
+                      <person>
+                         <name>
+                            <completename language="en">T. Berners-Lee</completename>
+                         </name>
+                         <affiliation>
+                            <organization>
+                               <name>IETF</name>
+                               <abbreviation>IETF</abbreviation>
+                            </organization>
+                         </affiliation>
+                      </person>
+                   </contributor>
+                   <language>en</language>
+                   <script>Latn</script>
+                   <abstract format="text/plain" language="en" script="Latn">HTTP has been in use by the World-Wide Web global information initiative since 1990. This specification defines the protocol referred to as “HTTP/1.1”, and is an update to RFC 2068. [STANDARDS-TRACK]</abstract>
+                   <series type="main">
+                      <title format="text/plain" language="en" script="Latn">RFC</title>
+                      <number>2616</number>
+                   </series>
+                   <place>Fremont, CA</place>
                    <biblio-tag>
                       [8]
                       <tab/>
