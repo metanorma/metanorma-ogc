@@ -91,14 +91,6 @@ module IsoDoc
       "<br/>"
     end
 
-      # KILL
-      def annex1x(elem)
-        lbl = @xrefs.anchor(elem["id"], :label)
-        t = elem.at(ns("./title")) and
-          t.children = "<strong>#{to_xml(t.children)}</strong>"
-        prefix_name(elem, { caption: "<br/>" }, lbl, "title")
-      end
-
       def clause(docxml)
         super
         docxml.xpath(ns("//submitters")).each { |f| clause1(f) }

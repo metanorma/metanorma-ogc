@@ -92,18 +92,6 @@ module IsoDoc
         end
       end
 
-      # KILL
-      def sequential_permission_bodyx(id, block, label, klass, model, container: false)
-        @anchors[block["id"]] = model.postprocess_anchor_struct(
-          block, anchor_struct(id, container ? block : nil,
-                               label, klass, block["unnumbered"])
-        )
-        model.permission_parts(block, id, label, klass).each do |n|
-          @anchors[n[:id]] = anchor_struct(n[:number], n[:elem], n[:label],
-                                           n[:klass], { unnumb: false, container: container })
-        end
-      end
-
       FIGURE_NO_CLASS = ".//figure[not(@class)]".freeze
 
       LISTING = <<~XPATH.freeze

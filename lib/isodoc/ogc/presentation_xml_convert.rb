@@ -20,13 +20,6 @@ module IsoDoc
         File.read(File.join(@libdir, "html", "rouge.css"))
       end
 
-      # KILL
-      def example1x(elem)
-        lbl = @xrefs.anchor(elem["id"], :label, false)
-        prefix_name(elem, block_delim, l10n("#{@i18n.example} #{lbl}"),
-                    "name")
-      end
-
       def bibdata(docxml)
         docxml.xpath(ns("//bibdata/contributor[@type = 'author']")).each do |a|
           a.at(ns("./description"))&.text == "contributor" and
@@ -145,15 +138,6 @@ module IsoDoc
         %i(arabic alphabet roman alphabet_upper roman_upper)[(idx - 1) % 5]
       end
 
-      # KILL
-      def termsource1xx(elem)
-        while elem&.next_element&.name == "termsource"
-          elem << "; #{to_xml(elem.next_element.remove.children)}"
-        end
-        elem.children = l10n("[<strong>#{@i18n.source}:</strong> " \
-                             "#{to_xml(elem.children).strip}]")
-      end
-
       def termsource_label(elem, sources)
         elem.replace(l10n("[<strong>#{@i18n.source}:</strong> " \
                              "#{sources}]"))
@@ -166,14 +150,6 @@ module IsoDoc
       end
 
       def bibrender_formattedref(formattedref, xml); end
-
-      # KILL
-      def bibrender_relatonx(xml, renderings)
-        f = renderings[xml["id"]][:formattedref]
-        f &&= "<formattedref>#{f}</formattedref>"
-        keep = "./docidentifier | ./uri | ./note | ./status | ./biblio-tag"
-        xml.children = "#{f}#{xml.xpath(ns(keep)).to_xml}"
-      end
 
       def norm_ref_entry_code(_ordinal, _idents, _ids, _standard, _datefn, _bib)
         ""
