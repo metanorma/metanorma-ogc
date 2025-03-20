@@ -90,7 +90,7 @@ module IsoDoc
         if cell.at("./ancestor::xmlns:table[@class = 'recommendation'] | " \
                    "./ancestor::xmlns:table[@class = 'requirement'] | " \
                    "./ancestor::xmlns:table[@class = 'permission']")
-          ret[:style] = "vertical-align:top;"
+          ret[:style] = "vertical-align:top;#{ret["style"]}"
           ret[:class] = "recommend"
         end
         ret
