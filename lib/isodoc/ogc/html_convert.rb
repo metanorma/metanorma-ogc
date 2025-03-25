@@ -154,8 +154,10 @@ module IsoDoc
       end
 
       def collapsible(html)
-        html.xpath("//*[@class = 'sourcecode' or @class = 'figure']")
-          .each do |d|
+        x = html.xpath("//*[@class = 'sourcecode' or @class = 'figure']") -
+          html.xpath("//*[@class = 'sourcecode' or @class = 'figure']" \
+            "//*[@class = 'sourcecode' or @class = 'figure']")
+        x.each do |d|
           d["class"] += " hidable"
           d.previous = "<p class='collapsible active'>&#xa0;</p>"
         end
