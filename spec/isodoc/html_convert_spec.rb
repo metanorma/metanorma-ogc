@@ -1200,7 +1200,7 @@ RSpec.describe IsoDoc::Ogc do
                 <table class="rouge-line-table" style="">
                    <tbody>
                       <tr>
-                         <td style="" class="rouge-gutter gl">
+                         <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;" class="rouge-gutter gl">
                             <pre>1</pre>
                          </td>
                          <td style="" class="rouge-code">
