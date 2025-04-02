@@ -268,17 +268,17 @@ RSpec.describe IsoDoc::Ogc do
       </body>
     OUTPUT
     pres_output = IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
-          .convert("test", input, true)
+      .convert("test", input, true)
     xml = Nokogiri::XML(pres_output)
     xml.at("//xmlns:localized-strings").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(strip_guid(
-             IsoDoc::Ogc::HtmlConvert.new({})
-             .convert("test", pres_output, true)
-             .gsub(%r{^.*<body}m, "<body")
-             .gsub(%r{</body>.*}m, "</body>"),
-    ))).to be_equivalent_to Xml::C14n.format(output)
+                              IsoDoc::Ogc::HtmlConvert.new({})
+                              .convert("test", pres_output, true)
+                              .gsub(%r{^.*<body}m, "<body")
+                              .gsub(%r{</body>.*}m, "</body>"),
+                            ))).to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "processes keyword with preface" do
@@ -297,48 +297,48 @@ RSpec.describe IsoDoc::Ogc do
     INPUT
 
     presxml = <<~OUTPUT
-          <ogc-standard xmlns='https://standards.opengeospatial.org/document' type="presentation">
-               <bibdata>
-                 <keyword>ABC</keyword>
-                 <keyword>DEF</keyword>
-               </bibdata>
-        #{METANORMA_EXTENSION}
-                  <preface>
-             <clause type="toc" id="_" displayorder="1">
-                <fmt-title depth="1">Contents</fmt-title>
-             </clause>
-             <abstract id="A" displayorder="2">
-                <fmt-title depth="1">
-                   <span class="fmt-caption-label">
-                      <semx element="autonum" source="A">I</semx>
-                      <span class="fmt-autonum-delim">.</span>
-                   </span>
-                </fmt-title>
-                <fmt-xref-label>
-                   <semx element="title" source="A"/>
-                </fmt-xref-label>
-             </abstract>
-             <clause id="_" type="keywords" displayorder="3">
-                <title id="_">Keywords</title>
-                <fmt-title depth="1">
-                   <span class="fmt-caption-label">
-                      <semx element="autonum" source="_">II</semx>
-                      <span class="fmt-autonum-delim">.</span>
-                   </span>
-                   <span class="fmt-caption-delim">
-                      <tab/>
-                   </span>
-                   <semx element="title" source="_">Keywords</semx>
-                </fmt-title>
-                <fmt-xref-label>
-                   <semx element="title" source="_">Keywords</semx>
-                </fmt-xref-label>
-                <p>The following are keywords to be used by search engines and document catalogues.</p>
-                <p>ABC, DEF</p>
-             </clause>
-          </preface>
-          <sections/>
-       </ogc-standard>
+         <ogc-standard xmlns='https://standards.opengeospatial.org/document' type="presentation">
+              <bibdata>
+                <keyword>ABC</keyword>
+                <keyword>DEF</keyword>
+              </bibdata>
+       #{METANORMA_EXTENSION}
+                 <preface>
+            <clause type="toc" id="_" displayorder="1">
+               <fmt-title depth="1">Contents</fmt-title>
+            </clause>
+            <abstract id="A" displayorder="2">
+               <fmt-title depth="1">
+                  <span class="fmt-caption-label">
+                     <semx element="autonum" source="A">I</semx>
+                     <span class="fmt-autonum-delim">.</span>
+                  </span>
+               </fmt-title>
+               <fmt-xref-label>
+                  <semx element="title" source="A"/>
+               </fmt-xref-label>
+            </abstract>
+            <clause id="_" type="keywords" displayorder="3">
+               <title id="_">Keywords</title>
+               <fmt-title depth="1">
+                  <span class="fmt-caption-label">
+                     <semx element="autonum" source="_">II</semx>
+                     <span class="fmt-autonum-delim">.</span>
+                  </span>
+                  <span class="fmt-caption-delim">
+                     <tab/>
+                  </span>
+                  <semx element="title" source="_">Keywords</semx>
+               </fmt-title>
+               <fmt-xref-label>
+                  <semx element="title" source="_">Keywords</semx>
+               </fmt-xref-label>
+               <p>The following are keywords to be used by search engines and document catalogues.</p>
+               <p>ABC, DEF</p>
+            </clause>
+         </preface>
+         <sections/>
+      </ogc-standard>
     OUTPUT
 
     output = <<~"OUTPUT"
@@ -359,17 +359,17 @@ RSpec.describe IsoDoc::Ogc do
       </body>
     OUTPUT
     pres_output = IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
-          .convert("test", input, true)
+      .convert("test", input, true)
     xml = Nokogiri::XML(pres_output)
     xml.at("//xmlns:localized-strings").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
     expect(Xml::C14n.format(strip_guid(
-             IsoDoc::Ogc::HtmlConvert.new({})
-             .convert("test", pres_output, true)
-             .gsub(%r{^.*<body}m, "<body")
-             .gsub(%r{</body>.*}m, "</body>"),
-    ))).to be_equivalent_to Xml::C14n.format(output)
+                              IsoDoc::Ogc::HtmlConvert.new({})
+                              .convert("test", pres_output, true)
+                              .gsub(%r{^.*<body}m, "<body")
+                              .gsub(%r{</body>.*}m, "</body>"),
+                            ))).to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "processes submitting organisations with no preface" do
@@ -411,32 +411,44 @@ RSpec.describe IsoDoc::Ogc do
                </contributor>
             </bibdata>
       #{METANORMA_EXTENSION}
-            <preface>
-                <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Contents</fmt-title> </clause>
-        <clause id='_' type='submitting_orgs' displayorder="2">
-                 <title id="_">Submitting Organizations</title>
-         <fmt-title depth="1">
-            <span class="fmt-caption-label">
-               <semx element="autonum" source="_">I</semx>
-               <span class="fmt-autonum-delim">.</span>
-            </span>
-            <span class="fmt-caption-delim">
-               <tab/>
-            </span>
-            <semx element="title" source="_">Submitting Organizations</semx>
-         </fmt-title>
-         <fmt-xref-label>
-            <semx element="title" source="_">Submitting Organizations</semx>
-         </fmt-xref-label>
-         <p>The following organizations submitted this Document to the Open Geospatial Consortium (OGC):</p>
-          <ul>
-            <li>OGC</li>
-            <li>DEF</li>
-          </ul>
-        </clause>
-            </preface>
-      <sections/>
-      </ogc-standard>
+          <preface>
+             <clause type="toc" id="_" displayorder="1">
+                <fmt-title depth="1">Contents</fmt-title>
+             </clause>
+             <clause id="_" type="submitting_orgs" displayorder="2">
+                <title id="_">Submitting Organizations</title>
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="_">I</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                   <span class="fmt-caption-delim">
+                      <tab/>
+                   </span>
+                   <semx element="title" source="_">Submitting Organizations</semx>
+                </fmt-title>
+                <fmt-xref-label>
+                   <semx element="title" source="_">Submitting Organizations</semx>
+                </fmt-xref-label>
+                <p>The following organizations submitted this Document to the Open Geospatial Consortium (OGC):</p>
+                <ul>
+                   <li>
+                      <fmt-name>
+                         <semx element="autonum" source="">•</semx>
+                      </fmt-name>
+                      OGC
+                   </li>
+                   <li>
+                      <fmt-name>
+                         <semx element="autonum" source="">•</semx>
+                      </fmt-name>
+                      DEF
+                   </li>
+                </ul>
+             </clause>
+          </preface>
+          <sections/>
+       </ogc-standard>
     OUTPUT
 
     output = <<~"OUTPUT"
@@ -456,7 +468,7 @@ RSpec.describe IsoDoc::Ogc do
         </body>
     OUTPUT
     pres_output = IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
-          .convert("test", input, true)
+      .convert("test", input, true)
     xml = Nokogiri::XML(pres_output)
     xml.at("//xmlns:localized-strings").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
@@ -553,8 +565,18 @@ RSpec.describe IsoDoc::Ogc do
                 </fmt-xref-label>
                 <p>The following organizations submitted this Document to the Open Geospatial Consortium (OGC):</p>
                 <ul>
-                   <li>OGC</li>
-                   <li>DEF</li>
+                   <li>
+                      <fmt-name>
+                         <semx element="autonum" source="">•</semx>
+                      </fmt-name>
+                      OGC
+                   </li>
+                   <li>
+                      <fmt-name>
+                         <semx element="autonum" source="">•</semx>
+                      </fmt-name>
+                      DEF
+                   </li>
                 </ul>
              </clause>
           </preface>
@@ -598,7 +620,7 @@ RSpec.describe IsoDoc::Ogc do
       </body>
     OUTPUT
     pres_output = IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
-          .convert("test", input, true)
+      .convert("test", input, true)
     xml = Nokogiri::XML(pres_output)
     xml.at("//xmlns:localized-strings").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
@@ -933,6 +955,9 @@ RSpec.describe IsoDoc::Ogc do
                       <td>
                          <ul id="_">
                             <li>
+                               <fmt-name>
+                                  <semx element="autonum" source="">•</semx>
+                               </fmt-name>
                                <p id="_">
                                   Put
                                   <em>3D Tiles</em>
@@ -940,6 +965,9 @@ RSpec.describe IsoDoc::Ogc do
                                </p>
                             </li>
                             <li>
+                               <fmt-name>
+                                  <semx element="autonum" source="">•</semx>
+                               </fmt-name>
                                <p id="_">Miscellaneous updates</p>
                             </li>
                          </ul>
@@ -957,5 +985,5 @@ RSpec.describe IsoDoc::Ogc do
     xml.at("//xmlns:bibdata").remove
     expect(Xml::C14n.format(strip_guid(xml.to_xml)))
       .to be_equivalent_to Xml::C14n.format(presxml)
-    end
+  end
 end
