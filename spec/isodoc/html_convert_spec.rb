@@ -172,7 +172,7 @@ RSpec.describe IsoDoc::Ogc do
     OUTPUT
 
     html = <<~OUTPUT
-      <div id="A">
+       <div id="A">
           <h1 class="ForewordTitle" id="_">
              <a class="anchor" href="#A"/>
              <a class="header" href="#A">I.  Preface</a>
@@ -1168,7 +1168,7 @@ RSpec.describe IsoDoc::Ogc do
     OUTPUT
 
     html = <<~OUTPUT
-      <main class="main-section">
+       <main class="main-section">
           <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
           <br/>
           <div id="A">
@@ -1323,5 +1323,310 @@ RSpec.describe IsoDoc::Ogc do
       .sub(/^.*<main/m, "<main")
       .sub(%r{</main>.*$}m, "</main>")
     expect(Xml::C14n.format(out)).to be_equivalent_to Xml::C14n.format(html)
+  end
+
+  it "processes unordered lists" do
+    input = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml">
+      <bibdata>
+      <ext><doctype>standard</doctype></ext>
+      </bibdata>
+          <preface>
+          <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Table of contents</fmt-title> </clause>
+          <foreword displayorder="2" id="fwd"><fmt-title>Foreword</fmt-title>
+          <ul id="_61961034-0fb1-436b-b281-828857a59ddb"  keep-with-next="true" keep-lines-together="true">
+          <name>Caption</name>
+        <li>
+          <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a2">Level 1</p>
+        </li>
+        <li>
+          <p id="_60eb765c-1f6c-418a-8016-29efa06bf4f9">deletion of 4.3.</p>
+          <ul id="_61961034-0fb1-436b-b281-828857a59ddc"  keep-with-next="true" keep-lines-together="true">
+          <li>
+          <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a3">Level 2</p>
+          <ul id="_61961034-0fb1-436b-b281-828857a59ddc"  keep-with-next="true" keep-lines-together="true">
+          <li>
+          <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a3">Level 3</p>
+          <ul id="_61961034-0fb1-436b-b281-828857a59ddc"  keep-with-next="true" keep-lines-together="true">
+          <li>
+          <p id="_cb370dd3-8463-4ec7-aa1a-96f644e2e9a3">Level 4</p>
+        </li>
+        </ul>
+        </li>
+        </ul>
+        </li>
+          </ul>
+        </li>
+      </ul>
+      </foreword></preface>
+      </iso-standard>
+    INPUT
+    presxml = <<~INPUT
+          <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <bibdata>
+            <ext>
+               <doctype>standard</doctype>
+            </ext>
+         </bibdata>
+         <preface>
+            <foreword displayorder="1" id="fwd">
+               <title id="_">Preface</title>
+               <fmt-xref-label>
+                  <semx element="title" source="fwd">Preface</semx>
+               </fmt-xref-label>
+               <fmt-title depth="1">Foreword</fmt-title>
+               <ul id="_" keep-with-next="true" keep-lines-together="true">
+                  <name id="_">Caption</name>
+                  <fmt-name>
+                     <semx element="name" source="_">Caption</semx>
+                  </fmt-name>
+                  <li>
+                     <fmt-name>
+                        <semx element="autonum" source="">•</semx>
+                     </fmt-name>
+                     <p id="_">Level 1</p>
+                  </li>
+                  <li>
+                     <fmt-name>
+                        <semx element="autonum" source="">•</semx>
+                     </fmt-name>
+                     <p id="_">deletion of 4.3.</p>
+                     <ul id="_" keep-with-next="true" keep-lines-together="true">
+                        <li>
+                           <fmt-name>
+                              <semx element="autonum" source="">•</semx>
+                           </fmt-name>
+                           <p id="_">Level 2</p>
+                           <ul id="_" keep-with-next="true" keep-lines-together="true">
+                              <li>
+                                 <fmt-name>
+                                    <semx element="autonum" source="">•</semx>
+                                 </fmt-name>
+                                 <p id="_">Level 3</p>
+                                 <ul id="_" keep-with-next="true" keep-lines-together="true">
+                                    <li>
+                                       <fmt-name>
+                                          <semx element="autonum" source="">•</semx>
+                                       </fmt-name>
+                                       <p id="_">Level 4</p>
+                                    </li>
+                                 </ul>
+                              </li>
+                           </ul>
+                        </li>
+                     </ul>
+                  </li>
+               </ul>
+            </foreword>
+            <clause type="toc" id="_" displayorder="2">
+               <fmt-title depth="1">Table of contents</fmt-title>
+            </clause>
+         </preface>
+      </iso-standard>
+    INPUT
+    pres_output = IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)
+    xml = Nokogiri::XML(pres_output)
+    xml.at("//xmlns:localized-strings").remove
+    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
+    presxml = <<~INPUT
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <bibdata>
+            <ext>
+               <doctype>white-paper</doctype>
+            </ext>
+         </bibdata>
+         <preface>
+            <foreword displayorder="1" id="fwd">
+               <title id="_">Preface</title>
+               <fmt-xref-label>
+                  <semx element="title" source="fwd">Preface</semx>
+               </fmt-xref-label>
+               <fmt-title depth="1">Foreword</fmt-title>
+               <ul id="_" keep-with-next="true" keep-lines-together="true">
+                  <name id="_">Caption</name>
+                  <fmt-name>
+                     <semx element="name" source="_">Caption</semx>
+                  </fmt-name>
+                  <li>
+                     <fmt-name>
+                        <semx element="autonum" source="">—</semx>
+                     </fmt-name>
+                     <p id="_">Level 1</p>
+                  </li>
+                  <li>
+                     <fmt-name>
+                        <semx element="autonum" source="">—</semx>
+                     </fmt-name>
+                     <p id="_">deletion of 4.3.</p>
+                     <ul id="_" keep-with-next="true" keep-lines-together="true">
+                        <li>
+                           <fmt-name>
+                              <semx element="autonum" source="">—</semx>
+                           </fmt-name>
+                           <p id="_">Level 2</p>
+                           <ul id="_" keep-with-next="true" keep-lines-together="true">
+                              <li>
+                                 <fmt-name>
+                                    <semx element="autonum" source="">—</semx>
+                                 </fmt-name>
+                                 <p id="_">Level 3</p>
+                                 <ul id="_" keep-with-next="true" keep-lines-together="true">
+                                    <li>
+                                       <fmt-name>
+                                          <semx element="autonum" source="">—</semx>
+                                       </fmt-name>
+                                       <p id="_">Level 4</p>
+                                    </li>
+                                 </ul>
+                              </li>
+                           </ul>
+                        </li>
+                     </ul>
+                  </li>
+               </ul>
+            </foreword>
+            <clause type="toc" id="_" displayorder="2">
+               <fmt-title depth="1">Table of contents</fmt-title>
+            </clause>
+         </preface>
+      </iso-standard>
+    INPUT
+    pres_output = IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input.sub("<doctype>standard",
+                                 "<doctype>white-paper"), true)
+    xml = Nokogiri::XML(pres_output)
+    xml.at("//xmlns:localized-strings").remove
+    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
+  end
+
+  it "processes ordered lists" do
+    input = <<~INPUT
+          <iso-standard xmlns="http://riboseinc.com/isoxml">
+          <preface>
+          <foreword id="_" displayorder="2">
+          <ol id="_ae34a226-aab4-496d-987b-1aa7b6314026" type="alphabet"  keep-with-next="true" keep-lines-together="true">
+          <name>Caption</name>
+        <li>
+          <p id="_0091a277-fb0e-424a-aea8-f0001303fe78">Level 1</p>
+          </li>
+          </ol>
+        <ol id="A">
+        <li>
+          <p id="_0091a277-fb0e-424a-aea8-f0001303fe78">Level 1</p>
+          </li>
+        <li>
+          <p id="_8a7b6299-db05-4ff8-9de7-ff019b9017b2">Level 1</p>
+        <ol>
+        <li>
+          <p id="_ea248b7f-839f-460f-a173-a58a830b2abe">Level 2</p>
+        <ol>
+        <li>
+          <p id="_ea248b7f-839f-460f-a173-a58a830b2abe">Level 3</p>
+        <ol>
+        <li>
+          <p id="_ea248b7f-839f-460f-a173-a58a830b2abe">Level 4</p>
+        </li>
+        </ol>
+        </li>
+        </ol>
+        </li>
+        </ol>
+        </li>
+        </ol>
+        </li>
+      </ol>
+      </foreword></preface>
+      </iso-standard>
+    INPUT
+    presxml = <<~OUTPUT
+       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+          <preface>
+             <clause type="toc" id="_" displayorder="1">
+                <fmt-title depth="1">Contents</fmt-title>
+             </clause>
+             <foreword id="_" displayorder="2">
+                <title id="_">Preface</title>
+                <fmt-title depth="1">
+                   <span class="fmt-caption-label">
+                      <semx element="autonum" source="_">I</semx>
+                      <span class="fmt-autonum-delim">.</span>
+                   </span>
+                   <span class="fmt-caption-delim">
+                      <tab/>
+                   </span>
+                   <semx element="title" source="_">Preface</semx>
+                </fmt-title>
+                <fmt-xref-label>
+                   <semx element="title" source="_">Preface</semx>
+                </fmt-xref-label>
+                <ol id="_" type="alphabet" keep-with-next="true" keep-lines-together="true" autonum="1">
+                   <name id="_">Caption</name>
+                   <fmt-name>
+                      <semx element="name" source="_">Caption</semx>
+                   </fmt-name>
+                   <li id="_">
+                      <fmt-name>
+                         <semx element="autonum" source="_">a</semx>
+                         <span class="fmt-label-delim">)</span>
+                      </fmt-name>
+                      <p id="_">Level 1</p>
+                   </li>
+                </ol>
+                <ol id="A" type="alphabet">
+                   <li id="_">
+                      <fmt-name>
+                         <semx element="autonum" source="_">a</semx>
+                         <span class="fmt-label-delim">)</span>
+                      </fmt-name>
+                      <p id="_">Level 1</p>
+                   </li>
+                   <li id="_">
+                      <fmt-name>
+                         <semx element="autonum" source="_">b</semx>
+                         <span class="fmt-label-delim">)</span>
+                      </fmt-name>
+                      <p id="_">Level 1</p>
+                      <ol type="arabic">
+                         <li id="_">
+                            <fmt-name>
+                               <semx element="autonum" source="_">1</semx>
+                               <span class="fmt-label-delim">.</span>
+                            </fmt-name>
+                            <p id="_">Level 2</p>
+                            <ol type="roman">
+                               <li id="_">
+                                  <fmt-name>
+                                     <semx element="autonum" source="_">i</semx>
+                                     <span class="fmt-label-delim">)</span>
+                                  </fmt-name>
+                                  <p id="_">Level 3</p>
+                                  <ol type="alphabet_upper">
+                                     <li id="_">
+                                        <fmt-name>
+                                           <semx element="autonum" source="_">A</semx>
+                                           <span class="fmt-label-delim">)</span>
+                                        </fmt-name>
+                                        <p id="_">Level 4</p>
+                                     </li>
+                                  </ol>
+                               </li>
+                            </ol>
+                         </li>
+                      </ol>
+                   </li>
+                </ol>
+             </foreword>
+          </preface>
+       </iso-standard>
+    OUTPUT
+    pres_output = IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)
+    xml = Nokogiri::XML(pres_output)
+    xml.at("//xmlns:localized-strings")&.remove
+    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Xml::C14n.format(presxml)
   end
 end
