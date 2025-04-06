@@ -25,7 +25,7 @@ RSpec.describe Metanorma::Ogc do
 
   it "Warns of version on engineering-report" do
     FileUtils.rm_f "test.err.html"
-    Asciidoctor.convert(<<~INPUT, backend: :ogc, header_footer: true)
+    Asciidoctor.convert(<<~INPUT, *OPTIONS)
       = Document title
       Author
       :edition: 1
@@ -36,12 +36,13 @@ RSpec.describe Metanorma::Ogc do
 
       text
     INPUT
-    expect(File.read("test.err.html")).to include("Version not permitted for engineering-report")
+    expect(File.read("test.err.html"))
+      .to include("Version not permitted for engineering-report")
   end
 
   it "Warns of missing version on document type other than engineering-report or discussion paper" do
     FileUtils.rm_f "test.err.html"
-    Asciidoctor.convert(<<~INPUT, backend: :ogc, header_footer: true)
+    Asciidoctor.convert(<<~INPUT, *OPTIONS)
       = Document title
       Author
       :nodoc:
@@ -51,12 +52,13 @@ RSpec.describe Metanorma::Ogc do
 
       text
     INPUT
-    expect(File.read("test.err.html")).to include("Version required for standard")
+    expect(File.read("test.err.html"))
+      .to include("Version required for standard")
   end
 
   it "Warns of illegal doctype" do
     FileUtils.rm_f "test.err.html"
-    Asciidoctor.convert(<<~INPUT, backend: :ogc, header_footer: true)
+    Asciidoctor.convert(<<~INPUT, *OPTIONS)
       = Document title
       Author
       :docfile: test.adoc
@@ -66,12 +68,13 @@ RSpec.describe Metanorma::Ogc do
 
       text
     INPUT
-    expect(File.read("test.err.html")).to include("'pizza' is not a legal document type")
+    expect(File.read("test.err.html"))
+      .to include("'pizza' is not a legal document type")
   end
 
   it "Warns of illegal doc subtype" do
     FileUtils.rm_f "test.err.html"
-    Asciidoctor.convert(<<~INPUT, backend: :ogc, header_footer: true)
+    Asciidoctor.convert(<<~INPUT, *OPTIONS)
       = Document title
       Author
       :docfile: test.adoc
@@ -82,13 +85,14 @@ RSpec.describe Metanorma::Ogc do
 
       text
     INPUT
-    expect(File.read("test.err.html")).to include \
+    expect(File.read("test.err.html"))
+      .to include \
       ("'pizza' is not a permitted subtype of Standard:​ reverting to 'implementation'")
   end
 
   it "Warns of illegal status" do
     FileUtils.rm_f "test.err.html"
-    Asciidoctor.convert(<<~INPUT, backend: :ogc, header_footer: true)
+    Asciidoctor.convert(<<~INPUT, *OPTIONS)
       = Document title
       Author
       :docfile: test.adoc
@@ -98,12 +102,13 @@ RSpec.describe Metanorma::Ogc do
 
       text
     INPUT
-    expect(File.read("test.err.html")).to include("pizza is not a recognised status")
+    expect(File.read("test.err.html"))
+      .to include("pizza is not a recognised status")
   end
 
   it "Warns of status inconsistent with doctype" do
     FileUtils.rm_f "test.err.html"
-    Asciidoctor.convert(<<~INPUT, backend: :ogc, header_footer: true)
+    Asciidoctor.convert(<<~INPUT, *OPTIONS)
       = Document title
       Author
       :docfile: test.adoc
@@ -114,12 +119,13 @@ RSpec.describe Metanorma::Ogc do
 
       text
     INPUT
-    expect(File.read("test.err.html")).to include("draft is not an allowed status for abstract-specification-topic")
+    expect(File.read("test.err.html"))
+      .to include("draft is not an allowed status for abstract-specification-topic")
   end
 
   it "does not issue section order warnings unless document is a standard" do
     FileUtils.rm_f "test.err.html"
-    Asciidoctor.convert(<<~INPUT, backend: :ogc, header_footer: true)
+    Asciidoctor.convert(<<~INPUT, *OPTIONS)
       = Document title
       Author
       :docfile: test.adoc
@@ -133,19 +139,20 @@ RSpec.describe Metanorma::Ogc do
 
   it "Warning if do not start with scope or introduction" do
     FileUtils.rm_f "test.err.html"
-    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
+    Asciidoctor.convert(<<~"INPUT", *OPTIONS)
       #{VALIDATING_BLANK_HDR}
 
       == Symbols and Abbreviated Terms
 
       Paragraph
     INPUT
-    expect(File.read("test.err.html")).to include("Prefatory material must be followed by (clause) Scope")
+    expect(File.read("test.err.html"))
+      .to include("Prefatory material must be followed by (clause) Scope")
   end
 
   it "Warning if introduction not followed by scope" do
     FileUtils.rm_f "test.err.html"
-    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
+    Asciidoctor.convert(<<~"INPUT", *OPTIONS)
       #{VALIDATING_BLANK_HDR}
 
       .Foreword
@@ -155,12 +162,13 @@ RSpec.describe Metanorma::Ogc do
 
       Paragraph
     INPUT
-    expect(File.read("test.err.html")).to include("Prefatory material must be followed by (clause) Scope")
+    expect(File.read("test.err.html"))
+      .to include("Prefatory material must be followed by (clause) Scope")
   end
 
   it "Warning if scope not followed by conformance" do
     FileUtils.rm_f "test.err.html"
-    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
+    Asciidoctor.convert(<<~"INPUT", *OPTIONS)
       #{VALIDATING_BLANK_HDR}
 
       .Foreword
@@ -172,12 +180,13 @@ RSpec.describe Metanorma::Ogc do
 
       Paragraph
     INPUT
-    expect(File.read("test.err.html")).to include("Scope must be followed by Conformance")
+    expect(File.read("test.err.html"))
+      .to include("Scope must be followed by Conformance")
   end
 
   it "Warning if normative references not followed by terms and definitions" do
     FileUtils.rm_f "test.err.html"
-    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
+    Asciidoctor.convert(<<~"INPUT", *OPTIONS)
       #{VALIDATING_BLANK_HDR}
 
       .Foreword
@@ -192,12 +201,13 @@ RSpec.describe Metanorma::Ogc do
 
       Paragraph
     INPUT
-    expect(File.read("test.err.html")).to include("Normative References must be followed by Terms and Definitions")
+    expect(File.read("test.err.html"))
+      .to include("Normative References must be followed by Terms and Definitions")
   end
 
   it "Warning if there are no clauses in the document" do
     FileUtils.rm_f "test.err.html"
-    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
+    Asciidoctor.convert(<<~"INPUT", *OPTIONS)
       #{VALIDATING_BLANK_HDR}
 
       .Foreword
@@ -215,12 +225,13 @@ RSpec.describe Metanorma::Ogc do
       == Symbols and Abbreviated Terms
 
     INPUT
-    expect(File.read("test.err.html")).to include("Document must contain at least one clause")
+    expect(File.read("test.err.html"))
+      .to include("Document must contain at least one clause")
   end
 
   it "Warning if no normative references" do
     FileUtils.rm_f "test.err.html"
-    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
+    Asciidoctor.convert(<<~"INPUT", *OPTIONS)
       #{VALIDATING_BLANK_HDR}
 
       .Foreword
@@ -244,72 +255,78 @@ RSpec.describe Metanorma::Ogc do
       == Appendix C
 
     INPUT
-    expect(File.read("test.err.html")).to include("Normative References are mandatory")
+    expect(File.read("test.err.html"))
+      .to include("Normative References are mandatory")
   end
 
   it "Warning if missing abstract" do
     FileUtils.rm_f "test.err.html"
-    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
+    Asciidoctor.convert(<<~"INPUT", *OPTIONS)
       #{VALIDATING_BLANK_HDR}
 
       == Symbols and Abbreviated Terms
 
       Paragraph
     INPUT
-    expect(File.read("test.err.html")).to include("Abstract is missing")
+    expect(File.read("test.err.html"))
+      .to include("Abstract is missing")
   end
 
   it "Warning if missing keywords" do
     FileUtils.rm_f "test.err.html"
-    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
+    Asciidoctor.convert(<<~"INPUT", *OPTIONS)
       #{VALIDATING_BLANK_HDR}
 
       == Symbols and Abbreviated Terms
 
       Paragraph
     INPUT
-    expect(File.read("test.err.html")).to include("Keywords are missing")
+    expect(File.read("test.err.html"))
+      .to include("Keywords are missing")
   end
 
   it "Warning if missing preface" do
     FileUtils.rm_f "test.err.html"
-    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
+    Asciidoctor.convert(<<~"INPUT", *OPTIONS)
       #{VALIDATING_BLANK_HDR}
 
       == Symbols and Abbreviated Terms
 
       Paragraph
     INPUT
-    expect(File.read("test.err.html")).to include("Preface is missing")
+    expect(File.read("test.err.html"))
+      .to include("Preface is missing")
   end
 
   it "Warning if missing submitting organizations" do
     FileUtils.rm_f "test.err.html"
-    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
+    Asciidoctor.convert(<<~"INPUT", *OPTIONS)
       #{VALIDATING_BLANK_HDR}
 
       == Symbols and Abbreviated Terms
 
       Paragraph
     INPUT
-    expect(File.read("test.err.html")).to include("Submitting Organizations is missing")
+    expect(File.read("test.err.html"))
+      .to include("Submitting Organizations is missing")
   end
 
   it "Warning if missing submitters" do
     FileUtils.rm_f "test.err.html"
-    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
+    Asciidoctor.convert(<<~"INPUT", *OPTIONS)
       #{VALIDATING_BLANK_HDR}
 
       == Symbols and Abbreviated Terms
 
       Paragraph
     INPUT
-    expect(File.read("test.err.html")).to include("Submitters is missing")
+    expect(File.read("test.err.html"))
+      .to include("Submitters is missing")
   end
 
   it "does not warn if not missing abstract" do
     FileUtils.rm_f "test.err.html"
-    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
+    Asciidoctor.convert(<<~"INPUT", *OPTIONS)
       #{VALIDATING_BLANK_HDR}
 
       [abstract]
@@ -326,7 +343,7 @@ RSpec.describe Metanorma::Ogc do
 
   it "does not warn if not missing keywords" do
     FileUtils.rm_f "test.err.html"
-    Asciidoctor.convert(<<~INPUT, backend: :ogc, header_footer: true)
+    Asciidoctor.convert(<<~INPUT, *OPTIONS)
       = Document title
       Author
       :docfile: test.adoc
@@ -342,7 +359,7 @@ RSpec.describe Metanorma::Ogc do
 
   it "does not warn if not missing preface" do
     FileUtils.rm_f "test.err.html"
-    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
+    Asciidoctor.convert(<<~"INPUT", *OPTIONS)
       #{VALIDATING_BLANK_HDR}
 
       .Title
@@ -358,7 +375,7 @@ RSpec.describe Metanorma::Ogc do
 
   it "does not warn if not missing submitting organizations" do
     FileUtils.rm_f "test.err.html"
-    Asciidoctor.convert(<<~INPUT, backend: :ogc, header_footer: true)
+    Asciidoctor.convert(<<~INPUT, *OPTIONS)
       = Document title
       Author
       :docfile: test.adoc
@@ -374,7 +391,7 @@ RSpec.describe Metanorma::Ogc do
 
   it "does not warn if not missing submitters" do
     FileUtils.rm_f "test.err.html"
-    Asciidoctor.convert(<<~"INPUT", backend: :ogc, header_footer: true)
+    Asciidoctor.convert(<<~"INPUT", *OPTIONS)
       #{VALIDATING_BLANK_HDR}
 
       == Submitters
@@ -390,7 +407,7 @@ RSpec.describe Metanorma::Ogc do
 
   it "warns of missing executive summary in engineering report" do
     FileUtils.rm_f "test.err.html"
-    Asciidoctor.convert(<<~INPUT, backend: :ogc, header_footer: true)
+    Asciidoctor.convert(<<~INPUT, *OPTIONS)
       = Document title
       Author
       :docfile: test.adoc
@@ -402,7 +419,7 @@ RSpec.describe Metanorma::Ogc do
     expect(File.read("test.err.html"))
       .to include("Executive Summary required for Engineering Reports!")
 
-    Asciidoctor.convert(<<~INPUT, backend: :ogc, header_footer: true)
+    Asciidoctor.convert(<<~INPUT, *OPTIONS)
       = Document title
       Author
       :docfile: test.adoc
@@ -419,7 +436,7 @@ RSpec.describe Metanorma::Ogc do
 
   it "warns of missing executive summary outside of engineering report" do
     FileUtils.rm_f "test.err.html"
-    Asciidoctor.convert(<<~INPUT, backend: :ogc, header_footer: true)
+    Asciidoctor.convert(<<~INPUT, *OPTIONS)
       = Document title
       Author
       :docfile: test.adoc
@@ -430,7 +447,7 @@ RSpec.describe Metanorma::Ogc do
     expect(File.read("test.err.html"))
       .not_to include("Executive Summary only allowed for Engineering Reports!")
 
-    Asciidoctor.convert(<<~INPUT, backend: :ogc, header_footer: true)
+    Asciidoctor.convert(<<~INPUT, *OPTIONS)
       = Document title
       Author
       :docfile: test.adoc
@@ -442,5 +459,19 @@ RSpec.describe Metanorma::Ogc do
     INPUT
     expect(File.read("test.err.html"))
       .to include("Executive Summary only allowed for Engineering Reports!")
+  end
+
+  it "validates document against Metanorma XML schema" do
+    Asciidoctor.convert(<<~"INPUT", *OPTIONS)
+      = A
+      X
+      :docfile: test.adoc
+      :no-pdf:
+
+      [align=mid-air]
+      Para
+    INPUT
+    expect(File.read("test.err.html"))
+      .to include('value of attribute "align" is invalid; must be equal to')
   end
 end

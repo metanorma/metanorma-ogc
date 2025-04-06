@@ -1,10 +1,8 @@
 module Metanorma
   module Ogc
     class Converter < Standoc::Converter
-      def validate(doc)
-        content_validate(doc)
-        schema_validate(formattedstr_strip(doc.dup),
-                        File.join(File.dirname(__FILE__), "ogc.rng"))
+      def schema_file
+        "ogc.rng"
       end
 
       def title_validate(_root)
@@ -32,18 +30,18 @@ module Metanorma
       end
 
       def stage_type_validate(stage, doctype)
-        err = case doctype
-              when "standard", "abstract-specification-topic", "draft-standard"
-                %w(draft work-item-draft).include?(stage)
-              when "community-standard"
-                %w(draft swg-draft).include?(stage)
-              when "best-practice", "community-practice"
-                %w(draft swg-draft work-item-draft).include?(stage)
-              else %w(swg-draft oab-review public-rfc tc-vote
-                      work-item-draft deprecated rescinded legacy).include?(stage)
-              end
-        err and @log.add("Document Attributes", nil,
-                         "#{stage} is not an allowed status for #{doctype}")
+        case doctype
+        when "standard", "abstract-specification-topic", "draft-standard"
+          %w(draft work-item-draft).include?(stage)
+        when "community-standard"
+          %w(draft swg-draft).include?(stage)
+        when "best-practice", "community-practice"
+          %w(draft swg-draft work-item-draft).include?(stage)
+        else %w(swg-draft oab-review public-rfc tc-vote work-item-draft
+                deprecated rescinded legacy).include?(stage)
+        end and
+          @log.add("Document Attributes", nil,
+                   "#{stage} is not an allowed status for #{doctype}")
       end
 
       def version_validate(xmldoc)
@@ -108,8 +106,7 @@ module Metanorma
       end
 
       def sections_sequence_validate(root)
-        return unless STANDARDTYPE.include?(@doctype)
-
+        STANDARDTYPE.include?(@doctype) or return
         names = root.xpath("//sections/* | //bibliography/*")
         names = seqcheck(names, SEQ[0][:msg], SEQ[0][:val])
         names = seqcheck(names, SEQ[1][:msg], SEQ[1][:val])
