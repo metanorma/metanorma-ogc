@@ -467,7 +467,7 @@ RSpec.describe IsoDoc::Ogc do
                <ext><doctype>technical-paper</doctype></ext>
         </bibdata>
         <metanorma-extension>
-                       #{METANORMA_EXTENSION}
+        #{METANORMA_EXTENSION}
         </metanorma-extension>
         <preface>
          <abstract obligation="informative" id="1"><title>Abstract</title>
@@ -599,7 +599,7 @@ RSpec.describe IsoDoc::Ogc do
         <ext><doctype>technical-paper</doctype></ext>
       </bibdata>
         <metanorma-extension>
-                       #{METANORMA_EXTENSION}
+        #{METANORMA_EXTENSION}
         </metanorma-extension>
           <preface>
              <clause type="toc" id="_" displayorder="1">
@@ -708,8 +708,18 @@ RSpec.describe IsoDoc::Ogc do
                 </fmt-xref-label>
                 <p>The following organizations submitted this Document to the Open Geospatial Consortium (OGC):</p>
                 <ul>
-                   <li>OGC</li>
-                   <li>DEF</li>
+            <li>
+               <fmt-name>
+                  <semx element="autonum" source="">•</semx>
+               </fmt-name>
+               OGC
+            </li>
+            <li>
+               <fmt-name>
+                  <semx element="autonum" source="">•</semx>
+               </fmt-name>
+               DEF
+            </li>
                 </ul>
              </clause>
              <submitters obligation="informative" id="3" displayorder="8">

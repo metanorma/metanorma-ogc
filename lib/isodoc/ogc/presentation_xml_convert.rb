@@ -51,9 +51,7 @@ module IsoDoc
           <title>#{@i18n.dochistory}</title>
           <table><thead>
           <tr><th>Date</th><th>Release</th><th>Author</th><th>Paragraph Modified</th><th>Description</th></tr>
-          </thead><tbody>
-          #{ret}
-          </tbody></table></annex>
+          </thead><tbody>#{ret}</tbody></table></annex>
         XML
       end
 
@@ -175,15 +173,13 @@ module IsoDoc
         end
       end
 
-      #def designation_boldface(desgn); end
+      # def designation_boldface(desgn); end
 
       def source_label(elem)
         labelled_ancestor(elem) and return
-        #lbl = "<span class='fmt-element-name'>#{lower2cap @i18n.sourcecode}</span>"
         n = @xrefs.get[elem["id"]]
-        #(n.nil? || n[:label].nil? || n[:label].empty?) or
-          #lbl = l10n("#{lbl} #{autonum(elem['id'], n[:label])}")
-        lbl = labelled_autonum(lower2cap(@i18n.sourcecode), elem["id"], n&.dig(:label))
+        lbl = labelled_autonum(lower2cap(@i18n.sourcecode), elem["id"],
+                               n&.dig(:label))
         prefix_name(elem, { caption: block_delim }, lbl, "name")
       end
 
@@ -216,6 +212,20 @@ module IsoDoc
         status = ref.at(ns("./status/stage"))&.text or return
         %w(approved published deprecated retired).include? status and return
         true
+      end
+
+      def ul_label_list(_elem)
+        if @doctype == "white-paper" then %w(&#x2014;)
+        else %w(&#x2022;)
+        end
+      end
+
+      def ol_label_template(_elem)
+        super
+          .merge({
+                   alphabet_upper: %{%<span class="fmt-label-delim">)</span>},
+                   arabic: %{%<span class="fmt-label-delim">.</span>},
+                 })
       end
 
       include Init

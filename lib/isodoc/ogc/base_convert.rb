@@ -106,7 +106,8 @@ module IsoDoc
         end
       end
 
-      def ol_depth(node)
+      # KILL
+      def ol_depthx(node)
         return super unless (node["class"] == "steps") ||
           node.at(".//ancestor::xmlns:ol[@class = 'steps']")
 
