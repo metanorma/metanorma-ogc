@@ -45,22 +45,6 @@
         </optional>
       </element>
     </define>
-    <define name="BibDataExtensionType">
-      <optional>
-        <attribute name="schema-version"/>
-      </optional>
-      <optional>
-        <ref name="doctype"/>
-      </optional>
-      <optional>
-        <ref name="docsubtype"/>
-      </optional>
-      <ref name="flavor"/>
-      <ref name="editorialgroup"/>
-      <zeroOrMore>
-        <ref name="ics"/>
-      </zeroOrMore>
-    </define>
     <define name="stage">
       <element name="stage">
         <ref name="StageType"/>
