@@ -14,7 +14,6 @@ module Metanorma
 
       def make_preface(xml, sect)
         super
-        #insert_execsummary(xml, sect)
         insert_security(xml, sect)
         insert_submitters(xml, sect)
       end
@@ -23,18 +22,9 @@ module Metanorma
         %(id="_#{UUIDTools::UUID.random_create}")
       end
 
-      # KILL
-      def insert_execsummary(xml, sect)
-        summ = xml&.at("//clause[@type = 'executivesummary']")&.remove or
-          return
-        preface = sect.at("//preface") ||
-          sect.add_previous_sibling("<preface/>").first
-        preface.add_child summ
-      end
-
       def insert_security(xml, sect)
-        description = "document"
-        description = "standard" if %w(standard community-standard)
+        "document"
+        "standard" if %w(standard community-standard)
           .include?(@doctype)
         @doctype == "engineering-report" and return remove_security(xml)
         preface = sect.at("//preface") ||
@@ -62,14 +52,13 @@ module Metanorma
       end
 
       def insert_submitters(xml, sect)
-        if xml.at("//submitters")
-          preface = sect.at("//preface") ||
+        if xml.at("//clause[@type = 'submitters' or @type = 'contributors']")
+          p = sect.at("//preface") ||
             sect.add_previous_sibling("<preface/>").first
-          xml.xpath("//submitters").each do |s|
-            s.xpath(".//table").each do |t|
-              t["unnumbered"] = true
-            end
-            preface.add_child s.remove
+          xml.xpath("//clause[@type = 'submitters' or @type = 'contributors']")
+            .each do |s|
+            s.xpath(".//table").each { |t| t["unnumbered"] = true }
+            p.add_child s.remove
           end
         end
       end

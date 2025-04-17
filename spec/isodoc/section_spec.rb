@@ -484,14 +484,14 @@ RSpec.describe IsoDoc::Ogc do
            <title>Security</title>
            <p id="EE1">Text</p>
          </clause>
-         <submitters obligation="informative" id="3">
+         <clause type="submitters" obligation="informative" id="3">
          <title>Submitters</title>
          <p>ABC</p>
-         </submitters>
-         <submitters type="contributors" obligation="informative" id="3a">
+         </clause>
+         <clause type="contributors" obligation="informative" id="3a">
          <title>Contributors</title>
          <p>ABC</p>
-         </submitters>
+         </clause>
          <clause id="5"><title>Dedication</title>
          <clause id="6"><title>Note to readers</title></clause>
           </clause>
@@ -722,7 +722,7 @@ RSpec.describe IsoDoc::Ogc do
             </li>
                 </ul>
              </clause>
-             <submitters obligation="informative" id="3" displayorder="8">
+             <clause type="submitters" obligation="informative" id="3" displayorder="8">
                 <title id="_">Submitters</title>
                 <fmt-title depth="1">
                    <span class="fmt-caption-label">
@@ -738,8 +738,8 @@ RSpec.describe IsoDoc::Ogc do
                    <semx element="title" source="3">Submitters</semx>
                 </fmt-xref-label>
                 <p>ABC</p>
-             </submitters>
-             <submitters type="contributors" obligation="informative" id="3a" displayorder="9">
+             </clause>
+             <clause type="contributors" obligation="informative" id="3a" displayorder="9">
                 <title id="_">Contributors</title>
                 <fmt-title depth="1">
                    <span class="fmt-caption-label">
@@ -755,7 +755,7 @@ RSpec.describe IsoDoc::Ogc do
                    <semx element="title" source="3a">Contributors</semx>
                 </fmt-xref-label>
                 <p>ABC</p>
-             </submitters>
+             </clause>
              <clause id="5" displayorder="10">
                 <title id="_">Dedication</title>
                 <fmt-title depth="1">

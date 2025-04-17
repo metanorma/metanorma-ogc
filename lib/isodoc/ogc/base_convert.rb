@@ -70,7 +70,8 @@ module IsoDoc
           "[not(descendant::references)]"
       end
 
-      def is_clause?(name)
+      # KILL
+      def is_clausex?(name)
         return true if name == "submitters"
 
         super

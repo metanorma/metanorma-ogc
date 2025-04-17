@@ -1,7 +1,8 @@
 module IsoDoc
   module Ogc
     module BaseConvert
-      def top_element_render(node, out)
+      # KILL 
+      def top_element_renderx(node, out)
         case node.name
         when "submitters" then intro_clause node, out
         else super
@@ -17,7 +18,8 @@ module IsoDoc
         end
       end
 
-      def sections_names
+      # KILL
+      def sections_namesx
         super + %w[submitters]
       end
 

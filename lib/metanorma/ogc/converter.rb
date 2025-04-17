@@ -115,7 +115,7 @@ module Metanorma
           attrs = attrs.merge(type: node.attr("type"))
         case node.attr("heading")&.downcase || node.title.downcase
         when "submitters"
-          return submitters_parse(attrs, xml, node)
+          return submitters_parse(attrs.merge(type: "submitters"), xml, node)
         when "contributors"
           return submitters_parse(attrs.merge(type: "contributors"), xml, node)
         when "conformance" then attrs = attrs.merge(type: "conformance")
@@ -130,7 +130,7 @@ module Metanorma
         doctype(node) == "engineering-report" ||
           attrs[:type] == "contributors" and
           title = @i18n.contributors_clause
-        xml.submitters **attr_code(attrs) do |xml_section|
+        xml.clause **attr_code(attrs) do |xml_section|
           xml_section.title title
           xml_section << node.content
         end

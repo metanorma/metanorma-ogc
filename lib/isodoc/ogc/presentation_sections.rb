@@ -21,7 +21,7 @@ module IsoDoc
       end
 
       def insert_preface_sections(doc)
-        preface_insert(doc.at(ns("//preface//submitters")),
+        preface_insert(doc.at(ns("//preface//clause[@type = 'submitters' or @type = 'contributors']")),
                        submit_orgs_append_pt(doc), doc)
         insert_submitting_orgs(doc)
         preface_insert(doc.at(ns("//preface/clause[@type = 'security']")),
@@ -100,7 +100,8 @@ module IsoDoc
         "<br/>"
       end
 
-      def clause(docxml)
+      # KILL
+      def clausex(docxml)
         super
         docxml.xpath(ns("//submitters")).each { |f| clause1(f) }
       end

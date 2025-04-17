@@ -33,7 +33,7 @@ RSpec.describe Metanorma::Ogc do
         <title>Acknowledgements</title>
       </acknowledgements>
       #{SECURITY}
-      <submitters id="_">
+      <clause type="submitters" obligation="informative" id="_">
       <title>Submitters</title>
         <p id="_">Clause 2</p>
                 <table id='_' unnumbered='true'>
@@ -52,7 +52,7 @@ RSpec.describe Metanorma::Ogc do
              </tr>
            </tbody>
          </table>
-      </submitters>
+      </clause>
       </preface><sections>
       <clause id="_" obligation="normative">
         <title>Clause</title>
@@ -75,7 +75,7 @@ RSpec.describe Metanorma::Ogc do
         <title>Acknowledgements</title>
       </acknowledgements>
       #{SECURITY}
-      <submitters id="_" type="contributors">
+      <clause obligation="informative" id="_" type="contributors">
       <title>Contributors</title>
         <p id="_">Clause 2</p>
                 <table id='_' unnumbered='true'>
@@ -94,7 +94,7 @@ RSpec.describe Metanorma::Ogc do
              </tr>
            </tbody>
          </table>
-      </submitters>
+      </clause>
       </preface><sections>
       <clause id="_" obligation="normative">
         <title>Clause</title>
@@ -140,7 +140,7 @@ RSpec.describe Metanorma::Ogc do
       <acknowledgements id='_' obligation='informative'>
         <title>Acknowledgements</title>
       </acknowledgements>
-      <submitters id="_">
+      <clause type="submitters" obligation="informative" id="_">
       <title>Submitters</title>
         <p id="_">Clause 2</p>
                 <table id='_' unnumbered='true'>
@@ -159,7 +159,7 @@ RSpec.describe Metanorma::Ogc do
              </tr>
            </tbody>
          </table>
-      </submitters>
+      </clause>
       </preface><sections>
       <clause id="_" obligation="normative">
         <title>Clause</title>
@@ -185,7 +185,7 @@ RSpec.describe Metanorma::Ogc do
       <acknowledgements id='_' obligation='informative'>
         <title>Acknowledgements</title>
       </acknowledgements>
-      <submitters id="_" type="contributors">
+      <clause obligation="informative" id="_" type="contributors">
       <title>Contributors</title>
         <p id="_">Clause 2</p>
                 <table id='_' unnumbered='true'>
@@ -204,7 +204,7 @@ RSpec.describe Metanorma::Ogc do
              </tr>
            </tbody>
          </table>
-      </submitters>
+      </clause>
       </preface><sections>
       <clause id="_" obligation="normative">
         <title>Clause</title>
@@ -250,7 +250,7 @@ RSpec.describe Metanorma::Ogc do
         <title>Acknowledgements</title>
       </acknowledgements>
       #{SECURITY}
-      <submitters id="_">
+      <clause type="submitters" obligation="informative" id="_">
       <title>Submitters</title>
         <p id="_">Clause 2</p>
                 <table id='_' unnumbered='true'>
@@ -269,11 +269,11 @@ RSpec.describe Metanorma::Ogc do
              </tr>
            </tbody>
          </table>
-      </submitters>
-          <submitters id="_" type="contributors">
+      </clause>
+          <clause obligation="informative" id="_" type="contributors">
       <title>Contributors</title>
       <p id="_">Clause 3</p>
-      </submitters>
+      </clause>
       </preface><sections>
       <clause id="_" obligation="normative">
         <title>Clause</title>
