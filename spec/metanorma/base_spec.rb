@@ -1272,10 +1272,10 @@ RSpec.describe Metanorma::Ogc do
         <title>Abstract</title>
         <p id='_'>This is an abstract</p>
       </abstract>
-           <clause id='_' type='executivesummary' obligation='informative'>
-             <title>Executive Summary</title>
+           <executivesummary id="_" obligation='informative'>
+             <title>Executive summary</title>
              <p id='_'>This is an executive summary</p>
-           </clause>
+           </executivesummary>
            <clause type='security' id='_' obligation='informative'>
              <title>Security considerations</title>
              <p id='_'>No security considerations have been made for this document.</p>
@@ -2096,9 +2096,9 @@ RSpec.describe Metanorma::Ogc do
              <clause id="_" type="contributors" obligation="informative">
                 <title>Contr</title>
              </clause>
-             <clause id="_" type="executivesummary" obligation="informative">
-                <title>Exec Summ</title>
-             </clause>
+             <executivesummary id="_" obligation="informative">
+                <title>Executive summary</title>
+             </executivesummary>
           </preface>
           <sections>
              <clause id="_" obligation="normative">

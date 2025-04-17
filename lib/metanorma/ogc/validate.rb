@@ -56,7 +56,7 @@ module Metanorma
       end
 
       def execsummary_validate(xmldoc)
-        sect = xmldoc.at("//clause[@type = 'executivesummary']")
+        sect = xmldoc.at("//executivesummary")
         @doctype == "engineering-report" && sect.nil? and
           @log.add("Style", nil,
                    "Executive Summary required for Engineering Reports!")

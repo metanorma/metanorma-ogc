@@ -14,7 +14,7 @@ module Metanorma
 
       def make_preface(xml, sect)
         super
-        insert_execsummary(xml, sect)
+        #insert_execsummary(xml, sect)
         insert_security(xml, sect)
         insert_submitters(xml, sect)
       end
@@ -23,6 +23,7 @@ module Metanorma
         %(id="_#{UUIDTools::UUID.random_create}")
       end
 
+      # KILL
       def insert_execsummary(xml, sect)
         summ = xml&.at("//clause[@type = 'executivesummary']")&.remove or
           return

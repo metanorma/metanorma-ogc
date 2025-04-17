@@ -71,10 +71,8 @@ module Metanorma
 
       def override_style(node)
         s = node.attr("style")
-        if %w(executive_summary overview future_outlook value_proposition
-              contributors).include?(s)
+        if %w(overview future_outlook value_proposition contributors).include?(s)
           node.set_attr("style", "preface")
-          s == "executive_summary" and s = "executivesummary"
           node.set_attr("type", s)
         end
         if %w(aims objectives topics outlook security).include?(s)
@@ -93,6 +91,12 @@ module Metanorma
         end
       end
 
+      # legacy encoding
+      def sectiontype1(node)
+        role_style(node, "executive_summary") and return "executivesummary"
+        super
+      end
+
       def outputs(node, ret)
         File.open("#{@filename}.xml", "w:UTF-8") { |f| f.write(ret) }
         presentation_xml_converter(node).convert("#{@filename}.xml")
@@ -105,7 +109,7 @@ module Metanorma
       end
 
       def clause_parse(attrs, xml, node)
-        %w(executivesummary overview future_outlook value_proposition
+        %w(overview future_outlook value_proposition
            contributors aims objectives topics outlook security)
           .include?(node.attr("type")) and
           attrs = attrs.merge(type: node.attr("type"))
@@ -117,8 +121,6 @@ module Metanorma
         when "conformance" then attrs = attrs.merge(type: "conformance")
         when "security considerations"
           attrs = attrs.merge(type: "security")
-        when "executive summary"
-          attrs = attrs.merge(type: "executivesummary")
         end
         super
       end

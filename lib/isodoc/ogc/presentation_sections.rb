@@ -4,14 +4,23 @@ module IsoDoc
       def middle_title(docxml); end
 
       def preface_rearrange(doc)
-        super
+        [
+          ["//preface/abstract",
+           %w(executivesummary foreword introduction clause acknowledgements)],
+          ["//preface/executivesummary",
+           %w(foreword introduction clause acknowledgements)],
+          ["//preface/foreword",
+           %w(introduction clause acknowledgements)],
+          ["//preface/introduction",
+           %w(clause acknowledgements)],
+          ["//preface/acknowledgements", %w()],
+        ].each do |x|
+          preface_move(doc.xpath(ns(x[0])), x[1], doc)
+        end
         insert_preface_sections(doc)
       end
 
       def insert_preface_sections(doc)
-        preface_insert(doc.at(ns("//preface/clause" \
-                                 "[@type = 'executivesummary']")),
-                       doc.at(ns("//preface/abstract")), doc)
         preface_insert(doc.at(ns("//preface//submitters")),
                        submit_orgs_append_pt(doc), doc)
         insert_submitting_orgs(doc)
@@ -39,8 +48,8 @@ module IsoDoc
       def submit_orgs_append_pt(docxml)
         docxml.at(ns("//foreword")) ||
           docxml.at(ns("//preface/clause[@type = 'keywords']")) ||
-          docxml.at(ns("//preface/clause[@type = 'executivesummary']")) ||
-          docxml.at(ns("//preface/abstract"))
+          docxml.at(ns("//preface/abstract")) ||
+          docxml.at(ns("//preface/executivesummary"))
       end
 
       def insert_submitting_orgs(docxml)
@@ -78,7 +87,7 @@ module IsoDoc
         kw = @meta.get[:keywords]
         kw.empty? and return
         if abstract =
-             docxml.at(ns("//preface/clause[@type = 'executivesummary']")) ||
+             docxml.at(ns("//preface/executivesummary")) ||
              docxml.at(ns("//preface/abstract"))
           abstract.next = keyword_clause(kw)
         else
@@ -88,8 +97,8 @@ module IsoDoc
       end
 
       def annex_delim(_elem)
-      "<br/>"
-    end
+        "<br/>"
+      end
 
       def clause(docxml)
         super
