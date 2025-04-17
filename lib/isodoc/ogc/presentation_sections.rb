@@ -100,12 +100,6 @@ module IsoDoc
         "<br/>"
       end
 
-      # KILL
-      def clausex(docxml)
-        super
-        docxml.xpath(ns("//submitters")).each { |f| clause1(f) }
-      end
-
       def clause1(elem)
         elem.name == "terms" && elem.parent.name == "annex" &&
           elem.parent.xpath(ns("./terms")).size == 1 and return

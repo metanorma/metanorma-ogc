@@ -70,13 +70,6 @@ module IsoDoc
           "[not(descendant::references)]"
       end
 
-      # KILL
-      def is_clausex?(name)
-        return true if name == "submitters"
-
-        super
-      end
-
       def table_attrs(node)
         ret = super
         %w(recommendation requirement permission).include?(node["class"]) and
@@ -91,7 +84,7 @@ module IsoDoc
         if cell.at("./ancestor::xmlns:table[@class = 'recommendation'] | " \
                    "./ancestor::xmlns:table[@class = 'requirement'] | " \
                    "./ancestor::xmlns:table[@class = 'permission']")
-          ret[:style] = "vertical-align:top;#{ret["style"]}"
+          ret[:style] = "vertical-align:top;#{ret['style']}"
           ret[:class] = "recommend"
         end
         ret
@@ -105,16 +98,6 @@ module IsoDoc
           ret
         else super
         end
-      end
-
-      # KILL
-      def ol_depthx(node)
-        return super unless (node["class"] == "steps") ||
-          node.at(".//ancestor::xmlns:ol[@class = 'steps']")
-
-        idx = node.xpath("./ancestor-or-self::xmlns:ol[@class = 'steps']").size
-        styles = %i(arabic alphabet roman alphabet_upper roman_upper)
-        ol_style(styles[(idx - 1) % 5])
       end
     end
   end
