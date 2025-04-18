@@ -11,9 +11,6 @@ module Metanorma
     # schema encapsulation of the document for validation
     #
     class Converter < Standoc::Converter
-      #XML_ROOT_TAG = "ogc-standard".freeze
-      #XML_NAMESPACE = "https://www.metanorma.org/ns/ogc".freeze
-
       register_for "ogc"
 
       def init_toc(node)
@@ -166,7 +163,8 @@ module Metanorma
         end
       end
 
-      def highlight_parse(text, xml)
+      # KILL 
+      def highlight_parsex(text, xml)
         xml.hi { |s| s << text }
       end
 

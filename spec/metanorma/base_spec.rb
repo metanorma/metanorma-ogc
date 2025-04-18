@@ -768,7 +768,7 @@ RSpec.describe Metanorma::Ogc do
              <sections>
              <p id='_'>
         This is
-        <hi>highlihgted text</hi>
+        <span class="fmt-hi">highlihgted text</span>
          inline.
       </p>
              </sections>
