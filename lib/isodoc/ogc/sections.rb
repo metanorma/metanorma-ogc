@@ -1,13 +1,6 @@
 module IsoDoc
   module Ogc
     module BaseConvert
-      def top_element_render(node, out)
-        case node.name
-        when "submitters" then intro_clause node, out
-        else super
-        end
-      end
-
       def preface(clause, out)
         case clause["type"]
         when "toc"
@@ -15,10 +8,6 @@ module IsoDoc
         else
           intro_clause(clause, out)
         end
-      end
-
-      def sections_names
-        super + %w[submitters]
       end
 
       def intro_clause(elem, out)

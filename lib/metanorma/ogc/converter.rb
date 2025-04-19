@@ -11,9 +11,6 @@ module Metanorma
     # schema encapsulation of the document for validation
     #
     class Converter < Standoc::Converter
-      #XML_ROOT_TAG = "ogc-standard".freeze
-      #XML_NAMESPACE = "https://www.metanorma.org/ns/ogc".freeze
-
       register_for "ogc"
 
       def init_toc(node)
@@ -71,10 +68,8 @@ module Metanorma
 
       def override_style(node)
         s = node.attr("style")
-        if %w(executive_summary overview future_outlook value_proposition
-              contributors).include?(s)
+        if %w(overview future_outlook value_proposition contributors).include?(s)
           node.set_attr("style", "preface")
-          s == "executive_summary" and s = "executivesummary"
           node.set_attr("type", s)
         end
         if %w(aims objectives topics outlook security).include?(s)
@@ -93,6 +88,12 @@ module Metanorma
         end
       end
 
+      # legacy encoding
+      def sectiontype1(node)
+        role_style(node, "executive_summary") and return "executivesummary"
+        super
+      end
+
       def outputs(node, ret)
         File.open("#{@filename}.xml", "w:UTF-8") { |f| f.write(ret) }
         presentation_xml_converter(node).convert("#{@filename}.xml")
@@ -105,20 +106,18 @@ module Metanorma
       end
 
       def clause_parse(attrs, xml, node)
-        %w(executivesummary overview future_outlook value_proposition
+        %w(overview future_outlook value_proposition
            contributors aims objectives topics outlook security)
           .include?(node.attr("type")) and
           attrs = attrs.merge(type: node.attr("type"))
         case node.attr("heading")&.downcase || node.title.downcase
         when "submitters"
-          return submitters_parse(attrs, xml, node)
+          return submitters_parse(attrs.merge(type: "submitters"), xml, node)
         when "contributors"
           return submitters_parse(attrs.merge(type: "contributors"), xml, node)
         when "conformance" then attrs = attrs.merge(type: "conformance")
         when "security considerations"
           attrs = attrs.merge(type: "security")
-        when "executive summary"
-          attrs = attrs.merge(type: "executivesummary")
         end
         super
       end
@@ -128,7 +127,7 @@ module Metanorma
         doctype(node) == "engineering-report" ||
           attrs[:type] == "contributors" and
           title = @i18n.contributors_clause
-        xml.submitters **attr_code(attrs) do |xml_section|
+        xml.clause **attr_code(attrs) do |xml_section|
           xml_section.title title
           xml_section << node.content
         end
@@ -164,7 +163,8 @@ module Metanorma
         end
       end
 
-      def highlight_parse(text, xml)
+      # KILL 
+      def highlight_parsex(text, xml)
         xml.hi { |s| s << text }
       end
 

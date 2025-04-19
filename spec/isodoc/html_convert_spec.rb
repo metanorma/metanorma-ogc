@@ -898,7 +898,7 @@ RSpec.describe IsoDoc::Ogc do
            #{METANORMA_EXTENSION}
           <preface> <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Contents</fmt-title> </clause>
         <foreword id="A" displayorder="2"><fmt-title>Preface</fmt-title>
-      <p id="_">Amen <hi>highlight</hi> Amen</p>
+      <p id="_">Amen <span class="fmt-hi">highlight</span> <span class="random">not highlight</span> Amen</p>
           </foreword></preface>
           </iso-standard>
     INPUT
@@ -910,7 +910,8 @@ RSpec.describe IsoDoc::Ogc do
             <h1 class='ForewordTitle'>Preface</h1>
       <p id='_'>
         Amen
-        <span class='hi'>highlight</span>
+            <span class="fmt-hi">highlight</span>
+            <span class="random">not highlight</span>
          Amen
       </p>
             </div>
@@ -940,7 +941,8 @@ RSpec.describe IsoDoc::Ogc do
                <h1 class='ForewordTitle'>Preface</h1>
                <p id='_'>
                  Amen
-                 <span class='hi'>highlight</span>
+                  <span class="fmt-hi">highlight</span>
+                  <span class="random">not highlight</span>
                   Amen
                </p>
              </div>

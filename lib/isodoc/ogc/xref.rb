@@ -42,7 +42,7 @@ module IsoDoc
       def middle_section_asset_names(doc)
         middle_sections =
           "//clause[@type = 'scope' or @type = 'conformance'] | //foreword | " \
-          "//introduction | //preface/abstract | //submitters | " \
+          "//introduction | //preface/abstract | " \
           "//acknowledgements | //preface/clause | " \
           "#{@klass.norm_ref_xpath} | //sections/terms | " \
           "//sections/definitions | //clause[parent::sections]"
@@ -69,7 +69,7 @@ module IsoDoc
       def preface_names_numbered1(clause, parentnum, num, level)
         lbl = clause_number_semx(parentnum, clause, num)
         @anchors[clause["id"]] =
-          { label: lbl, level: level, 
+          { label: lbl, level: level,
             xref: labelled_autonum(@labels["clause"], lbl),
             type: "clause", elem: @labels["clause"] }
         clause.xpath(ns(SUBCLAUSES)).each_with_index do |c, i|
@@ -110,7 +110,7 @@ module IsoDoc
           @anchors[t["id"]] = anchor_struct(
             c.print, t,
             @labels["sourcecode"], "sourcecode",
-            { unnumb: t["unnumbered"], container: container}
+            { unnumb: t["unnumbered"], container: container }
           )
         end
       end
@@ -123,13 +123,12 @@ module IsoDoc
       def hierarchical_sourcecode_names(clauses, num)
         c = Counter.new
         nodeSet(clauses).each do |clause|
-        clause.xpath(ns(LISTING)).noblank.each do |t|
-          @anchors[t["id"]] =
-            anchor_struct(#"#{num}#{hier_separator}#{c.increment(t).print}", 
-                          hiersemx(clause, num, c.increment(t), t),
-                          t, @labels["sourcecode"],
-                          "sourcecode", { unnumb:t["unnumbered"] })
-        end
+          clause.xpath(ns(LISTING)).noblank.each do |t|
+            @anchors[t["id"]] =
+              anchor_struct(hiersemx(clause, num, c.increment(t), t),
+                            t, @labels["sourcecode"],
+                            "sourcecode", { unnumb: t["unnumbered"] })
+          end
         end
       end
     end

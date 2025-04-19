@@ -56,7 +56,7 @@ module Metanorma
       end
 
       def execsummary_validate(xmldoc)
-        sect = xmldoc.at("//clause[@type = 'executivesummary']")
+        sect = xmldoc.at("//executivesummary")
         @doctype == "engineering-report" && sect.nil? and
           @log.add("Style", nil,
                    "Executive Summary required for Engineering Reports!")
@@ -136,8 +136,8 @@ module Metanorma
         root.at("//bibdata/contributor[role/@type = 'author']/organization/" \
                 "name") or
           @log.add("Style", nil, "Submitting Organizations is missing!")
-        root.at("//submitters") or @log.add("Style", nil,
-                                            "Submitters is missing!")
+        root.at("//clause[@type = 'submitters' or @type = 'contributors']") or
+          @log.add("Style", nil, "Submitters is missing!")
       end
 
       def norm_ref_validate(doc)
