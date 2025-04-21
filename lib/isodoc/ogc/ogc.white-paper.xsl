@@ -9864,12 +9864,14 @@
 
 	<xsl:template match="*[local-name() = 'permission']/*[local-name() = 'name']">
 		<xsl:if test="normalize-space() != ''">
-			<fo:block xsl:use-attribute-sets="permission-name-style">
-				<xsl:apply-templates/>
 
-					<xsl:text>:</xsl:text>
+					<fo:block xsl:use-attribute-sets="permission-name-style">
+						<xsl:apply-templates/>
 
-			</fo:block>
+							<xsl:text>:</xsl:text>
+
+					</fo:block>
+
 		</xsl:if>
 	</xsl:template>
 
@@ -9897,17 +9899,19 @@
 
 	<xsl:template match="*[local-name() = 'requirement']/*[local-name() = 'name']">
 		<xsl:if test="normalize-space() != ''">
-			<fo:block xsl:use-attribute-sets="requirement-name-style">
 
-					<xsl:if test="../@type = 'class'">
-						<xsl:attribute name="background-color">white</xsl:attribute>
-					</xsl:if>
+					<fo:block xsl:use-attribute-sets="requirement-name-style">
 
-				<xsl:apply-templates/>
+							<xsl:if test="../@type = 'class'">
+								<xsl:attribute name="background-color">white</xsl:attribute>
+							</xsl:if>
 
-					<xsl:text>:</xsl:text>
+						<xsl:apply-templates/>
 
-			</fo:block>
+							<xsl:text>:</xsl:text>
+
+					</fo:block>
+
 		</xsl:if>
 	</xsl:template>
 
@@ -9945,10 +9949,12 @@
 
 	<xsl:template match="*[local-name() = 'recommendation']/*[local-name() = 'name']">
 		<xsl:if test="normalize-space() != ''">
-			<fo:block xsl:use-attribute-sets="recommendation-name-style">
-				<xsl:apply-templates/>
 
-			</fo:block>
+					<fo:block xsl:use-attribute-sets="recommendation-name-style">
+						<xsl:apply-templates/>
+
+					</fo:block>
+
 		</xsl:if>
 	</xsl:template>
 
