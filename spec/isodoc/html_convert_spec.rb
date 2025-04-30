@@ -1247,7 +1247,7 @@ RSpec.describe IsoDoc::Ogc do
           <dt>A</dt>
           <dd><p>B</p></dd>
           </dl>
-          <source status="generalisation">[SOURCE: <fmt-xref target="ISO712" type="inline">ISO&#xa0;712, Section 1</fmt-xref> &#x2014; with adjustments ; <fmt-xref type="inline" target="ISO712">ISO 712, Section 2</fmt-xref>]</source>
+          <fmt-source status="generalisation">[SOURCE: <fmt-xref target="ISO712" type="inline">ISO&#xa0;712, Section 1</fmt-xref> &#x2014; with adjustments ; <fmt-xref type="inline" target="ISO712">ISO 712, Section 2</fmt-xref>]</fmt-source>
         </figure>
         <figure id="figure-B">
         <fmt-name>Figure 2</fmt-name>

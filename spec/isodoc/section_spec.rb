@@ -202,12 +202,12 @@ RSpec.describe IsoDoc::Ogc do
           <admitted><expression><name>Term2B</name></expression></admitted>
           <deprecates><expression><name>Term2C</name></expression></deprecates>
           <deprecates><expression><name>Term2D</name></expression></deprecates>
-          <termsource status="modified">
+          <source status="modified">
         <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011"><locality type="clause"><referenceFrom>3.1</referenceFrom></locality></origin>
           <modification>
           <p id="_e73a417d-ad39-417d-a4c8-20e4e2529489">The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here</p>
         </modification>
-      </termsource>
+      </source>
         </term>
          </terms>
          </sections>
@@ -313,7 +313,7 @@ RSpec.describe IsoDoc::Ogc do
                          <span class="DeprecatedLabel">DEPRECATED</span>
                       </p>
                    </fmt-deprecates>
-                   <termsource status="modified" id="_">
+                   <source status="modified" id="_">
                       <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011">
                          <locality type="clause">
                             <referenceFrom>3.1</referenceFrom>
@@ -322,11 +322,11 @@ RSpec.describe IsoDoc::Ogc do
                       <modification id="_">
                          <p original-id="_e73a417d-ad39-417d-a4c8-20e4e2529489">The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here</p>
                       </modification>
-                   </termsource>
+                   </source>
                    <fmt-termsource status="modified">
                       [
                       <strong>SOURCE:</strong>
-                      <semx element="termsource" source="_">
+                      <semx element="source" source="_">
                          <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011" id="_">
                             <locality type="clause">
                                <referenceFrom>3.1</referenceFrom>
