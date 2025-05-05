@@ -29,32 +29,32 @@ RSpec.describe Metanorma::Ogc do
           <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ogc::VERSION}" flavor="ogc">
       <preface><foreword id="_" obligation="informative">
       <title>Preface</title><p id="_">This is a preamble</p></foreword>
-      <acknowledgements id='_' obligation='informative'>
+      <acknowledgements id='_' anchor="_acknowledgements" obligation='informative'>
         <title>Acknowledgements</title>
       </acknowledgements>
       #{SECURITY}
-      <clause type="submitters" obligation="informative" id="_">
+      <clause type="submitters" obligation="informative" id="_" anchor="_submitters">
       <title>Submitters</title>
         <p id="_">Clause 2</p>
                 <table id='_' unnumbered='true'>
            <thead>
              <tr>
-               <th valign='middle' align='left'>Name</th>
-               <th valign='middle' align='left'>Affiliation</th>
-               <th valign='middle' align='left'>OGC member</th>
+               <th id="_" valign='middle' align='left'>Name</th>
+               <th id="_" valign='middle' align='left'>Affiliation</th>
+               <th id="_" valign='middle' align='left'>OGC member</th>
              </tr>
            </thead>
            <tbody>
              <tr>
-               <td valign='middle' align='left'>Steve Liang</td>
-               <td valign='middle' align='left'>University of Calgary, Canada / SensorUp Inc.</td>
-               <td valign='middle' align='left'>Yes</td>
+               <td id="_" valign='middle' align='left'>Steve Liang</td>
+               <td id="_" valign='middle' align='left'>University of Calgary, Canada / SensorUp Inc.</td>
+               <td id="_" valign='middle' align='left'>Yes</td>
              </tr>
            </tbody>
          </table>
       </clause>
       </preface><sections>
-      <clause id="_" obligation="normative">
+      <clause id="_" anchor="_clause" obligation="normative">
         <title>Clause</title>
         <p id="_">Clause 1</p>
       </clause></sections>
@@ -71,32 +71,32 @@ RSpec.describe Metanorma::Ogc do
               <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ogc::VERSION}" flavor="ogc">
       <preface><foreword id="_" obligation="informative">
       <title>Preface</title><p id="_">This is a preamble</p></foreword>
-      <acknowledgements id='_' obligation='informative'>
+      <acknowledgements id='_' anchor="_acknowledgements" obligation='informative'>
         <title>Acknowledgements</title>
       </acknowledgements>
       #{SECURITY}
-      <clause obligation="informative" id="_" type="contributors">
+      <clause obligation="informative" id="_" anchor="_contributors" type="contributors">
       <title>Contributors</title>
         <p id="_">Clause 2</p>
                 <table id='_' unnumbered='true'>
            <thead>
              <tr>
-               <th valign='middle' align='left'>Name</th>
-               <th valign='middle' align='left'>Affiliation</th>
-               <th valign='middle' align='left'>OGC member</th>
+               <th id="_" valign='middle' align='left'>Name</th>
+               <th id="_" valign='middle' align='left'>Affiliation</th>
+               <th id="_" valign='middle' align='left'>OGC member</th>
              </tr>
            </thead>
            <tbody>
              <tr>
-               <td valign='middle' align='left'>Steve Liang</td>
-               <td valign='middle' align='left'>University of Calgary, Canada / SensorUp Inc.</td>
-               <td valign='middle' align='left'>Yes</td>
+               <td id="_" valign='middle' align='left'>Steve Liang</td>
+               <td id="_" valign='middle' align='left'>University of Calgary, Canada / SensorUp Inc.</td>
+               <td id="_" valign='middle' align='left'>Yes</td>
              </tr>
            </tbody>
          </table>
       </clause>
       </preface><sections>
-      <clause id="_" obligation="normative">
+      <clause id="_" anchor="_clause" obligation="normative">
         <title>Clause</title>
         <p id="_">Clause 1</p>
       </clause></sections>
@@ -137,31 +137,31 @@ RSpec.describe Metanorma::Ogc do
           <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ogc::VERSION}" flavor="ogc">
       <preface><foreword id="_" obligation="informative">
       <title>Preface</title><p id="_">This is a preamble</p></foreword>
-      <acknowledgements id='_' obligation='informative'>
+      <acknowledgements id='_' anchor="_acknowledgements" obligation='informative'>
         <title>Acknowledgements</title>
       </acknowledgements>
-      <clause type="submitters" obligation="informative" id="_">
+      <clause type="submitters" obligation="informative" id="_" anchor="_submitters">
       <title>Submitters</title>
         <p id="_">Clause 2</p>
                 <table id='_' unnumbered='true'>
            <thead>
              <tr>
-               <th valign='middle' align='left'>Name</th>
-               <th valign='middle' align='left'>Affiliation</th>
-               <th valign='middle' align='left'>OGC member</th>
+               <th id="_" valign='middle' align='left'>Name</th>
+               <th id="_" valign='middle' align='left'>Affiliation</th>
+               <th id="_" valign='middle' align='left'>OGC member</th>
              </tr>
            </thead>
            <tbody>
              <tr>
-               <td valign='middle' align='left'>Steve Liang</td>
-               <td valign='middle' align='left'>University of Calgary, Canada / SensorUp Inc.</td>
-               <td valign='middle' align='left'>Yes</td>
+               <td id="_" valign='middle' align='left'>Steve Liang</td>
+               <td id="_" valign='middle' align='left'>University of Calgary, Canada / SensorUp Inc.</td>
+               <td id="_" valign='middle' align='left'>Yes</td>
              </tr>
            </tbody>
          </table>
       </clause>
       </preface><sections>
-      <clause id="_" obligation="normative">
+      <clause id="_" anchor="_clause" obligation="normative">
         <title>Clause</title>
         <p id="_">Clause 1</p>
       </clause></sections>
@@ -182,31 +182,31 @@ RSpec.describe Metanorma::Ogc do
           <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ogc::VERSION}" flavor="ogc">
       <preface><foreword id="_" obligation="informative">
       <title>Preface</title><p id="_">This is a preamble</p></foreword>
-      <acknowledgements id='_' obligation='informative'>
+      <acknowledgements id='_' anchor="_acknowledgements" obligation='informative'>
         <title>Acknowledgements</title>
       </acknowledgements>
-      <clause obligation="informative" id="_" type="contributors">
+      <clause obligation="informative" id="_" anchor="_contributors" type="contributors">
       <title>Contributors</title>
         <p id="_">Clause 2</p>
                 <table id='_' unnumbered='true'>
            <thead>
              <tr>
-               <th valign='middle' align='left'>Name</th>
-               <th valign='middle' align='left'>Affiliation</th>
-               <th valign='middle' align='left'>OGC member</th>
+               <th id="_" valign='middle' align='left'>Name</th>
+               <th id="_" valign='middle' align='left'>Affiliation</th>
+               <th id="_" valign='middle' align='left'>OGC member</th>
              </tr>
            </thead>
            <tbody>
              <tr>
-               <td valign='middle' align='left'>Steve Liang</td>
-               <td valign='middle' align='left'>University of Calgary, Canada / SensorUp Inc.</td>
-               <td valign='middle' align='left'>Yes</td>
+               <td id="_" valign='middle' align='left'>Steve Liang</td>
+               <td id="_" valign='middle' align='left'>University of Calgary, Canada / SensorUp Inc.</td>
+               <td id="_" valign='middle' align='left'>Yes</td>
              </tr>
            </tbody>
          </table>
       </clause>
       </preface><sections>
-      <clause id="_" obligation="normative">
+      <clause id="_" anchor="_clause" obligation="normative">
         <title>Clause</title>
         <p id="_">Clause 1</p>
       </clause></sections>
@@ -246,36 +246,36 @@ RSpec.describe Metanorma::Ogc do
       <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ogc::VERSION}" flavor="ogc">
       <preface><foreword id="_" obligation="informative">
       <title>Preface</title><p id="_">This is a preamble</p></foreword>
-      <acknowledgements id='_' obligation='informative'>
+      <acknowledgements id='_' anchor="_acknowledgements" obligation='informative'>
         <title>Acknowledgements</title>
       </acknowledgements>
       #{SECURITY}
-      <clause type="submitters" obligation="informative" id="_">
+      <clause type="submitters" obligation="informative" id="_" anchor="_submitters" >
       <title>Submitters</title>
         <p id="_">Clause 2</p>
                 <table id='_' unnumbered='true'>
            <thead>
              <tr>
-               <th valign='middle' align='left'>Name</th>
-               <th valign='middle' align='left'>Affiliation</th>
-               <th valign='middle' align='left'>OGC member</th>
+               <th id="_" valign='middle' align='left'>Name</th>
+               <th id="_" valign='middle' align='left'>Affiliation</th>
+               <th id="_" valign='middle' align='left'>OGC member</th>
              </tr>
            </thead>
            <tbody>
              <tr>
-               <td valign='middle' align='left'>Steve Liang</td>
-               <td valign='middle' align='left'>University of Calgary, Canada / SensorUp Inc.</td>
-               <td valign='middle' align='left'>Yes</td>
+               <td id="_" valign='middle' align='left'>Steve Liang</td>
+               <td id="_" valign='middle' align='left'>University of Calgary, Canada / SensorUp Inc.</td>
+               <td id="_" valign='middle' align='left'>Yes</td>
              </tr>
            </tbody>
          </table>
       </clause>
-          <clause obligation="informative" id="_" type="contributors">
+          <clause obligation="informative" id="_" anchor="_contributors" type="contributors">
       <title>Contributors</title>
       <p id="_">Clause 3</p>
       </clause>
       </preface><sections>
-      <clause id="_" obligation="normative">
+      <clause id="_" anchor="_clause" obligation="normative">
         <title>Clause</title>
         <p id="_">Clause 1</p>
       </clause></sections>
@@ -298,7 +298,7 @@ RSpec.describe Metanorma::Ogc do
     INPUT
 
     output = Xml::C14n.format(<<~OUTPUT)
-      <bibliography><references id="_" obligation="informative" normative="true">
+      <bibliography><references id="_" anchor="_references" obligation="informative" normative="true">
         <title>Normative references</title>
         <p id="_">There are no normative references in this document.</p>
       </references></bibliography>
@@ -325,7 +325,7 @@ RSpec.describe Metanorma::Ogc do
          </foreword>
          #{SECURITY}</preface>
           <sections>
-         <clause id="_" obligation="normative">
+         <clause id="_" anchor="_section_1" obligation="normative">
            <title>Section 1</title>
          </clause></sections>
          </metanorma>
@@ -347,7 +347,7 @@ RSpec.describe Metanorma::Ogc do
     output = <<~OUTPUT
         #{blank_hdr_gen}
       <preface>#{SECURITY}</preface>
-          <sections><terms id="_" obligation="normative">
+          <sections><terms id="_" anchor="_terms_and_definitions" obligation="normative">
            <title>Terms and definitions</title><p id="_">No terms and definitions are listed in this document.</p>
            <p id="_">This is a prefatory paragraph</p>
          </terms>
@@ -370,7 +370,7 @@ RSpec.describe Metanorma::Ogc do
     output = <<~OUTPUT
       #{blank_hdr_gen}
        <preface>
-           <foreword id='_' obligation='informative'>
+           <foreword id='_' anchor="_preface" obligation='informative'>
              <title>Preface</title>
              <p id='_'>This is a prefatory paragraph</p>
            </foreword>
@@ -394,7 +394,7 @@ RSpec.describe Metanorma::Ogc do
         #{blank_hdr_gen}
       <preface>#{SECURITY}</preface>
          <sections>
-             <clause id='_' obligation='normative' type="conformance">
+             <clause id='_' anchor="_conformance" obligation='normative' type="conformance">
                <title>Conformance</title>
              </clause>
            </sections>
@@ -416,7 +416,7 @@ RSpec.describe Metanorma::Ogc do
     output = <<~OUTPUT
       #{blank_hdr_gen}
        <preface>
-           <clause id='_' obligation='informative' type="security">
+           <clause id='_' anchor="_security_considerations" obligation='informative' type="security">
              <title>Security Considerations</title>
              <p id="_">This is a security consideration</p>
            </clause>
@@ -441,7 +441,7 @@ RSpec.describe Metanorma::Ogc do
           <p id="_">No security considerations have been made for this document.</p>
         </clause>
       </preface>
-         <sections><clause id="_" obligation="normative">
+         <sections><clause id="_" anchor="_clause" obligation="normative">
             <title>Clause</title>
          </sections>
        </metanorma>
@@ -462,7 +462,7 @@ RSpec.describe Metanorma::Ogc do
     output = <<~OUTPUT
       <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ogc::VERSION}" flavor="ogc">
       <sections>
-          <clause id='_' obligation='normative'>
+          <clause id='_' anchor="_security_considerations" obligation='normative'>
             <title>Security Considerations</title>
             <p id="_">This is a security consideration</p>
           </clause>
@@ -484,7 +484,7 @@ RSpec.describe Metanorma::Ogc do
     output = <<~OUTPUT
       <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ogc::VERSION}" flavor="ogc">
                <sections>
-           <clause id="_" obligation="normative">
+           <clause id="_" anchor="_clause" obligation="normative">
              <title>Clause</title>
            </clause>
          </sections>
@@ -514,11 +514,11 @@ RSpec.describe Metanorma::Ogc do
     output = <<~OUTPUT
       #{blank_hdr_gen.sub(%r{</script>}, '</script><abstract><p>This is an abstract</p></abstract>')}
       <preface>
-      <abstract id='_'>
+      <abstract id='_' anchor="_abstract">
         <title>Abstract</title>
         <p id='_'>This is an abstract</p>
       </abstract>
-           <executivesummary id="_" obligation='informative'>
+           <executivesummary id="_" anchor="_executive_summary" obligation='informative'>
              <title>Executive summary</title>
              <p id='_'>This is an executive summary</p>
            </executivesummary>
@@ -552,11 +552,11 @@ RSpec.describe Metanorma::Ogc do
             #{blank_hdr_gen}
             <preface>#{SECURITY}</preface>
                  <sections>
-            <clause id='_' obligation='normative'>
+            <clause id='_' anchor="_foreword" obligation='normative'>
               <title>Foreword</title>
               <p id='_'>This is a prefatory paragraph</p>
             </clause>
-            <clause id='_' obligation='normative'>
+            <clause id='_' anchor="_introduction" obligation='normative'>
         <title>Introduction</title>
         <p id='_'>And so is this</p>
       </clause>
@@ -585,7 +585,7 @@ RSpec.describe Metanorma::Ogc do
       #{blank_hdr_gen}
       <preface>#{SECURITY}</preface>
       <sections> </sections>
-      <annex id='_' obligation='informative'>
+      <annex id='_' anchor="_appendix" obligation='informative'>
         <title>Appendix</title>
         <p id='_'>
           <concept>
@@ -595,16 +595,17 @@ RSpec.describe Metanorma::Ogc do
           </concept>
         </p>
       </annex>
-            <annex id='_' obligation='informative'>
+            <annex id='_' anchor="_glossary" obligation='informative'>
         <title>Glossary</title>
         <terms id='_' obligation='normative'>
-          <term id='term-Term'>
+          <term id="_" anchor="term-Term">
             <preferred><expression><name>Term</name></expression></preferred>
           </term>
         </terms>
       </annex>
       </metanorma>
     OUTPUT
+    mock_preserve_idrefs
     expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
       .to be_equivalent_to Xml::C14n.format(output)
 
@@ -621,10 +622,10 @@ RSpec.describe Metanorma::Ogc do
             #{blank_hdr_gen}
           <preface>#{SECURITY}</preface>
           <sections> </sections>
-      <annex id='_' obligation='informative'>
+      <annex id='_' anchor="_glossarium" obligation='informative'>
         <title>Glossarium</title>
         <terms id='_' obligation='normative'>
-          <term id='term-Glossaire'>
+          <term id="_" anchor="term-Glossaire">
             <preferred><expression><name>Glossaire</name></expression></preferred>
           </term>
         </terms>
@@ -662,7 +663,7 @@ RSpec.describe Metanorma::Ogc do
       #{blank_hdr_gen}
       <preface>#{SECURITY}</preface>
       <sections>
-      <clause id='_' obligation='normative' type="terms">
+      <clause id='_' anchor="_terms_definitions_symbols_and_abbreviated_terms" obligation='normative' type="terms">
       <title>Terms, definitions, symbols and abbreviated terms</title>
       <p id='_'>This document uses the terms defined in
         <link target='https://portal.ogc.org/public_ogc/directives/directives.php'>OGC Policy Directive 49</link>,
@@ -679,25 +680,25 @@ RSpec.describe Metanorma::Ogc do
         provided in the ModSpec.</p>
       <p id='_'>For the purposes of this document, the following additional terms and
         definitions apply.</p>
-      <terms id='_' obligation='normative'>
+      <terms id='_' anchor="_terms_and_definitions" obligation='normative'>
         <title>Terms and definitions</title>
-        <term id='term-Term'>
+        <term id="_" anchor="term-Term">
           <preferred><expression><name>Term</name></expression></preferred>
         </term>
       </terms>
-      <definitions id='_' type='abbreviated_terms' obligation='normative'>
+      <definitions id='_' anchor="_abbreviated_terms" type='abbreviated_terms' obligation='normative'>
         <title>Abbreviated terms</title>
-        <definitions id='_' obligation='normative'>
+        <definitions id='_' anchor="_term2" obligation='normative'>
           <title>Symbols and abbreviated terms</title>
         </definitions>
       </definitions>
       </clause>
                </sections>
-               <annex id='_' obligation='informative'>
+               <annex id='_' anchor="_glossary" obligation='informative'>
                  <title>Glossary</title>
-                   <terms id='_' obligation='normative'>
+                   <terms id='_' anchor="_term_collection" obligation='normative'>
                      <title>Term Collection</title>
-                     <term id='term-Term-1'>
+                     <term id="_" anchor="term-Term-1">
                        <preferred><expression><name>Term</name></expression></preferred>
                      </term>
                    </terms>
@@ -724,11 +725,11 @@ RSpec.describe Metanorma::Ogc do
         <preface>#{SECURITY}</preface>
          <sections> </sections>
         <bibliography>
-          <references id='_' normative='true' obligation='informative'>
+          <references id='_' anchor="_normative_references" normative='true' obligation='informative'>
             <title>Normative references</title>
             <p id='_'>There are no normative references in this document.</p>
                   </references>
-          <references id='_' normative='false' obligation='informative'>
+          <references id='_' anchor="_references" normative='false' obligation='informative'>
             <title>References</title>
           </references>
         </bibliography>
@@ -756,13 +757,13 @@ RSpec.describe Metanorma::Ogc do
       #{blank_hdr_gen}
       <preface>#{SECURITY}</preface>
       <sections> </sections>
-        <annex id='_' obligation='informative'>
+        <annex id='_' anchor="_a" obligation='informative'>
           <title>A</title>
         </annex>
-        <annex id='_' obligation='informative'>
+        <annex id='_' anchor="_b" obligation='informative'>
           <title>B</title>
         </annex>
-        <annex id='_' obligation='informative'>
+        <annex id='_' anchor="_revision_history"  obligation='informative'>
           <title>Revision History</title>
         </annex>
       </metanorma>
@@ -794,16 +795,16 @@ RSpec.describe Metanorma::Ogc do
       #{blank_hdr_gen}
       <preface>#{SECURITY}</preface>
       <sections> </sections>
-        <annex id='_' obligation='informative'>
+        <annex id='_' anchor="_a" obligation='informative'>
           <title>A</title>
         </annex>
-        <annex id='_' obligation='informative'>
+        <annex id='_' anchor="_b" obligation='informative'>
           <title>B</title>
         </annex>
-        <annex id='_' obligation='informative'>
+        <annex id='_' anchor="_glossary" obligation='informative'>
           <title>Glossary</title>
           <terms id='_' obligation='normative'>
-            <term id='term-Term'>
+            <term id="_" anchor="term-Term">
               <preferred>
                 <expression>
                   <name>Term</name>
@@ -812,7 +813,7 @@ RSpec.describe Metanorma::Ogc do
             </term>
           </terms>
         </annex>
-        <annex id='_' obligation='informative'>
+        <annex id='_' anchor="_revision_history" obligation='informative'>
           <title>Revision History</title>
         </annex>
       </metanorma>

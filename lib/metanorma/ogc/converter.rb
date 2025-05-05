@@ -7,9 +7,6 @@ require_relative "cleanup"
 
 module Metanorma
   module Ogc
-    # A {Converter} implementation that generates RSD output, and a document
-    # schema encapsulation of the document for validation
-    #
     class Converter < Standoc::Converter
       register_for "ogc"
 
@@ -83,8 +80,7 @@ module Metanorma
         when "foreword", "introduction" then "donotrecognise-foreword"
         when "references" then "normative references"
         when "glossary" then "terms and definitions"
-        else
-          super
+        else super
         end
       end
 
@@ -154,6 +150,7 @@ module Metanorma
         attrs1 = attrs.merge(id: "_#{UUIDTools::UUID.random_create}")
         xml.annex **attr_code(attrs1) do |xml_section|
           xml_section.title { |name| name << node.title }
+          attrs.delete(:anchor)
           xml_section.terms **attr_code(attrs) do |terms|
             (s = node.attr("source")) && s.split(",").each do |s1|
               terms.termdocsource(nil, **attr_code(bibitemid: s1))
@@ -161,11 +158,6 @@ module Metanorma
             terms << node.content
           end
         end
-      end
-
-      # KILL 
-      def highlight_parsex(text, xml)
-        xml.hi { |s| s << text }
       end
 
       def set_obligation(attrs, node)
