@@ -163,7 +163,7 @@ RSpec.describe Metanorma::Ogc do
          </bibdata>
                   <boilerplate>
            <copyright-statement>
-             <clause id="_" obligation="normative">
+             <clause id="_" anchor="_copyright_notice" obligation="normative">
                <title>Copyright notice</title>
                <p id="_" align="center">
                  Copyright © 2001 Open Geospatial Consortium
@@ -172,14 +172,14 @@ RSpec.describe Metanorma::Ogc do
                  <link target="https://www.ogc.org/legal"/>
                </p>
              </clause>
-             <clause id="_" obligation="normative">
+             <clause id="_" anchor="_note" obligation="normative">
                <title>Note</title>
                <p id="_" align="left">Attention is drawn to the possibility that some of the elements of this document may be the subject of patent rights. The Open Geospatial Consortium shall not be held responsible for identifying any or all such patent rights.</p>
                <p id="_" align="left">Recipients of this document are requested to submit, with their comments, notification of any relevant patent claims or other intellectual property rights of which they may be aware that might be infringed by any implementation of the standard set forth in this document, and to provide supporting documentation.</p>
              </clause>
            </copyright-statement>
            <license-statement>
-             <clause id="_" obligation="normative">
+             <clause id="_" anchor="_license_agreement" obligation="normative">
                <title>License Agreement</title>
                <p id="_">
                  Use of this document is subject to the license agreement at
@@ -188,14 +188,14 @@ RSpec.describe Metanorma::Ogc do
              </clause>
            </license-statement>
            <legal-statement>
-             <clause id="_" obligation="normative">
+             <clause id="_" anchor="_notice_for_drafts" obligation="normative">
                <title>Notice for Drafts</title>
                <p id="_">This document is not an OGC Standard. This document is distributed for review and comment. This document is subject to change without notice and may not be referred to as an OGC Standard.</p>
                <p id="_">Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation.</p>
              </clause>
            </legal-statement>
            <feedback-statement>
-             <clause id="boilerplate-standard-feedback" obligation="normative">
+             <clause id="_" anchor="boilerplate-standard-feedback" obligation="normative">
                <p id="_">
                  Suggested additions, changes and comments on this document are welcome and encouraged. Such suggestions may be submitted using the online change request form on OGC web site:
                  <link target="http://ogc.standardstracker.org/"/>
@@ -795,14 +795,14 @@ RSpec.describe Metanorma::Ogc do
         <table id='_'>
           <thead>
             <tr>
-              <th valign='middle' align='left'>a</th>
-              <th valign='middle' align='left'>b</th>
+              <th id="_" valign='middle' align='left'>a</th>
+              <th id="_" valign='middle' align='left'>b</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td valign='middle' align='center'>c</td>
-              <td valign='middle' align='right'>d</td>
+              <td id="_" valign='middle' align='center'>c</td>
+              <td id="_" valign='middle' align='right'>d</td>
             </tr>
           </tbody>
         </table>
@@ -857,18 +857,18 @@ RSpec.describe Metanorma::Ogc do
       2d:: Definition 8
     INPUT
     output = <<~OUTPUT
-          <definitions id="L" obligation="normative">
+          <definitions id="_" anchor="L" obligation="normative">
         <title>Symbols and abbreviated terms</title>
         <dl id="_">
-          <dt id="symbol-_2d">2d</dt>
+          <dt id="_" anchor="symbol-_2d">2d</dt>
           <dd>
             <p id="_">Definition 8</p>
           </dd>
-          <dt id="symbol-m">m</dt>
+          <dt id="_" anchor="symbol-m">m</dt>
           <dd>
             <p id="_">Definition 7</p>
           </dd>
-          <dt id="symbol-n">
+          <dt id="_" anchor="symbol-n">
             <stem type="MathML" block="false">
               <math xmlns="http://www.w3.org/1998/Math/MathML">
                 <mstyle displaystyle="false">
@@ -881,23 +881,23 @@ RSpec.describe Metanorma::Ogc do
           <dd>
             <p id="_">Definition 6</p>
           </dd>
-          <dt id="symbol-x">x</dt>
+          <dt id="_" anchor="symbol-x">x</dt>
           <dd>
             <p id="_">Definition 5</p>
           </dd>
-          <dt id="symbol-x_1_">x_1_</dt>
+          <dt id="_" anchor="symbol-x_1_">x_1_</dt>
           <dd>
             <p id="_">Definition 3</p>
           </dd>
-          <dt id="symbol-x_m_">x_m_</dt>
+          <dt id="_" anchor="symbol-x_m_">x_m_</dt>
           <dd>
             <p id="_">Definition 4</p>
           </dd>
-          <dt id="symbol-Xa">Xa</dt>
+          <dt id="_" anchor="symbol-Xa">Xa</dt>
           <dd>
             <p id="_">Definition 2</p>
           </dd>
-          <dt id="symbol-__x3b1_">α</dt>
+          <dt id="_" anchor="symbol-__x3b1_">α</dt>
           <dd>
             <p id="_">Definition 1</p>
           </dd>
@@ -1264,48 +1264,48 @@ RSpec.describe Metanorma::Ogc do
 
     output = <<~OUTPUT
       <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ogc::VERSION}" flavor="ogc">
-          <preface>
-             <clause id="_" type="overview" obligation="informative">
+             <preface>
+             <clause id="_" anchor="_ovrvw" type="overview" obligation="informative">
                 <title>Ovrvw</title>
              </clause>
-             <clause id="_" type="future_outlook" obligation="informative">
+             <clause id="_" anchor="_f_o" type="future_outlook" obligation="informative">
                 <title>F O</title>
              </clause>
-             <clause id="_" type="value_proposition" obligation="informative">
+             <clause id="_" anchor="_v_p" type="value_proposition" obligation="informative">
                 <title>V P</title>
              </clause>
-             <clause id="_" type="contributors" obligation="informative">
-                <title>Contr</title>
-             </clause>
-             <executivesummary id="_" obligation="informative">
+             <executivesummary id="_" anchor="_exec_summ" obligation="informative">
                 <title>Executive summary</title>
              </executivesummary>
+             <clause id="_" anchor="_contr" type="contributors" obligation="informative">
+                <title>Contr</title>
+             </clause>
           </preface>
           <sections>
-             <clause id="_" obligation="normative">
+             <clause id="_" anchor="_rand" obligation="normative">
                 <title>Rand</title>
              </clause>
-                   <clause id="_" obligation="normative">
-         <title>Introduction</title>
-         <clause id="_" type="aims" obligation="normative">
-            <title>Aims</title>
-         </clause>
-         <clause id="_" type="objectives" obligation="normative">
-            <title>Objectives</title>
-         </clause>
-      </clause>
-      <clause id="_" type="topics" obligation="normative">
-         <title>Topics</title>
-      </clause>
-      <clause id="_" type="outlook" obligation="normative">
-         <title>Outlook</title>
-      </clause>
-      <clause id="_" obligation="normative">
-         <title>Security etc</title>
-      </clause>
+             <clause id="_" anchor="_introduction" obligation="normative">
+                <title>Introduction</title>
+                <clause id="_" anchor="_aims" type="aims" obligation="normative">
+                   <title>Aims</title>
+                </clause>
+                <clause id="_" anchor="_objectives" type="objectives" obligation="normative">
+                   <title>Objectives</title>
+                </clause>
+             </clause>
+             <clause id="_" anchor="_topics" type="topics" obligation="normative">
+                <title>Topics</title>
+             </clause>
+             <clause id="_" anchor="_outlook" type="outlook" obligation="normative">
+                <title>Outlook</title>
+             </clause>
+             <clause id="_" anchor="_security_etc" obligation="normative">
+                <title>Security etc</title>
+             </clause>
           </sections>
        </metanorma>
-    OUTPUT
+     OUTPUT
 
     xml = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
     xml.xpath("//xmlns:boilerplate | //xmlns:bibdata | //xmlns:metanorma-extension")

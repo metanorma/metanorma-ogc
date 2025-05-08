@@ -32,7 +32,7 @@ RSpec.describe Metanorma::Ogc do
           #{blank_hdr_gen}
           <preface>#{SECURITY}</preface>
       <sections>
-      <clause id='_' obligation='normative'>
+      <clause id='_' anchor="_clause" obligation='normative'>
              <title>Clause</title>
              </clause>
              </sections>
