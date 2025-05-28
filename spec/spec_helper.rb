@@ -259,7 +259,7 @@ end
 
 SECURITY = <<~HDR.freeze
   <clause type='security' id='_' obligation='informative'>
-    <title>Security considerations</title>
+    <title id="_">Security considerations</title>
     <p id='_'>No security considerations have been made for this document.</p>
   </clause>
 HDR

@@ -66,11 +66,21 @@ RSpec.describe IsoDoc::Ogc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-       <foreword displayorder="2">
-          <title id="_">Preface</title>
-          <fmt-title depth="1">
-             <semx element="title" source="_">Preface</semx>
-          </fmt-title>
+         <foreword id="_" displayorder="2">
+           <title id="_">Preface</title>
+           <fmt-title depth="1" id="_">
+              <span class="fmt-caption-label">
+                 <semx element="autonum" source="_">I</semx>
+                 <span class="fmt-autonum-delim">.</span>
+              </span>
+              <span class="fmt-caption-delim">
+                 <tab/>
+              </span>
+              <semx element="title" source="_">Preface</semx>
+           </fmt-title>
+           <fmt-xref-label>
+              <semx element="title" source="_">Preface</semx>
+           </fmt-xref-label>
           <p>
              <xref target="N1" id="_"/>
              <semx element="xref" source="_">
@@ -262,11 +272,21 @@ RSpec.describe IsoDoc::Ogc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-       <foreword displayorder="2">
-          <title id="_">Preface</title>
-          <fmt-title depth="1">
-             <semx element="title" source="_">Preface</semx>
-          </fmt-title>
+        <foreword id="_" displayorder="2">
+           <title id="_">Preface</title>
+           <fmt-title depth="1" id="_">
+              <span class="fmt-caption-label">
+                 <semx element="autonum" source="_">I</semx>
+                 <span class="fmt-autonum-delim">.</span>
+              </span>
+              <span class="fmt-caption-delim">
+                 <tab/>
+              </span>
+              <semx element="title" source="_">Preface</semx>
+           </fmt-title>
+           <fmt-xref-label>
+              <semx element="title" source="_">Preface</semx>
+           </fmt-xref-label>
           <p>
              <xref target="N1" id="_"/>
              <semx element="xref" source="_">
@@ -358,11 +378,21 @@ RSpec.describe IsoDoc::Ogc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-       <foreword displayorder="2">
-          <title id="_">Preface</title>
-          <fmt-title depth="1">
-             <semx element="title" source="_">Preface</semx>
-          </fmt-title>
+        <foreword id="_" displayorder="2">
+           <title id="_">Preface</title>
+           <fmt-title depth="1" id="_">
+              <span class="fmt-caption-label">
+                 <semx element="autonum" source="_">I</semx>
+                 <span class="fmt-autonum-delim">.</span>
+              </span>
+              <span class="fmt-caption-delim">
+                 <tab/>
+              </span>
+              <semx element="title" source="_">Preface</semx>
+           </fmt-title>
+           <fmt-xref-label>
+              <semx element="title" source="_">Preface</semx>
+           </fmt-xref-label>
           <p>
              <xref target="A" id="_"/>
              <semx element="xref" source="_">
@@ -531,11 +561,21 @@ RSpec.describe IsoDoc::Ogc do
       <iso-standard>
     INPUT
     output = <<~OUTPUT
-       <foreword displayorder="2">
-          <title id="_">Foreword</title>
-          <fmt-title depth="1">
-             <semx element="title" source="_">Foreword</semx>
-          </fmt-title>
+         <foreword id="_" displayorder="2">
+           <title id="_">Foreword</title>
+           <fmt-title depth="1" id="_">
+              <span class="fmt-caption-label">
+                 <semx element="autonum" source="_">I</semx>
+                 <span class="fmt-autonum-delim">.</span>
+              </span>
+              <span class="fmt-caption-delim">
+                 <tab/>
+              </span>
+              <semx element="title" source="_">Foreword</semx>
+           </fmt-title>
+           <fmt-xref-label>
+              <semx element="title" source="_">Foreword</semx>
+           </fmt-xref-label>
           <p>
              <xref target="A" id="_"/>
              <semx element="xref" source="_">
@@ -638,11 +678,21 @@ RSpec.describe IsoDoc::Ogc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-        <foreword displayorder="2">
+         <foreword id="_" displayorder="2">
            <title id="_">Preface</title>
-           <fmt-title depth="1">
+           <fmt-title depth="1" id="_">
+              <span class="fmt-caption-label">
+                 <semx element="autonum" source="_">I</semx>
+                 <span class="fmt-autonum-delim">.</span>
+              </span>
+              <span class="fmt-caption-delim">
+                 <tab/>
+              </span>
               <semx element="title" source="_">Preface</semx>
            </fmt-title>
+           <fmt-xref-label>
+              <semx element="title" source="_">Preface</semx>
+           </fmt-xref-label>
            <p>
               <xref target="N1" id="_"/>
               <semx element="xref" source="_">
@@ -780,11 +830,21 @@ RSpec.describe IsoDoc::Ogc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-        <foreword displayorder="2">
+        <foreword id="_" displayorder="2">
            <title id="_">Preface</title>
-           <fmt-title depth="1">
+           <fmt-title depth="1" id="_">
+              <span class="fmt-caption-label">
+                 <semx element="autonum" source="_">I</semx>
+                 <span class="fmt-autonum-delim">.</span>
+              </span>
+              <span class="fmt-caption-delim">
+                 <tab/>
+              </span>
               <semx element="title" source="_">Preface</semx>
            </fmt-title>
+           <fmt-xref-label>
+              <semx element="title" source="_">Preface</semx>
+           </fmt-xref-label>
            <p>
               <xref target="N1" id="_"/>
               <semx element="xref" source="_">
@@ -922,11 +982,21 @@ RSpec.describe IsoDoc::Ogc do
           </iso-standard>
     INPUT
     output = <<~OUTPUT
-        <foreword displayorder="2">
+        <foreword id="_" displayorder="2">
            <title id="_">Preface</title>
-           <fmt-title depth="1">
+           <fmt-title depth="1" id="_">
+              <span class="fmt-caption-label">
+                 <semx element="autonum" source="_">I</semx>
+                 <span class="fmt-autonum-delim">.</span>
+              </span>
+              <span class="fmt-caption-delim">
+                 <tab/>
+              </span>
               <semx element="title" source="_">Preface</semx>
            </fmt-title>
+           <fmt-xref-label>
+              <semx element="title" source="_">Preface</semx>
+           </fmt-xref-label>
            <p>
               <xref target="N1" id="_"/>
               <semx element="xref" source="_">
@@ -1047,11 +1117,21 @@ RSpec.describe IsoDoc::Ogc do
       </iso-standard>
     INPUT
     output = <<~OUTPUT
-        <foreword displayorder="2">
+         <foreword id="_" displayorder="2">
            <title id="_">Preface</title>
-           <fmt-title depth="1">
+           <fmt-title depth="1" id="_">
+              <span class="fmt-caption-label">
+                 <semx element="autonum" source="_">I</semx>
+                 <span class="fmt-autonum-delim">.</span>
+              </span>
+              <span class="fmt-caption-delim">
+                 <tab/>
+              </span>
               <semx element="title" source="_">Preface</semx>
            </fmt-title>
+           <fmt-xref-label>
+              <semx element="title" source="_">Preface</semx>
+           </fmt-xref-label>
            <p>
               <xref target="N1" id="_"/>
               <semx element="xref" source="_">
@@ -1272,7 +1352,7 @@ RSpec.describe IsoDoc::Ogc do
     output = <<~OUTPUT
         <foreword id="fwd" displayorder="2">
            <title id="_">Preface</title>
-           <fmt-title depth="1">
+           <fmt-title id="_" depth="1">
               <span class="fmt-caption-label">
                  <semx element="autonum" source="fwd">I</semx>
                  <span class="fmt-autonum-delim">.</span>

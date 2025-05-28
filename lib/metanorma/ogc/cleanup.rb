@@ -18,10 +18,6 @@ module Metanorma
         insert_submitters(xml, sect)
       end
 
-      def add_id_txt
-        %(id="_#{UUIDTools::UUID.random_create}")
-      end
-
       def insert_security(xml, sect)
         "document"
         "standard" if %w(standard community-standard)
@@ -45,8 +41,8 @@ module Metanorma
         description = "standard" if %w(standard community-standard)
           .include?(doctype)
         <<~CLAUSE
-          <clause type='security' #{add_id_txt}>
-            <title>Security considerations</title>
+          <clause type='security' #{add_id_text}>
+            <title #{add_id_text}>Security considerations</title>
             <p>#{@i18n.security_empty.sub('%', description)}</p></clause>
         CLAUSE
       end

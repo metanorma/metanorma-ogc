@@ -164,7 +164,7 @@ RSpec.describe Metanorma::Ogc do
                   <boilerplate>
            <copyright-statement>
              <clause id="_" obligation="normative">
-               <title>Copyright notice</title>
+               <title id="_">Copyright notice</title>
                <p id="_" align="center">
                  Copyright © 2001 Open Geospatial Consortium
                  <br/>
@@ -173,14 +173,14 @@ RSpec.describe Metanorma::Ogc do
                </p>
              </clause>
              <clause id="_" obligation="normative">
-               <title>Note</title>
+               <title id="_">Note</title>
                <p id="_" align="left">Attention is drawn to the possibility that some of the elements of this document may be the subject of patent rights. The Open Geospatial Consortium shall not be held responsible for identifying any or all such patent rights.</p>
                <p id="_" align="left">Recipients of this document are requested to submit, with their comments, notification of any relevant patent claims or other intellectual property rights of which they may be aware that might be infringed by any implementation of the standard set forth in this document, and to provide supporting documentation.</p>
              </clause>
            </copyright-statement>
            <license-statement>
              <clause id="_" obligation="normative">
-               <title>License Agreement</title>
+               <title id="_">License Agreement</title>
                <p id="_">
                  Use of this document is subject to the license agreement at
                  <link target="https://www.ogc.org/license"/>
@@ -189,7 +189,7 @@ RSpec.describe Metanorma::Ogc do
            </license-statement>
            <legal-statement>
              <clause id="_" obligation="normative">
-               <title>Notice for Drafts</title>
+               <title id="_">Notice for Drafts</title>
                <p id="_">This document is not an OGC Standard. This document is distributed for review and comment. This document is subject to change without notice and may not be referred to as an OGC Standard.</p>
                <p id="_">Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation.</p>
              </clause>
@@ -747,7 +747,7 @@ RSpec.describe Metanorma::Ogc do
         #{blank_hdr_gen}
       <preface>#{SECURITY}</preface>
          <sections>
-           <example id="_"><name>Example Title</name><p id="_">This is an example</p>
+           <example id="_"><name id="_">Example Title</name><p id="_">This is an example</p>
          <p id="_">Amen</p></example>
          </sections>
          </metanorma>
@@ -794,13 +794,13 @@ RSpec.describe Metanorma::Ogc do
       <sections>
         <table id='_'>
           <thead>
-            <tr>
+            <tr id="_">
               <th id="_" valign='middle' align='left'>a</th>
               <th id="_" valign='middle' align='left'>b</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr id="_">
               <td id="_" valign='middle' align='center'>c</td>
               <td id="_" valign='middle' align='right'>d</td>
             </tr>
@@ -858,14 +858,14 @@ RSpec.describe Metanorma::Ogc do
     INPUT
     output = <<~OUTPUT
        <definitions id="_" anchor="L" obligation="normative">
-          <title>Symbols and abbreviated terms</title>
+          <title id="_">Symbols and abbreviated terms</title>
           <dl id="_">
              <dt anchor="symbol-_d" id="_">2d</dt>
-             <dd>
+             <dd id="_">
                 <p id="_">Definition 8</p>
              </dd>
              <dt anchor="symbol-m" id="_">m</dt>
-             <dd>
+             <dd id="_">
                 <p id="_">Definition 7</p>
              </dd>
              <dt anchor="symbol-n" id="_">
@@ -878,27 +878,27 @@ RSpec.describe Metanorma::Ogc do
                    <asciimath>n</asciimath>
                 </stem>
              </dt>
-             <dd>
+             <dd id="_">
                 <p id="_">Definition 6</p>
              </dd>
              <dt anchor="symbol-x" id="_">x</dt>
-             <dd>
+             <dd id="_">
                 <p id="_">Definition 5</p>
              </dd>
              <dt anchor="symbol-x_1_" id="_">x_1_</dt>
-             <dd>
+             <dd id="_">
                 <p id="_">Definition 3</p>
              </dd>
              <dt anchor="symbol-x_m_" id="_">x_m_</dt>
-             <dd>
+             <dd id="_">
                 <p id="_">Definition 4</p>
              </dd>
              <dt anchor="symbol-Xa" id="_">Xa</dt>
-             <dd>
+             <dd id="_">
                 <p id="_">Definition 2</p>
              </dd>
              <dt anchor="symbol-α" id="_">α</dt>
-             <dd>
+             <dd id="_">
                 <p id="_">Definition 1</p>
              </dd>
           </dl>
@@ -1266,42 +1266,42 @@ RSpec.describe Metanorma::Ogc do
       <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ogc::VERSION}" flavor="ogc">
              <preface>
              <clause id="_" type="overview" obligation="informative">
-                <title>Ovrvw</title>
+                <title id="_">Ovrvw</title>
              </clause>
              <clause id="_" type="future_outlook" obligation="informative">
-                <title>F O</title>
+                <title id="_">F O</title>
              </clause>
              <clause id="_" type="value_proposition" obligation="informative">
-                <title>V P</title>
+                <title id="_">V P</title>
              </clause>
              <executivesummary id="_" obligation="informative">
-                <title>Executive summary</title>
+                <title id="_">Executive summary</title>
              </executivesummary>
              <clause id="_" type="contributors" obligation="informative">
-                <title>Contr</title>
+                <title id="_">Contr</title>
              </clause>
           </preface>
           <sections>
              <clause id="_" obligation="normative">
-                <title>Rand</title>
+                <title id="_">Rand</title>
              </clause>
              <clause id="_" obligation="normative">
-                <title>Introduction</title>
+                <title id="_">Introduction</title>
                 <clause id="_" type="aims" obligation="normative">
-                   <title>Aims</title>
+                   <title id="_">Aims</title>
                 </clause>
                 <clause id="_" type="objectives" obligation="normative">
-                   <title>Objectives</title>
+                   <title id="_">Objectives</title>
                 </clause>
              </clause>
              <clause id="_" type="topics" obligation="normative">
-                <title>Topics</title>
+                <title id="_">Topics</title>
              </clause>
              <clause id="_" type="outlook" obligation="normative">
-                <title>Outlook</title>
+                <title id="_">Outlook</title>
              </clause>
              <clause id="_" obligation="normative">
-                <title>Security etc</title>
+                <title id="_">Security etc</title>
              </clause>
           </sections>
        </metanorma>

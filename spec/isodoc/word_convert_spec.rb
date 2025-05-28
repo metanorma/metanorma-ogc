@@ -334,23 +334,23 @@ RSpec.describe IsoDoc::Ogc do
             <boilerplate>
             <copyright-statement>
             <clause>
-            <fmt-title>Copyright notice</fmt-title>
+            <fmt-title id="_">Copyright notice</fmt-title>
             <p>A</p>
             </clause>
             <clause>
-            <fmt-title>Note</fmt-title>
+            <fmt-title id="_">Note</fmt-title>
             <p>B</p>
             </clause>
             </copyright-statement>
             <license-statement>
             <clause>
-            <fmt-title>License Agreement</fmt-title>
+            <fmt-title id="_">License Agreement</fmt-title>
             <p>C</p>
             </clause>
             </license-statement>
             </boilerplate>
             <sections>
-            <terms id="_terms_and_definitions" obligation="normative"><fmt-title>Terms and definitions</fmt-title><p id="_bf202ad0-7300-4cca-80ae-87ef7008f0fd">For the purposes of this document,
+            <terms id="_terms_and_definitions" obligation="normative"><fmt-title id="_">Terms and definitions</fmt-title><p id="_bf202ad0-7300-4cca-80ae-87ef7008f0fd">For the purposes of this document,
             the following terms and definitions apply.</p>
         <term id="_bounding_volume">
         <preferred>Bounding Volume</preferred>
@@ -388,7 +388,7 @@ RSpec.describe IsoDoc::Ogc do
   it "processes modspec permissions" do
     presxml = <<~OUTPUT
       <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
-                <preface><foreword id="A" displayorder="1"><fmt-title>Preface</fmt-title>
+                <preface><foreword id="A" displayorder="1"><fmt-title id="_">Preface</fmt-title>
                 <table id="A1" class="modspec" type="recommend">
             <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Permission 1</p></th></tr></thead>
             <tbody>

@@ -25,12 +25,12 @@ RSpec.describe IsoDoc::Ogc do
              </ext>
              <preface>
                 <clause type="toc" id="_" displayorder="1">
-                   <fmt-title depth="1">Contents</fmt-title>
+                   <fmt-title id="_" depth="1">Contents</fmt-title>
                 </clause>
              </preface>
              <sections>
                 <clause id="A" type="scope" displayorder="2">
-                   <fmt-title depth="1">
+                   <fmt-title id="_" depth="1">
                       <span class="fmt-caption-label">
                          <semx element="autonum" source="A">1</semx>
                          <span class="fmt-autonum-delim">.</span>
@@ -42,7 +42,7 @@ RSpec.describe IsoDoc::Ogc do
                    </fmt-xref-label>
                 </clause>
                 <clause id="B" displayorder="4">
-                   <fmt-title depth="1">
+                   <fmt-title id="_" depth="1">
                       <span class="fmt-caption-label">
                          <semx element="autonum" source="B">3</semx>
                          <span class="fmt-autonum-delim">.</span>
@@ -54,7 +54,7 @@ RSpec.describe IsoDoc::Ogc do
                    </fmt-xref-label>
                 </clause>
                 <clause id="C" displayorder="5">
-                   <fmt-title depth="1">
+                   <fmt-title id="_" depth="1">
                       <span class="fmt-caption-label">
                          <semx element="autonum" source="C">4</semx>
                          <span class="fmt-autonum-delim">.</span>
@@ -67,7 +67,7 @@ RSpec.describe IsoDoc::Ogc do
                 </clause>
                 <terms id="D" displayorder="3">
                    <title id="_">Terms</title>
-                   <fmt-title depth="1">
+                   <fmt-title id="_" depth="1">
                       <span class="fmt-caption-label">
                          <semx element="autonum" source="D">2</semx>
                          <span class="fmt-autonum-delim">.</span>
@@ -118,12 +118,12 @@ RSpec.describe IsoDoc::Ogc do
             </ext>
             <preface>
                <clause type="toc" id="_" displayorder="1">
-                  <fmt-title depth="1">Contents</fmt-title>
+                  <fmt-title id="_" depth="1">Contents</fmt-title>
                </clause>
             </preface>
             <sections>
                <clause id="A" type="scope" displayorder="2">
-                  <fmt-title depth="1">
+                  <fmt-title id="_" depth="1">
                      <span class="fmt-caption-label">
                         <semx element="autonum" source="A">1</semx>
                         <span class="fmt-autonum-delim">.</span>
@@ -135,7 +135,7 @@ RSpec.describe IsoDoc::Ogc do
                   </fmt-xref-label>
                </clause>
                <clause id="B" displayorder="3">
-                  <fmt-title depth="1">
+                  <fmt-title id="_" depth="1">
                      <span class="fmt-caption-label">
                         <semx element="autonum" source="B">2</semx>
                         <span class="fmt-autonum-delim">.</span>
@@ -147,7 +147,7 @@ RSpec.describe IsoDoc::Ogc do
                   </fmt-xref-label>
                </clause>
                <clause id="C" displayorder="4">
-                  <fmt-title depth="1">
+                  <fmt-title id="_" depth="1">
                      <span class="fmt-caption-label">
                         <semx element="autonum" source="C">3</semx>
                         <span class="fmt-autonum-delim">.</span>
@@ -160,7 +160,7 @@ RSpec.describe IsoDoc::Ogc do
                </clause>
                <terms id="D" displayorder="5">
                   <title id="_">Terms</title>
-                  <fmt-title depth="1">
+                  <fmt-title id="_" depth="1">
                      <span class="fmt-caption-label">
                         <semx element="autonum" source="D">4</semx>
                         <span class="fmt-autonum-delim">.</span>
@@ -222,13 +222,13 @@ RSpec.describe IsoDoc::Ogc do
         </metanorma-extension>
           <preface>
              <clause type="toc" id="_" displayorder="1">
-                <fmt-title depth="1">Contents</fmt-title>
+                <fmt-title id="_" depth="1">Contents</fmt-title>
              </clause>
           </preface>
           <sections>
              <terms id="H" obligation="normative" displayorder="2">
                 <title id="_">Terms, Definitions, Symbols and Abbreviated Terms</title>
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="H">1</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -243,7 +243,7 @@ RSpec.describe IsoDoc::Ogc do
                    <semx element="autonum" source="H">1</semx>
                 </fmt-xref-label>
                 <term id="J">
-                   <fmt-name>
+                   <fmt-name id="_">
                       <span class="fmt-caption-label">
                          <semx element="autonum" source="H">1</semx>
                          <span class="fmt-autonum-delim">.</span>
@@ -320,7 +320,7 @@ RSpec.describe IsoDoc::Ogc do
                          </locality>
                       </origin>
                       <modification id="_">
-                         <p original-id="_e73a417d-ad39-417d-a4c8-20e4e2529489">The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here</p>
+                         <p id="_">The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here</p>
                       </modification>
                    </source>
                    <fmt-termsource status="modified">
@@ -603,11 +603,11 @@ RSpec.describe IsoDoc::Ogc do
         </metanorma-extension>
           <preface>
              <clause type="toc" id="_" displayorder="1">
-                <fmt-title depth="1">Contents</fmt-title>
+                <fmt-title id="_" depth="1">Contents</fmt-title>
              </clause>
              <abstract obligation="informative" id="1" displayorder="2">
                 <title id="_">Abstract</title>
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="1">I</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -624,7 +624,7 @@ RSpec.describe IsoDoc::Ogc do
              </abstract>
              <executivesummary id="DD0" obligation="normative" displayorder="3">
                 <title id="_">Executive Summary</title>
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="DD0">II</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -641,7 +641,7 @@ RSpec.describe IsoDoc::Ogc do
              </executivesummary>
              <clause id="_" type="keywords" displayorder="4">
                 <title id="_">Keywords</title>
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="_">III</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -659,7 +659,7 @@ RSpec.describe IsoDoc::Ogc do
              </clause>
              <foreword obligation="informative" id="2" displayorder="5">
                 <title id="_">Preface</title>
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="2">IV</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -676,7 +676,7 @@ RSpec.describe IsoDoc::Ogc do
              </foreword>
              <clause id="DD1" obligation="normative" type="security" displayorder="6">
                 <title id="_">Security</title>
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="DD1">V</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -693,7 +693,7 @@ RSpec.describe IsoDoc::Ogc do
              </clause>
              <clause id="_" type="submitting_orgs" displayorder="7">
                 <title id="_">Submitting Organizations</title>
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="_">VI</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -707,16 +707,16 @@ RSpec.describe IsoDoc::Ogc do
                    <semx element="title" source="_">Submitting Organizations</semx>
                 </fmt-xref-label>
                 <p>The following organizations submitted this Document to the Open Geospatial Consortium (OGC):</p>
-                <ul>
-            <li>
-               <fmt-name>
-                  <semx element="autonum" source="">•</semx>
+                <ul id="_">
+            <li id="_">
+               <fmt-name id="_">
+                  <semx element="autonum" source="_">•</semx>
                </fmt-name>
                OGC
             </li>
-            <li>
-               <fmt-name>
-                  <semx element="autonum" source="">•</semx>
+            <li id="_">
+               <fmt-name id="_">
+                  <semx element="autonum" source="_">•</semx>
                </fmt-name>
                DEF
             </li>
@@ -724,7 +724,7 @@ RSpec.describe IsoDoc::Ogc do
              </clause>
              <clause type="submitters" obligation="informative" id="3" displayorder="8">
                 <title id="_">Submitters</title>
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="3">VII</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -741,7 +741,7 @@ RSpec.describe IsoDoc::Ogc do
              </clause>
              <clause type="contributors" obligation="informative" id="3a" displayorder="9">
                 <title id="_">Contributors</title>
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="3a">VIII</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -758,7 +758,7 @@ RSpec.describe IsoDoc::Ogc do
              </clause>
              <clause id="5" displayorder="10">
                 <title id="_">Dedication</title>
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="5">IX</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -773,7 +773,7 @@ RSpec.describe IsoDoc::Ogc do
                 </fmt-xref-label>
                 <clause id="6">
                    <title id="_">Note to readers</title>
-                   <fmt-title depth="2">
+                   <fmt-title id="_" depth="2">
                       <span class="fmt-caption-label">
                          <semx element="autonum" source="5">IX</semx>
                          <span class="fmt-autonum-delim">.</span>
@@ -795,7 +795,7 @@ RSpec.describe IsoDoc::Ogc do
              </clause>
              <acknowledgements obligation="informative" id="4" displayorder="11">
                 <title id="_">Acknowlegements</title>
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="4">X</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -814,7 +814,7 @@ RSpec.describe IsoDoc::Ogc do
           <sections>
              <clause id="D" obligation="normative" type="scope" displayorder="12">
                 <title id="_">Scope</title>
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="D">1</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -832,7 +832,7 @@ RSpec.describe IsoDoc::Ogc do
              </clause>
              <clause id="D1" obligation="normative" type="conformance" displayorder="13">
                 <title id="_">Conformance</title>
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="D1">2</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -850,7 +850,7 @@ RSpec.describe IsoDoc::Ogc do
              </clause>
              <clause id="H" obligation="normative" displayorder="15">
                 <title id="_">Terms, definitions, symbols and abbreviated terms</title>
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="H">4</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -866,7 +866,7 @@ RSpec.describe IsoDoc::Ogc do
                 </fmt-xref-label>
                 <terms id="I" obligation="normative">
                    <title id="_">Normal Terms</title>
-                   <fmt-title depth="2">
+                   <fmt-title id="_" depth="2">
                       <span class="fmt-caption-label">
                          <semx element="autonum" source="H">4</semx>
                          <span class="fmt-autonum-delim">.</span>
@@ -885,7 +885,7 @@ RSpec.describe IsoDoc::Ogc do
                       <semx element="autonum" source="I">1</semx>
                    </fmt-xref-label>
                    <term id="J">
-                      <fmt-name>
+                      <fmt-name id="_">
                          <span class="fmt-caption-label">
                             <semx element="autonum" source="H">4</semx>
                             <span class="fmt-autonum-delim">.</span>
@@ -919,7 +919,7 @@ RSpec.describe IsoDoc::Ogc do
                 </terms>
                 <definitions id="K">
                    <title id="_">Definitions</title>
-                   <fmt-title depth="2">
+                   <fmt-title id="_" depth="2">
                       <span class="fmt-caption-label">
                          <semx element="autonum" source="H">4</semx>
                          <span class="fmt-autonum-delim">.</span>
@@ -945,7 +945,7 @@ RSpec.describe IsoDoc::Ogc do
              </clause>
              <definitions id="L" displayorder="16">
                 <title id="_">Definitions</title>
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="L">5</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -966,7 +966,7 @@ RSpec.describe IsoDoc::Ogc do
              </definitions>
              <clause id="M" inline-header="false" obligation="normative" displayorder="17">
                 <title id="_">Clause 4</title>
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="M">6</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -982,7 +982,7 @@ RSpec.describe IsoDoc::Ogc do
                 </fmt-xref-label>
                 <clause id="N" inline-header="false" obligation="normative">
                    <title id="_">Introduction</title>
-                   <fmt-title depth="2">
+                   <fmt-title id="_" depth="2">
                       <span class="fmt-caption-label">
                          <semx element="autonum" source="M">6</semx>
                          <span class="fmt-autonum-delim">.</span>
@@ -1003,7 +1003,7 @@ RSpec.describe IsoDoc::Ogc do
                 </clause>
                 <clause id="O" inline-header="false" obligation="normative">
                    <title id="_">Clause 4.2</title>
-                   <fmt-title depth="2">
+                   <fmt-title id="_" depth="2">
                       <span class="fmt-caption-label">
                          <semx element="autonum" source="M">6</semx>
                          <span class="fmt-autonum-delim">.</span>
@@ -1025,7 +1025,7 @@ RSpec.describe IsoDoc::Ogc do
              </clause>
              <references id="R" obligation="informative" normative="true" displayorder="14">
                 <title id="_">Normative References</title>
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="R">3</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -1048,7 +1048,7 @@ RSpec.describe IsoDoc::Ogc do
             <title id="_">
                <strong>Annex</strong>
             </title>
-            <fmt-title>
+            <fmt-title id="_">
                <strong>
                   <span class="fmt-caption-label">
                      <span class="fmt-element-name">Annex</span>
@@ -1070,7 +1070,7 @@ RSpec.describe IsoDoc::Ogc do
             </fmt-xref-label>
             <clause id="Q" inline-header="false" obligation="normative" autonum="A.1">
                <title id="_">Annex A.1</title>
-               <fmt-title depth="2">
+               <fmt-title id="_" depth="2">
                   <span class="fmt-caption-label">
                      <semx element="autonum" source="P">A</semx>
                      <span class="fmt-autonum-delim">.</span>
@@ -1090,7 +1090,7 @@ RSpec.describe IsoDoc::Ogc do
                </fmt-xref-label>
                <clause id="Q1" inline-header="false" obligation="normative" autonum="A.1.1">
                   <title id="_">Annex A.1a</title>
-                  <fmt-title depth="3">
+                  <fmt-title id="_" depth="3">
                      <span class="fmt-caption-label">
                         <semx element="autonum" source="P">A</semx>
                         <span class="fmt-autonum-delim">.</span>
@@ -1119,7 +1119,7 @@ RSpec.describe IsoDoc::Ogc do
             <title id="_">
                <strong>Glossary</strong>
             </title>
-            <fmt-title>
+            <fmt-title id="_">
                <strong>
                   <span class="fmt-caption-label">
                      <span class="fmt-element-name">Annex</span>
@@ -1141,7 +1141,7 @@ RSpec.describe IsoDoc::Ogc do
             </fmt-xref-label>
             <terms id="PP1" obligation="normative">
                <term id="term-glossary" autonum="B.1">
-                  <fmt-name>
+                  <fmt-name id="_">
                      <span class="fmt-caption-label">
                         <semx element="autonum" source="PP1">B</semx>
                         <span class="fmt-autonum-delim">.</span>
@@ -1172,7 +1172,7 @@ RSpec.describe IsoDoc::Ogc do
             <title id="_">
                <strong>Glossary</strong>
             </title>
-            <fmt-title>
+            <fmt-title id="_">
                <strong>
                   <span class="fmt-caption-label">
                      <span class="fmt-element-name">Annex</span>
@@ -1194,7 +1194,7 @@ RSpec.describe IsoDoc::Ogc do
             </fmt-xref-label>
             <terms id="QQ1" obligation="normative" autonum="C.1">
                <title id="_">Term Collection</title>
-               <fmt-title depth="2">
+               <fmt-title id="_" depth="2">
                   <span class="fmt-caption-label">
                      <semx element="autonum" source="QQ">C</semx>
                      <span class="fmt-autonum-delim">.</span>
@@ -1213,7 +1213,7 @@ RSpec.describe IsoDoc::Ogc do
                   <semx element="autonum" source="QQ1">1</semx>
                </fmt-xref-label>
                <term id="term-term-1" autonum="C.1.1">
-                  <fmt-name>
+                  <fmt-name id="_">
                      <span class="fmt-caption-label">
                         <semx element="autonum" source="QQ">C</semx>
                         <span class="fmt-autonum-delim">.</span>
@@ -1245,7 +1245,7 @@ RSpec.describe IsoDoc::Ogc do
             </terms>
             <terms id="QQ2" obligation="normative" autonum="C.2">
                <title id="_">Term Collection 2</title>
-               <fmt-title depth="2">
+               <fmt-title id="_" depth="2">
                   <span class="fmt-caption-label">
                      <semx element="autonum" source="QQ">C</semx>
                      <span class="fmt-autonum-delim">.</span>
@@ -1264,7 +1264,7 @@ RSpec.describe IsoDoc::Ogc do
                   <semx element="autonum" source="QQ2">2</semx>
                </fmt-xref-label>
                <term id="term-term-2" autonum="C.2.1">
-                  <fmt-name>
+                  <fmt-name id="_">
                      <span class="fmt-caption-label">
                         <semx element="autonum" source="QQ">C</semx>
                         <span class="fmt-autonum-delim">.</span>
@@ -1298,12 +1298,12 @@ RSpec.describe IsoDoc::Ogc do
          <bibliography>
             <clause id="S" obligation="informative" displayorder="21">
                <title id="_">Bibliography</title>
-               <fmt-title depth="1">
+               <fmt-title id="_" depth="1">
                   <semx element="title" source="_">Bibliography</semx>
                </fmt-title>
                <references id="T" obligation="informative" normative="false">
                   <title id="_">Bibliography Subsection</title>
-                  <fmt-title depth="2">
+                  <fmt-title id="_" depth="2">
                      <semx element="title" source="_">Bibliography Subsection</semx>
                   </fmt-title>
                </references>
@@ -1342,9 +1342,9 @@ RSpec.describe IsoDoc::Ogc do
                  <h1 class="IntroTitle">VI.  Submitting Organizations</h1>
                  <p>The following organizations submitted this Document to the Open Geospatial Consortium (OGC):</p>
                  <div class="ul_wrap">
-                    <ul>
-                       <li>OGC</li>
-                       <li>DEF</li>
+                    <ul id="_">
+                       <li id="_">OGC</li>
+                       <li id="_">DEF</li>
                     </ul>
                  </div>
               </div>
@@ -1499,7 +1499,7 @@ RSpec.describe IsoDoc::Ogc do
             <title id="_">
                <strong>Annex</strong>
             </title>
-            <fmt-title>
+            <fmt-title id="_">
                <strong>
                   <span class="fmt-caption-label">
                      <span class="fmt-element-name">Annex</span>
@@ -1521,7 +1521,7 @@ RSpec.describe IsoDoc::Ogc do
             </fmt-xref-label>
             <clause id="Q" inline-header="false" obligation="normative" autonum="A.1">
                <title id="_">Annex A.1</title>
-               <fmt-title depth="2">
+               <fmt-title id="_" depth="2">
                   <span class="fmt-caption-label">
                      <semx element="autonum" source="P">A</semx>
                      <span class="fmt-autonum-delim">.</span>
@@ -1541,7 +1541,7 @@ RSpec.describe IsoDoc::Ogc do
                </fmt-xref-label>
                <clause id="Q1" inline-header="false" obligation="normative" autonum="A.1.1">
                   <title id="_">Annex A.1a</title>
-                  <fmt-title depth="3">
+                  <fmt-title id="_" depth="3">
                      <span class="fmt-caption-label">
                         <semx element="autonum" source="P">A</semx>
                         <span class="fmt-autonum-delim">.</span>
@@ -1570,7 +1570,7 @@ RSpec.describe IsoDoc::Ogc do
             <title id="_">
                <strong>Glossary</strong>
             </title>
-            <fmt-title>
+            <fmt-title id="_">
                <strong>
                   <span class="fmt-caption-label">
                      <span class="fmt-element-name">Annex</span>
@@ -1592,7 +1592,7 @@ RSpec.describe IsoDoc::Ogc do
             </fmt-xref-label>
             <terms id="PP1" obligation="normative">
                <term id="term-glossary" autonum="B.1">
-                  <fmt-name>
+                  <fmt-name id="_">
                      <span class="fmt-caption-label">
                         <semx element="autonum" source="PP1">B</semx>
                         <span class="fmt-autonum-delim">.</span>
@@ -1623,7 +1623,7 @@ RSpec.describe IsoDoc::Ogc do
             <title id="_">
                <strong>Glossary</strong>
             </title>
-            <fmt-title>
+            <fmt-title id="_">
                <strong>
                   <span class="fmt-caption-label">
                      <span class="fmt-element-name">Annex</span>
@@ -1645,7 +1645,7 @@ RSpec.describe IsoDoc::Ogc do
             </fmt-xref-label>
             <terms id="QQ1" obligation="normative" autonum="C.1">
                <title id="_">Term Collection</title>
-               <fmt-title depth="2">
+               <fmt-title id="_" depth="2">
                   <span class="fmt-caption-label">
                      <semx element="autonum" source="QQ">C</semx>
                      <span class="fmt-autonum-delim">.</span>
@@ -1664,7 +1664,7 @@ RSpec.describe IsoDoc::Ogc do
                   <semx element="autonum" source="QQ1">1</semx>
                </fmt-xref-label>
                <term id="term-term-1" autonum="C.1.1">
-                  <fmt-name>
+                  <fmt-name id="_">
                      <span class="fmt-caption-label">
                         <semx element="autonum" source="QQ">C</semx>
                         <span class="fmt-autonum-delim">.</span>
@@ -1696,7 +1696,7 @@ RSpec.describe IsoDoc::Ogc do
             </terms>
             <terms id="QQ2" obligation="normative" autonum="C.2">
                <title id="_">Term Collection 2</title>
-               <fmt-title depth="2">
+               <fmt-title id="_" depth="2">
                   <span class="fmt-caption-label">
                      <semx element="autonum" source="QQ">C</semx>
                      <span class="fmt-autonum-delim">.</span>
@@ -1715,7 +1715,7 @@ RSpec.describe IsoDoc::Ogc do
                   <semx element="autonum" source="QQ2">2</semx>
                </fmt-xref-label>
                <term id="term-term-2" autonum="C.2.1">
-                  <fmt-name>
+                  <fmt-name id="_">
                      <span class="fmt-caption-label">
                         <semx element="autonum" source="QQ">C</semx>
                         <span class="fmt-autonum-delim">.</span>
@@ -1749,12 +1749,12 @@ RSpec.describe IsoDoc::Ogc do
          <bibliography>
             <clause id="S" obligation="informative" unnumbered="true" displayorder="18">
                <title id="_">Bibliography</title>
-               <fmt-title depth="1">
+               <fmt-title id="_" depth="1">
                   <semx element="title" source="_">Bibliography</semx>
                </fmt-title>
                <references id="T" obligation="informative" normative="false">
                   <title id="_">Bibliography Subsection</title>
-                  <fmt-title depth="2">
+                  <fmt-title id="_" depth="2">
                      <semx element="title" source="_">Bibliography Subsection</semx>
                   </fmt-title>
                </references>
