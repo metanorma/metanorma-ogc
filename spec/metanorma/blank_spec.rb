@@ -33,7 +33,7 @@ RSpec.describe Metanorma::Ogc do
           <preface>#{SECURITY}</preface>
       <sections>
       <clause id='_' obligation='normative'>
-             <title>Clause</title>
+             <title id="_">Clause</title>
              </clause>
              </sections>
       </metanorma>

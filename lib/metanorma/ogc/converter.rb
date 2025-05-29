@@ -124,7 +124,7 @@ module Metanorma
           attrs[:type] == "contributors" and
           title = @i18n.contributors_clause
         xml.clause **attr_code(attrs) do |xml_section|
-          xml_section.title title
+          section_title(xml_section, title)
           xml_section << node.content
         end
       end
@@ -149,7 +149,7 @@ module Metanorma
       def terms_annex_parse(attrs, xml, node)
         attrs1 = attrs.merge(id: "_#{UUIDTools::UUID.random_create}")
         xml.annex **attr_code(attrs1) do |xml_section|
-          xml_section.title { |name| name << node.title }
+          section_title(xml_section, node.title)
           attrs.delete(:anchor)
           xml_section.terms **attr_code(attrs) do |terms|
             (s = node.attr("source")) && s.split(",").each do |s1|

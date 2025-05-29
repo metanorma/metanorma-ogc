@@ -81,7 +81,7 @@ RSpec.describe IsoDoc::Ogc do
            </bibdata>
            <preface>
                <clause type="toc" id="_" displayorder="1">
-            <fmt-title depth="1">Contents</fmt-title>
+            <fmt-title id="_" depth="1">Contents</fmt-title>
           </clause>
            </preface>
           <sections/>
@@ -121,7 +121,7 @@ RSpec.describe IsoDoc::Ogc do
              <doctype>community-practice</doctype>
            </ext>
          </bibdata>
-           <preface> <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Contents</fmt-title> </clause> </preface>
+           <preface> <clause type="toc" id="_" displayorder="1"> <fmt-title id="_" depth="1">Contents</fmt-title> </clause> </preface>
          <sections/>
        </ogc-standard>
     OUTPUT
@@ -161,7 +161,7 @@ RSpec.describe IsoDoc::Ogc do
              <doctype>technical-paper</doctype>
            </ext>
          </bibdata>
-           <preface> <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Contents</fmt-title> </clause> </preface>
+           <preface> <clause type="toc" id="_" displayorder="1"> <fmt-title id="_" depth="1">Contents</fmt-title> </clause> </preface>
          <sections/>
        </ogc-standard>
     OUTPUT
@@ -201,7 +201,7 @@ RSpec.describe IsoDoc::Ogc do
              <doctype>white-paper</doctype>
            </ext>
          </bibdata>
-           <preface> <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Contents</fmt-title> </clause> </preface>
+           <preface> <clause type="toc" id="_" displayorder="1"> <fmt-title id="_" depth="1">Contents</fmt-title> </clause> </preface>
          <sections/>
        </ogc-standard>
     OUTPUT
@@ -233,10 +233,10 @@ RSpec.describe IsoDoc::Ogc do
            </bibdata>
         #{METANORMA_EXTENSION}
            <preface>
-               <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Contents</fmt-title> </clause>
+               <clause type="toc" id="_" displayorder="1"> <fmt-title id="_" depth="1">Contents</fmt-title> </clause>
              <clause id="_" type='keywords' displayorder="2">
                       <title id="_">Keywords</title>
-         <fmt-title depth="1">
+         <fmt-title id="_" depth="1">
             <span class="fmt-caption-label">
                <semx element="autonum" source="_">I</semx>
                <span class="fmt-autonum-delim">.</span>
@@ -305,10 +305,10 @@ RSpec.describe IsoDoc::Ogc do
        #{METANORMA_EXTENSION}
                  <preface>
             <clause type="toc" id="_" displayorder="1">
-               <fmt-title depth="1">Contents</fmt-title>
+               <fmt-title id="_" depth="1">Contents</fmt-title>
             </clause>
             <abstract id="A" displayorder="2">
-               <fmt-title depth="1">
+               <fmt-title id="_" depth="1">
                   <span class="fmt-caption-label">
                      <semx element="autonum" source="A">I</semx>
                      <span class="fmt-autonum-delim">.</span>
@@ -320,7 +320,7 @@ RSpec.describe IsoDoc::Ogc do
             </abstract>
             <clause id="_" type="keywords" displayorder="3">
                <title id="_">Keywords</title>
-               <fmt-title depth="1">
+               <fmt-title id="_" depth="1">
                   <span class="fmt-caption-label">
                      <semx element="autonum" source="_">II</semx>
                      <span class="fmt-autonum-delim">.</span>
@@ -413,11 +413,11 @@ RSpec.describe IsoDoc::Ogc do
       #{METANORMA_EXTENSION}
           <preface>
              <clause type="toc" id="_" displayorder="1">
-                <fmt-title depth="1">Contents</fmt-title>
+                <fmt-title id="_" depth="1">Contents</fmt-title>
              </clause>
              <clause id="_" type="submitting_orgs" displayorder="2">
                 <title id="_">Submitting Organizations</title>
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="_">I</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -431,16 +431,16 @@ RSpec.describe IsoDoc::Ogc do
                    <semx element="title" source="_">Submitting Organizations</semx>
                 </fmt-xref-label>
                 <p>The following organizations submitted this Document to the Open Geospatial Consortium (OGC):</p>
-                <ul>
-                   <li>
-                      <fmt-name>
-                         <semx element="autonum" source="">•</semx>
+                <ul id="_">
+                   <li id="_">
+                      <fmt-name id="_">
+                         <semx element="autonum" source="_">•</semx>
                       </fmt-name>
                       OGC
                    </li>
-                   <li>
-                      <fmt-name>
-                         <semx element="autonum" source="">•</semx>
+                   <li id="_">
+                      <fmt-name id="_">
+                         <semx element="autonum" source="_">•</semx>
                       </fmt-name>
                       DEF
                    </li>
@@ -458,9 +458,9 @@ RSpec.describe IsoDoc::Ogc do
               <p>The following organizations submitted this Document to the Open
       Geospatial Consortium (OGC):</p>
       <div class="ul_wrap">
-      <ul>
-        <li>OGC</li>
-        <li>DEF</li>
+      <ul id="_">
+        <li id="_">OGC</li>
+        <li id="_">DEF</li>
       </ul>
       </div>
             </div>
@@ -524,10 +524,10 @@ RSpec.describe IsoDoc::Ogc do
       #{METANORMA_EXTENSION}
           <preface>
              <clause type="toc" id="_" displayorder="1">
-                <fmt-title depth="1">Contents</fmt-title>
+                <fmt-title id="_" depth="1">Contents</fmt-title>
              </clause>
              <abstract id="A" displayorder="2">
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="A">I</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -538,7 +538,7 @@ RSpec.describe IsoDoc::Ogc do
                 </fmt-xref-label>
              </abstract>
              <clause type="security" id="B" displayorder="3">
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="B">II</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -550,7 +550,7 @@ RSpec.describe IsoDoc::Ogc do
              </clause>
              <clause id="_" type="submitting_orgs" displayorder="4">
                 <title id="_">Submitting Organizations</title>
-                <fmt-title depth="1">
+                <fmt-title id="_" depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="_">III</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -564,16 +564,16 @@ RSpec.describe IsoDoc::Ogc do
                    <semx element="title" source="_">Submitting Organizations</semx>
                 </fmt-xref-label>
                 <p>The following organizations submitted this Document to the Open Geospatial Consortium (OGC):</p>
-                <ul>
-                   <li>
-                      <fmt-name>
-                         <semx element="autonum" source="">•</semx>
+                <ul id="_">
+                   <li id="_">
+                      <fmt-name id="_">
+                         <semx element="autonum" source="_">•</semx>
                       </fmt-name>
                       OGC
                    </li>
-                   <li>
-                      <fmt-name>
-                         <semx element="autonum" source="">•</semx>
+                   <li id="_">
+                      <fmt-name id="_">
+                         <semx element="autonum" source="_">•</semx>
                       </fmt-name>
                       DEF
                    </li>
@@ -610,9 +610,9 @@ RSpec.describe IsoDoc::Ogc do
           <h1 class="IntroTitle">III.  Submitting Organizations</h1>
             <p>The following organizations submitted this Document to the Open Geospatial Consortium (OGC):</p>
             <div class="ul_wrap">
-            <ul>
-              <li>OGC</li>
-              <li>DEF</li>
+            <ul id="_">
+              <li id="_">OGC</li>
+              <li id="_">DEF</li>
             </ul>
             </div>
           </div>
@@ -645,12 +645,12 @@ RSpec.describe IsoDoc::Ogc do
                </bibdata>
       #{METANORMA_EXTENSION}
                <preface>
-                <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Contents</fmt-title> </clause>
+                <clause type="toc" id="_" displayorder="1"> <fmt-title id="_" depth="1">Contents</fmt-title> </clause>
                <abstract id='A' displayorder="2">
         <title>I.</title>
       </abstract>
                  <clause id="_" type='keywords' displayorder="3">
-                   <fmt-title depth='1'>II.<tab/>Keywords</fmt-title>
+                   <fmt-title id="_" depth='1'>II.<tab/>Keywords</fmt-title>
                    <p>The following are keywords to be used by search engines and document catalogues.</p>
                    <p>ABC, DEF</p>
                  </clause>
@@ -851,14 +851,14 @@ RSpec.describe IsoDoc::Ogc do
             <amend change="modify">
               <description>
                 <ul id="_">
-                  <li>
+                  <li id="_">
                     <p id="_">
                       Put
                       <em>3D Tiles</em>
                       specification document into OGC document template
                     </p>
                   </li>
-                  <li>
+                  <li id="_">
                     <p id="_">Miscellaneous updates</p>
                   </li>
                 </ul>
@@ -882,10 +882,10 @@ RSpec.describe IsoDoc::Ogc do
       </ogc-standard>
     INPUT
     presxml = <<~OUTPUT
-      <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
+        <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
           <preface>
              <clause type="toc" id="_" displayorder="1">
-                <fmt-title depth="1">Contents</fmt-title>
+                <fmt-title depth="1" id="_">Contents</fmt-title>
              </clause>
           </preface>
           <sections/>
@@ -893,7 +893,7 @@ RSpec.describe IsoDoc::Ogc do
              <title id="_">
                 <strong>Revision history</strong>
              </title>
-             <fmt-title>
+             <fmt-title id="_">
                 <strong>
                    <span class="fmt-caption-label">
                       <span class="fmt-element-name">Annex</span>
@@ -913,50 +913,45 @@ RSpec.describe IsoDoc::Ogc do
                 <span class="fmt-element-name">Annex</span>
                 <semx element="autonum" source="_">A</semx>
              </fmt-xref-label>
-             <table>
-                <fmt-name>
-                   <span class="fmt-caption-label">
-                      <span class="fmt-element-name">Table</span>
-                   </span>
-                </fmt-name>
+             <table unnumbered="true" id="_">
                 <thead>
-                   <tr>
-                      <th>Date</th>
-                      <th>Release</th>
-                      <th>Author</th>
-                      <th>Paragraph Modified</th>
-                      <th>Description</th>
+                   <tr id="_">
+                      <th id="_">Date</th>
+                      <th id="_">Release</th>
+                      <th id="_">Author</th>
+                      <th id="_">Paragraph Modified</th>
+                      <th id="_">Description</th>
                    </tr>
                 </thead>
                 <tbody>
-                   <tr>
-                      <td>2012-04-02</td>
-                      <td>Draft</td>
-                      <td>R Thakkar</td>
-                      <td>All</td>
-                      <td>
+                   <tr id="_">
+                      <td id="_">2012-04-02</td>
+                      <td id="_">Draft</td>
+                      <td id="_">R Thakkar</td>
+                      <td id="_">All</td>
+                      <td id="_">
                          <p id="_">Original draft document</p>
                       </td>
                    </tr>
-                   <tr>
-                      <td>2002-08-30</td>
-                      <td>0.1 02-077</td>
-                      <td>Kurt Buehler, George Percivall, Sam Bacharach, Carl Reed, Cliff Kottman, Chuck Heazel, John Davidson, Yaser Bisher, Harry Niedzwiadek, John Evans, Jeffrey Simon</td>
-                      <td>All</td>
-                      <td>
+                   <tr id="_">
+                      <td id="_">2002-08-30</td>
+                      <td id="_">0.1 02-077</td>
+                      <td id="_">Kurt Buehler, George Percivall, Sam Bacharach, Carl Reed, Cliff Kottman, Chuck Heazel, John Davidson, Yaser Bisher, Harry Niedzwiadek, John Evans, Jeffrey Simon</td>
+                      <td id="_">All</td>
+                      <td id="_">
                          <p id="_">Initial version of ORM. Doc OGC</p>
                       </td>
                    </tr>
-                   <tr>
-                      <td>2018-06-04</td>
-                      <td>1.0</td>
-                      <td>Gabby Getz</td>
-                      <td>Annex A</td>
-                      <td>
+                   <tr id="_">
+                      <td id="_">2018-06-04</td>
+                      <td id="_">1.0</td>
+                      <td id="_">Gabby Getz</td>
+                      <td id="_">Annex A</td>
+                      <td id="_">
                          <ul id="_">
-                            <li>
-                               <fmt-name>
-                                  <semx element="autonum" source="">•</semx>
+                            <li id="_">
+                               <fmt-name id="_">
+                                  <semx element="autonum" source="_">•</semx>
                                </fmt-name>
                                <p id="_">
                                   Put
@@ -964,9 +959,9 @@ RSpec.describe IsoDoc::Ogc do
                                   specification document into OGC document template
                                </p>
                             </li>
-                            <li>
-                               <fmt-name>
-                                  <semx element="autonum" source="">•</semx>
+                            <li id="_">
+                               <fmt-name id="_">
+                                  <semx element="autonum" source="_">•</semx>
                                </fmt-name>
                                <p id="_">Miscellaneous updates</p>
                             </li>

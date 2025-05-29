@@ -47,10 +47,11 @@ module IsoDoc
       def generate_dochistory(updates, pref)
         ret = updates.map { |u| generate_dochistory_row(u) }.flatten.join("\n")
         pref.next = <<~XML
-          <annex id='_#{UUIDTools::UUID.random_create}' obligation='informative'>
-          <title>#{@i18n.dochistory}</title>
-          <table><thead>
-          <tr><th>Date</th><th>Release</th><th>Author</th><th>Paragraph Modified</th><th>Description</th></tr>
+          <annex #{add_id_text} obligation='informative'>
+          <title #{add_id_text}>#{@i18n.dochistory}</title>
+          <table unnumbered="true" #{add_id_text}><thead>
+          <tr #{add_id_text}><th #{add_id_text}>Date</th><th #{add_id_text}>Release</th><th #{add_id_text}>Author</th>
+            <th #{add_id_text}>Paragraph Modified</th><th #{add_id_text}>Description</th></tr>
           </thead><tbody>#{ret}</tbody></table></annex>
         XML
       end
@@ -61,8 +62,10 @@ module IsoDoc
         c = dochistory_contributors(item)
         l = dochistory_location(item)
         desc = dochistory_description(item)
-        "<tr><td>#{date}</td><td>#{e&.text}</td><td>#{c}</td>" \
-          "<td>#{l}</td><td>#{desc}</td></tr>"
+        <<~XML
+          <tr #{add_id_text}><td #{add_id_text}>#{date}</td><td #{add_id_text}>#{e&.text}</td><td #{add_id_text}>#{c}</td>
+            <td #{add_id_text}>#{l}</td><td #{add_id_text}>#{desc}</td></tr>
+        XML
       end
 
       def dochistory_date(item)
