@@ -5,22 +5,6 @@ require "fileutils"
 module IsoDoc
   module Ogc
     module BaseConvert
-      # KILL
-      def error_parsex(node, out)
-        case node.name
-        when "hi" then hi_parse(node, out)
-        else
-          super
-        end
-      end
-
-      # KILL
-      def hi_parse(node, out)
-        out.span class: "hi" do |e|
-          node.children.each { |n| parse(n, e) }
-        end
-      end
-
       def cleanup(docxml)
         super
         term_cleanup(docxml)
