@@ -303,7 +303,7 @@ RSpec.describe Metanorma::Ogc do
       <edition>2.0</edition>
          <version>
         <revision-date>2000-01-01</revision-date>
-        <draft>3.4</draft>
+        <draft>2.0</draft>
       </version>
         <language>en</language>
         <script>Latn</script>
