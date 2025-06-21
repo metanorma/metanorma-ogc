@@ -28,11 +28,6 @@ module Metanorma
         File.join(@libdir, "boilerplate.adoc")
       end
 
-      def makexml(node)
-        @draft = node.attributes.has_key?("draft")
-        super
-      end
-
       def doctype(node)
         d = super
         d1 = ::IsoDoc::Ogc::DOCTYPE_ABBR.invert[d] and d = d1
