@@ -58,10 +58,9 @@ module IsoDoc
 
       def table_attrs(node)
         ret = super
+        style = node["style"] || "border-collapse:collapse;border-spacing:0;"
         %w(recommendation requirement permission).include?(node["class"]) and
-          ret = ret.merge(class: node["type"], style:
-                          "border-collapse:collapse;border-spacing:0;" \
-                          "#{keep_style(node)}")
+          ret = ret.merge(class: node["type"], style: style)
         ret
       end
 
