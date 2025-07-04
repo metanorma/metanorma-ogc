@@ -1367,7 +1367,8 @@
 	<xsl:template match="mn:stem" mode="update_xml_step1"/>
 
 	<xsl:template match="mn:fmt-stem" mode="update_xml_step1">
-		<xsl:element name="stem" namespace="{$namespace_full}">
+		<!-- <xsl:element name="stem" namespace="{$namespace_full}"> -->
+		<xsl:copy>
 			<xsl:copy-of select="@*"/>
 			<xsl:choose>
 				<xsl:when test="mn:semx and count(node()) = 1">
@@ -1391,7 +1392,8 @@
 					</xsl:choose>
 				</xsl:otherwise>
 			</xsl:choose>
-		</xsl:element>
+		</xsl:copy>
+		<!-- </xsl:element> -->
 	</xsl:template>
 
 	<xsl:template match="mn:image[not(.//mn:passthrough)] |        mn:bibdata[not(.//mn:passthrough)] |        mn:localized-strings" mode="update_xml_step1">
@@ -1594,7 +1596,7 @@
 		<xsl:apply-templates mode="update_xml_step1"/>
 	</xsl:template>
 	<xsl:template match="mn:fmt-preferred[not(mn:p)] | mn:fmt-preferred/mn:p" mode="update_xml_step1">
-		<xsl:element name="preferred" namespace="{$namespace_full}">
+		<xsl:element name="fmt-preferred" namespace="{$namespace_full}">
 			<xsl:copy-of select="@*"/>
 			<xsl:apply-templates mode="update_xml_step1"/>
 		</xsl:element>
@@ -1604,7 +1606,7 @@
 		<xsl:apply-templates mode="update_xml_step1"/>
 	</xsl:template>
 	<xsl:template match="mn:fmt-admitted[not(mn:p)] | mn:fmt-admitted/mn:p" mode="update_xml_step1">
-		<xsl:element name="admitted" namespace="{$namespace_full}">
+		<xsl:element name="fmt-admitted" namespace="{$namespace_full}">
 			<xsl:copy-of select="@*"/>
 			<xsl:apply-templates mode="update_xml_step1"/>
 		</xsl:element>
@@ -1614,32 +1616,32 @@
 		<xsl:apply-templates mode="update_xml_step1"/>
 	</xsl:template>
 	<xsl:template match="mn:fmt-deprecates[not(mn:p)] | mn:fmt-deprecates/mn:p" mode="update_xml_step1">
-		<xsl:element name="deprecates" namespace="{$namespace_full}">
+		<xsl:element name="fmt-deprecates" namespace="{$namespace_full}">
 			<xsl:copy-of select="@*"/>
 			<xsl:apply-templates mode="update_xml_step1"/>
 		</xsl:element>
 	</xsl:template>
 
-	<xsl:template match="mn:fmt-definition" mode="update_xml_step1">
+	<!-- <xsl:template match="mn:fmt-definition" mode="update_xml_step1">
 		<xsl:element name="definition" namespace="{$namespace_full}">
 			<xsl:copy-of select="@*"/>
 			<xsl:apply-templates mode="update_xml_step1"/>
 		</xsl:element>
 	</xsl:template>
-
+	
 	<xsl:template match="mn:fmt-termsource" mode="update_xml_step1">
 		<xsl:element name="termsource" namespace="{$namespace_full}">
 			<xsl:copy-of select="@*"/>
 			<xsl:apply-templates mode="update_xml_step1"/>
 		</xsl:element>
 	</xsl:template>
-
+	
 	<xsl:template match="mn:fmt-source" mode="update_xml_step1">
 		<xsl:element name="source" namespace="{$namespace_full}">
 			<xsl:copy-of select="@*"/>
 			<xsl:apply-templates mode="update_xml_step1"/>
 		</xsl:element>
-	</xsl:template>
+	</xsl:template> -->
 
 	<xsl:template match="mn:span[                @class = 'fmt-caption-label' or                 @class = 'fmt-element-name' or                @class = 'fmt-caption-delim' or                @class = 'fmt-autonum-delim']" mode="update_xml_step1" priority="3">
 		<xsl:apply-templates mode="update_xml_step1"/>
@@ -1662,12 +1664,12 @@
 	</xsl:template>
 
 	<xsl:template match="mn:identifier" mode="update_xml_step1"/>
-	<xsl:template match="mn:fmt-identifier" mode="update_xml_step1">
+	<!-- <xsl:template match="mn:fmt-identifier" mode="update_xml_step1">
 		<xsl:element name="identifier" namespace="{$namespace_full}">
 			<xsl:copy-of select="@*"/>
 			<xsl:apply-templates mode="update_xml_step1"/>
 		</xsl:element>
-	</xsl:template>
+	</xsl:template> -->
 
 	<xsl:template match="mn:concept" mode="update_xml_step1"/>
 
@@ -1677,39 +1679,39 @@
 
 	<xsl:template match="mn:eref" mode="update_xml_step1"/>
 
-	<xsl:template match="mn:fmt-eref" mode="update_xml_step1">
+	<!-- <xsl:template match="mn:fmt-eref" mode="update_xml_step1">
 		<xsl:element name="eref" namespace="{$namespace_full}">
 			<xsl:copy-of select="@*"/>
 			<xsl:apply-templates mode="update_xml_step1"/>
 		</xsl:element>
-	</xsl:template>
+	</xsl:template> -->
 
 	<xsl:template match="mn:xref" mode="update_xml_step1"/>
 
-	<xsl:template match="mn:fmt-xref" mode="update_xml_step1">
+	<!-- <xsl:template match="mn:fmt-xref" mode="update_xml_step1">
 		<xsl:element name="xref" namespace="{$namespace_full}">
 			<xsl:copy-of select="@*"/>
 			<xsl:apply-templates mode="update_xml_step1"/>
 		</xsl:element>
-	</xsl:template>
+	</xsl:template> -->
 
 	<xsl:template match="mn:link" mode="update_xml_step1"/>
 
-	<xsl:template match="mn:fmt-link" mode="update_xml_step1">
+	<!-- <xsl:template match="mn:fmt-link" mode="update_xml_step1">
 		<xsl:element name="link" namespace="{$namespace_full}">
 			<xsl:copy-of select="@*"/>
 			<xsl:apply-templates mode="update_xml_step1"/>
 		</xsl:element>
-	</xsl:template>
+	</xsl:template> -->
 
 	<xsl:template match="mn:origin" mode="update_xml_step1"/>
 
-	<xsl:template match="mn:fmt-origin" mode="update_xml_step1">
+	<!-- <xsl:template match="mn:fmt-origin" mode="update_xml_step1">
 		<xsl:element name="origin" namespace="{$namespace_full}">
 			<xsl:copy-of select="@*"/>
 			<xsl:apply-templates mode="update_xml_step1"/>
 		</xsl:element>
-	</xsl:template>
+	</xsl:template> -->
 
 	<xsl:template match="mn:erefstack" mode="update_xml_step1"/>
 
@@ -1919,7 +1921,7 @@
 	<xsl:variable name="non_white_space">[^\s\u3000-\u9FFF]</xsl:variable>
 	<xsl:variable name="regex_dots_units">((\b((<xsl:value-of select="$non_white_space"/>{1,3}\.<xsl:value-of select="$non_white_space"/>+)|(<xsl:value-of select="$non_white_space"/>+\.<xsl:value-of select="$non_white_space"/>{1,3}))\b)|(\.<xsl:value-of select="$non_white_space"/>{1,3})\b)</xsl:variable>
 
-	<xsl:template match="text()[not(ancestor::mn:bibdata or      ancestor::mn:link[not(contains(.,' '))] or      ancestor::mn:sourcecode or      ancestor::*[local-name() = 'math'] or     ancestor::*[local-name() = 'svg'] or     ancestor::mn:name or ancestor::mn:fmt-name or     starts-with(., 'http://') or starts-with(., 'https://') or starts-with(., 'www.') or normalize-space() = '' )]" name="keep_together_standard_number" mode="update_xml_enclose_keep-together_within-line">
+	<xsl:template match="text()[not(ancestor::mn:bibdata or      ancestor::mn:fmt-link[not(contains(normalize-space(),' '))] or      ancestor::mn:sourcecode or      ancestor::*[local-name() = 'math'] or     ancestor::*[local-name() = 'svg'] or     ancestor::mn:name or ancestor::mn:fmt-name or     starts-with(., 'http://') or starts-with(., 'https://') or starts-with(., 'www.') or normalize-space() = '' )]" name="keep_together_standard_number" mode="update_xml_enclose_keep-together_within-line">
 
 		<xsl:variable name="parent" select="local-name(..)"/>
 
@@ -2038,7 +2040,7 @@
 		</xsl:if>
 	</xsl:template>
 
-	<xsl:template match="mn:stem | mn:image" mode="update_xml_enclose_keep-together_within-line">
+	<xsl:template match="mn:fmt-stem | mn:image" mode="update_xml_enclose_keep-together_within-line">
 		<xsl:copy-of select="."/>
 	</xsl:template>
 
@@ -2495,7 +2497,7 @@
 	<xsl:template name="refine_link-style">
 	</xsl:template> <!-- refine_link-style -->
 
-	<xsl:template match="mn:link" name="link">
+	<xsl:template match="mn:fmt-link" name="link">
 		<xsl:variable name="target_normalized" select="translate(@target, '\', '/')"/>
 		<xsl:variable name="target_attachment_name" select="substring-after($target_normalized, '_attachments/')"/>
 		<xsl:variable name="isLinkToEmbeddedFile" select="normalize-space(@attachment = 'true' and $pdfAttachmentsList//attachment[@filename = current()/@target])"/>
@@ -4056,7 +4058,7 @@
 	<!-- origin -->
 	<!-- modification -->
 	<!-- ====== -->
-	<xsl:template match="mn:termsource" name="termsource">
+	<xsl:template match="mn:fmt-termsource" name="termsource">
 		<fo:block xsl:use-attribute-sets="termsource-style">
 
 			<xsl:call-template name="refine_termsource-style"/>
@@ -4095,24 +4097,24 @@
 		</fo:block>
 	</xsl:template>
 
-	<xsl:template match="mn:termsource/text()[starts-with(., '[SOURCE: Adapted from: ') or     starts-with(., '[SOURCE: Quoted from: ') or     starts-with(., '[SOURCE: Modified from: ')]" priority="2">
+	<xsl:template match="mn:fmt-termsource/text()[starts-with(., '[SOURCE: Adapted from: ') or     starts-with(., '[SOURCE: Quoted from: ') or     starts-with(., '[SOURCE: Modified from: ')]" priority="2">
 		<xsl:text>[</xsl:text><xsl:value-of select="substring-after(., '[SOURCE: ')"/>
 	</xsl:template>
 
-	<xsl:template match="mn:termsource/text()">
+	<xsl:template match="mn:fmt-termsource/text()">
 		<xsl:if test="normalize-space() != ''">
 			<xsl:value-of select="."/>
 		</xsl:if>
 	</xsl:template>
 
 	<!-- text SOURCE: -->
-	<xsl:template match="mn:termsource/mn:strong[1][following-sibling::*[1][self::mn:origin]]/text()">
+	<xsl:template match="mn:fmt-termsource/mn:strong[1][following-sibling::*[1][self::mn:fmt-origin]]/text()">
 		<fo:inline xsl:use-attribute-sets="termsource-text-style">
 			<xsl:value-of select="."/>
 		</fo:inline>
 	</xsl:template>
 
-	<xsl:template match="mn:origin">
+	<xsl:template match="mn:fmt-origin">
 		<xsl:call-template name="insert_basic_link">
 			<xsl:with-param name="element">
 				<fo:basic-link internal-destination="{@bibitemid}" fox:alt-text="{@citeas}">
@@ -4158,7 +4160,7 @@
 	<!-- ====== -->
 
 	<!-- Preferred, admitted, deprecated -->
-	<xsl:template match="mn:preferred">
+	<xsl:template match="mn:fmt-preferred">
 		<xsl:variable name="level">
 			<xsl:call-template name="getLevel"/>
 		</xsl:variable>
@@ -4174,7 +4176,7 @@
 		</xsl:variable>
 		<fo:block font-size="{normalize-space($font-size)}" role="H{$levelTerm}" xsl:use-attribute-sets="preferred-block-style">
 
-			<xsl:if test="parent::mn:term and not(preceding-sibling::mn:preferred)"> <!-- if first preffered in term, then display term's name -->
+			<xsl:if test="parent::mn:term and not(preceding-sibling::mn:fmt-preferred)"> <!-- if first preffered in term, then display term's name -->
 
 				<fo:block xsl:use-attribute-sets="term-name-style" role="SKIP">
 
@@ -4206,13 +4208,13 @@
 	<!-- https://github.com/metanorma/isodoc/issues/632#issuecomment-2567163931 -->
 	<xsl:template match="mn:domain"/>
 
-	<xsl:template match="mn:admitted">
+	<xsl:template match="mn:fmt-admitted">
 		<fo:block xsl:use-attribute-sets="admitted-style">
 			<xsl:apply-templates/>
 		</fo:block>
 	</xsl:template>
 
-	<xsl:template match="mn:deprecates">
+	<xsl:template match="mn:fmt-deprecates">
 		<fo:block xsl:use-attribute-sets="deprecates-style">
 			<xsl:apply-templates/>
 		</fo:block>
@@ -4226,7 +4228,7 @@
 
 	<!-- regarding ISO 10241-1:2011,  If there is more than one preferred term, each preferred term follows the previous one on a new line. -->
 	<!-- in metanorma xml preferred terms delimited by semicolons -->
-	<xsl:template match="mn:preferred/text()[contains(., ';')] | mn:preferred/mn:strong/text()[contains(., ';')]">
+	<xsl:template match="mn:fmt-preferred/text()[contains(., ';')] | mn:fmt-preferred/mn:strong/text()[contains(., ';')]">
 		<xsl:value-of select="java:replaceAll(java:java.lang.String.new(.), ';', $linebreak)"/>
 	</xsl:template>
 	<!--  End Preferred, admitted, deprecated -->
@@ -4245,16 +4247,16 @@
 	<!-- ========== -->
 	<!-- definition -->
 	<!-- ========== -->
-	<xsl:template match="mn:definition">
+	<xsl:template match="mn:fmt-definition">
 		<fo:block xsl:use-attribute-sets="definition-style" role="SKIP">
 			<xsl:apply-templates/>
 		</fo:block>
 	</xsl:template>
 
-	<xsl:template match="mn:definition[preceding-sibling::mn:domain]">
+	<xsl:template match="mn:fmt-definition[preceding-sibling::mn:domain]">
 		<xsl:apply-templates/>
 	</xsl:template>
-	<xsl:template match="mn:definition[preceding-sibling::mn:domain]/mn:p[1]">
+	<xsl:template match="mn:fmt-definition[preceding-sibling::mn:domain]/mn:p[1]">
 		<fo:inline> <xsl:apply-templates/></fo:inline>
 		<fo:block/>
 	</xsl:template>
@@ -4875,7 +4877,7 @@
 						</xsl:attribute>
 					</xsl:for-each>
 
-					<xsl:variable name="isNoteOrFnExist" select="./mn:note[not(@type = 'units')] or ./mn:example or .//mn:fn[not(parent::mn:fmt-name)] or ./mn:source"/>
+					<xsl:variable name="isNoteOrFnExist" select="./mn:note[not(@type = 'units')] or ./mn:example or .//mn:fn[not(parent::mn:fmt-name)] or ./mn:fmt-source"/>
 					<xsl:if test="$isNoteOrFnExist = 'true'">
 						<!-- <xsl:choose>
 							<xsl:when test="$namespace = 'plateau'"></xsl:when>
@@ -4931,7 +4933,7 @@
 									<xsl:apply-templates select="*[local-name()='thead']" mode="process_tbody"/>
 								</xsl:when>
 								<xsl:otherwise>
-									<xsl:apply-templates select="node()[not(self::mn:fmt-name) and not(self::mn:note) and not(self::mn:example) and not(self::mn:dl) and not(self::mn:source) and not(self::mn:p)          and not(self::mn:thead) and not(self::mn:tfoot) and not(self::mn:fmt-footnote-container)]"/> <!-- process all table' elements, except name, header, footer, note, source and dl which render separaterely -->
+									<xsl:apply-templates select="node()[not(self::mn:fmt-name) and not(self::mn:note) and not(self::mn:example) and not(self::mn:dl) and not(self::mn:fmt-source) and not(self::mn:p)          and not(self::mn:thead) and not(self::mn:tfoot) and not(self::mn:fmt-footnote-container)]"/> <!-- process all table' elements, except name, header, footer, note, source and dl which render separaterely -->
 								</xsl:otherwise>
 							</xsl:choose>
 
@@ -5091,7 +5093,7 @@
 	</xsl:template>
 
 	<!-- SOURCE: ... -->
-	<xsl:template match="*[local-name()='table']/mn:source" priority="2">
+	<xsl:template match="*[local-name()='table']/mn:fmt-source" priority="2">
 		<xsl:call-template name="termsource"/>
 	</xsl:template>
 
@@ -5256,11 +5258,11 @@
 		<xsl:value-of select="translate(., $zero_width_space, ' ')"/><xsl:text> </xsl:text>
 	</xsl:template>
 
-	<xsl:template match="mn:termsource" mode="td_text">
-		<xsl:value-of select="*[local-name()='origin']/@citeas"/>
+	<xsl:template match="mn:fmt-termsource" mode="td_text">
+		<xsl:value-of select="mn:fmt-origin/@citeas"/>
 	</xsl:template>
 
-	<xsl:template match="mn:link" mode="td_text">
+	<xsl:template match="mn:fmt-link" mode="td_text">
 		<xsl:value-of select="@target"/>
 	</xsl:template>
 
@@ -5502,7 +5504,7 @@
 		<xsl:param name="colwidths"/>
 		<xsl:param name="colgroup"/>
 
-		<xsl:variable name="isNoteOrFnExist" select="../mn:note[not(@type = 'units')] or ../mn:example or ../mn:dl or ..//mn:fn[not(parent::mn:fmt-name)] or ../mn:source or ../mn:p"/>
+		<xsl:variable name="isNoteOrFnExist" select="../mn:note[not(@type = 'units')] or ../mn:example or ../mn:dl or ..//mn:fn[not(parent::mn:fmt-name)] or ../mn:fmt-source or ../mn:p"/>
 
 		<xsl:variable name="isNoteOrFnExistShowAfterTable">
 		</xsl:variable>
@@ -5588,7 +5590,7 @@
 								<xsl:apply-templates select="../mn:dl"/>
 								<xsl:apply-templates select="../mn:note[not(@type = 'units')]"/>
 								<xsl:apply-templates select="../mn:example"/>
-								<xsl:apply-templates select="../mn:source"/>
+								<xsl:apply-templates select="../mn:fmt-source"/>
 
 								<xsl:variable name="isDisplayRowSeparator">
 								</xsl:variable>
@@ -6749,7 +6751,7 @@
 				</xsl:if> -->
 
 				<xsl:variable name="words">
-					<xsl:for-each select=".//*[local-name() = 'image' or local-name() = 'stem']">
+					<xsl:for-each select=".//*[local-name() = 'image' or local-name() = 'fmt-stem']">
 						<word>
 							<xsl:copy-of select="."/>
 						</word>
@@ -6808,7 +6810,7 @@
 		</xsl:copy>
 	</xsl:template>
 
-	<xsl:template match="*[local-name() = 'stem' or local-name() = 'image']" mode="td_text_with_formatting"/>
+	<xsl:template match="*[local-name() = 'fmt-stem' or local-name() = 'image']" mode="td_text_with_formatting"/>
 
 	<xsl:template match="*[local-name() = 'keep-together_within-line']/text()" mode="td_text_with_formatting">
 		<xsl:variable name="formatting_tags">
@@ -6843,7 +6845,7 @@
 		</xsl:call-template>
 	</xsl:template>
 
-	<xsl:template match="mn:link[normalize-space() = '']" mode="td_text_with_formatting">
+	<xsl:template match="mn:fmt-link[normalize-space() = '']" mode="td_text_with_formatting">
 		<xsl:variable name="link">
 			<link_updated>
 				<xsl:variable name="target_text">
@@ -7688,7 +7690,7 @@
 		<xsl:attribute name="text-decoration">underline</xsl:attribute>
 	</xsl:attribute-set>
 
-	<xsl:template match="mn:xref">
+	<xsl:template match="mn:fmt-xref">
 		<xsl:call-template name="insert_basic_link">
 			<xsl:with-param name="element">
 				<xsl:variable name="alt_text">
@@ -7708,7 +7710,7 @@
 	</xsl:template> <!-- xref -->
 
 	<!-- command between two xref points to non-standard bibitem -->
-	<xsl:template match="text()[. = ','][preceding-sibling::node()[1][self::mn:sup][mn:xref[@type = 'footnote']] and    following-sibling::node()[1][self::mn:sup][mn:xref[@type = 'footnote']]]"><xsl:value-of select="."/>
+	<xsl:template match="text()[. = ','][preceding-sibling::node()[1][self::mn:sup][mn:fmt-xref[@type = 'footnote']] and    following-sibling::node()[1][self::mn:sup][mn:fmt-xref[@type = 'footnote']]]"><xsl:value-of select="."/>
 	</xsl:template>
 
 	<xsl:attribute-set name="eref-style">
@@ -7741,7 +7743,7 @@
 	<!-- ====== -->
 	<!-- eref -->
 	<!-- ====== -->
-	<xsl:template match="mn:eref" name="eref">
+	<xsl:template match="mn:fmt-eref" name="eref">
 		<xsl:variable name="current_bibitemid" select="@bibitemid"/>
 		<!-- <xsl:variable name="external-destination" select="normalize-space(key('bibitems', $current_bibitemid)/mn:uri[@type = 'citation'])"/> -->
 		<xsl:variable name="external-destination" select="normalize-space($bibitems/mn:bibitem[@id = $current_bibitemid]/mn:uri[@type = 'citation'])"/>
@@ -8067,15 +8069,15 @@
 
 					<fo:block-container margin-left="0mm" margin-right="0mm" role="SKIP">
 						<fo:block role="BlockQuote">
-							<xsl:apply-templates select="./node()[not(self::mn:author) and         not(self::mn:source) and         not(self::mn:attribution)]"/> <!-- process all nested nodes, except author and source -->
+							<xsl:apply-templates select="./node()[not(self::mn:author) and         not(self::mn:fmt-source) and         not(self::mn:attribution)]"/> <!-- process all nested nodes, except author and source -->
 						</fo:block>
 					</fo:block-container>
 				</fo:block-container>
-				<xsl:if test="mn:author or mn:source or mn:attribution">
+				<xsl:if test="mn:author or mn:fmt-source or mn:attribution">
 					<fo:block xsl:use-attribute-sets="quote-source-style">
 						<!-- — ISO, ISO 7301:2011, Clause 1 -->
 						<xsl:apply-templates select="mn:author"/>
-						<xsl:apply-templates select="mn:source"/>
+						<xsl:apply-templates select="mn:fmt-source"/>
 						<!-- added for https://github.com/metanorma/isodoc/issues/607 -->
 						<xsl:apply-templates select="mn:attribution/mn:p/node()"/>
 					</fo:block>
@@ -8085,7 +8087,7 @@
 		</fo:block-container>
 	</xsl:template>
 
-	<xsl:template match="mn:source">
+	<xsl:template match="mn:fmt-source">
 		<xsl:if test="../mn:author">
 			<xsl:text>, </xsl:text>
 		</xsl:if>
@@ -8436,7 +8438,7 @@
 
 	<!-- SOURCE: ... -->
 	<!-- figure/source -->
-	<xsl:template match="mn:figure/mn:source" priority="2">
+	<xsl:template match="mn:figure/mn:fmt-source" priority="2">
 		<xsl:call-template name="termsource"/>
 	</xsl:template>
 
@@ -9304,13 +9306,13 @@
 		</fo:block-container>
 	</xsl:template>
 
-	<xsl:template match="mn:formula/mn:dt/mn:stem">
+	<xsl:template match="mn:formula/mn:dt/mn:fmt-stem">
 		<fo:inline>
 			<xsl:apply-templates/>
 		</fo:inline>
 	</xsl:template>
 
-	<xsl:template match="mn:admitted/mn:stem">
+	<xsl:template match="mn:fmt-admitted/mn:fmt-stem">
 		<fo:inline>
 			<xsl:apply-templates/>
 		</fo:inline>
@@ -9325,7 +9327,7 @@
 	</xsl:template>
 
 	<!-- stem inside formula with name (with formula's number) -->
-	<xsl:template match="mn:formula[mn:fmt-name]/mn:stem">
+	<xsl:template match="mn:formula[mn:fmt-name]/mn:fmt-stem">
 		<fo:block xsl:use-attribute-sets="formula-style">
 
 			<fo:table table-layout="fixed" width="100%">
@@ -9361,7 +9363,7 @@
 	</xsl:template>
 
 	<!-- stem inside formula without name (without formula's number) -->
-	<xsl:template match="mn:formula[not(mn:fmt-name)]/mn:stem">
+	<xsl:template match="mn:formula[not(mn:fmt-name)]/mn:fmt-stem">
 		<fo:block xsl:use-attribute-sets="formula-style">
 			<fo:block xsl:use-attribute-sets="formula-stem-block-style">
 				<xsl:apply-templates/>
@@ -9715,7 +9717,7 @@
 		<stem type="AsciiMath"><asciimath>x = 1</asciimath></stem>
 		<stem type="AsciiMath"><asciimath>x = 1</asciimath><latexmath>x = 1</latexmath></stem>
 	-->
-	<xsl:template match="mn:stem[@type = 'AsciiMath'][count(*) = 0]/text() | mn:stem[@type = 'AsciiMath'][mn:asciimath]" priority="3">
+	<xsl:template match="mn:fmt-stem[@type = 'AsciiMath'][count(*) = 0]/text() | mn:fmt-stem[@type = 'AsciiMath'][mn:asciimath]" priority="3">
 		<fo:inline xsl:use-attribute-sets="mathml-style">
 
 			<xsl:call-template name="refine_mathml-style"/>
@@ -11916,7 +11918,7 @@
 		<xsl:apply-templates/>
 	</xsl:template>
 
-	<xsl:template match="mn:toc//mn:xref" priority="3">
+	<xsl:template match="mn:toc//mn:xref | mn:toc//mn:fmt-xref" priority="3">
 		<!-- <xref target="cgpm9th1948r6">1.6.3<tab/>&#8220;9th CGPM, 1948:<tab/>decision to establish the SI&#8221;</xref> -->
 		<!-- New format: one tab <xref target="cgpm9th1948r6">&#8220;9th CGPM, 1948:<tab/>decision to establish the SI&#8221;</xref> -->
 		<!-- <test><xsl:copy-of select="."/></test> -->
@@ -11993,7 +11995,7 @@
 		</mn:tr>
 	</xsl:template>
 
-	<xsl:template match="mn:xref" mode="toc_table_width">
+	<xsl:template match="mn:fmt-xref" mode="toc_table_width">
 		<!-- <xref target="cgpm9th1948r6">1.6.3<tab/>&#8220;9th CGPM, 1948:<tab/>decision to establish the SI&#8221;</xref> -->
 		<!-- New format - one tab <xref target="cgpm9th1948r6">&#8220;9th CGPM, 1948:<tab/>decision to establish the SI&#8221;</xref> -->
 		<xsl:for-each select="mn:tab">
@@ -12846,22 +12848,22 @@
 	<!-- <xsl:template match="mn:fmt-name" /> -->
 
 	<!-- fmt-preferred renamed to preferred in update_xml_step1 -->
-	<xsl:template match="mn:fmt-preferred"/>
+	<!-- <xsl:template match="mn:fmt-preferred" /> -->
 
 	<!-- fmt-admitted renamed to admitted in update_xml_step1 -->
-	<xsl:template match="mn:fmt-admitted"/>
+	<!-- <xsl:template match="mn:fmt-admitted" /> -->
 
 	<!-- fmt-deprecates renamed to deprecates in update_xml_step1 -->
-	<xsl:template match="mn:fmt-deprecates"/>
+	<!-- <xsl:template match="mn:fmt-deprecates" /> -->
 
 	<!-- fmt-definition renamed to definition in update_xml_step1 -->
-	<xsl:template match="mn:fmt-definition"/>
+	<!-- <xsl:template match="mn:fmt-definition" /> -->
 
 	<!-- fmt-termsource renamed to termsource in update_xml_step1 -->
-	<xsl:template match="mn:fmt-termsource"/>
+	<!-- <xsl:template match="mn:fmt-termsource" /> -->
 
 	<!-- fmt-source renamed to source in update_xml_step1 -->
-	<xsl:template match="mn:fmt-source"/>
+	<!-- <xsl:template match="mn:fmt-source" /> -->
 
 	<xsl:template match="mn:semx">
 		<xsl:apply-templates/>
