@@ -11789,8 +11789,8 @@
 	</xsl:template> <!-- bibitem -->
 
 	<!-- Bibliography (non-normative references) -->
-	<xsl:template match="mn:references[not(@normative='true')]/mn:bibitem" name="bibitem_non_normative" priority="2">
-		<xsl:param name="skip" select="normalize-space(preceding-sibling::*[1][self::mn:bibitem] and 1 = 1)"/> <!-- current bibiitem is non-first --> <!-- $namespace = 'csd' or $namespace = 'gb' or $namespace = 'iec' or $namespace = 'ieee' or $namespace = 'iso' or $namespace = 'jcgm' or $namespace = 'm3d' or 
+	<xsl:template match="mn:references[not(@normative='true')]/mn:bibitem | mn:references[not(@normative='true')]/mn:note" name="bibitem_non_normative" priority="2">
+		<xsl:param name="skip" select="normalize-space(preceding-sibling::*[not(self::mn:note)][1][self::mn:bibitem] and 1 = 1)"/> <!-- current bibiitem is non-first --> <!-- $namespace = 'csd' or $namespace = 'gb' or $namespace = 'iec' or $namespace = 'ieee' or $namespace = 'iso' or $namespace = 'jcgm' or $namespace = 'm3d' or 
 			$namespace = 'mpfd' or $namespace = 'ogc' or $namespace = 'ogc-white-paper' -->
 		<!-- Example: [1] ISO 9:1995, Information and documentation – Transliteration of Cyrillic characters into Latin characters – Slavic and non-Slavic languages -->
 		<xsl:call-template name="setNamedDestination"/>
@@ -11837,12 +11837,22 @@
 							<xsl:call-template name="processBibitem">
 								<xsl:with-param name="biblio_tag_part">last</xsl:with-param>
 							</xsl:call-template>
+							<xsl:if test="self::mn:note">
+								<xsl:variable name="note_node">
+									<xsl:copy> <!-- skip @id -->
+										<xsl:copy-of select="node()"/>
+									</xsl:copy>
+								</xsl:variable>
+								<xsl:for-each select="xalan:nodeset($note_node)/*">
+									<xsl:call-template name="note"/>
+								</xsl:for-each>
+							</xsl:if>
 						</fo:block>
 					</fo:list-item-body>
 				</fo:list-item>
 			</xsl:otherwise>
 		</xsl:choose>
-		<xsl:apply-templates select="following-sibling::*[1][self::mn:bibitem]">
+		<xsl:apply-templates select="following-sibling::*[1]"> <!-- [self::mn:bibitem] -->
 			<xsl:with-param name="skip">false</xsl:with-param>
 		</xsl:apply-templates>
 	</xsl:template>
