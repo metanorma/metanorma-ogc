@@ -835,7 +835,7 @@ RSpec.describe Metanorma::Ogc do
     INPUT
 
     xml = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
-    expect(xml.at("//xmlns:permission[@id = 'A']/@model").text).to eq("ogc")
+    expect(xml.at("//xmlns:permission[@anchor = 'A']/@model").text).to eq("ogc")
     expect(xml.at("//xmlns:permission/xmlns:permission/@model").text)
       .to eq("ogc")
   end
