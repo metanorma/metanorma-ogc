@@ -27,13 +27,7 @@
 	<xsl:variable name="color_text_title" select="/mn:metanorma/mn:metanorma-extension/mn:presentation-metadata[mn:name = 'color-text-title']/mn:value"/>
 	<xsl:variable name="color_table_header_row" select="/mn:metanorma/mn:metanorma-extension/mn:presentation-metadata[mn:name = 'color-background-table-header']/mn:value"/>
 
-	<xsl:attribute-set name="title-toc-style">
-		<xsl:attribute name="font-size">26pt</xsl:attribute>
-		<xsl:attribute name="border-bottom">2pt solid rgb(21, 43, 77)</xsl:attribute>
-		<xsl:attribute name="keep-with-next">always</xsl:attribute>
-	</xsl:attribute-set>
-
-	<xsl:attribute-set name="title-depth1-style" use-attribute-sets="title-toc-style">
+	<xsl:attribute-set name="title-depth1-style" use-attribute-sets="toc-title-style">
 		<xsl:attribute name="font-family">Lato</xsl:attribute>
 		<xsl:attribute name="color">rgb(59, 56, 56)</xsl:attribute>
 		<xsl:attribute name="margin-top">18pt</xsl:attribute>
@@ -377,7 +371,7 @@
 		</xsl:call-template>
 	</xsl:template> <!-- END: processPrefaceAndMainSectionsOGC_items -->
 
-	<xsl:template match="mn:preface//mn:clause[@type = 'toc']" priority="4">
+	<xsl:template match="mn:preface//mn:clause[@type = 'toc']" name="toc" priority="4">
 		<fo:block break-after="page"/>
 		<fo:block-container line-height="1.08" font-family="Lato">
 
@@ -389,17 +383,19 @@
 
 				<xsl:if test="count(*) = 1 and mn:fmt-title"> <!-- if there isn't user ToC -->
 
-					<xsl:variable name="margin-left">3.9</xsl:variable>
 					<xsl:for-each select="$contents//mnx:item[@display = 'true']">
-						<fo:block margin-top="8pt" margin-bottom="5pt" margin-left="{(@level - 1) * $margin-left}mm" text-align-last="justify" role="TOCI">
+						<fo:block xsl:use-attribute-sets="toc-item-style">
+
+							<xsl:call-template name="refine_toc-item-style"/>
+
 							<fo:basic-link internal-destination="{@id}" fox:alt-text="{mnx:title}">
 								<xsl:if test="@section != ''">
 									<xsl:value-of select="@section"/><xsl:text> </xsl:text>
 								</xsl:if>
 								<xsl:apply-templates select="mnx:title"/>
 								<fo:inline keep-together.within-line="always">
-									<fo:leader leader-pattern="dots"/>
-									<fo:inline><fo:page-number-citation ref-id="{@id}"/></fo:inline>
+									<fo:leader xsl:use-attribute-sets="toc-leader-style"/>
+									<fo:inline xsl:use-attribute-sets="toc-pagenumber-style"><fo:page-number-citation ref-id="{@id}"/></fo:inline>
 								</fo:inline>
 							</fo:basic-link>
 						</fo:block>
@@ -408,18 +404,18 @@
 					<xsl:if test="//mn:figure[@id and mn:fmt-name] or //mn:table[@id and mn:fmt-name]">
 						<fo:block font-size="11pt" margin-top="8pt"> </fo:block>
 						<fo:block font-size="11pt" margin-top="8pt"> </fo:block>
-						<fo:block xsl:use-attribute-sets="title-toc-style">
+						<fo:block xsl:use-attribute-sets="toc-title-style">
 							<!-- <xsl:text>Table of Figures</xsl:text> -->
 							<xsl:call-template name="getLocalizedString">
 								<xsl:with-param name="key">table_of_figures</xsl:with-param>
 							</xsl:call-template>
 						</fo:block>
 						<xsl:for-each select="//mn:figure[@id and mn:fmt-name] | //mn:table[@id and mn:fmt-name]">
-							<fo:block margin-top="8pt" margin-bottom="5pt" text-align-last="justify" role="TOCI">
+							<fo:block xsl:use-attribute-sets="toc-listof-item-style">
 								<fo:basic-link internal-destination="{@id}" fox:alt-text="{mn:fmt-name}">
 									<xsl:apply-templates select="mn:fmt-name" mode="contents"/>
 									<fo:inline keep-together.within-line="always">
-										<fo:leader leader-pattern="dots"/>
+										<fo:leader xsl:use-attribute-sets="toc-leader-style"/>
 										<fo:page-number-citation ref-id="{@id}"/>
 									</fo:inline>
 								</fo:basic-link>
@@ -432,7 +428,7 @@
 	</xsl:template>
 
 	<xsl:template match="mn:preface//mn:clause[@type = 'toc']/mn:fmt-title" priority="3">
-		<fo:block xsl:use-attribute-sets="title-toc-style" role="H1">
+		<fo:block xsl:use-attribute-sets="toc-title-style" role="H1">
 			<!-- <xsl:call-template name="getTitle">
 				<xsl:with-param name="name" select="'title-toc'"/>
 			</xsl:call-template> -->
@@ -7874,7 +7870,10 @@
 
 		<xsl:call-template name="setNamedDestination"/>
 
-		<fo:block-container id="{@id}" xsl:use-attribute-sets="note-style" role="SKIP">
+		<fo:block-container xsl:use-attribute-sets="note-style" role="SKIP">
+			<xsl:if test="not(parent::mn:references)">
+				<xsl:copy-of select="@id"/>
+			</xsl:if>
 
 			<xsl:call-template name="setBlockSpanAll"/>
 
@@ -10615,16 +10614,6 @@
 							<xsl:call-template name="processBibitem">
 								<xsl:with-param name="biblio_tag_part">last</xsl:with-param>
 							</xsl:call-template>
-							<xsl:if test="self::mn:note">
-								<xsl:variable name="note_node">
-									<xsl:copy> <!-- skip @id -->
-										<xsl:copy-of select="node()"/>
-									</xsl:copy>
-								</xsl:variable>
-								<xsl:for-each select="xalan:nodeset($note_node)/*">
-									<xsl:call-template name="note"/>
-								</xsl:for-each>
-							</xsl:if>
 						</fo:block>
 					</fo:list-item-body>
 				</fo:list-item>
@@ -10647,7 +10636,25 @@
 		</xsl:apply-templates>
 		<xsl:apply-templates select="mn:formattedref"/>
 		<!-- end bibitem processing -->
+
+		<xsl:call-template name="processBibliographyNote"/>
 	</xsl:template> <!-- processBibitem (bibitem) -->
+
+	<xsl:template name="processBibliographyNote">
+		<xsl:if test="self::mn:note">
+			<xsl:variable name="note_node">
+				<xsl:element name="{local-name(..)}" namespace="{$namespace_full}"> <!-- save parent context node for determining styles -->
+					<xsl:copy> <!-- skip @id -->
+						<xsl:copy-of select="node()"/>
+					</xsl:copy>
+				</xsl:element>
+			</xsl:variable>
+			<!-- <xsl:for-each select="xalan:nodeset($note_node)//mn:note">
+				<xsl:call-template name="note"/>
+			</xsl:for-each> -->
+			<xsl:call-template name="note"/>
+		</xsl:if>
+	</xsl:template>
 
 	<xsl:template match="mn:title" mode="title">
 		<fo:inline><xsl:apply-templates/></fo:inline>
@@ -11193,6 +11200,61 @@
 	<!-- =================== -->
 	<!-- End Form's elements processing -->
 	<!-- =================== -->
+
+	<xsl:attribute-set name="toc-style">
+	</xsl:attribute-set>
+
+	<xsl:template name="refine_toc-style">
+	</xsl:template>
+
+	<xsl:attribute-set name="toc-title-style">
+		<xsl:attribute name="font-size">26pt</xsl:attribute>
+		<xsl:attribute name="border-bottom">2pt solid rgb(21, 43, 77)</xsl:attribute>
+		<xsl:attribute name="keep-with-next">always</xsl:attribute>
+	</xsl:attribute-set>
+
+	<xsl:attribute-set name="toc-title-page-style">
+	</xsl:attribute-set> <!-- toc-title-page-style -->
+
+	<xsl:attribute-set name="toc-item-block-style">
+	</xsl:attribute-set>
+
+	<xsl:template name="refine_toc-item-block-style">
+	</xsl:template>
+
+	<xsl:attribute-set name="toc-item-style">
+		<xsl:attribute name="role">TOCI</xsl:attribute>
+		<xsl:attribute name="margin-top">8pt</xsl:attribute>
+		<xsl:attribute name="margin-bottom">5pt</xsl:attribute>
+		<xsl:attribute name="text-align-last">justify</xsl:attribute>
+		<xsl:attribute name="role">TOCI</xsl:attribute>
+	</xsl:attribute-set> <!-- END: toc-item-style -->
+
+	<xsl:template name="refine_toc-item-style">
+		<xsl:variable name="margin-left">3.9</xsl:variable>
+		<xsl:attribute name="margin-left"><xsl:value-of select="(@level - 1) * $margin-left"/>mm</xsl:attribute>
+	</xsl:template> <!-- END: refine_toc-item-style -->
+
+	<xsl:attribute-set name="toc-leader-style">
+		<xsl:attribute name="leader-pattern">dots</xsl:attribute>
+	</xsl:attribute-set> <!-- END: toc-leader-style -->
+
+	<xsl:attribute-set name="toc-pagenumber-style">
+	</xsl:attribute-set>
+
+	<!-- List of Figures, Tables -->
+	<xsl:attribute-set name="toc-listof-title-style">
+	</xsl:attribute-set>
+
+	<xsl:attribute-set name="toc-listof-item-block-style">
+	</xsl:attribute-set>
+
+	<xsl:attribute-set name="toc-listof-item-style">
+		<xsl:attribute name="role">TOCI</xsl:attribute>
+			<xsl:attribute name="margin-top">8pt</xsl:attribute>
+			<xsl:attribute name="margin-bottom">5pt</xsl:attribute>
+			<xsl:attribute name="text-align-last">justify</xsl:attribute>
+	</xsl:attribute-set>
 
 	<xsl:template name="processPrefaceSectionsDefault_Contents">
 		<xsl:variable name="nodes_preface_">
