@@ -829,6 +829,9 @@ RSpec.describe IsoDoc::Ogc do
               <description>
                 <p id="_">Initial version of ORM. Doc OGC</p>
               </description>
+              <description>
+                <p id="_">Second description</p>
+              </description>
             </amend>
           </bibitem>
         </relation>
@@ -882,7 +885,7 @@ RSpec.describe IsoDoc::Ogc do
       </ogc-standard>
     INPUT
     presxml = <<~OUTPUT
-        <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
+       <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
           <preface>
              <clause type="toc" id="_" displayorder="1">
                 <fmt-title depth="1" id="_">Contents</fmt-title>
@@ -930,7 +933,9 @@ RSpec.describe IsoDoc::Ogc do
                       <td id="_">R Thakkar</td>
                       <td id="_">All</td>
                       <td id="_">
-                         <p id="_">Original draft document</p>
+                         <semx element="description" source="_">
+                            <p id="_">Original draft document</p>
+                         </semx>
                       </td>
                    </tr>
                    <tr id="_">
@@ -939,7 +944,12 @@ RSpec.describe IsoDoc::Ogc do
                       <td id="_">Kurt Buehler, George Percivall, Sam Bacharach, Carl Reed, Cliff Kottman, Chuck Heazel, John Davidson, Yaser Bisher, Harry Niedzwiadek, John Evans, Jeffrey Simon</td>
                       <td id="_">All</td>
                       <td id="_">
-                         <p id="_">Initial version of ORM. Doc OGC</p>
+                         <semx element="description" source="_">
+                            <p id="_">Initial version of ORM. Doc OGC</p>
+                         </semx>
+                         <semx element="description" source="_">
+                            <p id="_">Second description</p>
+                         </semx>
                       </td>
                    </tr>
                    <tr id="_">
@@ -948,24 +958,26 @@ RSpec.describe IsoDoc::Ogc do
                       <td id="_">Gabby Getz</td>
                       <td id="_">Annex A</td>
                       <td id="_">
-                         <ul id="_">
-                            <li id="_">
-                               <fmt-name id="_">
-                                  <semx element="autonum" source="_">•</semx>
-                               </fmt-name>
-                               <p id="_">
-                                  Put
-                                  <em>3D Tiles</em>
-                                  specification document into OGC document template
-                               </p>
-                            </li>
-                            <li id="_">
-                               <fmt-name id="_">
-                                  <semx element="autonum" source="_">•</semx>
-                               </fmt-name>
-                               <p id="_">Miscellaneous updates</p>
-                            </li>
-                         </ul>
+                         <semx element="description" source="_">
+                            <ul id="_">
+                               <li id="_">
+                                  <fmt-name id="_">
+                                     <semx element="autonum" source="_">•</semx>
+                                  </fmt-name>
+                                  <p id="_">
+                                     Put
+                                     <em>3D Tiles</em>
+                                     specification document into OGC document template
+                                  </p>
+                               </li>
+                               <li id="_">
+                                  <fmt-name id="_">
+                                     <semx element="autonum" source="_">•</semx>
+                                  </fmt-name>
+                                  <p id="_">Miscellaneous updates</p>
+                               </li>
+                            </ul>
+                         </semx>
                       </td>
                    </tr>
                 </tbody>

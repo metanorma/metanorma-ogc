@@ -1199,7 +1199,7 @@ RSpec.describe IsoDoc::Ogc do
              </pre>
              <p class="collapsible active"> </p>
              <div id="_97ec68f1-13df-2fec-f96e-412fe9940eff" class="sourcecode hidable">
-                <table class="rouge-line-table" style="">
+                <table class="rouge-line-table">
                    <tbody>
                       <tr>
                          <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;" class="rouge-gutter gl">

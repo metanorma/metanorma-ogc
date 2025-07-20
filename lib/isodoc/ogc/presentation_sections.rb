@@ -101,8 +101,9 @@ module IsoDoc
       end
 
       def dochistory_description(item)
-        d = item.at(ns("./amend/description")) or return ""
-        d.children.to_xml
+        d = item.xpath(ns("./amend/description"))
+        d.empty? and return ""
+        d.map { |d1| semx_fmt_dup(d1).to_xml }.join("\n")
       end
 
       def dochistory_location(item)
