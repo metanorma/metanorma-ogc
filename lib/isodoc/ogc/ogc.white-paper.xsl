@@ -11223,8 +11223,14 @@
 		<xsl:attribute name="keep-with-next">always</xsl:attribute>
 	</xsl:attribute-set>
 
+	<xsl:template name="refine_toc-title-style">
+	</xsl:template>
+
 	<xsl:attribute-set name="toc-title-page-style">
 	</xsl:attribute-set> <!-- toc-title-page-style -->
+
+	<xsl:template name="refine_toc-title-page-style">
+	</xsl:template>
 
 	<xsl:attribute-set name="toc-item-block-style">
 	</xsl:attribute-set>
@@ -11237,7 +11243,6 @@
 		<xsl:attribute name="margin-top">8pt</xsl:attribute>
 		<xsl:attribute name="margin-bottom">5pt</xsl:attribute>
 		<xsl:attribute name="text-align-last">justify</xsl:attribute>
-		<xsl:attribute name="role">TOCI</xsl:attribute>
 	</xsl:attribute-set> <!-- END: toc-item-style -->
 
 	<xsl:template name="refine_toc-item-style">
@@ -11255,6 +11260,9 @@
 	<!-- List of Figures, Tables -->
 	<xsl:attribute-set name="toc-listof-title-style">
 	</xsl:attribute-set>
+
+	<xsl:template name="refine_toc-listof-title-style">
+	</xsl:template>
 
 	<xsl:attribute-set name="toc-listof-item-block-style">
 	</xsl:attribute-set>
