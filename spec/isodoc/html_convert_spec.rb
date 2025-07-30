@@ -13,7 +13,7 @@ RSpec.describe IsoDoc::Ogc do
       </ogc-standard>
     INPUT
 
-    output = Xml::C14n.format(<<~"OUTPUT")
+    output = Canon.format_xml(<<~"OUTPUT")
       #{HTML_HDR}
                <br/>
                <div id="A">
@@ -24,7 +24,7 @@ RSpec.describe IsoDoc::Ogc do
            </body>
     OUTPUT
 
-    expect(Xml::C14n.format(strip_guid(
+    expect(Canon.format_xml(strip_guid(
                               IsoDoc::Ogc::HtmlConvert.new({})
                               .convert("test", input, true)
                               .gsub(%r{^.*<body}m, "<body")
@@ -368,8 +368,8 @@ RSpec.describe IsoDoc::Ogc do
       .convert("test", presxml, false)
     xml = Nokogiri::XML(File.read("test.html"))
     xml = xml.at("//div[@id = 'A']")
-    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Xml::C14n.format(html)
+    expect(Canon.format_xml(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Canon.format_xml(html)
   end
 
   it "processes admonitions" do
@@ -437,12 +437,12 @@ RSpec.describe IsoDoc::Ogc do
       .convert("test", input, true)
     xml = Nokogiri::XML(pres_output)
     xml.at("//xmlns:localized-strings").remove
-    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::Ogc::HtmlConvert.new({})
+    expect(Canon.format_xml(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(Canon.format_xml(strip_guid(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", pres_output, true)
       .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))))
-      .to be_equivalent_to Xml::C14n.format(html)
+      .to be_equivalent_to Canon.format_xml(html)
   end
 
   it "processes warning admonitions" do
@@ -510,12 +510,12 @@ RSpec.describe IsoDoc::Ogc do
       .convert("test", input, true)
     xml = Nokogiri::XML(pres_output)
     xml.at("//xmlns:localized-strings").remove
-    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::Ogc::HtmlConvert.new({})
+    expect(Canon.format_xml(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(Canon.format_xml(strip_guid(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", pres_output, true)
       .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))))
-      .to be_equivalent_to Xml::C14n.format(html)
+      .to be_equivalent_to Canon.format_xml(html)
   end
 
   it "processes important admonitions" do
@@ -583,12 +583,12 @@ RSpec.describe IsoDoc::Ogc do
       .convert("test", input, true)
     xml = Nokogiri::XML(pres_output)
     xml.at("//xmlns:localized-strings").remove
-    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::Ogc::HtmlConvert.new({})
+    expect(Canon.format_xml(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(Canon.format_xml(strip_guid(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", pres_output, true)
       .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))))
-      .to be_equivalent_to Xml::C14n.format(html)
+      .to be_equivalent_to Canon.format_xml(html)
   end
 
   it "processes examples with titles" do
@@ -669,12 +669,12 @@ RSpec.describe IsoDoc::Ogc do
       .convert("test", input, true)
     xml = Nokogiri::XML(pres_output)
     xml.at("//xmlns:localized-strings").remove
-    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::Ogc::HtmlConvert.new({})
+    expect(Canon.format_xml(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(Canon.format_xml(strip_guid(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", pres_output, true)
       .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))))
-      .to be_equivalent_to Xml::C14n.format(html)
+      .to be_equivalent_to Canon.format_xml(html)
   end
 
   it "processes examples without titles" do
@@ -766,12 +766,12 @@ RSpec.describe IsoDoc::Ogc do
       .convert("test", input, true)
     xml = Nokogiri::XML(pres_output)
     xml.at("//xmlns:localized-strings").remove
-    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::Ogc::HtmlConvert.new({})
+    expect(Canon.format_xml(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(Canon.format_xml(strip_guid(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", pres_output, true)
       .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))))
-      .to be_equivalent_to Xml::C14n.format(html)
+      .to be_equivalent_to Canon.format_xml(html)
   end
 
   it "processes figures and sourcecode" do
@@ -884,12 +884,12 @@ RSpec.describe IsoDoc::Ogc do
       .convert("test", input, true)
     xml = Nokogiri::XML(pres_output)
     xml.at("//xmlns:localized-strings").remove
-    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::Ogc::HtmlConvert.new({})
+    expect(Canon.format_xml(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(Canon.format_xml(strip_guid(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", pres_output, true)
       .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))))
-      .to be_equivalent_to Xml::C14n.format(html)
+      .to be_equivalent_to Canon.format_xml(html)
   end
 
   it "processes hi" do
@@ -955,14 +955,14 @@ RSpec.describe IsoDoc::Ogc do
            </div>
          </body>
     OUTPUT
-    expect(Xml::C14n.format(IsoDoc::Ogc::HtmlConvert.new({})
+    expect(Canon.format_xml(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", presxml, true)
       .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
-      .to be_equivalent_to Xml::C14n.format(html)
-    expect(Xml::C14n.format(IsoDoc::Ogc::WordConvert.new({})
+      .to be_equivalent_to Canon.format_xml(html)
+    expect(Canon.format_xml(IsoDoc::Ogc::WordConvert.new({})
       .convert("test", presxml, true)
       .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
-      .to be_equivalent_to Xml::C14n.format(doc)
+      .to be_equivalent_to Canon.format_xml(doc)
   end
 
   it "injects JS into blank html" do
@@ -974,15 +974,15 @@ RSpec.describe IsoDoc::Ogc do
       :novalid:
       :no-pdf:
     INPUT
-    output = Xml::C14n.format(<<~"OUTPUT")
+    output = Canon.format_xml(<<~"OUTPUT")
           #{blank_hdr_gen}
           <preface>#{SECURITY}</preface>
       <sections/>
       </ogc-standard>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Asciidoctor
+    expect(Canon.format_xml(strip_guid(Asciidoctor
       .convert(input, backend: :ogc, header_footer: true))))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_equivalent_to Canon.format_xml(output)
     html = File.read("test.html", encoding: "utf-8")
     expect(html).to match(%r{jquery\.min\.js})
     expect(html).to match(%r{Overpass})
@@ -1127,18 +1127,18 @@ RSpec.describe IsoDoc::Ogc do
       .convert("test", input, true)
     xml = Nokogiri::XML(pres_output)
     xml.at("//xmlns:localized-strings").remove
-    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(
+    expect(Canon.format_xml(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(Canon.format_xml(strip_guid(
                               IsoDoc::Ogc::HtmlConvert.new({}).convert("test", pres_output, true)
                               .gsub(%r{^.*<body}m, "<body")
                               .gsub(%r{</body>.*}m, "</body>"),
-                            ))).to be_equivalent_to Xml::C14n.format(html)
-    expect(Xml::C14n.format(strip_guid(
+                            ))).to be_equivalent_to Canon.format_xml(html)
+    expect(Canon.format_xml(strip_guid(
                               IsoDoc::Ogc::WordConvert.new({}).convert("test", pres_output, true)
                               .gsub(%r{^.*<body}m, "<body")
                        .gsub(%r{</body>.*}m, "</body>"),
-                            ))).to be_equivalent_to Xml::C14n.format(word)
+                            ))).to be_equivalent_to Canon.format_xml(word)
   end
 
   it "processes collapsible sourcecode" do
@@ -1227,7 +1227,7 @@ RSpec.describe IsoDoc::Ogc do
     out = File.read("test.html")
       .sub(/^.*<main/m, "<main")
       .sub(%r{</main>.*$}m, "</main>")
-    expect(Xml::C14n.format(out)).to be_equivalent_to Xml::C14n.format(html)
+    expect(Canon.format_xml(out)).to be_equivalent_to Canon.format_xml(html)
   end
 
   it "processes collapsible figures" do
@@ -1324,7 +1324,7 @@ RSpec.describe IsoDoc::Ogc do
     out = File.read("test.html")
       .sub(/^.*<main/m, "<main")
       .sub(%r{</main>.*$}m, "</main>")
-    expect(Xml::C14n.format(out)).to be_equivalent_to Xml::C14n.format(html)
+    expect(Canon.format_xml(out)).to be_equivalent_to Canon.format_xml(html)
   end
 
   it "processes unordered lists" do
@@ -1430,8 +1430,8 @@ RSpec.describe IsoDoc::Ogc do
       .convert("test", input, true)
     xml = Nokogiri::XML(pres_output)
     xml.at("//xmlns:localized-strings").remove
-    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Canon.format_xml(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Canon.format_xml(presxml)
     presxml = <<~INPUT
        <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <bibdata>
@@ -1500,8 +1500,8 @@ RSpec.describe IsoDoc::Ogc do
                                  "<doctype>white-paper"), true)
     xml = Nokogiri::XML(pres_output)
     xml.at("//xmlns:localized-strings").remove
-    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Canon.format_xml(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Canon.format_xml(presxml)
   end
 
   it "processes ordered lists" do
@@ -1628,7 +1628,7 @@ RSpec.describe IsoDoc::Ogc do
       .convert("test", input, true)
     xml = Nokogiri::XML(pres_output)
     xml.at("//xmlns:localized-strings")&.remove
-    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Canon.format_xml(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Canon.format_xml(presxml)
   end
 end

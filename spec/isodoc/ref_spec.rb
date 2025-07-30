@@ -1182,12 +1182,12 @@ RSpec.describe IsoDoc::Ogc do
           .convert("test", input, true)
     xml = Nokogiri::XML(pres_output)
     xml.at("//xmlns:localized-strings").remove
-    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::Ogc::HtmlConvert.new({})
+    expect(Canon.format_xml(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(Canon.format_xml(strip_guid(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", pres_output, true)
       .sub(/^.*<body/m, "<body")
       .sub(%r{</body>.*$}m, "</body>"))))
-      .to be_equivalent_to Xml::C14n.format(html)
+      .to be_equivalent_to Canon.format_xml(html)
   end
 end

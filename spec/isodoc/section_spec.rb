@@ -90,8 +90,8 @@ RSpec.describe IsoDoc::Ogc do
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
     xml.at("//xmlns:metanorma-extension")&.remove
-    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Canon.format_xml(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Canon.format_xml(presxml)
   end
 
   it "orders terms in engineering reports" do
@@ -183,8 +183,8 @@ RSpec.describe IsoDoc::Ogc do
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
     xml.at("//xmlns:metanorma-extension")&.remove
-    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Canon.format_xml(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Canon.format_xml(presxml)
   end
 
   it "processes simple terms & definitions" do
@@ -351,7 +351,7 @@ RSpec.describe IsoDoc::Ogc do
        </ogc-standard>
     INPUT
 
-    html = Xml::C14n.format(<<~OUTPUT)
+    html = Canon.format_xml(<<~OUTPUT)
       <div id="H">
          <h1 id="_">
            <a class="anchor" href="#H"/>
@@ -386,7 +386,7 @@ RSpec.describe IsoDoc::Ogc do
          </p>
        </div>
     OUTPUT
-    doc = Xml::C14n.format(<<~OUTPUT)
+    doc = Canon.format_xml(<<~OUTPUT)
       <body>
           <div class="WordSection3">
              <div>
@@ -430,16 +430,16 @@ RSpec.describe IsoDoc::Ogc do
       .convert("test", input, true)
     xml = Nokogiri::XML(pres_output)
     xml.at("//xmlns:localized-strings").remove
-    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Canon.format_xml(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Canon.format_xml(presxml)
     IsoDoc::Ogc::HtmlConvert.new({ filename: "test" })
       .convert("test", pres_output, false)
     xml = Nokogiri::XML(File.read("test.html"))
     xml = xml.at("//div[@id = 'H']")
-    expect(Xml::C14n.format(strip_guid(xml.to_xml))).to be_equivalent_to html
+    expect(Canon.format_xml(strip_guid(xml.to_xml))).to be_equivalent_to html
     IsoDoc::Ogc::WordConvert.new({ filename: "test" })
       .convert("test", pres_output, false)
-    expect(Xml::C14n.format(File.read("test.doc")
+    expect(Canon.format_xml(File.read("test.doc")
       .gsub(%r{^.*<div class="WordSection3">}m,
             "<body><div class='WordSection3'>")
       .gsub(%r{</body>.*}m, "</body>")))
@@ -1484,15 +1484,15 @@ RSpec.describe IsoDoc::Ogc do
       .convert("test", input, true)
     xml = Nokogiri::XML(pres_output)
     xml.at("//xmlns:localized-strings").remove
-    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Xml::C14n.format(presxml + presxml1)
-    expect(Xml::C14n.format(strip_guid(
+    expect(Canon.format_xml(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Canon.format_xml(presxml + presxml1)
+    expect(Canon.format_xml(strip_guid(
                               IsoDoc::Ogc::HtmlConvert.new({})
                        .convert("test", pres_output, true)
                               .gsub(%r{^.*<body}m, "<body")
                               .gsub(%r{</body>.*}m, "</body>"),
                             )))
-      .to be_equivalent_to Xml::C14n.format(output + output1)
+      .to be_equivalent_to Canon.format_xml(output + output1)
 
     presxml2 = <<~OUTPUT
          <annex id="P" inline-header="false" obligation="normative" autonum="A" displayorder="19">
@@ -1828,15 +1828,15 @@ RSpec.describe IsoDoc::Ogc do
       .convert("test", input.sub("technical-paper", "engineering-report"), true)
     xml = Nokogiri::XML(pres_output)
     xml.at("//xmlns:localized-strings").remove
-    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Xml::C14n.format(
+    expect(Canon.format_xml(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Canon.format_xml(
         presxml.sub("technical-paper", "engineering-report") + presxml2,
       )
-    expect(Xml::C14n.format(strip_guid(
+    expect(Canon.format_xml(strip_guid(
                               IsoDoc::Ogc::HtmlConvert.new({})
                        .convert("test", pres_output, true)
                               .gsub(%r{^.*<body}m, "<body")
                               .gsub(%r{</body>.*}m, "</body>"),
-                            ))).to be_equivalent_to Xml::C14n.format(output + output2)
+                            ))).to be_equivalent_to Canon.format_xml(output + output2)
   end
 end

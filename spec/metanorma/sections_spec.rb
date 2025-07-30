@@ -64,8 +64,8 @@ RSpec.describe Metanorma::Ogc do
     xml = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
     xml.xpath("//xmlns:bibdata | //xmlns:boilerplate | " \
               "//xmlns:metanorma-extension").each(&:remove)
-    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Xml::C14n.format(output)
+    expect(Canon.format_xml(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Canon.format_xml(output)
 
     output = <<~OUTPUT
               <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ogc::VERSION}" flavor="ogc">
@@ -106,8 +106,8 @@ RSpec.describe Metanorma::Ogc do
       .convert(input.sub("Submitters", "Contributors"), *OPTIONS))
     xml.xpath("//xmlns:bibdata | //xmlns:boilerplate | " \
               "//xmlns:metanorma-extension").each(&:remove)
-    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Xml::C14n.format(output)
+    expect(Canon.format_xml(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "processes submitters in Engineering Reports" do
@@ -171,8 +171,8 @@ RSpec.describe Metanorma::Ogc do
     xml = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
     xml.xpath("//xmlns:bibdata | //xmlns:boilerplate | " \
               "//xmlns:metanorma-extension").each(&:remove)
-    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Xml::C14n.format(output)
+    expect(Canon.format_xml(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Canon.format_xml(output)
 
     xml = Nokogiri::XML(Asciidoctor
       .convert(input.sub("Submitters", "Contributors"), *OPTIONS))
@@ -212,8 +212,8 @@ RSpec.describe Metanorma::Ogc do
       </clause></sections>
       </metanorma>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Xml::C14n.format(output)
+    expect(Canon.format_xml(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "processes contributors plus submitters" do
@@ -285,8 +285,8 @@ RSpec.describe Metanorma::Ogc do
     xml = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
     xml.xpath("//xmlns:bibdata | //xmlns:boilerplate | " \
               "//xmlns:metanorma-extension").each(&:remove)
-    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Xml::C14n.format(output)
+    expect(Canon.format_xml(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "processes References" do
@@ -297,7 +297,7 @@ RSpec.describe Metanorma::Ogc do
       == References
     INPUT
 
-    output = Xml::C14n.format(<<~OUTPUT)
+    output = Canon.format_xml(<<~OUTPUT)
       <bibliography><references id="_" obligation="informative" normative="true">
         <title id="_">Normative references</title>
         <p id="_">There are no normative references in this document.</p>
@@ -305,7 +305,7 @@ RSpec.describe Metanorma::Ogc do
     OUTPUT
     xml = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
     xml = xml.at("//xmlns:bibliography")
-    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
+    expect(Canon.format_xml(strip_guid(xml.to_xml)))
       .to be_equivalent_to output
   end
 
@@ -317,7 +317,7 @@ RSpec.describe Metanorma::Ogc do
       == Section 1
     INPUT
 
-    output = Xml::C14n.format(<<~"OUTPUT")
+    output = Canon.format_xml(<<~"OUTPUT")
       #{blank_hdr_gen}
                <preface><foreword id="_" obligation="informative">
            <title id="_">Preface</title>
@@ -331,7 +331,7 @@ RSpec.describe Metanorma::Ogc do
          </metanorma>
     OUTPUT
 
-    expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+    expect(Canon.format_xml(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
       .to be_equivalent_to output
   end
 
@@ -354,8 +354,8 @@ RSpec.describe Metanorma::Ogc do
          </sections>
          </metanorma>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
-      .to be_equivalent_to Xml::C14n.format(output)
+    expect(Canon.format_xml(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "processes preface section" do
@@ -379,8 +379,8 @@ RSpec.describe Metanorma::Ogc do
          <sections> </sections>
        </metanorma>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
-      .to be_equivalent_to Xml::C14n.format(output)
+    expect(Canon.format_xml(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "processes conformance section" do
@@ -400,8 +400,8 @@ RSpec.describe Metanorma::Ogc do
            </sections>
          </metanorma>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
-      .to be_equivalent_to Xml::C14n.format(output)
+    expect(Canon.format_xml(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "processes security consideration section" do
@@ -424,8 +424,8 @@ RSpec.describe Metanorma::Ogc do
          <sections/>
        </metanorma>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
-      .to be_equivalent_to Xml::C14n.format(output)
+    expect(Canon.format_xml(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+      .to be_equivalent_to Canon.format_xml(output)
 
     input = <<~INPUT
       #{ASCIIDOC_BLANK_HDR}
@@ -446,8 +446,8 @@ RSpec.describe Metanorma::Ogc do
          </sections>
        </metanorma>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
-      .to be_equivalent_to Xml::C14n.format(output)
+    expect(Canon.format_xml(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "ignores security consideration sections in engineering reports" do
@@ -472,8 +472,8 @@ RSpec.describe Metanorma::Ogc do
     xml = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
     xml.xpath("//xmlns:bibdata | //xmlns:boilerplate | //xmlns:metanorma-extension")
       .each(&:remove)
-    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Xml::C14n.format(output)
+    expect(Canon.format_xml(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Canon.format_xml(output)
 
     input = <<~INPUT
       #{ASCIIDOC_BLANK_HDR.sub(':nodoc:', ":nodoc:\n:doctype: engineering-report")}
@@ -493,8 +493,8 @@ RSpec.describe Metanorma::Ogc do
     xml = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
     xml.xpath("//xmlns:bibdata | //xmlns:boilerplate | //xmlns:metanorma-extension")
       .each(&:remove)
-    expect(Xml::C14n.format(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Xml::C14n.format(output)
+    expect(Canon.format_xml(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "processes executive summary section" do
@@ -531,8 +531,8 @@ RSpec.describe Metanorma::Ogc do
          </sections>
        </metanorma>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
-      .to be_equivalent_to Xml::C14n.format(output)
+    expect(Canon.format_xml(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "does not recognise 'Foreword' or 'Introduction' as a preface section" do
@@ -563,8 +563,8 @@ RSpec.describe Metanorma::Ogc do
           </sections>
         </metanorma>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
-      .to be_equivalent_to Xml::C14n.format(output)
+    expect(Canon.format_xml(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "processes glossary annex" do
@@ -605,8 +605,8 @@ RSpec.describe Metanorma::Ogc do
       </annex>
       </metanorma>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
-      .to be_equivalent_to Xml::C14n.format(output)
+    expect(Canon.format_xml(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+      .to be_equivalent_to Canon.format_xml(output)
 
     input = <<~INPUT
       #{ASCIIDOC_BLANK_HDR}
@@ -631,8 +631,8 @@ RSpec.describe Metanorma::Ogc do
       </annex>
       </metanorma>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
-      .to be_equivalent_to Xml::C14n.format(output)
+    expect(Canon.format_xml(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "processes glossary annex with terms section" do
@@ -704,8 +704,8 @@ RSpec.describe Metanorma::Ogc do
                </annex>
              </metanorma>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
-      .to be_equivalent_to Xml::C14n.format(output)
+    expect(Canon.format_xml(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "differentiates Normative References and References" do
@@ -734,8 +734,8 @@ RSpec.describe Metanorma::Ogc do
         </bibliography>
       </metanorma>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
-      .to be_equivalent_to Xml::C14n.format(output)
+    expect(Canon.format_xml(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "sorts annexes" do
@@ -767,8 +767,8 @@ RSpec.describe Metanorma::Ogc do
         </annex>
       </metanorma>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
-      .to be_equivalent_to Xml::C14n.format(output)
+    expect(Canon.format_xml(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "sorts annexes #2" do
@@ -817,7 +817,7 @@ RSpec.describe Metanorma::Ogc do
         </annex>
       </metanorma>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
-      .to be_equivalent_to Xml::C14n.format(output)
+    expect(Canon.format_xml(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+      .to be_equivalent_to Canon.format_xml(output)
   end
 end
