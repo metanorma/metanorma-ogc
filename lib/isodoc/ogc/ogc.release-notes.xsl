@@ -1955,7 +1955,7 @@
 	</xsl:template>
 
 	<xsl:template name="insertFootnoteSeparator">
-		<fo:static-content flow-name="xsl-footnote-separator">
+		<fo:static-content flow-name="xsl-footnote-separator" role="artifact">
 			<fo:block>
 				<fo:leader leader-pattern="rule" leader-length="20%" color="{$color_design}"/>
 			</fo:block>
@@ -11547,7 +11547,7 @@
 
 	<xsl:template name="insertFootnoteSeparatorCommon">
 		<xsl:param name="leader_length">30%</xsl:param>
-		<fo:static-content flow-name="xsl-footnote-separator">
+		<fo:static-content flow-name="xsl-footnote-separator" role="artifact">
 			<fo:block>
 				<fo:leader leader-pattern="rule" leader-length="{$leader_length}"/>
 			</fo:block>
