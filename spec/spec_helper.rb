@@ -196,6 +196,9 @@ METANORMA_EXTENSION = <<~"HDR".freeze
         <name>TOC Heading Levels</name>
         <value>2</value>
       </presentation-metadata>
+      <semantic-metadata>
+         <stage-published>true</stage-published>
+      </semantic-metadata>
       <presentation-metadata>
         <name>HTML TOC Heading Levels</name>
         <value>2</value>
