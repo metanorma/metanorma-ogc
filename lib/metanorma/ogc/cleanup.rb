@@ -231,6 +231,10 @@ module Metanorma
         end
         docxml
       end
+
+      def published?(status, _docxml)
+        %w(approved deprecated retired published).include?(status.downcase)
+      end
     end
   end
 end

@@ -115,7 +115,7 @@ RSpec.describe IsoDoc::Ogc do
         </editorialgroup>
         </ext>
       </bibdata>
-      #{METANORMA_EXTENSION}
+      #{METANORMA_EXTENSION.sub("<stage-published>true", "<stage-published>false")}
       <sections/>
       </ogc-standard>
     INPUT

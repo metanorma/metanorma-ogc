@@ -455,6 +455,9 @@ RSpec.describe Metanorma::Ogc do
              <name>color-text-title</name>
              <value>rgb(33, 55, 92)</value>
            </presentation-metadata>
+              <semantic-metadata>
+          <stage-published>true</stage-published>
+       </semantic-metadata>
          <presentation-metadata>
            <name>TOC Heading Levels</name>
            <value>2</value>
@@ -571,6 +574,9 @@ RSpec.describe Metanorma::Ogc do
              <name>color-text-title</name>
              <value>rgb(33, 55, 92)</value>
            </presentation-metadata>
+   <semantic-metadata>
+      <stage-published>true</stage-published>
+   </semantic-metadata>
          <presentation-metadata>
            <name>TOC Heading Levels</name>
            <value>2</value>
@@ -684,6 +690,9 @@ RSpec.describe Metanorma::Ogc do
              <name>color-text-title</name>
              <value>rgb(68, 84, 106)</value>
            </presentation-metadata>
+              <semantic-metadata>
+      <stage-published>true</stage-published>
+   </semantic-metadata>
          <presentation-metadata>
            <name>TOC Heading Levels</name>
            <value>2</value>
