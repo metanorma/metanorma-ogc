@@ -122,7 +122,7 @@ RSpec.describe Metanorma::Ogc do
           </contributor>
       <contributor>
          <role type="author">
-            <description>Committee</description>
+            <description>committee</description>
          </role>
          <organization>
             <name>Open Geospatial Consortium</name>
@@ -144,7 +144,7 @@ RSpec.describe Metanorma::Ogc do
       </contributor>
       <contributor>
          <role type="author">
-            <description>Committee</description>
+            <description>committee</description>
          </role>
          <organization>
             <name>Open Geospatial Consortium</name>
