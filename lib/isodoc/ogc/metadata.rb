@@ -60,7 +60,8 @@ module IsoDoc
       end
 
       def author(isoxml, _out)
-        tc = isoxml.at(ns("//bibdata/ext/editorialgroup/committee"))
+        #tc = isoxml.at(ns("//bibdata/ext/editorialgroup/committee"))
+        tc = isoxml.at(ns("//bibdata/contributor[role/@type='author']/organization/subdivision[@type='Committee']/name"))
         set(:tc, tc.text) if tc
         authors = isoxml.xpath(ns("//bibdata/contributor" \
                                   "[role/@type = 'author']/person"))

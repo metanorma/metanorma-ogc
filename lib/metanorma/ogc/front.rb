@@ -8,6 +8,7 @@ module Metanorma
       def metadata_author(node, xml)
         corporate_author(node, xml)
         personal_author(node, xml)
+        committee_contributors(node, xml, default_publisher, {})
       end
 
       def safe_xml_string(node, key, value)
@@ -108,6 +109,17 @@ module Metanorma
           xml.workgroup(node.attr("workgroup") || node.attr("workinggroup"),
                         **attr_code(type: node.attr("workgroup-type"),
                                     number: node.attr("workgroup-number")))
+      end
+
+      def metadata_committee_types(node)
+        %w(committee subcommittee workgroup)
+      end
+
+      def metadata_committee_prep(node)
+        node.attr("committee") or node.set_attribute("committee", "technical")
+        a = node.attr("workinggroup") and
+          node.set_attribute("workgroup", a)
+        true
       end
 
       def externalid(node)
