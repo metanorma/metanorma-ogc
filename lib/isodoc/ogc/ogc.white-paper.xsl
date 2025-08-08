@@ -2316,17 +2316,31 @@
 	<xsl:attribute-set name="copyright-statement-style">
 	</xsl:attribute-set> <!-- copyright-statement-style -->
 
+	<xsl:template name="refine_copyright-statement-style">
+	</xsl:template>
+
 	<xsl:attribute-set name="copyright-statement-title-style">
 		<xsl:attribute name="font-family">Lato</xsl:attribute>
 		<xsl:attribute name="text-align">center</xsl:attribute>
 		<xsl:attribute name="font-weight">bold</xsl:attribute>
 	</xsl:attribute-set> <!-- copyright-statement-title-style -->
 
+	<xsl:template name="refine_copyright-statement-title-style">
+	</xsl:template>
+
 	<xsl:attribute-set name="copyright-statement-p-style">
 		<xsl:attribute name="text-align">left</xsl:attribute>
 	</xsl:attribute-set> <!-- copyright-statement-p-style -->
 
-		<xsl:attribute-set name="license-statement-style">
+	<xsl:template name="refine_copyright-statement-p-style">
+		<xsl:if test="@align">
+			<xsl:attribute name="text-align">
+				<xsl:value-of select="@align"/>
+			</xsl:attribute>
+		</xsl:if>
+	</xsl:template>
+
+	<xsl:attribute-set name="license-statement-style">
 	</xsl:attribute-set> <!-- license-statement-style -->
 
 	<xsl:attribute-set name="license-statement-title-style">
@@ -2374,6 +2388,8 @@
 	<!-- ================================= -->
 	<xsl:template match="mn:copyright-statement">
 		<fo:block xsl:use-attribute-sets="copyright-statement-style" role="SKIP">
+			<xsl:call-template name="refine_copyright-statement-style"/>
+
 			<xsl:apply-templates/>
 		</fo:block>
 	</xsl:template> <!-- copyright-statement -->
@@ -2390,11 +2406,7 @@
 
 	<xsl:template match="mn:copyright-statement//mn:p">
 		<fo:block xsl:use-attribute-sets="copyright-statement-p-style">
-				<xsl:if test="@align">
-					<xsl:attribute name="text-align">
-						<xsl:value-of select="@align"/>
-					</xsl:attribute>
-				</xsl:if>
+			<xsl:call-template name="refine_copyright-statement-p-style"/>
 
 			<xsl:apply-templates/>
 		</fo:block>
@@ -3516,7 +3528,7 @@
 						</xsl:otherwise>
 					</xsl:choose>
 				</xsl:variable>
-				<xsl:if test="$key = 'font-family' or $key = 'font-size' or $key = 'color' or $key = 'baseline-shift'">
+				<xsl:if test="$key = 'font-family' or           $key = 'font-size' or          $key = 'color' or          $key = 'baseline-shift' or          $key = 'line-height'          ">
 					<style name="{$key}"><xsl:value-of select="$value"/></style>
 				</xsl:if>
 				<xsl:if test="$key = 'text-indent'">
@@ -13742,6 +13754,13 @@
 			<xsl:with-param name="default" select="$text_align_default"/>
 		</xsl:call-template>
 		<xsl:call-template name="setKeepAttributes"/>
+		<xsl:if test="node()[1][self::mn:span][contains(@style, 'line-height')]">
+			<xsl:variable name="styles">
+				<xsl:apply-templates select="*[1]"/>
+			</xsl:variable>
+			<!-- move attribute line-height from inline to block -->
+			<xsl:attribute name="line-height"><xsl:value-of select="xalan:nodeset($styles)//*/@line-height"/></xsl:attribute>
+		</xsl:if>
 	</xsl:template>
 
 	<xsl:template name="setKeepAttributes">
