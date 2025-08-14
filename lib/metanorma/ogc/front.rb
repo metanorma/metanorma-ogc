@@ -92,25 +92,6 @@ module Metanorma
         { "Open Geospatial Consortium" => "OGC" }
       end
 
-      def metadata_committee(node, xml)
-        node.attr("committee") or return
-        xml.editorialgroup do |a|
-          metadata_committee1(node, a)
-        end
-      end
-
-      def metadata_committee1(node, xml)
-        xml.committee(node.attr("committee") || "technical")
-        node.attr("subcommittee") and
-          xml.subcommittee(node.attr("subcommittee"),
-                           **attr_code(type: node.attr("subcommittee-type"),
-                                       number: node.attr("subcommittee-number")))
-        (node.attr("workgroup") || node.attr("workinggroup")) and
-          xml.workgroup(node.attr("workgroup") || node.attr("workinggroup"),
-                        **attr_code(type: node.attr("workgroup-type"),
-                                    number: node.attr("workgroup-number")))
-      end
-
       def metadata_committee_types(node)
         %w(committee subcommittee workgroup)
       end

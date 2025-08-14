@@ -34,42 +34,12 @@
         <value>general</value>
       </choice>
     </define>
-    <define name="editorialgroup">
-      <element name="editorialgroup">
-        <ref name="committee"/>
-        <optional>
-          <ref name="subcommittee"/>
-        </optional>
-        <optional>
-          <ref name="workgroup"/>
-        </optional>
-      </element>
-    </define>
     <define name="stage">
       <element name="stage">
         <ref name="StageType"/>
       </element>
     </define>
   </include>
-  <define name="committee">
-    <element name="committee">
-      <choice>
-        <value>technical</value>
-        <value>planning</value>
-        <value>strategic-member-advisory</value>
-      </choice>
-    </element>
-  </define>
-  <define name="subcommittee">
-    <element name="subcommittee">
-      <ref name="IsoWorkgroup"/>
-    </element>
-  </define>
-  <define name="workgroup">
-    <element name="workgroup">
-      <ref name="IsoWorkgroup"/>
-    </element>
-  </define>
   <define name="StageType">
     <choice>
       <value>rfc</value>
