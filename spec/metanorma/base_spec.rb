@@ -190,11 +190,6 @@ RSpec.describe Metanorma::Ogc do
            <doctype>standard</doctype>
            <subdoctype>conceptual-model</subdoctype>
            <flavor>ogc</flavor>
-           <editorialgroup>
-             <committee>TC</committee>
-             <subcommittee type="B" number="2">SC</subcommittee>
-             <workgroup type="C" number="3">WG</workgroup>
-           </editorialgroup>
           </ext>
          </bibdata>
                   <boilerplate>
