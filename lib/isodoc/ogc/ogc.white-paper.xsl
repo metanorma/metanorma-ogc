@@ -2338,6 +2338,7 @@
 				<xsl:value-of select="@align"/>
 			</xsl:attribute>
 		</xsl:if>
+
 	</xsl:template>
 
 	<xsl:attribute-set name="license-statement-style">
@@ -2356,6 +2357,10 @@
 		<xsl:attribute name="margin-top">14pt</xsl:attribute>
 		<xsl:attribute name="line-height">135%</xsl:attribute>
 	</xsl:attribute-set> <!-- license-statement-p-style -->
+
+	<xsl:template name="refine_license-statement-p-style">
+
+	</xsl:template>
 
 	<xsl:attribute-set name="legal-statement-style">
 	</xsl:attribute-set> <!-- legal-statement-style -->
