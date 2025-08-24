@@ -78,11 +78,11 @@ module Metanorma
         replace_title(xml, "//definitions[@type = 'abbreviated_terms']",
                       @i18n.abbrev)
         replace_title(xml, "//definitions[not(@type)]", @i18n.symbolsabbrev)
-        replace_title(xml, "//sections//terms#{SYMnoABBR} | " \
-                           "//sections//clause[.//terms]#{SYMnoABBR}",
+        replace_title(xml, "//sections//terms#{SYM_NO_ABBR} | " \
+                           "//sections//clause[.//terms]#{SYM_NO_ABBR}",
                       @i18n.termsdefsymbols, true)
-        replace_title(xml, "//sections//terms#{ABBRnoSYM} | " \
-                           "//sections//clause[.//terms]#{ABBRnoSYM}",
+        replace_title(xml, "//sections//terms#{ABBR_NO_SYM} | " \
+                           "//sections//clause[.//terms]#{ABBR_NO_SYM}",
                       @i18n.termsdefabbrev, true)
         replace_title(xml, "//sections//terms#{SYMABBR} | " \
                            "//sections//clause[.//terms]#{SYMABBR}",

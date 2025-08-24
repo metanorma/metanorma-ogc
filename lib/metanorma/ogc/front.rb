@@ -5,19 +5,13 @@ require "fileutils"
 module Metanorma
   module Ogc
     class Converter < Standoc::Converter
-      def metadata_author(node, xml)
-        corporate_author(node, xml)
-        personal_author(node, xml)
-        committee_contributors(node, xml, default_publisher, {})
-      end
-
       def safe_xml_string(node, key, value)
         node.send key do |n|
           n << value
         end
       end
 
-      def corporate_author(node, xml)
+      def org_author(node, xml)
         node.attr("submitting-organizations") or return
         csv_split(@c.decode(node.attr("submitting-organizations")),
                   ";")&.each do |org|
