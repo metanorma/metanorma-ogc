@@ -51,7 +51,7 @@ RSpec.describe IsoDoc::Ogc do
       .sub(%r{</span>\s*<p class="MsoNormal">&#xA0;</p>\s*</div>\s*$}, "</div>")
     expect(Canon.format_xml(strip_guid(word.gsub(/_Toc\d\d+/, "_Toc"))))
       .to be_equivalent_to Canon.format_xml(<<~'OUTPUT')
-      <div class="WordSection2">
+       <div class="WordSection2">
           <div class="license">
              <div>
                 <a name="boilerplate-license-destination" id="boilerplate-license-destination"/>
@@ -158,7 +158,7 @@ RSpec.describe IsoDoc::Ogc do
                 <span lang="EN-GB" xml:lang="EN-GB">
                    <span style="mso-element:field-begin"/>
                    <span style="mso-spacerun:yes"> </span>
-                   TOC \h \z \t TableTitle,tabletitle
+                   TOC \h \z \t "TableTitle,1,tabletitle,1"
                    <span style="mso-element:field-separator"/>
                 </span>
                 <span class="MsoHyperlink">
@@ -197,7 +197,7 @@ RSpec.describe IsoDoc::Ogc do
                 <span lang="EN-GB" xml:lang="EN-GB">
                    <span style="mso-element:field-begin"/>
                    <span style="mso-spacerun:yes"> </span>
-                   TOC \h \z \t FigureTitle,figuretitle
+                   TOC \h \z \t "FigureTitle,1,figuretitle,1"
                    <span style="mso-element:field-separator"/>
                 </span>
                 <span class="MsoHyperlink">
@@ -236,7 +236,7 @@ RSpec.describe IsoDoc::Ogc do
                 <span lang="EN-GB" xml:lang="EN-GB">
                    <span style="mso-element:field-begin"/>
                    <span style="mso-spacerun:yes"> </span>
-                   TOC \h \z \t RecommendationTitle,RecommendationTestTitle,recommendationtitle,recommendationtesttitle
+                   TOC \h \z \t "RecommendationTitle,1,RecommendationTestTitle,1,recommendationtitle,1,recommendationtesttitle,1"
                    <span style="mso-element:field-separator"/>
                 </span>
                 <span class="MsoHyperlink">
