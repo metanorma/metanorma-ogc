@@ -373,7 +373,9 @@
 
 	<xsl:template match="mn:preface//mn:clause[@type = 'toc']" name="toc" priority="4">
 		<fo:block break-after="page"/>
-		<fo:block-container line-height="1.08" font-family="Lato">
+		<fo:block-container xsl:use-attribute-sets="toc-style">
+
+			<xsl:call-template name="refine_toc-style"/>
 
 			<xsl:apply-templates select="mn:fmt-title"/>
 
@@ -535,7 +537,7 @@
 	</xsl:template>
 
 	<xsl:template match="mn:feedback-statement" priority="2">
-		<fo:block margin-top="12pt" margin-bottom="12pt">
+		<fo:block xsl:use-attribute-sets="feedback-statement-style">
 			<xsl:apply-templates select="mn:clause[1]"/>
 		</fo:block>
 	</xsl:template>
@@ -2398,6 +2400,8 @@
 	</xsl:template>
 
 	<xsl:attribute-set name="feedback-statement-style">
+		<xsl:attribute name="margin-top">12pt</xsl:attribute>
+		<xsl:attribute name="margin-bottom">12pt</xsl:attribute>
 	</xsl:attribute-set> <!-- feedback-statement-style -->
 
 	<xsl:template name="refine_feedback-statement-style">
@@ -2692,6 +2696,12 @@
 
 	<xsl:template name="refine_sourcecode-style">
 	</xsl:template> <!-- refine_sourcecode-style -->
+
+	<xsl:attribute-set name="sourcecode-number-style">
+	</xsl:attribute-set>
+
+	<xsl:template name="refine_sourcecode-number-style">
+	</xsl:template>
 
 	<xsl:attribute-set name="sourcecode-name-style">
 		<xsl:attribute name="font-size">11pt</xsl:attribute>
@@ -4133,6 +4143,12 @@
 	<xsl:template name="refine_term-name-style">
 	</xsl:template>
 
+	<xsl:attribute-set name="preferred-style">
+	</xsl:attribute-set> <!-- preferred-style -->
+
+	<xsl:template name="refine_preferred-style">
+	</xsl:template>
+
 	<xsl:attribute-set name="preferred-block-style">
 	</xsl:attribute-set> <!-- preferred-block-style -->
 
@@ -4775,6 +4791,12 @@
 
 		<xsl:call-template name="setBordersTableArray"/>
 	</xsl:template> <!-- refine_table-style -->
+
+	<xsl:attribute-set name="table-number-style">
+	</xsl:attribute-set>
+
+	<xsl:template name="refine_table-number-style">
+	</xsl:template>
 
 	<xsl:attribute-set name="table-name-style">
 		<xsl:attribute name="role">Caption</xsl:attribute>
@@ -8378,6 +8400,12 @@
 	<xsl:template name="refine_figure-style">
 	</xsl:template>
 
+	<xsl:attribute-set name="figure-number-style">
+	</xsl:attribute-set>
+
+	<xsl:template name="refine_figure-number-style">
+	</xsl:template>
+
 	<xsl:attribute-set name="figure-name-style">
 		<xsl:attribute name="role">Caption</xsl:attribute>
 		<xsl:attribute name="font-size">11pt</xsl:attribute>
@@ -11608,6 +11636,8 @@
 	<!-- =================== -->
 
 	<xsl:attribute-set name="toc-style">
+		<xsl:attribute name="line-height">1.08</xsl:attribute>
+		<xsl:attribute name="font-family">Lato</xsl:attribute>
 	</xsl:attribute-set>
 
 	<xsl:template name="refine_toc-style">
@@ -13197,6 +13227,13 @@
 					<xsl:apply-templates/>
 				</xsl:otherwise>
 			</xsl:choose>
+	</xsl:template>
+
+	<xsl:attribute-set name="clause-style">
+
+	</xsl:attribute-set>
+
+	<xsl:template name="refine_clause-style">
 	</xsl:template>
 
 	<!-- main sections -->
