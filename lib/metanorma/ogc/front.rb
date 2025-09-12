@@ -86,7 +86,7 @@ module Metanorma
         { "Open Geospatial Consortium" => "OGC" }
       end
 
-      def metadata_committee_types(node)
+      def metadata_committee_types(_node)
         %w(committee subcommittee workgroup)
       end
 
@@ -184,9 +184,8 @@ module Metanorma
 
       def title(node, xml)
         super
-        at = { format: "text/plain", type: "abbrev" }
-        a = node.attr("abbrev") and
-          xml.title a, **attr_code(at)
+        content = node.attr("abbrev") and
+          add_title_xml(xml, content, @lang, "abbrev")
       end
     end
   end

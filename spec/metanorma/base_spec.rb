@@ -62,8 +62,8 @@ RSpec.describe Metanorma::Ogc do
       <?xml version='1.0' encoding='UTF-8'?>
          <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ogc::VERSION}" flavor="ogc">
          <bibdata type="standard">
-           <title language="en" format="text/plain">Main Title</title>
-           <title format='text/plain' type='abbrev'>MT</title>
+           <title language="en" type="main">Main Title</title>
+           <title language="en" type='abbrev'>MT</title>
            <uri>http://www.example.com</uri>
            <uri type="previous">PREVIOUS URI</uri>
            <docidentifier type="ogc-external">http://www.example2.com</docidentifier>
@@ -281,8 +281,8 @@ RSpec.describe Metanorma::Ogc do
     output = <<~"OUTPUT"
       <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ogc::VERSION}" flavor="ogc">
       <bibdata type="standard">
-        <title language="en" format="text/plain">Main Title</title>
-        <title format='text/plain' type='abbrev'>A</title>
+        <title language="en" type="main">Main Title</title>
+        <title language="en" type='abbrev'>A</title>
         <uri>http://www.example.com</uri>
         <docidentifier type='ogc-external'>http://www.opengis.net/doc/TP/A/2.0</docidentifier>
         <docidentifier type='ogc-external'>http://www.example2.com</docidentifier>
@@ -1054,7 +1054,7 @@ RSpec.describe Metanorma::Ogc do
     INPUT
     output = <<~OUTPUT
       <bibdata type="standard">
-        <title language="en" format="text/plain">Document title</title>
+        <title language="en" type="main">Document title</title>
         <contributor>
           <role type="publisher"/>
           <organization>
