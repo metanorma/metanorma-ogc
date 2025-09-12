@@ -219,7 +219,7 @@ BLANK_HDR = <<~"HDR".freeze
   <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ogc::VERSION}" flavor="ogc">
   <bibdata type="standard">
 
-   <title language="en" format="text/plain">Document title</title>
+   <title language="en" type="main">Document title</title>
     <contributor>
       <role type="publisher"/>
       <organization>
