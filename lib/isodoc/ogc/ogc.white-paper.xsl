@@ -10983,7 +10983,7 @@
 
 			<fo:list-item>
 				<fo:list-item-label end-indent="label-end()">
-					<fo:block role="SKIP">
+					<fo:block role="SKIP" id="__internal_layout__bibitem_{@id}_{generate-id()}">
 						<fo:inline role="SKIP">
 							<xsl:apply-templates select="mn:biblio-tag">
 								<xsl:with-param name="biblio_tag_part">first</xsl:with-param>
