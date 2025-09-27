@@ -379,7 +379,7 @@ RSpec.describe IsoDoc::Ogc do
                <contributor>
                  <role type="author"/>
                  <organization>
-                   <name>OGC</name>
+                   <name>Open Geospatial Consortium</name>
                  </organization>
                </contributor>
                <contributor>
@@ -400,7 +400,7 @@ RSpec.describe IsoDoc::Ogc do
                <contributor>
                  <role type="author"/>
                  <organization>
-                   <name>OGC</name>
+                   <name>Open Geospatial Consortium</name>
                  </organization>
                </contributor>
                <contributor>
@@ -436,12 +436,6 @@ RSpec.describe IsoDoc::Ogc do
                       <fmt-name id="_">
                          <semx element="autonum" source="_">•</semx>
                       </fmt-name>
-                      OGC
-                   </li>
-                   <li id="_">
-                      <fmt-name id="_">
-                         <semx element="autonum" source="_">•</semx>
-                      </fmt-name>
                       DEF
                    </li>
                 </ul>
@@ -459,7 +453,6 @@ RSpec.describe IsoDoc::Ogc do
       Geospatial Consortium (OGC):</p>
       <div class="ul_wrap">
       <ul id="_">
-        <li id="_">OGC</li>
         <li id="_">DEF</li>
       </ul>
       </div>
@@ -486,7 +479,7 @@ RSpec.describe IsoDoc::Ogc do
                <contributor>
                  <role type="author"/>
                  <organization>
-                   <name>OGC</name>
+                   <name>Open Geospatial Consortium</name>
                  </organization>
                </contributor>
                <contributor>
@@ -511,7 +504,7 @@ RSpec.describe IsoDoc::Ogc do
                <contributor>
                  <role type="author"/>
                  <organization>
-                   <name>OGC</name>
+                   <name>Open Geospatial Consortium</name>
                  </organization>
                </contributor>
                <contributor>
@@ -569,12 +562,6 @@ RSpec.describe IsoDoc::Ogc do
                       <fmt-name id="_">
                          <semx element="autonum" source="_">•</semx>
                       </fmt-name>
-                      OGC
-                   </li>
-                   <li id="_">
-                      <fmt-name id="_">
-                         <semx element="autonum" source="_">•</semx>
-                      </fmt-name>
                       DEF
                    </li>
                 </ul>
@@ -611,7 +598,6 @@ RSpec.describe IsoDoc::Ogc do
             <p>The following organizations submitted this Document to the Open Geospatial Consortium (OGC):</p>
             <div class="ul_wrap">
             <ul id="_">
-              <li id="_">OGC</li>
               <li id="_">DEF</li>
             </ul>
             </div>

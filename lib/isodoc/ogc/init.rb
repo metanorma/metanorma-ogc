@@ -21,8 +21,8 @@ module IsoDoc
       end
 
       def bibrenderer(options = {})
-        ::Relaton::Render::Ogc::General.new(options.merge(language: @lang,
-                                                          i18nhash: @i18n.get))
+        ::Relaton::Render::Ogc::General.new(options
+          .merge(language: @lang, script: @script, i18nhash: @i18n.get))
       end
 
       def fileloc(loc)
@@ -30,7 +30,9 @@ module IsoDoc
       end
 
       def submittingorgs_path
-        "//bibdata/contributor[role/@type = 'author']/organization/name"
+        "//xmlns:bibdata/xmlns:contributor[xmlns:role/@type = 'author']/" \
+          "xmlns:organization[xmlns:name != 'Open Geospatial Consortium' and " \
+          "(not(xmlns:abbreviation) or xmlns:abbreviation != 'OGC')]/xmlns:name"
       end
     end
   end

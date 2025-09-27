@@ -139,7 +139,7 @@ module IsoDoc
       end
 
       def insert_submitting_orgs(docxml)
-        orgs = docxml.xpath(ns(submittingorgs_path))
+        orgs = docxml.xpath(submittingorgs_path)
           .each_with_object([]) { |org, m| m << org.text }
         orgs.empty? and return
         if a = submit_orgs_append_pt(docxml)
