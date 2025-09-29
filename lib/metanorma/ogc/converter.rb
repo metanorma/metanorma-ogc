@@ -48,16 +48,30 @@ module Metanorma
         if r = node.attr("document-scheme")
           r == "2022" ? "current" : "2021"
         elsif r = node.attr("published-date")
-          begin
-            published_date = Date.parse(r)
-            cutoff_date = Date.new(2021, 11, 8)
-            published_date >= cutoff_date ? "current" : "2021"
-          rescue Date::Error
-            # If date parsing fails, fall through to copyright-year logic
-          end
+          published_date_scheme(r)
         elsif r = node.attr("copyright-year")
           r.to_i >= 2022 ? "current" : "2021"
         else "current"
+        end
+      end
+
+      def published_date_scheme(date_str)
+        published_date = parse_flexible_date(date_str) or return nil
+        cutoff_date = Date.new(2021, 11, 8)
+        published_date >= cutoff_date ? "current" : "2021"
+      rescue Date::Error, ArgumentError
+        nil
+      end
+
+      def parse_flexible_date(date_str)
+        case date_str
+        when /^\d{4}$/
+          Date.new(date_str.to_i, 1, 1)
+        when /^\d{4}-\d{2}$/
+          year, month = date_str.split("-").map(&:to_i)
+          Date.new(year, month, 1)
+        else
+          Date.parse(date_str)
         end
       end
 
