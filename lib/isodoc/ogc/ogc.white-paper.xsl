@@ -179,6 +179,8 @@
 									<xsl:call-template name="getPageSequenceOrientation"/>
 								</xsl:attribute>
 
+								<xsl:call-template name="insertFootnoteSeparatorCommon"/>
+
 								<xsl:call-template name="insertHeaderFooter"/>
 								<fo:flow flow-name="xsl-region-body">
 
@@ -216,6 +218,8 @@
 									<xsl:attribute name="initial-page-number">1</xsl:attribute>
 								</xsl:if>
 
+								<xsl:call-template name="insertFootnoteSeparatorCommon"/>
+
 								<xsl:call-template name="insertHeaderFooter"/>
 
 								<fo:flow flow-name="xsl-region-body">
@@ -243,7 +247,11 @@
 	<xsl:template name="cover-page">
 		<!-- Cover Page -->
 		<fo:page-sequence master-reference="document" force-page-count="no-force">
+
+			<xsl:call-template name="insertFootnoteSeparatorCommon"/>
+
 			<xsl:call-template name="insertHeaderFooter"/>
+
 			<fo:flow flow-name="xsl-region-body">
 
 				<fo:block-container margin-left="-12mm" margin-right="-9mm">
@@ -717,15 +725,19 @@
 	</xsl:template>
 
 	<xsl:template name="insertHeaderFooter">
+		<xsl:call-template name="insertHeader"/>
+		<xsl:call-template name="insertFooter"/>
+	</xsl:template>
 
-		<xsl:call-template name="insertFootnoteSeparatorCommon"/>
-
+	<xsl:template name="insertHeader">
 		<fo:static-content flow-name="header" role="artifact">
 			<fo:block-container height="16.5mm" background-color="{$color}">
 				<fo:block> </fo:block>
 			</fo:block-container>
 		</fo:static-content>
+	</xsl:template>
 
+	<xsl:template name="insertFooter">
 		<fo:static-content flow-name="footer" role="artifact">
 			<fo:block-container height="100%" display-align="after">
 				<fo:block-container height="23.5mm" background-color="{$color}" color="rgb(231, 230, 230)" display-align="after">
@@ -753,7 +765,6 @@
 				</fo:block-container>
 			</fo:block-container>
 		</fo:static-content>
-
 	</xsl:template>
 
 	<xsl:template name="insertLogo">

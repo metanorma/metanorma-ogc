@@ -27,8 +27,8 @@
 
 	<xsl:variable name="layoutVersion_">
 		<xsl:choose>
-			<xsl:when test="$document_scheme = '' or $document_scheme = 'current'">2022</xsl:when>
-			<xsl:otherwise>default</xsl:otherwise>
+			<xsl:when test="$document_scheme = '' or $document_scheme = '2022'">2022</xsl:when>
+			<xsl:otherwise>2018</xsl:otherwise>
 		</xsl:choose>
 	</xsl:variable>
 	<xsl:variable name="layoutVersion" select="normalize-space($layoutVersion_)"/>
@@ -1637,6 +1637,17 @@
 	</xsl:template>
 
 	<xsl:template name="insertHeaderFooter">
+		<xsl:param name="color" select="$color_text_title"/>
+		<xsl:call-template name="insertHeader"/>
+		<xsl:call-template name="insertFooter">
+			<xsl:with-param name="color" select="$color"/>
+		</xsl:call-template>
+	</xsl:template>
+
+	<xsl:template name="insertHeader">
+	</xsl:template>
+
+	<xsl:template name="insertFooter">
 		<xsl:param name="color" select="$color_text_title"/>
 		<fo:static-content flow-name="footer" role="artifact">
 			<fo:block-container font-size="8pt" color="{$color}" padding-top="6mm">
