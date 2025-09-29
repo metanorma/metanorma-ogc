@@ -46,19 +46,19 @@ module Metanorma
 
       def document_scheme(node)
         if r = node.attr("document-scheme")
-          r == "2022" ? "current" : "2021"
+          r == "2022" ? "2022" : "2018"
         elsif r = node.attr("published-date")
           published_date_scheme(r)
         elsif r = node.attr("copyright-year")
-          r.to_i >= 2022 ? "current" : "2021"
-        else "current"
+          r.to_i >= 2022 ? "2022" : "2018"
+        else "2022"
         end
       end
 
       def published_date_scheme(date_str)
         published_date = parse_flexible_date(date_str) or return nil
         cutoff_date = Date.new(2021, 11, 8)
-        published_date >= cutoff_date ? "current" : "2021"
+        published_date >= cutoff_date ? "2022" : "2018"
       rescue Date::Error, ArgumentError
         nil
       end
@@ -132,7 +132,7 @@ module Metanorma
 
       def update_colors(node)
         c = OGC_COLORS.dup
-        if document_scheme(node) == "current"
+        if document_scheme(node) == "2022"
           c[:"secondary-shade-1"] = "rgb(0, 177, 255)"
           c[:"secondary-shade-2"] = "rgb(0, 177, 255)"
         end
