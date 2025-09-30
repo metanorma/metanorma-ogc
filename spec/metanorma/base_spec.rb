@@ -403,7 +403,7 @@ RSpec.describe Metanorma::Ogc do
          </semantic-metadata>
          <presentation-metadata>
             <name>document-scheme</name>
-            <value>current</value>
+            <value>2022</value>
          </presentation-metadata>
          <presentation-metadata>
             <name>color-admonition-caution</name>
@@ -543,7 +543,7 @@ RSpec.describe Metanorma::Ogc do
            </semantic-metadata>
            <presentation-metadata>
               <name>document-scheme</name>
-              <value>2021</value>
+              <value>2018</value>
            </presentation-metadata>
            <presentation-metadata>
               <name>color-admonition-caution</name>
@@ -684,7 +684,7 @@ RSpec.describe Metanorma::Ogc do
          </semantic-metadata>
          <presentation-metadata>
             <name>document-scheme</name>
-            <value>current</value>
+            <value>2022</value>
          </presentation-metadata>
          <presentation-metadata>
             <name>color-admonition-caution</name>

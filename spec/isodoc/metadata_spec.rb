@@ -220,7 +220,7 @@ RSpec.describe IsoDoc::Ogc do
         "presentation_metadata_color-secondary-shade-2": ["rgb(0, 177, 255)"],
         "presentation_metadata_color-text": ["rgb(88, 89, 91)"],
         "presentation_metadata_color-text-title": ["rgb(33, 55, 92)"],
-        "presentation_metadata_document-scheme": ["current"],
+        "presentation_metadata_document-scheme": ["2022"],
         publisheddate: "2002-01-01",
         publisher: "OGC",
         receiveddate: "XXX",
