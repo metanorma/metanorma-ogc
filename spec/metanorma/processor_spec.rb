@@ -48,7 +48,7 @@ RSpec.describe Metanorma::Ogc::Processor do
         #{METANORMA_EXTENSION}
         <sections>
           <terms id="H" obligation="normative" displayorder="1">
-          <fmt-title>1.<tab/>Terms, Definitions, Symbols and Abbreviated Terms</fmt-title>
+          <fmt-title>1.<tab/>术语、定义、符号和缩写</fmt-title>
             <term id="J">
             <fmt-name>1.1.</fmt-name>
               <fmt-preferred><p>Term2</p></fmt-preferred>
@@ -64,7 +64,7 @@ RSpec.describe Metanorma::Ogc::Processor do
          <div id="H">
            <h1 id="_">
              <a class="anchor" href="#H"/>
-             <a class="header" href="#H">1.  Terms, Definitions, Symbols and Abbreviated Terms</a>
+             <a class="header" href="#H">1.  术语、定义、符号和缩写</a>
            </h1>
            <div id="J">
              <h2 class="TermNum" style="text-align:left;" id="_">

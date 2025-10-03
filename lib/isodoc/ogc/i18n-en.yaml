@@ -1,24 +1,28 @@
 admitted: ALTERNATIVE
-foreword: Preface
-submitters: Submitters
-contributors_clause: Contributors
-recommendationtest: Recommendation test
-requirementtest: Requirement test
-permissiontest: Permission test
-recommendationclass: Recommendations class
-requirementclass: Requirements class
-permissionclass: Permissions class
-abstracttest: Abstract test
-conformanceclass: Conformance class
-dochistory: Revision history
+foreword: 前言
+abstract: 摘要
+submitters: 提交者
+contributors_clause: 贡献者
+recommendationtest: 推荐性测试
+requirementtest: 要求性测试
+permissiontest: 许可性测试
+recommendationclass: 推荐性类
+requirementclass: 要求性类
+permissionclass: 许可性类
+abstracttest: 抽象性测试
+conformanceclass: 一致性类
+dochistory: 修订历史
 example: Example
+Keywords: 关键词
 sourcecode: Listing
-table_of_contents: Contents
-toc_figures: List of Figures
-toc_tables: List of Tables
-toc_recommendations: List of Recommendations
+table_of_contents: 目录
+toc_figures: 图附录
+toc_tables: 表附录
+toc_recommendations: 建议附录
 table_of_figures: Table of Figures
-security_empty: No security considerations have been made for this document.
+security_empty: 本文档未考虑安全因素
+terms, definitions and abbreviated terms: 术语、定义和缩略语
+Acknowlegements: 致谢
 internal_terms_boilerplate: |
   This document uses the terms defined in https://portal.ogc.org/public_ogc/directives/directives.php[OGC Policy Directive 49], which is based on the ISO/IEC Directives, Part 2, Rules for the structure and drafting of International Standards. In particular, the word “shall” (not “must”) is the verb form used to indicate a requirement to be strictly followed to conform to this document and OGC documents do not use the equivalent phrases in the ISO/IEC Directives, Part 2.
 
@@ -38,12 +42,12 @@ internal_external_terms_boilerplate: |
 
   For the purposes of this document, the terms and definitions given in % and the following additionally apply.
 term_defined_in: "(%)"
-submission_date: Submission Date
-approval_date: Approval Date
-publication_date: Publication Date
-author: Author
-editor_full: Editor
-contributor: Contributor
+submission_date: 提交日期
+approval_date: 批准日期
+publication_date: 出版日期
+author: 作者
+editor_full: 编辑
+contributor: 贡献者
 stage_dict:
   draft: Draft
   work-item-draft: Work Item Draft

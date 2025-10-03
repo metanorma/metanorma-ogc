@@ -470,10 +470,10 @@ RSpec.describe IsoDoc::Ogc do
         #{METANORMA_EXTENSION}
         </metanorma-extension>
         <preface>
-         <abstract obligation="informative" id="1"><title>Abstract</title>
+         <abstract obligation="informative" id="1"><title>摘要</title>
          <p>XYZ</p>
          </abstract>
-        <foreword obligation="informative" id="2"><title>Preface</title>
+        <foreword obligation="informative" id="2"><title>前言</title>
            <p id="A">This is a preamble</p>
          </foreword>
          <clause id="DD0" obligation="normative" type="executivesummary">
@@ -505,7 +505,7 @@ RSpec.describe IsoDoc::Ogc do
            <p id="E">Text</p>
          </clause>
          <clause id="D1" obligation="normative" type="conformance">
-           <title>Conformance</title>
+           <title>一致性</title>
            <p id="E1">Text</p>
          </clause>
 
@@ -570,7 +570,7 @@ RSpec.describe IsoDoc::Ogc do
           <bibliography><references id="R" obligation="informative" normative="true">
            <title>Normative References</title>
          </references><clause id="S" obligation="informative">
-           <title>Bibliography</title>
+           <title>参考文献</title>
            <references id="T" obligation="informative" normative="false">
            <title>Bibliography Subsection</title>
          </references>
@@ -606,7 +606,7 @@ RSpec.describe IsoDoc::Ogc do
                 <fmt-title depth="1">Contents</fmt-title>
              </clause>
              <abstract obligation="informative" id="1" displayorder="2">
-                <title id="_">Abstract</title>
+                <title id="_">摘要</title>
                 <fmt-title depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="1">I</semx>
@@ -615,10 +615,10 @@ RSpec.describe IsoDoc::Ogc do
                    <span class="fmt-caption-delim">
                       <tab/>
                    </span>
-                   <semx element="title" source="_">Abstract</semx>
+                   <semx element="title" source="_">摘要</semx>
                 </fmt-title>
                 <fmt-xref-label>
-                   <semx element="title" source="1">Abstract</semx>
+                   <semx element="title" source="1">摘要</semx>
                 </fmt-xref-label>
                 <p>XYZ</p>
              </abstract>
@@ -640,7 +640,7 @@ RSpec.describe IsoDoc::Ogc do
                 <p id="EE0">Text</p>
              </clause>
              <clause id="_" type="keywords" displayorder="4">
-                <title id="_">Keywords</title>
+                <title id="_">关键词</title>
                 <fmt-title depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="_">III</semx>
@@ -649,12 +649,12 @@ RSpec.describe IsoDoc::Ogc do
                    <span class="fmt-caption-delim">
                       <tab/>
                    </span>
-                   <semx element="title" source="_">Keywords</semx>
+                   <semx element="title" source="_">关键词</semx>
                 </fmt-title>
                 <fmt-xref-label>
-                   <semx element="title" source="_">Keywords</semx>
+                   <semx element="title" source="_">关键词</semx>
                 </fmt-xref-label>
-                <p>The following are keywords to be used by search engines and document catalogues.</p>
+                <p>以下关键词可供搜索引擎和文档目录使用：</p>
                 <p>A, B</p>
              </clause>
              <foreword obligation="informative" id="2" displayorder="5">
@@ -692,7 +692,7 @@ RSpec.describe IsoDoc::Ogc do
                 <p id="EE1">Text</p>
              </clause>
              <clause id="_" type="submitting_orgs" displayorder="7">
-                <title id="_">Submitting Organizations</title>
+                <title id="_">提交组织</title>
                 <fmt-title depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="_">VI</semx>
@@ -701,12 +701,12 @@ RSpec.describe IsoDoc::Ogc do
                    <span class="fmt-caption-delim">
                       <tab/>
                    </span>
-                   <semx element="title" source="_">Submitting Organizations</semx>
+                   <semx element="title" source="_">提交组织</semx>
                 </fmt-title>
                 <fmt-xref-label>
-                   <semx element="title" source="_">Submitting Organizations</semx>
+                   <semx element="title" source="_">提交组织</semx>
                 </fmt-xref-label>
-                <p>The following organizations submitted this Document to the Open Geospatial Consortium (OGC):</p>
+                <p>以下组织向国际开放地理信息协会（Open Geospatial Consortium, OGC）提交了本文件:</p>
                 <ul>
             <li>
                <fmt-name>
@@ -831,7 +831,7 @@ RSpec.describe IsoDoc::Ogc do
                 <p id="E">Text</p>
              </clause>
              <clause id="D1" obligation="normative" type="conformance" displayorder="13">
-                <title id="_">Conformance</title>
+                <title id="_">一致性</title>
                 <fmt-title depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="D1">2</semx>
@@ -840,7 +840,7 @@ RSpec.describe IsoDoc::Ogc do
                    <span class="fmt-caption-delim">
                       <tab/>
                    </span>
-                   <semx element="title" source="_">Conformance</semx>
+                   <semx element="title" source="_">一致性</semx>
                 </fmt-title>
                 <fmt-xref-label>
                    <span class="fmt-element-name">Clause</span>
@@ -1023,23 +1023,6 @@ RSpec.describe IsoDoc::Ogc do
                    </fmt-xref-label>
                 </clause>
              </clause>
-             <references id="R" obligation="informative" normative="true" displayorder="14">
-                <title id="_">Normative References</title>
-                <fmt-title depth="1">
-                   <span class="fmt-caption-label">
-                      <semx element="autonum" source="R">3</semx>
-                      <span class="fmt-autonum-delim">.</span>
-                   </span>
-                   <span class="fmt-caption-delim">
-                      <tab/>
-                   </span>
-                   <semx element="title" source="_">Normative References</semx>
-                </fmt-title>
-                <fmt-xref-label>
-                   <span class="fmt-element-name">Clause</span>
-                   <semx element="autonum" source="R">3</semx>
-                </fmt-xref-label>
-             </references>
           </sections>
     OUTPUT
 
@@ -1297,9 +1280,9 @@ RSpec.describe IsoDoc::Ogc do
            </annex>
            <bibliography>
               <clause id="S" obligation="informative" displayorder="21">
-                 <title id="_">Bibliography</title>
+                 <title id="_">参考文献</title>
                  <fmt-title depth="1">
-                    <semx element="title" source="_">Bibliography</semx>
+                    <semx element="title" source="_">参考文献</semx>
                  </fmt-title>
                  <references id="T" obligation="informative" normative="false">
                     <title id="_">Bibliography Subsection</title>
@@ -1316,7 +1299,7 @@ RSpec.describe IsoDoc::Ogc do
       #{HTML_HDR}
              <br/>
               <div id="1">
-                 <h1 class="AbstractTitle">I.  Abstract</h1>
+                 <h1 class="AbstractTitle">I.  摘要</h1>
                  <p>XYZ</p>
               </div>
               <div class="Section3" id="DD0">
@@ -1324,8 +1307,8 @@ RSpec.describe IsoDoc::Ogc do
                  <p id="EE0">Text</p>
               </div>
               <div class="Section3" id="_">
-                 <h1 class="IntroTitle">III.  Keywords</h1>
-                 <p>The following are keywords to be used by search engines and document catalogues.</p>
+                 <h1 class="IntroTitle">III.  关键词</h1>
+                 <p>以下关键词可供搜索引擎和文档目录使用：</p>
                  <p>A, B</p>
               </div>
               <br/>
@@ -1338,8 +1321,8 @@ RSpec.describe IsoDoc::Ogc do
                  <p id="EE1">Text</p>
               </div>
               <div class="Section3" id="_">
-                 <h1 class="IntroTitle">VI.  Submitting Organizations</h1>
-                 <p>The following organizations submitted this Document to the Open Geospatial Consortium (OGC):</p>
+                 <h1 class="IntroTitle">VI.  提交组织</h1>
+                 <p>以下组织向国际开放地理信息协会（Open Geospatial Consortium, OGC）提交了本文件:</p>
                  <div class="ul_wrap">
                     <ul>
                        <li>OGC</li>
@@ -1370,11 +1353,8 @@ RSpec.describe IsoDoc::Ogc do
                  <p id="E">Text</p>
               </div>
               <div id="D1">
-                 <h1>2.  Conformance</h1>
+                 <h1>2.  一致性</h1>
                  <p id="E1">Text</p>
-              </div>
-              <div>
-                 <h1>3.  Normative References</h1>
               </div>
               <div id="H">
                  <h1>4.  Terms, definitions, symbols and abbreviated terms</h1>
@@ -1470,7 +1450,7 @@ RSpec.describe IsoDoc::Ogc do
               </div>
               <br/>
               <div>
-                 <h1 class="Section3">Bibliography</h1>
+                 <h1 class="Section3">参考文献</h1>
                  <div>
                     <h2 class="Section3">Bibliography Subsection</h2>
                  </div>
@@ -1746,9 +1726,9 @@ RSpec.describe IsoDoc::Ogc do
           </annex>
           <bibliography>
              <clause id="S" obligation="informative" unnumbered="true" displayorder="18">
-                <title id="_">Bibliography</title>
+                <title id="_">参考文献</title>
                 <fmt-title depth="1">
-                   <semx element="title" source="_">Bibliography</semx>
+                   <semx element="title" source="_">参考文献</semx>
                 </fmt-title>
                 <references id="T" obligation="informative" normative="false">
                    <title id="_">Bibliography Subsection</title>
@@ -1763,7 +1743,7 @@ RSpec.describe IsoDoc::Ogc do
 
     output2 = <<~OUTPUT
               <div>
-            <h1 class="Section3">Bibliography</h1>
+            <h1 class="Section3">参考文献</h1>
             <div>
               <h2 class="Section3">Bibliography Subsection</h2>
             </div>

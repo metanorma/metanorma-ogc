@@ -58,8 +58,8 @@ module IsoDoc
       def submitting_orgs_clause(orgs)
         <<~SUBMITTING
           <clause id="_#{UUIDTools::UUID.random_create}" type="submitting_orgs">
-          <title>Submitting Organizations</title>
-          <p>The following organizations submitted this Document to the Open Geospatial Consortium (OGC):</p>
+          <title>提交组织</title>
+          <p>以下组织向国际开放地理信息协会（Open Geospatial Consortium, OGC）提交了本文件:</p>
            <ul>#{orgs.map { |m| "<li>#{m}</li>" }.join("\n")}</ul>
            </clause>
         SUBMITTING
@@ -68,8 +68,8 @@ module IsoDoc
       def keyword_clause(kwords)
         <<~KEYWORDS
           <clause id="_#{UUIDTools::UUID.random_create}" type="keywords">
-          <title>Keywords</fmt>
-          <p>The following are keywords to be used by search engines and document catalogues.</p>
+          <title>关键词</fmt>
+          <p> 以下关键词可供搜索引擎和文档目录使用：</p>
           <p>#{kwords.join(', ')}</p></clause>
         KEYWORDS
       end

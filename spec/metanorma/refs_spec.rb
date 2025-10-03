@@ -16,7 +16,7 @@ RSpec.describe Metanorma::Ogc do
         #{ASCIIDOC_BLANK_HDR}
 
         [bibliography]
-        == Bibliography
+        == 参考文献
 
         * [[[iso1,ISO 8000-110]]]
         * [[[iso2,ISO 8000-61]]]

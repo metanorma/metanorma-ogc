@@ -184,7 +184,7 @@ RSpec.describe Metanorma::Ogc do
       .to include("Scope must be followed by Conformance")
   end
 
-  it "Warning if normative references not followed by terms and definitions" do
+  it "Warning if normative references not followed by Terms and definitions" do
     FileUtils.rm_f "test.err.html"
     Asciidoctor.convert(<<~"INPUT", *OPTIONS)
       #{VALIDATING_BLANK_HDR}
@@ -202,7 +202,7 @@ RSpec.describe Metanorma::Ogc do
       Paragraph
     INPUT
     expect(File.read("test.err.html"))
-      .to include("Normative References must be followed by Terms and Definitions")
+      .to include("Normative References must be followed by Terms and definitions")
   end
 
   it "Warning if there are no clauses in the document" do
@@ -215,12 +215,12 @@ RSpec.describe Metanorma::Ogc do
 
       == Scope
 
-      == Conformance
+      == 一致性
 
       [bibliography]
       == Normative References
 
-      == Terms and Definitions
+      == Terms and definitions
 
       == Symbols and Abbreviated Terms
 
@@ -239,9 +239,9 @@ RSpec.describe Metanorma::Ogc do
 
       == Scope
 
-      == Conformance
+      == 一致性
 
-      == Terms and Definitions
+      == Terms and definitions
 
       == Clause
 
@@ -330,7 +330,7 @@ RSpec.describe Metanorma::Ogc do
       #{VALIDATING_BLANK_HDR}
 
       [abstract]
-      == Abstract
+      == 摘要
 
       X
 

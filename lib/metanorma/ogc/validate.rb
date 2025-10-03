@@ -89,7 +89,7 @@ module Metanorma
           },
           {
             msg: "Normative References must be followed by " \
-                 "Terms and Definitions",
+                 "Terms and definitions",
             val: ["./self::terms | .//terms"],
           },
         ].freeze

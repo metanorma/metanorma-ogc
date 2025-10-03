@@ -58,7 +58,7 @@ module Metanorma
 
       def sectiontype(node, level = true)
         ret = sectiontype_streamline(sectiontype1(node))
-        return ret if ret == "terms and definitions" &&
+        return ret if ret == "Terms and definitions" &&
           node.attr("style") == "appendix" && node.level == 1
 
         super
@@ -87,7 +87,7 @@ module Metanorma
         when "preface" then "foreword"
         when "foreword", "introduction" then "donotrecognise-foreword"
         when "references" then "normative references"
-        when "glossary" then "terms and definitions"
+        when "glossary" then "Terms and definitions"
         else
           super
         end

@@ -71,6 +71,9 @@ module IsoDoc
         contributors = isoxml.xpath(ns("//bibdata/contributor" \
                                        "[role/@type = 'contributor']/person"))
         set(:contributors, extract_person_names(contributors))
+        translators = isoxml.xpath(ns("//bibdata/contributor" \
+                "[role/@type = 'translator']/person"))
+        set(:translators, extract_person_names(translators))
         agency(isoxml)
         copyright(isoxml)
       end

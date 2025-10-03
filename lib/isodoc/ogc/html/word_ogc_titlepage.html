@@ -3,41 +3,41 @@ normal'><span lang="EN-GB" style='font-size:18.0pt;mso-no-proof:yes'>Open Geospa
 style='mso-bidi-font-weight:normal'><span lang="EN-GB" style='font-size:14.0pt'><o:p></o:p></span></b></p>
 
 <p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
-style='mso-no-proof:yes;font-size:10.0pt'>Submission Date: {{ receiveddate }}</span></span></p>
+style='mso-no-proof:yes;font-size:10.0pt'>提交日期: {{ receiveddate }}</span></span></p>
 
 <p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
-style='mso-no-proof:yes;font-size:10.0pt'>Approval Date: {{ issueddate }}</span></span></p>
+style='mso-no-proof:yes;font-size:10.0pt'>批准日期: {{ issueddate }}</span></span></p>
 
 <p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
-style='mso-no-proof:yes;font-size:10.0pt'>Publication Date: {{ publisheddate }}</span></span></p>
+style='mso-no-proof:yes;font-size:10.0pt'>出版日期: {{ publisheddate }}</span></span></p>
 
 <p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
-style='mso-no-proof:yes;font-size:10.0pt'>External identifier of this OGC® document: {{ externalid }}</span></span></p>
+style='mso-no-proof:yes;font-size:10.0pt'>此OGC®文档的外部标识符: {{ externalid }}</span></span></p>
 
 <p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
-style='mso-no-proof:yes;font-size:10.0pt'>Internal reference number of this OGC® document: {{ docnumber }}</span></span></p>
+style='mso-no-proof:yes;font-size:10.0pt'>此OGC®文档的内部标识符: {{ docnumber }}</span></span></p>
 
 {% if url or html %}
 <p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
-style='mso-no-proof:yes;font-size:10.0pt'>URL for this OGC® document: {{ url or html }}</span></span></p>
+style='mso-no-proof:yes;font-size:10.0pt'>此OGC®文档的URL: {{ url or html }}</span></span></p>
 {% endif %}
 
 {% if edition %}
 <p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
-style='mso-no-proof:yes;font-size:10.0pt'>Version: {{ edition }}</span></span></p>
+style='mso-no-proof:yes;font-size:10.0pt'>版本: {{ edition }}</span></span></p>
 {% endif %}
 
 <p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
-style='mso-no-proof:yes;font-size:10.0pt'>Category: {{ doctype }}</span></span></p>
+style='mso-no-proof:yes;font-size:10.0pt'>目录: {{ doctype }}</span></span></p>
 
 {% if contributors %}
 <p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
-                                                                  style='mso-no-proof:yes;font-size:10.0pt'>Contributor{% if contributors.size > 1 %}s{% endif %}: {{ contributors | join: ", " }}</span></span></p>
+                                                                  style='mso-no-proof:yes;font-size:10.0pt'>贡献者{% if contributors.size > 1 %}s{% endif %}: {{ contributors | join: ", " }}</span></span></p>
 {% endif %}
 
 {% if editors %}
 <p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
-                                                                  style='mso-no-proof:yes;font-size:10.0pt'>Editor{% if editors.size > 1 %}s{% endif %}: {{ editors | join: ", " }}</span></span></p>
+                                                                  style='mso-no-proof:yes;font-size:10.0pt'>编辑{% if editors.size > 1 %}s{% endif %}: {{ editors | join: ", " }}</span></span></p>
 {% endif %}
 
 <p class="MsoNormal" align="center" style='text-align:center;line-height:18.0pt;margin-bottom:0.0pt'><b
@@ -68,8 +68,7 @@ page;mso-element-left:39.9pt;mso-element-top:693.25pt;mso-height-rule:exactly'>
   mso-element-frame-hspace:7.1pt;mso-element-frame-vspace:7.1pt;mso-element-wrap:
   auto;mso-element-anchor-vertical:page;mso-element-anchor-horizontal:page;
   mso-element-left:39.9pt;mso-element-top:693.25pt;mso-height-rule:exactly'><span
-  lang="EN-GB" style='font-size:10.0pt;mso-color-alt:windowtext;font-weight:normal'>Document
-  number:&nbsp;&nbsp;&nbsp;<span style='mso-tab-count:1'>         </span><span
+  lang="EN-GB" style='font-size:10.0pt;mso-color-alt:windowtext;font-weight:normal'>文档编号:&nbsp;&nbsp;&nbsp;<span style='mso-tab-count:1'>         </span><span
   class="SpellE"><span lang="EN-GB"
   style='font-size:10.0pt;font-weight:normal'>{{ docnumber }}</span><span lang="EN-GB" style='font-size:10.0pt;
   mso-color-alt:windowtext;font-weight:normal'><o:p></o:p></span></p>
@@ -79,8 +78,7 @@ page;mso-element-left:39.9pt;mso-element-top:693.25pt;mso-height-rule:exactly'>
   mso-element-frame-hspace:7.1pt;mso-element-frame-vspace:7.1pt;mso-element-wrap:
   auto;mso-element-anchor-vertical:page;mso-element-anchor-horizontal:page;
   mso-element-left:39.9pt;mso-element-top:693.25pt;mso-height-rule:exactly'><span
-  lang="EN-GB" style='font-size:10.0pt;mso-color-alt:windowtext;font-weight:normal'>Document
-  type:&nbsp;&nbsp;&nbsp;<span style='mso-tab-count:1'>         </span><span
+  lang="EN-GB" style='font-size:10.0pt;mso-color-alt:windowtext;font-weight:normal'>文档类型:&nbsp;&nbsp;&nbsp;<span style='mso-tab-count:1'>         </span><span
   class="SpellE">OGC</span><sup>®</sup> </span><span lang="EN-GB"
   style='font-size:10.0pt;font-weight:normal'>{{ doctype }}</span><span lang="EN-GB" style='font-size:10.0pt;
   mso-color-alt:windowtext;font-weight:normal'><o:p></o:p></span></p>
@@ -90,23 +88,20 @@ page;mso-element-left:39.9pt;mso-element-top:693.25pt;mso-height-rule:exactly'>
   mso-element-frame-hspace:7.1pt;mso-element-frame-vspace:7.1pt;mso-element-wrap:
   auto;mso-element-anchor-vertical:page;mso-element-anchor-horizontal:page;
   mso-element-left:39.9pt;mso-element-top:693.25pt;mso-height-rule:exactly'><span
-  lang="EN-GB" style='font-size:10.0pt;mso-color-alt:windowtext;font-weight:normal'>Document
-  subtype:&nbsp;&nbsp;&nbsp;<span style='mso-tab-count:1'>    </span>{{ docsubstatus }}<o:p></o:p></span></p>
+  lang="EN-GB" style='font-size:10.0pt;mso-color-alt:windowtext;font-weight:normal'>文档子类型:&nbsp;&nbsp;&nbsp;<span style='mso-tab-count:1'>    </span>{{ docsubstatus }}<o:p></o:p></span></p>
 
   <p class="zzCover" align="left" style='margin-bottom:0cm;margin-bottom:.0001pt;
   text-align:left;mso-hyphenate:none;tab-stops:99.0pt;mso-element:frame;
   mso-element-frame-hspace:7.1pt;mso-element-frame-vspace:7.1pt;mso-element-wrap:
   auto;mso-element-anchor-vertical:page;mso-element-anchor-horizontal:page;
   mso-element-left:39.9pt;mso-element-top:693.25pt;mso-height-rule:exactly'><span
-  lang="EN-GB" style='font-size:10.0pt;mso-color-alt:windowtext;font-weight:normal'>Document
-  stage:&nbsp;&nbsp;&nbsp;<span style='mso-tab-count:1'>        </span>{{ stage_display }}<o:p></o:p></span></p>
+  lang="EN-GB" style='font-size:10.0pt;mso-color-alt:windowtext;font-weight:normal'>文档阶段:&nbsp;&nbsp;&nbsp;<span style='mso-tab-count:1'>        </span>{{ stage_display }}<o:p></o:p></span></p>
   <p class="zzCover" align="left" style='margin-bottom:0cm;margin-bottom:.0001pt;
   text-align:left;mso-hyphenate:none;tab-stops:99.0pt;mso-element:frame;
   mso-element-frame-hspace:7.1pt;mso-element-frame-vspace:7.1pt;mso-element-wrap:
   auto;mso-element-anchor-vertical:page;mso-element-anchor-horizontal:page;
   mso-element-left:39.9pt;mso-element-top:693.25pt;mso-height-rule:exactly'><span
-  lang="EN-GB" style='font-size:10.0pt;mso-color-alt:windowtext;font-weight:normal'>Document
-  language:&nbsp;<span style='mso-tab-count:1'>    </span>{{ doclanguage }}</span><span
+  lang="EN-GB" style='font-size:10.0pt;mso-color-alt:windowtext;font-weight:normal'>文档语言:&nbsp;<span style='mso-tab-count:1'>    </span>{{ doclanguage }}</span><span
   lang="EN-GB" style='font-size:8.0pt;mso-bidi-font-size:10.0pt;mso-color-alt:
   windowtext'><o:p></o:p></span></p>
   </td>

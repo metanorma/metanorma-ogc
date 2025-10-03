@@ -46,7 +46,7 @@ RSpec.describe IsoDoc::Ogc do
             <tbody>
               <tr><th>Identifier</th><td><tt>/ogc/recommendation/wfs/2</tt></td></tr>
               <tr><th>Subject</th><td>user</td></tr>
-              <tr><th>Prerequisites</th><td>/ss/584/2015/level/1<br/>
+              <tr><th>前提</th><td>/ss/584/2015/level/1<br/>
               <fmt-xref type="inline" target="rfc2616">RFC 2616 (HTTP/1.1)</fmt-xref></td></tr>
             <tr>
         <th>Control-CLASS</th>
@@ -61,7 +61,7 @@ RSpec.describe IsoDoc::Ogc do
         <td>System and Communications Protection<br/>System and Communications Protocols</td>
       </tr>
       <tr>
-      <th>Statement</th>
+      <th>声明</th>
         <td>
           <p id='_'>I recommend <em>this</em>.</p>
         </td>
@@ -200,7 +200,7 @@ RSpec.describe IsoDoc::Ogc do
                    <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">user</td>
                 </tr>
                 <tr>
-                   <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Prerequisites</th>
+                   <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">前提</th>
                    <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">
                       /ss/584/2015/level/1
                       <br/>
@@ -224,7 +224,7 @@ RSpec.describe IsoDoc::Ogc do
                    </td>
                 </tr>
                 <tr>
-                   <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Statement</th>
+                   <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">声明</th>
                    <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">
                       <p id="_">
                          I recommend

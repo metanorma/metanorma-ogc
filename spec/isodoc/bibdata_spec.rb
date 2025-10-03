@@ -235,7 +235,7 @@ RSpec.describe IsoDoc::Ogc do
            <preface>
                <clause type="toc" id="_" displayorder="1"> <fmt-title depth="1">Contents</fmt-title> </clause>
              <clause id="_" type='keywords' displayorder="2">
-                      <title id="_">Keywords</title>
+                      <title id="_">关键词</title>
          <fmt-title depth="1">
             <span class="fmt-caption-label">
                <semx element="autonum" source="_">I</semx>
@@ -244,12 +244,12 @@ RSpec.describe IsoDoc::Ogc do
             <span class="fmt-caption-delim">
                <tab/>
             </span>
-            <semx element="title" source="_">Keywords</semx>
+            <semx element="title" source="_">关键词</semx>
          </fmt-title>
          <fmt-xref-label>
-            <semx element="title" source="_">Keywords</semx>
+            <semx element="title" source="_">关键词</semx>
          </fmt-xref-label>
-         <p>The following are keywords to be used by search engines and document catalogues.</p>
+         <p>以下关键词可供搜索引擎和文档目录使用：</p>
                <p>ABC, DEF</p>
              </clause>
            </preface>
@@ -260,8 +260,8 @@ RSpec.describe IsoDoc::Ogc do
     output = <<~"OUTPUT"
             #{HTML_HDR}
             <div class="Section3" id="_">
-            <h1 class="IntroTitle">I.&#160; Keywords</h1>
-            <p>The following are keywords to be used by search engines and document catalogues.</p>
+            <h1 class="IntroTitle">I.&#160; 关键词</h1>
+            <p>以下关键词可供搜索引擎和文档目录使用：</p>
             <p>ABC, DEF</p>
           </div>
         </div>
@@ -308,6 +308,7 @@ RSpec.describe IsoDoc::Ogc do
                <fmt-title depth="1">Contents</fmt-title>
             </clause>
             <abstract id="A" displayorder="2">
+              <title id="_">摘要</title>
                <fmt-title depth="1">
                   <span class="fmt-caption-label">
                      <semx element="autonum" source="A">I</semx>
@@ -319,7 +320,7 @@ RSpec.describe IsoDoc::Ogc do
                </fmt-xref-label>
             </abstract>
             <clause id="_" type="keywords" displayorder="3">
-               <title id="_">Keywords</title>
+               <title id="_">关键词</title>
                <fmt-title depth="1">
                   <span class="fmt-caption-label">
                      <semx element="autonum" source="_">II</semx>
@@ -328,12 +329,12 @@ RSpec.describe IsoDoc::Ogc do
                   <span class="fmt-caption-delim">
                      <tab/>
                   </span>
-                  <semx element="title" source="_">Keywords</semx>
+                  <semx element="title" source="_">关键词</semx>
                </fmt-title>
                <fmt-xref-label>
-                  <semx element="title" source="_">Keywords</semx>
+                  <semx element="title" source="_">关键词</semx>
                </fmt-xref-label>
-               <p>The following are keywords to be used by search engines and document catalogues.</p>
+               <p>以下关键词可供搜索引擎和文档目录使用：</p>
                <p>ABC, DEF</p>
             </clause>
          </preface>
@@ -348,10 +349,9 @@ RSpec.describe IsoDoc::Ogc do
             <h1 class='AbstractTitle'>I.</h1>
           </div>
           <div class='Section3' id='_'>
-            <h1 class='IntroTitle'>II.&#160; Keywords</h1>
+            <h1 class='IntroTitle'>II.&#160; 关键词</h1>
             <p>
-              The following are keywords to be used by search engines and document
-              catalogues.
+              以下关键词可供搜索引擎和文档目录使用：
             </p>
             <p>ABC, DEF</p>
           </div>
@@ -416,7 +416,7 @@ RSpec.describe IsoDoc::Ogc do
                 <fmt-title depth="1">Contents</fmt-title>
              </clause>
              <clause id="_" type="submitting_orgs" displayorder="2">
-                <title id="_">Submitting Organizations</title>
+                <title id="_">提交组织</title>
                 <fmt-title depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="_">I</semx>
@@ -425,12 +425,12 @@ RSpec.describe IsoDoc::Ogc do
                    <span class="fmt-caption-delim">
                       <tab/>
                    </span>
-                   <semx element="title" source="_">Submitting Organizations</semx>
+                   <semx element="title" source="_">提交组织</semx>
                 </fmt-title>
                 <fmt-xref-label>
-                   <semx element="title" source="_">Submitting Organizations</semx>
+                   <semx element="title" source="_">提交组织</semx>
                 </fmt-xref-label>
-                <p>The following organizations submitted this Document to the Open Geospatial Consortium (OGC):</p>
+                <p>以下组织向国际开放地理信息协会（Open Geospatial Consortium, OGC）提交了本文件:</p>
                 <ul>
                    <li>
                       <fmt-name>
@@ -454,7 +454,7 @@ RSpec.describe IsoDoc::Ogc do
     output = <<~"OUTPUT"
               #{HTML_HDR}
               <div class="Section3" id="_">
-              <h1 class="IntroTitle">I.&#160; Submitting Organizations</h1>
+              <h1 class="IntroTitle">I.&#160; 提交组织</h1>
               <p>The following organizations submitted this Document to the Open
       Geospatial Consortium (OGC):</p>
       <div class="ul_wrap">
@@ -549,7 +549,7 @@ RSpec.describe IsoDoc::Ogc do
                 </fmt-xref-label>
              </clause>
              <clause id="_" type="submitting_orgs" displayorder="4">
-                <title id="_">Submitting Organizations</title>
+                <title id="_">提交组织</title>
                 <fmt-title depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="_">III</semx>
@@ -558,12 +558,12 @@ RSpec.describe IsoDoc::Ogc do
                    <span class="fmt-caption-delim">
                       <tab/>
                    </span>
-                   <semx element="title" source="_">Submitting Organizations</semx>
+                   <semx element="title" source="_">提交组织</semx>
                 </fmt-title>
                 <fmt-xref-label>
-                   <semx element="title" source="_">Submitting Organizations</semx>
+                   <semx element="title" source="_">提交组织</semx>
                 </fmt-xref-label>
-                <p>The following organizations submitted this Document to the Open Geospatial Consortium (OGC):</p>
+                <p>以下组织向国际开放地理信息协会（Open Geospatial Consortium, OGC）提交了本文件:</p>
                 <ul>
                    <li>
                       <fmt-name>
@@ -607,8 +607,8 @@ RSpec.describe IsoDoc::Ogc do
         <h1 class='IntroTitle'>II.</h1>
       </div>
           <div class='Section3' id='_'>
-          <h1 class="IntroTitle">III.  Submitting Organizations</h1>
-            <p>The following organizations submitted this Document to the Open Geospatial Consortium (OGC):</p>
+          <h1 class="IntroTitle">III.  提交组织</h1>
+            <p>以下组织向国际开放地理信息协会（Open Geospatial Consortium, OGC）提交了本文件:</p>
             <div class="ul_wrap">
             <ul>
               <li>OGC</li>
@@ -650,8 +650,8 @@ RSpec.describe IsoDoc::Ogc do
         <title>I.</title>
       </abstract>
                  <clause id="_" type='keywords' displayorder="3">
-                   <fmt-title depth='1'>II.<tab/>Keywords</fmt-title>
-                   <p>The following are keywords to be used by search engines and document catalogues.</p>
+                   <fmt-title depth='1'>II.<tab/>关键词</fmt-title>
+                   <p>以下关键词可供搜索引擎和文档目录使用：</p>
                    <p>ABC, DEF</p>
                  </clause>
                </preface>

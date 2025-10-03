@@ -70,7 +70,7 @@ module IsoDoc
 
       def recommmendation_sort_key1(type)
         case type.downcase
-        when "requirements class" then "01"
+        when "要求类" then "01"
         when "recommendations class" then "02"
         when "permissions class" then "03"
         when "requirement" then "04"

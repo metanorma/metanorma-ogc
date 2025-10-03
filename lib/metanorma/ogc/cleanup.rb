@@ -55,7 +55,7 @@ module Metanorma
           .include?(doctype)
         <<~CLAUSE
           <clause type='security' #{add_id}>
-            <title>Security considerations</title>
+            <title>安全考虑</title>
             <p>#{@i18n.security_empty.sub('%', description)}</p></clause>
         CLAUSE
       end

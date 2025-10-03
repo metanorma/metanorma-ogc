@@ -342,7 +342,7 @@ RSpec.describe Metanorma::Ogc do
       This is a preamble
 
       [abstract]
-      Abstract
+      摘要
 
       == Acknowledgements
 
@@ -450,7 +450,7 @@ RSpec.describe Metanorma::Ogc do
       This is a preamble
 
       [abstract]
-      Abstract
+      摘要
 
       == Acknowledgements
 
@@ -556,7 +556,7 @@ RSpec.describe Metanorma::Ogc do
       This is a preamble
 
       [abstract]
-      Abstract
+      摘要
 
       == Acknowledgements
 
@@ -628,7 +628,7 @@ RSpec.describe Metanorma::Ogc do
       #{ASCIIDOC_BLANK_HDR}
 
       [bibliography]
-      == References
+      == references
     INPUT
 
     output = Xml::C14n.format(<<~OUTPUT)
@@ -1141,7 +1141,7 @@ RSpec.describe Metanorma::Ogc do
     input = <<~INPUT
       #{ASCIIDOC_BLANK_HDR}
 
-      == Conformance
+      == 一致性
 
     INPUT
     output = <<~OUTPUT
@@ -1149,7 +1149,7 @@ RSpec.describe Metanorma::Ogc do
       <preface>#{SECURITY}</preface>
          <sections>
              <clause id='_' obligation='normative' type="conformance">
-               <title>Conformance</title>
+               <title>一致性</title>
              </clause>
            </sections>
          </metanorma>
@@ -1162,7 +1162,7 @@ RSpec.describe Metanorma::Ogc do
     input = <<~INPUT
       #{ASCIIDOC_BLANK_HDR}
 
-      == Security Considerations
+      == 安全考虑
 
       This is a security consideration
 
@@ -1171,7 +1171,7 @@ RSpec.describe Metanorma::Ogc do
       #{blank_hdr_gen}
        <preface>
            <clause id='_' obligation='informative' type="security">
-             <title>Security Considerations</title>
+             <title>安全考虑</title>
              <p id="_">This is a security consideration</p>
            </clause>
          </preface>
@@ -1191,7 +1191,7 @@ RSpec.describe Metanorma::Ogc do
       #{blank_hdr_gen}
         <preface>
         <clause type="security" id="_" obligation="informative">
-          <title>Security considerations</title>
+          <title>安全考虑</title>
           <p id="_">No security considerations have been made for this document.</p>
         </clause>
       </preface>
@@ -1208,7 +1208,7 @@ RSpec.describe Metanorma::Ogc do
     input = <<~INPUT
       #{ASCIIDOC_BLANK_HDR.sub(':nodoc:', ":nodoc:\n:doctype: engineering-report")}
 
-      == Security Considerations
+      == 安全考虑
 
       This is a security consideration
 
@@ -1217,7 +1217,7 @@ RSpec.describe Metanorma::Ogc do
       <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ogc::VERSION}" flavor="ogc">
       <sections>
           <clause id='_' obligation='normative'>
-            <title>Security Considerations</title>
+            <title>安全考虑</title>
             <p id="_">This is a security consideration</p>
           </clause>
         </sections>
@@ -1260,7 +1260,7 @@ RSpec.describe Metanorma::Ogc do
       This is an executive summary
 
       [abstract]
-      == Abstract
+      == 摘要
 
       This is an abstract
 
@@ -1269,7 +1269,7 @@ RSpec.describe Metanorma::Ogc do
       #{blank_hdr_gen.sub(%r{</script>}, '</script><abstract><p>This is an abstract</p></abstract>')}
       <preface>
       <abstract id='_'>
-        <title>Abstract</title>
+        <title>摘要</title>
         <p id='_'>This is an abstract</p>
       </abstract>
            <clause id='_' type='executivesummary' obligation='informative'>
@@ -1277,7 +1277,7 @@ RSpec.describe Metanorma::Ogc do
              <p id='_'>This is an executive summary</p>
            </clause>
            <clause type='security' id='_' obligation='informative'>
-             <title>Security considerations</title>
+             <title>安全考虑</title>
              <p id='_'>No security considerations have been made for this document.</p>
            </clause>
          </preface>
@@ -1527,7 +1527,7 @@ RSpec.describe Metanorma::Ogc do
       == Normative References
 
       [bibliography]
-      == References
+      == references
 
     INPUT
     output = <<~OUTPUT
@@ -1538,7 +1538,7 @@ RSpec.describe Metanorma::Ogc do
           <references id='_' normative='true' obligation='informative'>
             <title>Normative references</title>
             <p id='_'>There are no normative references in this document.</p>
-                  </references>
+          </references>
           <references id='_' normative='false' obligation='informative'>
             <title>References</title>
           </references>

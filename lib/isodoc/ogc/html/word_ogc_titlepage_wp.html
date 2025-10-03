@@ -23,19 +23,19 @@
 </div>
 
 <p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
-style='mso-no-proof:yes;font-size:10.0pt'>Submission Date: {{ receiveddate }}</span></p>
+style='mso-no-proof:yes;font-size:10.0pt'>提交日期: {{ receiveddate }}</span></p>
 
 <p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
-style='mso-no-proof:yes;font-size:10.0pt'>Approval Date: {{ issueddate }}</span></p>
+style='mso-no-proof:yes;font-size:10.0pt'>批准日期: {{ issueddate }}</span></p>
 
 <p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
-style='mso-no-proof:yes;font-size:10.0pt'>Publication Date: {{ publisheddate }}</span></p>
+style='mso-no-proof:yes;font-size:10.0pt'>出版日期: {{ publisheddate }}</span></p>
 
 <p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
-style='mso-no-proof:yes;font-size:10.0pt'>External identifier of this OGC&#xAE; document: {{ externalid }}</span></p>
+style='mso-no-proof:yes;font-size:10.0pt'>此OGC&#xAE;文档的外部标识符: {{ externalid }}</span></p>
 
 <p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
-style='mso-no-proof:yes;font-size:10.0pt'>Internal reference number of this OGC&#xAE; document: {{ docnumber }}</span></p>
+style='mso-no-proof:yes;font-size:10.0pt'>此OGC&#xAE;文档的内部标识符: {{ docnumber }}</span></p>
 
 {% if url or html %}
 <p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
@@ -44,20 +44,20 @@ style='mso-no-proof:yes;font-size:10.0pt'>Internal reference number of this OGC&
 
 {% if edition %}
 <p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
-style='mso-no-proof:yes;font-size:10.0pt'>Version: {{ edition }}</span></p>
+style='mso-no-proof:yes;font-size:10.0pt'>版本: {{ edition }}</span></p>
 {% endif %}
 
 <p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
-style='mso-no-proof:yes;font-size:10.0pt'>Category: {{ doctype }}</span></p>
+style='mso-no-proof:yes;font-size:10.0pt'>目录: {{ doctype }}</span></p>
 
 {% if contributors %}
 <p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
-                                                                  style='mso-no-proof:yes;font-size:10.0pt'>Contributor{% if contributors.size > 1 %}s{% endif %}: {{ contributors | join: ", " }}</span></span></p>
+                                                                  style='mso-no-proof:yes;font-size:10.0pt'>贡献者{% if contributors.size > 1 %}s{% endif %}: {{ contributors | join: ", " }}</span></span></p>
 {% endif %}
 
 {% if editors %}
 <p class="MsoNormal" align="right" style='text-align:right'><span lang="EN-GB"
-                                                                  style='mso-no-proof:yes;font-size:10.0pt'>Editor{% if editors.size > 1 %}s{% endif %}: {{ editors | join: ", " }}</span></span></p>
+                                                                  style='mso-no-proof:yes;font-size:10.0pt'>编辑{% if editors.size > 1 %}s{% endif %}: {{ editors | join: ", " }}</span></span></p>
 {% endif %}
 
 <div style="margin-top:1.0cm;">

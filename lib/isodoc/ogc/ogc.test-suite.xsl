@@ -186,7 +186,7 @@
 				</xsl:attribute> -->
 				<xsl:attribute name="class">
 					<xsl:choose>
-						<xsl:when test="$class_lc = 'requirements class'">1</xsl:when>
+						<xsl:when test="$class_lc = 'requirement class'">1</xsl:when>
 						<xsl:when test="$class_lc = 'requirement'">2</xsl:when>
 						<xsl:when test="$class_lc = 'recommendation'">3</xsl:when>
 						<xsl:when test="$class_lc = 'permission'">4</xsl:when>
@@ -11292,14 +11292,14 @@
 	<xsl:template match="*[local-name()='tr']" mode="requirement">
 		<fo:table-row height="7mm" border-bottom="0.5pt solid grey">
 
-			<xsl:if test="parent::*[local-name()='thead'] or starts-with(*[local-name()='td' or local-name()='th'][1], 'Requirement ') or starts-with(*[local-name()='td' or local-name()='th'][1], 'Recommendation ')">
+			<xsl:if test="parent::*[local-name()='thead'] or starts-with(*[local-name()='td' or local-name()='th'][1], '要求 ') or starts-with(*[local-name()='td' or local-name()='th'][1], 'Recommendation ')">
 				<xsl:attribute name="font-weight">bold</xsl:attribute>
 
 					<xsl:attribute name="font-weight">normal</xsl:attribute>
 					<xsl:if test="parent::*[local-name()='thead']"> <!-- and not(ancestor::*[local-name() = 'table'][@class = 'recommendation' or @class='requirement' or @class='permission']) -->
 						<xsl:attribute name="background-color"><xsl:value-of select="$color_table_header_row"/></xsl:attribute>
 					</xsl:if>
-					<xsl:if test="starts-with(*[local-name()='td'][1], 'Requirement ')">
+					<xsl:if test="starts-with(*[local-name()='td'][1], '要求 ')">
 						<xsl:attribute name="background-color">rgb(252, 246, 222)</xsl:attribute>
 					</xsl:if>
 					<xsl:if test="starts-with(*[local-name()='td'][1], 'Recommendation ')">

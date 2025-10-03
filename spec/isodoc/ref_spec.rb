@@ -24,7 +24,7 @@ RSpec.describe IsoDoc::Ogc do
         </p>
           </foreword></preface>
           <sections><references id="_normative_references" obligation="informative" normative="true"><title>Normative References</title>
-          <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
+          <p>以下文档在本文中被提及，其内容的部分或全部构成本文件的要求。对于有日期的引用，仅适用所引用的版本。对于无日期的引用，则适用所引用文档的最新版本（包括任何修订）。</p>
       <bibitem id="ISO712" type="standard">
         <title format="text/plain">Cereals or cereal products</title>
         <title type="main" format="text/plain">Cereals and cereal products</title>
@@ -229,7 +229,7 @@ RSpec.describe IsoDoc::Ogc do
       </sections>
       <bibliography>
         <references id="_bibliography" obligation="informative" normative="false">
-        <title>Bibliography</title>
+        <title>参考文献</title>
       <bibitem id="ISBN" type="book">
         <title format="text/plain">Chemicals for analytical laboratory use</title>
         <docidentifier type="ISBN">ISBN</docidentifier>
@@ -419,7 +419,7 @@ RSpec.describe IsoDoc::Ogc do
                    <span class="fmt-element-name">Clause</span>
                    <semx element="autonum" source="_">1</semx>
                 </fmt-xref-label>
-                <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
+                <p>以下文档在本文中被提及，其内容的部分或全部构成本文件的要求。对于有日期的引用，仅适用所引用的版本。对于无日期的引用，则适用所引用文档的最新版本（包括任何修订）。</p>
                 <bibitem id="ISO712" type="standard">
                    <formattedref>
                       ISO: ISO 712,
@@ -703,9 +703,9 @@ RSpec.describe IsoDoc::Ogc do
           </sections>
           <bibliography>
              <references id="_" obligation="informative" normative="false" displayorder="4">
-                <title id="_">Bibliography</title>
+                <title id="_">参考文献</title>
                 <fmt-title depth="1">
-                   <semx element="title" source="_">Bibliography</semx>
+                   <semx element="title" source="_">参考文献</semx>
                 </fmt-title>
                 <bibitem id="ISBN" type="book">
                    <formattedref>
@@ -1062,7 +1062,7 @@ RSpec.describe IsoDoc::Ogc do
              </div>
              <div>
                 <h1>1.  Normative References</h1>
-                <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
+                <p>以下文档在本文中被提及，其内容的部分或全部构成本文件的要求。对于有日期的引用，仅适用所引用的版本。对于无日期的引用，则适用所引用文档的最新版本（包括任何修订）。</p>
                 <p id="ISO712" class="NormRef">
                    ISO: ISO 712,
                    <i>Cereals and cereal products</i>
@@ -1113,7 +1113,7 @@ RSpec.describe IsoDoc::Ogc do
              </div>
              <br/>
              <div>
-                <h1 class="Section3">Bibliography</h1>
+                <h1 class="Section3">参考文献</h1>
                 <p id="ISBN" class="Biblio">
                    [1] 
                    <i>Chemicals for analytical laboratory use</i>

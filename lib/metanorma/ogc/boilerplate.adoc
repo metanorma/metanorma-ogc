@@ -1,25 +1,42 @@
 == copyright-statement
-=== Copyright notice
+=== 版权声明
 
 [align="center"]
 Copyright © {{ docyear }} {{ copyright_holder }} +
-To obtain additional rights of use, visit
+为获得其他使用权，请访问
 https://www.ogc.org/legal[]
 
-=== Note
+=== 注意
 [align="left"]
-Attention is drawn to the possibility that some of the elements of this document may be the subject of patent rights. The Open Geospatial Consortium shall not be held responsible for identifying any or all such patent rights.
+请注意，本文件的某些内容可能涉及专利权。国际开放地理信息协会（OGC）不负责识别任何此类专利权。
 
 [align="left"]
-Recipients of this document are requested to submit, with their comments, notification of any relevant patent claims or other intellectual property rights of which they may be aware that might be infringed by any implementation of the standard set forth in this document, and to provide supporting documentation.
+请本文件的使用者在提交意见时，同时告知其所知晓的可能因本文件中所述标准的实施而被侵犯的任何相关专利权或其他知识产权，并提供相关的支持性文件。
+
+=== 译者序
+
+当前，全国各地均在积极规划和推进三维城市的建设，从数字城市到智慧城市，再到数字孪生城市，随着信息技术和信息采集技术日新月异，三维城市的内涵和理念也在不断的延伸和丰富。数据是三维城市建设的基石，然而，现阶段三维城市建设中采用的三维模型多以摄影测量技术采集而得的地物表面模型为主，较注重三维可视化效果，而缺乏语义和拓扑关系的表达，难以用于查询、分析或空间数据挖掘，并且采用数据格式缺乏一致性，导致互操作性困难，抑制了三维城市模型的进一步应用与发展。
+
+OGC CityGML标准的提出为虚拟三维城市模型的可重用提供了一个有效的方案。CityGML是一种基于XML的虚拟三维城市模型的存储和交换格式，以模块化的方式定义了三维城市模型中最常见的对象，并兼顾了城市中三维对象的几何、拓扑、语义、外观等方面的属性。CityGML所有对象和主题类均支持多级别细节层次模型，适用于三维城市的多尺度表达，既可表示没有拓扑和语义的单一简单模型，也可以表示具有完整拓扑和细粒度语义的复杂多尺度模型。除定义的建筑物，桥梁、植被、水体、城市家具等三维城市最重要的对象外，CityGML也可通过定义应用领域扩展（ADEs）将其扩展到特定的领域，例如城市气体污染扩散模拟、光辐射潜力分析、城市环境噪声扩散模拟、视线和阴影分析等。CityGML已经在全世界范围内被广泛传播，如德国、法国，美过、英国、荷兰、丹麦、苏黎世、利沃登、日本、伊斯坦布尔等国家或城市，均使用CityGML进行三维城市模型的表达和交换，支撑其三维地理信息标准和三维空间数据基础设施的建设。许多商业和学术工具也通过接口的方式来支持CityGML的使用，例如，SAFE软件公司的转换工具FME、Bentley Systems的BentleyMap、Autodesk的LandXplorer、KIT Karlsruhe的FZKViewer、以及CPA Geo Information的SupportGIS等工具均支持CityGML的读写。因此，通过CityGML标准，可以轻松实现虚拟三维城市模型在不同地理信息系统和用户之间的信息无损交换。
+
+在全国各地都在稳步推进智慧城市或数字孪生城市的今天，CityGML这种通用虚拟三维城市模型存储和和交换格式标准的重要性愈加凸现。此前，OGC China已翻译CityGML 2.0版本（访问链接：https://ogeoa.net/discover/detail?id=OpenSpecifications-938457b3-fba4-4c4e-bbd8-36c0d6e3df54; https://ogeoa.net/CityGML2.0_ChineseVersion），CityGML 3.0版本进行了全面升级，包括更新LOD概念、支持动态属性、新增版本管理和点云模块，并优化标准结构，首次分离概念模型与编码标准，突破XML编码局限。
+
+为了更好地推动CityGML标准在国内GIS及相关领域的应用，助力我国新型基础测绘与实景三维中国建设，开放时空智能社区（OGE Alliance）启动了CityGML 3.0标准文档的翻译工作，通过提供免费且开放的中文版本，我们希望降低国内技术人员的使用门槛，促进该标准在国内的广泛应用。本次翻译由武汉大学、南京师范大学、武汉测绘院发起，中国汽车技术研究中心有限公司 ，郑州众合景轩信息技术有限公司，泰瑞数创科技（北京）股份有限公司、伦敦大学学院携手翻译。
+
+虽然译者尽量地以“信、达、雅”为标准还原作者的本意，但仍难免有疏漏之处，如读者发现任何不理想之处，望能不吝赐教，我们将随时予以纠正。
+
+开放时空智能社区（OGE Alliance） +
+2025年7月1日
+
+[small]#*本文件引用格式*：开放时空智能社区（OGE Alliance）, 2025. OGC城市地理标记语言（CityGML）编码标准3.0中文版. 译者: 于大宇，彭清山，林旭辉，周博林，黄栋，张勇，乐鹏，陈淑杰，杨滔，陈南江，马欣蕊.#
 
 == license-statement
-=== License Agreement
+=== 许可协议
 
-Use of this document is subject to the license agreement at https://www.ogc.org/license[]
+本文档的使用受以下许可协议的约束： https://www.ogc.org/license[]
 
 == legal-statement
-{% if doctype == "Standard" or doctype == "Community Standard" or doctype == "Abstract Specification" %}
+{% if doctype == "Standard" or doctype == "社区标准" or doctype == "抽象规范" %}
 {% if stage == "Deprecated" %}
 
 === Notice
@@ -50,9 +67,8 @@ Recipients of this document are invited to submit, with their comments, notifica
 
 {% elsif stage == "Approved" or stage == "Withdrawn" %}
 
-=== Notice
-This document is an OGC Member approved international standard. This document is available on a royalty free, non-discriminatory basis. Recipients of this document are invited to submit, with their comments, notification of any relevant patent rights of which they are aware and to provide supporting documentation.
-
+=== 通告
+本文件是经 OGC 会员批准的国际标准。该文件可在无版税、无歧视的基础上获取。请本文件的使用者在提交意见时，通报其所知的任何相关专利权，并提供相应的支持性材料。
 {% else %}
 === Notice for Drafts
 This document is not an OGC Standard. This document is distributed for review and comment. This document is subject to change without notice and may not be referred to as an OGC Standard.
@@ -97,5 +113,5 @@ Further, an OGC {{ doctype }} should not be referenced as required or mandatory 
 {% if doctype == "Standard" %}
 [[boilerplate-standard-feedback]]
 === {blank}
-Suggested additions, changes and comments on this document are welcome and encouraged. Such suggestions may be submitted using the online change request form on OGC web site: http://ogc.standardstracker.org/[]
+欢迎并鼓励对本文件提出补充、修改及意见建议。相关建议可通过 OGC 官网提供的在线变更请求表单提交: http://ogc.standardstracker.org/[]
 {% endif %}

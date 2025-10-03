@@ -46,28 +46,34 @@
     <span>{{ editor }} <span class="roletag">Editor</span></span>
     {% endfor %}
     {% endif %}
+
+    {% if translators %}
+    {% for translator in translators %}
+    <span>{{ translator }} <span class="roletag">译者</span></span>
+    {% endfor %}
+    {% endif %}
   </div>
 
     <div class="coverpage-metadata">
-      <span class="label">Submission Date: </span> <span class="value">{{ receiveddate }}</span>
-      <span class="label">Approval Date: </span> <span class="value">{{ issueddate }}</span>
-      <span class="label">Publication Date: </span> <span class="value">{{ publisheddate }}</span>
-      <span class="label">External identifier of this OGC® document: <span class="docnumber value">{{ externalid }}</span></span>
-      <span class="label">Internal identifier of this OGC® document: <span class="docnumber value">{{ docnumber }}</span></span>
+      <span class="label">提交日期: </span> <span class="value">{{ receiveddate }}</span>
+      <span class="label">批准日期: </span> <span class="value">{{ issueddate }}</span>
+      <span class="label">出版日期: </span> <span class="value">{{ publisheddate }}</span>
+      <span class="label">此OGC®文档的外部标识符: <span class="docnumber value">{{ externalid }}</span></span>
+      <span class="label">此OGC®文档的内部标识符: <span class="docnumber value">{{ docnumber }}</span></span>
       {% if url or html %}
-      <span class="label">URL for this OGC® document:</span> <span class="value"><a href="{{ url or html }}">{{ url or html }}</a></span>
+      <span class="label">此OGC®文档的URL:</span> <span class="value"><a href="{{ url or html }}">{{ url or html }}</a></span>
       {% endif %}
       {% if previousuri %}
-      <span class="label">Previous URI: </span> <span class="value"><a href="{{ previousuri }}">{{previousuri}}</a></span>
+      <span class="label">之前的URI: </span> <span class="value"><a href="{{ previousuri }}">{{previousuri}}</a></span>
       {% endif %}
     </div>
 
     <div class="coverpage-alt-formats">
       {% if edition %}
-      <span class="label">Version: </span> <span class="value">{{ edition }}</span><br/>
+      <span class="label">版本: </span> <span class="value">{{ edition }}</span><br/>
       {% endif %}
     {% if xml or pdf or doc %}
-      <span class="label">Additional Formats: </span>
+      <span class="label">其他格式: </span>
       {% if xml %}
       <span class="value"><a href="{{ xml }}"><i class="far fa-file-code"></i>XML</a></span>
       {% endif %}
@@ -103,11 +109,11 @@
 
 <div class="docstage-box">
   <table>
-    <tr><td>Document number:</td><td>{{docnumber}}</td></tr>
-    <tr><td>Document type:</td><td>OGC {{doctype}}</td></tr>
-    <tr><td align="right">Document subtype:</td><td align="right">{{docsubtype}}</td></tr>
-    <tr><td align="right">Document stage:</td><td align="right">{{stage_display}}</td></tr>
-    <tr><td align="right">Document language:</td><td align="right">{{doclanguage}}</td></tr>
+    <tr><td>文档编号:</td><td>{{docnumber}}</td></tr>
+    <tr><td>文档类型:</td><td>OGC 标准</td></tr>
+    <tr><td>文档类型:</td><td>概念模型</td></tr>
+    <tr><td>文档阶段:</td><td>已批准</td></tr>
+    <tr><td>文档语言:</td><td>简体中文</td></tr>
   </table>
 </div>
 
