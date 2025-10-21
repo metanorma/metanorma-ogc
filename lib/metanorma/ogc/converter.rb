@@ -36,8 +36,7 @@ module Metanorma
                   reference-model release-notes standard user-guide white-paper
                   technical-paper test-suite draft-standard}.include? d
           @warned_doctype or
-            @log.add("Document Attributes", nil,
-                     "'#{d}' is not a legal document type: reverting to 'standard'")
+            @log.add("OGC_16", nil, params: [d])
           @warned_doctype = true
           d = @default_doctype
         end
@@ -177,3 +176,5 @@ module Metanorma
     end
   end
 end
+
+require_relative "log"
