@@ -24,8 +24,7 @@ module Metanorma
         stage = xmldoc&.at("//bibdata/status/stage")&.text
         %w(draft swg-draft oab-review public-rfc tc-vote work-item-draft
            approved deprecated retired rescinded legacy).include? stage or
-          @log.add("Document Attributes", nil,
-                   "#{stage} is not a recognised status")
+          @log.add("OGC_1", nil, params: [stage])
         stage_type_validate(stage, @doctype)
       end
 
@@ -40,29 +39,24 @@ module Metanorma
         else %w(swg-draft oab-review public-rfc tc-vote work-item-draft
                 deprecated rescinded legacy).include?(stage)
         end and
-          @log.add("Document Attributes", nil,
-                   "#{stage} is not an allowed status for #{doctype}")
+          @log.add("OGC_2", nil, params: [stage, doctype])
       end
 
       def version_validate(xmldoc)
         version = xmldoc.at("//bibdata/edition")&.text
         if %w(engineering-report discussion-paper).include? @doctype
-          version.nil? or @log.add("Document Attributes", nil,
-                                   "Version not permitted for #{@doctype}")
+          version.nil? or @log.add("OGC_3", nil, params: [@doctype])
         else
-          version.nil? and @log.add("Document Attributes", nil,
-                                    "Version required for #{@doctype}")
+          version.nil? and @log.add("OGC_4", nil, params: [@doctype])
         end
       end
 
       def execsummary_validate(xmldoc)
         sect = xmldoc.at("//executivesummary")
         @doctype == "engineering-report" && sect.nil? and
-          @log.add("Style", nil,
-                   "Executive Summary required for Engineering Reports!")
+          @log.add("OGC_5", nil)
         @doctype != "engineering-report" && !sect.nil? and
-          @log.add("Style", nil,
-                   "Executive Summary only allowed for Engineering Reports!")
+          @log.add("OGC_6", nil)
       end
 
       def section_validate(doc)
@@ -100,7 +94,7 @@ module Metanorma
 
         test = accepted.map { |a| n.at(a) }
         if test.all?(&:nil?)
-          @log.add("Style", nil, msg)
+          @log.add("OGC_7", nil, params: [msg])
         end
         names
       end
@@ -116,35 +110,31 @@ module Metanorma
           n = names.shift
         end
         if n.nil? || n.name != "clause"
-          @log.add("Style", nil,
-                   "Document must contain at least one clause")
+          @log.add("OGC_8", nil)
           return
         end
         root.at("//references | //clause[descendant::references]" \
                 "[not(parent::clause)]") or
-          @log.add("Style", nil, "Normative References are mandatory")
+          @log.add("OGC_9", nil)
       end
 
       def preface_sequence_validate(root)
         @doctype == "engineering-report" and return
-        root.at("//preface/abstract") or @log.add("Style", nil,
-                                                  "Abstract is missing!")
+        root.at("//preface/abstract") or @log.add("OGC_10", nil)
         root.at("//bibdata/keyword | //bibdata/ext/keyword") or
-          @log.add("Style", nil, "Keywords are missing!")
-        root.at("//foreword") or @log.add("Style", nil,
-                                          "Preface is missing!")
+          @log.add("OGC_11", nil)
+        root.at("//foreword") or @log.add("OGC_12", nil)
         root.at("//bibdata/contributor[role/@type = 'author']/organization/" \
                 "name") or
-          @log.add("Style", nil, "Submitting Organizations is missing!")
+          @log.add("OGC_13", nil)
         root.at("//clause[@type = 'submitters' or @type = 'contributors']") or
-          @log.add("Style", nil, "Submitters is missing!")
+          @log.add("OGC_14", nil)
       end
 
       def norm_ref_validate(doc)
         @doctype == "engineering-report" or return super
         doc.xpath("//references[@normative = 'true']").each do |b|
-          @log.add("Bibliography", b,
-                   "Engineering report should not contain normative references")
+          @log.add("OGC_15", b)
         end
       end
     end

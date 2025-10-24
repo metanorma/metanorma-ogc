@@ -165,17 +165,13 @@ module Metanorma
           unless %w{conceptual-model conceptual-model-and-encoding
                     conceptual-model-and-implementation encoding extension
                     implementation profile profile-with-extension}.include? s
-            @log.add("Document Attributes", nil,
-                     "'#{s}' is not a permitted subtype of Standard: " \
-                     "reverting to 'implementation'")
+            @log.add("OGC_17", nil, params: [s])
             s = "implementation"
           end
         when "best-practice"
           unless %w{general encoding extension profile
                     profile-with-extension}.include? s
-            @log.add("Document Attributes", nil,
-                     "'#{s}' is not a permitted subtype of best-practice: " \
-                     "reverting to 'general'")
+            @log.add("OGC_18", nil, params: [s])
             s = "general"
           end
         end
