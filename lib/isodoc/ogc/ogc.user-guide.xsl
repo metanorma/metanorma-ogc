@@ -1332,24 +1332,6 @@
 			<xsl:call-template name="getLevel"/>
 		</xsl:variable>
 
-		<xsl:variable name="font-size">
-			<xsl:choose>
-				<xsl:when test="$level = 3">14pt</xsl:when>
-				<xsl:when test="$level = 4">12pt</xsl:when>
-				<xsl:when test="$level &gt;= 5">11pt</xsl:when>
-				<xsl:otherwise>18pt</xsl:otherwise>
-			</xsl:choose>
-		</xsl:variable>
-
-		<xsl:variable name="font-weight">
-			<xsl:choose>
-				<xsl:when test="$level = 3">bold</xsl:when>
-				<xsl:when test="$level = 4">bold</xsl:when>
-				<xsl:when test="$level = 5">bold</xsl:when>
-				<xsl:otherwise>normal</xsl:otherwise>
-			</xsl:choose>
-		</xsl:variable>
-
 		<xsl:variable name="element-name">
 			<xsl:choose>
 				<xsl:when test="../@inline-header = 'true'">fo:inline</xsl:when>
@@ -1357,11 +1339,14 @@
 			</xsl:choose>
 		</xsl:variable>
 
+		<xsl:variable name="title_styles"><styles xsl:use-attribute-sets="title-style"><xsl:call-template name="refine_title-style"/></styles></xsl:variable>
+
 		<xsl:choose>
 			<xsl:when test="$level = 1">
 				<fo:block-container margin-left="-22mm" role="SKIP">
 					<fo:block-container xsl:use-attribute-sets="reset-margins-style">
-						<fo:block margin-bottom="10pt" space-before="36pt" keep-with-next="always" role="H{$level}">
+						<fo:block>
+							<xsl:copy-of select="xalan:nodeset($title_styles)/styles/@*[local-name() = 'space-before' or local-name() = 'margin-bottom' or          local-name() = 'keep-with-next' or local-name() = 'role']"/>
 							<fo:table table-layout="fixed" width="100%">
 								<fo:table-column column-width="22mm"/>
 								<fo:table-column column-width="158mm"/>
@@ -1377,7 +1362,8 @@
 											</fo:block>
 										</fo:table-cell>
 										<fo:table-cell>
-											<fo:block space-before="36pt">
+											<fo:block>
+												<xsl:copy-of select="xalan:nodeset($title_styles)/styles/@*[local-name() = 'space-before']"/>
 												<xsl:variable name="title">
 													<xsl:choose>
 														<xsl:when test="mn:tab">
@@ -1401,8 +1387,8 @@
 				</fo:block-container>
 			</xsl:when>
 			<xsl:when test="$level = 2">
-				<fo:block space-before="24pt" margin-bottom="10pt" role="H{$level}">
-					<xsl:attribute name="keep-with-next">always</xsl:attribute>
+				<fo:block>
+					<xsl:copy-of select="xalan:nodeset($title_styles)/styles/@*[local-name() = 'space-before' or local-name() = 'margin-bottom' or        local-name() = 'keep-with-next' or local-name() = 'role']"/>
 					<xsl:variable name="title">
 						<xsl:choose>
 							<xsl:when test="mn:tab">
@@ -1423,13 +1409,8 @@
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:element name="{$element-name}">
-					<xsl:attribute name="font-size"><xsl:value-of select="$font-size"/></xsl:attribute>
-					<xsl:attribute name="font-weight"><xsl:value-of select="$font-weight"/></xsl:attribute>
-					<xsl:attribute name="keep-with-next">always</xsl:attribute>
-					<xsl:attribute name="margin-top">30pt</xsl:attribute>
-					<xsl:attribute name="margin-bottom">12pt</xsl:attribute>
-					<xsl:attribute name="color"><xsl:value-of select="$color_text_title"/></xsl:attribute>
-					<xsl:attribute name="role">H<xsl:value-of select="$level"/></xsl:attribute>
+					<xsl:copy-of select="xalan:nodeset($title_styles)/styles/@*"/>
+
 					<xsl:apply-templates/>
 					<xsl:apply-templates select="following-sibling::*[1][self::mn:variant-title][@type = 'sub']" mode="subtitle"/>
 				</xsl:element>
@@ -14171,6 +14152,10 @@
 
 	<xsl:attribute-set name="title-style">
 		<!-- Note: font-size for level 1 title -->
+		<xsl:attribute name="font-size">18pt</xsl:attribute>
+		<xsl:attribute name="font-weight">normal</xsl:attribute>
+		<xsl:attribute name="keep-with-next">always</xsl:attribute>
+		<xsl:attribute name="color"><xsl:value-of select="$color_text_title"/></xsl:attribute>
 	</xsl:attribute-set> <!-- title-style -->
 
 	<xsl:template name="refine_title-style">
@@ -14178,6 +14163,38 @@
 		<xsl:variable name="level">
 			<xsl:call-template name="getLevel"/>
 		</xsl:variable>
+
+		<xsl:if test="$level = 1">
+			<xsl:attribute name="space-before">36pt</xsl:attribute>
+			<xsl:attribute name="margin-bottom">10pt</xsl:attribute>
+		</xsl:if>
+
+		<xsl:if test="$level = 2">
+			<xsl:attribute name="space-before">24pt</xsl:attribute>
+			<xsl:attribute name="margin-bottom">10pt</xsl:attribute>
+		</xsl:if>
+
+		<xsl:if test="$level = 3">
+			<xsl:attribute name="font-size">14pt</xsl:attribute>
+			<xsl:attribute name="font-weight">bold</xsl:attribute>
+		</xsl:if>
+
+		<xsl:if test="$level &gt;= 3">
+			<xsl:attribute name="margin-top">30pt</xsl:attribute>
+			<xsl:attribute name="margin-bottom">12pt</xsl:attribute>
+		</xsl:if>
+
+		<xsl:if test="$level = 4">
+			<xsl:attribute name="font-size">12pt</xsl:attribute>
+			<xsl:attribute name="font-weight">bold</xsl:attribute>
+		</xsl:if>
+		<xsl:if test="$level = 5">
+			<xsl:attribute name="font-weight">bold</xsl:attribute>
+		</xsl:if>
+		<xsl:if test="$level &gt;= 5">
+			<xsl:attribute name="font-size">11pt</xsl:attribute>
+		</xsl:if>
+		<!-- $namespace = 'ogc' -->
 		<xsl:attribute name="role">H<xsl:value-of select="$level"/></xsl:attribute>
 	</xsl:template> <!-- refine_title-style -->
 
