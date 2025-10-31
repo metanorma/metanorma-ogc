@@ -94,10 +94,10 @@ module IsoDoc
       end
 
       def format_personalname(contrib)
-        Relaton::Render::Ogc::General
+        ret = Relaton::Render::Ogc::General
           .new(template: { book: "{{ creatornames }}" })
-          .render("<bibitem type='book'>#{contrib.to_xml}</bibitem>",
-                  embedded: true)
+          .render_all("<references><bibitem type='book'>#{contrib.to_xml}</bibitem></references>")
+ret[nil][:citation][:author]
       end
 
       def dochistory_description(item)

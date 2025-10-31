@@ -1,8 +1,8 @@
 template:
-  standard: "{% if creatornames %}{{ creatornames }} ({{role}}){%else%}{{ publisher_abbrev}}{%endif%} : {{authoritative_identifier|first}} {{draft}} , <em>{{ title }}</em>. {{ publisher }}{%if place%},{%endif%} {{ place }} ({{date}}). {{uri}}."
+  standard: "{% if creatornames %}{{ creatornames }} ({{role}}){%else%}{{ publisher_abbrev}}{%endif%} : {{authoritative_identifier|first}} {{draft}} , <em>{{ title }}</em>$$$ {{ publisher }}{%if place%},{%endif%} {{ place }} ({{date}})$$$ {{uri}}$$$"
   misc: standard
   techreport: standard
-  book: "{{ creatornames }} ({{role}}) : <em>{{ title }}</em> . {{ publisher }}, {% if place %}{{place}}{%else%}{{ labels['no_place']}}{%endif%} ({{date}})."
+  book: "{{ creatornames }} ({{role}}) : <em>{{ title }}</em> $$$ {{ publisher }}, {% if place %}{{place}}{%else%}{{ labels['no_place']}}{%endif%} ({{date}})$$$"
   booklet: book
   manual: book
   proceedings: book
@@ -12,11 +12,11 @@ template:
   webresource: book
   unpublished: book
   presentation: book
-  inbook: "{{ creatornames }} ({{role}}) : {{ title }} . {{ labels['in'] | capitalize }}: {{ host_creatornames}} ({{ host_role}}) : <em>{{host_title}}</em>. {{ extent}}. {{ publisher }}{%if place%},{%endif%} {{ place }} . ({{date}})." 
+  inbook: "{{ creatornames }} ({{role}}) : {{ title }} $$$ {{ labels['in'] | capitalize }}: {{ host_creatornames}} ({{ host_role}}) : <em>{{host_title}}</em>$$$ {{ extent}}$$$ {{ publisher }}{%if place%},{%endif%} {{ place }} $$$ ({{date}})$$$" 
   inproceedings: inbook
   incollection: inbook
-  journal: "<em>{{ title}}</em> . {{ publisher }}{%if place%},{%endif%} {{ place }} . ({{date}})."
-  article: "{{ creatornames }} ({{role}}) : {{ title }}. {{ series }} {{ extent }} ({{date}})."
+  journal: "<em>{{ title}}</em> $$$ {{ publisher }}{%if place%},{%endif%} {{ place }} $$$ ({{date}})$$$"
+  article: "{{ creatornames }} ({{role}}) : {{ title }}$$$ {{ series }} {{ extent }} ({{date}})$$$"
 nametemplate:
   one: "{% if nonpersonal[0] %}{{ nonpersonal[0] }}{% else %}{{surname[0] }} {{initials[0] | join: '' | remove: '.' | remove: '_' }}{% endif %}"
   two: "{% if nonpersonal[0] %}{{ nonpersonal[0] }}{% else %}{{surname[0] }} {{initials[0] | join: '' | remove: '.' | remove: '_' }}{% endif %} , {% if nonpersonal[1] %}{{ nonpersonal[1] }}{% else %}{{surname[1]}} {{ initials[1] | join: '' | remove: '.' | remove: '_' }}{% endif %}"
