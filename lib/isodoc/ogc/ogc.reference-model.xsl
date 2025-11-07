@@ -12071,10 +12071,10 @@
 	<!-- END Admonition -->
 	<!-- ================ -->
 
-	<xsl:attribute-set name="references-non-normative-title-style">
+	<xsl:attribute-set name="bibliography-title-style">
 	</xsl:attribute-set>
 
-	<xsl:template name="refine_references-non-normative-title-style">
+	<xsl:template name="refine_bibliography-title-style">
 	</xsl:template>
 
 	<!-- bibitem in Normative References (references/@normative="true") -->
@@ -14115,6 +14115,7 @@
 	<!-- ===================================== -->
 
 	<xsl:attribute-set name="annex-title-style">
+		<xsl:attribute name="keep-with-next">always</xsl:attribute>
 	</xsl:attribute-set> <!-- annex-title-style -->
 
 	<xsl:template name="refine_annex-title-style">
@@ -14193,6 +14194,20 @@
 		</xsl:if>
 		<xsl:if test="$level &gt;= 5">
 			<xsl:attribute name="font-size">11pt</xsl:attribute>
+		</xsl:if>
+
+		<xsl:if test="parent::mn:annex"><!-- Annex title -->
+			<xsl:variable name="annex_title_styles">
+				<styles xsl:use-attribute-sets="annex-title-style"><xsl:call-template name="refine_annex-title-style"/></styles>
+			</xsl:variable>
+			<xsl:copy-of select="xalan:nodeset($annex_title_styles)/styles/@*"/>
+		</xsl:if>
+
+		<xsl:if test="parent::mn:references[not(@normative='true')]"><!-- Bibliography section title -->
+			<xsl:variable name="bibliography_title_styles">
+				<styles xsl:use-attribute-sets="bibliography-title-style"><xsl:call-template name="refine_bibliography-title-style"/></styles>
+			</xsl:variable>
+			<xsl:copy-of select="xalan:nodeset($bibliography_title_styles)/styles/@*"/>
 		</xsl:if>
 		<!-- $namespace = 'ogc' -->
 		<xsl:attribute name="role">H<xsl:value-of select="$level"/></xsl:attribute>
