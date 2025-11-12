@@ -5,12 +5,6 @@ require "fileutils"
 module Metanorma
   module Ogc
     class Converter < Standoc::Converter
-      def safe_xml_string(node, key, value)
-        node.send key do |n|
-          n << value
-        end
-      end
-
       def org_author(node, xml)
         node.attr("submitting-organizations") or return
         csv_split(@c.decode(node.attr("submitting-organizations")),
@@ -18,7 +12,7 @@ module Metanorma
           xml.contributor do |c|
             c.role type: "author"
             c.organization do |a|
-              safe_xml_string(a, "name", org)
+              add_noko_elem(a, "name", org)
             end
           end
         end
@@ -40,7 +34,7 @@ module Metanorma
         type = node.attr("role#{suffix}")&.downcase || "editor"
         if type == "contributor"
           contrib.role type: "author" do |r|
-            safe_xml_string(r, "description", type)
+            add_noko_elem(r, "description", type)
           end
         else contrib.role type: type
         end
@@ -52,7 +46,7 @@ module Metanorma
           c.role type: "editor"
           c.person do |p|
             p.name do |n|
-              n.completename node.attr("editor")
+              add_noko_elem(n, "completename", node.attr("editor"))
             end
           end
         end
@@ -71,10 +65,10 @@ module Metanorma
 
       def personal_author_name(node, xml, suffix)
         if node.attr("fullname#{suffix}")
-          safe_xml_string(xml, "completename", node.attr("fullname#{suffix}"))
+          add_noko_elem(xml, "completename", node.attr("fullname#{suffix}"))
         else
-          safe_xml_string(xml, "forename", node.attr("givenname#{suffix}"))
-          safe_xml_string(xml, "surname", node.attr("surname#{suffix}"))
+          add_noko_elem(xml, "forename", node.attr("givenname#{suffix}"))
+          add_noko_elem(xml, "surname", node.attr("surname#{suffix}"))
         end
       end
 
@@ -108,12 +102,15 @@ module Metanorma
       end
 
       def metadata_id(node, xml)
-        e = externalid(node) and xml.docidentifier e, type: "ogc-external"
+        add_noko_elem(xml, "docidentifier", externalid(node),
+                      type: "ogc-external")
         node.attr("referenceurlid") and
-          xml.docidentifier externalurl(node), type: "ogc-external"
-        docnumber = node.attr("docnumber") || node.attr("docreference")
-        id = node.attr("docidentifier") || docnumber
-        xml.docidentifier id, type: "ogc-internal", primary: "true"
+          add_noko_elem(xml, "docidentifier", externalurl(node),
+                        type: "ogc-external")
+        id = node.attr("docidentifier") || node.attr("docnumber") ||
+          node.attr("docreference")
+        add_noko_elem(xml, "docidentifier", id, type: "ogc-internal",
+                                                primary: "true")
       end
 
       def externalurl(node)
@@ -126,8 +123,7 @@ module Metanorma
 
       def metadata_source(node, xml)
         super
-        node.attr("previous-uri") && xml.uri(node.attr("previous-uri"),
-                                             type: "previous")
+        add_noko_elem(xml, "uri", node.attr("previous-uri"), type: "previous")
       end
 
       def metadata_copyright(node, xml)
@@ -146,7 +142,7 @@ module Metanorma
       def ogc_date(node, xml, ogcname, metanormaname)
         if node.attr(ogcname)
           xml.date type: metanormaname do |d|
-            d.on node.attr(ogcname)
+            add_noko_elem(d, "on", node.attr(ogcname))
           end
         end
       end
