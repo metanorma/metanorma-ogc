@@ -526,10 +526,7 @@ RSpec.describe IsoDoc::Ogc do
                       Robert Thomas, Terry Idol: OGC 19-025r1,
                       <em>Development of Spatial Data Infrastructures for Marine Data Management</em>
                       . Open Geospatial Consortium (2019).
-                      <link target="https://portal.opengeospatial.org/files/?artifact_id=88037" id="_">https://portal.opengeospatial.org/files/?artifact_id=88037</link>
-                      <semx element="link" source="_">
-                         <fmt-link target="https://portal.opengeospatial.org/files/?artifact_id=88037">https://portal.opengeospatial.org/files/?artifact_id=88037</fmt-link>
-                      </semx>
+                      <fmt-link target="https://portal.opengeospatial.org/files/?artifact_id=88037">https://portal.opengeospatial.org/files/?artifact_id=88037</fmt-link>
                       .
                    </formattedref>
                    <title type="title-main" format="text/plain" language="en" script="Latn">Development of Spatial Data Infrastructures for Marine Data Management</title>
@@ -911,10 +908,7 @@ RSpec.describe IsoDoc::Ogc do
                       R. Fielding, J. Gettys, J. Mogul, H. Frystyk, L. Masinter, P. Leach, T. Berners-Lee: IETF RFC 2616,
                       <em>Hypertext Transfer Protocol — HTTP/1.1</em>
                       . Fremont, CA (1999).
-                      <link target="https://www.rfc-editor.org/info/rfc2616" id="_">https://www.rfc-editor.org/info/rfc2616</link>
-                      <semx element="link" source="_">
-                         <fmt-link target="https://www.rfc-editor.org/info/rfc2616">https://www.rfc-editor.org/info/rfc2616</fmt-link>
-                      </semx>
+                      <fmt-link target="https://www.rfc-editor.org/info/rfc2616">https://www.rfc-editor.org/info/rfc2616</fmt-link>
                       .
                    </formattedref>
                    <fetched/>
