@@ -72,30 +72,6 @@ module Metanorma
         end
       end
 
-      # KILL
-      def section_names_terms_cleanupx(xml)
-        @i18n or return
-        replace_title(xml, "//definitions[@type = 'symbols']", @i18n.symbols)
-        replace_title(xml, "//definitions[@type = 'abbreviated_terms']",
-                      @i18n.abbrev)
-        replace_title(xml, "//definitions[not(@type)]", @i18n.symbolsabbrev)
-        replace_title(xml, "//sections//terms#{SYM_NO_ABBR} | " \
-                           "//sections//clause[.//terms]#{SYM_NO_ABBR}",
-                      @i18n.termsdefsymbols, true)
-        replace_title(xml, "//sections//terms#{ABBR_NO_SYM} | " \
-                           "//sections//clause[.//terms]#{ABBR_NO_SYM}",
-                      @i18n.termsdefabbrev, true)
-        replace_title(xml, "//sections//terms#{SYMABBR} | " \
-                           "//sections//clause[.//terms]#{SYMABBR}",
-                      @i18n.termsdefsymbolsabbrev, true)
-        replace_title(xml, "//sections//terms#{NO_SYMABBR} | " \
-                           "//sections//clause[.//terms]#{NO_SYMABBR}",
-                      @i18n.termsdefsymbolsabbrev, true)
-        replace_title(xml, "//sections//terms[not(.//definitions)] | " \
-                           "//sections//clause[.//terms][not(.//definitions)]",
-                      @i18n.termsdef, true)
-      end
-
       # as in standoc, but do not rename annex terms
        def section_names_terms1_cleanup(xml)
         auto_name_terms(xml) or return
