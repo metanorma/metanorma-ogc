@@ -36,14 +36,18 @@ module IsoDoc
     }.freeze
 
     class Metadata < IsoDoc::Metadata
-      def initialize(lang, script, locale, i18n)
-        super
-        here = File.dirname(__FILE__)
-        set(:logo_old,
-            File.expand_path(File.join(here, "html", "logo.png")))
-        set(:logo_new,
-            File.expand_path(File.join(here, "html",
-                                       "logo.2021.svg")))
+      def logo_old
+        File.expand_path(File.join(File.dirname(__FILE__), "html", "logo.png"))
+      end
+
+      def logo_new
+        File.expand_path(File.join(File.dirname(__FILE__), "html",
+                                       "logo.2021.svg"))
+      end
+
+      def images(_isoxml, _out)
+        set(:logo_old, logo_old)
+        set(:logo_new, logo_new)
       end
 
       def title(isoxml, _out)
@@ -156,7 +160,7 @@ module IsoDoc
         rescue StandardError
           old = false
         end
-        set(:logo_word, old ? get[:logo_old] : get[:logo_new])
+        set(:logo_word, old ? logo_old : logo_new)
       end
 
       def presentation(xml, _out)
