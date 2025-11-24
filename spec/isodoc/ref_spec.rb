@@ -381,7 +381,7 @@ RSpec.describe IsoDoc::Ogc do
                    </semx>
                    <eref bibitemid="ref12" id="_"/>
                    <semx element="eref" source="_">
-                      <fmt-xref target="ref12">Citn</fmt-xref>
+                      <fmt-xref target="ref12">[Citn]</fmt-xref>
                    </semx>
                    <eref bibitemid="zip_ffs" id="_"/>
                    <semx element="eref" source="_">
@@ -1047,7 +1047,7 @@ RSpec.describe IsoDoc::Ogc do
                    <a href="#ISO16634">ISO 16634:--</a>
                    <a href="#ref1">ICC 167</a>
                    <a href="#ref10">[6]</a>
-                   <a href="#ref12">Citn</a>
+                   <a href="#ref12">[Citn]</a>
                    <a href="#zip_ffs">[2]</a>
                    <a href="#ogc1">OGC 19-025r1</a>
                    <a href="#ogc2">OGC 00-027</a>
