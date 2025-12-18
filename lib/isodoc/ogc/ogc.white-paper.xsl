@@ -253,7 +253,7 @@
 
 							<fo:block margin-top="6pt"><xsl:text>Category: </xsl:text>
 								<xsl:call-template name="capitalizeWords">
-									<xsl:with-param name="str" select="/mn:metanorma/mn:bibdata/mn:ext/mn:doctype"/>
+									<xsl:with-param name="str"><xsl:call-template name="getDoctype"/></xsl:with-param>
 								</xsl:call-template>
 							</fo:block>
 
@@ -14125,6 +14125,23 @@
 
 	<xsl:template name="getDocumentId_fromCurrentNode">
 		<xsl:call-template name="getLang_fromCurrentNode"/><xsl:value-of select=".//mn:p[1]/@id"/>
+	</xsl:template>
+
+	<xsl:template name="getDoctype">
+		<xsl:variable name="doctype_alias" select="normalize-space(/mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:doctype-alias)"/>
+		<xsl:value-of select="$doctype_alias"/>
+		<xsl:if test="$doctype_alias = ''"><xsl:value-of select="/mn:metanorma/mn:bibdata/mn:ext/mn:doctype[not(@language) or @language = '']"/></xsl:if>
+	</xsl:template>
+
+	<xsl:template name="getDoctypeTitle">
+		<xsl:variable name="doctype_i18n" select="normalize-space(/mn:metanorma/mn:bibdata/mn:ext/mn:doctype[@language = $lang])"/>
+		<xsl:value-of select="$doctype_i18n"/>
+		<xsl:if test="$doctype_i18n = ''">
+			<xsl:variable name="doctype"><xsl:call-template name="getDoctype"/></xsl:variable>
+			<xsl:call-template name="capitalizeWords">
+				<xsl:with-param name="str" select="$doctype"/>
+			</xsl:call-template>
+		</xsl:if>
 	</xsl:template>
 
 	<xsl:template name="setId">
