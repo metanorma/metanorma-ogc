@@ -123,8 +123,8 @@ module Metanorma
         c = update_colors(node)
         ret = super
         c.keys.sort.each do |k|
-          ret += "<presentation-metadata><name>color-#{k}</name>" \
-            "<value>#{c[k]}</value></presentation-metadata>"
+          ret += "<presentation-metadata><color-#{k}>" \
+            "#{c[k]}</color-#{k}></presentation-metadata>"
         end
         ret
       end

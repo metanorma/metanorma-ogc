@@ -397,119 +397,40 @@ RSpec.describe Metanorma::Ogc do
       :no-pdf:
     INPUT
     output = <<~OUTPUT
-      <metanorma-extension>
-         <semantic-metadata>
-            <stage-published>true</stage-published>
-         </semantic-metadata>
-         <presentation-metadata>
-            <name>document-scheme</name>
-            <value>2022</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>color-admonition-caution</name>
-            <value>rgb(79, 129, 189)</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>color-admonition-editor</name>
-            <value>rgb(79, 129, 189)</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>color-admonition-important</name>
-            <value>rgb(79, 129, 189)</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>color-admonition-note</name>
-            <value>rgb(79, 129, 189)</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>color-admonition-safety-precaution</name>
-            <value>rgb(79, 129, 189)</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>color-admonition-tip</name>
-            <value>rgb(79, 129, 189)</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>color-admonition-todo</name>
-            <value>rgb(79, 129, 189)</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>color-admonition-warning</name>
-            <value>rgb(79, 129, 189)</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>color-background-definition-description</name>
-            <value>rgb(242, 251, 255)</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>color-background-definition-term</name>
-            <value>rgb(215, 243, 255)</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>color-background-page</name>
-            <value>rgb(33, 55, 92)</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>color-background-table-header</name>
-            <value>rgb(33, 55, 92)</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>color-background-table-row-even</name>
-            <value>rgb(252, 246, 222)</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>color-background-table-row-odd</name>
-            <value>rgb(254, 252, 245)</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>color-background-term-admitted-label</name>
-            <value>rgb(223, 236, 249)</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>color-background-term-deprecated-label</name>
-            <value>rgb(237, 237, 238)</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>color-background-term-preferred-label</name>
-            <value>rgb(249, 235, 187)</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>color-background-text-label-legacy</name>
-            <value>rgb(33, 60, 107)</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>color-secondary-shade-1</name>
-            <value>rgb(0, 177, 255)</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>color-secondary-shade-2</name>
-            <value>rgb(0, 177, 255)</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>color-text</name>
-            <value>rgb(88, 89, 91)</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>color-text-title</name>
-            <value>rgb(33, 55, 92)</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>TOC Heading Levels</name>
-            <value>2</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>HTML TOC Heading Levels</name>
-            <value>2</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>DOC TOC Heading Levels</name>
-            <value>2</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>PDF TOC Heading Levels</name>
-            <value>2</value>
-         </presentation-metadata>
-      </metanorma-extension>
+       <metanorma-extension>
+          <semantic-metadata>
+             <stage-published>true</stage-published>
+          </semantic-metadata>
+          <presentation-metadata>
+             <document-scheme>2022</document-scheme>
+             <color-admonition-caution>rgb(79, 129, 189)</color-admonition-caution>
+             <color-admonition-editor>rgb(79, 129, 189)</color-admonition-editor>
+             <color-admonition-important>rgb(79, 129, 189)</color-admonition-important>
+             <color-admonition-note>rgb(79, 129, 189)</color-admonition-note>
+             <color-admonition-safety-precaution>rgb(79, 129, 189)</color-admonition-safety-precaution>
+             <color-admonition-tip>rgb(79, 129, 189)</color-admonition-tip>
+             <color-admonition-todo>rgb(79, 129, 189)</color-admonition-todo>
+             <color-admonition-warning>rgb(79, 129, 189)</color-admonition-warning>
+             <color-background-definition-description>rgb(242, 251, 255)</color-background-definition-description>
+             <color-background-definition-term>rgb(215, 243, 255)</color-background-definition-term>
+             <color-background-page>rgb(33, 55, 92)</color-background-page>
+             <color-background-table-header>rgb(33, 55, 92)</color-background-table-header>
+             <color-background-table-row-even>rgb(252, 246, 222)</color-background-table-row-even>
+             <color-background-table-row-odd>rgb(254, 252, 245)</color-background-table-row-odd>
+             <color-background-term-admitted-label>rgb(223, 236, 249)</color-background-term-admitted-label>
+             <color-background-term-deprecated-label>rgb(237, 237, 238)</color-background-term-deprecated-label>
+             <color-background-term-preferred-label>rgb(249, 235, 187)</color-background-term-preferred-label>
+             <color-background-text-label-legacy>rgb(33, 60, 107)</color-background-text-label-legacy>
+             <color-secondary-shade-1>rgb(0, 177, 255)</color-secondary-shade-1>
+             <color-secondary-shade-2>rgb(0, 177, 255)</color-secondary-shade-2>
+             <color-text>rgb(88, 89, 91)</color-text>
+             <color-text-title>rgb(33, 55, 92)</color-text-title>
+             <toc-heading-levels>2</toc-heading-levels>
+             <html-toc-heading-levels>2</html-toc-heading-levels>
+             <doc-toc-heading-levels>2</doc-toc-heading-levels>
+             <pdf-toc-heading-levels>2</pdf-toc-heading-levels>
+          </presentation-metadata>
+       </metanorma-extension>
     OUTPUT
     xml = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
     xml = xml.xpath("//xmlns:metanorma-extension")
@@ -537,119 +458,40 @@ RSpec.describe Metanorma::Ogc do
       .to be_equivalent_to Canon.format_xml(output)
 
     output = <<~OUTPUT
-      <metanorma-extension>
-           <semantic-metadata>
-              <stage-published>true</stage-published>
-           </semantic-metadata>
-           <presentation-metadata>
-              <name>document-scheme</name>
-              <value>2018</value>
-           </presentation-metadata>
-           <presentation-metadata>
-              <name>color-admonition-caution</name>
-              <value>rgb(79, 129, 189)</value>
-           </presentation-metadata>
-           <presentation-metadata>
-              <name>color-admonition-editor</name>
-              <value>rgb(79, 129, 189)</value>
-           </presentation-metadata>
-           <presentation-metadata>
-              <name>color-admonition-important</name>
-              <value>rgb(79, 129, 189)</value>
-           </presentation-metadata>
-           <presentation-metadata>
-              <name>color-admonition-note</name>
-              <value>rgb(79, 129, 189)</value>
-           </presentation-metadata>
-           <presentation-metadata>
-              <name>color-admonition-safety-precaution</name>
-              <value>rgb(79, 129, 189)</value>
-           </presentation-metadata>
-           <presentation-metadata>
-              <name>color-admonition-tip</name>
-              <value>rgb(79, 129, 189)</value>
-           </presentation-metadata>
-           <presentation-metadata>
-              <name>color-admonition-todo</name>
-              <value>rgb(79, 129, 189)</value>
-           </presentation-metadata>
-           <presentation-metadata>
-              <name>color-admonition-warning</name>
-              <value>rgb(79, 129, 189)</value>
-           </presentation-metadata>
-           <presentation-metadata>
-              <name>color-background-definition-description</name>
-              <value>rgb(242, 251, 255)</value>
-           </presentation-metadata>
-           <presentation-metadata>
-              <name>color-background-definition-term</name>
-              <value>rgb(215, 243, 255)</value>
-           </presentation-metadata>
-           <presentation-metadata>
-              <name>color-background-page</name>
-              <value>rgb(33, 55, 92)</value>
-           </presentation-metadata>
-           <presentation-metadata>
-              <name>color-background-table-header</name>
-              <value>rgb(33, 55, 92)</value>
-           </presentation-metadata>
-           <presentation-metadata>
-              <name>color-background-table-row-even</name>
-              <value>rgb(252, 246, 222)</value>
-           </presentation-metadata>
-           <presentation-metadata>
-              <name>color-background-table-row-odd</name>
-              <value>rgb(254, 252, 245)</value>
-           </presentation-metadata>
-           <presentation-metadata>
-              <name>color-background-term-admitted-label</name>
-              <value>rgb(223, 236, 249)</value>
-           </presentation-metadata>
-           <presentation-metadata>
-              <name>color-background-term-deprecated-label</name>
-              <value>rgb(237, 237, 238)</value>
-           </presentation-metadata>
-           <presentation-metadata>
-              <name>color-background-term-preferred-label</name>
-              <value>rgb(249, 235, 187)</value>
-           </presentation-metadata>
-           <presentation-metadata>
-              <name>color-background-text-label-legacy</name>
-              <value>rgb(33, 60, 107)</value>
-           </presentation-metadata>
-           <presentation-metadata>
-              <name>color-secondary-shade-1</name>
-              <value>rgb(237, 193, 35)</value>
-           </presentation-metadata>
-           <presentation-metadata>
-              <name>color-secondary-shade-2</name>
-              <value>rgb(246, 223, 140)</value>
-           </presentation-metadata>
-           <presentation-metadata>
-              <name>color-text</name>
-              <value>rgb(88, 89, 91)</value>
-           </presentation-metadata>
-           <presentation-metadata>
-              <name>color-text-title</name>
-              <value>rgb(33, 55, 92)</value>
-           </presentation-metadata>
-           <presentation-metadata>
-              <name>TOC Heading Levels</name>
-              <value>2</value>
-           </presentation-metadata>
-           <presentation-metadata>
-              <name>HTML TOC Heading Levels</name>
-              <value>2</value>
-           </presentation-metadata>
-           <presentation-metadata>
-              <name>DOC TOC Heading Levels</name>
-              <value>2</value>
-           </presentation-metadata>
-           <presentation-metadata>
-              <name>PDF TOC Heading Levels</name>
-              <value>2</value>
-           </presentation-metadata>
-        </metanorma-extension>
+       <metanorma-extension>
+          <semantic-metadata>
+             <stage-published>true</stage-published>
+          </semantic-metadata>
+          <presentation-metadata>
+             <document-scheme>2018</document-scheme>
+             <color-admonition-caution>rgb(79, 129, 189)</color-admonition-caution>
+             <color-admonition-editor>rgb(79, 129, 189)</color-admonition-editor>
+             <color-admonition-important>rgb(79, 129, 189)</color-admonition-important>
+             <color-admonition-note>rgb(79, 129, 189)</color-admonition-note>
+             <color-admonition-safety-precaution>rgb(79, 129, 189)</color-admonition-safety-precaution>
+             <color-admonition-tip>rgb(79, 129, 189)</color-admonition-tip>
+             <color-admonition-todo>rgb(79, 129, 189)</color-admonition-todo>
+             <color-admonition-warning>rgb(79, 129, 189)</color-admonition-warning>
+             <color-background-definition-description>rgb(242, 251, 255)</color-background-definition-description>
+             <color-background-definition-term>rgb(215, 243, 255)</color-background-definition-term>
+             <color-background-page>rgb(33, 55, 92)</color-background-page>
+             <color-background-table-header>rgb(33, 55, 92)</color-background-table-header>
+             <color-background-table-row-even>rgb(252, 246, 222)</color-background-table-row-even>
+             <color-background-table-row-odd>rgb(254, 252, 245)</color-background-table-row-odd>
+             <color-background-term-admitted-label>rgb(223, 236, 249)</color-background-term-admitted-label>
+             <color-background-term-deprecated-label>rgb(237, 237, 238)</color-background-term-deprecated-label>
+             <color-background-term-preferred-label>rgb(249, 235, 187)</color-background-term-preferred-label>
+             <color-background-text-label-legacy>rgb(33, 60, 107)</color-background-text-label-legacy>
+             <color-secondary-shade-1>rgb(237, 193, 35)</color-secondary-shade-1>
+             <color-secondary-shade-2>rgb(246, 223, 140)</color-secondary-shade-2>
+             <color-text>rgb(88, 89, 91)</color-text>
+             <color-text-title>rgb(33, 55, 92)</color-text-title>
+             <toc-heading-levels>2</toc-heading-levels>
+             <html-toc-heading-levels>2</html-toc-heading-levels>
+             <doc-toc-heading-levels>2</doc-toc-heading-levels>
+             <pdf-toc-heading-levels>2</pdf-toc-heading-levels>
+          </presentation-metadata>
+       </metanorma-extension>
     OUTPUT
     xml = Nokogiri::XML(Asciidoctor.convert(input
       .sub(/:novalid:/, ":novalid:\n:document-scheme: 2021"), *OPTIONS))
@@ -678,119 +520,40 @@ RSpec.describe Metanorma::Ogc do
       .to be_equivalent_to Canon.format_xml(output)
 
     output = <<~OUTPUT
-      <metanorma-extension>
-         <semantic-metadata>
-            <stage-published>true</stage-published>
-         </semantic-metadata>
-         <presentation-metadata>
-            <name>document-scheme</name>
-            <value>2022</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>color-admonition-caution</name>
-            <value>rgb(79, 129, 189)</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>color-admonition-editor</name>
-            <value>rgb(79, 129, 189)</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>color-admonition-important</name>
-            <value>rgb(79, 129, 189)</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>color-admonition-note</name>
-            <value>rgb(79, 129, 189)</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>color-admonition-safety-precaution</name>
-            <value>rgb(79, 129, 189)</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>color-admonition-tip</name>
-            <value>rgb(79, 129, 189)</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>color-admonition-todo</name>
-            <value>rgb(79, 129, 189)</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>color-admonition-warning</name>
-            <value>rgb(79, 129, 189)</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>color-background-definition-description</name>
-            <value>rgb(242, 251, 255)</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>color-background-definition-term</name>
-            <value>rgb(215, 243, 255)</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>color-background-page</name>
-            <value>rgb(68, 84, 106)</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>color-background-table-header</name>
-            <value>rgb(33, 55, 92)</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>color-background-table-row-even</name>
-            <value>rgb(252, 246, 222)</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>color-background-table-row-odd</name>
-            <value>rgb(254, 252, 245)</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>color-background-term-admitted-label</name>
-            <value>rgb(223, 236, 249)</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>color-background-term-deprecated-label</name>
-            <value>rgb(237, 237, 238)</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>color-background-term-preferred-label</name>
-            <value>rgb(249, 235, 187)</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>color-background-text-label-legacy</name>
-            <value>rgb(33, 60, 107)</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>color-secondary-shade-1</name>
-            <value>rgb(0, 177, 255)</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>color-secondary-shade-2</name>
-            <value>rgb(0, 177, 255)</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>color-text</name>
-            <value>rgb(88, 89, 91)</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>color-text-title</name>
-            <value>rgb(68, 84, 106)</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>TOC Heading Levels</name>
-            <value>2</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>HTML TOC Heading Levels</name>
-            <value>2</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>DOC TOC Heading Levels</name>
-            <value>2</value>
-         </presentation-metadata>
-         <presentation-metadata>
-            <name>PDF TOC Heading Levels</name>
-            <value>2</value>
-         </presentation-metadata>
-      </metanorma-extension>
+       <metanorma-extension>
+          <semantic-metadata>
+             <stage-published>true</stage-published>
+          </semantic-metadata>
+          <presentation-metadata>
+             <document-scheme>2022</document-scheme>
+             <color-admonition-caution>rgb(79, 129, 189)</color-admonition-caution>
+             <color-admonition-editor>rgb(79, 129, 189)</color-admonition-editor>
+             <color-admonition-important>rgb(79, 129, 189)</color-admonition-important>
+             <color-admonition-note>rgb(79, 129, 189)</color-admonition-note>
+             <color-admonition-safety-precaution>rgb(79, 129, 189)</color-admonition-safety-precaution>
+             <color-admonition-tip>rgb(79, 129, 189)</color-admonition-tip>
+             <color-admonition-todo>rgb(79, 129, 189)</color-admonition-todo>
+             <color-admonition-warning>rgb(79, 129, 189)</color-admonition-warning>
+             <color-background-definition-description>rgb(242, 251, 255)</color-background-definition-description>
+             <color-background-definition-term>rgb(215, 243, 255)</color-background-definition-term>
+             <color-background-page>rgb(68, 84, 106)</color-background-page>
+             <color-background-table-header>rgb(33, 55, 92)</color-background-table-header>
+             <color-background-table-row-even>rgb(252, 246, 222)</color-background-table-row-even>
+             <color-background-table-row-odd>rgb(254, 252, 245)</color-background-table-row-odd>
+             <color-background-term-admitted-label>rgb(223, 236, 249)</color-background-term-admitted-label>
+             <color-background-term-deprecated-label>rgb(237, 237, 238)</color-background-term-deprecated-label>
+             <color-background-term-preferred-label>rgb(249, 235, 187)</color-background-term-preferred-label>
+             <color-background-text-label-legacy>rgb(33, 60, 107)</color-background-text-label-legacy>
+             <color-secondary-shade-1>rgb(0, 177, 255)</color-secondary-shade-1>
+             <color-secondary-shade-2>rgb(0, 177, 255)</color-secondary-shade-2>
+             <color-text>rgb(88, 89, 91)</color-text>
+             <color-text-title>rgb(68, 84, 106)</color-text-title>
+             <toc-heading-levels>2</toc-heading-levels>
+             <html-toc-heading-levels>2</html-toc-heading-levels>
+             <doc-toc-heading-levels>2</doc-toc-heading-levels>
+             <pdf-toc-heading-levels>2</pdf-toc-heading-levels>
+          </presentation-metadata>
+       </metanorma-extension>
     OUTPUT
     xml = Nokogiri::XML(Asciidoctor.convert(input
       .sub(/:novalid:/, ":novalid:\n:doctype: white-paper"), *OPTIONS))
