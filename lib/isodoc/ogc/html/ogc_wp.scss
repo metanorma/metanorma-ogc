@@ -625,6 +625,10 @@ table.MsoISOTable td, table.MsoISOTableBig td
     {border:solid windowtext 1pt;
     mso-border-alt:solid #999999 .5pt;
     padding:0cm 5.4pt 0cm 5.4pt;}
+table.MsoNormalTable th, table.MsoNormalTable td {
+  border: none;
+  mso-border-alt: none;
+} 
 table.MsoISOTable p, table.MsoISOTableBig p
 {font-size:$normalfontsize; }
 table.MsoTableGrid
