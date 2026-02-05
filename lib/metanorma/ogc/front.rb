@@ -101,16 +101,24 @@ module Metanorma
         url
       end
 
-      def metadata_id(node, xml)
+      def metadata_id_nonprimary(node, xml)
         add_noko_elem(xml, "docidentifier", externalid(node),
                       type: "ogc-external")
         node.attr("referenceurlid") and
           add_noko_elem(xml, "docidentifier", externalurl(node),
                         type: "ogc-external")
+      end
+
+      def metadata_id_primary_type(_node)
+        "ogc-internal"
+      end
+
+      def metadata_id_primary(node, xml)
         id = node.attr("docidentifier") || node.attr("docnumber") ||
           node.attr("docreference")
-        add_noko_elem(xml, "docidentifier", id, type: "ogc-internal",
-                                                primary: "true")
+        add_noko_elem(xml, "docidentifier", id,
+                      type: metadata_id_primary_type(node),
+                      primary: "true")
       end
 
       def externalurl(node)
