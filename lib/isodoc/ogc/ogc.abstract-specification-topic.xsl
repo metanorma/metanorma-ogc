@@ -35,7 +35,7 @@
 
 	<xsl:variable name="doctype">
 		<xsl:call-template name="capitalizeWords">
-			<xsl:with-param name="str" select="/mn:metanorma/mn:bibdata/mn:ext/mn:doctype"/>
+			<xsl:with-param name="str"><xsl:call-template name="getDoctype"/></xsl:with-param>
 		</xsl:call-template>
 	</xsl:variable>
 
@@ -528,7 +528,7 @@
 					</xsl:for-each>
 				<!-- </xsl:for-each> -->
 
-				<xsl:apply-templates select="//mn:indexsect" mode="sections"/>
+				<!-- <xsl:apply-templates select="//mn:indexsect" mode="sections"/> -->
 
 			</xsl:for-each>
 
@@ -1185,8 +1185,8 @@
 					<!-- <xsl:apply-templates select="."/> -->
 
 					<xsl:choose>
-						<xsl:when test="self::mn:indexsect">
-							<xsl:apply-templates select="."/>
+						<xsl:when test=".//mn:indexsect">
+							<xsl:apply-templates select=".//mn:indexsect" mode="index"/>
 						</xsl:when>
 						<xsl:otherwise>
 							<xsl:apply-templates/>
@@ -1197,6 +1197,16 @@
 			</fo:flow>
 		</fo:page-sequence>
 
+	</xsl:template>
+
+	<xsl:template match="mn:indexsect"/>
+	<xsl:template match="mn:indexsect" mode="index">
+		<fo:block id="{@id}" span="all">
+			<xsl:apply-templates select="mn:fmt-title"/>
+		</fo:block>
+		<fo:block role="Index">
+			<xsl:apply-templates select="*[not(self::mn:fmt-title)]"/>
+		</fo:block>
 	</xsl:template>
 
 	<xsl:template match="node()">
@@ -1240,18 +1250,21 @@
 				<xsl:call-template name="getName"/>
 			</xsl:variable>
 
-			<xsl:variable name="type">
-				<xsl:value-of select="local-name()"/>
-			</xsl:variable>
+			<xsl:variable name="type" select="local-name()"/>
 
 			<mnx:item id="{@id}" level="{$level}" section="{$section}" type="{$type}" display="{$display}">
+				<xsl:if test="$type = 'indexsect'">
+					<xsl:attribute name="level">1</xsl:attribute>
+				</xsl:if>
 				<xsl:if test="ancestor::mn:annex">
 					<xsl:attribute name="parent">annex</xsl:attribute>
 				</xsl:if>
 				<mnx:title>
 					<xsl:apply-templates select="xalan:nodeset($title)" mode="contents_item"/>
 				</mnx:title>
-				<xsl:apply-templates mode="contents"/>
+				<xsl:if test="$type != 'indexsect'">
+					<xsl:apply-templates mode="contents"/>
+				</xsl:if>
 			</mnx:item>
 		</xsl:if>
 
@@ -1830,7 +1843,9 @@
 		<xsl:param name="title"/>
 		<xsl:param name="level">1</xsl:param>
 		<fo:block>
-			<fo:block font-size="18pt" color="{$color_text_title}" keep-with-next="always" line-height="150%">
+			<xsl:variable name="title_styles"><styles xsl:use-attribute-sets="title-style"/></xsl:variable>
+			<fo:block line-height="150%">
+				<xsl:copy-of select="xalan:nodeset($title_styles)/styles/@*[local-name() = 'font-size' or local-name() = 'color' or        local-name() = 'keep-with-next']"/>
 				<xsl:if test="$section != ''">
 					<fo:inline padding-right="2mm">
 						<xsl:call-template name="addLetterSpacing">
@@ -3414,7 +3429,23 @@
 			<xsl:sort select="@displayorder" data-type="number"/>
 			<xsl:element name="page_sequence" namespace="{$namespace_full}">
 				<xsl:attribute name="main_page_sequence"/>
-				<xsl:apply-templates select="." mode="update_xml_step_move_pagebreak"/>
+
+				<!-- from common <xsl:template name="index-pages"> -->
+				<xsl:variable name="docid">
+					<xsl:call-template name="getDocumentId"/>
+				</xsl:variable>
+
+				<xsl:variable name="current_document_index_id">
+					<xsl:apply-templates select="." mode="index_add_id">
+						<xsl:with-param name="docid" select="$docid"/>
+					</xsl:apply-templates>
+				</xsl:variable>
+				<xsl:variable name="current_document_index">
+					<xsl:apply-templates select="xalan:nodeset($current_document_index_id)" mode="index_update"/>
+				</xsl:variable>
+
+				<!-- xalan:nodeset($current_document_index) -->
+				<xsl:apply-templates select="xalan:nodeset($current_document_index)" mode="update_xml_step_move_pagebreak"/>
 			</xsl:element>
 		</xsl:for-each>
 	</xsl:template>
@@ -12669,8 +12700,24 @@
 	<!-- End Highlight syntax styles -->
 
 	<!-- Index section styles -->
+
+	<xsl:attribute-set name="indexsect-region-body-style">
+		<xsl:attribute name="column-count">2</xsl:attribute>
+		<xsl:attribute name="column-gap">10mm</xsl:attribute>
+	</xsl:attribute-set>
+
+	<xsl:attribute-set name="indexsect-title-block-style">
+		<xsl:attribute name="role">SKIP</xsl:attribute>
+		<xsl:attribute name="span">all</xsl:attribute>
+	</xsl:attribute-set>
+
 	<xsl:attribute-set name="indexsect-title-style">
 		<xsl:attribute name="role">H1</xsl:attribute>
+		<xsl:attribute name="font-weight">bold</xsl:attribute>
+		<xsl:attribute name="margin-bottom">24pt</xsl:attribute>
+		<xsl:attribute name="font-size">18pt</xsl:attribute>
+		<xsl:attribute name="font-weight">normal</xsl:attribute>
+		<xsl:attribute name="color"><xsl:value-of select="$color_text_title"/></xsl:attribute>
 	</xsl:attribute-set> <!-- indexsect-title-style -->
 
 	<xsl:template name="refine_indexsect-title-style">
@@ -12695,6 +12742,27 @@
 			<bookmark><xsl:value-of select="@id"/></bookmark>
 		</xsl:for-each>
 	</xsl:variable>
+
+	<xsl:template name="index-pages">
+		<xsl:variable name="num"><xsl:number level="any" count="mn:metanorma"/></xsl:variable>
+
+		<xsl:variable name="docid">
+			<xsl:call-template name="getDocumentId"/>
+		</xsl:variable>
+
+		<xsl:variable name="current_document_index_id">
+			<xsl:apply-templates select="//mn:indexsect" mode="index_add_id">
+				<xsl:with-param name="docid" select="$docid"/>
+			</xsl:apply-templates>
+		</xsl:variable>
+		<xsl:variable name="current_document_index">
+			<xsl:apply-templates select="xalan:nodeset($current_document_index_id)" mode="index_update"/>
+		</xsl:variable>
+
+		<xsl:apply-templates select="xalan:nodeset($current_document_index)" mode="index">
+			<xsl:with-param name="num" select="$num"/>
+		</xsl:apply-templates>
+	</xsl:template>
 
 	<xsl:template match="@*|node()" mode="index_add_id">
 		<xsl:param name="docid"/>
@@ -12748,7 +12816,7 @@
 	<xsl:template match="mn:indexsect//mn:li" mode="index_update">
 		<xsl:copy>
 			<xsl:apply-templates select="@*" mode="index_update"/>
-		<xsl:apply-templates select="node()[not(self::mn:fmt-name)][1]" mode="process_li_element"/>
+			<xsl:apply-templates select="node()[not(self::mn:fmt-name)][1]" mode="process_li_element"/>
 		</xsl:copy>
 	</xsl:template>
 
