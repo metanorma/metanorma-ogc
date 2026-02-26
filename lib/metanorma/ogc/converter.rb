@@ -1,10 +1,8 @@
 require "asciidoctor"
-require "metanorma/standoc/converter"
+require "metanorma-standoc"
 require "fileutils"
 require "date"
 require_relative "front"
-require_relative "validate"
-require_relative "cleanup"
 require_relative "sections"
 
 module Metanorma
