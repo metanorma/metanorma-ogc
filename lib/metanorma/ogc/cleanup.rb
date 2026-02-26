@@ -1,6 +1,6 @@
 module Metanorma
   module Ogc
-    class Converter < Standoc::Converter
+    class Cleanup < Standoc::Cleanup
       def boilerplate_file(_xmldoc)
         File.join(@libdir, "boilerplate.adoc")
       end
@@ -53,8 +53,8 @@ module Metanorma
             sect.add_previous_sibling("<preface/>").first
           xml.xpath("//clause[@type = 'submitters' or @type = 'contributors']")
             .each do |s|
-            s.xpath(".//table").each { |t| t["unnumbered"] = true }
-            p.add_child s.remove
+              s.xpath(".//table").each { |t| t["unnumbered"] = true }
+              p.add_child s.remove
           end
         end
       end
@@ -73,7 +73,7 @@ module Metanorma
       end
 
       # as in standoc, but do not rename annex terms
-       def section_names_terms1_cleanup(xml)
+      def section_names_terms1_cleanup(xml)
         auto_name_terms(xml) or return
         replace_title(xml, "//sections/terms#{SYM_NO_ABBR} | //sections/clause[@type = 'terms']#{SYM_NO_ABBR}",
                       @i18n&.termsdefsymbols, true)
