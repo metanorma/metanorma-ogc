@@ -150,7 +150,7 @@ module Metanorma
         return 1 if bib.at("#{PUBLISHER}[abbreviation = 'OGC']")
         return 1 if bib.at("#{PUBLISHER}[name = 'Open Geospatial " \
                            "Consortium']")
-        return 2 if bib.at("./docidentifier[@type][not(#{@converter.skip_docid} or " \
+        return 2 if bib.at("./docidentifier[@type][not(#{@conv.skip_docid} or " \
                            "@type = 'metanorma')]")
 
         3
@@ -194,7 +194,7 @@ module Metanorma
 
       def sort_biblio_ids_key(bib)
         id = bib.at("./docidentifier[@primary]") ||
-          bib.at("./docidentifier[not(#{@converter.skip_docid} or @type = 'metanorma')]")
+          bib.at("./docidentifier[not(#{@conv.skip_docid} or @type = 'metanorma')]")
         metaid = bib.at("./docidentifier[@type = 'metanorma']")&.text
         /\d-(?<partid>\d+)/ =~ id&.text
         { id: id&.text,
