@@ -1,6 +1,6 @@
 module Metanorma
   module Ogc
-    class Converter < Standoc::Converter
+    class Validate < Standoc::Validate
       def schema_file
         "ogc.rng"
       end

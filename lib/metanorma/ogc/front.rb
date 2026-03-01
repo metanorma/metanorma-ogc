@@ -1,5 +1,5 @@
 require "asciidoctor"
-require "metanorma/standoc/converter"
+require "metanorma-standoc"
 require "fileutils"
 
 module Metanorma

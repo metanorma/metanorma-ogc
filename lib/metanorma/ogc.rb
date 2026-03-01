@@ -1,6 +1,8 @@
 require "metanorma/ogc/version"
 require "metanorma/ogc/processor"
 require "metanorma/ogc/converter"
+require "metanorma/ogc/cleanup"
+require "metanorma/ogc/validate"
 
 module Metanorma
   module Ogc
