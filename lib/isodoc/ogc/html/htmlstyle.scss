@@ -148,11 +148,11 @@ nav {
   }
 }
 
-.figure {
+figure {
   @include figureBlock();
 }
 
-table div.figure {
+table figure {
   padding: 0;
   margin: 0;
 }
@@ -374,7 +374,7 @@ td > p:last-child, th > p:last-child {
 }
 
 
-p.TableTitle {
+table > caption {
   text-align: center;
   margin-top: 2.5em;
   font-weight: 400;
@@ -427,7 +427,7 @@ p.Biblio, p.NormRef, div.Biblio, div.NormRef {
 
 /* Blocks */
 
-.SourceTitle, .FigureTitle {
+.SourceTitle, figcaption {
   @include blockTitle();
 }
 
@@ -466,7 +466,7 @@ pre, .sourcecode {
   }
 }
 
-.figure, pre, .pseudocode, .sourcecode {
+figure, pre, .pseudocode, .sourcecode {
   background-color: #e1eef1;
   color: #424242;
   font-size: $monospacefontsize;
