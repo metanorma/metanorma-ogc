@@ -42,7 +42,7 @@ module IsoDoc
 
       def logo_new
         File.expand_path(File.join(File.dirname(__FILE__), "html",
-                                       "logo.2021.svg"))
+                                   "logo.2021.svg"))
       end
 
       def images(_isoxml, _out)
