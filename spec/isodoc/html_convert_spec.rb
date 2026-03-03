@@ -258,7 +258,7 @@ RSpec.describe IsoDoc::Ogc do
                    <td colspan="2" style="border-top:none;border-bottom:solid windowtext 1.5pt;">
                       <p id="_">The following code will be run for verification:</p>
                       <p class="collapsible active"> </p>
-                      <pre id="_" class="sourcecode hidable">
+                      <pre id="_" class="sourcecode hidable"  spellcheck="false" translation="no">
                          CoreRoot(success): HttpResponse
                          <br/>
                                if (success)
@@ -350,7 +350,7 @@ RSpec.describe IsoDoc::Ogc do
                    <td colspan="2" style="border-top:none;border-bottom:solid windowtext 1.5pt;">
                       <p id="_">The following code will be run for verification:</p>
                       <p class="collapsible active"> </p>
-                      <pre id="_" class="sourcecode hidable">
+                      <pre id="_" class="sourcecode hidable" spellcheck="false" translation="no">
                          <br/>
                                           CoreRoot(success): HttpResponse if (success)
                          <br/>
@@ -864,20 +864,22 @@ RSpec.describe IsoDoc::Ogc do
               <br/>
               <div id="A">
               <h1 class="ForewordTitle">I.  Preface</h1>
-             <figure id="B" class="figure">
-               <p id="_">This is an example</p>
-               <figcaption>Figure 1</figcaption>
-             </figure>
-             <div id="C" class="pseudocode">
-               <p id="_">This is an example</p>
-               <p class="SourceTitle" style="text-align:center;">Listing 1</p>
+               <figure id="B" class="figure">
+                   <p id="_">This is an example</p>
+                   <figcaption>Figure 1</figcaption>
+                </figure>
+                <figure id="C" class="pseudocode">
+                   <p id="_">This is an example</p>
+                   <figcaption class="SourceTitle">Listing 1</figcaption>
+                </figure>
+                <figure id="D" class="sourcecode" spellcheck="false" translation="no">
+                   <pre>
+                      <p id="_">This is an example</p>
+                   </pre>
+                   <figcaption class="SourceTitle">Listing 2</figcaption>
+                </figure>
              </div>
-             <pre id="D" class="sourcecode">
-               <p id="_">This is an example</p>
-             </pre>
-             <p class="SourceTitle" style="text-align:center;">Listing 2</p>
-           </div>
-         </div>
+          </div>
        </body>
     OUTPUT
     pres_output = IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
@@ -1179,26 +1181,30 @@ RSpec.describe IsoDoc::Ogc do
                 <a class="header" href="#A"/>
              </h1>
              <p class="collapsible active"> </p>
-             <pre id="samplecode" class="sourcecode hidable">
-                <br/>
-                       
-                <br/>
-                         puts x
-                <br/>
-                     
-             </pre>
-             <p class="SourceTitle" style="text-align:center;">
-                Figure 1 — Ruby
-                <i>code</i>
-             </p>
+             <figure id="samplecode" class="sourcecode hidable" spellcheck="false" translation="no">
+                <pre>
+                   <br/>
+                          
+                   <br/>
+                            puts x
+                   <br/>
+                        
+                </pre>
+                <figcaption class="SourceTitle">
+                   Figure 1 — Ruby
+                   <i>code</i>
+                </figcaption>
+             </figure>
              <p class="collapsible active"> </p>
-             <pre class="sourcecode hidable">
-                Hey
-                <br/>
-                       Que?
-             </pre>
+             <figure class="sourcecode hidable" spellcheck="false" translation="no">
+                <pre>
+                   Hey
+                   <br/>
+                          Que?
+                </pre>
+             </figure>
              <p class="collapsible active"> </p>
-             <div id="_97ec68f1-13df-2fec-f96e-412fe9940eff" class="sourcecode hidable">
+             <figure id="_97ec68f1-13df-2fec-f96e-412fe9940eff" class="sourcecode hidable" spellcheck="false" translation="no">
                 <table class="rouge-line-table">
                    <tbody>
                       <tr>
@@ -1206,7 +1212,7 @@ RSpec.describe IsoDoc::Ogc do
                             <pre>1</pre>
                          </td>
                          <td style="" class="rouge-code">
-                            <pre class="sourcecode">
+                            <pre class="sourcecode" spellcheck="false" translation="no">
                                <span class="nl">"time"</span>
                                <span class="w"> </span>
                                <span class="p">:</span>
@@ -1217,7 +1223,7 @@ RSpec.describe IsoDoc::Ogc do
                       </tr>
                    </tbody>
                 </table>
-             </div>
+             </figure>
           </div>
        </main>
     OUTPUT
