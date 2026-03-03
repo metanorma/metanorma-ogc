@@ -228,7 +228,7 @@ RSpec.describe IsoDoc::Ogc do
           <sections>
              <terms id="H" obligation="normative" displayorder="2">
                 <title id="_">Terms, Definitions, Symbols and Abbreviated Terms</title>
-                <fmt-title id="_" depth="1">
+                <fmt-title depth="1" id="_">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="H">1</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -259,57 +259,67 @@ RSpec.describe IsoDoc::Ogc do
                    </fmt-xref-label>
                    <preferred id="_">
                       <expression>
-                         <name>Term2</name>
+                         <name id="_">Term2</name>
                       </expression>
                    </preferred>
                    <fmt-preferred>
                       <p>
                          <semx element="preferred" source="_">
-                            <strong>Term2</strong>
+                            <strong>
+                               <semx element="expression/name" source="_">Term2</semx>
+                            </strong>
                          </semx>
                       </p>
                    </fmt-preferred>
                    <admitted id="_">
                       <expression>
-                         <name>Term2A</name>
+                         <name id="_">Term2A</name>
                       </expression>
                    </admitted>
                    <admitted id="_">
                       <expression>
-                         <name>Term2B</name>
+                         <name id="_">Term2B</name>
                       </expression>
                    </admitted>
                    <fmt-admitted>
                       <p>
-                         <semx element="admitted" source="_">Term2A</semx>
-      #{'                    '}
+                         <semx element="admitted" source="_">
+                            <semx element="expression/name" source="_">Term2A</semx>
+                         </semx>
+                          
                          <span class="AdmittedLabel">ALTERNATIVE</span>
                       </p>
                       <p>
-                         <semx element="admitted" source="_">Term2B</semx>
-      #{'                    '}
+                         <semx element="admitted" source="_">
+                            <semx element="expression/name" source="_">Term2B</semx>
+                         </semx>
+                          
                          <span class="AdmittedLabel">ALTERNATIVE</span>
                       </p>
                    </fmt-admitted>
                    <deprecates id="_">
                       <expression>
-                         <name>Term2C</name>
+                         <name id="_">Term2C</name>
                       </expression>
                    </deprecates>
                    <deprecates id="_">
                       <expression>
-                         <name>Term2D</name>
+                         <name id="_">Term2D</name>
                       </expression>
                    </deprecates>
                    <fmt-deprecates>
                       <p>
-                         <semx element="deprecates" source="_">Term2C</semx>
-      #{'                    '}
+                         <semx element="deprecates" source="_">
+                            <semx element="expression/name" source="_">Term2C</semx>
+                         </semx>
+                          
                          <span class="DeprecatedLabel">DEPRECATED</span>
                       </p>
                       <p>
-                         <semx element="deprecates" source="_">Term2D</semx>
-      #{'                    '}
+                         <semx element="deprecates" source="_">
+                            <semx element="expression/name" source="_">Term2D</semx>
+                         </semx>
+                          
                          <span class="DeprecatedLabel">DEPRECATED</span>
                       </p>
                    </fmt-deprecates>
@@ -360,23 +370,23 @@ RSpec.describe IsoDoc::Ogc do
          <div id="J">
            <h2 class="TermNum" style="text-align:left;" id="_">
              <a class="anchor" href="#J"/>
-             <a class="header" href="#J">1.1. <b>Term2</b></a>
+             <a class="header" href="#J">1.1. <b><dfn>Term2</dfn></b></a>
            </h2>
          </div>
          <p class="AltTerms" style="text-align:left;">
-           Term2A#{' '}
+           <dfn>Term2A</dfn>#{' '}
            <span class="AdmittedLabel">ALTERNATIVE</span>
          </p>
          <p class="AltTerms" style="text-align:left;">
-           Term2B#{' '}
+           <dfn>Term2B</dfn>#{' '}
            <span class="AdmittedLabel">ALTERNATIVE</span>
          </p>
          <p class="DeprecatedTerms" style="text-align:left;">
-           Term2C#{' '}
+           <dfn>Term2C</dfn>#{' '}
            <span class="DeprecatedLabel">DEPRECATED</span>
          </p>
          <p class="DeprecatedTerms" style="text-align:left;">
-           Term2D#{' '}
+           <dfn>Term2D</dfn>#{' '}
            <span class="DeprecatedLabel">DEPRECATED</span>
          </p>
          <p>
@@ -589,7 +599,7 @@ RSpec.describe IsoDoc::Ogc do
         <metanorma-extension>
         #{METANORMA_EXTENSION}
         </metanorma-extension>
-           <preface>
+          <preface>
              <clause type="toc" id="_" displayorder="1">
                 <fmt-title depth="1" id="_">Contents</fmt-title>
              </clause>
@@ -862,13 +872,15 @@ RSpec.describe IsoDoc::Ogc do
                       </fmt-xref-label>
                       <preferred id="_">
                          <expression>
-                            <name>Term2</name>
+                            <name id="_">Term2</name>
                          </expression>
                       </preferred>
                       <fmt-preferred>
                          <p>
                             <semx element="preferred" source="_">
-                               <strong>Term2</strong>
+                               <strong>
+                                  <semx element="expression/name" source="_">Term2</semx>
+                               </strong>
                             </semx>
                          </p>
                       </fmt-preferred>
@@ -1001,7 +1013,7 @@ RSpec.describe IsoDoc::Ogc do
     OUTPUT
 
     presxml1 = <<~OUTPUT
-           <annex id="P" inline-header="false" obligation="normative" autonum="A" displayorder="17">
+         <annex id="P" inline-header="false" obligation="normative" autonum="A" displayorder="17">
              <title id="_">
                 <strong>Annex</strong>
              </title>
@@ -1114,13 +1126,15 @@ RSpec.describe IsoDoc::Ogc do
                    </fmt-xref-label>
                    <preferred id="_">
                       <expression>
-                         <name>Glossary</name>
+                         <name id="_">Glossary</name>
                       </expression>
                    </preferred>
                    <fmt-preferred>
                       <p>
                          <semx element="preferred" source="_">
-                            <strong>Glossary</strong>
+                            <strong>
+                               <semx element="expression/name" source="_">Glossary</semx>
+                            </strong>
                          </semx>
                       </p>
                    </fmt-preferred>
@@ -1192,13 +1206,15 @@ RSpec.describe IsoDoc::Ogc do
                    </fmt-xref-label>
                    <preferred id="_">
                       <expression>
-                         <name>Term</name>
+                         <name id="_">Term</name>
                       </expression>
                    </preferred>
                    <fmt-preferred>
                       <p>
                          <semx element="preferred" source="_">
-                            <strong>Term</strong>
+                            <strong>
+                               <semx element="expression/name" source="_">Term</semx>
+                            </strong>
                          </semx>
                       </p>
                    </fmt-preferred>
@@ -1245,13 +1261,15 @@ RSpec.describe IsoDoc::Ogc do
                    </fmt-xref-label>
                    <preferred id="_">
                       <expression>
-                         <name>Term</name>
+                         <name id="_">Term</name>
                       </expression>
                    </preferred>
                    <fmt-preferred>
                       <p>
                          <semx element="preferred" source="_">
-                            <strong>Term</strong>
+                            <strong>
+                               <semx element="expression/name" source="_">Term</semx>
+                            </strong>
                          </semx>
                       </p>
                    </fmt-preferred>
@@ -1277,7 +1295,7 @@ RSpec.describe IsoDoc::Ogc do
 
     output = <<~"OUTPUT"
       #{HTML_HDR}
-             <br/>
+      <br/>
              <div id="1">
                 <h1 class="AbstractTitle">I.  Abstract</h1>
                 <p>XYZ</p>
@@ -1319,57 +1337,61 @@ RSpec.describe IsoDoc::Ogc do
                 <h1 class="IntroTitle">IX.  Acknowlegements</h1>
                 <p>ABC</p>
              </div>
-              <div id="D">
-                 <h1>1.  Scope</h1>
-                 <p id="E">Text</p>
-              </div>
-              <div id="D1">
-                 <h1>2.  Conformance</h1>
-                 <p id="E1">Text</p>
-              </div>
-              <div>
-                 <h1>3.  Normative References</h1>
-              </div>
-              <div id="H">
-                 <h1>4.  Terms, definitions, symbols and abbreviated terms</h1>
-                 <div id="I">
-                    <h2>4.1.  Normal Terms</h2>
-                    <p class="TermNum" id="J">4.1.1.</p>
-                    <p class="Terms" style="text-align:left;"><b>Term2</b></p>
-                 </div>
-                 <div id="K">
-                    <h2>4.2.  Definitions</h2>
-                    <div class="figdl">
-                       <dl>
-                          <dt>
-                             <p>Symbol</p>
-                          </dt>
-                          <dd>Definition</dd>
-                       </dl>
-                    </div>
-                 </div>
-              </div>
-              <div id="L" class="Symbols">
-                 <h1>5.  Definitions</h1>
-                 <div class="figdl">
-                    <dl>
-                       <dt>
-                          <p>Symbol</p>
-                       </dt>
-                       <dd>Definition</dd>
-                    </dl>
-                 </div>
-              </div>
-              <div id="M">
-                 <h1>6.  Clause 4</h1>
-                 <div id="N">
-                    <h2>6.1.  Introduction</h2>
-                 </div>
-                 <div id="O">
-                    <h2>6.2.  Clause 4.2</h2>
-                 </div>
-              </div>
-              <br/>
+             <div id="D">
+                <h1>1.  Scope</h1>
+                <p id="E">Text</p>
+             </div>
+             <div id="D1">
+                <h1>2.  Conformance</h1>
+                <p id="E1">Text</p>
+             </div>
+             <div>
+                <h1>3.  Normative References</h1>
+             </div>
+             <div id="H">
+                <h1>4.  Terms, definitions, symbols and abbreviated terms</h1>
+                <div id="I">
+                   <h2>4.1.  Normal Terms</h2>
+                   <p class="TermNum" id="J">4.1.1.</p>
+                   <p class="Terms" style="text-align:left;">
+                      <b>
+                         <dfn>Term2</dfn>
+                      </b>
+                   </p>
+                </div>
+                <div id="K">
+                   <h2>4.2.  Definitions</h2>
+                   <div class="figdl">
+                      <dl>
+                         <dt>
+                            <p>Symbol</p>
+                         </dt>
+                         <dd>Definition</dd>
+                      </dl>
+                   </div>
+                </div>
+             </div>
+             <div id="L" class="Symbols">
+                <h1>5.  Definitions</h1>
+                <div class="figdl">
+                   <dl>
+                      <dt>
+                         <p>Symbol</p>
+                      </dt>
+                      <dd>Definition</dd>
+                   </dl>
+                </div>
+             </div>
+             <div id="M">
+                <h1>6.  Clause 4</h1>
+                <div id="N">
+                   <h2>6.1.  Introduction</h2>
+                </div>
+                <div id="O">
+                   <h2>6.2.  Clause 4.2</h2>
+                </div>
+             </div>
+             <br/>
     OUTPUT
 
     output1 = <<~OUTPUT
@@ -1399,7 +1421,7 @@ RSpec.describe IsoDoc::Ogc do
                </h1>
                <div id="PP1">
                   <p class="TermNum" id="term-glossary">B.1.</p>
-                  <p class="Terms" style="text-align:left;"><b>Glossary</b></p>
+                  <p class="Terms" style="text-align:left;"><b><dfn>Glossary</dfn></b></p>
                </div>
             </div>
             <br/>
@@ -1414,12 +1436,12 @@ RSpec.describe IsoDoc::Ogc do
                <div id="QQ1">
                   <h2>C.1.  Term Collection</h2>
                   <p class="TermNum" id="term-term-1">C.1.1.</p>
-                  <p class="Terms" style="text-align:left;"><b>Term</b></p>
+                  <p class="Terms" style="text-align:left;"><b><dfn>Term</dfn></b></p>
                </div>
                <div id="QQ2">
                   <h2>C.2.  Term Collection 2</h2>
                   <p class="TermNum" id="term-term-2">C.2.1.</p>
-                  <p class="Terms" style="text-align:left;"><b>Term</b></p>
+                  <p class="Terms" style="text-align:left;"><b><dfn>Term</dfn></b></p>
                </div>
             </div>
             <br/>
@@ -1448,7 +1470,7 @@ RSpec.describe IsoDoc::Ogc do
       .to be_equivalent_to Canon.format_xml(output + output1)
 
     presxml2 = <<~OUTPUT
-      <annex id="P" inline-header="false" obligation="normative" autonum="A" displayorder="18">
+         <annex id="P" inline-header="false" obligation="normative" autonum="A" displayorder="18">
              <title id="_">
                 <strong>Annex</strong>
              </title>
@@ -1561,13 +1583,15 @@ RSpec.describe IsoDoc::Ogc do
                    </fmt-xref-label>
                    <preferred id="_">
                       <expression>
-                         <name>Glossary</name>
+                         <name id="_">Glossary</name>
                       </expression>
                    </preferred>
                    <fmt-preferred>
                       <p>
                          <semx element="preferred" source="_">
-                            <strong>Glossary</strong>
+                            <strong>
+                               <semx element="expression/name" source="_">Glossary</semx>
+                            </strong>
                          </semx>
                       </p>
                    </fmt-preferred>
@@ -1639,13 +1663,15 @@ RSpec.describe IsoDoc::Ogc do
                    </fmt-xref-label>
                    <preferred id="_">
                       <expression>
-                         <name>Term</name>
+                         <name id="_">Term</name>
                       </expression>
                    </preferred>
                    <fmt-preferred>
                       <p>
                          <semx element="preferred" source="_">
-                            <strong>Term</strong>
+                            <strong>
+                               <semx element="expression/name" source="_">Term</semx>
+                            </strong>
                          </semx>
                       </p>
                    </fmt-preferred>
@@ -1692,13 +1718,15 @@ RSpec.describe IsoDoc::Ogc do
                    </fmt-xref-label>
                    <preferred id="_">
                       <expression>
-                         <name>Term</name>
+                         <name id="_">Term</name>
                       </expression>
                    </preferred>
                    <fmt-preferred>
                       <p>
                          <semx element="preferred" source="_">
-                            <strong>Term</strong>
+                            <strong>
+                               <semx element="expression/name" source="_">Term</semx>
+                            </strong>
                          </semx>
                       </p>
                    </fmt-preferred>
@@ -1756,7 +1784,7 @@ RSpec.describe IsoDoc::Ogc do
                </h1>
                <div id="PP1">
                   <p class="TermNum" id="term-glossary">B.1.</p>
-                  <p class="Terms" style="text-align:left;"><b>Glossary</b></p>
+                  <p class="Terms" style="text-align:left;"><b><dfn>Glossary</dfn></b></p>
                </div>
             </div>
             <br/>
@@ -1771,12 +1799,12 @@ RSpec.describe IsoDoc::Ogc do
                <div id="QQ1">
                   <h2>C.1.  Term Collection</h2>
                   <p class="TermNum" id="term-term-1">C.1.1.</p>
-                  <p class="Terms" style="text-align:left;"><b>Term</b></p>
+                  <p class="Terms" style="text-align:left;"><b><dfn>Term</dfn></b></p>
                </div>
                <div id="QQ2">
                   <h2>C.2.  Term Collection 2</h2>
                   <p class="TermNum" id="term-term-2">C.2.1.</p>
-                  <p class="Terms" style="text-align:left;"><b>Term</b></p>
+                  <p class="Terms" style="text-align:left;"><b><dfn>Term</dfn></b></p>
                </div>
             </div>
          </div>
