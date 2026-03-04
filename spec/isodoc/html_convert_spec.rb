@@ -257,8 +257,7 @@ RSpec.describe IsoDoc::Ogc do
                 <tr>
                    <td colspan="2" style="border-top:none;border-bottom:solid windowtext 1.5pt;">
                       <p id="_">The following code will be run for verification:</p>
-                      <p class="collapsible active"> </p>
-                      <pre id="_" class="sourcecode hidable"  spellcheck="false" translation="no">
+                      <pre id="_" class="sourcecode"  spellcheck="false" translation="no">
                          CoreRoot(success): HttpResponse
                          <br/>
                                if (success)
@@ -349,8 +348,7 @@ RSpec.describe IsoDoc::Ogc do
                 <tr>
                    <td colspan="2" style="border-top:none;border-bottom:solid windowtext 1.5pt;">
                       <p id="_">The following code will be run for verification:</p>
-                      <p class="collapsible active"> </p>
-                      <pre id="_" class="sourcecode hidable" spellcheck="false" translation="no">
+                      <pre id="_" class="sourcecode" spellcheck="false" translation="no">
                          <br/>
                                           CoreRoot(success): HttpResponse if (success)
                          <br/>
@@ -1180,50 +1178,53 @@ RSpec.describe IsoDoc::Ogc do
                 <a class="anchor" href="#A"/>
                 <a class="header" href="#A"/>
              </h1>
-             <p class="collapsible active"> </p>
-             <figure id="samplecode" class="sourcecode hidable" spellcheck="false" translation="no">
-                <pre>
-                   <br/>
-                          
-                   <br/>
-                            puts x
-                   <br/>
-                        
-                </pre>
-                <figcaption class="SourceTitle">
+             <details open="open">
+                <summary>
                    Figure 1 — Ruby
                    <i>code</i>
-                </figcaption>
-             </figure>
-             <p class="collapsible active"> </p>
-             <figure class="sourcecode hidable" spellcheck="false" translation="no">
-                <pre>
-                   Hey
-                   <br/>
-                          Que?
-                </pre>
-             </figure>
-             <p class="collapsible active"> </p>
-             <figure id="_97ec68f1-13df-2fec-f96e-412fe9940eff" class="sourcecode hidable" spellcheck="false" translation="no">
-                <table class="rouge-line-table">
-                   <tbody>
-                      <tr>
-                         <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;" class="rouge-gutter gl">
-                            <pre>1</pre>
-                         </td>
-                         <td style="" class="rouge-code">
-                            <pre class="sourcecode" spellcheck="false" translation="no">
-                               <span class="nl">"time"</span>
-                               <span class="w"> </span>
-                               <span class="p">:</span>
-                               <span class="w"> </span>
-                               <span class="p">{</span>
-                            </pre>
-                         </td>
-                      </tr>
-                   </tbody>
-                </table>
-             </figure>
+                </summary>
+                <figure id="samplecode" class="sourcecode" spellcheck="false" translation="no">
+                   <pre>
+                      <br/>
+                             
+                      <br/>
+                               puts x
+                      <br/>
+                           
+                   </pre>
+                </figure>
+             </details>
+             <details open="open">
+                <figure class="sourcecode" spellcheck="false" translation="no">
+                   <pre>
+                      Hey
+                      <br/>
+                             Que?
+                   </pre>
+                </figure>
+             </details>
+             <details open="open">
+                <figure id="_97ec68f1-13df-2fec-f96e-412fe9940eff" class="sourcecode" spellcheck="false" translation="no">
+                   <table class="rouge-line-table">
+                      <tbody>
+                         <tr>
+                            <td style="-moz-user-select: none;-ms-user-select: none;-webkit-user-select: none;user-select: none;;" class="rouge-gutter gl">
+                               <pre>1</pre>
+                            </td>
+                            <td style="" class="rouge-code">
+                               <pre class="sourcecode" spellcheck="false" translation="no">
+                                  <span class="nl">"time"</span>
+                                  <span class="w"> </span>
+                                  <span class="p">:</span>
+                                  <span class="w"> </span>
+                                  <span class="p">{</span>
+                               </pre>
+                            </td>
+                         </tr>
+                      </tbody>
+                   </table>
+                </figure>
+             </details>
           </div>
        </main>
     OUTPUT
@@ -1272,57 +1273,60 @@ RSpec.describe IsoDoc::Ogc do
             </iso-standard>
     OUTPUT
     html = <<~OUTPUT
-         <main class="main-section">
-         <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
-         <br/>
-         <br/>
-         <div id="A">
-            <h1 class="ForewordTitle">
-               <a class="anchor" href="#A"/>
-               <a class="header" href="#A"/>
-            </h1>
-            <p class="collapsible active"> </p>
-            <figure id="figureA-1" class="figure hidable" style="page-break-after: avoid;page-break-inside: avoid;">
-               <img src="data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7" height="20" width="20"/>
-               <img src="data:application/xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+Cjw/eG1sLXN0eWxlc2hlZXQgdHlwZT0idGV4dC94c2wiIGhyZWY9Ii4uLy4uLy4uL3hzbC9yZXNfZG9jL2ltZ2ZpbGUueHNsIj8+CjwhRE9DVFlQRSBpbWdmaWxlLmNvbnRlbnQgU1lTVEVNICIuLi8uLi8uLi9kdGQvdGV4dC5lbnQiPgo8aW1nZmlsZS5jb250ZW50IG1vZHVsZT0iZnVuZGFtZW50YWxzX29mX3Byb2R1Y3RfZGVzY3JpcHRpb25fYW5kX3N1cHBvcnQiIGZpbGU9ImFjdGlvbl9zY2hlbWFleHBnMS54bWwiPgo8aW1nIHNyYz0iYWN0aW9uX3NjaGVtYWV4cGcxLmdpZiI+CjxpbWcuYXJlYSBzaGFwZT0icmVjdCIgY29vcmRzPSIyMTAsMTg2LDM0MywyMjciIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9iYXNpY19hdHRyaWJ1dGVfc2NoZW1hL2Jhc2ljX2F0dHJpYnV0ZV9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMTAsMTAsOTYsNTEiIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9hY3Rpb25fc2NoZW1hL2FjdGlvbl9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMjEwLDI2NCwzNTgsMzA1IiBocmVmPSIuLi8uLi9yZXNvdXJjZXMvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEueG1sIiAvPgo8L2ltZz4KPC9pbWdmaWxlLmNvbnRlbnQ+Cg==" height="20" width="0"/>
-               <div class="figdl">
-                  <dl>
-                     <dt>
-                        <p>A</p>
-                     </dt>
-                     <dd>
-                        <p>B</p>
-                     </dd>
-                  </dl>
-               </div>
-               <div class="BlockSource">
-                  <p>
-                     [SOURCE:
-                     <a href="#ISO712">ISO 712, Section 1</a>
-                     — with adjustments ;
-                     <a href="#ISO712">ISO 712, Section 2</a>
-                     ]
-                  </p>
-               </div>
-            <figcaption>
-               Figure 1 — Split-it-right
-               <i>sample</i>
-               divider
-            </figcaption>
-            </figure>
-            <p class="collapsible active"> </p>
-            <figure id="figure-B" class="figure hidable">
-               <pre>A &lt;
-        B</pre>
-            <figcaption>Figure 2</figcaption>
-            </figure>
-            <p class="collapsible active"> </p>
-            <figure id="figure-C" class="figure hidable">
-               <pre>A &lt;
-        B</pre>
-            </figure>
-         </div>
-      </main>
+       <main class="main-section">
+          <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+          <br/>
+          <br/>
+          <div id="A">
+             <h1 class="ForewordTitle">
+                <a class="anchor" href="#A"/>
+                <a class="header" href="#A"/>
+             </h1>
+             <details open="open">
+                <summary>
+                   Figure 1 — Split-it-right
+                   <i>sample</i>
+                   divider
+                </summary>
+                <figure id="figureA-1" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
+                   <img src="data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7" height="20" width="20"/>
+                   <img src="data:application/xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+Cjw/eG1sLXN0eWxlc2hlZXQgdHlwZT0idGV4dC94c2wiIGhyZWY9Ii4uLy4uLy4uL3hzbC9yZXNfZG9jL2ltZ2ZpbGUueHNsIj8+CjwhRE9DVFlQRSBpbWdmaWxlLmNvbnRlbnQgU1lTVEVNICIuLi8uLi8uLi9kdGQvdGV4dC5lbnQiPgo8aW1nZmlsZS5jb250ZW50IG1vZHVsZT0iZnVuZGFtZW50YWxzX29mX3Byb2R1Y3RfZGVzY3JpcHRpb25fYW5kX3N1cHBvcnQiIGZpbGU9ImFjdGlvbl9zY2hlbWFleHBnMS54bWwiPgo8aW1nIHNyYz0iYWN0aW9uX3NjaGVtYWV4cGcxLmdpZiI+CjxpbWcuYXJlYSBzaGFwZT0icmVjdCIgY29vcmRzPSIyMTAsMTg2LDM0MywyMjciIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9iYXNpY19hdHRyaWJ1dGVfc2NoZW1hL2Jhc2ljX2F0dHJpYnV0ZV9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMTAsMTAsOTYsNTEiIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9hY3Rpb25fc2NoZW1hL2FjdGlvbl9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMjEwLDI2NCwzNTgsMzA1IiBocmVmPSIuLi8uLi9yZXNvdXJjZXMvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEueG1sIiAvPgo8L2ltZz4KPC9pbWdmaWxlLmNvbnRlbnQ+Cg==" height="20" width="0"/>
+                   <div class="figdl">
+                      <dl>
+                         <dt>
+                            <p>A</p>
+                         </dt>
+                         <dd>
+                            <p>B</p>
+                         </dd>
+                      </dl>
+                   </div>
+                   <div class="BlockSource">
+                      <p>
+                         [SOURCE:
+                         <a href="#ISO712">ISO 712, Section 1</a>
+                         — with adjustments ;
+                         <a href="#ISO712">ISO 712, Section 2</a>
+                         ]
+                      </p>
+                   </div>
+                </figure>
+             </details>
+             <details open="open">
+                <summary>Figure 2</summary>
+                <figure id="figure-B" class="figure">
+                   <pre>A &lt;
+         B</pre>
+                </figure>
+             </details>
+             <details open="open">
+                <figure id="figure-C" class="figure">
+                   <pre>A &lt;
+         B</pre>
+                </figure>
+             </details>
+          </div>
+       </main>
     OUTPUT
     FileUtils.rm_f "test.html"
     IsoDoc::Ogc::HtmlConvert.new({ filename: "test" })

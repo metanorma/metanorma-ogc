@@ -427,7 +427,7 @@ p.Biblio, p.NormRef, div.Biblio, div.NormRef {
 
 /* Blocks */
 
-.SourceTitle, figcaption {
+.SourceTitle, figcaption, summary {
   @include blockTitle();
 }
 

@@ -153,13 +153,25 @@ module IsoDoc
         collapsible(super)
       end
 
+      # KILL
       def collapsible(html)
         x = html.xpath("//*[@class = 'sourcecode' or @class = 'figure']") -
           html.xpath("//*[@class = 'sourcecode' or @class = 'figure']" \
-            "//*[@class = 'sourcecode' or @class = 'figure']")
+                     "//*[@class = 'sourcecode' or @class = 'figure']")
         x.each do |d|
           d["class"] += " hidable"
           d.previous = "<p class='collapsible active'>&#xa0;</p>"
+        end
+        html
+      end
+
+      # captures both figures proper and sourcecode snippets
+      def collapsible(html)
+        x = html.xpath("//figure") - html.xpath("//figure//figure")
+        x.each do |d|
+          d.wrap("<details open='open'></details>")
+          c = d.at("./figcaption")&.remove and
+            d.previous = "<summary>#{to_xml(c.children)}</summary>"
         end
         html
       end
