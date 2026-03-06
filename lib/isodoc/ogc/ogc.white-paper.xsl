@@ -147,12 +147,8 @@
 						<xsl:for-each select=".//mn:page_sequence[parent::*[self::mn:preface or self::mn:boilerplate]][normalize-space() != '' or .//mn:image or .//*[local-name() = 'svg']]">
 
 							<!-- Copyright, Content, Foreword, etc. pages -->
-							<fo:page-sequence master-reference="document" force-page-count="no-force">
-
-								<xsl:attribute name="master-reference">
-									<xsl:text>document</xsl:text>
-									<xsl:call-template name="getPageSequenceOrientation"/>
-								</xsl:attribute>
+							<fo:page-sequence xsl:use-attribute-sets="page-sequence-preface">
+								<xsl:call-template name="refine_page-sequence-preface"/>
 
 								<xsl:call-template name="insertFootnoteSeparatorCommon"/>
 
@@ -182,16 +178,8 @@
 						<xsl:for-each select=".//mn:page_sequence[not(parent::*[self::mn:preface or self::mn:boilerplate])][normalize-space() != '' or .//mn:image or .//*[local-name() = 'svg']]">
 
 							<!-- Document Pages -->
-							<fo:page-sequence master-reference="document" format="1" force-page-count="no-force">
-
-								<xsl:attribute name="master-reference">
-									<xsl:text>document</xsl:text>
-									<xsl:call-template name="getPageSequenceOrientation"/>
-								</xsl:attribute>
-
-								<xsl:if test="position() = 1">
-									<xsl:attribute name="initial-page-number">1</xsl:attribute>
-								</xsl:if>
+							<fo:page-sequence xsl:use-attribute-sets="page-sequence-main">
+								<xsl:call-template name="refine_page-sequence-main"/>
 
 								<xsl:call-template name="insertFootnoteSeparatorCommon"/>
 
@@ -399,7 +387,7 @@
 								</xsl:if>
 								<xsl:apply-templates select="mnx:title"/>
 								<fo:inline keep-together.within-line="always">
-									<fo:leader xsl:use-attribute-sets="toc-leader-style"/>
+									<fo:leader xsl:use-attribute-sets="toc-leader-style"><xsl:call-template name="refine_toc-leader-style"/></fo:leader>
 									<fo:inline xsl:use-attribute-sets="toc-pagenumber-style"><fo:page-number-citation ref-id="{@id}"/></fo:inline>
 								</fo:inline>
 							</fo:basic-link>
@@ -420,7 +408,7 @@
 								<fo:basic-link internal-destination="{@id}" fox:alt-text="{mn:fmt-name}">
 									<xsl:apply-templates select="mn:fmt-name" mode="contents"/>
 									<fo:inline keep-together.within-line="always">
-										<fo:leader xsl:use-attribute-sets="toc-leader-style"/>
+										<fo:leader xsl:use-attribute-sets="toc-leader-style"><xsl:call-template name="refine_toc-leader-style"/></fo:leader>
 										<fo:page-number-citation ref-id="{@id}"/>
 									</fo:inline>
 								</fo:basic-link>
@@ -1009,20 +997,38 @@
 	</xsl:variable>
 
 	<xsl:attribute-set name="page-sequence-preface">
-		<xsl:attribute name="format">i</xsl:attribute>
-	</xsl:attribute-set>
+		<xsl:attribute name="master-reference">document</xsl:attribute>
+		<xsl:attribute name="force-page-count">no-force</xsl:attribute>
+	</xsl:attribute-set> <!-- page-sequence-preface -->
 
 	<xsl:template name="refine_page-sequence-preface">
 		<xsl:param name="layoutVersion"/>
-	</xsl:template>
+		<xsl:param name="doctype"/>
+		<xsl:param name="num"/>
+		<xsl:param name="skip_force_page_count">false</xsl:param>
+		<xsl:attribute name="master-reference">
+			<xsl:text>document</xsl:text>
+			<xsl:call-template name="getPageSequenceOrientation"/>
+		</xsl:attribute>
+	</xsl:template> <!-- refine_page-sequence-preface -->
 
 	<xsl:attribute-set name="page-sequence-main">
-
-	</xsl:attribute-set>
+		<xsl:attribute name="master-reference">document</xsl:attribute>
+		<xsl:attribute name="force-page-count">no-force</xsl:attribute>
+		<xsl:attribute name="format">1</xsl:attribute>
+	</xsl:attribute-set> <!-- page-sequence-main -->
 
 	<xsl:template name="refine_page-sequence-main">
 		<xsl:param name="layoutVersion"/>
-	</xsl:template>
+		<xsl:param name="doctype"/>
+		<xsl:attribute name="master-reference">
+			<xsl:text>document</xsl:text>
+			<xsl:call-template name="getPageSequenceOrientation"/>
+		</xsl:attribute>
+		<xsl:if test="position() = 1">
+			<xsl:attribute name="initial-page-number">1</xsl:attribute>
+		</xsl:if>
+	</xsl:template> <!-- refine_page-sequence-main -->
 
 	<xsl:variable name="font_noto_sans">Noto Sans, Noto Sans HK, Noto Sans JP, Noto Sans KR, Noto Sans SC, Noto Sans TC</xsl:variable>
 	<xsl:variable name="font_noto_sans_mono">Noto Sans Mono, Noto Sans Mono CJK HK, Noto Sans Mono CJK JP, Noto Sans Mono CJK KR, Noto Sans Mono CJK SC, Noto Sans Mono CJK TC</xsl:variable>
@@ -13806,16 +13812,17 @@
 	<!-- insert fo:basic-link, if external-destination or internal-destination is non-empty, otherwise insert fo:inline -->
 	<xsl:template name="insert_basic_link">
 		<xsl:param name="element"/>
+		<xsl:param name="wrapper">true</xsl:param>
 		<xsl:variable name="element_node" select="xalan:nodeset($element)"/>
 		<xsl:variable name="external-destination" select="normalize-space(count($element_node/fo:basic-link/@external-destination[. != '']) = 1)"/>
 		<xsl:variable name="internal-destination" select="normalize-space(count($element_node/fo:basic-link/@internal-destination[. != '']) = 1)"/>
 		<xsl:choose>
-			<xsl:when test="$internal-destination = 'true'">
+			<xsl:when test="$internal-destination = 'true' and $wrapper = 'true'">
 				<fo:wrapper role="Reference">
 					<xsl:copy-of select="$element_node"/>
 				</fo:wrapper>
 			</xsl:when>
-			<xsl:when test="$external-destination = 'true'">
+			<xsl:when test="$internal-destination = 'true' or $external-destination = 'true'">
 				<xsl:copy-of select="$element_node"/>
 			</xsl:when>
 			<xsl:otherwise>
