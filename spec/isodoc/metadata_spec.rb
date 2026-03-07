@@ -5,14 +5,21 @@ logoloc = File.expand_path(
             "lib", "isodoc", "ogc", "html"),
 )
 
-logo_2026_svg = File.read(File.join(logoloc, "Logos_2026", "1_Blue_Logos", "OGC-new-logo.svg"))
+logo_2026_svg = File.read(File.join(logoloc, "Logos_2026", "1_Blue_Logos",
+                                    "OGC-new-logo.svg"))
+  .sub("<svg ", '<svg preserveaspectratio="xMidYMin slice" ')
+logo_2026_white_svg = File.read(File.join(logoloc, "Logos_2026",
+                                          "3_Reverse_Logos", "OGC-new-logo-white.svg"))
   .sub("<svg ", '<svg preserveaspectratio="xMidYMin slice" ')
 logo_2026_png = File.join(logoloc, "Logos_2026", "1_Blue_Logos",
                           "OGC-new-logo.png")
 logo_2022_svg = File.read(File.join(logoloc, "logo.2021.svg"))
   .sub("<svg ", '<svg preserveaspectratio="xMidYMin slice" ')
+logo_2022_white_svg = File.read(File.join(logoloc, "logo.2021-white.svg"))
+  .sub("<svg ", '<svg preserveaspectratio="xMidYMin slice" ')
 logo_2022_png = File.join(logoloc, "logo.2021.png")
-logo_2018_png = File.join(logoloc, "logo.png")
+logo_2018_png = File.join(logoloc, "logo.2018.png")
+logo_2018_white_png = File.join(logoloc, "logo.2018-white.png")
 
 RSpec.describe IsoDoc::Ogc do
   it "processes default metadata" do
@@ -256,6 +263,8 @@ RSpec.describe IsoDoc::Ogc do
     docxml, = csdc.convert_init(pres_output, "test", true)
     m = metadata(csdc.info(docxml, nil))
     m.delete(:logo_html)
+    m.delete(:logo_html_white)
+    m.delete(:logo_html_blue)
     m.delete(:logo_word)
     expect(m).to be_equivalent_to output
 
@@ -308,9 +317,14 @@ RSpec.describe IsoDoc::Ogc do
           <organization>
              <name>Open Geospatial Consortium</name>
              <abbreviation>OGC</abbreviation>
-             <logo type="html">
+             <logo type="html-blue">
                 <image src="" mimetype="image/svg+xml">
             #{logo_2026_svg}
+            </image>
+            </logo>
+             <logo type="html-white">
+                <image src="" mimetype="image/svg+xml">
+            #{logo_2026_white_svg}
             </image>
             </logo>
             <logo type="word">
@@ -327,11 +341,9 @@ RSpec.describe IsoDoc::Ogc do
       .to be_equivalent_to Canon.format_xml(presxml)
     docxml, = csdc.convert_init(pres_output, "test", true)
     m = metadata(csdc.info(docxml, nil))
-    expect(m[:logo_html]).to be_equivalent_to <<~XML
-      <img src="" mimetype="image/svg+xml">
-      #{logo_2026_svg}
-      </img>
-    XML
+    expect(m[:logo_html]).to be_equivalent_to logo_2026_white_svg
+    expect(m[:logo_html_white]).to be_equivalent_to logo_2026_white_svg
+    expect(m[:logo_html_blue]).to be_equivalent_to logo_2026_svg
     expect(m[:logo_word])
       .to be_equivalent_to logo_2026_png
   end
@@ -366,9 +378,14 @@ RSpec.describe IsoDoc::Ogc do
           <organization>
              <name>Open Geospatial Consortium</name>
              <abbreviation>OGC</abbreviation>
-             <logo type="html">
+             <logo type="html-blue">
                 <image src="" mimetype="image/svg+xml">
             #{logo_2022_svg}
+            </image>
+            </logo>
+             <logo type="html-white">
+                <image src="" mimetype="image/svg+xml">
+            #{logo_2022_white_svg}
             </image>
             </logo>
             <logo type="word">
@@ -384,11 +401,9 @@ RSpec.describe IsoDoc::Ogc do
       .to be_equivalent_to Canon.format_xml(presxml)
     docxml, = csdc.convert_init(pres_output, "test", true)
     m = metadata(csdc.info(docxml, nil))
-    expect(m[:logo_html]).to be_equivalent_to <<~XML
-      <img src="" mimetype="image/svg+xml">
-      #{logo_2022_svg}
-      </img>
-    XML
+    expect(m[:logo_html]).to be_equivalent_to logo_2022_svg
+    expect(m[:logo_html_blue]).to be_equivalent_to logo_2022_svg
+    expect(m[:logo_html_white]).to be_equivalent_to logo_2022_white_svg
     expect(m[:logo_word]).to be_equivalent_to logo_2022_png
   end
 
@@ -422,8 +437,11 @@ RSpec.describe IsoDoc::Ogc do
          <organization>
             <name>Open Geospatial Consortium</name>
             <abbreviation>OGC</abbreviation>
-            <logo type="html">
+            <logo type="html-blue">
                <image src="#{logo_2018_png}" mimetype="image/png"/>
+           </logo>
+            <logo type="html-white">
+               <image src="#{logo_2018_white_png}" mimetype="image/png"/>
            </logo>
            <logo type="word">
                <image src="#{logo_2018_png}" mimetype="image/png"/>
@@ -441,6 +459,12 @@ RSpec.describe IsoDoc::Ogc do
     m = metadata(csdc.info(docxml, nil))
     expect(m[:logo_html]).to be_equivalent_to <<~XML
       <img src="#{logo_2018_png}" mimetype="image/png"/>
+    XML
+    expect(m[:logo_html_blue]).to be_equivalent_to <<~XML
+      <img src="#{logo_2018_png}" mimetype="image/png"/>
+    XML
+    expect(m[:logo_html_white]).to be_equivalent_to <<~XML
+      <img src="#{logo_2018_white_png}" mimetype="image/png"/>
     XML
     expect(m[:logo_word])
       .to be_equivalent_to logo_2018_png
@@ -475,9 +499,14 @@ RSpec.describe IsoDoc::Ogc do
          <organization>
             <name>Open Geospatial Consortium</name>
             <abbreviation>OGC</abbreviation>
-            <logo type="html">
+            <logo type="html-blue">
                <image src="" mimetype="image/svg+xml">
            #{logo_2026_svg}
+           </image>
+           </logo>
+            <logo type="html-white">
+               <image src="" mimetype="image/svg+xml">
+           #{logo_2026_white_svg}
            </image>
            </logo>
            <logo type="word">
@@ -494,11 +523,7 @@ RSpec.describe IsoDoc::Ogc do
       .to be_equivalent_to Canon.format_xml(presxml)
     docxml, = csdc.convert_init(pres_output, "test", true)
     m = metadata(csdc.info(docxml, nil))
-    expect(m[:logo_html]).to be_equivalent_to <<~XML
-      <img src="" mimetype="image/svg+xml">
-      #{logo_2026_svg}
-      </img>
-    XML
+    expect(m[:logo_html]).to be_equivalent_to logo_2026_white_svg
     expect(m[:logo_word])
       .to be_equivalent_to logo_2026_png
   end

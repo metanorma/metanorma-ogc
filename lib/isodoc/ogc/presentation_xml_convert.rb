@@ -52,17 +52,20 @@ module IsoDoc
         case date
         when "2018"
           <<~XML
-            <logo type="html"><image src="#{File.join(@libdir, 'html', 'logo.png')}" mimetype="image/png"/></logo>
-            <logo type="word"><image src="#{File.join(@libdir, 'html', 'logo.png')}" mimetype="image/png"/></logo>
+            <logo type="html-blue"><image src="#{File.join(@libdir, 'html', 'logo.2018.png')}" mimetype="image/png"/></logo>
+            <logo type="html-white"><image src="#{File.join(@libdir, 'html', 'logo.2018-white.png')}" mimetype="image/png"/></logo>
+            <logo type="word"><image src="#{File.join(@libdir, 'html', 'logo.2018.png')}" mimetype="image/png"/></logo>
           XML
         when "2022"
           <<~XML
-            <logo type="html"><image src="" mimetype="image/svg+xml">#{svg_load('', 'logo.2021.svg')}</image></logo>
+            <logo type="html-blue"><image src="" mimetype="image/svg+xml">#{svg_load('', 'logo.2021.svg')}</image></logo>
+            <logo type="html-white"><image src="" mimetype="image/svg+xml">#{svg_load('', 'logo.2021-white.svg')}</image></logo>
             <logo type="word"><image src="#{File.join(@libdir, 'html', 'logo.2021.png')}" mimetype="image/png"/></logo>
           XML
         else # "2026"
           <<~XML
-            <logo type="html"><image src="" mimetype="image/svg+xml">#{svg_load(%w(Logos_2026 1_Blue_Logos), 'OGC-new-logo.svg')}</image></logo>
+            <logo type="html-blue"><image src="" mimetype="image/svg+xml">#{svg_load(%w(Logos_2026 1_Blue_Logos), 'OGC-new-logo.svg')}</image></logo>
+            <logo type="html-white"><image src="" mimetype="image/svg+xml">#{svg_load(%w(Logos_2026 3_Reverse_Logos), 'OGC-new-logo-white.svg')}</image></logo>
             <logo type="word"><image src="#{File.join(@libdir, 'html', 'Logos_2026', '1_Blue_Logos', 'OGC-new-logo.png')}" mimetype="image/png"/></logo>
           XML
         end

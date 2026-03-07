@@ -40,6 +40,12 @@ module IsoDoc
         c = "//contributor[role/@type = 'publisher']/" \
             "organization[abbreviation = 'OGC']/logo"
         image_html(xml, c)
+        image_html_reverse(xml, c)
+        docscheme = xml.at(ns("//presentation-metadata/document-scheme"))&.text
+        case docscheme
+        when "2026", nil then set(:logo_html, get[:logo_html_white])
+        else set(:logo_html, get[:logo_html_blue])
+        end
         image_word(xml, c)
       end
 
@@ -54,15 +60,33 @@ module IsoDoc
       end
 
       def image_html(xml, contrib)
-        if logo = xml.at(ns("#{contrib}[@type = 'html']"))
-          set(:logo_html,
-              logo.children.to_xml.sub("<image", "<img")
-                  .sub("</image>", "</img>"))
+        logo = xml.at(ns("#{contrib}[@type = 'html-blue']/image"))
+        img = logo&.at("./*[local-name() = 'svg']") || logo
+        if img
+          set(:logo_html_blue, img_mn2html(img))
         else
           src = File.expand_path(File.join(File.dirname(__FILE__), "html",
-                                           - "logo.png"))
-          set(:logo_html, "<img src='#{src}'/>")
+                                           - "logo.2018.png"))
+          set(:logo_html_blue,
+              "<img src='#{src}' alt='Open Geospatial Consortium'/>")
         end
+      end
+
+      def image_html_reverse(xml, contrib)
+        logo = xml.at(ns("#{contrib}[@type = 'html-white']/image"))
+        img = logo&.at("./*[local-name() = 'svg']") || logo
+        if img
+          set(:logo_html_white, img_mn2html(img))
+        else
+          src = File.expand_path(File.join(File.dirname(__FILE__), "html",
+                                           - "logo.2018-white.png"))
+          set(:logo_html_white,
+              "<img src='#{src}' alt='Open Geospatial Consortium'/>")
+        end
+      end
+
+      def img_mn2html(img)
+        img.to_xml.sub("<image", "<img").sub("</image>", "</img>")
       end
 
       def title(isoxml, _out)
