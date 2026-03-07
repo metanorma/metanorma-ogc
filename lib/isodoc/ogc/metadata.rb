@@ -36,27 +36,43 @@ module IsoDoc
     }.freeze
 
     class Metadata < IsoDoc::Metadata
-      def logo_old
-        File.expand_path(File.join(File.dirname(__FILE__), "html", "logo.png"))
+      def images(xml, _out)
+        c = "//contributor[role/@type = 'publisher']/" \
+            "organization[abbreviation = 'OGC']/logo"
+        image_html(xml, c)
+        image_word(xml, c)
       end
 
-      def logo_new
-        File.expand_path(File.join(File.dirname(__FILE__), "html",
-                                   "logo.2021.svg"))
+      def image_word(xml, contrib)
+        if logo = xml.at(ns("#{contrib}[@type = 'word']"))
+          set(:logo_word, logo.elements.first["src"])
+        else
+          src = File.expand_path(File.join(File.dirname(__FILE__), "html",
+                                           "logo.png"))
+          set(:logo_word, src)
+        end
       end
 
-      def images(_isoxml, _out)
-        set(:logo_old, logo_old)
-        set(:logo_new, logo_new)
+      def image_html(xml, contrib)
+        if logo = xml.at(ns("#{contrib}[@type = 'html']"))
+          set(:logo_html,
+              logo.children.to_xml.sub("<image", "<img")
+                  .sub("</image>", "</img>"))
+        else
+          src = File.expand_path(File.join(File.dirname(__FILE__), "html",
+                                           - "logo.png"))
+          set(:logo_html, "<img src='#{src}'/>")
+        end
       end
 
       def title(isoxml, _out)
         main = isoxml.at(ns("//bibdata/title[@language='en']"))
           &.children&.to_xml
         set(:doctitle, main)
-        main = isoxml.at(ns("//bibdata/abstract"))
-          &.text&.strip&.gsub(/\s+/, " ")
-        set(:abstract, main)
+        if main = isoxml.at(ns("//bibdata/abstract"))
+          main = main.text.strip.gsub(/\s+/, " ")
+          set(:abstract, main)
+        end
       end
 
       def subtitle(_isoxml, _out)
@@ -65,7 +81,7 @@ module IsoDoc
 
       def author(isoxml, _out)
         tc = isoxml.at(ns("//bibdata/contributor[role/@type='author']/" \
-          "organization/subdivision[@type='Committee']/name"))
+                          "organization/subdivision[@type='Committee']/name"))
         set(:tc, tc.text) if tc
         authors = isoxml.xpath(ns("//bibdata/contributor" \
                                   "[role/@type = 'author']/person"))
@@ -149,18 +165,6 @@ module IsoDoc
           isoxml.xpath(ns("//bibdata/date[@type = 'issued']/from")) ||
           isoxml.xpath(ns("//bibdata/date/from")) ||
           isoxml.xpath(ns("//bibdata/date/on"))
-      end
-
-      def bibdate(isoxml, _out)
-        super
-        d = docdate(isoxml)
-        begin
-          old = d.nil? || d.empty? ||
-            DateTime.iso8601("2021-11-08") > DateTime.parse(d.text)
-        rescue StandardError
-          old = false
-        end
-        set(:logo_word, old ? logo_old : logo_new)
       end
 
       def presentation(xml, _out)

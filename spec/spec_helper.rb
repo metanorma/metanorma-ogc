@@ -109,7 +109,7 @@ METANORMA_EXTENSION = <<~"HDR".freeze
                 <stage-published>true</stage-published>
              </semantic-metadata>
              <presentation-metadata>
-                <document-scheme>2022</document-scheme>
+                <document-scheme>2026</document-scheme>
          <color-admonition-caution>rgb(79, 129, 189)</color-admonition-caution>
          <color-admonition-editor>rgb(79, 129, 189)</color-admonition-editor>
          <color-admonition-important>rgb(79, 129, 189)</color-admonition-important>
