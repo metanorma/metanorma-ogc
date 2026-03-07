@@ -97,7 +97,7 @@ module IsoDoc
         ret = Relaton::Render::Ogc::General
           .new(template: { book: "{{ creatornames }}" })
           .render_all("<references><bibitem type='book'>#{contrib.to_xml}</bibitem></references>")
-ret[nil][:citation][:author]
+        ret[nil][:citation][:author]
       end
 
       def dochistory_description(item)

@@ -162,9 +162,11 @@ border-radius: 0 0 1em 0;
     margin-left: 1em;
 }
 
-.coverpage-logo img {
+.coverpage-logo img, .coverpage-logo svg {
   width: 500px;
   height: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .coverpage-tc-name {

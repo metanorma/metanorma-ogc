@@ -5,6 +5,22 @@ logoloc = File.expand_path(
             "lib", "isodoc", "ogc", "html"),
 )
 
+logo_2026_svg = File.read(File.join(logoloc, "Logos_2026", "1_Blue_Logos",
+                                    "OGC-new-logo.svg"))
+  .sub("<svg ", '<svg preserveaspectratio="xMidYMin slice" ')
+logo_2026_white_svg = File.read(File.join(logoloc, "Logos_2026",
+                                          "3_Reverse_Logos", "OGC-new-logo-white.svg"))
+  .sub("<svg ", '<svg preserveaspectratio="xMidYMin slice" ')
+logo_2026_png = File.join(logoloc, "Logos_2026", "1_Blue_Logos",
+                          "OGC-new-logo.png")
+logo_2022_svg = File.read(File.join(logoloc, "logo.2021.svg"))
+  .sub("<svg ", '<svg preserveaspectratio="xMidYMin slice" ')
+logo_2022_white_svg = File.read(File.join(logoloc, "logo.2021-white.svg"))
+  .sub("<svg ", '<svg preserveaspectratio="xMidYMin slice" ')
+logo_2022_png = File.join(logoloc, "logo.2021.png")
+logo_2018_png = File.join(logoloc, "logo.2018.png")
+logo_2018_white_png = File.join(logoloc, "logo.2018-white.png")
+
 RSpec.describe IsoDoc::Ogc do
   it "processes default metadata" do
     csdc = IsoDoc::Ogc::HtmlConvert.new({})
@@ -35,7 +51,8 @@ RSpec.describe IsoDoc::Ogc do
         <contributor>
           <role type="author"/>
           <organization>
-            <name>OGC</name>
+            <name>Open Geospatial Consortium</name>
+            <abbreviation>OGC</abbreviation>
           </organization>
         </contributor>
         <contributor>
@@ -103,7 +120,8 @@ RSpec.describe IsoDoc::Ogc do
         <contributor>
           <role type="publisher"/>
           <organization>
-            <name>OGC</name>
+            <name>Open Geospatial Consortium</name>
+            <abbreviation>OGC</abbreviation>
           </organization>
         </contributor>
         <edition>2.0</edition>
@@ -118,7 +136,8 @@ RSpec.describe IsoDoc::Ogc do
           <from>2001</from>
           <owner>
             <organization>
-              <name>OGC</name>
+            <name>Open Geospatial Consortium</name>
+            <abbreviation>OGC</abbreviation>
             </organization>
           </owner>
         </copyright>
@@ -151,7 +170,7 @@ RSpec.describe IsoDoc::Ogc do
         </editorialgroup>
         </ext>
       </bibdata>
-      #{METANORMA_EXTENSION.sub("<stage-published>true", "<stage-published>false")}
+      #{METANORMA_EXTENSION.sub('<stage-published>true', '<stage-published>false')}
       <sections/>
       </ogc-standard>
     INPUT
@@ -166,7 +185,7 @@ RSpec.describe IsoDoc::Ogc do
         circulateddate: "XXX",
         confirmeddate: "XXX",
         copieddate: "XXX",
-        copyright_holder: "OGC, ISO, and IEC",
+        copyright_holder: "Open Geospatial Consortium, ISO, and IEC",
         correcteddate: "XXX",
         createddate: "1999-01-01",
         doc: "http://www.example.com/doc",
@@ -182,6 +201,7 @@ RSpec.describe IsoDoc::Ogc do
         draft: "3.4",
         draftinfo: " (draft 3.4, 2000-01-01)",
         edition: "2.0",
+        edition_display: "edition 2.0",
         editors: ["Fred Flintstone"],
         externalid: "http://www.example2.com",
         html: "http://www.example.com/html",
@@ -189,9 +209,6 @@ RSpec.describe IsoDoc::Ogc do
         issueddate: "2001-01-01",
         keywords: ["A", "B"],
         lang: "en",
-        logo_new: File.join(logoloc, "logo.2021.svg"),
-        logo_old: File.join(logoloc, "logo.png"),
-        logo_word: File.join(logoloc, "logo.png"),
         obsoleteddate: "XXX",
         pdf: "http://www.example.com/pdf",
         "presentation_metadata_color-admonition-caution": ["rgb(79, 129, 189)"],
@@ -217,12 +234,12 @@ RSpec.describe IsoDoc::Ogc do
         "presentation_metadata_color-text": ["rgb(88, 89, 91)"],
         "presentation_metadata_color-text-title": ["rgb(33, 55, 92)"],
         "presentation_metadata_doc-toc-heading-levels": ["2"],
-        "presentation_metadata_document-scheme": ["2022"],
+        "presentation_metadata_document-scheme": ["2026"],
         "presentation_metadata_html-toc-heading-levels": ["2"],
         "presentation_metadata_pdf-toc-heading-levels": ["2"],
         "presentation_metadata_toc-heading-levels": ["2"],
         publisheddate: "2002-01-01",
-        publisher: "OGC",
+        publisher: "Open Geospatial Consortium",
         receiveddate: "XXX",
         revdate: "2000-01-01",
         revdate_monthyear: "January 2000",
@@ -240,9 +257,16 @@ RSpec.describe IsoDoc::Ogc do
         vote_endeddate: "XXX",
         vote_starteddate: "XXX",
         xml: "http://www.example.com/xml" }
-    docxml, = csdc.convert_init(input, "test", true)
-    expect(metadata(csdc.info(docxml, nil)))
-      .to be_equivalent_to output
+
+    pres_output = IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)
+    docxml, = csdc.convert_init(pres_output, "test", true)
+    m = metadata(csdc.info(docxml, nil))
+    m.delete(:logo_html)
+    m.delete(:logo_html_white)
+    m.delete(:logo_html_blue)
+    m.delete(:logo_word)
+    expect(m).to be_equivalent_to output
 
     html = <<~HTML
        <meta name="keywords" content="A, B" /><meta name="DC.subject" lang="en" content="A, B" xml:lang="en" /><meta name="description" content="This is a description. This is a blockquote within a description." />
@@ -264,7 +288,67 @@ RSpec.describe IsoDoc::Ogc do
       .to be_equivalent_to html
   end
 
-  it "processes metadata with new logo" do
+  it "processes metadata with 2026 logo" do
+    csdc = IsoDoc::Ogc::HtmlConvert.new({})
+    input = <<~INPUT
+      <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+      <bibdata type="standard">
+        <title language="en" format="text/plain">Main Title</title>
+        <docidentifier type="ogc-external">http://www.example2.com</docidentifier>
+        <docidentifier type="ogc-internal">1000</docidentifier>
+        <docnumber>1000</docnumber>
+        <date type="published"><on>1900-01-01</on></date>
+        <contributor>
+          <role type="publisher"/>
+          <organization>
+            <name>Open Geospatial Consortium</name>
+            <abbreviation>OGC</abbreviation>
+          </organization>
+        </contributor>
+      </bibdata>
+      <metaorma-extension>
+      <presentation-metadata><document-scheme>2026</document-scheme></presentation-metadata>
+      </metaorma-extension>
+      </ogc-standard>
+    INPUT
+    presxml = <<~OUTPUT
+      <contributor>
+       <role type="publisher"/>
+          <organization>
+             <name>Open Geospatial Consortium</name>
+             <abbreviation>OGC</abbreviation>
+             <logo type="html-blue">
+                <image src="" mimetype="image/svg+xml">
+            #{logo_2026_svg}
+            </image>
+            </logo>
+             <logo type="html-white">
+                <image src="" mimetype="image/svg+xml">
+            #{logo_2026_white_svg}
+            </image>
+            </logo>
+            <logo type="word">
+                <image src="#{logo_2026_png}" mimetype="image/png"/>
+             </logo>
+          </organization>
+       </contributor>
+    OUTPUT
+
+    pres_output = IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)
+    test = Nokogiri::XML(pres_output).at("//xmlns:contributor[xmlns:role/@type='publisher']").to_xml
+    expect(Canon.format_xml(strip_guid(test)))
+      .to be_equivalent_to Canon.format_xml(presxml)
+    docxml, = csdc.convert_init(pres_output, "test", true)
+    m = metadata(csdc.info(docxml, nil))
+    expect(m[:logo_html]).to be_equivalent_to logo_2026_white_svg
+    expect(m[:logo_html_white]).to be_equivalent_to logo_2026_white_svg
+    expect(m[:logo_html_blue]).to be_equivalent_to logo_2026_svg
+    expect(m[:logo_word])
+      .to be_equivalent_to logo_2026_png
+  end
+
+  it "processes metadata with 2022 logo" do
     csdc = IsoDoc::Ogc::HtmlConvert.new({})
     input = <<~INPUT
       <ogc-standard xmlns="https://standards.opengeospatial.org/document">
@@ -274,46 +358,116 @@ RSpec.describe IsoDoc::Ogc do
         <docidentifier type="ogc-internal">1000</docidentifier>
         <docnumber>1000</docnumber>
         <date type="published">
-          <on>2030-01-01</on>
+          <on>2026-01-01</on>
         </date>
+        <contributor>
+          <role type="publisher"/>
+          <organization>
+            <name>Open Geospatial Consortium</name>
+            <abbreviation>OGC</abbreviation>
+          </organization>
+        </contributor>
       </bibdata>
+      <presentation-metadata><document-scheme>2022</document-scheme></presentation-metadata>
       </ogc-standard>
     INPUT
-    output =
-      { accesseddate: "XXX",
-        adapteddate: "XXX",
-        announceddate: "XXX",
-        circulateddate: "XXX",
-        confirmeddate: "XXX",
-        copieddate: "XXX",
-        copyright_holder: "Open Geospatial Consortium",
-        correcteddate: "XXX",
-        createddate: "XXX",
-        doclanguage: "English",
-        docnumber: "1000",
-        docnumeric: "1000",
-        doctitle: "Main Title",
-        externalid: "http://www.example2.com",
-        implementeddate: "XXX",
-        issueddate: "XXX",
-        lang: "en",
-        logo_new: File.join(logoloc, "logo.2021.svg"),
-        logo_old: File.join(logoloc, "logo.png"),
-        logo_word: File.join(logoloc, "logo.2021.svg"),
-        obsoleteddate: "XXX",
-        publisheddate: "2030-01-01",
-        receiveddate: "XXX",
-        script: "Latn",
-        stable_untildate: "XXX",
-        transmitteddate: "XXX",
-        unchangeddate: "XXX",
-        unpublished: false,
-        updateddate: "XXX",
-        vote_endeddate: "XXX",
-        vote_starteddate: "XXX" }
-    docxml, = csdc.convert_init(input, "test", true)
-    expect(metadata(csdc.info(docxml, nil)))
-      .to be_equivalent_to output
+
+    presxml = <<~OUTPUT
+      <contributor>
+       <role type="publisher"/>
+          <organization>
+             <name>Open Geospatial Consortium</name>
+             <abbreviation>OGC</abbreviation>
+             <logo type="html-blue">
+                <image src="" mimetype="image/svg+xml">
+            #{logo_2022_svg}
+            </image>
+            </logo>
+             <logo type="html-white">
+                <image src="" mimetype="image/svg+xml">
+            #{logo_2022_white_svg}
+            </image>
+            </logo>
+            <logo type="word">
+                <image src="#{logo_2022_png}" mimetype="image/png"/>
+             </logo>
+          </organization>
+       </contributor>
+    OUTPUT
+    pres_output = IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)
+    test = Nokogiri::XML(pres_output).at("//xmlns:contributor[xmlns:role/@type='publisher']").to_xml
+    expect(Canon.format_xml(strip_guid(test)))
+      .to be_equivalent_to Canon.format_xml(presxml)
+    docxml, = csdc.convert_init(pres_output, "test", true)
+    m = metadata(csdc.info(docxml, nil))
+    expect(m[:logo_html]).to be_equivalent_to logo_2022_svg
+    expect(m[:logo_html_blue]).to be_equivalent_to logo_2022_svg
+    expect(m[:logo_html_white]).to be_equivalent_to logo_2022_white_svg
+    expect(m[:logo_word]).to be_equivalent_to logo_2022_png
+  end
+
+  it "processes metadata with 2018 logo" do
+    csdc = IsoDoc::Ogc::HtmlConvert.new({})
+    input = <<~INPUT
+      <ogc-standard xmlns="https://standards.opengeospatial.org/document">
+      <bibdata type="standard">
+        <title language="en" format="text/plain">Main Title</title>
+        <docidentifier type="ogc-external">http://www.example2.com</docidentifier>
+        <docidentifier type="ogc-internal">1000</docidentifier>
+        <docnumber>1000</docnumber>
+        <date type="published"><on>2040-01-01</on></date>
+        <contributor>
+          <role type="publisher"/>
+          <organization>
+            <name>Open Geospatial Consortium</name>
+            <abbreviation>OGC</abbreviation>
+          </organization>
+        </contributor>
+      </bibdata>
+      <metaorma-extension>
+      <presentation-metadata><document-scheme>2018</document-scheme></presentation-metadata>
+      </metaorma-extension>
+      </ogc-standard>
+    INPUT
+
+    presxml = <<~OUTPUT
+         <contributor>
+      <role type="publisher"/>
+         <organization>
+            <name>Open Geospatial Consortium</name>
+            <abbreviation>OGC</abbreviation>
+            <logo type="html-blue">
+               <image src="#{logo_2018_png}" mimetype="image/png"/>
+           </logo>
+            <logo type="html-white">
+               <image src="#{logo_2018_white_png}" mimetype="image/png"/>
+           </logo>
+           <logo type="word">
+               <image src="#{logo_2018_png}" mimetype="image/png"/>
+            </logo>
+         </organization>
+      </contributor>
+    OUTPUT
+
+    pres_output = IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)
+    test = Nokogiri::XML(pres_output).at("//xmlns:contributor[xmlns:role/@type='publisher']").to_xml
+    expect(Canon.format_xml(strip_guid(test)))
+      .to be_equivalent_to Canon.format_xml(presxml)
+    docxml, = csdc.convert_init(pres_output, "test", true)
+    m = metadata(csdc.info(docxml, nil))
+    expect(m[:logo_html]).to be_equivalent_to <<~XML
+      <img src="#{logo_2018_png}" mimetype="image/png"/>
+    XML
+    expect(m[:logo_html_blue]).to be_equivalent_to <<~XML
+      <img src="#{logo_2018_png}" mimetype="image/png"/>
+    XML
+    expect(m[:logo_html_white]).to be_equivalent_to <<~XML
+      <img src="#{logo_2018_white_png}" mimetype="image/png"/>
+    XML
+    expect(m[:logo_word])
+      .to be_equivalent_to logo_2018_png
   end
 
   it "uses new logo for invalid data" do
@@ -328,43 +482,49 @@ RSpec.describe IsoDoc::Ogc do
         <date type="published">
           <on>yyyy-mm-dd</on>
         </date>
+        <contributor>
+          <role type="publisher"/>
+          <organization>
+            <name>Open Geospatial Consortium</name>
+            <abbreviation>OGC</abbreviation>
+          </organization>
+        </contributor>
       </bibdata>
       </ogc-standard>
     INPUT
-    output =
-      { accesseddate: "XXX",
-        adapteddate: "XXX",
-        announceddate: "XXX",
-        circulateddate: "XXX",
-        confirmeddate: "XXX",
-        copieddate: "XXX",
-        copyright_holder: "Open Geospatial Consortium",
-        correcteddate: "XXX",
-        createddate: "XXX",
-        doclanguage: "English",
-        docnumber: "1000",
-        docnumeric: "1000",
-        doctitle: "Main Title",
-        externalid: "http://www.example2.com",
-        implementeddate: "XXX",
-        issueddate: "XXX",
-        lang: "en",
-        logo_new: File.join(logoloc, "logo.2021.svg"),
-        logo_old: File.join(logoloc, "logo.png"),
-        logo_word: File.join(logoloc, "logo.2021.svg"),
-        obsoleteddate: "XXX",
-        publisheddate: "yyyy-mm-dd",
-        receiveddate: "XXX",
-        script: "Latn",
-        stable_untildate: "XXX",
-        transmitteddate: "XXX",
-        unchangeddate: "XXX",
-        unpublished: false,
-        updateddate: "XXX",
-        vote_endeddate: "XXX",
-        vote_starteddate: "XXX" }
-    docxml, = csdc.convert_init(input, "test", true)
-    expect(metadata(csdc.info(docxml, nil)))
-      .to be_equivalent_to output
+
+    presxml = <<~OUTPUT
+          <contributor>
+         <role type="publisher"/>
+         <organization>
+            <name>Open Geospatial Consortium</name>
+            <abbreviation>OGC</abbreviation>
+            <logo type="html-blue">
+               <image src="" mimetype="image/svg+xml">
+           #{logo_2026_svg}
+           </image>
+           </logo>
+            <logo type="html-white">
+               <image src="" mimetype="image/svg+xml">
+           #{logo_2026_white_svg}
+           </image>
+           </logo>
+           <logo type="word">
+               <image src="#{logo_2026_png}" mimetype="image/png"/>
+            </logo>
+         </organization>
+      </contributor>
+    OUTPUT
+
+    pres_output = IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)
+    test = Nokogiri::XML(pres_output).at("//xmlns:contributor[xmlns:role/@type='publisher']").to_xml
+    expect(Canon.format_xml(strip_guid(test)))
+      .to be_equivalent_to Canon.format_xml(presxml)
+    docxml, = csdc.convert_init(pres_output, "test", true)
+    m = metadata(csdc.info(docxml, nil))
+    expect(m[:logo_html]).to be_equivalent_to logo_2026_white_svg
+    expect(m[:logo_word])
+      .to be_equivalent_to logo_2026_png
   end
 end

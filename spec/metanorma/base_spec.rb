@@ -395,7 +395,69 @@ RSpec.describe Metanorma::Ogc do
       :docfile: test.adoc
       :novalid:
       :no-pdf:
+      
     INPUT
+    output = <<~OUTPUT
+       <metanorma-extension>
+          <semantic-metadata>
+             <stage-published>true</stage-published>
+          </semantic-metadata>
+          <presentation-metadata>
+             <document-scheme>2026</document-scheme>
+             <color-admonition-caution>rgb(79, 129, 189)</color-admonition-caution>
+             <color-admonition-editor>rgb(79, 129, 189)</color-admonition-editor>
+             <color-admonition-important>rgb(79, 129, 189)</color-admonition-important>
+             <color-admonition-note>rgb(79, 129, 189)</color-admonition-note>
+             <color-admonition-safety-precaution>rgb(79, 129, 189)</color-admonition-safety-precaution>
+             <color-admonition-tip>rgb(79, 129, 189)</color-admonition-tip>
+             <color-admonition-todo>rgb(79, 129, 189)</color-admonition-todo>
+             <color-admonition-warning>rgb(79, 129, 189)</color-admonition-warning>
+             <color-background-definition-description>rgb(242, 251, 255)</color-background-definition-description>
+             <color-background-definition-term>rgb(215, 243, 255)</color-background-definition-term>
+             <color-background-page>rgb(33, 55, 92)</color-background-page>
+             <color-background-table-header>rgb(33, 55, 92)</color-background-table-header>
+             <color-background-table-row-even>rgb(252, 246, 222)</color-background-table-row-even>
+             <color-background-table-row-odd>rgb(254, 252, 245)</color-background-table-row-odd>
+             <color-background-term-admitted-label>rgb(223, 236, 249)</color-background-term-admitted-label>
+             <color-background-term-deprecated-label>rgb(237, 237, 238)</color-background-term-deprecated-label>
+             <color-background-term-preferred-label>rgb(249, 235, 187)</color-background-term-preferred-label>
+             <color-background-text-label-legacy>rgb(33, 60, 107)</color-background-text-label-legacy>
+             <color-secondary-shade-1>rgb(0, 177, 255)</color-secondary-shade-1>
+             <color-secondary-shade-2>rgb(0, 177, 255)</color-secondary-shade-2>
+             <color-text>rgb(88, 89, 91)</color-text>
+             <color-text-title>rgb(33, 55, 92)</color-text-title>
+             <toc-heading-levels>2</toc-heading-levels>
+             <html-toc-heading-levels>2</html-toc-heading-levels>
+             <doc-toc-heading-levels>2</doc-toc-heading-levels>
+             <pdf-toc-heading-levels>2</pdf-toc-heading-levels>
+          </presentation-metadata>
+       </metanorma-extension>
+    OUTPUT
+    xml = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
+    xml = xml.xpath("//xmlns:metanorma-extension")
+    expect(Canon.format_xml(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Canon.format_xml(output)
+    xml = Nokogiri::XML(Asciidoctor.convert(input
+      .sub(":novalid:", ":novalid:\n:document-scheme: 2021"), *OPTIONS))
+    xml = xml.xpath("//xmlns:metanorma-extension")
+    expect(Canon.format_xml(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Canon.format_xml(output)
+    xml = Nokogiri::XML(Asciidoctor.convert(input
+      .sub(":novalid:", ":novalid:\n:copyright-year: 2027"), *OPTIONS))
+    xml = xml.xpath("//xmlns:metanorma-extension")
+    expect(Canon.format_xml(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Canon.format_xml(output)
+    xml = Nokogiri::XML(Asciidoctor.convert(input
+      .sub(":novalid:", ":novalid:\n:published-date: 2026-02-01"), *OPTIONS))
+    xml = xml.xpath("//xmlns:metanorma-extension")
+    expect(Canon.format_xml(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Canon.format_xml(output)
+    xml = Nokogiri::XML(Asciidoctor.convert(input
+      .sub(":novalid:", ":novalid:\n:published-date: 2026"), *OPTIONS))
+    xml = xml.xpath("//xmlns:metanorma-extension")
+    expect(Canon.format_xml(strip_guid(xml.to_xml)))
+      .to be_equivalent_to Canon.format_xml(output)
+
     output = <<~OUTPUT
        <metanorma-extension>
           <semantic-metadata>
@@ -432,27 +494,23 @@ RSpec.describe Metanorma::Ogc do
           </presentation-metadata>
        </metanorma-extension>
     OUTPUT
-    xml = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
+    xml = Nokogiri::XML(Asciidoctor.convert(input
+      .sub(":novalid:", ":novalid:\n:copyright-year: 2023"), *OPTIONS))
     xml = xml.xpath("//xmlns:metanorma-extension")
     expect(Canon.format_xml(strip_guid(xml.to_xml)))
       .to be_equivalent_to Canon.format_xml(output)
     xml = Nokogiri::XML(Asciidoctor.convert(input
-      .sub(/:novalid:/, ":novalid:\n:copyright-year: 2023"), *OPTIONS))
+      .sub(":novalid:", ":novalid:\n:published-date: 2021-12-03"), *OPTIONS))
     xml = xml.xpath("//xmlns:metanorma-extension")
     expect(Canon.format_xml(strip_guid(xml.to_xml)))
       .to be_equivalent_to Canon.format_xml(output)
     xml = Nokogiri::XML(Asciidoctor.convert(input
-      .sub(/:novalid:/, ":novalid:\n:published-date: 2021-12-03"), *OPTIONS))
+      .sub(":novalid:", ":novalid:\n:published-date: 2021-12"), *OPTIONS))
     xml = xml.xpath("//xmlns:metanorma-extension")
     expect(Canon.format_xml(strip_guid(xml.to_xml)))
       .to be_equivalent_to Canon.format_xml(output)
     xml = Nokogiri::XML(Asciidoctor.convert(input
-      .sub(/:novalid:/, ":novalid:\n:published-date: 2021-12"), *OPTIONS))
-    xml = xml.xpath("//xmlns:metanorma-extension")
-    expect(Canon.format_xml(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
-    xml = Nokogiri::XML(Asciidoctor.convert(input
-      .sub(/:novalid:/, ":novalid:\n:published-date: 2022"), *OPTIONS))
+      .sub(":novalid:", ":novalid:\n:published-date: 2022"), *OPTIONS))
     xml = xml.xpath("//xmlns:metanorma-extension")
     expect(Canon.format_xml(strip_guid(xml.to_xml)))
       .to be_equivalent_to Canon.format_xml(output)
@@ -494,27 +552,27 @@ RSpec.describe Metanorma::Ogc do
        </metanorma-extension>
     OUTPUT
     xml = Nokogiri::XML(Asciidoctor.convert(input
-      .sub(/:novalid:/, ":novalid:\n:document-scheme: 2021"), *OPTIONS))
+      .sub(":novalid:", ":novalid:\n:document-scheme: 2018"), *OPTIONS))
     xml = xml.xpath("//xmlns:metanorma-extension")
     expect(Canon.format_xml(strip_guid(xml.to_xml)))
       .to be_equivalent_to Canon.format_xml(output)
     xml = Nokogiri::XML(Asciidoctor.convert(input
-      .sub(/:novalid:/, ":novalid:\n:copyright-year: 2020"), *OPTIONS))
+      .sub(":novalid:", ":novalid:\n:copyright-year: 2020"), *OPTIONS))
     xml = xml.xpath("//xmlns:metanorma-extension")
     expect(Canon.format_xml(strip_guid(xml.to_xml)))
       .to be_equivalent_to Canon.format_xml(output)
     xml = Nokogiri::XML(Asciidoctor.convert(input
-      .sub(/:novalid:/, ":novalid:\n:published-date: 2021-06-03"), *OPTIONS))
+      .sub(":novalid:", ":novalid:\n:published-date: 2021-06-03"), *OPTIONS))
     xml = xml.xpath("//xmlns:metanorma-extension")
     expect(Canon.format_xml(strip_guid(xml.to_xml)))
       .to be_equivalent_to Canon.format_xml(output)
     xml = Nokogiri::XML(Asciidoctor.convert(input
-      .sub(/:novalid:/, ":novalid:\n:published-date: 2021-06"), *OPTIONS))
+      .sub(":novalid:", ":novalid:\n:published-date: 2021-06"), *OPTIONS))
     xml = xml.xpath("//xmlns:metanorma-extension")
     expect(Canon.format_xml(strip_guid(xml.to_xml)))
       .to be_equivalent_to Canon.format_xml(output)
     xml = Nokogiri::XML(Asciidoctor.convert(input
-      .sub(/:novalid:/, ":novalid:\n:published-date: 2021"), *OPTIONS))
+      .sub(":novalid:", ":novalid:\n:published-date: 2021"), *OPTIONS))
     xml = xml.xpath("//xmlns:metanorma-extension")
     expect(Canon.format_xml(strip_guid(xml.to_xml)))
       .to be_equivalent_to Canon.format_xml(output)
@@ -525,7 +583,7 @@ RSpec.describe Metanorma::Ogc do
              <stage-published>true</stage-published>
           </semantic-metadata>
           <presentation-metadata>
-             <document-scheme>2022</document-scheme>
+             <document-scheme>2026</document-scheme>
              <color-admonition-caution>rgb(79, 129, 189)</color-admonition-caution>
              <color-admonition-editor>rgb(79, 129, 189)</color-admonition-editor>
              <color-admonition-important>rgb(79, 129, 189)</color-admonition-important>
@@ -556,7 +614,7 @@ RSpec.describe Metanorma::Ogc do
        </metanorma-extension>
     OUTPUT
     xml = Nokogiri::XML(Asciidoctor.convert(input
-      .sub(/:novalid:/, ":novalid:\n:doctype: white-paper"), *OPTIONS))
+      .sub(":novalid:", ":novalid:\n:doctype: white-paper"), *OPTIONS))
     xml = xml.xpath("//xmlns:metanorma-extension")
     expect(Canon.format_xml(strip_guid(xml.to_xml)))
       .to be_equivalent_to Canon.format_xml(output)
