@@ -10,7 +10,7 @@ on:
 
 jobs:
   rake:
-    uses: metanorma/ci/.github/workflows/generic-rake.yml@feat/add-inkscape-setup-step
+    uses: metanorma/ci/.github/workflows/generic-rake.yml@main
     with:
       setup-inkscape: true
     secrets:
