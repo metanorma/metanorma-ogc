@@ -11,5 +11,14 @@ on:
 jobs:
   rake:
     uses: metanorma/ci/.github/workflows/generic-rake.yml@main
+    with:
+      before-setup-ruby: |
+        if [ "${{ matrix.os }}" = "ubuntu-latest" ]; then
+          sudo apt-get update && sudo apt-get install -y inkscape
+        elif [ "${{ matrix.os }}" = "macos-latest" ]; then
+          brew install inkscape
+        elif [ "${{ matrix.os }}" = "windows-latest" ]; then
+          choco install inkscape -y
+        fi
     secrets:
       pat_token: ${{ secrets.METANORMA_CI_PAT_TOKEN }}
