@@ -10,15 +10,8 @@ on:
 
 jobs:
   rake:
-    uses: metanorma/ci/.github/workflows/generic-rake.yml@main
+    uses: metanorma/ci/.github/workflows/generic-rake.yml@feat/add-inkscape-setup-step
     with:
-      before-setup-ruby: |
-        if [ "$RUNNER_OS" = "Linux" ]; then
-          sudo apt-get update && sudo apt-get install -y inkscape
-        elif [ "$RUNNER_OS" = "macOS" ]; then
-          brew install inkscape
-        elif [ "$RUNNER_OS" = "Windows" ]; then
-          choco install inkscape -y
-        fi
+      setup-inkscape: true
     secrets:
       pat_token: ${{ secrets.METANORMA_CI_PAT_TOKEN }}
