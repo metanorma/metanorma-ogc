@@ -38,6 +38,37 @@ module IsoDoc
         rename_doctype(doctype, bib&.at(ns("./date[@type = 'published']")) ||
                        bib&.at(ns("./date[@type = 'issued']")))
         super
+        bibdata_logos(bib)
+      end
+
+      def bibdata_logos(bibdata)
+        ogc = bibdata.at(ns("./contributor[role/@type = 'publisher']/" \
+                            "organization[abbreviation = 'OGC']")) or return
+        date = bibdata.document.at(ns("//presentation-metadata/document-scheme"))
+        ogc << logo_select(date&.text)
+      end
+
+      def logo_select(date)
+        case date
+        when "2018"
+          <<~XML
+            <logo type="html-blue"><image src="#{File.join(@libdir, 'html', 'logo.2018.png')}" mimetype="image/png"/></logo>
+            <logo type="html-white"><image src="#{File.join(@libdir, 'html', 'logo.2018-white.png')}" mimetype="image/png"/></logo>
+            <logo type="word"><image src="#{File.join(@libdir, 'html', 'logo.2018.png')}" mimetype="image/png"/></logo>
+          XML
+        when "2022"
+          <<~XML
+            <logo type="html-blue"><image src="" mimetype="image/svg+xml">#{svg_load('', 'logo.2021.svg')}</image></logo>
+            <logo type="html-white"><image src="" mimetype="image/svg+xml">#{svg_load('', 'logo.2021-white.svg')}</image></logo>
+            <logo type="word"><image src="#{File.join(@libdir, 'html', 'logo.2021.png')}" mimetype="image/png"/></logo>
+          XML
+        else # "2026"
+          <<~XML
+            <logo type="html-blue"><image src="" mimetype="image/svg+xml">#{svg_load(%w(Logos_2026 1_Blue_Logos), 'OGC-new-logo.svg')}</image></logo>
+            <logo type="html-white"><image src="" mimetype="image/svg+xml">#{svg_load(%w(Logos_2026 3_Reverse_Logos), 'OGC-new-logo-white.svg')}</image></logo>
+            <logo type="word"><image src="#{File.join(@libdir, 'html', 'Logos_2026', '1_Blue_Logos', 'OGC-new-logo.png')}" mimetype="image/png"/></logo>
+          XML
+        end
       end
 
       def rename_stage(stage, doctype, _bib)
@@ -62,7 +93,7 @@ module IsoDoc
 
       def termsource_label(elem, sources)
         elem.replace(l10n("[<strong>#{@i18n.source}:</strong> " \
-                             "#{sources}]"))
+                          "#{sources}]"))
       end
 
       def bibliography_bibitem_number_skip(bibitem)
@@ -130,10 +161,9 @@ module IsoDoc
       end
 
       def ogc_draft_ref?(ref)
-        ref.at(ns("./docidentifier[@type = 'OGC']")) or return
-        status = ref.at(ns("./status/stage"))&.text or return
-        %w(approved published deprecated retired).include? status and return
-        true
+        ref.at(ns("./docidentifier[@type = 'OGC']")) or return false
+        status = ref.at(ns("./status/stage"))&.text or return false
+        !%w(approved published deprecated retired).include?(status)
       end
 
       def ul_label_list(_elem)

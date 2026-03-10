@@ -43,19 +43,19 @@ module Metanorma
 
       def document_scheme(node)
         if r = node.attr("document-scheme")
-          r == "2022" ? "2022" : "2018"
-        elsif r = node.attr("published-date")
+          %w(2026 2022 2018).include?(r) ? r : "2026"
+        elsif r = node.attr("published-date") || node.attr("copyright-year")
           published_date_scheme(r)
-        elsif r = node.attr("copyright-year")
-          r.to_i >= 2022 ? "2022" : "2018"
-        else "2022"
+        else "2026"
         end
       end
 
       def published_date_scheme(date_str)
         published_date = parse_flexible_date(date_str) or return nil
-        cutoff_date = Date.new(2021, 11, 8)
-        published_date >= cutoff_date ? "2022" : "2018"
+        if published_date >= Date.new(2026, 1, 1) then "2026"
+        elsif published_date >= Date.new(2021, 11, 8) then "2022"
+        else "2018"
+        end
       rescue Date::Error, ArgumentError
         nil
       end
@@ -93,7 +93,7 @@ module Metanorma
       end
 
       OGC_COLORS = {
-        "text": "rgb(88, 89, 91)",
+        text: "rgb(88, 89, 91)",
         "secondary-shade-1": "rgb(237, 193, 35)",
         "secondary-shade-2": "rgb(246, 223, 140)",
         "background-definition-term": "rgb(215, 243, 255)",
@@ -122,14 +122,14 @@ module Metanorma
         ret = super
         c.keys.sort.each do |k|
           ret += "<presentation-metadata><color-#{k}>" \
-            "#{c[k]}</color-#{k}></presentation-metadata>"
+                 "#{c[k]}</color-#{k}></presentation-metadata>"
         end
         ret
       end
 
       def update_colors(node)
         c = OGC_COLORS.dup
-        if document_scheme(node) == "2022"
+        if %w(2026 2022).include?(document_scheme(node))
           c[:"secondary-shade-1"] = "rgb(0, 177, 255)"
           c[:"secondary-shade-2"] = "rgb(0, 177, 255)"
         end
@@ -165,8 +165,8 @@ module Metanorma
         Nokogiri::XML(text).root and return text
         c = isolated_asciidoctor_convert(
           "= X\nA\n:semantic-metadata-headless: true\n" \
-                   ":novalid:\n:docsubtype: implementation\n" \
-                   ":doctype: standard\n\n#{text}\n",
+          ":novalid:\n:docsubtype: implementation\n" \
+          ":doctype: standard\n\n#{text}\n",
           backend: flavour, header_footer: true,
         )
         Nokogiri::XML(c).at("//xmlns:sections")
