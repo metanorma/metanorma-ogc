@@ -424,7 +424,8 @@ RSpec.describe IsoDoc::Ogc do
               <br/>
               <div id="A">
                 <h1 class="ForewordTitle">I.&#160; Preface</h1>
-                <div  id="_" class="Admonition Caution"><p class="AdmonitionTitle" style="text-align:center;">CAUTION</p>
+                <div  id="_" class="Admonition AdmonitionCaution">
+              <p class="AdmonitionTitle AdmonitionCaution" style="text-align:center;">CAUTION</p>
         <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
       </div>
               </div>
@@ -497,7 +498,8 @@ RSpec.describe IsoDoc::Ogc do
               <br/>
               <div id="A">
                 <h1 class="ForewordTitle">I.&#160; Preface</h1>
-                <div id="_" class="Admonition Warning"><p class="AdmonitionTitle" style="text-align:center;">WARNING</p>
+                <div id="_" class="Admonition AdmonitionWarning">
+          <p class="AdmonitionTitle AdmonitionWarning" style="text-align:center;">WARNING</p>
         <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
       </div>
               </div>
@@ -570,7 +572,8 @@ RSpec.describe IsoDoc::Ogc do
               <br/>
               <div id="A">
                 <h1 class="ForewordTitle">I.&#160; Preface</h1>
-                <div  id="_" class="Admonition Important"><p class="AdmonitionTitle" style="text-align:center;">IMPORTANT</p>
+                <div  id="_" class="Admonition AdmonitionImportant">
+          <p class="AdmonitionTitle AdmonitionImportant" style="text-align:center;">IMPORTANT</p>
         <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
       </div>
               </div>
@@ -1289,8 +1292,12 @@ RSpec.describe IsoDoc::Ogc do
                    divider
                 </summary>
                 <figure id="figureA-1" class="figure" style="page-break-after: avoid;page-break-inside: avoid;">
+                <picture>
                    <img src="data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7" height="20" width="20"/>
+                </picture>
+                <picture>
                    <img src="data:application/xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+Cjw/eG1sLXN0eWxlc2hlZXQgdHlwZT0idGV4dC94c2wiIGhyZWY9Ii4uLy4uLy4uL3hzbC9yZXNfZG9jL2ltZ2ZpbGUueHNsIj8+CjwhRE9DVFlQRSBpbWdmaWxlLmNvbnRlbnQgU1lTVEVNICIuLi8uLi8uLi9kdGQvdGV4dC5lbnQiPgo8aW1nZmlsZS5jb250ZW50IG1vZHVsZT0iZnVuZGFtZW50YWxzX29mX3Byb2R1Y3RfZGVzY3JpcHRpb25fYW5kX3N1cHBvcnQiIGZpbGU9ImFjdGlvbl9zY2hlbWFleHBnMS54bWwiPgo8aW1nIHNyYz0iYWN0aW9uX3NjaGVtYWV4cGcxLmdpZiI+CjxpbWcuYXJlYSBzaGFwZT0icmVjdCIgY29vcmRzPSIyMTAsMTg2LDM0MywyMjciIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9iYXNpY19hdHRyaWJ1dGVfc2NoZW1hL2Jhc2ljX2F0dHJpYnV0ZV9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMTAsMTAsOTYsNTEiIGhyZWY9Ii4uLy4uL3Jlc291cmNlcy9hY3Rpb25fc2NoZW1hL2FjdGlvbl9zY2hlbWEueG1sIiAvPgo8aW1nLmFyZWEgc2hhcGU9InJlY3QiIGNvb3Jkcz0iMjEwLDI2NCwzNTgsMzA1IiBocmVmPSIuLi8uLi9yZXNvdXJjZXMvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEvc3VwcG9ydF9yZXNvdXJjZV9zY2hlbWEueG1sIiAvPgo8L2ltZz4KPC9pbWdmaWxlLmNvbnRlbnQ+Cg==" height="20" width="0"/>
+                </picture>
                    <div class="figdl">
                       <dl>
                          <dt>

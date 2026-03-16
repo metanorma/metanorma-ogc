@@ -448,20 +448,20 @@ pre, .sourcecode {
   border-top: 10px solid #eb5a06;
   color: #290404;
 
-  &.Important {
+  &.AdmonitionImportant {
     background-color: #f58cff;
     color: #5d1364;
     border-top: 10px solid #9503a8;
   }
 
-  &.Warning {
+  &.AdmonitionWarning {
     background-color: #ff989d;
     color: #270204;
     border-top: 10px solid #e4010c;
   }
 
 
-  p, &.Important p, &.Warning p {
+  p, &.AdmonitionImportant p, &.AdmonitionWarning p {
     margin: 0;
   }
 }

@@ -39,19 +39,6 @@ module IsoDoc
         HEAD
       end
 
-      def admonition_class(node)
-        case node["type"]
-        when "important" then "Admonition Important"
-        when "warning" then "Admonition Warning"
-        when "caution" then "Admonition Caution"
-        when "todo" then "Admonition Todo"
-        when "editor" then "Admonition Editor"
-        when "tip" then "Admonition Tip"
-        when "safety-precaution" then "Admonition Safety-Precaution"
-        else "Admonition"
-        end
-      end
-
       def make_body(xml, docxml)
         body_attr = { lang: "EN-US", link: "blue", vlink: "#954F72",
                       "xml:lang": "EN-US", class: "container" }
