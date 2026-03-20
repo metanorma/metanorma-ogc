@@ -879,9 +879,7 @@ RSpec.describe IsoDoc::Ogc do
           </preface>
           <sections/>
           <annex id="_" obligation="informative" autonum="A" displayorder="2">
-             <title id="_">
-                <strong>Revision history</strong>
-             </title>
+             <title id="_">Revision history</title>
              <fmt-title id="_">
                 <strong>
                    <span class="fmt-caption-label">
@@ -902,6 +900,16 @@ RSpec.describe IsoDoc::Ogc do
                 <span class="fmt-element-name">Annex</span>
                 <semx element="autonum" source="_">A</semx>
              </fmt-xref-label>
+      <variant-title type="toc">
+         <span class="fmt-caption-label">
+            <span class="fmt-element-name">Annex</span>
+            <semx element="autonum" source="_">A</semx>
+         </span>
+         <span class="fmt-caption-delim">
+            <tab/>
+         </span>
+         <semx element="title" source="_">Revision history</semx>
+      </variant-title>
              <table unnumbered="true" id="_">
                 <thead>
                    <tr id="_">

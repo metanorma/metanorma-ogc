@@ -1013,10 +1013,8 @@ RSpec.describe IsoDoc::Ogc do
     OUTPUT
 
     presxml1 = <<~OUTPUT
-         <annex id="P" inline-header="false" obligation="normative" autonum="A" displayorder="17">
-             <title id="_">
-                <strong>Annex</strong>
-             </title>
+              <annex id="P" inline-header="false" obligation="normative" autonum="A" displayorder="17">
+             <title id="_">Annex</title>
              <fmt-title id="_">
                 <strong>
                    <span class="fmt-caption-label">
@@ -1037,6 +1035,16 @@ RSpec.describe IsoDoc::Ogc do
                 <span class="fmt-element-name">Annex</span>
                 <semx element="autonum" source="P">A</semx>
              </fmt-xref-label>
+             <variant-title type="toc">
+                <span class="fmt-caption-label">
+                   <span class="fmt-element-name">Annex</span>
+                   <semx element="autonum" source="P">A</semx>
+                </span>
+                <span class="fmt-caption-delim">
+                   <tab/>
+                </span>
+                <semx element="title" source="_">Annex</semx>
+             </variant-title>
              <clause id="Q" inline-header="false" obligation="normative" autonum="A.1">
                 <title id="_">Annex A.1</title>
                 <fmt-title depth="2" id="_">
@@ -1085,9 +1093,7 @@ RSpec.describe IsoDoc::Ogc do
              </clause>
           </annex>
           <annex id="PP" obligation="normative" autonum="B" displayorder="18">
-             <title id="_">
-                <strong>Glossary</strong>
-             </title>
+             <title id="_">Glossary</title>
              <fmt-title id="_">
                 <strong>
                    <span class="fmt-caption-label">
@@ -1108,6 +1114,16 @@ RSpec.describe IsoDoc::Ogc do
                 <span class="fmt-element-name">Annex</span>
                 <semx element="autonum" source="PP">B</semx>
              </fmt-xref-label>
+             <variant-title type="toc">
+                <span class="fmt-caption-label">
+                   <span class="fmt-element-name">Annex</span>
+                   <semx element="autonum" source="PP">B</semx>
+                </span>
+                <span class="fmt-caption-delim">
+                   <tab/>
+                </span>
+                <semx element="title" source="_">Glossary</semx>
+             </variant-title>
              <terms id="PP1" obligation="normative">
                 <term id="term-glossary" autonum="B.1">
                    <fmt-name id="_">
@@ -1142,9 +1158,7 @@ RSpec.describe IsoDoc::Ogc do
              </terms>
           </annex>
           <annex id="QQ" obligation="normative" autonum="C" displayorder="19">
-             <title id="_">
-                <strong>Glossary</strong>
-             </title>
+             <title id="_">Glossary</title>
              <fmt-title id="_">
                 <strong>
                    <span class="fmt-caption-label">
@@ -1165,6 +1179,16 @@ RSpec.describe IsoDoc::Ogc do
                 <span class="fmt-element-name">Annex</span>
                 <semx element="autonum" source="QQ">C</semx>
              </fmt-xref-label>
+             <variant-title type="toc">
+                <span class="fmt-caption-label">
+                   <span class="fmt-element-name">Annex</span>
+                   <semx element="autonum" source="QQ">C</semx>
+                </span>
+                <span class="fmt-caption-delim">
+                   <tab/>
+                </span>
+                <semx element="title" source="_">Glossary</semx>
+             </variant-title>
              <terms id="QQ1" obligation="normative" autonum="C.1">
                 <title id="_">Term Collection</title>
                 <fmt-title depth="2" id="_">
@@ -1403,6 +1427,7 @@ RSpec.describe IsoDoc::Ogc do
                   <br/>
                   <b>Annex</b>
                </h1>
+                <p style="display:none;" class="variant-title-toc">Annex A  Annex</p>
                <div id="Q">
                   <h2>A.1.  Annex A.1</h2>
                   <div id="Q1">
@@ -1419,6 +1444,7 @@ RSpec.describe IsoDoc::Ogc do
                   <br/>
                   <b>Glossary</b>
                </h1>
+               <p style="display:none;" class="variant-title-toc">Annex B  Glossary</p>
                <div id="PP1">
                   <p class="TermNum" id="term-glossary">B.1.</p>
                   <p class="Terms" style="text-align:left;"><b><dfn>Glossary</dfn></b></p>
@@ -1433,6 +1459,7 @@ RSpec.describe IsoDoc::Ogc do
                   <br/>
                   <b>Glossary</b>
                </h1>
+               <p style="display:none;" class="variant-title-toc">Annex C  Glossary</p>
                <div id="QQ1">
                   <h2>C.1.  Term Collection</h2>
                   <p class="TermNum" id="term-term-1">C.1.1.</p>
@@ -1470,10 +1497,8 @@ RSpec.describe IsoDoc::Ogc do
       .to be_equivalent_to Canon.format_xml(output + output1)
 
     presxml2 = <<~OUTPUT
-         <annex id="P" inline-header="false" obligation="normative" autonum="A" displayorder="18">
-             <title id="_">
-                <strong>Annex</strong>
-             </title>
+          <annex id="P" inline-header="false" obligation="normative" autonum="A" displayorder="18">
+             <title id="_">Annex</title>
              <fmt-title id="_">
                 <strong>
                    <span class="fmt-caption-label">
@@ -1494,6 +1519,16 @@ RSpec.describe IsoDoc::Ogc do
                 <span class="fmt-element-name">Annex</span>
                 <semx element="autonum" source="P">A</semx>
              </fmt-xref-label>
+             <variant-title type="toc">
+                <span class="fmt-caption-label">
+                   <span class="fmt-element-name">Annex</span>
+                   <semx element="autonum" source="P">A</semx>
+                </span>
+                <span class="fmt-caption-delim">
+                   <tab/>
+                </span>
+                <semx element="title" source="_">Annex</semx>
+             </variant-title>
              <clause id="Q" inline-header="false" obligation="normative" autonum="A.1">
                 <title id="_">Annex A.1</title>
                 <fmt-title depth="2" id="_">
@@ -1542,9 +1577,7 @@ RSpec.describe IsoDoc::Ogc do
              </clause>
           </annex>
           <annex id="PP" obligation="normative" autonum="B" displayorder="19">
-             <title id="_">
-                <strong>Glossary</strong>
-             </title>
+             <title id="_">Glossary</title>
              <fmt-title id="_">
                 <strong>
                    <span class="fmt-caption-label">
@@ -1565,6 +1598,16 @@ RSpec.describe IsoDoc::Ogc do
                 <span class="fmt-element-name">Annex</span>
                 <semx element="autonum" source="PP">B</semx>
              </fmt-xref-label>
+             <variant-title type="toc">
+                <span class="fmt-caption-label">
+                   <span class="fmt-element-name">Annex</span>
+                   <semx element="autonum" source="PP">B</semx>
+                </span>
+                <span class="fmt-caption-delim">
+                   <tab/>
+                </span>
+                <semx element="title" source="_">Glossary</semx>
+             </variant-title>
              <terms id="PP1" obligation="normative">
                 <term id="term-glossary" autonum="B.1">
                    <fmt-name id="_">
@@ -1599,9 +1642,7 @@ RSpec.describe IsoDoc::Ogc do
              </terms>
           </annex>
           <annex id="QQ" obligation="normative" autonum="C" displayorder="20">
-             <title id="_">
-                <strong>Glossary</strong>
-             </title>
+             <title id="_">Glossary</title>
              <fmt-title id="_">
                 <strong>
                    <span class="fmt-caption-label">
@@ -1622,6 +1663,16 @@ RSpec.describe IsoDoc::Ogc do
                 <span class="fmt-element-name">Annex</span>
                 <semx element="autonum" source="QQ">C</semx>
              </fmt-xref-label>
+             <variant-title type="toc">
+                <span class="fmt-caption-label">
+                   <span class="fmt-element-name">Annex</span>
+                   <semx element="autonum" source="QQ">C</semx>
+                </span>
+                <span class="fmt-caption-delim">
+                   <tab/>
+                </span>
+                <semx element="title" source="_">Glossary</semx>
+             </variant-title>
              <terms id="QQ1" obligation="normative" autonum="C.1">
                 <title id="_">Term Collection</title>
                 <fmt-title depth="2" id="_">
@@ -1766,6 +1817,7 @@ RSpec.describe IsoDoc::Ogc do
                   <br/>
                   <b>Annex</b>
                </h1>
+               <p style="display:none;" class="variant-title-toc">Annex A  Annex</p>
                <div id="Q">
                   <h2>A.1.  Annex A.1</h2>
                   <div id="Q1">
@@ -1782,6 +1834,7 @@ RSpec.describe IsoDoc::Ogc do
                   <br/>
                   <b>Glossary</b>
                </h1>
+               <p style="display:none;" class="variant-title-toc">Annex B  Glossary</p>
                <div id="PP1">
                   <p class="TermNum" id="term-glossary">B.1.</p>
                   <p class="Terms" style="text-align:left;"><b><dfn>Glossary</dfn></b></p>
@@ -1796,6 +1849,7 @@ RSpec.describe IsoDoc::Ogc do
                   <br/>
                   <b>Glossary</b>
                </h1>
+                <p style="display:none;" class="variant-title-toc">Annex C  Glossary</p>
                <div id="QQ1">
                   <h2>C.1.  Term Collection</h2>
                   <p class="TermNum" id="term-term-1">C.1.1.</p>
