@@ -839,6 +839,8 @@ RSpec.describe Metanorma::Ogc do
         version:
           draft: Draft
         contributor:
+          role:
+            type: author
           person:
             name:
               completename: R Thakkar
@@ -854,57 +856,57 @@ RSpec.describe Metanorma::Ogc do
           - person:
              name:
                 completename: Kurt Buehler
-             role:
+            role:
                type: editor
           - person:
              name:
                 completename: George Percivall
-             role:
+            role:
                type: editor
           - person:
              name:
                 completename: Sam Bacharach
-             role:
+            role:
                type: editor
           - person:
              name:
                 completename: Carl Reed
-             role:
+            role:
                type: editor
           - person:
              name:
                 completename: Cliff Kottman
-             role:
+            role:
                type: editor
           - person:
              name:
                 completename: Chuck Heazel
-             role:
+            role:
                type: editor
           - person:
              name:
                 completename: John Davidson
-             role:
+            role:
                type: editor
           - person:
              name:
                 completename: Yaser Bisher
-             role:
+            role:
                type: editor
           - person:
              name:
                 completename: Harry Niedzwiadek
-             role:
+            role:
                type: editor
           - person:
              name:
                 completename: John Evans
-             role:
+            role:
                type: editor
           - person:
               name:
                 completename: Jeffrey Simon
-              role:
+            role:
                type: editor
         amend:
           description: Initial version of ORM. Doc OGC
@@ -914,6 +916,8 @@ RSpec.describe Metanorma::Ogc do
         version:
           draft: 1.0
         contributor:
+          role:
+            type: author
           person:
             name:
               completename: Gabby Getz
@@ -982,7 +986,7 @@ RSpec.describe Metanorma::Ogc do
               <on>2002-08-30</on>
             </date>
             <contributor>
-              <role type="author"/>
+              <role type="editor"/>
               <person>
                 <name>
                   <completename>Kurt Buehler</completename>
@@ -990,7 +994,7 @@ RSpec.describe Metanorma::Ogc do
               </person>
             </contributor>
             <contributor>
-              <role type="author"/>
+              <role type="editor"/>
               <person>
                 <name>
                   <completename>George Percivall</completename>
@@ -998,7 +1002,7 @@ RSpec.describe Metanorma::Ogc do
               </person>
             </contributor>
             <contributor>
-              <role type="author"/>
+              <role type="editor"/>
               <person>
                 <name>
                   <completename>Sam Bacharach</completename>
@@ -1006,7 +1010,7 @@ RSpec.describe Metanorma::Ogc do
               </person>
             </contributor>
             <contributor>
-              <role type="author"/>
+              <role type="editor"/>
               <person>
                 <name>
                   <completename>Carl Reed</completename>
@@ -1014,7 +1018,7 @@ RSpec.describe Metanorma::Ogc do
               </person>
             </contributor>
             <contributor>
-              <role type="author"/>
+              <role type="editor"/>
               <person>
                 <name>
                   <completename>Cliff Kottman</completename>
@@ -1022,7 +1026,7 @@ RSpec.describe Metanorma::Ogc do
               </person>
             </contributor>
             <contributor>
-              <role type="author"/>
+              <role type="editor"/>
               <person>
                 <name>
                   <completename>Chuck Heazel</completename>
@@ -1030,7 +1034,7 @@ RSpec.describe Metanorma::Ogc do
               </person>
             </contributor>
             <contributor>
-              <role type="author"/>
+              <role type="editor"/>
               <person>
                 <name>
                   <completename>John Davidson</completename>
@@ -1038,7 +1042,7 @@ RSpec.describe Metanorma::Ogc do
               </person>
             </contributor>
             <contributor>
-              <role type="author"/>
+              <role type="editor"/>
               <person>
                 <name>
                   <completename>Yaser Bisher</completename>
@@ -1046,7 +1050,7 @@ RSpec.describe Metanorma::Ogc do
               </person>
             </contributor>
             <contributor>
-              <role type="author"/>
+              <role type="editor"/>
               <person>
                 <name>
                   <completename>Harry Niedzwiadek</completename>
@@ -1054,7 +1058,7 @@ RSpec.describe Metanorma::Ogc do
               </person>
             </contributor>
             <contributor>
-              <role type="author"/>
+              <role type="editor"/>
               <person>
                 <name>
                   <completename>John Evans</completename>
@@ -1062,7 +1066,7 @@ RSpec.describe Metanorma::Ogc do
               </person>
             </contributor>
             <contributor>
-              <role type="author"/>
+              <role type="editor"/>
               <person>
                 <name>
                   <completename>Jeffrey Simon</completename>
