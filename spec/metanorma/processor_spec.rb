@@ -18,7 +18,7 @@ RSpec.describe Metanorma::Ogc::Processor do
       [[:doc, "doc"], [:html, "html"], [:pdf, "pdf"], [:presentation, "presentation.xml"], [:rxl, "rxl"], [:xml, "xml"]]
     OUTPUT
 
-    expect(processor.output_formats.sort.to_s).to be_equivalent_to output
+    expect(processor.output_formats.sort.to_s).to be_equivalent_to output.strip
   end
 
   it "registers version against metanorma" do
@@ -37,8 +37,8 @@ RSpec.describe Metanorma::Ogc::Processor do
       </metanorma>
     OUTPUT
 
-    expect(Canon.format_xml(strip_guid(processor
-      .input_to_isodoc(input, nil)))).to be_equivalent_to (Canon.format_xml(output))
+    expect(strip_guid(processor
+      .input_to_isodoc(input, nil))).to be_xml_equivalent_to (output)
   end
 
   it "generates HTML from IsoDoc XML" do
@@ -58,7 +58,7 @@ RSpec.describe Metanorma::Ogc::Processor do
       </metanorma>
     INPUT
 
-    output = Canon.format_xml(<<~OUTPUT)
+    output = <<~OUTPUT
        <main class="main-section">
          <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
          <div id="H">
@@ -79,9 +79,9 @@ RSpec.describe Metanorma::Ogc::Processor do
     processor.output(input, "test.xml", "test.html", :html)
 
     expect(
-      Canon.format_xml(strip_guid(File.read("test.html", encoding: "utf-8")
+      strip_guid(File.read("test.html", encoding: "utf-8"
       .gsub(%r{^.*<main}m, "<main")
       .gsub(%r{</main>.*}m, "</main>"))),
-    ).to be_equivalent_to output
+    ).to be_html5_equivalent_to output
   end
 end

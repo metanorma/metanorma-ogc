@@ -91,8 +91,8 @@ RSpec.describe IsoDoc::Ogc do
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
     xml.at("//xmlns:metanorma-extension")&.remove
-    expect(Canon.format_xml(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(xml.to_xml))
+      .to be_xml_equivalent_to presxml
   end
 
   it "changes approved to published" do
@@ -129,8 +129,8 @@ RSpec.describe IsoDoc::Ogc do
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
     xml.at("//xmlns:metanorma-extension")&.remove
-    expect(Canon.format_xml(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(xml.to_xml))
+      .to be_xml_equivalent_to presxml
   end
 
   it "renders white-paper as technical-paper after cutoff date" do
@@ -169,8 +169,8 @@ RSpec.describe IsoDoc::Ogc do
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
     xml.at("//xmlns:metanorma-extension")&.remove
-    expect(Canon.format_xml(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(xml.to_xml))
+      .to be_xml_equivalent_to presxml
   end
 
   it "renders white-paper as white-paper before cutoff date" do
@@ -209,8 +209,8 @@ RSpec.describe IsoDoc::Ogc do
           .convert("test", input, true))
     xml.at("//xmlns:localized-strings").remove
     xml.at("//xmlns:metanorma-extension")&.remove
-    expect(Canon.format_xml(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(xml.to_xml))
+      .to be_xml_equivalent_to presxml
   end
 
   it "processes keyword with no preface" do
@@ -271,14 +271,14 @@ RSpec.describe IsoDoc::Ogc do
       .convert("test", input, true)
     xml = Nokogiri::XML(pres_output)
     xml.at("//xmlns:localized-strings").remove
-    expect(Canon.format_xml(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(Canon.format_xml(strip_guid(
+    expect(strip_guid(xml.to_xml))
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(
                               IsoDoc::Ogc::HtmlConvert.new({})
                               .convert("test", pres_output, true)
                               .gsub(%r{^.*<body}m, "<body")
                               .gsub(%r{</body>.*}m, "</body>"),
-                            ))).to be_equivalent_to Canon.format_xml(output)
+                            )).to be_html5_equivalent_to output
   end
 
   it "processes keyword with preface" do
@@ -362,14 +362,14 @@ RSpec.describe IsoDoc::Ogc do
       .convert("test", input, true)
     xml = Nokogiri::XML(pres_output)
     xml.at("//xmlns:localized-strings").remove
-    expect(Canon.format_xml(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(Canon.format_xml(strip_guid(
+    expect(strip_guid(xml.to_xml))
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(
                               IsoDoc::Ogc::HtmlConvert.new({})
                               .convert("test", pres_output, true)
                               .gsub(%r{^.*<body}m, "<body")
                               .gsub(%r{</body>.*}m, "</body>"),
-                            ))).to be_equivalent_to Canon.format_xml(output)
+                            )).to be_html5_equivalent_to output
   end
 
   it "processes submitting organisations with no preface" do
@@ -464,12 +464,12 @@ RSpec.describe IsoDoc::Ogc do
       .convert("test", input, true)
     xml = Nokogiri::XML(pres_output)
     xml.at("//xmlns:localized-strings").remove
-    expect(Canon.format_xml(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(Canon.format_xml(strip_guid(IsoDoc::Ogc::HtmlConvert.new({})
+    expect(strip_guid(xml.to_xml))
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", pres_output, true)
-      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))))
-      .to be_equivalent_to Canon.format_xml(output)
+      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
+      .to be_html5_equivalent_to output
   end
 
   it "processes submitting organisations with preface" do
@@ -609,12 +609,12 @@ RSpec.describe IsoDoc::Ogc do
       .convert("test", input, true)
     xml = Nokogiri::XML(pres_output)
     xml.at("//xmlns:localized-strings").remove
-    expect(Canon.format_xml(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
-    expect(Canon.format_xml(strip_guid(IsoDoc::Ogc::HtmlConvert.new({})
+    expect(strip_guid(xml.to_xml))
+      .to be_xml_equivalent_to presxml
+    expect(strip_guid(IsoDoc::Ogc::HtmlConvert.new({})
       .convert("test", pres_output, true)
-      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))))
-      .to be_equivalent_to Canon.format_xml(output)
+      .gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>")))
+      .to be_html5_equivalent_to output
   end
 
   it "processes keyword and abstract in HTML head" do
@@ -657,8 +657,8 @@ RSpec.describe IsoDoc::Ogc do
       .convert("test", presxml, false)
     doc = Nokogiri::XML(File.read("test.html"))
     out = doc.xpath("//head/meta[@name = 'keywords' or @name = 'description']")
-    expect(Canon.format_xml("<html>#{out.to_xml}</html>"))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect("<html>#{out.to_xml}</html>")
+      .to be_xml_equivalent_to output
   end
 
   it "processes document history" do
@@ -984,7 +984,7 @@ RSpec.describe IsoDoc::Ogc do
     xml.at("//xmlns:localized-strings").remove
     xml.at("//xmlns:metanorma-extension")&.remove
     xml.at("//xmlns:bibdata").remove
-    expect(Canon.format_xml(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(xml.to_xml))
+      .to be_xml_equivalent_to presxml
   end
 end
