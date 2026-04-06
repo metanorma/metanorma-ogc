@@ -6,24 +6,37 @@
 
 	<xsl:variable name="debug">false</xsl:variable>
 
-	<xsl:variable name="docnumber" select="java:toUpperCase(java:java.lang.String.new(/mn:metanorma/mn:bibdata/mn:docnumber))"/>
-	<xsl:variable name="doctitle" select="/mn:metanorma/mn:bibdata/mn:title[@language = 'en']"/>
+	<xsl:variable name="variables_">
+		<xsl:for-each select="//mn:metanorma">
+			<xsl:variable name="num"><xsl:number level="any" count="mn:metanorma"/></xsl:variable>
 
-	<!-- <xsl:variable name="docLatestDate_">
-		<xsl:for-each select="/*/mn:bibdata/mn:date[normalize-space(mn:on) != '']">
-			<xsl:sort order="descending" select="mn:on"/>
-			<xsl:if test="position() = 1"><xsl:value-of select="translate(mn:on, '-', '')"/></xsl:if>
+			<xsl:variable name="current_document">
+				<xsl:copy-of select="."/>
+			</xsl:variable>
+
+			<xsl:for-each select="xalan:nodeset($current_document)">
+				<mnx:doc num="{$num}">
+					<xsl:variable name="docnumber" select="java:toUpperCase(java:java.lang.String.new(/mn:metanorma/mn:bibdata/mn:docnumber))"/>
+					<docnumber><xsl:value-of select="$docnumber"/></docnumber>
+
+					<xsl:variable name="doctitle" select="/mn:metanorma/mn:bibdata/mn:title[@language = 'en']"/>
+					<doctitle><xsl:value-of select="$doctitle"/></doctitle>
+
+					<xsl:variable name="doctype">
+						<xsl:call-template name="capitalizeWords">
+							<xsl:with-param name="str"><xsl:call-template name="getDoctype"/></xsl:with-param>
+						</xsl:call-template>
+					</xsl:variable>
+					<doctype><xsl:value-of select="$doctype"/></doctype>
+
+					<xsl:variable name="copyright-owner" select="java:toUpperCase(java:java.lang.String.new(/mn:metanorma/mn:bibdata/mn:copyright/mn:owner/mn:organization/mn:name))"/>
+					<copyright-owner><xsl:value-of select="$copyright-owner"/></copyright-owner>
+
+				</mnx:doc>
+			</xsl:for-each>
 		</xsl:for-each>
 	</xsl:variable>
-	<xsl:variable name="docLatestDate" select="normalize-space($docLatestDate_)"/>
-
-	<xsl:variable name="selectedStyle_">
-		<xsl:choose>
-			<xsl:when test="$docLatestDate &gt;= '20211108'">2</xsl:when>
-			<xsl:otherwise>1</xsl:otherwise>
-		</xsl:choose>
-	</xsl:variable>
-	<xsl:variable name="selectedStyle" select="normalize-space($selectedStyle_)"/> -->
+	<xsl:variable name="variables" select="xalan:nodeset($variables_)"/>
 
 	<xsl:variable name="layoutVersion_">
 		<xsl:choose>
@@ -33,15 +46,7 @@
 	</xsl:variable>
 	<xsl:variable name="layoutVersion" select="normalize-space($layoutVersion_)"/>
 
-	<xsl:variable name="doctype">
-		<xsl:call-template name="capitalizeWords">
-			<xsl:with-param name="str"><xsl:call-template name="getDoctype"/></xsl:with-param>
-		</xsl:call-template>
-	</xsl:variable>
-
-	<xsl:variable name="copyright-owner" select="java:toUpperCase(java:java.lang.String.new(/mn:metanorma/mn:bibdata/mn:copyright/mn:owner/mn:organization/mn:name))"/>
-
-	<xsl:variable name="presentation_metadata_color_text" select="normalize-space(/mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-text)"/>
+	<xsl:variable name="presentation_metadata_color_text" select="normalize-space(//mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-text)"/>
 	<xsl:variable name="color_main">
 		<xsl:choose>
 			<xsl:when test="$presentation_metadata_color_text != ''"><xsl:value-of select="$presentation_metadata_color_text"/></xsl:when>
@@ -49,7 +54,7 @@
 		</xsl:choose>
 	</xsl:variable>
 
-	<xsl:variable name="presentation_metadata_color_secondary_shade_1" select="normalize-space(/mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-secondary-shade-1)"/>
+	<xsl:variable name="presentation_metadata_color_secondary_shade_1" select="normalize-space(//mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-secondary-shade-1)"/>
 	<xsl:variable name="color_design">
 		<xsl:choose>
 			<xsl:when test="$presentation_metadata_color_secondary_shade_1 != ''"><xsl:value-of select="$presentation_metadata_color_secondary_shade_1"/></xsl:when>
@@ -58,7 +63,7 @@
 		</xsl:choose>
 	</xsl:variable>
 
-	<xsl:variable name="presentation_metadata_color_secondary_shade_2" select="normalize-space(/mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-secondary-shade-2)"/>
+	<xsl:variable name="presentation_metadata_color_secondary_shade_2" select="normalize-space(//mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-secondary-shade-2)"/>
 	<xsl:variable name="color_design_light">
 		<xsl:choose>
 			<xsl:when test="$presentation_metadata_color_secondary_shade_2 != ''"><xsl:value-of select="$presentation_metadata_color_secondary_shade_2"/></xsl:when>
@@ -67,7 +72,7 @@
 		</xsl:choose>
 	</xsl:variable>
 
-	<xsl:variable name="presentation_metadata_color_background_definition_term" select="normalize-space(/mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-background-definition-term)"/>
+	<xsl:variable name="presentation_metadata_color_background_definition_term" select="normalize-space(//mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-background-definition-term)"/>
 	<xsl:variable name="color_dl_dt">
 		<xsl:choose>
 			<xsl:when test="$presentation_metadata_color_background_definition_term != ''"><xsl:value-of select="$presentation_metadata_color_background_definition_term"/></xsl:when>
@@ -75,7 +80,7 @@
 		</xsl:choose>
 	</xsl:variable>
 
-	<xsl:variable name="presentation_metadata_color_background_definition_description" select="normalize-space(/mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-background-definition-description)"/>
+	<xsl:variable name="presentation_metadata_color_background_definition_description" select="normalize-space(//mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-background-definition-description)"/>
 	<xsl:variable name="color_dl_dd">
 		<xsl:choose>
 			<xsl:when test="$presentation_metadata_color_background_definition_description != ''"><xsl:value-of select="$presentation_metadata_color_background_definition_description"/></xsl:when>
@@ -83,7 +88,7 @@
 		</xsl:choose>
 	</xsl:variable>
 
-	<xsl:variable name="presentation_metadata_color_text_title" select="normalize-space(/mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-text-title)"/>
+	<xsl:variable name="presentation_metadata_color_text_title" select="normalize-space(//mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-text-title)"/>
 	<xsl:variable name="color_text_title">
 		<xsl:choose>
 			<xsl:when test="$presentation_metadata_color_text_title != ''"><xsl:value-of select="$presentation_metadata_color_text_title"/></xsl:when>
@@ -91,7 +96,7 @@
 		</xsl:choose>
 	</xsl:variable>
 
-	<xsl:variable name="presentation_metadata_color_background_page" select="normalize-space(/mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-background-page)"/>
+	<xsl:variable name="presentation_metadata_color_background_page" select="normalize-space(//mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-background-page)"/>
 	<xsl:variable name="color-background-page">
 		<xsl:choose>
 			<xsl:when test="$presentation_metadata_color_background_page != ''"><xsl:value-of select="$presentation_metadata_color_background_page"/></xsl:when>
@@ -99,7 +104,7 @@
 		</xsl:choose>
 	</xsl:variable>
 
-	<xsl:variable name="presentation_metadata_color_background_text_label_legacy" select="normalize-space(/mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-background-text-label-legacy)"/>
+	<xsl:variable name="presentation_metadata_color_background_text_label_legacy" select="normalize-space(//mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-background-text-label-legacy)"/>
 	<xsl:variable name="color_background_blue">
 		<xsl:choose>
 			<xsl:when test="$presentation_metadata_color_background_text_label_legacy != ''"><xsl:value-of select="$presentation_metadata_color_background_text_label_legacy"/></xsl:when>
@@ -107,7 +112,7 @@
 		</xsl:choose>
 	</xsl:variable>
 
-	<xsl:variable name="presentation_metadata_color_background_term_preferred_label" select="normalize-space(/mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-background-term-preferred-label)"/>
+	<xsl:variable name="presentation_metadata_color_background_term_preferred_label" select="normalize-space(//mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-background-term-preferred-label)"/>
 	<xsl:variable name="color_term_preferred">
 		<xsl:choose>
 			<xsl:when test="$presentation_metadata_color_background_term_preferred_label != ''"><xsl:value-of select="$presentation_metadata_color_background_term_preferred_label"/></xsl:when>
@@ -115,7 +120,7 @@
 		</xsl:choose>
 	</xsl:variable>
 
-	<xsl:variable name="presentation_metadata_color_background_term_deprecated_label" select="normalize-space(/mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-background-term-deprecated-label)"/>
+	<xsl:variable name="presentation_metadata_color_background_term_deprecated_label" select="normalize-space(//mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-background-term-deprecated-label)"/>
 	<xsl:variable name="color_term_deprecated">
 		<xsl:choose>
 			<xsl:when test="$presentation_metadata_color_background_term_deprecated_label != ''"><xsl:value-of select="$presentation_metadata_color_background_term_deprecated_label"/></xsl:when>
@@ -123,7 +128,7 @@
 		</xsl:choose>
 	</xsl:variable>
 
-	<xsl:variable name="presentation_metadata_color_background_term_admitted_label" select="normalize-space(/mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-background-term-admitted-label)"/>
+	<xsl:variable name="presentation_metadata_color_background_term_admitted_label" select="normalize-space(//mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-background-term-admitted-label)"/>
 	<xsl:variable name="color_term_admitted">
 		<xsl:choose>
 			<xsl:when test="$presentation_metadata_color_background_term_admitted_label != ''"><xsl:value-of select="$presentation_metadata_color_background_term_admitted_label"/></xsl:when>
@@ -131,7 +136,7 @@
 		</xsl:choose>
 	</xsl:variable>
 
-	<xsl:variable name="presentation_metadata_color_background_table_header" select="normalize-space(/mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-background-table-header)"/>
+	<xsl:variable name="presentation_metadata_color_background_table_header" select="normalize-space(//mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-background-table-header)"/>
 	<xsl:variable name="color_table_header_row">
 		<xsl:choose>
 			<xsl:when test="$presentation_metadata_color_background_table_header != ''"><xsl:value-of select="$presentation_metadata_color_background_table_header"/></xsl:when>
@@ -139,7 +144,7 @@
 		</xsl:choose>
 	</xsl:variable>
 
-	<xsl:variable name="presentation_metadata_color_background_table_row_even" select="normalize-space(/mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-background-table-row-even)"/>
+	<xsl:variable name="presentation_metadata_color_background_table_row_even" select="normalize-space(//mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-background-table-row-even)"/>
 	<xsl:variable name="color_table_row_even">
 		<xsl:choose>
 			<xsl:when test="$presentation_metadata_color_background_table_row_even != ''"><xsl:value-of select="$presentation_metadata_color_background_table_row_even"/></xsl:when>
@@ -147,7 +152,7 @@
 		</xsl:choose>
 	</xsl:variable>
 
-	<xsl:variable name="presentation_metadata_color_background_table_row_odd" select="normalize-space(/mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-background-table-row-odd)"/>
+	<xsl:variable name="presentation_metadata_color_background_table_row_odd" select="normalize-space(//mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-background-table-row-odd)"/>
 	<xsl:variable name="color_table_row_odd">
 		<xsl:choose>
 			<xsl:when test="$presentation_metadata_color_background_table_row_odd != ''"><xsl:value-of select="$presentation_metadata_color_background_table_row_odd"/></xsl:when>
@@ -190,7 +195,7 @@
 								</xsl:variable>
 								<xsl:variable name="regex_str" select="'^([^0-9]+) (\d+).*'"/>
 								<xsl:variable name="class" select="java:replaceAll(java:java.lang.String.new($bookmark), $regex_str, '$1')"/>
-								<xsl:variable name="num" select="java:replaceAll(java:java.lang.String.new($bookmark), $regex_str, '$2')"/>
+								<xsl:variable name="number" select="java:replaceAll(java:java.lang.String.new($bookmark), $regex_str, '$2')"/>
 								<xsl:variable name="class_lc" select="java:toLowerCase(java:java.lang.String.new($class))"/>
 								<!-- <xsl:attribute name="class_str">
 									<xsl:value-of select="$class"/>
@@ -210,7 +215,7 @@
 									</xsl:choose>
 								</xsl:attribute>
 								<xsl:attribute name="num">
-									<xsl:value-of select="$num"/>
+									<xsl:value-of select="$number"/>
 								</xsl:attribute>
 								<title>
 									<xsl:copy-of select="$title"/>
@@ -328,6 +333,8 @@
 					<xsl:call-template name="addPDFUAmeta"/>
 				</fo:declarations>
 
+				<xsl:call-template name="debug_contents"/>
+
 				<xsl:call-template name="addBookmarks">
 					<xsl:with-param name="contents" select="$contents"/>
 					<xsl:with-param name="contents_addon">
@@ -409,7 +416,9 @@
 							<xsl:attribute name="initial-page-number">2</xsl:attribute>
 
 							<xsl:call-template name="insertFootnoteSeparator"/>
-							<xsl:call-template name="insertHeaderFooter"/>
+							<xsl:call-template name="insertHeaderFooter">
+								<xsl:with-param name="num" select="$num"/>
+							</xsl:call-template>
 							<fo:flow flow-name="xsl-region-body">
 
 								<!-- crossing lines -->
@@ -463,7 +472,9 @@
 									</xsl:attribute>
 
 									<xsl:call-template name="insertFootnoteSeparator"/>
-									<xsl:call-template name="insertHeaderFooter"/>
+									<xsl:call-template name="insertHeaderFooter">
+										<xsl:with-param name="num" select="$num"/>
+									</xsl:call-template>
 									<fo:flow flow-name="xsl-region-body">
 
 										<xsl:if test="position() = 1">
@@ -551,6 +562,7 @@
 								</xsl:variable>
 
 								<xsl:apply-templates select="." mode="sections">
+									<xsl:with-param name="num" select="$num"/>
 									<xsl:with-param name="initial-page-number" select="$initial_page_number"/>
 								</xsl:apply-templates>
 
@@ -609,7 +621,7 @@
 									<fo:table-row>
 										<fo:table-cell font-weight="bold">
 											<fo:block font-size="16pt" color="{$color_design}" margin-bottom="4pt">
-												<xsl:variable name="ogc_document" select="concat('OGC® DOCUMENT: ', $docnumber)"/>
+												<xsl:variable name="ogc_document" select="concat('OGC® DOCUMENT: ', $variables/mnx:doc[@num = $num]/docnumber)"/>
 												<xsl:call-template name="addLetterSpacing">
 													<xsl:with-param name="text" select="$ogc_document"/>
 													<xsl:with-param name="letter-spacing" select="0.3"/>
@@ -629,6 +641,8 @@
 								</fo:table-body>
 							</fo:table>
 						</fo:block>
+
+						<xsl:variable name="doctitle" select="$variables/mnx:doc[@num = $num]/doctitle"/>
 
 						<!-- <fo:block-container absolute-position="fixed" left="16.5mm" top="83mm" height="90mm"> -->
 						<fo:block-container absolute-position="fixed" left="16.5mm" top="40mm" height="170mm">
@@ -657,7 +671,7 @@
 								<fo:block color="{$color_design}">
 									<fo:block font-size="17pt">
 										<xsl:call-template name="addLetterSpacing">
-											<xsl:with-param name="text" select="java:toUpperCase(java:java.lang.String.new($doctype))"/>
+											<xsl:with-param name="text" select="java:toUpperCase(java:java.lang.String.new($variables/mnx:doc[@num = $num]/doctype))"/>
 										</xsl:call-template>
 										<xsl:value-of select="$linebreak"/>
 										<xsl:variable name="docsubtype" select="normalize-space(/mn:metanorma/mn:bibdata/mn:ext/mn:subdoctype)"/>
@@ -1021,6 +1035,8 @@
 					</fo:block-container>
 				</xsl:if>
 
+				<xsl:call-template name="debug_toc_recommendations"/>
+
 				<!-- List of Recommendations -->
 				<xsl:if test="$toc_recommendations/mnx:doc[@num = $num]/*[normalize-space(@id) != '']">
 					<xsl:call-template name="insertListOf_Title">
@@ -1146,6 +1162,7 @@
 	</xsl:template>
 
 	<xsl:template match="node()" mode="sections">
+		<xsl:param name="num"/>
 		<xsl:param name="initial-page-number"/>
 
 		<xsl:if test="@main_page_sequence or self::mn:indexsect">
@@ -1158,6 +1175,7 @@
 
 				<xsl:call-template name="insertHeaderFooter">
 					<xsl:with-param name="color">white</xsl:with-param>
+					<xsl:with-param name="num" select="$num"/>
 				</xsl:call-template>
 				<fo:flow flow-name="xsl-region-body">
 
@@ -1209,7 +1227,9 @@
 			<xsl:call-template name="refine_page-sequence-main"/>
 
 			<xsl:call-template name="insertFootnoteSeparator"/>
-			<xsl:call-template name="insertHeaderFooter"/>
+			<xsl:call-template name="insertHeaderFooter">
+				<xsl:with-param name="num" select="$num"/>
+			</xsl:call-template>
 			<fo:flow flow-name="xsl-region-body">
 
 				<fo:block line-height="125%">
@@ -1673,9 +1693,11 @@
 	</xsl:template>
 
 	<xsl:template name="insertHeaderFooter">
+		<xsl:param name="num"/>
 		<xsl:param name="color" select="$color_text_title"/>
 		<xsl:call-template name="insertHeader"/>
 		<xsl:call-template name="insertFooter">
+			<xsl:with-param name="num" select="$num"/>
 			<xsl:with-param name="color" select="$color"/>
 		</xsl:call-template>
 	</xsl:template>
@@ -1684,6 +1706,7 @@
 	</xsl:template>
 
 	<xsl:template name="insertFooter">
+		<xsl:param name="num"/>
 		<xsl:param name="color" select="$color_text_title"/>
 		<fo:static-content flow-name="footer" role="artifact">
 			<fo:block-container font-size="8pt" color="{$color}" padding-top="6mm">
@@ -1696,12 +1719,12 @@
 								<fo:block>
 									<fo:inline font-weight="bold">
 										<xsl:call-template name="addLetterSpacing">
-											<xsl:with-param name="text" select="concat($copyright-owner, ' ')"/>
+											<xsl:with-param name="text" select="concat($variables/mnx:doc[@num = $num]/copyright-owner, ' ')"/>
 											<xsl:with-param name="letter-spacing" select="0.2"/>
 										</xsl:call-template>
 									</fo:inline>
 									<xsl:call-template name="addLetterSpacing">
-										<xsl:with-param name="text" select="$docnumber"/>
+										<xsl:with-param name="text" select="$variables/mnx:doc[@num = $num]/docnumber"/>
 										<xsl:with-param name="letter-spacing" select="0.2"/>
 									</xsl:call-template>
 								</fo:block>
