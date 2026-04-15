@@ -1422,9 +1422,7 @@ RSpec.describe IsoDoc::Ogc do
             <div id="P" class="Section3">
                <h1 class="Annex">
                   <b>Annex A</b>
-                  <br/>
-                  (normative)
-                  <br/>
+                  <br/>(normative)<br/>
                   <b>Annex</b>
                </h1>
                 <p style="display:none;" class="variant-title-toc">Annex A  Annex</p>
@@ -1439,9 +1437,7 @@ RSpec.describe IsoDoc::Ogc do
             <div id="PP" class="Section3">
                <h1 class="Annex">
                   <b>Annex B</b>
-                  <br/>
-                  (normative)
-                  <br/>
+                  <br/>(normative)<br/>
                   <b>Glossary</b>
                </h1>
                <p style="display:none;" class="variant-title-toc">Annex B  Glossary</p>
@@ -1454,9 +1450,7 @@ RSpec.describe IsoDoc::Ogc do
             <div id="QQ" class="Section3">
                <h1 class="Annex">
                   <b>Annex C</b>
-                  <br/>
-                  (normative)
-                  <br/>
+                  <br/>(normative)<br/>
                   <b>Glossary</b>
                </h1>
                <p style="display:none;" class="variant-title-toc">Annex C  Glossary</p>
@@ -1812,9 +1806,7 @@ RSpec.describe IsoDoc::Ogc do
            <div id="P" class="Section3">
                <h1 class="Annex">
                   <b>Annex A</b>
-                  <br/>
-                  (normative)
-                  <br/>
+                  <br/>(normative)<br/>
                   <b>Annex</b>
                </h1>
                <p style="display:none;" class="variant-title-toc">Annex A  Annex</p>
@@ -1829,9 +1821,7 @@ RSpec.describe IsoDoc::Ogc do
             <div id="PP" class="Section3">
                <h1 class="Annex">
                   <b>Annex B</b>
-                  <br/>
-                  (normative)
-                  <br/>
+                  <br/>(normative)<br/>
                   <b>Glossary</b>
                </h1>
                <p style="display:none;" class="variant-title-toc">Annex B  Glossary</p>
@@ -1844,9 +1834,7 @@ RSpec.describe IsoDoc::Ogc do
             <div id="QQ" class="Section3">
                <h1 class="Annex">
                   <b>Annex C</b>
-                  <br/>
-                  (normative)
-                  <br/>
+                  <br/>(normative)<br/>
                   <b>Glossary</b>
                </h1>
                 <p style="display:none;" class="variant-title-toc">Annex C  Glossary</p>
