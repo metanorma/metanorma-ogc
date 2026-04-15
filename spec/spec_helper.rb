@@ -9,7 +9,7 @@ require "rspec/matchers"
 require "equivalent-xml"
 require "htmlentities"
 require "metanorma"
-require "relaton_iso"
+require "relaton/iso"
 require "canon"
 
 Canon::Config.instance.tap do |cfg|
@@ -38,7 +38,7 @@ RSpec.configure do |config|
   end
 end
 
-OPTIONS = [backend: :ogc, header_footer: true, agree_to_terms: true].freeze
+OPTIONS = [{ backend: :ogc, header_footer: true, agree_to_terms: true }].freeze
 
 def presxml_options
   { semanticxmlinsert: "false" }
@@ -52,7 +52,7 @@ end
 
 def strip_guid(xml)
   xml.gsub(%r{ id="_[^"]+"}, ' id="_"')
-    .gsub(%r{ semx-id="[^"]*"}, '')
+    .gsub(%r{ semx-id="[^"]*"}, "")
     .gsub(%r{ target="_[^"]+"}, ' target="_"')
     .gsub(%r{ source="_[^"]+"}, ' source="_"')
     .gsub(%r{ name="_[^"]+"}, ' name="_"')
@@ -117,7 +117,7 @@ def boilerplate(xmldoc)
   )
 end
 
-METANORMA_EXTENSION = <<~"HDR".freeze
+METANORMA_EXTENSION = <<~HDR.freeze
   <metanorma-extension>
              <semantic-metadata>
                 <stage-published>true</stage-published>

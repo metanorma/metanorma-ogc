@@ -193,7 +193,7 @@ module Metanorma
       end
 
       def sort_biblio_ids_key(bib)
-        id = bib.at("./docidentifier[@primary]") ||
+        id = bib.at("./docidentifier[@primary = 'true']") ||
           bib.at("./docidentifier[not(#{@conv.skip_docid} or @type = 'metanorma')]")
         metaid = bib.at("./docidentifier[@type = 'metanorma']")&.text
         /\d-(?<partid>\d+)/ =~ id&.text
