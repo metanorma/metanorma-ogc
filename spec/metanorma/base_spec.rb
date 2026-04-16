@@ -59,16 +59,15 @@ RSpec.describe Metanorma::Ogc do
     INPUT
 
     output = <<~"OUTPUT"
-      <?xml version='1.0' encoding='UTF-8'?>
          <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ogc::VERSION}" flavor="ogc">
          <bibdata type="standard">
            <title language="en" type="main">Main Title</title>
            <title language="en" type='abbrev'>MT</title>
            <uri>http://www.example.com</uri>
            <uri type="previous">PREVIOUS URI</uri>
+           <docidentifier primary="true" type="ogc-internal">1000</docidentifier>
            <docidentifier type="ogc-external">http://www.example2.com</docidentifier>
            <docidentifier type="ogc-external">ABC</docidentifier>
-           <docidentifier primary="true" type="ogc-internal">1000</docidentifier>
            <docnumber>1000</docnumber>
            <date type="published">
              <on>2002-01-01</on>
@@ -241,8 +240,8 @@ RSpec.describe Metanorma::Ogc do
 
     xml = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
     xml.xpath("//xmlns:metanorma-extension").each(&:remove)
-    expect(Canon.format_xml(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(xml.to_xml))
+      .to be_xml_equivalent_to output
   end
 
   it "processes OGC synonyms for default metadata, default template for external-id, docidentifier override for internal-id" do
@@ -284,9 +283,9 @@ RSpec.describe Metanorma::Ogc do
         <title language="en" type="main">Main Title</title>
         <title language="en" type='abbrev'>A</title>
         <uri>http://www.example.com</uri>
+        <docidentifier primary="true" type="ogc-internal">OVERRIDE</docidentifier>
         <docidentifier type='ogc-external'>http://www.opengis.net/doc/TP/A/2.0</docidentifier>
         <docidentifier type='ogc-external'>http://www.example2.com</docidentifier>
-        <docidentifier primary="true" type="ogc-internal">OVERRIDE</docidentifier>
                  <date type="created">
           <on>1999-01-01</on>
         </date>
@@ -363,8 +362,8 @@ RSpec.describe Metanorma::Ogc do
     xml = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
     xml.xpath("//xmlns:boilerplate | " \
               "//xmlns:metanorma-extension").each(&:remove)
-    expect(Canon.format_xml(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(xml.to_xml))
+      .to be_xml_equivalent_to output
   end
 
   it "uses default fonts" do
@@ -435,28 +434,28 @@ RSpec.describe Metanorma::Ogc do
     OUTPUT
     xml = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
     xml = xml.xpath("//xmlns:metanorma-extension")
-    expect(Canon.format_xml(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(xml.to_xml))
+      .to be_xml_equivalent_to output
     xml = Nokogiri::XML(Asciidoctor.convert(input
       .sub(":novalid:", ":novalid:\n:document-scheme: 2021"), *OPTIONS))
     xml = xml.xpath("//xmlns:metanorma-extension")
-    expect(Canon.format_xml(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(xml.to_xml))
+      .to be_xml_equivalent_to output
     xml = Nokogiri::XML(Asciidoctor.convert(input
       .sub(":novalid:", ":novalid:\n:copyright-year: 2027"), *OPTIONS))
     xml = xml.xpath("//xmlns:metanorma-extension")
-    expect(Canon.format_xml(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(xml.to_xml))
+      .to be_xml_equivalent_to output
     xml = Nokogiri::XML(Asciidoctor.convert(input
       .sub(":novalid:", ":novalid:\n:published-date: 2026-02-01"), *OPTIONS))
     xml = xml.xpath("//xmlns:metanorma-extension")
-    expect(Canon.format_xml(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(xml.to_xml))
+      .to be_xml_equivalent_to output
     xml = Nokogiri::XML(Asciidoctor.convert(input
       .sub(":novalid:", ":novalid:\n:published-date: 2026"), *OPTIONS))
     xml = xml.xpath("//xmlns:metanorma-extension")
-    expect(Canon.format_xml(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(xml.to_xml))
+      .to be_xml_equivalent_to output
 
     output = <<~OUTPUT
        <metanorma-extension>
@@ -497,23 +496,23 @@ RSpec.describe Metanorma::Ogc do
     xml = Nokogiri::XML(Asciidoctor.convert(input
       .sub(":novalid:", ":novalid:\n:copyright-year: 2023"), *OPTIONS))
     xml = xml.xpath("//xmlns:metanorma-extension")
-    expect(Canon.format_xml(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(xml.to_xml))
+      .to be_xml_equivalent_to output
     xml = Nokogiri::XML(Asciidoctor.convert(input
       .sub(":novalid:", ":novalid:\n:published-date: 2021-12-03"), *OPTIONS))
     xml = xml.xpath("//xmlns:metanorma-extension")
-    expect(Canon.format_xml(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(xml.to_xml))
+      .to be_xml_equivalent_to output
     xml = Nokogiri::XML(Asciidoctor.convert(input
       .sub(":novalid:", ":novalid:\n:published-date: 2021-12"), *OPTIONS))
     xml = xml.xpath("//xmlns:metanorma-extension")
-    expect(Canon.format_xml(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(xml.to_xml))
+      .to be_xml_equivalent_to output
     xml = Nokogiri::XML(Asciidoctor.convert(input
       .sub(":novalid:", ":novalid:\n:published-date: 2022"), *OPTIONS))
     xml = xml.xpath("//xmlns:metanorma-extension")
-    expect(Canon.format_xml(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(xml.to_xml))
+      .to be_xml_equivalent_to output
 
     output = <<~OUTPUT
        <metanorma-extension>
@@ -554,28 +553,28 @@ RSpec.describe Metanorma::Ogc do
     xml = Nokogiri::XML(Asciidoctor.convert(input
       .sub(":novalid:", ":novalid:\n:document-scheme: 2018"), *OPTIONS))
     xml = xml.xpath("//xmlns:metanorma-extension")
-    expect(Canon.format_xml(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(xml.to_xml))
+      .to be_xml_equivalent_to output
     xml = Nokogiri::XML(Asciidoctor.convert(input
       .sub(":novalid:", ":novalid:\n:copyright-year: 2020"), *OPTIONS))
     xml = xml.xpath("//xmlns:metanorma-extension")
-    expect(Canon.format_xml(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(xml.to_xml))
+      .to be_xml_equivalent_to output
     xml = Nokogiri::XML(Asciidoctor.convert(input
       .sub(":novalid:", ":novalid:\n:published-date: 2021-06-03"), *OPTIONS))
     xml = xml.xpath("//xmlns:metanorma-extension")
-    expect(Canon.format_xml(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(xml.to_xml))
+      .to be_xml_equivalent_to output
     xml = Nokogiri::XML(Asciidoctor.convert(input
       .sub(":novalid:", ":novalid:\n:published-date: 2021-06"), *OPTIONS))
     xml = xml.xpath("//xmlns:metanorma-extension")
-    expect(Canon.format_xml(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(xml.to_xml))
+      .to be_xml_equivalent_to output
     xml = Nokogiri::XML(Asciidoctor.convert(input
       .sub(":novalid:", ":novalid:\n:published-date: 2021"), *OPTIONS))
     xml = xml.xpath("//xmlns:metanorma-extension")
-    expect(Canon.format_xml(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(xml.to_xml))
+      .to be_xml_equivalent_to output
 
     output = <<~OUTPUT
        <metanorma-extension>
@@ -616,8 +615,8 @@ RSpec.describe Metanorma::Ogc do
     xml = Nokogiri::XML(Asciidoctor.convert(input
       .sub(":novalid:", ":novalid:\n:doctype: white-paper"), *OPTIONS))
     xml = xml.xpath("//xmlns:metanorma-extension")
-    expect(Canon.format_xml(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(xml.to_xml))
+      .to be_xml_equivalent_to output
   end
 
   it "uses specified fonts" do
@@ -664,8 +663,8 @@ RSpec.describe Metanorma::Ogc do
          </sections>
          </metanorma>
     OUTPUT
-    expect(Canon.format_xml(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(Asciidoctor.convert(input, *OPTIONS)))
+      .to be_xml_equivalent_to output
   end
 
   it "processes highlight text" do
@@ -686,8 +685,8 @@ RSpec.describe Metanorma::Ogc do
              </sections>
              </metanorma>
     OUTPUT
-    expect(Canon.format_xml(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(Asciidoctor.convert(input, *OPTIONS)))
+      .to be_xml_equivalent_to output
   end
 
   it "overrides table valign" do
@@ -721,8 +720,8 @@ RSpec.describe Metanorma::Ogc do
       </sections>
       </metanorma>
     OUTPUT
-    expect(Canon.format_xml(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(Asciidoctor.convert(input, *OPTIONS)))
+      .to be_xml_equivalent_to output
   end
 
   it "applies default requirement model" do
@@ -818,8 +817,8 @@ RSpec.describe Metanorma::Ogc do
     OUTPUT
     doc = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
     xml = doc.at("//xmlns:definitions")
-    expect(Canon.format_xml(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(xml.to_xml))
+      .to be_xml_equivalent_to output
   end
 
   it "processes document history in misc-container" do
@@ -1133,8 +1132,8 @@ RSpec.describe Metanorma::Ogc do
     OUTPUT
     xml = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
     xml = xml.at("//xmlns:bibdata")
-    expect(Canon.format_xml(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(xml.to_xml))
+      .to be_xml_equivalent_to output
   end
 
   it "applies engineering report style attribues" do
@@ -1226,7 +1225,7 @@ RSpec.describe Metanorma::Ogc do
     xml = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
     xml.xpath("//xmlns:boilerplate | //xmlns:bibdata | //xmlns:metanorma-extension")
       .each(&:remove)
-    expect(Canon.format_xml(strip_guid(xml.to_xml)))
-      .to be_equivalent_to Canon.format_xml(output)
+    expect(strip_guid(xml.to_xml))
+      .to be_xml_equivalent_to output
   end
 end

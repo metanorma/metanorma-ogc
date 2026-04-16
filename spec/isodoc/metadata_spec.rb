@@ -337,8 +337,8 @@ RSpec.describe IsoDoc::Ogc do
     pres_output = IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
     test = Nokogiri::XML(pres_output).at("//xmlns:contributor[xmlns:role/@type='publisher']").to_xml
-    expect(Canon.format_xml(strip_guid(test)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(test))
+      .to be_xml_equivalent_to presxml
     docxml, = csdc.convert_init(pres_output, "test", true)
     m = metadata(csdc.info(docxml, nil))
     expect(m[:logo_html]).to be_equivalent_to logo_2026_white_svg
@@ -397,8 +397,8 @@ RSpec.describe IsoDoc::Ogc do
     pres_output = IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
     test = Nokogiri::XML(pres_output).at("//xmlns:contributor[xmlns:role/@type='publisher']").to_xml
-    expect(Canon.format_xml(strip_guid(test)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(test))
+      .to be_xml_equivalent_to presxml
     docxml, = csdc.convert_init(pres_output, "test", true)
     m = metadata(csdc.info(docxml, nil))
     expect(m[:logo_html]).to be_equivalent_to logo_2022_svg
@@ -453,8 +453,8 @@ RSpec.describe IsoDoc::Ogc do
     pres_output = IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
     test = Nokogiri::XML(pres_output).at("//xmlns:contributor[xmlns:role/@type='publisher']").to_xml
-    expect(Canon.format_xml(strip_guid(test)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(test))
+      .to be_xml_equivalent_to presxml
     docxml, = csdc.convert_init(pres_output, "test", true)
     m = metadata(csdc.info(docxml, nil))
     expect(m[:logo_html]).to be_equivalent_to <<~XML
@@ -519,8 +519,8 @@ RSpec.describe IsoDoc::Ogc do
     pres_output = IsoDoc::Ogc::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
     test = Nokogiri::XML(pres_output).at("//xmlns:contributor[xmlns:role/@type='publisher']").to_xml
-    expect(Canon.format_xml(strip_guid(test)))
-      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(strip_guid(test))
+      .to be_xml_equivalent_to presxml
     docxml, = csdc.convert_init(pres_output, "test", true)
     m = metadata(csdc.info(docxml, nil))
     expect(m[:logo_html]).to be_equivalent_to logo_2026_white_svg

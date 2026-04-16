@@ -12,6 +12,8 @@ require "metanorma"
 require "relaton/iso"
 require "canon"
 
+Canon::Config.instance.profile = :metanorma
+
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
   config.example_status_persistence_file_path = ".rspec_status"
@@ -141,7 +143,6 @@ METANORMA_EXTENSION = <<~HDR.freeze
 HDR
 
 BLANK_HDR = <<~"HDR".freeze
-  <?xml version="1.0" encoding="UTF-8"?>
   <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ogc::VERSION}" flavor="ogc">
   <bibdata type="standard">
 
