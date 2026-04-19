@@ -874,9 +874,7 @@ RSpec.describe IsoDoc::Ogc do
                    <figcaption class="SourceTitle">Listing 1</figcaption>
                 </figure>
                 <figure id="D" class="sourcecode" spellcheck="false" translation="no">
-                   <pre>
-                      <p id="_">This is an example</p>
-                   </pre>
+                   <pre><p id="_">This is an example</p></pre>
                    <figcaption class="SourceTitle">Listing 2</figcaption>
                 </figure>
              </div>
