@@ -8,7 +8,7 @@ require "metanorma-ogc"
 require "rspec/matchers"
 require "equivalent-xml"
 require "htmlentities"
-require "metanorma"
+require "metanorma-core"
 require "relaton/iso"
 require "canon"
 
