@@ -364,7 +364,7 @@ RSpec.describe IsoDoc::Ogc do
     OUTPUT
     IsoDoc::Ogc::HtmlConvert.new({ filename: "test" })
       .convert("test", presxml, false)
-    xml = Nokogiri::HTML5(File.read("test.html"))
+    xml = Nokogiri::XML(File.read("test.html"))
     xml = xml.at("//div[@id = 'A']")
     expect(strip_guid(xml.to_xml))
       .to be_xml_equivalent_to html
