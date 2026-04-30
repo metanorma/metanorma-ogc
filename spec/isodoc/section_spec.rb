@@ -444,9 +444,9 @@ RSpec.describe IsoDoc::Ogc do
       .to be_xml_equivalent_to presxml
     IsoDoc::Ogc::HtmlConvert.new({ filename: "test" })
       .convert("test", pres_output, false)
-    xml = Nokogiri::XML(File.read("test.html"))
+    xml = Nokogiri::HTML(File.read("test.html"))
     xml = xml.at("//div[@id = 'H']")
-    expect(strip_guid(xml.to_xml)).to be_xml_equivalent_to html
+    expect(strip_guid(xml.to_xml)).to be_html5_equivalent_to html
     IsoDoc::Ogc::WordConvert.new({ filename: "test" })
       .convert("test", pres_output, false)
     expect(File.read("test.doc")
