@@ -173,201 +173,159 @@ RSpec.describe IsoDoc::Ogc do
 
     html = <<~OUTPUT
        <div id="A">
-          <h1 class="ForewordTitle" id="_">
-             <a class="anchor" href="#A"/>
-             <a class="header" href="#A">I.  Preface</a>
-          </h1>
-          <table id="A1" class="modspec" style="border-width:1px;border-spacing:0;">
-             <thead>
-                <tr>
-                   <th colspan="2" style="font-weight:bold;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;" scope="colgroup">
-                      <p class="RecommendationTitle">
-                         <a class="anchor" href="#A1"/>
-                         <a class="header" href="#A1">Permission 1</a>
-                      </p>
-                   </th>
-                </tr>
-             </thead>
-             <tbody>
-                <tr>
-                   <th style="font-weight:bold;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;" scope="row">Identifier</th>
-                   <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">
-                      <tt>/ogc/recommendation/wfs/2</tt>
-                   </td>
-                </tr>
-                <tr>
-                   <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Subject</th>
-                   <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">user</td>
-                </tr>
-                <tr>
-                   <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Prerequisites</th>
-                   <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">
-                      /ss/584/2015/level/1
-                      <br/>
-                      <a href="#rfc2616">RFC 2616 (HTTP/1.1)</a>
-                   </td>
-                </tr>
-                <tr>
-                   <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Control-CLASS</th>
-                   <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">Technical</td>
-                </tr>
-                <tr>
-                   <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Priority</th>
-                   <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">P0</td>
-                </tr>
-                <tr>
-                   <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Family</th>
-                   <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">
-                      System and Communications Protection
-                      <br/>
-                      System and Communications Protocols
-                   </td>
-                </tr>
-                <tr>
-                   <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Statement</th>
-                   <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">
+         <h1 class="ForewordTitle" id="_">
+           <a class="anchor" href="#A"/>
+           <a class="header" href="#A">I.  Preface</a>
+         </h1>
+         <table id="A1" class="modspec" style="border-width:1px;border-spacing:0;">
+           <thead>
+             <tr>
+               <th colspan="2" style="font-weight:bold;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;" scope="colgroup">
+                 <p class="RecommendationTitle">
+                   <a class="anchor" href="#A1"/>
+                   <a class="header" href="#A1">Permission 1</a>
+                 </p>
+               </th>
+             </tr>
+           </thead>
+           <tbody>
+             <tr>
+               <th style="font-weight:bold;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;" scope="row">Identifier</th>
+               <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">
+                 <tt>/ogc/recommendation/wfs/2</tt>
+               </td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Subject</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">user</td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Prerequisites</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">/ss/584/2015/level/1<br/>
+               <a href="#rfc2616">RFC 2616 (HTTP/1.1)</a></td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Control-CLASS</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">Technical</td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Priority</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">P0</td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Family</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">System and Communications Protection<br/>System and Communications Protocols</td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Statement</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">
+           <p id="_">I recommend <i>this</i>.</p>
+         </td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">A</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">B</td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">C</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">D</td>
+             </tr>
+             <tr>
+               <td colspan="2" style="border-top:none;border-bottom:solid windowtext 1.0pt;">
+           <p id="_">The measurement target shall be measured as:</p>
+           <div id="_"><div class="formula"><p><span class="stem">(#(r/1 = 0)#)</span>  (1)</p></div>
+     
+     
+           </div>
+         </td>
+             </tr>
+             <tr>
+               <td colspan="2" style="border-top:none;border-bottom:solid windowtext 1.5pt;">
+           <p id="_">The following code will be run for verification:</p>
+           <pre id="_" class="sourcecode" spellcheck="false" translation="no">CoreRoot(success): HttpResponse<br/>      if (success)<br/>      recommendation(label: success-response)<br/>      end<br/>    </pre>
+         </td>
+             </tr>
+           </tbody>
+         </table>
+         <table id="A2" class="modspec" style="border-width:1px;border-spacing:0;">
+           <thead>
+             <tr>
+               <th colspan="2" style="font-weight:bold;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;" scope="colgroup">
+                      <p class="RecommendationTestTitle"><a class="anchor" href="#A2"/><a class="header" href="#A2">Conformance test 1</a></p>
+                    </th>
+             </tr>
+           </thead>
+           <tbody>
+             <tr>
+               <th style="font-weight:bold;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;" scope="row">Identifier</th>
+               <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">
+                 <tt>/ogc/recommendation/wfs/2</tt>
+               </td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Subject</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">user</td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Prerequisite</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">/ss/584/2015/level/1</td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Control-class</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">Technical</td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Priority</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">P0</td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Family</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">System and Communications Protection<br/>
+                    System and Communications Protocols</td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Description</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">
                       <p id="_">
-                         I recommend
-                         <i>this</i>
-                         .
+                        I recommend
+                        <i>this</i>
+                        .
                       </p>
-                   </td>
-                </tr>
-                <tr>
-                   <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">A</th>
-                   <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">B</td>
-                </tr>
-                <tr>
-                   <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">C</th>
-                   <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">D</td>
-                </tr>
-                <tr>
-                   <td colspan="2" style="border-top:none;border-bottom:solid windowtext 1.0pt;">
+                    </td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">A</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">B</td>
+             </tr>
+             <tr>
+               <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">C</th>
+               <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">D</td>
+             </tr>
+             <tr>
+               <td colspan="2" style="border-top:none;border-bottom:solid windowtext 1.0pt;">
                       <p id="_">The measurement target shall be measured as:</p>
-                      <div id="_">
-                         <div class="formula">
-                            <p>
-                               <span class="stem">(#(r/1 = 0)#)</span>
-                                 (1)
-                            </p>
-                         </div>
+                      <div id="_"><div class="formula"><p><span class="stem">(#(r/1 = 0)#)</span>  (1)</p></div>
+     
+     
                       </div>
-                   </td>
-                </tr>
-                <tr>
-                   <td colspan="2" style="border-top:none;border-bottom:solid windowtext 1.5pt;">
+                    </td>
+             </tr>
+             <tr>
+               <td colspan="2" style="border-top:none;border-bottom:solid windowtext 1.5pt;">
                       <p id="_">The following code will be run for verification:</p>
-                      <pre id="_" class="sourcecode"  spellcheck="false" translation="no">
-                         CoreRoot(success): HttpResponse
-                         <br/>
-                               if (success)
-                         <br/>
-                               recommendation(label: success-response)
-                         <br/>
-                               end
-                         <br/>
-                            
-                      </pre>
-                   </td>
-                </tr>
-             </tbody>
-          </table>
-          <table id="A2" class="modspec" style="border-width:1px;border-spacing:0;">
-             <thead>
-                <tr>
-                   <th colspan="2" style="font-weight:bold;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;" scope="colgroup">
-                      <p class="RecommendationTestTitle">
-                         <a class="anchor" href="#A2"/>
-                         <a class="header" href="#A2">Conformance test 1</a>
-                      </p>
-                   </th>
-                </tr>
-             </thead>
-             <tbody>
-                <tr>
-                   <th style="font-weight:bold;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;" scope="row">Identifier</th>
-                   <td style="border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">
-                      <tt>/ogc/recommendation/wfs/2</tt>
-                   </td>
-                </tr>
-                <tr>
-                   <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Subject</th>
-                   <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">user</td>
-                </tr>
-                <tr>
-                   <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Prerequisite</th>
-                   <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">/ss/584/2015/level/1</td>
-                </tr>
-                <tr>
-                   <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Control-class</th>
-                   <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">Technical</td>
-                </tr>
-                <tr>
-                   <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Priority</th>
-                   <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">P0</td>
-                </tr>
-                <tr>
-                   <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Family</th>
-                   <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">
-                      System and Communications Protection
-                      <br/>
-                      System and Communications Protocols
-                   </td>
-                </tr>
-                <tr>
-                   <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">Description</th>
-                   <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">
-                      <p id="_">
-                         I recommend
-                         <i>this</i>
-                         .
-                      </p>
-                   </td>
-                </tr>
-                <tr>
-                   <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">A</th>
-                   <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">B</td>
-                </tr>
-                <tr>
-                   <th style="font-weight:bold;border-top:none;border-bottom:solid windowtext 1.0pt;" scope="row">C</th>
-                   <td style="border-top:none;border-bottom:solid windowtext 1.0pt;">D</td>
-                </tr>
-                <tr>
-                   <td colspan="2" style="border-top:none;border-bottom:solid windowtext 1.0pt;">
-                      <p id="_">The measurement target shall be measured as:</p>
-                      <div id="_">
-                         <div class="formula">
-                            <p>
-                               <span class="stem">(#(r/1 = 0)#)</span>
-                                 (1)
-                            </p>
-                         </div>
-                      </div>
-                   </td>
-                </tr>
-                <tr>
-                   <td colspan="2" style="border-top:none;border-bottom:solid windowtext 1.5pt;">
-                      <p id="_">The following code will be run for verification:</p>
-                      <pre id="_" class="sourcecode" spellcheck="false" translation="no">
-                         <br/>
-                                          CoreRoot(success): HttpResponse if (success)
-                         <br/>
-                                          recommendation(label: success-response) end
-                         <br/>
-                                       
-                      </pre>
-                   </td>
-                </tr>
-             </tbody>
-          </table>
+                      <pre id="_" class="sourcecode" spellcheck="false" translation="no"><br/>                 CoreRoot(success): HttpResponse if (success)<br/>                 recommendation(label: success-response) end<br/>               </pre>
+                    </td>
+             </tr>
+           </tbody>
+         </table>
        </div>
     OUTPUT
     IsoDoc::Ogc::HtmlConvert.new({ filename: "test" })
       .convert("test", presxml, false)
-    xml = Nokogiri::HTML5(File.read("test.html"))
+    xml = Nokogiri::HTML(File.read("test.html"))
     xml = xml.at("//div[@id = 'A']")
     expect(strip_guid(xml.to_xml))
-      .to be_xml_equivalent_to html
+      .to be_html5_equivalent_to html
   end
 
   it "processes admonitions" do
