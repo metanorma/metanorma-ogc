@@ -7,10 +7,10 @@ logoloc = File.expand_path(
 
 logo_2026_svg = File.read(File.join(logoloc, "Logos_2026", "1_Blue_Logos",
                                     "OGC-new-logo.svg"))
-  .sub("<svg ", '<svg preserveaspectratio="xMidYMin slice" ')
+  #.sub("<svg ", '<svg preserveaspectratio="xMidYMin slice" ')
 logo_2026_white_svg = File.read(File.join(logoloc, "Logos_2026",
                                           "3_Reverse_Logos", "OGC-new-logo-white.svg"))
-  .sub("<svg ", '<svg preserveaspectratio="xMidYMin slice" ')
+  #.sub("<svg ", '<svg preserveaspectratio="xMidYMin slice" ')
 logo_2026_png = File.join(logoloc, "Logos_2026", "1_Blue_Logos",
                           "OGC-new-logo.png")
 logo_2022_svg = File.read(File.join(logoloc, "logo.2021.svg"))

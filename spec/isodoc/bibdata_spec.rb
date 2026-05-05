@@ -657,7 +657,7 @@ RSpec.describe IsoDoc::Ogc do
       .convert("test", presxml, false)
     html = Nokogiri::HTML(File.read("test.html"))
     out = html.xpath("//head/meta[@name = 'keywords' or @name = 'description']")
-    expect("<html>#{out.to_xml}</html>")
+    expect("<html>#{out.to_xhtml}</html>")
       .to be_html5_equivalent_to output
   end
 
