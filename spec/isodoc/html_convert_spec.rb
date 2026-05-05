@@ -174,7 +174,7 @@ RSpec.describe IsoDoc::Ogc do
     html = <<~OUTPUT
        <div id="A">
          <h1 class="ForewordTitle" id="_">
-           <a class="anchor" href="#A"/>
+           <a class="anchor" href="#A"></a>
            <a class="header" href="#A">I.  Preface</a>
          </h1>
          <table id="A1" class="modspec" style="border-width:1px;border-spacing:0;">
@@ -182,7 +182,7 @@ RSpec.describe IsoDoc::Ogc do
              <tr>
                <th colspan="2" style="font-weight:bold;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;" scope="colgroup">
                  <p class="RecommendationTitle">
-                   <a class="anchor" href="#A1"/>
+                   <a class="anchor" href="#A1"></a>
                    <a class="header" href="#A1">Permission 1</a>
                  </p>
                </th>
@@ -251,7 +251,7 @@ RSpec.describe IsoDoc::Ogc do
            <thead>
              <tr>
                <th colspan="2" style="font-weight:bold;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;" scope="colgroup">
-                      <p class="RecommendationTestTitle"><a class="anchor" href="#A2"/><a class="header" href="#A2">Conformance test 1</a></p>
+                      <p class="RecommendationTestTitle"><a class="anchor" href="#A2"></a><a class="header" href="#A2">Conformance test 1</a></p>
                     </th>
              </tr>
            </thead>
@@ -324,7 +324,7 @@ RSpec.describe IsoDoc::Ogc do
       .convert("test", presxml, false)
     xml = Nokogiri::HTML(File.read("test.html"))
     xml = xml.at("//div[@id = 'A']")
-    expect(strip_guid(xml.to_xml))
+    expect(strip_guid(xml.to_xhtml))
       .to be_html5_equivalent_to html
   end
 
@@ -1134,8 +1134,8 @@ RSpec.describe IsoDoc::Ogc do
           <br/>
           <div id="A">
              <h1 class="ForewordTitle">
-                <a class="anchor" href="#A"/>
-                <a class="header" href="#A"/>
+                <a class="anchor" href="#A"></a>
+                <a class="header" href="#A"></a>
              </h1>
              <details open="open">
                 <summary>
@@ -1238,8 +1238,8 @@ RSpec.describe IsoDoc::Ogc do
           <br/>
           <div id="A">
              <h1 class="ForewordTitle">
-                <a class="anchor" href="#A"/>
-                <a class="header" href="#A"/>
+                <a class="anchor" href="#A"></a>
+                <a class="header" href="#A"></a>
              </h1>
              <details open="open">
                 <summary>
