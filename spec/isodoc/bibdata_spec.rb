@@ -700,9 +700,7 @@ RSpec.describe IsoDoc::Ogc do
                 </name>
               </person>
             </contributor>
-            <version>
-              <draft>Draft</draft>
-            </version>
+            <version>Draft</version>
             <amend change="modify">
               <description>
                 <p id="_">Original draft document</p>
@@ -808,9 +806,7 @@ RSpec.describe IsoDoc::Ogc do
                 </name>
               </person>
             </contributor>
-            <version>
-              <draft>0.1 02-077</draft>
-            </version>
+            <version>0.1 02-077</version>
             <amend change="modify">
               <description>
                 <p id="_">Initial version of ORM. Doc OGC</p>
@@ -834,9 +830,7 @@ RSpec.describe IsoDoc::Ogc do
                 </name>
               </person>
             </contributor>
-            <version>
-              <draft>1.0</draft>
-            </version>
+            <version>1.0</version>
             <amend change="modify">
               <description>
                 <ul id="_">

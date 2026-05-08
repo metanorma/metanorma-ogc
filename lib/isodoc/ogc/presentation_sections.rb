@@ -60,7 +60,7 @@ module IsoDoc
       end
 
       def generate_dochistory_row(item)
-        e = item.at(ns("./edition")) || item.at(ns("./version/draft"))
+        e = item.at(ns("./edition")) || item.at(ns("./version"))
         date = dochistory_date(item)
         c = dochistory_contributors(item)
         l = dochistory_location(item)
