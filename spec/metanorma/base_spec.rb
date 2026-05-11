@@ -81,6 +81,9 @@ RSpec.describe Metanorma::Ogc do
            <date type="received">
           <on>1999-06-01</on>
           </date>
+           <date type="updated">
+          <on>2000-01-01</on>
+          </date>
            <contributor>
              <role type="author"/>
              <organization>
@@ -163,10 +166,7 @@ RSpec.describe Metanorma::Ogc do
              </organization>
            </contributor>
            <edition>2.0</edition>
-          <version>
-           <revision-date>2000-01-01</revision-date>
-           <draft>3.4</draft>
-         </version>
+          <version>3.4</version>
            <language>en</language>
            <script>Latn</script>
            <status>
@@ -289,6 +289,9 @@ RSpec.describe Metanorma::Ogc do
                  <date type="created">
           <on>1999-01-01</on>
         </date>
+           <date type="updated">
+          <on>2000-01-01</on>
+          </date>
         <date type="received">
           <on>1999-06-01</on>
         </date>
@@ -331,10 +334,7 @@ RSpec.describe Metanorma::Ogc do
           </organization>
         </contributor>
       <edition>2.0</edition>
-         <version>
-        <revision-date>2000-01-01</revision-date>
-        <draft>2.0</draft>
-      </version>
+         <version>2.0</version>
         <language>en</language>
         <script>Latn</script>
         <status>
@@ -964,9 +964,7 @@ RSpec.describe Metanorma::Ogc do
                 </name>
               </person>
             </contributor>
-            <version>
-              <draft>Draft</draft>
-            </version>
+            <version>Draft</version>
             <amend change="modify">
               <description>
                 <p id="_">Original draft document</p>
@@ -1072,9 +1070,7 @@ RSpec.describe Metanorma::Ogc do
                 </name>
               </person>
             </contributor>
-            <version>
-              <draft>0.1 02-077</draft>
-            </version>
+            <version>0.1 02-077</version>
             <amend change="modify">
               <description>
                 <p id="_">Initial version of ORM. Doc OGC</p>
@@ -1095,9 +1091,7 @@ RSpec.describe Metanorma::Ogc do
                 </name>
               </person>
             </contributor>
-            <version>
-              <draft>1.0</draft>
-            </version>
+            <version>1.0</version>
             <amend change="modify">
               <description>
                 <ul id="_">

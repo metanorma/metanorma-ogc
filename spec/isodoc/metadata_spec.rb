@@ -48,6 +48,9 @@ RSpec.describe IsoDoc::Ogc do
         <date type="issued">
           <on>2001-01-01</on>
         </date>
+        <date type="updated">
+          <on>2000-01-01</on>
+        </date>
         <contributor>
           <role type="author"/>
           <organization>
@@ -125,10 +128,7 @@ RSpec.describe IsoDoc::Ogc do
           </organization>
         </contributor>
         <edition>2.0</edition>
-        <version>
-        <revision-date>2000-01-01</revision-date>
-        <draft>3.4</draft>
-      </version>
+        <version>3.4</version>
         <language>en</language>
         <script>Latn</script>
         <status><stage>SWG Work</stage></status>
@@ -252,7 +252,7 @@ RSpec.describe IsoDoc::Ogc do
         transmitteddate: "XXX",
         unchangeddate: "XXX",
         unpublished: true,
-        updateddate: "XXX",
+        updateddate: "2000-01-01",
         url: "http://www.example.com",
         vote_endeddate: "XXX",
         vote_starteddate: "XXX",
