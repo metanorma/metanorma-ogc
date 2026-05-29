@@ -4842,6 +4842,7 @@
 	     text line 1
 			 text line 2
 	-->
+	<xsl:variable name="example_display_in"><!-- don't change here, only for override xsl --></xsl:variable> <!-- block or inline -->
 	<xsl:template match="mn:example" name="example">
 		<xsl:call-template name="setNamedDestination"/>
 		<fo:block-container id="{@id}" xsl:use-attribute-sets="example-style" role="SKIP">
@@ -4851,7 +4852,8 @@
 			<xsl:call-template name="refine_example-style"/>
 
 			<xsl:variable name="fo_element">
-				<xsl:if test=".//mn:table or .//mn:dl or *[not(self::mn:fmt-name)][1][self::mn:sourcecode]">block</xsl:if>block
+				<xsl:if test=".//mn:table or .//mn:dl or *[not(self::mn:fmt-name)][1][self::mn:sourcecode]">block</xsl:if>
+				<xsl:if test="normalize-space($example_display_in) != ''"><xsl:value-of select="$example_display_in"/></xsl:if>block
 			</xsl:variable>
 
 			<fo:block-container margin-left="0mm" role="SKIP">
