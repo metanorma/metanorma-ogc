@@ -12,11 +12,7 @@ module IsoDoc
       end
 
       def pdf_stylesheet(_docxml)
-        %w(abstract-specification-topic best-practice draft-standard
-           change-request-supporting-document community-practice
-           community-standard discussion-paper engineering-report policy
-           reference-model release-notes standard user-guide test-suite
-           white-paper).include? @doctype or @doctype = "other"
+        %w(white-paper).include? @doctype or @doctype = "standard"
         "ogc.#{@doctype}.xsl"
       end
     end
