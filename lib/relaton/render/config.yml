@@ -12,7 +12,7 @@ template:
   webresource: book
   unpublished: book
   presentation: book
-  inbook: "{{ creatornames }} ({{role}}) : {{ title }} $$$ {{ labels['in'] | capitalize }}: {{ host_creatornames}} ({{ host_role}}) : <em>{{host_title}}</em>$$$ {{ extent}}$$$ {{ publisher }}{%if place%},{%endif%} {{ place }} $$$ ({{date}})$$$" 
+  inbook: "{{ creatornames }} ({{role}}) : {{ title }} $$$ {{ labels['in_document'] | capitalize }}: {{ host_creatornames}} ({{ host_role}}) : <em>{{host_title}}</em>$$$ {{ extent}}$$$ {{ publisher }}{%if place%},{%endif%} {{ place }} $$$ ({{date}})$$$" 
   inproceedings: inbook
   incollection: inbook
   journal: "<em>{{ title}}</em> $$$ {{ publisher }}{%if place%},{%endif%} {{ place }} $$$ ({{date}})$$$"

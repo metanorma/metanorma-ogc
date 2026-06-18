@@ -1,0 +1,2 @@
+gem "relaton-render", git: "https://github.com/relaton/relaton-render", branch: "fix/at-in-i18n-disambiguation"
+gem "isodoc", git: "https://github.com/metanorma/isodoc", branch: "main"
