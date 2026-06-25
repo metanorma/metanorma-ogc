@@ -7763,6 +7763,12 @@
 					<style name="{$key}-left"><xsl:value-of select="$value"/></style>
 					<style name="{$key}-bottom"><xsl:value-of select="$value"/></style>
 				</xsl:if>
+				<xsl:if test="$key = 'page-break-inside' and $value = 'avoid'">
+					<style name="keep-together.within-page">always</style>
+				</xsl:if>
+				<xsl:if test="$key = 'page-break-after' and $value = 'always'">
+					<style name="break-after">page</style>
+				</xsl:if>
 			</xsl:for-each>
 		</xsl:variable>
 		<xsl:variable name="styles" select="xalan:nodeset($styles_)"/>
@@ -7805,6 +7811,11 @@
 			</xsl:if>
 
 			<fo:block role="SKIP">
+
+				<xsl:variable name="styles">
+					<styles><xsl:call-template name="setTableStyles"/></styles>
+				</xsl:variable>
+				<xsl:copy-of select="xalan:nodeset($styles)/styles/@break-after"/>
 
 				<xsl:if test="$isGenerateTableIF = 'true'">
 					<xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
@@ -15127,6 +15138,10 @@
 	<xsl:template match="mn:pagebreak">
 		<fo:block break-after="page"/>
 		<fo:block> </fo:block>
+		<fo:block break-after="page"/>
+	</xsl:template>
+
+	<xsl:template match="mn:pagebreak[ancestor::mn:table]" priority="2">
 		<fo:block break-after="page"/>
 	</xsl:template>
 
