@@ -34,133 +34,156 @@
 					<xsl:variable name="copyright-owner" select="java:toUpperCase(java:java.lang.String.new(/mn:metanorma/mn:bibdata/mn:copyright/mn:owner/mn:organization/mn:name))"/>
 					<copyright-owner><xsl:value-of select="$copyright-owner"/></copyright-owner>
 
+					<!---examples: 2013, 2024 -->
+					<xsl:variable name="document_scheme" select="normalize-space(/mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:document-scheme)"/>
+
+					<xsl:variable name="layoutVersion_">
+						<xsl:choose>
+							<xsl:when test="$document_scheme = '' or $document_scheme = '2022'">2022</xsl:when>
+							<xsl:otherwise>2018</xsl:otherwise>
+						</xsl:choose>
+					</xsl:variable>
+					<xsl:variable name="layoutVersion" select="normalize-space($layoutVersion_)"/>
+
+					<xsl:variable name="presentation_metadata_color_text" select="normalize-space(/mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-text)"/>
+					<xsl:variable name="color_main">
+						<xsl:choose>
+							<xsl:when test="$presentation_metadata_color_text != ''"><xsl:value-of select="$presentation_metadata_color_text"/></xsl:when>
+							<xsl:otherwise>rgb(88, 89, 91)</xsl:otherwise>
+						</xsl:choose>
+					</xsl:variable>
+					<color_main><xsl:value-of select="$color_main"/></color_main>
+
+					<xsl:variable name="presentation_metadata_color_secondary_shade_1" select="normalize-space(/mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-secondary-shade-1)"/>
+					<xsl:variable name="color_design">
+						<xsl:choose>
+							<xsl:when test="$presentation_metadata_color_secondary_shade_1 != ''"><xsl:value-of select="$presentation_metadata_color_secondary_shade_1"/></xsl:when>
+							<xsl:when test="$layoutVersion = '2022'">rgb(0, 177, 255)</xsl:when>
+							<xsl:otherwise>rgb(237, 193, 35)</xsl:otherwise>
+						</xsl:choose>
+					</xsl:variable>
+					<color_design><xsl:value-of select="$color_design"/></color_design>
+
+					<xsl:variable name="presentation_metadata_color_secondary_shade_2" select="normalize-space(/mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-secondary-shade-2)"/>
+					<xsl:variable name="color_design_light">
+						<xsl:choose>
+							<xsl:when test="$presentation_metadata_color_secondary_shade_2 != ''"><xsl:value-of select="$presentation_metadata_color_secondary_shade_2"/></xsl:when>
+							<xsl:when test="$layoutVersion = '2022'">rgb(0, 177, 255)</xsl:when>
+							<xsl:otherwise>rgb(246, 223, 140)</xsl:otherwise>
+						</xsl:choose>
+					</xsl:variable>
+					<color_design_light><xsl:value-of select="$color_design_light"/></color_design_light>
+
+					<xsl:variable name="presentation_metadata_color_background_definition_term" select="normalize-space(/mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-background-definition-term)"/>
+					<xsl:variable name="color_dl_dt">
+						<xsl:choose>
+							<xsl:when test="$presentation_metadata_color_background_definition_term != ''"><xsl:value-of select="$presentation_metadata_color_background_definition_term"/></xsl:when>
+							<xsl:otherwise>rgb(215, 243, 255)</xsl:otherwise>
+						</xsl:choose>
+					</xsl:variable>
+					<color_dl_dt><xsl:value-of select="$color_dl_dt"/></color_dl_dt>
+
+					<xsl:variable name="presentation_metadata_color_background_definition_description" select="normalize-space(/mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-background-definition-description)"/>
+					<xsl:variable name="color_dl_dd">
+						<xsl:choose>
+							<xsl:when test="$presentation_metadata_color_background_definition_description != ''"><xsl:value-of select="$presentation_metadata_color_background_definition_description"/></xsl:when>
+							<xsl:otherwise>rgb(242, 251, 255)</xsl:otherwise>
+						</xsl:choose>
+					</xsl:variable>
+					<color_dl_dd><xsl:value-of select="$color_dl_dd"/></color_dl_dd>
+
+					<xsl:variable name="presentation_metadata_color_text_title" select="normalize-space(/mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-text-title)"/>
+					<xsl:variable name="color_text_title">
+						<xsl:choose>
+							<xsl:when test="$presentation_metadata_color_text_title != ''"><xsl:value-of select="$presentation_metadata_color_text_title"/></xsl:when>
+							<xsl:otherwise>rgb(33, 55, 92)</xsl:otherwise>
+						</xsl:choose>
+					</xsl:variable>
+					<color_text_title><xsl:value-of select="$color_text_title"/></color_text_title>
+
+					<xsl:variable name="presentation_metadata_color_background_page" select="normalize-space(/mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-background-page)"/>
+					<xsl:variable name="color_background_page">
+						<xsl:choose>
+							<xsl:when test="$presentation_metadata_color_background_page != ''"><xsl:value-of select="$presentation_metadata_color_background_page"/></xsl:when>
+							<xsl:otherwise>rgb(33, 55, 92)</xsl:otherwise>
+						</xsl:choose>
+					</xsl:variable>
+					<color_background_page><xsl:value-of select="$color_background_page"/></color_background_page>
+
+					<xsl:variable name="presentation_metadata_color_background_text_label_legacy" select="normalize-space(/mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-background-text-label-legacy)"/>
+					<xsl:variable name="color_background_blue">
+						<xsl:choose>
+							<xsl:when test="$presentation_metadata_color_background_text_label_legacy != ''"><xsl:value-of select="$presentation_metadata_color_background_text_label_legacy"/></xsl:when>
+							<xsl:otherwise>rgb(33, 60, 107)</xsl:otherwise>
+						</xsl:choose>
+					</xsl:variable>
+					<color_background_blue><xsl:value-of select="$color_background_blue"/></color_background_blue>
+
+					<xsl:variable name="presentation_metadata_color_background_term_preferred_label" select="normalize-space(/mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-background-term-preferred-label)"/>
+					<xsl:variable name="color_term_preferred">
+						<xsl:choose>
+							<xsl:when test="$presentation_metadata_color_background_term_preferred_label != ''"><xsl:value-of select="$presentation_metadata_color_background_term_preferred_label"/></xsl:when>
+							<xsl:otherwise>rgb(249, 235, 187)</xsl:otherwise>
+						</xsl:choose>
+					</xsl:variable>
+					<color_term_preferred><xsl:value-of select="$color_term_preferred"/></color_term_preferred>
+
+					<xsl:variable name="presentation_metadata_color_background_term_deprecated_label" select="normalize-space(/mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-background-term-deprecated-label)"/>
+					<xsl:variable name="color_term_deprecated">
+						<xsl:choose>
+							<xsl:when test="$presentation_metadata_color_background_term_deprecated_label != ''"><xsl:value-of select="$presentation_metadata_color_background_term_deprecated_label"/></xsl:when>
+							<xsl:otherwise>rgb(237, 237, 238)</xsl:otherwise>
+						</xsl:choose>
+					</xsl:variable>
+					<color_term_deprecated><xsl:value-of select="$color_term_deprecated"/></color_term_deprecated>
+
+					<xsl:variable name="presentation_metadata_color_background_term_admitted_label" select="normalize-space(/mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-background-term-admitted-label)"/>
+					<xsl:variable name="color_term_admitted">
+						<xsl:choose>
+							<xsl:when test="$presentation_metadata_color_background_term_admitted_label != ''"><xsl:value-of select="$presentation_metadata_color_background_term_admitted_label"/></xsl:when>
+							<xsl:otherwise>rgb(223, 236, 249)</xsl:otherwise>
+						</xsl:choose>
+					</xsl:variable>
+					<color_term_admitted><xsl:value-of select="$color_term_admitted"/></color_term_admitted>
+
+					<xsl:variable name="presentation_metadata_color_background_table_header" select="normalize-space(/mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-background-table-header)"/>
+					<xsl:variable name="color_table_header_row">
+						<xsl:choose>
+							<xsl:when test="$presentation_metadata_color_background_table_header != ''"><xsl:value-of select="$presentation_metadata_color_background_table_header"/></xsl:when>
+							<xsl:otherwise>rgb(33, 55, 92)</xsl:otherwise>
+						</xsl:choose>
+					</xsl:variable>
+					<color_table_header_row><xsl:value-of select="$color_table_header_row"/></color_table_header_row>
+
+					<xsl:variable name="presentation_metadata_color_background_table_row_even" select="normalize-space(/mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-background-table-row-even)"/>
+					<xsl:variable name="color_table_row_even">
+						<xsl:choose>
+							<xsl:when test="$presentation_metadata_color_background_table_row_even != ''"><xsl:value-of select="$presentation_metadata_color_background_table_row_even"/></xsl:when>
+							<xsl:otherwise>rgb(252, 246, 222)</xsl:otherwise>
+						</xsl:choose>
+					</xsl:variable>
+					<color_table_row_even><xsl:value-of select="$color_table_row_even"/></color_table_row_even>
+
+					<xsl:variable name="presentation_metadata_color_background_table_row_odd" select="normalize-space(/mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-background-table-row-odd)"/>
+					<xsl:variable name="color_table_row_odd">
+						<xsl:choose>
+							<xsl:when test="$presentation_metadata_color_background_table_row_odd != ''"><xsl:value-of select="$presentation_metadata_color_background_table_row_odd"/></xsl:when>
+							<xsl:otherwise>rgb(254, 252, 245)</xsl:otherwise>
+						</xsl:choose>
+					</xsl:variable>
+					<color_table_row_odd><xsl:value-of select="$color_table_row_odd"/></color_table_row_odd>
+
 				</mnx:doc>
 			</xsl:for-each>
 		</xsl:for-each>
 	</xsl:variable>
 	<xsl:variable name="variables" select="xalan:nodeset($variables_)"/>
 
-	<xsl:variable name="layoutVersion_">
-		<xsl:choose>
-			<xsl:when test="$document_scheme = '' or $document_scheme = '2022'">2022</xsl:when>
-			<xsl:otherwise>2018</xsl:otherwise>
-		</xsl:choose>
-	</xsl:variable>
-	<xsl:variable name="layoutVersion" select="normalize-space($layoutVersion_)"/>
-
-	<xsl:variable name="presentation_metadata_color_text" select="normalize-space(//mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-text)"/>
-	<xsl:variable name="color_main">
-		<xsl:choose>
-			<xsl:when test="$presentation_metadata_color_text != ''"><xsl:value-of select="$presentation_metadata_color_text"/></xsl:when>
-			<xsl:otherwise>rgb(88, 89, 91)</xsl:otherwise>
-		</xsl:choose>
-	</xsl:variable>
-
-	<xsl:variable name="presentation_metadata_color_secondary_shade_1" select="normalize-space(//mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-secondary-shade-1)"/>
-	<xsl:variable name="color_design">
-		<xsl:choose>
-			<xsl:when test="$presentation_metadata_color_secondary_shade_1 != ''"><xsl:value-of select="$presentation_metadata_color_secondary_shade_1"/></xsl:when>
-			<xsl:when test="$layoutVersion = '2022'">rgb(0, 177, 255)</xsl:when>
-			<xsl:otherwise>rgb(237, 193, 35)</xsl:otherwise>
-		</xsl:choose>
-	</xsl:variable>
-
-	<xsl:variable name="presentation_metadata_color_secondary_shade_2" select="normalize-space(//mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-secondary-shade-2)"/>
-	<xsl:variable name="color_design_light">
-		<xsl:choose>
-			<xsl:when test="$presentation_metadata_color_secondary_shade_2 != ''"><xsl:value-of select="$presentation_metadata_color_secondary_shade_2"/></xsl:when>
-			<xsl:when test="$layoutVersion = '2022'">rgb(0, 177, 255)</xsl:when>
-			<xsl:otherwise>rgb(246, 223, 140)</xsl:otherwise>
-		</xsl:choose>
-	</xsl:variable>
-
-	<xsl:variable name="presentation_metadata_color_background_definition_term" select="normalize-space(//mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-background-definition-term)"/>
-	<xsl:variable name="color_dl_dt">
-		<xsl:choose>
-			<xsl:when test="$presentation_metadata_color_background_definition_term != ''"><xsl:value-of select="$presentation_metadata_color_background_definition_term"/></xsl:when>
-			<xsl:otherwise>rgb(215, 243, 255)</xsl:otherwise>
-		</xsl:choose>
-	</xsl:variable>
-
-	<xsl:variable name="presentation_metadata_color_background_definition_description" select="normalize-space(//mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-background-definition-description)"/>
-	<xsl:variable name="color_dl_dd">
-		<xsl:choose>
-			<xsl:when test="$presentation_metadata_color_background_definition_description != ''"><xsl:value-of select="$presentation_metadata_color_background_definition_description"/></xsl:when>
-			<xsl:otherwise>rgb(242, 251, 255)</xsl:otherwise>
-		</xsl:choose>
-	</xsl:variable>
-
-	<xsl:variable name="presentation_metadata_color_text_title" select="normalize-space(//mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-text-title)"/>
-	<xsl:variable name="color_text_title">
-		<xsl:choose>
-			<xsl:when test="$presentation_metadata_color_text_title != ''"><xsl:value-of select="$presentation_metadata_color_text_title"/></xsl:when>
-			<xsl:otherwise>rgb(33, 55, 92)</xsl:otherwise>
-		</xsl:choose>
-	</xsl:variable>
-
-	<xsl:variable name="presentation_metadata_color_background_page" select="normalize-space(//mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-background-page)"/>
-	<xsl:variable name="color-background-page">
-		<xsl:choose>
-			<xsl:when test="$presentation_metadata_color_background_page != ''"><xsl:value-of select="$presentation_metadata_color_background_page"/></xsl:when>
-			<xsl:otherwise>rgb(33, 55, 92)</xsl:otherwise>
-		</xsl:choose>
-	</xsl:variable>
-
-	<xsl:variable name="presentation_metadata_color_background_text_label_legacy" select="normalize-space(//mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-background-text-label-legacy)"/>
-	<xsl:variable name="color_background_blue">
-		<xsl:choose>
-			<xsl:when test="$presentation_metadata_color_background_text_label_legacy != ''"><xsl:value-of select="$presentation_metadata_color_background_text_label_legacy"/></xsl:when>
-			<xsl:otherwise>rgb(33, 60, 107)</xsl:otherwise>
-		</xsl:choose>
-	</xsl:variable>
-
-	<xsl:variable name="presentation_metadata_color_background_term_preferred_label" select="normalize-space(//mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-background-term-preferred-label)"/>
-	<xsl:variable name="color_term_preferred">
-		<xsl:choose>
-			<xsl:when test="$presentation_metadata_color_background_term_preferred_label != ''"><xsl:value-of select="$presentation_metadata_color_background_term_preferred_label"/></xsl:when>
-			<xsl:otherwise>rgb(249, 235, 187)</xsl:otherwise>
-		</xsl:choose>
-	</xsl:variable>
-
-	<xsl:variable name="presentation_metadata_color_background_term_deprecated_label" select="normalize-space(//mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-background-term-deprecated-label)"/>
-	<xsl:variable name="color_term_deprecated">
-		<xsl:choose>
-			<xsl:when test="$presentation_metadata_color_background_term_deprecated_label != ''"><xsl:value-of select="$presentation_metadata_color_background_term_deprecated_label"/></xsl:when>
-			<xsl:otherwise>rgb(237, 237, 238)</xsl:otherwise>
-		</xsl:choose>
-	</xsl:variable>
-
-	<xsl:variable name="presentation_metadata_color_background_term_admitted_label" select="normalize-space(//mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-background-term-admitted-label)"/>
-	<xsl:variable name="color_term_admitted">
-		<xsl:choose>
-			<xsl:when test="$presentation_metadata_color_background_term_admitted_label != ''"><xsl:value-of select="$presentation_metadata_color_background_term_admitted_label"/></xsl:when>
-			<xsl:otherwise>rgb(223, 236, 249)</xsl:otherwise>
-		</xsl:choose>
-	</xsl:variable>
-
-	<xsl:variable name="presentation_metadata_color_background_table_header" select="normalize-space(//mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-background-table-header)"/>
-	<xsl:variable name="color_table_header_row">
-		<xsl:choose>
-			<xsl:when test="$presentation_metadata_color_background_table_header != ''"><xsl:value-of select="$presentation_metadata_color_background_table_header"/></xsl:when>
-			<xsl:otherwise>rgb(33, 55, 92)</xsl:otherwise>
-		</xsl:choose>
-	</xsl:variable>
-
-	<xsl:variable name="presentation_metadata_color_background_table_row_even" select="normalize-space(//mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-background-table-row-even)"/>
-	<xsl:variable name="color_table_row_even">
-		<xsl:choose>
-			<xsl:when test="$presentation_metadata_color_background_table_row_even != ''"><xsl:value-of select="$presentation_metadata_color_background_table_row_even"/></xsl:when>
-			<xsl:otherwise>rgb(252, 246, 222)</xsl:otherwise>
-		</xsl:choose>
-	</xsl:variable>
-
-	<xsl:variable name="presentation_metadata_color_background_table_row_odd" select="normalize-space(//mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-background-table-row-odd)"/>
-	<xsl:variable name="color_table_row_odd">
-		<xsl:choose>
-			<xsl:when test="$presentation_metadata_color_background_table_row_odd != ''"><xsl:value-of select="$presentation_metadata_color_background_table_row_odd"/></xsl:when>
-			<xsl:otherwise>rgb(254, 252, 245)</xsl:otherwise>
-		</xsl:choose>
-	</xsl:variable>
+	<xsl:template name="getVariable">
+		<xsl:param name="variable"/>
+		<xsl:variable name="num" select="number(java:org.metanorma.fop.global.Variables.getVariable('num'))"/>
+		<xsl:value-of select="$variables/mnx:doc[@num = $num]/*[local-name() = $variable]"/>
+	</xsl:template>
 
 	<xsl:variable name="toc_recommendations_">
 		<xsl:for-each select="//mn:metanorma">
@@ -416,6 +439,8 @@
 				<xsl:for-each select="xalan:nodeset($updated_xml_step1)//mn:metanorma">
 					<xsl:variable name="num"><xsl:number level="any" count="mn:metanorma"/></xsl:variable>
 
+					<xsl:variable name="setVariable" select="java:org.metanorma.fop.global.Variables.setVariable('num', $num)"/>
+
 					<xsl:variable name="current_document">
 						<xsl:copy-of select="."/>
 					</xsl:variable>
@@ -427,6 +452,10 @@
 						</xsl:call-template>
 
 						<xsl:call-template name="inner-cover-page"/>
+
+						<xsl:variable name="color_design_light">
+							<xsl:call-template name="getVariable"><xsl:with-param name="variable">color_design_light</xsl:with-param></xsl:call-template>
+						</xsl:variable>
 
 						<!-- Copyright, Content, Foreword, etc. pages -->
 						<fo:page-sequence xsl:use-attribute-sets="page-sequence-preface">
@@ -607,6 +636,15 @@
 				<xsl:call-template name="insertCoverPageFullImage"/>
 			</xsl:when>
 			<xsl:otherwise>
+
+				<xsl:variable name="color_design">
+					<xsl:call-template name="getVariable"><xsl:with-param name="variable">color_design</xsl:with-param></xsl:call-template>
+				</xsl:variable>
+
+				<xsl:variable name="color_background_blue">
+					<xsl:call-template name="getVariable"><xsl:with-param name="variable">color_background_blue</xsl:with-param></xsl:call-template>
+				</xsl:variable>
+
 				<fo:page-sequence master-reference="cover-page" force-page-count="no-force" initial-page-number="1">
 					<xsl:call-template name="insertFootnoteSeparatorCommon"/>
 
@@ -950,6 +988,9 @@
 
 	<xsl:template match="mn:preface//mn:clause[@type = 'toc']" name="toc" priority="4">
 		<xsl:param name="num"/>
+		<xsl:variable name="color_text_title">
+			<xsl:call-template name="getVariable"><xsl:with-param name="variable">color_text_title</xsl:with-param></xsl:call-template>
+		</xsl:variable>
 		<fo:block color="{$color_text_title}">
 
 			<xsl:apply-templates/>
@@ -1622,6 +1663,9 @@
 		<fo:block xsl:use-attribute-sets="term-number-style">
 			<xsl:call-template name="refine_term-number-style"/>
 			<xsl:call-template name="setIDforNamedDestination"/>
+			<xsl:variable name="color_text_title">
+				<xsl:call-template name="getVariable"><xsl:with-param name="variable">color_text_title</xsl:with-param></xsl:call-template>
+			</xsl:variable>
 			<fo:list-block color="{$color_text_title}" keep-with-next="always" provisional-distance-between-starts="{string-length()*3.25}mm">
 				<fo:list-item>
 					<fo:list-item-label end-indent="label-end()">
@@ -1686,6 +1730,15 @@
 		<fo:inline font-size="11pt" padding="1mm" padding-bottom="0.5mm" baseline-shift="25%">
 			<xsl:variable name="kind" select="@class"/>
 			<xsl:variable name="label" select="text()"/>
+			<xsl:variable name="color_term_preferred">
+				<xsl:call-template name="getVariable"><xsl:with-param name="variable">color_term_preferred</xsl:with-param></xsl:call-template>
+			</xsl:variable>
+			<xsl:variable name="color_term_deprecated">
+				<xsl:call-template name="getVariable"><xsl:with-param name="variable">color_term_deprecated</xsl:with-param></xsl:call-template>
+			</xsl:variable>
+			<xsl:variable name="color_term_admitted">
+				<xsl:call-template name="getVariable"><xsl:with-param name="variable">color_term_admitted</xsl:with-param></xsl:call-template>
+			</xsl:variable>
 			<xsl:attribute name="background-color">
 				<xsl:choose>
 					<!-- <xsl:when test="$kind = 'PreferredLabel' or $label = 'PREFERRED'">rgb(249, 235, 187)</xsl:when>
@@ -1738,7 +1791,7 @@
 
 	<xsl:template name="insertHeaderFooter">
 		<xsl:param name="num"/>
-		<xsl:param name="color" select="$color_text_title"/>
+		<xsl:param name="color"/>
 		<xsl:call-template name="insertHeader"/>
 		<xsl:call-template name="insertFooter">
 			<xsl:with-param name="num" select="$num"/>
@@ -1751,9 +1804,15 @@
 
 	<xsl:template name="insertFooter">
 		<xsl:param name="num"/>
-		<xsl:param name="color" select="$color_text_title"/>
+		<xsl:param name="color"/>
 		<fo:static-content flow-name="footer" role="artifact">
 			<fo:block-container font-size="8pt" color="{$color}" padding-top="6mm">
+				<xsl:if test="normalize-space($color) = ''">
+					<xsl:variable name="color_text_title">
+						<xsl:call-template name="getVariable"><xsl:with-param name="variable">color_text_title</xsl:with-param></xsl:call-template>
+					</xsl:variable>
+					<xsl:attribute name="color"><xsl:value-of select="$color_text_title"/></xsl:attribute>
+				</xsl:if>
 				<fo:table table-layout="fixed" width="100%">
 					<fo:table-column column-width="90%"/>
 					<fo:table-column column-width="10%"/>
@@ -1878,6 +1937,10 @@
 			</xsl:choose>
 		</xsl:variable>
 
+		<xsl:variable name="color_design">
+			<xsl:call-template name="getVariable"><xsl:with-param name="variable">color_design</xsl:with-param></xsl:call-template>
+		</xsl:variable>
+
 		<!-- orange circle 14mm -->
 		<fo:block>
 			<fo:instream-foreign-object content-height="14mm" content-width="14mm" fox:alt-text="Circle">
@@ -1898,9 +1961,12 @@
 		<!-- background color -->
 		<fo:block-container absolute-position="fixed" left="0" top="0" font-size="0">
 			<fo:block>
+				<xsl:variable name="color_background_page">
+					<xsl:call-template name="getVariable"><xsl:with-param name="variable">color_background_page</xsl:with-param></xsl:call-template>
+				</xsl:variable>
 				<fo:instream-foreign-object content-height="{$pageHeight}mm" fox:alt-text="Background color">
 					<svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="{$pageWidth}mm" height="{$pageHeight}mm">
-						<rect width="{$pageWidth}mm" height="{$pageHeight}mm" style="fill:{$color-background-page};stroke-width:0;fill-opacity:{$opacity}"/>
+						<rect width="{$pageWidth}mm" height="{$pageHeight}mm" style="fill:{$color_background_page};stroke-width:0;fill-opacity:{$opacity}"/>
 					</svg>
 				</fo:instream-foreign-object>
 			</fo:block>
@@ -1908,6 +1974,9 @@
 	</xsl:template>
 
 	<xsl:template name="insertCrossingLines">
+		<xsl:variable name="color_design">
+			<xsl:call-template name="getVariable"><xsl:with-param name="variable">color_design</xsl:with-param></xsl:call-template>
+		</xsl:variable>
 		<fo:block-container absolute-position="fixed" width="{$pageWidth}mm" height="{$pageHeight}mm" font-size="0">
 			<fo:block>
 				<fo:instream-foreign-object content-height="{$pageHeight}mm" content-width="{$pageWidth}mm" fox:alt-text="Crossing lines">
@@ -1961,7 +2030,13 @@
 		<xsl:param name="title"/>
 		<xsl:param name="level">1</xsl:param>
 		<fo:block>
-			<xsl:variable name="title_styles"><styles xsl:use-attribute-sets="title-style"/></xsl:variable>
+			<xsl:variable name="title_styles">
+			<styles xsl:use-attribute-sets="title-style">
+				<xsl:variable name="color_text_title">
+					<xsl:call-template name="getVariable"><xsl:with-param name="variable">color_text_title</xsl:with-param></xsl:call-template>
+				</xsl:variable>
+				<xsl:attribute name="color"><xsl:value-of select="$color_text_title"/></xsl:attribute>
+			</styles></xsl:variable>
 			<fo:block line-height="150%">
 				<xsl:copy-of select="xalan:nodeset($title_styles)/styles/@*[local-name() = 'font-size' or local-name() = 'color' or        local-name() = 'keep-with-next']"/>
 				<xsl:if test="$section != ''">
@@ -2063,18 +2138,27 @@
 	</xsl:template>
 
 	<xsl:template name="insertShortHorizontalLine">
+		<xsl:variable name="color_design">
+			<xsl:call-template name="getVariable"><xsl:with-param name="variable">color_design</xsl:with-param></xsl:call-template>
+		</xsl:variable>
 		<fo:block-container width="12.7mm" border-top="1pt solid {$color_design}" margin-top="3mm" role="SKIP">
 			<fo:block font-size="1pt" role="SKIP"><fo:wrapper role="artifact"> </fo:wrapper></fo:block>
 		</fo:block-container>
 	</xsl:template>
 
 	<xsl:template name="insertBigHorizontalLine">
+		<xsl:variable name="color_design">
+			<xsl:call-template name="getVariable"><xsl:with-param name="variable">color_design</xsl:with-param></xsl:call-template>
+		</xsl:variable>
 		<fo:block-container width="22.5mm" border-bottom="2pt solid {$color_design}" role="SKIP">
 			<fo:block margin-top="4pt" role="SKIP"><fo:wrapper role="artifact"> </fo:wrapper></fo:block>
 		</fo:block-container>
 	</xsl:template>
 
 	<xsl:template name="insertFootnoteSeparator">
+		<xsl:variable name="color_design">
+			<xsl:call-template name="getVariable"><xsl:with-param name="variable">color_design</xsl:with-param></xsl:call-template>
+		</xsl:variable>
 		<fo:static-content flow-name="xsl-footnote-separator" role="artifact">
 			<fo:block>
 				<fo:leader leader-pattern="rule" leader-length="20%" color="{$color_design}"/>
@@ -2374,6 +2458,10 @@
 		<xsl:param name="doctype"/>
 		<xsl:param name="num"/>
 		<xsl:param name="skip_force_page_count">false</xsl:param>
+		<xsl:variable name="color_main">
+			<xsl:call-template name="getVariable"><xsl:with-param name="variable">color_main</xsl:with-param></xsl:call-template>
+		</xsl:variable>
+		<xsl:attribute name="color"><xsl:value-of select="$color_main"/></xsl:attribute>
 	</xsl:template> <!-- refine_page-sequence-preface -->
 
 	<xsl:attribute-set name="page-sequence-main">
@@ -2389,6 +2477,10 @@
 			<xsl:text>document</xsl:text>
 			<xsl:call-template name="getPageSequenceOrientation"/>
 		</xsl:attribute>
+		<xsl:variable name="color_main">
+			<xsl:call-template name="getVariable"><xsl:with-param name="variable">color_main</xsl:with-param></xsl:call-template>
+		</xsl:variable>
+		<xsl:attribute name="color"><xsl:value-of select="$color_main"/></xsl:attribute>
 	</xsl:template> <!-- refine_page-sequence-main -->
 
 	<xsl:variable name="font_noto_sans">Noto Sans, Noto Sans HK, Noto Sans JP, Noto Sans KR, Noto Sans SC, Noto Sans TC</xsl:variable>
@@ -2398,7 +2490,6 @@
 		<xsl:attribute name="font-family">Lato, STIX Two Math, <xsl:value-of select="$font_noto_sans"/></xsl:attribute>
 		<xsl:attribute name="font-family-generic">Sans</xsl:attribute>
 		<xsl:attribute name="font-size">11pt</xsl:attribute>
-		<xsl:attribute name="color"><xsl:value-of select="$color_main"/></xsl:attribute>
 	</xsl:attribute-set> <!-- root-style -->
 
 	<xsl:template name="insertRootStyle">
@@ -3754,11 +3845,14 @@
 
 	<xsl:attribute-set name="copyright-statement-title-style">
 		<xsl:attribute name="font-weight">bold</xsl:attribute>
-		<xsl:attribute name="color"><xsl:value-of select="$color_text_title"/></xsl:attribute>
 		<xsl:attribute name="margin-top">24pt</xsl:attribute>
 	</xsl:attribute-set> <!-- copyright-statement-title-style -->
 
 	<xsl:template name="refine_copyright-statement-title-style">
+		<xsl:variable name="color_text_title">
+			<xsl:call-template name="getVariable"><xsl:with-param name="variable">color_text_title</xsl:with-param></xsl:call-template>
+		</xsl:variable>
+		<xsl:attribute name="color"><xsl:value-of select="$color_text_title"/></xsl:attribute>
 	</xsl:template>
 
 	<xsl:attribute-set name="copyright-statement-p-style">
@@ -3780,10 +3874,13 @@
 	<xsl:attribute-set name="license-statement-title-style">
 		<xsl:attribute name="keep-with-next">always</xsl:attribute>
 		<xsl:attribute name="font-weight">bold</xsl:attribute>
-		<xsl:attribute name="color"><xsl:value-of select="$color_text_title"/></xsl:attribute>
 	</xsl:attribute-set> <!-- license-statement-title-style -->
 
 	<xsl:template name="refine_license-statement-title-style">
+		<xsl:variable name="color_text_title">
+			<xsl:call-template name="getVariable"><xsl:with-param name="variable">color_text_title</xsl:with-param></xsl:call-template>
+		</xsl:variable>
+		<xsl:attribute name="color"><xsl:value-of select="$color_text_title"/></xsl:attribute>
 	</xsl:template>
 
 	<xsl:attribute-set name="license-statement-p-style">
@@ -3864,6 +3961,7 @@
 			<xsl:call-template name="getLevel"/>
 		</xsl:variable>
 		<fo:block role="H{$level}" xsl:use-attribute-sets="copyright-statement-title-style">
+			<xsl:call-template name="refine_copyright-statement-title-style"/>
 			<xsl:apply-templates/>
 		</fo:block>
 
@@ -5663,6 +5761,9 @@
 				<xsl:attribute name="font-weight">bold</xsl:attribute>
 				<xsl:attribute name="font-weight">normal</xsl:attribute>
 				<xsl:if test="parent::*[local-name()='thead']"> <!-- and not(ancestor::mn:table[@class = 'recommendation' or @class='requirement' or @class='permission']) -->
+					<xsl:variable name="color_table_header_row">
+						<xsl:call-template name="getVariable"><xsl:with-param name="variable">color_table_header_row</xsl:with-param></xsl:call-template>
+					</xsl:variable>
 					<xsl:attribute name="background-color"><xsl:value-of select="$color_table_header_row"/></xsl:attribute>
 				</xsl:if>
 				<xsl:if test="starts-with(*[local-name()='td'][1], 'Requirement ')">
@@ -6410,7 +6511,6 @@
 		<xsl:attribute name="text-align">left</xsl:attribute>
 		<xsl:attribute name="margin-bottom">6pt</xsl:attribute>
 		<xsl:attribute name="font-weight">normal</xsl:attribute>
-		<xsl:attribute name="color"><xsl:value-of select="$color_text_title"/></xsl:attribute>
 		<xsl:attribute name="font-size">11pt</xsl:attribute>
 	</xsl:attribute-set> <!-- table-name-style -->
 
@@ -6419,6 +6519,10 @@
 		<xsl:if test="$continued = 'true'">
 			<xsl:attribute name="role">SKIP</xsl:attribute>
 		</xsl:if>
+		<xsl:variable name="color_text_title">
+			<xsl:call-template name="getVariable"><xsl:with-param name="variable">color_text_title</xsl:with-param></xsl:call-template>
+		</xsl:variable>
+		<xsl:attribute name="color"><xsl:value-of select="$color_text_title"/></xsl:attribute>
 	</xsl:template> <!-- refine_table-name-style -->
 
 	<xsl:attribute-set name="table-row-style">
@@ -6428,13 +6532,16 @@
 
 	<xsl:attribute-set name="table-header-row-style" use-attribute-sets="table-row-style">
 		<xsl:attribute name="font-weight">bold</xsl:attribute>
-		<xsl:attribute name="background-color"><xsl:value-of select="$color_table_header_row"/></xsl:attribute>
 		<xsl:attribute name="color">white</xsl:attribute>
 	</xsl:attribute-set>
 
 	<xsl:template name="refine_table-header-row-style">
 
 		<xsl:call-template name="setBordersTableArray"/>
+		<xsl:variable name="color_table_header_row">
+			<xsl:call-template name="getVariable"><xsl:with-param name="variable">color_table_header_row</xsl:with-param></xsl:call-template>
+		</xsl:variable>
+		<xsl:attribute name="background-color"><xsl:value-of select="$color_table_header_row"/></xsl:attribute>
 
 		<xsl:call-template name="setNoBordersForTableList"/>
 	</xsl:template> <!-- refine_table-header-row-style -->
@@ -6455,6 +6562,12 @@
 
 		<xsl:call-template name="setBordersTableArray"/>
 		<xsl:variable name="number"><xsl:number/></xsl:variable>
+		<xsl:variable name="color_table_row_even">
+			<xsl:call-template name="getVariable"><xsl:with-param name="variable">color_table_row_even</xsl:with-param></xsl:call-template>
+		</xsl:variable>
+		<xsl:variable name="color_table_row_odd">
+			<xsl:call-template name="getVariable"><xsl:with-param name="variable">color_table_row_odd</xsl:with-param></xsl:call-template>
+		</xsl:variable>
 		<xsl:attribute name="background-color">
 			<xsl:choose>
 				<xsl:when test="$number mod 2 = 0"><xsl:value-of select="$color_table_row_even"/></xsl:when>
@@ -8810,6 +8923,9 @@
 	<xsl:template name="refine_dt-cell-style">
 		<xsl:if test="not(ancestor::mn:sourcecode)">
 			<!-- <xsl:attribute name="border-left">1pt solid <xsl:value-of select="$color_design"/></xsl:attribute> -->
+			<xsl:variable name="color_dl_dt">
+				<xsl:call-template name="getVariable"><xsl:with-param name="variable">color_dl_dt</xsl:with-param></xsl:call-template>
+			</xsl:variable>
 			<xsl:attribute name="background-color"><xsl:value-of select="$color_dl_dt"/></xsl:attribute>
 		</xsl:if>
 	</xsl:template> <!-- refine_dt-cell-style -->
@@ -8832,10 +8948,13 @@
 		<xsl:attribute name="keep-with-next">always</xsl:attribute>
 		<xsl:attribute name="margin-bottom">6pt</xsl:attribute>
 		<xsl:attribute name="font-weight">normal</xsl:attribute>
-		<xsl:attribute name="color"><xsl:value-of select="$color_text_title"/></xsl:attribute>
 	</xsl:attribute-set> <!-- dl-name-style -->
 
 	<xsl:template name="refine_dl-name-style">
+		<xsl:variable name="color_text_title">
+			<xsl:call-template name="getVariable"><xsl:with-param name="variable">color_text_title</xsl:with-param></xsl:call-template>
+		</xsl:variable>
+		<xsl:attribute name="color"><xsl:value-of select="$color_text_title"/></xsl:attribute>
 	</xsl:template>
 
 	<xsl:attribute-set name="dd-cell-style">
@@ -8845,6 +8964,9 @@
 
 	<xsl:template name="refine_dd-cell-style">
 		<xsl:if test="not(ancestor::mn:sourcecode)">
+			<xsl:variable name="color_dl_dd">
+				<xsl:call-template name="getVariable"><xsl:with-param name="variable">color_dl_dd</xsl:with-param></xsl:call-template>
+			</xsl:variable>
 			<xsl:attribute name="background-color"><xsl:value-of select="$color_dl_dd"/></xsl:attribute>
 		</xsl:if>
 	</xsl:template> <!-- refine_dd-cell-style -->
@@ -10116,7 +10238,6 @@
 
 	<xsl:attribute-set name="figure-name-style">
 		<xsl:attribute name="role">Caption</xsl:attribute>
-		<xsl:attribute name="color"><xsl:value-of select="$color_text_title"/></xsl:attribute>
 		<!-- <xsl:attribute name="margin-top">12pt</xsl:attribute> -->
 		<xsl:attribute name="margin-top">6pt</xsl:attribute>
 		<xsl:attribute name="space-after">12pt</xsl:attribute>
@@ -10126,6 +10247,10 @@
 	</xsl:attribute-set> <!-- figure-name-style -->
 
 	<xsl:template name="refine_figure-name-style">
+		<xsl:variable name="color_text_title">
+			<xsl:call-template name="getVariable"><xsl:with-param name="variable">color_text_title</xsl:with-param></xsl:call-template>
+		</xsl:variable>
+		<xsl:attribute name="color"><xsl:value-of select="$color_text_title"/></xsl:attribute>
 	</xsl:template> <!-- refine_figure-name-style -->
 
 	<xsl:attribute-set name="image-style">
@@ -11840,10 +11965,13 @@
 	<xsl:attribute-set name="list-name-style">
 		<xsl:attribute name="keep-with-next">always</xsl:attribute>
 		<xsl:attribute name="font-weight">normal</xsl:attribute>
-		<xsl:attribute name="color"><xsl:value-of select="$color_text_title"/></xsl:attribute>
 	</xsl:attribute-set> <!-- list-name-style -->
 
 	<xsl:template name="refine_list-name-style">
+		<xsl:variable name="color_text_title">
+			<xsl:call-template name="getVariable"><xsl:with-param name="variable">color_text_title</xsl:with-param></xsl:call-template>
+		</xsl:variable>
+		<xsl:attribute name="color"><xsl:value-of select="$color_text_title"/></xsl:attribute>
 	</xsl:template>
 
 	<xsl:attribute-set name="list-item-style">
@@ -11876,7 +12004,7 @@
 	<!-- Lists processing -->
 	<!-- ===================================== -->
 	<xsl:variable name="ul_labels_">
-		<label color="{$color_design}">•</label>
+		<label>•</label> <!--  color="{$color_design}" -->
 
 	</xsl:variable>
 	<xsl:variable name="ul_labels" select="xalan:nodeset($ul_labels_)"/>
@@ -11913,6 +12041,10 @@
 	</xsl:template>
 	<xsl:template match="label" mode="ul_labels">
 		<xsl:copy-of select="@*[not(local-name() = 'level')]"/>
+		<xsl:variable name="color_design">
+			<xsl:call-template name="getVariable"><xsl:with-param name="variable">color_design</xsl:with-param></xsl:call-template>
+		</xsl:variable>
+		<xsl:attribute name="color"><xsl:value-of select="$color_design"/></xsl:attribute>
 		<xsl:value-of select="."/>
 	</xsl:template>
 
@@ -12270,12 +12402,15 @@
 		<xsl:attribute name="start-indent">0</xsl:attribute>
 		<xsl:attribute name="font-size">10pt</xsl:attribute>
 		<xsl:attribute name="margin-bottom">12pt</xsl:attribute>
-		<xsl:attribute name="color"><xsl:value-of select="$color_main"/></xsl:attribute>
 		<xsl:attribute name="line-height">124%</xsl:attribute>
 		<xsl:attribute name="text-align">justify</xsl:attribute>
 	</xsl:attribute-set> <!-- fn-body-style" -->
 
 	<xsl:template name="refine_fn-body-style">
+		<xsl:variable name="color_main">
+			<xsl:call-template name="getVariable"><xsl:with-param name="variable">color_main</xsl:with-param></xsl:call-template>
+		</xsl:variable>
+		<xsl:attribute name="color"><xsl:value-of select="$color_main"/></xsl:attribute>
 	</xsl:template> <!-- refine_fn-body-style -->
 
 	<xsl:attribute-set name="fn-body-num-style">
@@ -13037,10 +13172,13 @@
 		<xsl:attribute name="margin-bottom">24pt</xsl:attribute>
 		<xsl:attribute name="font-size">18pt</xsl:attribute>
 		<xsl:attribute name="font-weight">normal</xsl:attribute>
-		<xsl:attribute name="color"><xsl:value-of select="$color_text_title"/></xsl:attribute>
 	</xsl:attribute-set> <!-- indexsect-title-style -->
 
 	<xsl:template name="refine_indexsect-title-style">
+		<xsl:variable name="color_text_title">
+			<xsl:call-template name="getVariable"><xsl:with-param name="variable">color_text_title</xsl:with-param></xsl:call-template>
+		</xsl:variable>
+		<xsl:attribute name="color"><xsl:value-of select="$color_text_title"/></xsl:attribute>
 	</xsl:template>
 
 	<xsl:attribute-set name="indexsect-clause-title-style">
@@ -14877,7 +15015,6 @@
 		<xsl:attribute name="font-size">18pt</xsl:attribute>
 		<xsl:attribute name="font-weight">normal</xsl:attribute>
 		<xsl:attribute name="keep-with-next">always</xsl:attribute>
-		<xsl:attribute name="color"><xsl:value-of select="$color_text_title"/></xsl:attribute>
 	</xsl:attribute-set> <!-- title-style -->
 
 	<xsl:template name="refine_title-style">
@@ -14885,6 +15022,11 @@
 		<xsl:variable name="level">
 			<xsl:call-template name="getLevel"/>
 		</xsl:variable>
+
+		<xsl:variable name="color_text_title">
+			<xsl:call-template name="getVariable"><xsl:with-param name="variable">color_text_title</xsl:with-param></xsl:call-template>
+		</xsl:variable>
+		<xsl:attribute name="color"><xsl:value-of select="$color_text_title"/></xsl:attribute>
 
 		<xsl:if test="$level = 1">
 			<xsl:attribute name="space-before">36pt</xsl:attribute>
