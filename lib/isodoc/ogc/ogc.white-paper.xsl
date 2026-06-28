@@ -35,15 +35,22 @@
 					<xsl:variable name="selectedStyle" select="normalize-space($selectedStyle_)"/>
 					<selectedStyle><xsl:value-of select="$selectedStyle"/></selectedStyle>
 
+					<xsl:variable name="color_table_header_row" select="//mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-background-table-header"/>
+					<color_table_header_row><xsl:value-of select="$color_table_header_row"/></color_table_header_row>
+
 				</mnx:doc>
 			</xsl:for-each>
 		</xsl:for-each>
 	</xsl:variable>
 	<xsl:variable name="variables" select="xalan:nodeset($variables_)"/>
 
-	<xsl:variable name="color">rgb(0, 51, 102)</xsl:variable>
+	<xsl:template name="getVariable">
+		<xsl:param name="variable"/>
+		<xsl:variable name="num" select="number(java:org.metanorma.fop.global.Variables.getVariable('num'))"/>
+		<xsl:value-of select="$variables/mnx:doc[@num = $num]/*[local-name() = $variable]"/>
+	</xsl:template>
 
-	<xsl:variable name="color_table_header_row" select="//mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:color-background-table-header"/>
+	<xsl:variable name="color">rgb(0, 51, 102)</xsl:variable>
 
 	<xsl:variable name="contents_">
 		<xsl:variable name="bundle" select="count(//mn:metanorma) &gt; 1"/>
@@ -190,6 +197,8 @@
 
 				<xsl:for-each select="xalan:nodeset($updated_xml)//mn:metanorma">
 					<xsl:variable name="num"><xsl:number level="any" count="mn:metanorma"/></xsl:variable>
+
+					<xsl:variable name="setVariable" select="java:org.metanorma.fop.global.Variables.setVariable('num', $num)"/>
 
 					<xsl:variable name="current_document">
 						<xsl:copy-of select="."/>
@@ -2606,6 +2615,7 @@
 			<xsl:call-template name="getLevel"/>
 		</xsl:variable>
 		<fo:block role="H{$level}" xsl:use-attribute-sets="copyright-statement-title-style">
+			<xsl:call-template name="refine_copyright-statement-title-style"/>
 			<xsl:apply-templates/>
 		</fo:block>
 
@@ -4401,6 +4411,9 @@
 				<xsl:attribute name="font-weight">bold</xsl:attribute>
 				<xsl:attribute name="font-weight">normal</xsl:attribute>
 				<xsl:if test="parent::*[local-name()='thead']"> <!-- and not(ancestor::mn:table[@class = 'recommendation' or @class='requirement' or @class='permission']) -->
+					<xsl:variable name="color_table_header_row">
+						<xsl:call-template name="getVariable"><xsl:with-param name="variable">color_table_header_row</xsl:with-param></xsl:call-template>
+					</xsl:variable>
 					<xsl:attribute name="background-color"><xsl:value-of select="$color_table_header_row"/></xsl:attribute>
 				</xsl:if>
 				<xsl:if test="starts-with(*[local-name()='td'][1], 'Requirement ')">
