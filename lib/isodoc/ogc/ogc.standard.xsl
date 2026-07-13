@@ -196,7 +196,7 @@
 			<xsl:for-each select="xalan:nodeset($current_document)">
 				<mnx:doc num="{$num}">
 
-					<xsl:if test="//mn:metanorma/mn:metanorma-extension/mn:toc[@type='recommendation']/mn:title">
+					<xsl:if test="//mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:toc[@type='recommendation']/mn:title">
 						<xsl:for-each select="//mn:table[.//mn:p[@class = 'RecommendationTitle']]">
 							<xsl:variable name="table_id" select="@id"/>
 							<recommendation alt-text="{.//mn:p[@class = 'RecommendationTitle'][1]}">
@@ -372,7 +372,7 @@
 						<xsl:if test="$contents//mnx:tables/mnx:table">
 							<fo:bookmark internal-destination="empty_bookmark" starting-state="hide">
 								<fo:bookmark-title>
-									<xsl:value-of select="$title-list-tables"/>
+									<xsl:value-of select="$toc_title_lists/mnx:doc[@num = 1]/mnx:title-list-tables"/>
 								</fo:bookmark-title>
 								<xsl:for-each select="$contents//mnx:tables/mnx:table">
 									<fo:bookmark internal-destination="{@id}">
@@ -388,7 +388,7 @@
 						<xsl:if test="$contents//mnx:figures/mnx:figure">
 							<fo:bookmark internal-destination="empty_bookmark" starting-state="hide">
 								<fo:bookmark-title>
-									<xsl:value-of select="$title-list-figures"/>
+									<xsl:value-of select="$toc_title_lists/mnx:doc[@num = 1]/mnx:title-list-figures"/>
 								</fo:bookmark-title>
 								<xsl:for-each select="$contents//mnx:figures/mnx:figure">
 									<fo:bookmark internal-destination="{@id}">
@@ -404,7 +404,7 @@
 						<xsl:if test="$contents//mnx:examples/mnx:example">
 							<fo:bookmark internal-destination="empty_bookmark" starting-state="hide">
 								<fo:bookmark-title>
-									<xsl:value-of select="$title-list-examples"/>
+									<xsl:value-of select="$toc_title_lists/mnx:doc[@num = 1]/mnx:title-list-examples"/>
 								</fo:bookmark-title>
 								<xsl:for-each select="$contents//mnx:examples/mnx:example">
 									<fo:bookmark internal-destination="{@id}">
@@ -420,7 +420,7 @@
 						<xsl:if test="$toc_recommendations//*[normalize-space(@id) != '']">
 							<fo:bookmark internal-destination="empty_bookmark" starting-state="hide">
 								<fo:bookmark-title>
-									<xsl:value-of select="$title-list-recommendations"/>
+									<xsl:value-of select="$toc_title_lists/mnx:doc[@num = 1]/mnx:title-list-recommendations"/>
 								</fo:bookmark-title>
 								<xsl:for-each select="$toc_recommendations//*[normalize-space(@id) != '']">
 									<fo:bookmark internal-destination="{@id}">
@@ -1073,7 +1073,7 @@
 				<!-- List of Tables -->
 				<xsl:if test="$contents/mnx:doc[@num = $num]//mnx:tables/mnx:table">
 					<xsl:call-template name="insertListOf_Title">
-						<xsl:with-param name="title" select="$title-list-tables"/>
+						<xsl:with-param name="title" select="$toc_title_lists/mnx:doc[@num = $num]/mnx:title-list-tables"/>
 					</xsl:call-template>
 					<fo:block-container line-height="130%" role="TOC">
 						<xsl:for-each select="$contents/mnx:doc[@num = $num]//mnx:tables/mnx:table">
@@ -1085,7 +1085,7 @@
 				<!-- List of Figures -->
 				<xsl:if test="$contents/mnx:doc[@num = $num]//mnx:figures/mnx:figure">
 					<xsl:call-template name="insertListOf_Title">
-						<xsl:with-param name="title" select="$title-list-figures"/>
+						<xsl:with-param name="title" select="$toc_title_lists/mnx:doc[@num = $num]/mnx:title-list-figures"/>
 					</xsl:call-template>
 					<fo:block-container line-height="130%" role="TOC">
 						<xsl:for-each select="$contents/mnx:doc[@num = $num]//mnx:figures/mnx:figure">
@@ -1097,7 +1097,7 @@
 				<!-- List of Examples -->
 				<xsl:if test="$contents/mnx:doc[@num = $num]//mnx:examples/mnx:example">
 					<xsl:call-template name="insertListOf_Title">
-						<xsl:with-param name="title" select="$title-list-examples"/>
+						<xsl:with-param name="title" select="$toc_title_lists/mnx:doc[@num = $num]/mnx:title-list-examples"/>
 					</xsl:call-template>
 					<fo:block-container line-height="130%" role="TOC">
 						<xsl:for-each select="$contents/mnx:doc[@num = $num]//mnx:examples/mnx:example">
@@ -1111,7 +1111,7 @@
 				<!-- List of Recommendations -->
 				<xsl:if test="$toc_recommendations/mnx:doc[@num = $num]/*[normalize-space(@id) != '']">
 					<xsl:call-template name="insertListOf_Title">
-						<xsl:with-param name="title" select="$title-list-recommendations"/>
+						<xsl:with-param name="title" select="$toc_title_lists/mnx:doc[@num = $num]/mnx:title-list-recommendations"/>
 					</xsl:call-template>
 					<fo:block-container line-height="130%" role="TOC">
 						<xsl:for-each select="$toc_recommendations/mnx:doc[@num = $num]/*[normalize-space(@id) != '']">
@@ -2310,45 +2310,59 @@
 
 	<xsl:variable name="ace_tag">ace-tag_</xsl:variable>
 
-	<xsl:variable name="title-list-tables">
-		<xsl:variable name="toc_table_title" select="//mn:metanorma/mn:metanorma-extension/mn:toc[@type='table']/mn:title"/>
-		<xsl:value-of select="$toc_table_title"/>
-		<xsl:if test="normalize-space($toc_table_title) = ''">
-			<xsl:call-template name="getLocalizedString">
-				<xsl:with-param name="key">toc_tables</xsl:with-param>
-			</xsl:call-template>
-		</xsl:if>
-	</xsl:variable>
+	<xsl:variable name="toc_title_lists_">
+		<xsl:for-each select="//mn:metanorma">
+			<xsl:variable name="num"><xsl:number level="any" count="mn:metanorma"/></xsl:variable>
+			<xsl:variable name="docid"><xsl:call-template name="getDocumentId"/></xsl:variable>
+			<xsl:variable name="current_document">
+				<xsl:copy-of select="."/>
+			</xsl:variable>
+			<xsl:for-each select="xalan:nodeset($current_document)">
+				<mnx:doc id="{$docid}" num="{$num}">
+					<mnx:title-list-tables>
+						<xsl:variable name="toc_table_title" select="/mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:toc[@type='table']/mn:title"/>
+						<xsl:value-of select="$toc_table_title"/>
+						<xsl:if test="normalize-space($toc_table_title) = ''">
+							<xsl:call-template name="getLocalizedString">
+								<xsl:with-param name="key">toc_tables</xsl:with-param>
+							</xsl:call-template>
+						</xsl:if>
+					</mnx:title-list-tables>
 
-	<xsl:variable name="title-list-figures">
-		<xsl:variable name="toc_figure_title" select="//mn:metanorma/mn:metanorma-extension/mn:toc[@type='figure']/mn:title"/>
-		<xsl:value-of select="$toc_figure_title"/>
-		<xsl:if test="normalize-space($toc_figure_title) = ''">
-			<xsl:call-template name="getLocalizedString">
-				<xsl:with-param name="key">toc_figures</xsl:with-param>
-			</xsl:call-template>
-		</xsl:if>
-	</xsl:variable>
+					<mnx:title-list-figures>
+						<xsl:variable name="toc_figure_title" select="/mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:toc[@type='figure']/mn:title"/>
+						<xsl:value-of select="$toc_figure_title"/>
+						<xsl:if test="normalize-space($toc_figure_title) = ''">
+							<xsl:call-template name="getLocalizedString">
+								<xsl:with-param name="key">toc_figures</xsl:with-param>
+							</xsl:call-template>
+						</xsl:if>
+					</mnx:title-list-figures>
 
-	<xsl:variable name="title-list-examples">
-		<xsl:variable name="toc_example_title" select="//mn:metanorma/mn:metanorma-extension/mn:toc[@type='example']/mn:title"/>
-		<xsl:value-of select="$toc_example_title"/>
-		<xsl:if test="normalize-space($toc_example_title) = ''">
-			<xsl:call-template name="getLocalizedString">
-				<xsl:with-param name="key">toc_examples</xsl:with-param>
-			</xsl:call-template>
-		</xsl:if>
-	</xsl:variable>
+					<mnx:title-list-examples>
+						<xsl:variable name="toc_example_title" select="/mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:toc[@type='example']/mn:title"/>
+						<xsl:value-of select="$toc_example_title"/>
+						<xsl:if test="normalize-space($toc_example_title) = ''">
+							<xsl:call-template name="getLocalizedString">
+								<xsl:with-param name="key">toc_examples</xsl:with-param>
+							</xsl:call-template>
+						</xsl:if>
+					</mnx:title-list-examples>
 
-	<xsl:variable name="title-list-recommendations">
-		<xsl:variable name="toc_requirement_title" select="//mn:metanorma/mn:metanorma-extension/mn:toc[@type='requirement']/mn:title"/>
-		<xsl:value-of select="$toc_requirement_title"/>
-		<xsl:if test="normalize-space($toc_requirement_title) = ''">
-			<xsl:call-template name="getLocalizedString">
-				<xsl:with-param name="key">toc_recommendations</xsl:with-param>
-			</xsl:call-template>
-		</xsl:if>
+					<mnx:title-list-recommendations>
+						<xsl:variable name="toc_requirement_title" select="/mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:toc[@type='requirement']/mn:title"/>
+						<xsl:value-of select="$toc_requirement_title"/>
+						<xsl:if test="normalize-space($toc_requirement_title) = ''">
+							<xsl:call-template name="getLocalizedString">
+								<xsl:with-param name="key">toc_recommendations</xsl:with-param>
+							</xsl:call-template>
+						</xsl:if>
+					</mnx:title-list-recommendations>
+				</mnx:doc>
+			</xsl:for-each>
+		</xsl:for-each>
 	</xsl:variable>
+	<xsl:variable name="toc_title_lists" select="xalan:nodeset($toc_title_lists_)"/>
 
 	<xsl:variable name="bibdata">
 		<xsl:copy-of select="//mn:metanorma/mn:bibdata"/>
@@ -13818,13 +13832,13 @@
 
 	<xsl:template name="processTablesFigures_Contents">
 		<xsl:param name="always"/>
-		<xsl:if test="(//mn:metanorma/mn:metanorma-extension/mn:toc[@type='table']/mn:title) or normalize-space($always) = 'true'">
+		<xsl:if test="(//mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:toc[@type='table']/mn:title) or normalize-space($always) = 'true'">
 			<xsl:call-template name="processTables_Contents"/>
 		</xsl:if>
-		<xsl:if test="(//mn:metanorma/mn:metanorma-extension/mn:toc[@type='figure']/mn:title) or normalize-space($always) = 'true'">
+		<xsl:if test="(//mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:toc[@type='figure']/mn:title) or normalize-space($always) = 'true'">
 			<xsl:call-template name="processFigures_Contents"/>
 		</xsl:if>
-		<xsl:if test="(//mn:metanorma/mn:metanorma-extension/mn:toc[@type='example']/mn:title)">
+		<xsl:if test="(//mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:toc[@type='example']/mn:title)">
 			<xsl:call-template name="processExamples_Contents"/>
 		</xsl:if>
 	</xsl:template>
@@ -14163,15 +14177,18 @@
 
 										<xsl:call-template name="insertFigureBookmarks">
 											<xsl:with-param name="contents" select="mnx:contents"/>
+											<xsl:with-param name="num" select="@num"/>
 										</xsl:call-template>
 
 										<xsl:call-template name="insertTableBookmarks">
 											<xsl:with-param name="contents" select="mnx:contents"/>
+											<xsl:with-param name="num" select="@num"/>
 											<xsl:with-param name="lang" select="@lang"/>
 										</xsl:call-template>
 
 										<xsl:call-template name="insertExampleBookmarks">
 											<xsl:with-param name="contents" select="mnx:contents"/>
+											<xsl:with-param name="num" select="@num"/>
 											<xsl:with-param name="lang" select="@lang"/>
 										</xsl:call-template>
 
@@ -14186,15 +14203,18 @@
 
 									<xsl:call-template name="insertFigureBookmarks">
 										<xsl:with-param name="contents" select="mnx:contents"/>
+										<xsl:with-param name="num" select="@num"/>
 									</xsl:call-template>
 
 									<xsl:call-template name="insertTableBookmarks">
 										<xsl:with-param name="contents" select="mnx:contents"/>
+										<xsl:with-param name="num" select="@num"/>
 										<xsl:with-param name="lang" select="@lang"/>
 									</xsl:call-template>
 
 									<xsl:call-template name="insertExampleBookmarks">
 										<xsl:with-param name="contents" select="mnx:contents"/>
+										<xsl:with-param name="num" select="@num"/>
 										<xsl:with-param name="lang" select="@lang"/>
 									</xsl:call-template>
 
@@ -14207,15 +14227,18 @@
 
 						<xsl:call-template name="insertFigureBookmarks">
 							<xsl:with-param name="contents" select="$contents_nodes/mnx:contents"/>
+							<xsl:with-param name="num" select="@num"/>
 						</xsl:call-template>
 
 						<xsl:call-template name="insertTableBookmarks">
 							<xsl:with-param name="contents" select="$contents_nodes/mnx:contents"/>
+							<xsl:with-param name="num" select="@num"/>
 							<xsl:with-param name="lang" select="@lang"/>
 						</xsl:call-template>
 
 						<xsl:call-template name="insertExampleBookmarks">
 							<xsl:with-param name="contents" select="$contents_nodes/mnx:contents"/>
+							<xsl:with-param name="num" select="@num"/>
 							<xsl:with-param name="lang" select="@lang"/>
 						</xsl:call-template>
 
@@ -14231,6 +14254,7 @@
 
 	<xsl:template name="insertFigureBookmarks">
 		<xsl:param name="contents"/>
+		<xsl:param name="num"/>
 		<xsl:variable name="contents_nodes" select="xalan:nodeset($contents)"/>
 		<xsl:if test="$contents_nodes/mnx:figure">
 			<fo:bookmark internal-destination="{$contents_nodes/mnx:figure[1]/@id}" starting-state="hide">
@@ -14248,6 +14272,7 @@
 
 	<xsl:template name="insertTableBookmarks">
 		<xsl:param name="contents"/>
+		<xsl:param name="num"/>
 		<xsl:param name="lang"/>
 		<xsl:variable name="contents_nodes" select="xalan:nodeset($contents)"/>
 		<xsl:if test="$contents_nodes/mnx:table">
@@ -14269,8 +14294,9 @@
 		</xsl:if><!-- see template addBookmarks -->
 	</xsl:template> <!-- insertTableBookmarks -->
 
-		<xsl:template name="insertExampleBookmarks">
+	<xsl:template name="insertExampleBookmarks">
 		<xsl:param name="contents"/>
+		<xsl:param name="num"/>
 		<xsl:param name="lang"/>
 		<xsl:variable name="contents_nodes" select="xalan:nodeset($contents)"/>
 		<xsl:if test="$contents_nodes/mnx:example">
