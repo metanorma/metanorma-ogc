@@ -146,14 +146,15 @@ module Metanorma
 
       PUBLISHER = "./contributor[role/@type = 'publisher']/organization".freeze
 
-      def pub_class(bib)
-        return 1 if bib.at("#{PUBLISHER}[abbreviation = 'OGC']")
-        return 1 if bib.at("#{PUBLISHER}[name = 'Open Geospatial " \
-                           "Consortium']")
-        return 2 if bib.at("./docidentifier[@type][not(#{@conv.skip_docid} or " \
-                           "@type = 'metanorma')]")
+      # OGC first, then other standards, then everything else. Overridable
+      # per-document / per-taste via :sort-biblio-<abbrev>: through the shared
+      # Standoc::Ref helpers.
+      DEFAULT_PUBLISHER_SORT = [
+        { abbrev: "OGC", name: "Open Geospatial Consortium", rank: 1 },
+      ].freeze
 
-        3
+      def pub_class(bib)
+        publisher_sort_rank(bib, DEFAULT_PUBLISHER_SORT)
       end
 
       # sort by: doc class (OGC, other standard (not DOI &c), other
