@@ -52,6 +52,8 @@
       <span class="label">Submission Date: </span> <span class="value">{{ receiveddate }}</span>
       <span class="label">Approval Date: </span> <span class="value">{{ issueddate }}</span>
       <span class="label">Publication Date: </span> <span class="value">{{ publisheddate }}</span>
+      {% assign doi = bibdata.docidentifier | where: "type", "DOI" | first %}
+      {% if doi %}<span class="label">DOI: <span class="docnumber value">{{ doi.content }}</span></span>{% endif %}
       <span class="label">External identifier of this OGC® document: <span class="docnumber value">{{ externalid }}</span></span>
       <span class="label">Internal identifier of this OGC® document: <span class="docnumber value">{{ docnumber }}</span></span>
       {% if url or html %}
