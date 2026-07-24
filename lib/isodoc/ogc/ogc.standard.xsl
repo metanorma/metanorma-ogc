@@ -6683,6 +6683,9 @@
 	</xsl:attribute-set><!-- table-note-style -->
 
 	<xsl:template name="refine_table-note-style">
+		<xsl:if test="self::mn:note">
+			<xsl:attribute name="role">Note</xsl:attribute>
+		</xsl:if>
 	</xsl:template> <!-- refine_table-note-style -->
 
 	<xsl:attribute-set name="table-fn-style">
@@ -7988,7 +7991,7 @@
 	</xsl:template> <!-- table/note -->
 
 	<xsl:template match="mn:table/*[self::mn:note or self::mn:example]/mn:p |  mn:table/mn:tfoot//*[self::mn:note or self::mn:example]/mn:p" priority="2">
-		<xsl:apply-templates/>
+		<fo:inline role="P"><xsl:apply-templates/></fo:inline>
 	</xsl:template>
 
 	<!-- ============================ -->
@@ -9898,6 +9901,7 @@
 	<!-- ====== -->
 
 	<xsl:attribute-set name="note-style">
+		<xsl:attribute name="role">Note</xsl:attribute>
 		<xsl:attribute name="margin-top">12pt</xsl:attribute>
 		<xsl:attribute name="margin-bottom">12pt</xsl:attribute>
 	</xsl:attribute-set> <!-- note-style -->
@@ -9912,6 +9916,7 @@
 	<xsl:variable name="note-body-indent-table">5mm</xsl:variable>
 
 	<xsl:attribute-set name="note-name-style">
+		<xsl:attribute name="role">Lbl</xsl:attribute>
 		<xsl:attribute name="font-weight">bold</xsl:attribute>
 		<!-- <xsl:attribute name="padding-right">1mm</xsl:attribute> -->
 	</xsl:attribute-set> <!-- note-name-style -->
@@ -9924,9 +9929,13 @@
 	</xsl:attribute-set>
 
 	<xsl:template name="refine_table-note-name-style">
+		<xsl:if test="self::mn:note">
+			<xsl:attribute name="role">Lbl</xsl:attribute>
+		</xsl:if>
 	</xsl:template> <!-- refine_table-note-name-style -->
 
 	<xsl:attribute-set name="note-p-style">
+		<xsl:attribute name="role">P</xsl:attribute>
 		<xsl:attribute name="margin-top">12pt</xsl:attribute>
 		<xsl:attribute name="margin-bottom">12pt</xsl:attribute>
 	</xsl:attribute-set> <!-- note-p-style -->
@@ -9935,6 +9944,7 @@
 	</xsl:template>
 
 	<xsl:attribute-set name="termnote-style">
+		<xsl:attribute name="role">Note</xsl:attribute>
 		<xsl:attribute name="margin-top">12pt</xsl:attribute>
 		<xsl:attribute name="margin-bottom">12pt</xsl:attribute>
 	</xsl:attribute-set> <!-- termnote-style -->
@@ -9943,6 +9953,7 @@
 	</xsl:template> <!-- refine_termnote-style -->
 
 	<xsl:attribute-set name="termnote-name-style">
+		<xsl:attribute name="role">Lbl</xsl:attribute>
 		<xsl:attribute name="font-weight">bold</xsl:attribute>
 		<xsl:attribute name="padding-right">1mm</xsl:attribute>
 	</xsl:attribute-set> <!-- termnote-name-style -->
@@ -9951,6 +9962,7 @@
 	</xsl:template>
 
 	<xsl:attribute-set name="termnote-p-style">
+		<xsl:attribute name="role">P</xsl:attribute>
 		<xsl:attribute name="space-before">4pt</xsl:attribute>
 	</xsl:attribute-set>
 
@@ -9966,7 +9978,7 @@
 
 		<xsl:call-template name="setNamedDestination"/>
 
-		<fo:block-container xsl:use-attribute-sets="note-style" role="SKIP">
+		<fo:block-container xsl:use-attribute-sets="note-style">
 			<xsl:if test="not(parent::mn:references)">
 				<xsl:copy-of select="@id"/>
 			</xsl:if>
@@ -9976,11 +9988,11 @@
 			<xsl:call-template name="refine_note-style"/>
 
 			<fo:block-container margin-left="0mm" margin-right="0mm" role="SKIP">
-						<fo:block>
+						<fo:block role="SKIP">
 
 							<xsl:call-template name="refine_note_block_style"/>
 
-							<fo:inline xsl:use-attribute-sets="note-name-style" role="SKIP">
+							<fo:inline xsl:use-attribute-sets="note-name-style">
 
 								<xsl:apply-templates select="mn:fmt-name/mn:tab" mode="tab"/>
 
@@ -10003,7 +10015,15 @@
 
 							</fo:inline>
 
-							<xsl:apply-templates select="node()[not(self::mn:fmt-name)]"/>
+							<xsl:choose>
+								<xsl:when test="parent::mn:formattedref and ancestor::mn:bibitem">
+									<fo:inline role="P"><xsl:apply-templates select="node()[not(self::mn:fmt-name)]"/></fo:inline>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:apply-templates select="node()[not(self::mn:fmt-name)]"/>
+								</xsl:otherwise>
+							</xsl:choose>
+
 						</fo:block>
 			</fo:block-container>
 		</fo:block-container>
@@ -10016,13 +10036,13 @@
 		<xsl:variable name="num"><xsl:number/></xsl:variable>
 		<xsl:choose>
 			<xsl:when test="$num = 1"> <!-- display first NOTE's paragraph in the same line with label NOTE -->
-				<fo:inline xsl:use-attribute-sets="note-p-style" role="SKIP">
+				<fo:inline xsl:use-attribute-sets="note-p-style">
 					<xsl:call-template name="refine_note-p-style"/>
 					<xsl:apply-templates/>
 				</fo:inline>
 			</xsl:when>
 			<xsl:otherwise>
-				<fo:block xsl:use-attribute-sets="note-p-style" role="SKIP">
+				<fo:block xsl:use-attribute-sets="note-p-style">
 					<xsl:call-template name="refine_note-p-style"/>
 					<xsl:apply-templates/>
 				</fo:block>
@@ -12637,6 +12657,7 @@
 
 	<!-- admonition -->
 	<xsl:attribute-set name="admonition-style">
+		<xsl:attribute name="role">Note</xsl:attribute>
 		<xsl:attribute name="border">0.5pt solid rgb(79, 129, 189)</xsl:attribute>
 		<xsl:attribute name="color">rgb(79, 129, 189)</xsl:attribute>
 		<xsl:attribute name="margin-left">16mm</xsl:attribute>
@@ -12648,6 +12669,7 @@
 	</xsl:template>
 
 	<xsl:attribute-set name="admonition-container-style">
+		<xsl:attribute name="role">SKIP</xsl:attribute>
 		<xsl:attribute name="margin-left">0mm</xsl:attribute>
 		<xsl:attribute name="margin-right">0mm</xsl:attribute>
 		<xsl:attribute name="padding">2mm</xsl:attribute>
@@ -12658,6 +12680,7 @@
 	</xsl:template>
 
 	<xsl:attribute-set name="admonition-name-style">
+		<xsl:attribute name="role">Lbl</xsl:attribute>
 		<xsl:attribute name="keep-with-next">always</xsl:attribute>
 		<xsl:attribute name="font-size">11pt</xsl:attribute>
 		<xsl:attribute name="margin-bottom">6pt</xsl:attribute>
@@ -12693,7 +12716,7 @@
 					<xsl:attribute name="border">0.5pt solid <xsl:value-of select="$admonition_color"/></xsl:attribute>
 					<xsl:attribute name="color"><xsl:value-of select="$admonition_color"/></xsl:attribute>
 				</xsl:if>
-					<fo:block-container xsl:use-attribute-sets="admonition-container-style" role="SKIP">
+					<fo:block-container xsl:use-attribute-sets="admonition-container-style">
 
 						<xsl:call-template name="refine_admonition-container-style"/>
 								<fo:block xsl:use-attribute-sets="admonition-name-style">
