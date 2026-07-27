@@ -12313,6 +12313,13 @@
 	<!-- End Form's elements processing -->
 	<!-- =================== -->
 
+	<xsl:attribute-set name="toc-container-style">
+		<xsl:attribute name="role">Sect</xsl:attribute>
+	</xsl:attribute-set>
+
+	<xsl:template name="refine_toc-container-style">
+	</xsl:template>
+
 	<xsl:attribute-set name="toc-style">
 		<xsl:attribute name="line-height">1.08</xsl:attribute>
 		<xsl:attribute name="font-family">Lato</xsl:attribute>
