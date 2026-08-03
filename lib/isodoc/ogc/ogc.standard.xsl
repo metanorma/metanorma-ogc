@@ -10173,9 +10173,9 @@
 	<!-- ====== -->
 
 	<xsl:attribute-set name="quote-container-style">
+		<xsl:attribute name="role">BlockQuote</xsl:attribute>
 		<xsl:attribute name="margin-left">12mm</xsl:attribute>
 		<xsl:attribute name="margin-right">12mm</xsl:attribute>
-		<xsl:attribute name="role">SKIP</xsl:attribute>
 		<xsl:attribute name="margin-bottom">6pt</xsl:attribute>
 		<xsl:attribute name="margin-left">13mm</xsl:attribute>
 	</xsl:attribute-set>
@@ -10199,6 +10199,7 @@
 	</xsl:template> <!-- refine_quote-style -->
 
 	<xsl:attribute-set name="quote-source-style">
+		<xsl:attribute name="role">Caption</xsl:attribute>
 		<xsl:attribute name="text-align">right</xsl:attribute>
 		<xsl:attribute name="margin-right">-12mm</xsl:attribute>
 		<xsl:attribute name="margin-right">13mm</xsl:attribute>
@@ -10232,7 +10233,7 @@
 					<xsl:call-template name="refine_quote-style"/>
 
 					<fo:block-container margin-left="0mm" margin-right="0mm" role="SKIP">
-						<fo:block role="BlockQuote">
+						<fo:block role="SKIP"> <!-- BlockQuote -->
 							<xsl:apply-templates select="./node()[not(self::mn:author) and         not(self::mn:fmt-source) and         not(self::mn:attribution)]"/> <!-- process all nested nodes, except author and source -->
 						</fo:block>
 					</fo:block-container>
