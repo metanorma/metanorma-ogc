@@ -182,9 +182,15 @@ RSpec.describe Metanorma::Ogc do
                </organization>
              </owner>
            </copyright>
-           <keyword>a</keyword>
-          <keyword>b</keyword>
-          <keyword>c</keyword>
+           <keyword>
+             <vocab>a</vocab>
+           </keyword>
+           <keyword>
+             <vocab>b</vocab>
+           </keyword>
+           <keyword>
+             <vocab>c</vocab>
+           </keyword>
            <ext>
            <doctype>standard</doctype>
            <subdoctype>conceptual-model</subdoctype>
