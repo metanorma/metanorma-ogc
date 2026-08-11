@@ -195,6 +195,7 @@ RSpec.describe Metanorma::Ogc do
            <doctype>standard</doctype>
            <subdoctype>conceptual-model</subdoctype>
            <flavor>ogc</flavor>
+           <stage>SWG Work</stage>
           </ext>
          </bibdata>
                   <boilerplate>
@@ -359,6 +360,7 @@ RSpec.describe Metanorma::Ogc do
         <ext>
         <doctype>white-paper</doctype>
            <flavor>ogc</flavor>
+           <stage>approved</stage>
         </ext>
       </bibdata>
       <preface>#{SECURITY.sub('standard', 'document')}</preface>
@@ -1127,6 +1129,7 @@ RSpec.describe Metanorma::Ogc do
           <doctype>standard</doctype>
           <subdoctype>implementation</subdoctype>
            <flavor>ogc</flavor>
+           <stage>approved</stage>
         </ext>
       </bibdata>
     OUTPUT
