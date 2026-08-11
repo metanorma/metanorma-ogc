@@ -65,11 +65,21 @@ module Metanorma
         super
         a = xmldoc.at("//bibdata/status/stage")
         a.text == "published" and a.children = "approved"
+        ogc_stage_shadow(xmldoc, a)
         if @doctype == "technical-paper"
           doctype = xmldoc.at("//bibdata/ext/doctype")
           doctype.children = "white-paper"
           @doctype = "white-paper"
         end
+      end
+
+      # Shadow of /bibdata/status/stage into ext, where it is validated
+      # against the OGC stage vocabulary; status/stage stays schema-generic
+      # (metanorma-model-iso#156). Inserted at cleanup rather than front
+      # emission so the published->approved normalisation above is mirrored
+      def ogc_stage_shadow(xmldoc, stage)
+        ins = xmldoc.at("//bibdata/ext/flavor") or return
+        ins.next = "<stage>#{stage.text}</stage>"
       end
 
       # as in standoc, but do not rename annex terms

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<grammar xmlns="http://relaxng.org/ns/structure/1.0">
+<grammar xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns="http://relaxng.org/ns/structure/1.0">
   <include href="biblio-standoc.rng">
     <define name="DocumentType">
       <choice>
@@ -34,12 +34,19 @@
         <value>general</value>
       </choice>
     </define>
-    <define name="stage">
+  </include>
+  <define name="BibDataExtensionType" combine="interleave">
+    <optional>
       <element name="stage">
+        <a:documentation>The stage of the document being authored, validated against the flavor's stage vocabulary.
+This is a shadow of /bibdata/status/stage, which remains schema-generic:
+the status of cited bibliographic items carries the vocabulary of the SDO
+that published them, and is never constrained by the flavor
+(metanorma-model-iso#156)</a:documentation>
         <ref name="StageType"/>
       </element>
-    </define>
-  </include>
+    </optional>
+  </define>
   <define name="StageType">
     <choice>
       <value>rfc</value>
@@ -53,7 +60,7 @@
       <value>work-item-draft</value>
       <value>swg-draft</value>
       <value>oab-review</value>
-      <value>public-ref</value>
+      <value>public-rfc</value>
       <value>tc-vote</value>
       <value>approved</value>
       <value>deprecated</value>
