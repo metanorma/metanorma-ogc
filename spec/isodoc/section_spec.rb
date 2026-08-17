@@ -33,7 +33,7 @@ RSpec.describe IsoDoc::Ogc do
                    <fmt-title id="_" depth="1">
                       <span class="fmt-caption-label">
                          <semx element="autonum" source="A">1</semx>
-                         <span class="fmt-autonum-delim">.</span>
+                         <span class="fmt-clause-delim">.</span>
                       </span>
                    </fmt-title>
                    <fmt-xref-label>
@@ -45,7 +45,7 @@ RSpec.describe IsoDoc::Ogc do
                    <fmt-title id="_" depth="1">
                       <span class="fmt-caption-label">
                          <semx element="autonum" source="B">3</semx>
-                         <span class="fmt-autonum-delim">.</span>
+                         <span class="fmt-clause-delim">.</span>
                       </span>
                    </fmt-title>
                    <fmt-xref-label>
@@ -57,7 +57,7 @@ RSpec.describe IsoDoc::Ogc do
                    <fmt-title id="_" depth="1">
                       <span class="fmt-caption-label">
                          <semx element="autonum" source="C">4</semx>
-                         <span class="fmt-autonum-delim">.</span>
+                         <span class="fmt-clause-delim">.</span>
                       </span>
                    </fmt-title>
                    <fmt-xref-label>
@@ -70,7 +70,7 @@ RSpec.describe IsoDoc::Ogc do
                    <fmt-title id="_" depth="1">
                       <span class="fmt-caption-label">
                          <semx element="autonum" source="D">2</semx>
-                         <span class="fmt-autonum-delim">.</span>
+                         <span class="fmt-clause-delim">.</span>
                       </span>
                       <span class="fmt-caption-delim">
                          <tab/>
@@ -126,7 +126,7 @@ RSpec.describe IsoDoc::Ogc do
                   <fmt-title id="_" depth="1">
                      <span class="fmt-caption-label">
                         <semx element="autonum" source="A">1</semx>
-                        <span class="fmt-autonum-delim">.</span>
+                        <span class="fmt-clause-delim">.</span>
                      </span>
                   </fmt-title>
                   <fmt-xref-label>
@@ -138,7 +138,7 @@ RSpec.describe IsoDoc::Ogc do
                   <fmt-title id="_" depth="1">
                      <span class="fmt-caption-label">
                         <semx element="autonum" source="B">2</semx>
-                        <span class="fmt-autonum-delim">.</span>
+                        <span class="fmt-clause-delim">.</span>
                      </span>
                   </fmt-title>
                   <fmt-xref-label>
@@ -150,7 +150,7 @@ RSpec.describe IsoDoc::Ogc do
                   <fmt-title id="_" depth="1">
                      <span class="fmt-caption-label">
                         <semx element="autonum" source="C">3</semx>
-                        <span class="fmt-autonum-delim">.</span>
+                        <span class="fmt-clause-delim">.</span>
                      </span>
                   </fmt-title>
                   <fmt-xref-label>
@@ -163,7 +163,7 @@ RSpec.describe IsoDoc::Ogc do
                   <fmt-title id="_" depth="1">
                      <span class="fmt-caption-label">
                         <semx element="autonum" source="D">4</semx>
-                        <span class="fmt-autonum-delim">.</span>
+                        <span class="fmt-clause-delim">.</span>
                      </span>
                      <span class="fmt-caption-delim">
                         <tab/>
@@ -231,7 +231,7 @@ RSpec.describe IsoDoc::Ogc do
                 <fmt-title depth="1" id="_">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="H">1</semx>
-                      <span class="fmt-autonum-delim">.</span>
+                      <span class="fmt-clause-delim">.</span>
                    </span>
                    <span class="fmt-caption-delim">
                       <tab/>
@@ -248,7 +248,7 @@ RSpec.describe IsoDoc::Ogc do
                          <semx element="autonum" source="H">1</semx>
                          <span class="fmt-autonum-delim">.</span>
                          <semx element="autonum" source="J">1</semx>
-                         <span class="fmt-autonum-delim">.</span>
+                         <span class="fmt-clause-delim">.</span>
                       </span>
                    </fmt-name>
                    <fmt-xref-label>
@@ -363,9 +363,9 @@ RSpec.describe IsoDoc::Ogc do
 
     html = <<~OUTPUT
       <div id="H">
-         <h1 id="_"><a class="anchor" href="#H"></a><a class="header" href="#H">1.  Terms, Definitions, Symbols and Abbreviated Terms</a></h1>
+         <h1 id="_"><a class="anchor" href="#H"></a><a class="header" href="#H">1<span class="fmt-clause-delim">.</span>  Terms, Definitions, Symbols and Abbreviated Terms</a></h1>
          <div id="J">
-           <h2 class="TermNum" style="text-align:left;" id="_"><a class="anchor" href="#J"></a><a class="header" href="#J">1.1. <b><dfn>Term2</dfn></b></a></h2>
+           <h2 class="TermNum" style="text-align:left;" id="_"><a class="anchor" href="#J"></a><a class="header" href="#J">1.1<span class="fmt-clause-delim">.</span> <b><dfn>Term2</dfn></b></a></h2>
          </div>
          <p class="AltTerms" style="text-align:left;">
            <dfn>Term2A</dfn>#{' '}
@@ -395,8 +395,8 @@ RSpec.describe IsoDoc::Ogc do
           <div class="WordSection3">
              <div>
                 <a name="H" id="H"></a>
-                <h1>1. <span style="mso-tab-count:1">  </span>Terms, Definitions, Symbols and Abbreviated Terms</h1>
-                <p class="TermNum" style="text-align:left;"><a name="J" id="J"></a>1.1. <b>Term2</b></p>
+                <h1>1<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">  </span>Terms, Definitions, Symbols and Abbreviated Terms</h1>
+                <p class="TermNum" style="text-align:left;"><a name="J" id="J"></a>1.1<span class="fmt-clause-delim">.</span> <b>Term2</b></p>
                 <p class="AltTerms" style="text-align:left;">
                    Term2A#{' '}
                    <span class="AdmittedLabel">ALTERNATIVE</span>
@@ -595,7 +595,7 @@ RSpec.describe IsoDoc::Ogc do
                 <fmt-title depth="1" id="_">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="1">I</semx>
-                      <span class="fmt-autonum-delim">.</span>
+                      <span class="fmt-clause-delim">.</span>
                    </span>
                    <span class="fmt-caption-delim">
                       <tab/>
@@ -612,7 +612,7 @@ RSpec.describe IsoDoc::Ogc do
                 <fmt-title depth="1" id="_">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="DD0">II</semx>
-                      <span class="fmt-autonum-delim">.</span>
+                      <span class="fmt-clause-delim">.</span>
                    </span>
                    <span class="fmt-caption-delim">
                       <tab/>
@@ -629,7 +629,7 @@ RSpec.describe IsoDoc::Ogc do
                 <fmt-title depth="1" id="_">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="_">III</semx>
-                      <span class="fmt-autonum-delim">.</span>
+                      <span class="fmt-clause-delim">.</span>
                    </span>
                    <span class="fmt-caption-delim">
                       <tab/>
@@ -647,7 +647,7 @@ RSpec.describe IsoDoc::Ogc do
                 <fmt-title depth="1" id="_">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="2">IV</semx>
-                      <span class="fmt-autonum-delim">.</span>
+                      <span class="fmt-clause-delim">.</span>
                    </span>
                    <span class="fmt-caption-delim">
                       <tab/>
@@ -664,7 +664,7 @@ RSpec.describe IsoDoc::Ogc do
                 <fmt-title depth="1" id="_">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="DD1">V</semx>
-                      <span class="fmt-autonum-delim">.</span>
+                      <span class="fmt-clause-delim">.</span>
                    </span>
                    <span class="fmt-caption-delim">
                       <tab/>
@@ -681,7 +681,7 @@ RSpec.describe IsoDoc::Ogc do
                 <fmt-title depth="1" id="_">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="3">VI</semx>
-                      <span class="fmt-autonum-delim">.</span>
+                      <span class="fmt-clause-delim">.</span>
                    </span>
                    <span class="fmt-caption-delim">
                       <tab/>
@@ -698,7 +698,7 @@ RSpec.describe IsoDoc::Ogc do
                 <fmt-title depth="1" id="_">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="3a">VII</semx>
-                      <span class="fmt-autonum-delim">.</span>
+                      <span class="fmt-clause-delim">.</span>
                    </span>
                    <span class="fmt-caption-delim">
                       <tab/>
@@ -715,7 +715,7 @@ RSpec.describe IsoDoc::Ogc do
                 <fmt-title depth="1" id="_">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="5">VIII</semx>
-                      <span class="fmt-autonum-delim">.</span>
+                      <span class="fmt-clause-delim">.</span>
                    </span>
                    <span class="fmt-caption-delim">
                       <tab/>
@@ -732,7 +732,7 @@ RSpec.describe IsoDoc::Ogc do
                          <semx element="autonum" source="5">VIII</semx>
                          <span class="fmt-autonum-delim">.</span>
                          <semx element="autonum" source="6">A</semx>
-                         <span class="fmt-autonum-delim">.</span>
+                         <span class="fmt-clause-delim">.</span>
                       </span>
                       <span class="fmt-caption-delim">
                          <tab/>
@@ -752,7 +752,7 @@ RSpec.describe IsoDoc::Ogc do
                 <fmt-title depth="1" id="_">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="4">IX</semx>
-                      <span class="fmt-autonum-delim">.</span>
+                      <span class="fmt-clause-delim">.</span>
                    </span>
                    <span class="fmt-caption-delim">
                       <tab/>
@@ -771,7 +771,7 @@ RSpec.describe IsoDoc::Ogc do
                 <fmt-title depth="1" id="_">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="D">1</semx>
-                      <span class="fmt-autonum-delim">.</span>
+                      <span class="fmt-clause-delim">.</span>
                    </span>
                    <span class="fmt-caption-delim">
                       <tab/>
@@ -789,7 +789,7 @@ RSpec.describe IsoDoc::Ogc do
                 <fmt-title depth="1" id="_">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="D1">2</semx>
-                      <span class="fmt-autonum-delim">.</span>
+                      <span class="fmt-clause-delim">.</span>
                    </span>
                    <span class="fmt-caption-delim">
                       <tab/>
@@ -807,7 +807,7 @@ RSpec.describe IsoDoc::Ogc do
                 <fmt-title depth="1" id="_">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="H">4</semx>
-                      <span class="fmt-autonum-delim">.</span>
+                      <span class="fmt-clause-delim">.</span>
                    </span>
                    <span class="fmt-caption-delim">
                       <tab/>
@@ -825,7 +825,7 @@ RSpec.describe IsoDoc::Ogc do
                          <semx element="autonum" source="H">4</semx>
                          <span class="fmt-autonum-delim">.</span>
                          <semx element="autonum" source="I">1</semx>
-                         <span class="fmt-autonum-delim">.</span>
+                         <span class="fmt-clause-delim">.</span>
                       </span>
                       <span class="fmt-caption-delim">
                          <tab/>
@@ -846,7 +846,7 @@ RSpec.describe IsoDoc::Ogc do
                             <semx element="autonum" source="I">1</semx>
                             <span class="fmt-autonum-delim">.</span>
                             <semx element="autonum" source="J">1</semx>
-                            <span class="fmt-autonum-delim">.</span>
+                            <span class="fmt-clause-delim">.</span>
                          </span>
                       </fmt-name>
                       <fmt-xref-label>
@@ -880,7 +880,7 @@ RSpec.describe IsoDoc::Ogc do
                          <semx element="autonum" source="H">4</semx>
                          <span class="fmt-autonum-delim">.</span>
                          <semx element="autonum" source="K">2</semx>
-                         <span class="fmt-autonum-delim">.</span>
+                         <span class="fmt-clause-delim">.</span>
                       </span>
                       <span class="fmt-caption-delim">
                          <tab/>
@@ -904,7 +904,7 @@ RSpec.describe IsoDoc::Ogc do
                 <fmt-title depth="1" id="_">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="L">5</semx>
-                      <span class="fmt-autonum-delim">.</span>
+                      <span class="fmt-clause-delim">.</span>
                    </span>
                    <span class="fmt-caption-delim">
                       <tab/>
@@ -925,7 +925,7 @@ RSpec.describe IsoDoc::Ogc do
                 <fmt-title depth="1" id="_">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="M">6</semx>
-                      <span class="fmt-autonum-delim">.</span>
+                      <span class="fmt-clause-delim">.</span>
                    </span>
                    <span class="fmt-caption-delim">
                       <tab/>
@@ -943,7 +943,7 @@ RSpec.describe IsoDoc::Ogc do
                          <semx element="autonum" source="M">6</semx>
                          <span class="fmt-autonum-delim">.</span>
                          <semx element="autonum" source="N">1</semx>
-                         <span class="fmt-autonum-delim">.</span>
+                         <span class="fmt-clause-delim">.</span>
                       </span>
                       <span class="fmt-caption-delim">
                          <tab/>
@@ -964,7 +964,7 @@ RSpec.describe IsoDoc::Ogc do
                          <semx element="autonum" source="M">6</semx>
                          <span class="fmt-autonum-delim">.</span>
                          <semx element="autonum" source="O">2</semx>
-                         <span class="fmt-autonum-delim">.</span>
+                         <span class="fmt-clause-delim">.</span>
                       </span>
                       <span class="fmt-caption-delim">
                          <tab/>
@@ -984,7 +984,7 @@ RSpec.describe IsoDoc::Ogc do
                 <fmt-title depth="1" id="_">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="R">3</semx>
-                      <span class="fmt-autonum-delim">.</span>
+                      <span class="fmt-clause-delim">.</span>
                    </span>
                    <span class="fmt-caption-delim">
                       <tab/>
@@ -1039,7 +1039,7 @@ RSpec.describe IsoDoc::Ogc do
                      <semx element="autonum" source="P">A</semx>
                      <span class="fmt-autonum-delim">.</span>
                      <semx element="autonum" source="Q">1</semx>
-                     <span class="fmt-autonum-delim">.</span>
+                     <span class="fmt-clause-delim">.</span>
                   </span>
                   <span class="fmt-caption-delim">
                      <tab/>
@@ -1061,7 +1061,7 @@ RSpec.describe IsoDoc::Ogc do
                         <semx element="autonum" source="Q">1</semx>
                         <span class="fmt-autonum-delim">.</span>
                         <semx element="autonum" source="Q1">1</semx>
-                        <span class="fmt-autonum-delim">.</span>
+                        <span class="fmt-clause-delim">.</span>
                      </span>
                      <span class="fmt-caption-delim">
                         <tab/>
@@ -1118,7 +1118,7 @@ RSpec.describe IsoDoc::Ogc do
                         <semx element="autonum" source="PP1">B</semx>
                         <span class="fmt-autonum-delim">.</span>
                         <semx element="autonum" source="term-glossary">1</semx>
-                        <span class="fmt-autonum-delim">.</span>
+                        <span class="fmt-clause-delim">.</span>
                      </span>
                   </fmt-name>
                   <fmt-xref-label>
@@ -1183,7 +1183,7 @@ RSpec.describe IsoDoc::Ogc do
                      <semx element="autonum" source="QQ">C</semx>
                      <span class="fmt-autonum-delim">.</span>
                      <semx element="autonum" source="QQ1">1</semx>
-                     <span class="fmt-autonum-delim">.</span>
+                     <span class="fmt-clause-delim">.</span>
                   </span>
                   <span class="fmt-caption-delim">
                      <tab/>
@@ -1204,7 +1204,7 @@ RSpec.describe IsoDoc::Ogc do
                         <semx element="autonum" source="QQ1">1</semx>
                         <span class="fmt-autonum-delim">.</span>
                         <semx element="autonum" source="term-term-1">1</semx>
-                        <span class="fmt-autonum-delim">.</span>
+                        <span class="fmt-clause-delim">.</span>
                      </span>
                   </fmt-name>
                   <fmt-xref-label>
@@ -1238,7 +1238,7 @@ RSpec.describe IsoDoc::Ogc do
                      <semx element="autonum" source="QQ">C</semx>
                      <span class="fmt-autonum-delim">.</span>
                      <semx element="autonum" source="QQ2">2</semx>
-                     <span class="fmt-autonum-delim">.</span>
+                     <span class="fmt-clause-delim">.</span>
                   </span>
                   <span class="fmt-caption-delim">
                      <tab/>
@@ -1259,7 +1259,7 @@ RSpec.describe IsoDoc::Ogc do
                         <semx element="autonum" source="QQ2">2</semx>
                         <span class="fmt-autonum-delim">.</span>
                         <semx element="autonum" source="term-term-2">1</semx>
-                        <span class="fmt-autonum-delim">.</span>
+                        <span class="fmt-clause-delim">.</span>
                      </span>
                   </fmt-name>
                   <fmt-xref-label>
@@ -1308,62 +1308,62 @@ RSpec.describe IsoDoc::Ogc do
       #{HTML_HDR}
       <br/>
              <div id="1">
-                <h1 class="AbstractTitle">I.  Abstract</h1>
+                <h1 class="AbstractTitle">I<span class="fmt-clause-delim">.</span>  Abstract</h1>
                 <p>XYZ</p>
              </div>
              <br/>
              <div class="Section3" id="DD0">
-                <h1 class="IntroTitle">II.  Executive Summary</h1>
+                <h1 class="IntroTitle">II<span class="fmt-clause-delim">.</span>  Executive Summary</h1>
                 <p id="EE0">Text</p>
              </div>
              <div class="Section3" id="_">
-                <h1 class="IntroTitle">III.  Keywords</h1>
+                <h1 class="IntroTitle">III<span class="fmt-clause-delim">.</span>  Keywords</h1>
                 <p>The following are keywords to be used by search engines and document catalogues.</p>
                 <p>A, B</p>
              </div>
              <br/>
              <div id="2">
-                <h1 class="ForewordTitle">IV.  Preface</h1>
+                <h1 class="ForewordTitle">IV<span class="fmt-clause-delim">.</span>  Preface</h1>
                 <p id="A">This is a preamble</p>
              </div>
              <div class="Section3" id="DD1">
-                <h1 class="IntroTitle">V.  Security</h1>
+                <h1 class="IntroTitle">V<span class="fmt-clause-delim">.</span>  Security</h1>
                 <p id="EE1">Text</p>
              </div>
              <div class="Section3" id="3">
-                <h1 class="IntroTitle">VI.  Submitters</h1>
+                <h1 class="IntroTitle">VI<span class="fmt-clause-delim">.</span>  Submitters</h1>
                 <p>ABC</p>
              </div>
              <div class="Section3" id="3a">
-                <h1 class="IntroTitle">VII.  Contributors</h1>
+                <h1 class="IntroTitle">VII<span class="fmt-clause-delim">.</span>  Contributors</h1>
                 <p>ABC</p>
              </div>
              <div class="Section3" id="5">
-                <h1 class="IntroTitle">VIII.  Dedication</h1>
+                <h1 class="IntroTitle">VIII<span class="fmt-clause-delim">.</span>  Dedication</h1>
                 <div id="6">
-                   <h2>VIII.A.  Note to readers</h2>
+                   <h2>VIII.A<span class="fmt-clause-delim">.</span>  Note to readers</h2>
                 </div>
              </div>
              <div class="Section3" id="4">
-                <h1 class="IntroTitle">IX.  Acknowlegements</h1>
+                <h1 class="IntroTitle">IX<span class="fmt-clause-delim">.</span>  Acknowlegements</h1>
                 <p>ABC</p>
              </div>
              <div id="D">
-                <h1>1.  Scope</h1>
+                <h1>1<span class="fmt-clause-delim">.</span>  Scope</h1>
                 <p id="E">Text</p>
              </div>
              <div id="D1">
-                <h1>2.  Conformance</h1>
+                <h1>2<span class="fmt-clause-delim">.</span>  Conformance</h1>
                 <p id="E1">Text</p>
              </div>
              <div>
-                <h1>3.  Normative References</h1>
+                <h1>3<span class="fmt-clause-delim">.</span>  Normative References</h1>
              </div>
              <div id="H">
-                <h1>4.  Terms, definitions, symbols and abbreviated terms</h1>
+                <h1>4<span class="fmt-clause-delim">.</span>  Terms, definitions, symbols and abbreviated terms</h1>
                 <div id="I">
-                   <h2>4.1.  Normal Terms</h2>
-                   <p class="TermNum" id="J">4.1.1.</p>
+                   <h2>4.1<span class="fmt-clause-delim">.</span>  Normal Terms</h2>
+                   <p class="TermNum" id="J">4.1.1<span class="fmt-clause-delim">.</span></p>
                    <p class="Terms" style="text-align:left;">
                       <b>
                          <dfn>Term2</dfn>
@@ -1371,7 +1371,7 @@ RSpec.describe IsoDoc::Ogc do
                    </p>
                 </div>
                 <div id="K">
-                   <h2>4.2.  Definitions</h2>
+                   <h2>4.2<span class="fmt-clause-delim">.</span>  Definitions</h2>
                    <div class="figdl">
                       <dl>
                          <dt>
@@ -1383,7 +1383,7 @@ RSpec.describe IsoDoc::Ogc do
                 </div>
              </div>
              <div id="L" class="Symbols">
-                <h1>5.  Definitions</h1>
+                <h1>5<span class="fmt-clause-delim">.</span>  Definitions</h1>
                 <div class="figdl">
                    <dl>
                       <dt>
@@ -1394,12 +1394,12 @@ RSpec.describe IsoDoc::Ogc do
                 </div>
              </div>
              <div id="M">
-                <h1>6.  Clause 4</h1>
+                <h1>6<span class="fmt-clause-delim">.</span>  Clause 4</h1>
                 <div id="N">
-                   <h2>6.1.  Introduction</h2>
+                   <h2>6.1<span class="fmt-clause-delim">.</span>  Introduction</h2>
                 </div>
                 <div id="O">
-                   <h2>6.2.  Clause 4.2</h2>
+                   <h2>6.2<span class="fmt-clause-delim">.</span>  Clause 4.2</h2>
                 </div>
              </div>
              <br/>
@@ -1410,9 +1410,9 @@ RSpec.describe IsoDoc::Ogc do
                <h1 class="Annex"><b>Annex A</b><br/>(normative)<br/><b>Annex</b></h1>
                 <p style="display:none;" class="variant-title-toc">Annex A  Annex</p>
                <div id="Q">
-                  <h2>A.1.  Annex A.1</h2>
+                  <h2>A.1<span class="fmt-clause-delim">.</span>  Annex A.1</h2>
                   <div id="Q1">
-                     <h3>A.1.1.  Annex A.1a</h3>
+                     <h3>A.1.1<span class="fmt-clause-delim">.</span>  Annex A.1a</h3>
                   </div>
                </div>
             </div>
@@ -1421,7 +1421,7 @@ RSpec.describe IsoDoc::Ogc do
                <h1 class="Annex"><b>Annex B</b><br/>(normative)<br/><b>Glossary</b></h1>
                <p style="display:none;" class="variant-title-toc">Annex B  Glossary</p>
                <div id="PP1">
-                  <p class="TermNum" id="term-glossary">B.1.</p>
+                  <p class="TermNum" id="term-glossary">B.1<span class="fmt-clause-delim">.</span></p>
                   <p class="Terms" style="text-align:left;"><b><dfn>Glossary</dfn></b></p>
                </div>
             </div>
@@ -1430,13 +1430,13 @@ RSpec.describe IsoDoc::Ogc do
                <h1 class="Annex"><b>Annex C</b><br/>(normative)<br/><b>Glossary</b></h1>
                <p style="display:none;" class="variant-title-toc">Annex C  Glossary</p>
                <div id="QQ1">
-                  <h2>C.1.  Term Collection</h2>
-                  <p class="TermNum" id="term-term-1">C.1.1.</p>
+                  <h2>C.1<span class="fmt-clause-delim">.</span>  Term Collection</h2>
+                  <p class="TermNum" id="term-term-1">C.1.1<span class="fmt-clause-delim">.</span></p>
                   <p class="Terms" style="text-align:left;"><b><dfn>Term</dfn></b></p>
                </div>
                <div id="QQ2">
-                  <h2>C.2.  Term Collection 2</h2>
-                  <p class="TermNum" id="term-term-2">C.2.1.</p>
+                  <h2>C.2<span class="fmt-clause-delim">.</span>  Term Collection 2</h2>
+                  <p class="TermNum" id="term-term-2">C.2.1<span class="fmt-clause-delim">.</span></p>
                   <p class="Terms" style="text-align:left;"><b><dfn>Term</dfn></b></p>
                </div>
             </div>
@@ -1505,7 +1505,7 @@ RSpec.describe IsoDoc::Ogc do
                      <semx element="autonum" source="P">A</semx>
                      <span class="fmt-autonum-delim">.</span>
                      <semx element="autonum" source="Q">1</semx>
-                     <span class="fmt-autonum-delim">.</span>
+                     <span class="fmt-clause-delim">.</span>
                   </span>
                   <span class="fmt-caption-delim">
                      <tab/>
@@ -1527,7 +1527,7 @@ RSpec.describe IsoDoc::Ogc do
                         <semx element="autonum" source="Q">1</semx>
                         <span class="fmt-autonum-delim">.</span>
                         <semx element="autonum" source="Q1">1</semx>
-                        <span class="fmt-autonum-delim">.</span>
+                        <span class="fmt-clause-delim">.</span>
                      </span>
                      <span class="fmt-caption-delim">
                         <tab/>
@@ -1584,7 +1584,7 @@ RSpec.describe IsoDoc::Ogc do
                         <semx element="autonum" source="PP1">B</semx>
                         <span class="fmt-autonum-delim">.</span>
                         <semx element="autonum" source="term-glossary">1</semx>
-                        <span class="fmt-autonum-delim">.</span>
+                        <span class="fmt-clause-delim">.</span>
                      </span>
                   </fmt-name>
                   <fmt-xref-label>
@@ -1649,7 +1649,7 @@ RSpec.describe IsoDoc::Ogc do
                      <semx element="autonum" source="QQ">C</semx>
                      <span class="fmt-autonum-delim">.</span>
                      <semx element="autonum" source="QQ1">1</semx>
-                     <span class="fmt-autonum-delim">.</span>
+                     <span class="fmt-clause-delim">.</span>
                   </span>
                   <span class="fmt-caption-delim">
                      <tab/>
@@ -1670,7 +1670,7 @@ RSpec.describe IsoDoc::Ogc do
                         <semx element="autonum" source="QQ1">1</semx>
                         <span class="fmt-autonum-delim">.</span>
                         <semx element="autonum" source="term-term-1">1</semx>
-                        <span class="fmt-autonum-delim">.</span>
+                        <span class="fmt-clause-delim">.</span>
                      </span>
                   </fmt-name>
                   <fmt-xref-label>
@@ -1704,7 +1704,7 @@ RSpec.describe IsoDoc::Ogc do
                      <semx element="autonum" source="QQ">C</semx>
                      <span class="fmt-autonum-delim">.</span>
                      <semx element="autonum" source="QQ2">2</semx>
-                     <span class="fmt-autonum-delim">.</span>
+                     <span class="fmt-clause-delim">.</span>
                   </span>
                   <span class="fmt-caption-delim">
                      <tab/>
@@ -1725,7 +1725,7 @@ RSpec.describe IsoDoc::Ogc do
                         <semx element="autonum" source="QQ2">2</semx>
                         <span class="fmt-autonum-delim">.</span>
                         <semx element="autonum" source="term-term-2">1</semx>
-                        <span class="fmt-autonum-delim">.</span>
+                        <span class="fmt-clause-delim">.</span>
                      </span>
                   </fmt-name>
                   <fmt-xref-label>
@@ -1782,9 +1782,9 @@ RSpec.describe IsoDoc::Ogc do
                <h1 class="Annex"><b>Annex A</b><br/>(normative)<br/><b>Annex</b></h1>
                <p style="display:none;" class="variant-title-toc">Annex A  Annex</p>
                <div id="Q">
-                  <h2>A.1.  Annex A.1</h2>
+                  <h2>A.1<span class="fmt-clause-delim">.</span>  Annex A.1</h2>
                   <div id="Q1">
-                     <h3>A.1.1.  Annex A.1a</h3>
+                     <h3>A.1.1<span class="fmt-clause-delim">.</span>  Annex A.1a</h3>
                   </div>
                </div>
             </div>
@@ -1793,7 +1793,7 @@ RSpec.describe IsoDoc::Ogc do
                <h1 class="Annex"><b>Annex B</b><br/>(normative)<br/><b>Glossary</b></h1>
                <p style="display:none;" class="variant-title-toc">Annex B  Glossary</p>
                <div id="PP1">
-                  <p class="TermNum" id="term-glossary">B.1.</p>
+                  <p class="TermNum" id="term-glossary">B.1<span class="fmt-clause-delim">.</span></p>
                   <p class="Terms" style="text-align:left;"><b><dfn>Glossary</dfn></b></p>
                </div>
             </div>
@@ -1802,13 +1802,13 @@ RSpec.describe IsoDoc::Ogc do
                <h1 class="Annex"><b>Annex C</b><br/>(normative)<br/><b>Glossary</b></h1>
                 <p style="display:none;" class="variant-title-toc">Annex C  Glossary</p>
                <div id="QQ1">
-                  <h2>C.1.  Term Collection</h2>
-                  <p class="TermNum" id="term-term-1">C.1.1.</p>
+                  <h2>C.1<span class="fmt-clause-delim">.</span>  Term Collection</h2>
+                  <p class="TermNum" id="term-term-1">C.1.1<span class="fmt-clause-delim">.</span></p>
                   <p class="Terms" style="text-align:left;"><b><dfn>Term</dfn></b></p>
                </div>
                <div id="QQ2">
-                  <h2>C.2.  Term Collection 2</h2>
-                  <p class="TermNum" id="term-term-2">C.2.1.</p>
+                  <h2>C.2<span class="fmt-clause-delim">.</span>  Term Collection 2</h2>
+                  <p class="TermNum" id="term-term-2">C.2.1<span class="fmt-clause-delim">.</span></p>
                   <p class="Terms" style="text-align:left;"><b><dfn>Term</dfn></b></p>
                </div>
             </div>
