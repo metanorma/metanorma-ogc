@@ -32,3 +32,17 @@ end
 module Metanorma
   deprecate_constant :OgcDocument
 end
+
+# OCP adoption: register the flavor with the metanorma-document harness.
+# The html renderer resolves lazily (require at first render).
+Metanorma.register_flavor(Metanorma::Flavor.new(
+                            name: :ogc,
+                            model_class: Metanorma::Ogc::Document::Root,
+                            pubid_module: nil,
+                            renderers: {
+                              html: lambda do |_document, **_options|
+                                require "metanorma/ogc/html"
+                                Metanorma::Ogc::Html::Renderer
+                              end,
+                            },
+                          ))
