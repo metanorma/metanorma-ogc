@@ -8,6 +8,9 @@ module Metanorma
 end
 
 
+require "metanorma/standoc"
+require "metanorma/iso/document"
+
 module Metanorma
   module Ogc::Document
     autoload :Metadata, "metanorma/ogc/document/metadata"
