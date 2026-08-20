@@ -239,7 +239,7 @@ RSpec.describe IsoDoc::Ogc do
          <fmt-title id="_" depth="1">
             <span class="fmt-caption-label">
                <semx element="autonum" source="_">I</semx>
-               <span class="fmt-clause-delim">.</span>
+               <span class="fmt-autonum-delim">.</span>
             </span>
             <span class="fmt-caption-delim">
                <tab/>
@@ -260,7 +260,7 @@ RSpec.describe IsoDoc::Ogc do
     output = <<~"OUTPUT"
             #{HTML_HDR}
             <div class="Section3" id="_">
-            <h1 class="IntroTitle">I<span class="fmt-clause-delim">.</span>&#160; Keywords</h1>
+            <h1 class="IntroTitle">I<span class="fmt-autonum-delim">.</span>&#160; Keywords</h1>
             <p>The following are keywords to be used by search engines and document catalogues.</p>
             <p>ABC, DEF</p>
           </div>
@@ -311,7 +311,7 @@ RSpec.describe IsoDoc::Ogc do
                <fmt-title id="_" depth="1">
                   <span class="fmt-caption-label">
                      <semx element="autonum" source="A">I</semx>
-                     <span class="fmt-clause-delim">.</span>
+                     <span class="fmt-autonum-delim">.</span>
                   </span>
                </fmt-title>
                <fmt-xref-label>
@@ -323,7 +323,7 @@ RSpec.describe IsoDoc::Ogc do
                <fmt-title id="_" depth="1">
                   <span class="fmt-caption-label">
                      <semx element="autonum" source="_">II</semx>
-                     <span class="fmt-clause-delim">.</span>
+                     <span class="fmt-autonum-delim">.</span>
                   </span>
                   <span class="fmt-caption-delim">
                      <tab/>
@@ -345,10 +345,10 @@ RSpec.describe IsoDoc::Ogc do
        #{HTML_HDR}
           <br/>
           <div id='A'>
-            <h1 class='AbstractTitle'>I<span class="fmt-clause-delim">.</span></h1>
+            <h1 class='AbstractTitle'>I<span class="fmt-autonum-delim">.</span></h1>
           </div>
           <div class='Section3' id='_'>
-            <h1 class='IntroTitle'>II<span class="fmt-clause-delim">.</span>&#160; Keywords</h1>
+            <h1 class='IntroTitle'>II<span class="fmt-autonum-delim">.</span>&#160; Keywords</h1>
             <p>
               The following are keywords to be used by search engines and document
               catalogues.
@@ -420,7 +420,7 @@ RSpec.describe IsoDoc::Ogc do
                 <fmt-title id="_" depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="_">I</semx>
-                      <span class="fmt-clause-delim">.</span>
+                      <span class="fmt-autonum-delim">.</span>
                    </span>
                    <span class="fmt-caption-delim">
                       <tab/>
@@ -448,7 +448,7 @@ RSpec.describe IsoDoc::Ogc do
     output = <<~"OUTPUT"
               #{HTML_HDR}
               <div class="Section3" id="_">
-              <h1 class="IntroTitle">I<span class="fmt-clause-delim">.</span>&#160; Submitting Organizations</h1>
+              <h1 class="IntroTitle">I<span class="fmt-autonum-delim">.</span>&#160; Submitting Organizations</h1>
               <p>The following organizations submitted this Document to the Open
       Geospatial Consortium (OGC):</p>
       <div class="ul_wrap">
@@ -523,7 +523,7 @@ RSpec.describe IsoDoc::Ogc do
                 <fmt-title id="_" depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="A">I</semx>
-                      <span class="fmt-clause-delim">.</span>
+                      <span class="fmt-autonum-delim">.</span>
                    </span>
                 </fmt-title>
                 <fmt-xref-label>
@@ -534,7 +534,7 @@ RSpec.describe IsoDoc::Ogc do
                 <fmt-title id="_" depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="B">II</semx>
-                      <span class="fmt-clause-delim">.</span>
+                      <span class="fmt-autonum-delim">.</span>
                    </span>
                 </fmt-title>
                 <fmt-xref-label>
@@ -546,7 +546,7 @@ RSpec.describe IsoDoc::Ogc do
                 <fmt-title id="_" depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="_">III</semx>
-                      <span class="fmt-clause-delim">.</span>
+                      <span class="fmt-autonum-delim">.</span>
                    </span>
                    <span class="fmt-caption-delim">
                       <tab/>
@@ -588,13 +588,13 @@ RSpec.describe IsoDoc::Ogc do
         </div>
         <br/>
           <div id='A'>
-            <h1 class='AbstractTitle'>I<span class="fmt-clause-delim">.</span></h1>
+            <h1 class='AbstractTitle'>I<span class="fmt-autonum-delim">.</span></h1>
           </div>
           <div class='Section3' id='B'>
-        <h1 class='IntroTitle'>II<span class="fmt-clause-delim">.</span></h1>
+        <h1 class='IntroTitle'>II<span class="fmt-autonum-delim">.</span></h1>
       </div>
           <div class='Section3' id='_'>
-          <h1 class="IntroTitle">III<span class="fmt-clause-delim">.</span>  Submitting Organizations</h1>
+          <h1 class="IntroTitle">III<span class="fmt-autonum-delim">.</span>  Submitting Organizations</h1>
             <p>The following organizations submitted this Document to the Open Geospatial Consortium (OGC):</p>
             <div class="ul_wrap">
             <ul id="_">

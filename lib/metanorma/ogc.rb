@@ -1,4 +1,5 @@
 require "metanorma/ogc/version"
+require "metanorma/ogc/document"
 require "metanorma/ogc/processor"
 require "metanorma/ogc/converter"
 require "metanorma/ogc/cleanup"
