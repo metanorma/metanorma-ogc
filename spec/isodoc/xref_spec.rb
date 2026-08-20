@@ -71,7 +71,7 @@ RSpec.describe IsoDoc::Ogc do
            <fmt-title depth="1" id="_">
               <span class="fmt-caption-label">
                  <semx element="autonum" source="_">I</semx>
-                 <span class="fmt-clause-delim">.</span>
+                 <span class="fmt-autonum-delim">.</span>
               </span>
               <span class="fmt-caption-delim">
                  <tab/>
@@ -277,7 +277,7 @@ RSpec.describe IsoDoc::Ogc do
            <fmt-title depth="1" id="_">
               <span class="fmt-caption-label">
                  <semx element="autonum" source="_">I</semx>
-                 <span class="fmt-clause-delim">.</span>
+                 <span class="fmt-autonum-delim">.</span>
               </span>
               <span class="fmt-caption-delim">
                  <tab/>
@@ -383,7 +383,7 @@ RSpec.describe IsoDoc::Ogc do
            <fmt-title depth="1" id="_">
               <span class="fmt-caption-label">
                  <semx element="autonum" source="_">I</semx>
-                 <span class="fmt-clause-delim">.</span>
+                 <span class="fmt-autonum-delim">.</span>
               </span>
               <span class="fmt-caption-delim">
                  <tab/>
@@ -566,7 +566,7 @@ RSpec.describe IsoDoc::Ogc do
            <fmt-title depth="1" id="_">
               <span class="fmt-caption-label">
                  <semx element="autonum" source="_">I</semx>
-                 <span class="fmt-clause-delim">.</span>
+                 <span class="fmt-autonum-delim">.</span>
               </span>
               <span class="fmt-caption-delim">
                  <tab/>
@@ -683,7 +683,7 @@ RSpec.describe IsoDoc::Ogc do
            <fmt-title depth="1" id="_">
               <span class="fmt-caption-label">
                  <semx element="autonum" source="_">I</semx>
-                 <span class="fmt-clause-delim">.</span>
+                 <span class="fmt-autonum-delim">.</span>
               </span>
               <span class="fmt-caption-delim">
                  <tab/>
@@ -835,7 +835,7 @@ RSpec.describe IsoDoc::Ogc do
            <fmt-title depth="1" id="_">
               <span class="fmt-caption-label">
                  <semx element="autonum" source="_">I</semx>
-                 <span class="fmt-clause-delim">.</span>
+                 <span class="fmt-autonum-delim">.</span>
               </span>
               <span class="fmt-caption-delim">
                  <tab/>
@@ -987,7 +987,7 @@ RSpec.describe IsoDoc::Ogc do
            <fmt-title depth="1" id="_">
               <span class="fmt-caption-label">
                  <semx element="autonum" source="_">I</semx>
-                 <span class="fmt-clause-delim">.</span>
+                 <span class="fmt-autonum-delim">.</span>
               </span>
               <span class="fmt-caption-delim">
                  <tab/>
@@ -1122,7 +1122,7 @@ RSpec.describe IsoDoc::Ogc do
            <fmt-title depth="1" id="_">
               <span class="fmt-caption-label">
                  <semx element="autonum" source="_">I</semx>
-                 <span class="fmt-clause-delim">.</span>
+                 <span class="fmt-autonum-delim">.</span>
               </span>
               <span class="fmt-caption-delim">
                  <tab/>
@@ -1355,7 +1355,7 @@ RSpec.describe IsoDoc::Ogc do
            <fmt-title id="_" depth="1">
               <span class="fmt-caption-label">
                  <semx element="autonum" source="fwd">I</semx>
-                 <span class="fmt-clause-delim">.</span>
+                 <span class="fmt-autonum-delim">.</span>
               </span>
               <span class="fmt-caption-delim">
                  <tab/>
