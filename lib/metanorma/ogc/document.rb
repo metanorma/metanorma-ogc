@@ -9,7 +9,7 @@ end
 
 
 require "metanorma/standoc"
-require "metanorma/iso/document"
+require "metanorma/iso/document/models"
 
 module Metanorma
   module Ogc::Document
