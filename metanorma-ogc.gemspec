@@ -26,6 +26,7 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = Gem::Requirement.new(">= 3.3.0")
 
   spec.add_dependency "iso-639"
+  spec.add_dependency "metanorma-iso", ">= 3.4.2"
   spec.add_dependency "metanorma-standoc", ">= 3.4.2" # relaxed until standoc#1232 releases its 3.5.x; the branch pin resolves 3.4.10
 
   spec.add_development_dependency "debug"
