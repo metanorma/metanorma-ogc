@@ -175,7 +175,7 @@ RSpec.describe IsoDoc::Ogc do
        <div id="A">
          <h1 class="ForewordTitle" id="_">
            <a class="anchor" href="#A"></a>
-           <a class="header" href="#A">I<span class="fmt-autonum-delim">.</span>  Preface</a>
+           <a class="header" href="#A">I.  Preface</a>
          </h1>
          <table id="A1" class="modspec" style="border-width:1px;border-spacing:0;">
            <thead>
@@ -381,7 +381,7 @@ RSpec.describe IsoDoc::Ogc do
        #{HTML_HDR}
               <br/>
               <div id="A">
-                <h1 class="ForewordTitle">I<span class="fmt-autonum-delim">.</span>&#160; Preface</h1>
+                <h1 class="ForewordTitle">I.&#160; Preface</h1>
                 <div  id="_" class="Admonition AdmonitionCaution">
               <p class="AdmonitionTitle AdmonitionCaution" style="text-align:center;">CAUTION</p>
         <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
@@ -455,7 +455,7 @@ RSpec.describe IsoDoc::Ogc do
        #{HTML_HDR}
               <br/>
               <div id="A">
-                <h1 class="ForewordTitle">I<span class="fmt-autonum-delim">.</span>&#160; Preface</h1>
+                <h1 class="ForewordTitle">I.&#160; Preface</h1>
                 <div id="_" class="Admonition AdmonitionWarning">
           <p class="AdmonitionTitle AdmonitionWarning" style="text-align:center;">WARNING</p>
         <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
@@ -529,7 +529,7 @@ RSpec.describe IsoDoc::Ogc do
        #{HTML_HDR}
               <br/>
               <div id="A">
-                <h1 class="ForewordTitle">I<span class="fmt-autonum-delim">.</span>&#160; Preface</h1>
+                <h1 class="ForewordTitle">I.&#160; Preface</h1>
                 <div  id="_" class="Admonition AdmonitionImportant">
           <p class="AdmonitionTitle AdmonitionImportant" style="text-align:center;">IMPORTANT</p>
         <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
@@ -615,7 +615,7 @@ RSpec.describe IsoDoc::Ogc do
               #{HTML_HDR}
               <br/>
             <div id="A">
-              <h1 class="ForewordTitle">I<span class="fmt-autonum-delim">.</span>&#160; Preface</h1>
+              <h1 class="ForewordTitle">I.&#160; Preface</h1>
               <p class='SourceTitle' style='text-align:center;'>Example&#160;&#8212; Example Title</p>
               <div id="_" class="example">
       <p id="_">This is an example</p>
@@ -709,7 +709,7 @@ RSpec.describe IsoDoc::Ogc do
       #{HTML_HDR}
               <br/>
              <div id="A">
-                <h1 class="ForewordTitle">I<span class="fmt-autonum-delim">.</span> 
+                <h1 class="ForewordTitle">I. 
              Preface
           </h1>
                 <p class="SourceTitle" style="text-align:center;">Example</p>
@@ -822,7 +822,7 @@ RSpec.describe IsoDoc::Ogc do
       #{HTML_HDR}
               <br/>
               <div id="A">
-              <h1 class="ForewordTitle">I<span class="fmt-autonum-delim">.</span>  Preface</h1>
+              <h1 class="ForewordTitle">I.  Preface</h1>
                <figure id="B" class="figure">
                    <p id="_">This is an example</p>
                    <figcaption>Figure 1</figcaption>
@@ -1063,9 +1063,9 @@ RSpec.describe IsoDoc::Ogc do
           <h1 class="IntroTitle">Contents</h1>
         </div>
         <br/><div id="A">
-        <h1 class="ForewordTitle">I<span class="fmt-autonum-delim">.</span>  Preface</h1>
+        <h1 class="ForewordTitle">I.  Preface</h1>
         <div id="B" class="Note"><p><span class="note_label">NOTE:  </span>Hello</p></div></div><div id="C">
-        <h1>1<span class="fmt-autonum-delim">.</span>  Clause</h1>
+        <h1>1.  Clause</h1>
         <div id="D" class="Note"><p><span class="note_label">NOTE:  </span>Hello</p></div></div></div></body>
     OUTPUT
     word = <<~OUTPUT
@@ -1076,8 +1076,8 @@ RSpec.describe IsoDoc::Ogc do
       <p class="page-break">
        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
       </p>
-        <div id="A"><h1 class="ForewordTitle">I<span class="fmt-autonum-delim">.</span><span style="mso-tab-count:1">  </span>Preface</h1><div id="B" class="Note"><p class="Note"><span class="note_label">NOTE:<span style="mso-tab-count:1">  </span></span>Hello</p></div></div><p> </p></div><p class="section-break"><br clear="all" class="section"/></p><div class="WordSection3"><div id="C"><h1>
-          1<span class="fmt-autonum-delim">.</span><span style="mso-tab-count:1">  </span>
+        <div id="A"><h1 class="ForewordTitle">I.<span style="mso-tab-count:1">  </span>Preface</h1><div id="B" class="Note"><p class="Note"><span class="note_label">NOTE:<span style="mso-tab-count:1">  </span></span>Hello</p></div></div><p> </p></div><p class="section-break"><br clear="all" class="section"/></p><div class="WordSection3"><div id="C"><h1>
+          1.<span style="mso-tab-count:1">  </span>
           Clause
         </h1><div id="D" class="Note"><p class="Note"><span class="note_label">NOTE:<span style="mso-tab-count:1">  </span></span>Hello</p></div></div></div></body>
     OUTPUT

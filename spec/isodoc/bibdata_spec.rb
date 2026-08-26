@@ -260,7 +260,7 @@ RSpec.describe IsoDoc::Ogc do
     output = <<~"OUTPUT"
             #{HTML_HDR}
             <div class="Section3" id="_">
-            <h1 class="IntroTitle">I<span class="fmt-autonum-delim">.</span>&#160; Keywords</h1>
+            <h1 class="IntroTitle">I.&#160; Keywords</h1>
             <p>The following are keywords to be used by search engines and document catalogues.</p>
             <p>ABC, DEF</p>
           </div>
@@ -345,10 +345,10 @@ RSpec.describe IsoDoc::Ogc do
        #{HTML_HDR}
           <br/>
           <div id='A'>
-            <h1 class='AbstractTitle'>I<span class="fmt-autonum-delim">.</span></h1>
+            <h1 class='AbstractTitle'>I.</h1>
           </div>
           <div class='Section3' id='_'>
-            <h1 class='IntroTitle'>II<span class="fmt-autonum-delim">.</span>&#160; Keywords</h1>
+            <h1 class='IntroTitle'>II.&#160; Keywords</h1>
             <p>
               The following are keywords to be used by search engines and document
               catalogues.
@@ -448,7 +448,7 @@ RSpec.describe IsoDoc::Ogc do
     output = <<~"OUTPUT"
               #{HTML_HDR}
               <div class="Section3" id="_">
-              <h1 class="IntroTitle">I<span class="fmt-autonum-delim">.</span>&#160; Submitting Organizations</h1>
+              <h1 class="IntroTitle">I.&#160; Submitting Organizations</h1>
               <p>The following organizations submitted this Document to the Open
       Geospatial Consortium (OGC):</p>
       <div class="ul_wrap">
@@ -588,13 +588,13 @@ RSpec.describe IsoDoc::Ogc do
         </div>
         <br/>
           <div id='A'>
-            <h1 class='AbstractTitle'>I<span class="fmt-autonum-delim">.</span></h1>
+            <h1 class='AbstractTitle'>I.</h1>
           </div>
           <div class='Section3' id='B'>
-        <h1 class='IntroTitle'>II<span class="fmt-autonum-delim">.</span></h1>
+        <h1 class='IntroTitle'>II.</h1>
       </div>
           <div class='Section3' id='_'>
-          <h1 class="IntroTitle">III<span class="fmt-autonum-delim">.</span>  Submitting Organizations</h1>
+          <h1 class="IntroTitle">III.  Submitting Organizations</h1>
             <p>The following organizations submitted this Document to the Open Geospatial Consortium (OGC):</p>
             <div class="ul_wrap">
             <ul id="_">
