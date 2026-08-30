@@ -455,51 +455,41 @@
 
 			<xsl:apply-templates select="mn:fmt-title"/>
 
-			<fo:block role="TOC">
+			<fo:block role="SKIP">
 
 				<xsl:apply-templates select="*[not(self::mn:fmt-title)]"/>
 
 				<xsl:if test="count(*) = 1 and mn:fmt-title"> <!-- if there isn't user ToC -->
 
-					<xsl:for-each select="$contents/mnx:doc[@num = $num]//mnx:item[@display = 'true']">
-						<fo:block xsl:use-attribute-sets="toc-item-style">
-
-							<xsl:call-template name="refine_toc-item-style"/>
-
-							<fo:basic-link internal-destination="{@id}" fox:alt-text="{mnx:title}">
-								<xsl:if test="@section != ''">
-									<xsl:value-of select="@section"/><xsl:text> </xsl:text>
-								</xsl:if>
-								<xsl:apply-templates select="mnx:title"/>
-								<fo:inline keep-together.within-line="always">
-									<fo:leader xsl:use-attribute-sets="toc-leader-style"><xsl:call-template name="refine_toc-leader-style"/></fo:leader>
-									<fo:inline xsl:use-attribute-sets="toc-pagenumber-style"><fo:page-number-citation ref-id="{@id}"/></fo:inline>
-								</fo:inline>
-							</fo:basic-link>
-						</fo:block>
-					</xsl:for-each>
+					<fo:block role="TOC">
+						<xsl:apply-templates select="$contents/mnx:doc[@num = $num]/mnx:contents/mnx:item[@display = 'true']"/>
+					</fo:block>
 
 					<xsl:if test="//mn:figure[@id and mn:fmt-name] or //mn:table[@id and mn:fmt-name]">
-						<fo:block font-size="11pt" margin-top="8pt"> </fo:block>
-						<fo:block font-size="11pt" margin-top="8pt"> </fo:block>
-						<fo:block xsl:use-attribute-sets="toc-title-style">
+						<fo:block font-size="11pt" margin-top="8pt" role="SKIP"><fo:wrapper role="artifact"> </fo:wrapper></fo:block>
+						<fo:block font-size="11pt" margin-top="8pt" role="SKIP"><fo:wrapper role="artifact"> </fo:wrapper></fo:block>
+						<fo:block xsl:use-attribute-sets="toc-title-style" role="H2">
 							<xsl:call-template name="refine_toc-title-style"/>
 							<!-- <xsl:text>Table of Figures</xsl:text> -->
 							<xsl:call-template name="getLocalizedString">
 								<xsl:with-param name="key">table_of_figures</xsl:with-param>
 							</xsl:call-template>
 						</fo:block>
-						<xsl:for-each select="//mn:figure[@id and mn:fmt-name] | //mn:table[@id and mn:fmt-name]">
-							<fo:block xsl:use-attribute-sets="toc-listof-item-style">
-								<fo:basic-link internal-destination="{@id}" fox:alt-text="{mn:fmt-name}">
-									<xsl:apply-templates select="mn:fmt-name" mode="contents"/>
-									<fo:inline keep-together.within-line="always">
-										<fo:leader xsl:use-attribute-sets="toc-leader-style"><xsl:call-template name="refine_toc-leader-style"/></fo:leader>
-										<fo:page-number-citation ref-id="{@id}"/>
-									</fo:inline>
-								</fo:basic-link>
-							</fo:block>
-						</xsl:for-each>
+						<fo:block role="TOC">
+							<xsl:for-each select="//mn:figure[@id and mn:fmt-name] | //mn:table[@id and mn:fmt-name]">
+								<fo:block xsl:use-attribute-sets="toc-listof-item-style">
+									<fo:wrapper role="Reference">
+										<fo:basic-link internal-destination="{@id}" fox:alt-text="{mn:fmt-name}">
+											<xsl:apply-templates select="mn:fmt-name" mode="contents"/>
+											<fo:inline keep-together.within-line="always" role="SKIP">
+												<fo:leader xsl:use-attribute-sets="toc-leader-style"><xsl:call-template name="refine_toc-leader-style"/></fo:leader>
+												<fo:page-number-citation ref-id="{@id}" role="SKIP"/>
+											</fo:inline>
+										</fo:basic-link>
+									</fo:wrapper>
+								</fo:block>
+							</xsl:for-each>
+						</fo:block>
 					</xsl:if>
 				</xsl:if>
 			</fo:block>
@@ -513,6 +503,36 @@
 				<xsl:with-param name="name" select="'title-toc'"/>
 			</xsl:call-template> -->
 			<xsl:apply-templates/>
+		</fo:block>
+	</xsl:template>
+
+	<xsl:template match="mnx:contents//mnx:item[@display = 'true']">
+		<fo:block xsl:use-attribute-sets="toc-item-style">
+
+			<xsl:call-template name="refine_toc-item-style"/>
+
+			<xsl:if test="@section != ''">
+				<fo:inline role="Lbl">
+					<xsl:value-of select="@section"/><xsl:text> </xsl:text>
+				</fo:inline>
+			</xsl:if>
+
+			<fo:inline role="Reference">
+				<fo:basic-link internal-destination="{@id}" fox:alt-text="{mnx:title}">
+
+					<xsl:apply-templates select="mnx:title"/>
+					<fo:inline keep-together.within-line="always" role="SKIP">
+						<fo:leader xsl:use-attribute-sets="toc-leader-style"><xsl:call-template name="refine_toc-leader-style"/></fo:leader>
+						<fo:inline xsl:use-attribute-sets="toc-pagenumber-style" role="SKIP"><fo:page-number-citation ref-id="{@id}" role="SKIP"/></fo:inline>
+					</fo:inline>
+				</fo:basic-link>
+			</fo:inline>
+
+			<xsl:if test="mnx:item[@display = 'true']">
+				<fo:block role="TOC">
+					<xsl:apply-templates select="mnx:item[@display = 'true']"/>
+				</fo:block>
+			</xsl:if>
 		</fo:block>
 	</xsl:template>
 
@@ -5746,6 +5766,10 @@
 				<!-- <Caption><P> tags, see https://github.com/metanorma/metanorma-pdfa/issues/81 -->
 				<fo:block role="P">
 
+					<xsl:if test="$continued = 'true'">
+						<xsl:attribute name="role">SKIP</xsl:attribute>
+					</xsl:if>
+
 					<xsl:choose>
 						<xsl:when test="$continued = 'true'">
 						</xsl:when>
@@ -5755,7 +5779,7 @@
 					</xsl:choose>
 
 				</fo:block>
-			</fo:block>
+			</fo:block> <!-- END: Table name -->
 
 			<!-- <xsl:if test="$namespace = 'bsi' or $namespace = 'pas' or $namespace = 'iec' or $namespace = 'iso'"> -->
 			<xsl:if test="$continued = 'true'">
@@ -12487,7 +12511,11 @@
 
 	<xsl:template name="refine_toc-item-style">
 		<xsl:variable name="margin-left">3.9</xsl:variable>
-		<xsl:attribute name="margin-left"><xsl:value-of select="(@level - 1) * $margin-left"/>mm</xsl:attribute>
+		<!-- <xsl:attribute name="margin-left"><xsl:value-of select="(@level - 1) * $margin-left"/>mm</xsl:attribute> -->
+		<xsl:attribute name="margin-left">0mm</xsl:attribute>
+		<xsl:if test="@level &gt; 1">
+			<xsl:attribute name="margin-left"><xsl:value-of select="$margin-left"/>mm</xsl:attribute>
+		</xsl:if>
 	</xsl:template> <!-- END: refine_toc-item-style -->
 
 	<xsl:attribute-set name="toc-leader-style">
@@ -14551,13 +14579,13 @@
 			</xsl:if>
 		</xsl:variable>
 		<xsl:variable name="title__">
-			<xsl:for-each select="xalan:nodeset($title_)/*/node()">
-				<!-- <xsl:choose>
+			<!--  <xsl:for-each select="xalan:nodeset($title_)/*/node()">
+				<xsl:choose>
 					<xsl:when test="self::text()"><xsl:text> </xsl:text><xsl:value-of select="."/><xsl:text> </xsl:text></xsl:when>
 					<xsl:otherwise><xsl:text> </xsl:text><xsl:copy-of select="."/><xsl:text> </xsl:text></xsl:otherwise>
-				</xsl:choose> -->
-				<xsl:apply-templates select="xalan:nodeset($title_)" mode="addTagElementT"/>
-			</xsl:for-each>
+				</xsl:choose
+			</xsl:for-each> -->
+			<xsl:apply-templates select="xalan:nodeset($title_)" mode="addTagElementT"/>
 		</xsl:variable>
 		<xsl:variable name="title" select="normalize-space(translate($title__, concat($em_space,' &#8232;'), '   '))"/>
 		<xsl:if test="$title != ''">
