@@ -77,7 +77,7 @@ RSpec.describe IsoDoc::Ogc do
                  <span class="MsoHyperlink">
                     <span lang="EN-GB" style="mso-no-proof:yes" xml:lang="EN-GB">
                        <a href="#_Toc">
-                          1<span class="fmt-clause-delim">.</span> Clause 4
+                          1. Clause 4
                           <span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
                              <span style="mso-tab-count:1 dotted">. </span>
                           </span>
@@ -101,7 +101,7 @@ RSpec.describe IsoDoc::Ogc do
                  <span class="MsoHyperlink">
                     <span lang="EN-GB" style="mso-no-proof:yes" xml:lang="EN-GB">
                        <a href="#_Toc">
-                          1.1<span class="fmt-clause-delim">.</span> Introduction to this
+                          1.1. Introduction to this
                           <span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
                              <span style="mso-tab-count:1 dotted">. </span>
                           </span>
@@ -125,7 +125,7 @@ RSpec.describe IsoDoc::Ogc do
                  <span class="MsoHyperlink">
                     <span lang="EN-GB" style="mso-no-proof:yes" xml:lang="EN-GB">
                        <a href="#_Toc">
-                          1.2<span class="fmt-clause-delim">.</span> Clause 4.2
+                          1.2. Clause 4.2
                           <span lang="EN-GB" class="MsoTocTextSpan" xml:lang="EN-GB">
                              <span style="mso-tab-count:1 dotted">. </span>
                           </span>

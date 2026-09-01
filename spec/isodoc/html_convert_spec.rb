@@ -40,7 +40,7 @@ RSpec.describe IsoDoc::Ogc do
            <preface>
             <clause type="toc" id="_" displayorder="1"> <fmt-title id="_" depth="1">Contents</fmt-title> </clause>
              <foreword id='A' displayorder="2">
-               <fmt-title id="_" depth='1'>I<span class="fmt-clause-delim">.</span><tab/>Preface</fmt-title>
+               <fmt-title id="_" depth='1'>I<span class="fmt-autonum-delim">.</span><tab/>Preface</fmt-title>
                                <table id="A1" class="modspec" type="recommend">
             <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Permission 1</p></th></tr></thead>
             <tbody>
@@ -175,7 +175,7 @@ RSpec.describe IsoDoc::Ogc do
        <div id="A">
          <h1 class="ForewordTitle" id="_">
            <a class="anchor" href="#A"></a>
-           <a class="header" href="#A">I<span class="fmt-clause-delim">.</span>  Preface</a>
+           <a class="header" href="#A">I.  Preface</a>
          </h1>
          <table id="A1" class="modspec" style="border-width:1px;border-spacing:0;">
            <thead>
@@ -354,7 +354,7 @@ RSpec.describe IsoDoc::Ogc do
                 <fmt-title id="_" depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="A">I</semx>
-                      <span class="fmt-clause-delim">.</span>
+                      <span class="fmt-autonum-delim">.</span>
                    </span>
                    <span class="fmt-caption-delim">
                       <tab/>
@@ -381,7 +381,7 @@ RSpec.describe IsoDoc::Ogc do
        #{HTML_HDR}
               <br/>
               <div id="A">
-                <h1 class="ForewordTitle">I<span class="fmt-clause-delim">.</span>&#160; Preface</h1>
+                <h1 class="ForewordTitle">I.&#160; Preface</h1>
                 <div  id="_" class="Admonition AdmonitionCaution">
               <p class="AdmonitionTitle AdmonitionCaution" style="text-align:center;">CAUTION</p>
         <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
@@ -428,7 +428,7 @@ RSpec.describe IsoDoc::Ogc do
                 <fmt-title id="_" depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="A">I</semx>
-                      <span class="fmt-clause-delim">.</span>
+                      <span class="fmt-autonum-delim">.</span>
                    </span>
                    <span class="fmt-caption-delim">
                       <tab/>
@@ -455,7 +455,7 @@ RSpec.describe IsoDoc::Ogc do
        #{HTML_HDR}
               <br/>
               <div id="A">
-                <h1 class="ForewordTitle">I<span class="fmt-clause-delim">.</span>&#160; Preface</h1>
+                <h1 class="ForewordTitle">I.&#160; Preface</h1>
                 <div id="_" class="Admonition AdmonitionWarning">
           <p class="AdmonitionTitle AdmonitionWarning" style="text-align:center;">WARNING</p>
         <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
@@ -502,7 +502,7 @@ RSpec.describe IsoDoc::Ogc do
                 <fmt-title id="_" depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="A">I</semx>
-                      <span class="fmt-clause-delim">.</span>
+                      <span class="fmt-autonum-delim">.</span>
                    </span>
                    <span class="fmt-caption-delim">
                       <tab/>
@@ -529,7 +529,7 @@ RSpec.describe IsoDoc::Ogc do
        #{HTML_HDR}
               <br/>
               <div id="A">
-                <h1 class="ForewordTitle">I<span class="fmt-clause-delim">.</span>&#160; Preface</h1>
+                <h1 class="ForewordTitle">I.&#160; Preface</h1>
                 <div  id="_" class="Admonition AdmonitionImportant">
           <p class="AdmonitionTitle AdmonitionImportant" style="text-align:center;">IMPORTANT</p>
         <p id="_">Only use paddy or parboiled rice for the determination of husked rice yield.</p>
@@ -574,7 +574,7 @@ RSpec.describe IsoDoc::Ogc do
                  <fmt-title id="_" depth="1">
                     <span class="fmt-caption-label">
                        <semx element="autonum" source="A">I</semx>
-                       <span class="fmt-clause-delim">.</span>
+                       <span class="fmt-autonum-delim">.</span>
                     </span>
                     <span class="fmt-caption-delim">
                        <tab/>
@@ -615,7 +615,7 @@ RSpec.describe IsoDoc::Ogc do
               #{HTML_HDR}
               <br/>
             <div id="A">
-              <h1 class="ForewordTitle">I<span class="fmt-clause-delim">.</span>&#160; Preface</h1>
+              <h1 class="ForewordTitle">I.&#160; Preface</h1>
               <p class='SourceTitle' style='text-align:center;'>Example&#160;&#8212; Example Title</p>
               <div id="_" class="example">
       <p id="_">This is an example</p>
@@ -665,7 +665,7 @@ RSpec.describe IsoDoc::Ogc do
                  <fmt-title id="_" depth="1">
                     <span class="fmt-caption-label">
                        <semx element="autonum" source="A">I</semx>
-                       <span class="fmt-clause-delim">.</span>
+                       <span class="fmt-autonum-delim">.</span>
                     </span>
                     <span class="fmt-caption-delim">
                        <tab/>
@@ -709,7 +709,7 @@ RSpec.describe IsoDoc::Ogc do
       #{HTML_HDR}
               <br/>
              <div id="A">
-                <h1 class="ForewordTitle">I<span class="fmt-clause-delim">.</span> 
+                <h1 class="ForewordTitle">I. 
              Preface
           </h1>
                 <p class="SourceTitle" style="text-align:center;">Example</p>
@@ -758,7 +758,7 @@ RSpec.describe IsoDoc::Ogc do
                 <fmt-title id="_" depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="A">I</semx>
-                      <span class="fmt-clause-delim">.</span>
+                      <span class="fmt-autonum-delim">.</span>
                    </span>
                    <span class="fmt-caption-delim">
                       <tab/>
@@ -822,7 +822,7 @@ RSpec.describe IsoDoc::Ogc do
       #{HTML_HDR}
               <br/>
               <div id="A">
-              <h1 class="ForewordTitle">I<span class="fmt-clause-delim">.</span>  Preface</h1>
+              <h1 class="ForewordTitle">I.  Preface</h1>
                <figure id="B" class="figure">
                    <p id="_">This is an example</p>
                    <figcaption>Figure 1</figcaption>
@@ -979,7 +979,7 @@ RSpec.describe IsoDoc::Ogc do
                 <fmt-title id="_" depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="A">I</semx>
-                      <span class="fmt-clause-delim">.</span>
+                      <span class="fmt-autonum-delim">.</span>
                    </span>
                    <span class="fmt-caption-delim">
                       <tab/>
@@ -1019,7 +1019,7 @@ RSpec.describe IsoDoc::Ogc do
                 <fmt-title id="_" depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="C">1</semx>
-                      <span class="fmt-clause-delim">.</span>
+                      <span class="fmt-autonum-delim">.</span>
                    </span>
                    <span class="fmt-caption-delim">
                       <tab/>
@@ -1063,9 +1063,9 @@ RSpec.describe IsoDoc::Ogc do
           <h1 class="IntroTitle">Contents</h1>
         </div>
         <br/><div id="A">
-        <h1 class="ForewordTitle">I<span class="fmt-clause-delim">.</span>  Preface</h1>
+        <h1 class="ForewordTitle">I.  Preface</h1>
         <div id="B" class="Note"><p><span class="note_label">NOTE:  </span>Hello</p></div></div><div id="C">
-        <h1>1<span class="fmt-clause-delim">.</span>  Clause</h1>
+        <h1>1.  Clause</h1>
         <div id="D" class="Note"><p><span class="note_label">NOTE:  </span>Hello</p></div></div></div></body>
     OUTPUT
     word = <<~OUTPUT
@@ -1076,8 +1076,8 @@ RSpec.describe IsoDoc::Ogc do
       <p class="page-break">
        <br clear="all" style="mso-special-character:line-break;page-break-before:always"/>
       </p>
-        <div id="A"><h1 class="ForewordTitle">I<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">  </span>Preface</h1><div id="B" class="Note"><p class="Note"><span class="note_label">NOTE:<span style="mso-tab-count:1">  </span></span>Hello</p></div></div><p> </p></div><p class="section-break"><br clear="all" class="section"/></p><div class="WordSection3"><div id="C"><h1>
-          1<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">  </span>
+        <div id="A"><h1 class="ForewordTitle">I.<span style="mso-tab-count:1">  </span>Preface</h1><div id="B" class="Note"><p class="Note"><span class="note_label">NOTE:<span style="mso-tab-count:1">  </span></span>Hello</p></div></div><p> </p></div><p class="section-break"><br clear="all" class="section"/></p><div class="WordSection3"><div id="C"><h1>
+          1.<span style="mso-tab-count:1">  </span>
           Clause
         </h1><div id="D" class="Note"><p class="Note"><span class="note_label">NOTE:<span style="mso-tab-count:1">  </span></span>Hello</p></div></div></div></body>
     OUTPUT
@@ -1526,7 +1526,7 @@ RSpec.describe IsoDoc::Ogc do
                 <fmt-title id="_" depth="1">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="_">I</semx>
-                      <span class="fmt-clause-delim">.</span>
+                      <span class="fmt-autonum-delim">.</span>
                    </span>
                    <span class="fmt-caption-delim">
                       <tab/>
