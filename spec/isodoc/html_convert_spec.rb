@@ -40,7 +40,7 @@ RSpec.describe IsoDoc::Ogc do
            <preface>
             <clause type="toc" id="_" displayorder="1"> <fmt-title id="_" depth="1">Contents</fmt-title> </clause>
              <foreword id='A' displayorder="2">
-               <fmt-title id="_" depth='1'>I<span class="fmt-clause-delim">.</span><tab/>Preface</fmt-title>
+               <fmt-title id="_" depth='1'>I<span class="fmt-autonum-delim">.</span><tab/>Preface</fmt-title>
                                <table id="A1" class="modspec" type="recommend">
             <thead><tr><th scope="colgroup" colspan="2"><p class="RecommendationTitle">Permission 1</p></th></tr></thead>
             <tbody>
@@ -175,7 +175,7 @@ RSpec.describe IsoDoc::Ogc do
        <div id="A">
          <h1 class="ForewordTitle" id="_">
            <a class="anchor" href="#A"></a>
-           <a class="header" href="#A">I<span class="fmt-clause-delim">.</span>  Preface</a>
+           <a class="header" href="#A">I.  Preface</a>
          </h1>
          <table id="A1" class="modspec" style="border-width:1px;border-spacing:0;">
            <thead>

@@ -396,7 +396,7 @@ RSpec.describe IsoDoc::Ogc do
              <div>
                 <a name="H" id="H"></a>
                 <h1>1<span class="fmt-clause-delim">.</span><span style="mso-tab-count:1">  </span>Terms, Definitions, Symbols and Abbreviated Terms</h1>
-                <p class="TermNum" style="text-align:left;"><a name="J" id="J"></a>1.1<span class="fmt-clause-delim">.</span> <b>Term2</b></p>
+                <p class="TermNum" style="text-align:left;"><a name="J" id="J"></a>1.1<span class="fmt-clause-delim">.</span>  <b>Term2</b></p>
                 <p class="AltTerms" style="text-align:left;">
                    Term2A#{' '}
                    <span class="AdmittedLabel">ALTERNATIVE</span>
