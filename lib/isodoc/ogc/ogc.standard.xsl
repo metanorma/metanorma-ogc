@@ -3915,6 +3915,7 @@
 	</xsl:template>
 
 	<xsl:attribute-set name="license-statement-style">
+		<xsl:attribute name="role">SKIP</xsl:attribute>
 		<xsl:attribute name="font-size">8pt</xsl:attribute>
 		<xsl:attribute name="line-height">125%</xsl:attribute>
 	</xsl:attribute-set> <!-- license-statement-style -->
@@ -13039,7 +13040,7 @@
 	<xsl:template name="refine_references-non-normative-style">
 	</xsl:template>
 
-		<!-- ======================= -->
+	<!-- ======================= -->
 	<!-- Bibliography rendering -->
 	<!-- ======================= -->
 
@@ -13057,7 +13058,7 @@
 	<xsl:template match="mn:references[@normative='true']" priority="2">
 
 		<xsl:call-template name="setNamedDestination"/>
-		<fo:block id="{@id}">
+		<fo:block id="{@id}" role="Sect">
 			<xsl:apply-templates/>
 		</fo:block>
 	</xsl:template>
@@ -13081,6 +13082,9 @@
 
 		<fo:block xsl:use-attribute-sets="references-non-normative-style">
 			<xsl:call-template name="refine_references-non-normative-style"/>
+			<xsl:copy-of select="@role"/>
+			<xsl:call-template name="addTagElementT"/>
+
 			<xsl:apply-templates select="node()[not(self::mn:fmt-title and @columns = 1)]"/>
 		</fo:block>
 	</xsl:template> <!-- references -->
