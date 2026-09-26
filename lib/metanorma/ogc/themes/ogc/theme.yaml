@@ -1,0 +1,51 @@
+primary: "#0077b3"
+accent: "#00b1ff"
+accent_deep: "#006699"
+gradient: "linear-gradient(135deg, #003d5c 0%, #0077b3 50%, #00b1ff 100%)"
+primary_light: "#e8f4fa"
+accent_light: "#e0f4ff"
+warm: "#e8812e"
+warm_light: "#fff5eb"
+sidebar_bg: "#f2f8fc"
+font_body: '"Space Grotesk", "Helvetica Neue", Arial, sans-serif'
+font_sans: '"Space Grotesk", "Helvetica Neue", Arial, sans-serif'
+font_mono: '"JetBrains Mono", "Fira Code", monospace'
+font_url: "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+header_background: "linear-gradient(135deg, #003d5c 0%, #0077b3 40%, #00b1ff 100%)"
+cover_background: "linear-gradient(175deg, #001f30 0%, #003d5c 25%, #0077b3 55%, #00b1ff 85%, #66d9ff 100%)"
+cover_before_bg: "background: radial-gradient(ellipse at 25% 15%, rgba(0,177,255,0.2) 0%, transparent 45%), radial-gradient(ellipse at 75% 85%, rgba(0,119,179,0.25) 0%, transparent 40%)"
+cover_after_bg: "height: 4px; background: linear-gradient(90deg, transparent, #00b1ff 30%, #0077b3 50%, #00b1ff 70%, transparent)"
+progress_bar_color: "#00b1ff"
+note_border: "#00b1ff"
+note_bg: "#e0f4ff"
+note_color: "#0077b3"
+example_border: "#0077b3"
+example_bg: "#e8f4fa"
+example_color: "#004d73"
+admonition_border: "#e8812e"
+admonition_bg: "#fff5eb"
+admonition_color: "#c06a1a"
+footer_border_color: "#00b1ff"
+cover_separator_color: "rgba(0,177,255,0.25)"
+dark_primary_light: "#0a2538"
+dark_accent_light: "#0d2030"
+extra_css: |
+  .sourcecode pre { background: #0a1a28; border-color: #1a3050; }
+  .reading-progress { box-shadow: 0 0 10px rgba(0,177,255,0.3); }
+  mark.search-match { background: #e0f4ff; box-shadow: 0 0 0 1px rgba(0,177,255,0.3); }
+  mark.search-match.search-current { background: #00b1ff; color: #fff; }
+  [data-theme="dark"] .sourcecode pre { background: #060e18; border-color: #0d2030; }
+
+# Publisher metadata
+publishers:
+  - "OGC"
+publisher_name: "OGC"
+logos_light:
+  "OGC": "ogc-logo.svg"
+
+# Section ordering
+preface_order:
+  - clause
+preface_wrap: true
+toc_filter_types:
+  - toc
