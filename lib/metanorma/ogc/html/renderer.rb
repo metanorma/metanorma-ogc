@@ -61,9 +61,10 @@ module Metanorma
                                    cover_label_value_spans(bands))
           end
 
-          version = extract_text_value(safe_attr(bibdata, :edition)).to_s
-          unless version.strip.empty?
-            version_spans = cover_label_value_spans([["Version", version.strip]])
+          edition = Array(safe_attr(bibdata, :edition)).first
+          version = edition ? Array(edition.content).map(&:to_s).join.strip : ""
+          unless version.empty?
+            version_spans = cover_label_value_spans([["Version", version]])
             parts << cover_element("div", %( class="coverpage-alt-formats"),
                                    version_spans)
           end
@@ -93,64 +94,62 @@ module Metanorma
         end
 
         def cover_label_value_spans(bands)
-          bands.filter_map do |label, value|
-            next if value.to_s.strip.empty?
-
+          # Bands may carry an empty value (placeholder identifiers in
+          # sample documents): the label still renders, isodoc-style.
+          bands.map do |label, value|
             label_span = cover_element("span", %( class="label"),
                                        "#{escape_html(label)}: ")
             value_span = cover_element("span", %( class="value"),
-                                       escape_html(value.strip))
+                                       escape_html(value.to_s.strip))
             "#{label_span} #{value_span}"
           end.join
         end
 
+        # isodoc's OGC cover always states the three date bands and both
+        # identifier bands, printing its "XXX" placeholder for a missing
+        # date value.
+        MISSING_VALUE = "XXX"
+
         def ogc_cover_bands(bibdata)
           dates = Array(safe_attr(bibdata, :date))
-          bands = OGC_DATE_BANDS.filter_map do |type, label|
+          bands = OGC_DATE_BANDS.map do |type, label|
             value = dates.filter_map do |date|
               safe_attr(date, :type) == type ? extract_text_value(date.on).to_s : nil
             end.first
-            [label, value] unless value.to_s.strip.empty?
+            [label, value.to_s.strip.empty? ? MISSING_VALUE : value]
           end
 
           %w[ogc-external ogc-internal].each do |type|
             value = Array(safe_attr(bibdata, :doc_identifier))
                     .filter_map { |di| safe_attr(di, :type) == type ? safe_attr(di, :value).to_s : nil }
-                    .join
-            next if value.strip.empty?
-
+                    .join(" ")
             bands << ["#{type == 'ogc-external' ? 'External' : 'Internal'} " \
                       "identifier of this OGC® document", value]
           end
           bands
         end
 
+        # isodoc's docstage-box always prints all five rows.
         def ogc_docstage_rows(bibdata)
-          rows = []
           docnumber = safe_attr(bibdata, :docnumber).to_s
-          rows << ["Document number", docnumber] unless docnumber.strip.empty?
 
           doctype = extract_doctype(bibdata).to_s
-          unless doctype.strip.empty?
-            rows << ["Document type", "OGC #{doctype.strip.capitalize}"]
-          end
+          type_display = doctype.strip.empty? ? "" : "OGC #{doctype.strip.split(/[\s-]+/).map(&:capitalize).join(' ')}"
 
-          ext = safe_attr(bibdata, :ext)
-          subdoctype = safe_attr(ext, :subdoctype).to_s
-          unless subdoctype.strip.empty?
-            rows << ["Document subtype", subdoctype.strip.capitalize]
-          end
+          subdoctype = safe_attr(safe_attr(bibdata, :ext), :subdoctype).to_s
 
           stage = extract_stage(bibdata).to_s
-          rows << ["Document stage", stage] unless stage.strip.empty?
 
           language_element = Array(safe_attr(bibdata, :language)).first
           language = extract_text_value(language_element).to_s
-          display = OGC_LANGUAGES.fetch(language.downcase, language)
-          unless display.strip.empty?
-            rows << ["Document language", display]
-          end
-          rows
+
+          [
+            ["Document number", docnumber],
+            ["Document type", type_display],
+            ["Document subtype", subdoctype.strip.empty? ? "" : subdoctype.strip.capitalize],
+            ["Document stage", stage],
+            ["Document language", OGC_LANGUAGES.fetch(language.downcase, language)],
+          ]
         end
 
         def ogc_cover_editors(bibdata)
