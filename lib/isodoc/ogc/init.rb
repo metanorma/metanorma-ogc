@@ -21,6 +21,8 @@ module IsoDoc
       end
 
       def bibrenderer(options = {})
+        require_relative "../../../metanorma/ogc/relaton_render/general"
+
         ::Relaton::Render::Ogc::General.new(options
           .merge(language: @lang, script: @script, i18nhash: @i18n.get,
                  config: @relatonrenderconfig))
