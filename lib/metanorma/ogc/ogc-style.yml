@@ -28,7 +28,8 @@ scheme:
 templates:
   titleOpen: "<em>"
   titleClose: "</em>"
-  citation: "{{surname}}, {{date}}{{disambiguator}}"
+  # numeric in-text citations: the citeas stands
+  citation: ""
   reference: "{{creator}}: {{identifier}}, {{title}}. {{production}} ({{date}}). {{location}}"
   name: "{{surname}} {{givenNames}}"
   dateForm: "({{date}})"
