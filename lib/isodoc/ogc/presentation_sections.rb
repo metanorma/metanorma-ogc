@@ -94,12 +94,10 @@ module IsoDoc
       end
 
       def format_personalname(contrib)
-        require_relative "../../metanorma/ogc/relaton_render/general"
+        require_relative "../../metanorma/ogc/citation_style"
 
-        ret = Relaton::Render::Ogc::General
-          .new(template: { book: "{{ creatornames }}" })
-          .render_all("<references><bibitem type='book'>#{contrib.to_xml}</bibitem></references>")
-        ret[nil][:citation][:author]
+        Metanorma::Ogc::CitationStyle.new
+          .creator_names("<bibitem type='book'>#{contrib.to_xml}</bibitem>")
       end
 
       def dochistory_description(item)
