@@ -8,11 +8,14 @@ gemspec
 gem "metanorma-core", github: "metanorma/metanorma-core", branch: "feat/flavor-table"
 gem "metanorma-standoc", github: "metanorma/metanorma-standoc", branch: "feat/move-standard-document"
 gem "metanorma-document", github: "metanorma/metanorma-document", branch: "feat/model-validation-l1-declarations"
-gem "metanorma-iso", github: "metanorma/metanorma-iso", branch: "feat/model-validation-migration"
+# main carries the CitationStyle port: no lib/relaton load paths
+gem "metanorma-iso", github: "metanorma/metanorma-iso", branch: "main"
 
 # relaton v3 monogem + pubid-2 prerelease chain (isodoc PR#825)
+# the pubid-2 line; render widened to the 3.0.0.pre family (isodoc #848)
 gem "isodoc",
     github: "metanorma/isodoc",
     branch: "rt-pubid-2-migration"
+gem "relaton-render", path: "/Users/mulgogi/src/relaton/relaton-render" # TEMP: port validation
 gem "relaton-cli", ">= 3.0.0.pre.alpha.1"
 gem "pubid", "2.0.0.pre.alpha.8" # relaton 3.0.0.pre.alpha.1 pairs with pre-rename pubid; .alpha.9 renamed base_identifier->base

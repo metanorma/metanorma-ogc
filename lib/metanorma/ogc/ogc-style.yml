@@ -1,0 +1,61 @@
+# The metanorma-ogc CitationStyle instance (relaton-render 3.0.0.pre
+# Iso690 engine). Creators render in direct order with completenames
+# verbatim and period-less initials; standards with no personal
+# creators lead with the publisher's abbreviation.
+name: "OGC citation style"
+scheme:
+  system: name-date
+  nameForm:
+    initials: true
+    initialsSeparator: ""
+    initialsPeriod: false
+    invertedAll: true
+    surnameUpcase: false
+    orgUpcase: false
+    loneEditorMarked: true
+    creatorFallback: publisher_abbrev
+    completenameUpcase: false
+  locale:
+    labels:
+      in: ""
+      "and": ""
+      oxford_comma: ""
+      no_place: "n.p."
+      available_from: ""
+    punct:
+      production_order: publisher_first
+      production_sep: ", "
+templates:
+  titleOpen: "<em>"
+  titleClose: "</em>"
+  citation: "{{surname}}, {{date}}{{disambiguator}}"
+  reference: "{{creator}}: {{identifier}}, {{title}}. {{production}} ({{date}}). {{location}}"
+  name: "{{surname}} {{givenNames}}"
+  dateForm: "({{date}})"
+  uri: "<fmt-link target='{{uri}}'>{{uri}}</fmt-link>"
+  uriShort: "<fmt-link target='{{uri}}'>{{uri}}</fmt-link>"
+perType:
+  - type: report
+    template: "{{creator}}: {{citeid}} {{title}}. {{production}} {{date}}. {{location}}"
+  - type: monograph
+    template: "{{title}}. {{production}} {{date}}. {{location}}"
+    fallbacks:
+      date: "(n.d.)"
+    noPlace: true
+  - type: component_part
+    template: "{{creator}}: {{title}}. {{componentpart}} {{extent}} {{production}} {{date}}. {{location}}"
+  - type: continuing
+    template: "{{title}}. {{production}}. {{date}}."
+    fallbacks:
+      date: "(n.d.)"
+  - type: serial_part
+    template: "{{creator}}: {{title}}. {{series}} {{extent}} {{date}}. {{location}}"
+  - type: online
+    template: "{{title}}. {{production}} {{date}}. {{location}}"
+    fallbacks:
+      date: "(n.d.)"
+  - type: webdoc
+    template: "{{title}}. {{production}} {{date}}. {{location}}"
+    fallbacks:
+      date: "(n.d.)"
+    title: "<span class='stddocTitle'>{{title}}</span>"
