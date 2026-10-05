@@ -1,5 +1,5 @@
 require_relative "init"
-require_relative "../../relaton/render/general"
+require_relative "../../metanorma/ogc/relaton_render/general"
 require_relative "presentation_sections"
 
 module IsoDoc
