@@ -30,33 +30,33 @@ templates:
   titleClose: "</em>"
   # numeric in-text citations: the citeas stands
   citation: ""
-  reference: "{{creator}}: {{identifier}}, {{title}}. {{production}} ({{date}}). {{location}}"
+  reference: "{{creator}}: {{identifier}}, {{title}}. {{production}} {{dategroup}}. {{location}}"
   name: "{{surname}} {{givenNames}}"
-  dateForm: "({{date}})"
   uri: "<fmt-link target='{{uri}}'>{{uri}}</fmt-link>"
   uriShort: "<fmt-link target='{{uri}}'>{{uri}}</fmt-link>"
+  identifierMode: first
 perType:
   - type: report
-    template: "{{creator}}: {{citeid}} {{title}}. {{production}} {{date}}. {{location}}"
+    template: "{{creator}}: {{citeid}} {{title}}. {{production}} {{dategroup}}. {{location}}"
   - type: monograph
-    template: "{{title}}. {{production}} {{date}}. {{location}}"
+    template: "{{title}}. {{production}} {{dategroup}}. {{location}}"
     fallbacks:
-      date: "(n.d.)"
+      dategroup: "(n.d.)"
     noPlace: true
   - type: component_part
-    template: "{{creator}}: {{title}}. {{componentpart}} {{extent}} {{production}} {{date}}. {{location}}"
+    template: "{{creator}}: {{title}}. {{componentpart}} {{extent}} {{production}} {{dategroup}}. {{location}}"
   - type: continuing
-    template: "{{title}}. {{production}}. {{date}}."
+    template: "{{title}}. {{production}}. {{dategroup}}."
     fallbacks:
-      date: "(n.d.)"
+      dategroup: "(n.d.)"
   - type: serial_part
-    template: "{{creator}}: {{title}}. {{series}} {{extent}} {{date}}. {{location}}"
+    template: "{{creator}}: {{title}}. {{series}} {{extent}} {{dategroup}}. {{location}}"
   - type: online
-    template: "{{title}}. {{production}} {{date}}. {{location}}"
+    template: "{{title}}. {{production}} {{dategroup}}. {{location}}"
     fallbacks:
-      date: "(n.d.)"
+      dategroup: "(n.d.)"
   - type: webdoc
-    template: "{{title}}. {{production}} {{date}}. {{location}}"
+    template: "{{title}}. {{production}} {{dategroup}}. {{location}}"
     fallbacks:
-      date: "(n.d.)"
+      dategroup: "(n.d.)"
     title: "<span class='stddocTitle'>{{title}}</span>"
