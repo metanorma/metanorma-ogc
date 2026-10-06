@@ -16,6 +16,6 @@ gem "metanorma-iso", github: "metanorma/metanorma-iso", branch: "main"
 gem "isodoc",
     github: "metanorma/isodoc",
     branch: "rt-pubid-2-migration"
-gem "relaton-render", "3.0.0.pre.alpha.11"
+gem "relaton-render", "= 3.0.0.pre.alpha.19"
 gem "relaton-cli", ">= 3.0.0.pre.alpha.1"
 gem "pubid", "2.0.0.pre.alpha.8" # relaton 3.0.0.pre.alpha.1 pairs with pre-rename pubid; .alpha.9 renamed base_identifier->base
