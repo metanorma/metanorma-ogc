@@ -1,37 +1,22 @@
-# The metanorma-ogc CitationStyle instance (relaton-render 3.0.0.pre
-# Iso690 engine). Creators render in direct order with completenames
-# verbatim and period-less initials; standards with no personal
-# creators lead with the publisher's abbreviation.
+# The metanorma-ogc CitationStyle instance: the Springer LNCS pack
+# with OGC deltas - numeric in-text citations where the citeas stands,
+# period-less initials, title-led entries for sources without
+# designated creators, and the abbreviated-source title forms.
 name: "OGC citation style"
+family: lncs
+extends: lncs
 scheme:
-  system: name-date
   nameForm:
-    initials: true
-    initialsSeparator: ""
     initialsPeriod: false
-    invertedAll: true
-    surnameUpcase: false
-    orgUpcase: false
-    loneEditorMarked: true
-    creatorFallback: publisher_abbrev
-    completenameUpcase: false
   locale:
     labels:
-      in: ""
-      "and": ""
-      oxford_comma: ""
       no_place: "n.p."
-      available_from: ""
-    punct:
-      production_order: publisher_first
-      production_sep: ", "
 templates:
   titleOpen: "<em>"
   titleClose: "</em>"
   # numeric in-text citations: the citeas stands
   citation: ""
   reference: "{{creator}}: {{identifier}}, {{title}}. {{production}} {{dategroup}}. {{location}}"
-  name: "{{surname}} {{givenNames}}"
   uri: "<fmt-link target='{{uri}}'>{{uri}}</fmt-link>"
   uriShort: "<fmt-link target='{{uri}}'>{{uri}}</fmt-link>"
   identifierMode: first
