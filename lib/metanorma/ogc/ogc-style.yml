@@ -8,10 +8,13 @@ extends: lncs
 scheme:
   nameForm:
     initialsPeriod: false
+    orgUpcase: false
+    completenameUpcase: false
   locale:
     labels:
       no_place: "n.p."
 templates:
+  name: "{{surname}} {{givenNames}}"
   titleOpen: "<em>"
   titleClose: "</em>"
   # numeric in-text citations: the citeas stands
