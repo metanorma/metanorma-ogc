@@ -937,7 +937,7 @@ RSpec.describe IsoDoc::Ogc do
           #{blank_hdr_gen}
           <preface>#{SECURITY}</preface>
       <sections/>
-      </ogc-standard>
+      </metanorma>
     OUTPUT
     expect(strip_guid(Asciidoctor
       .convert(input, backend: :ogc, header_footer: true)))
