@@ -443,7 +443,7 @@ RSpec.describe Metanorma::Ogc do
       </preface>
          <sections><clause id="_" obligation="normative">
             <title id="_">Clause</title>
-         </sections>
+         </clause></sections>
        </metanorma>
     OUTPUT
     expect(strip_guid(Asciidoctor.convert(input, *OPTIONS)))
