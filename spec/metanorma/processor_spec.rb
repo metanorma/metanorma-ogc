@@ -63,13 +63,11 @@ RSpec.describe Metanorma::Ogc::Processor do
         <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
         <div id="H">
           <h1 id="_">
-            <a class="anchor" href="#H"/>
-            <a class="header" href="#H">1.  Terms, Definitions, Symbols and Abbreviated Terms</a>
+            <a class="anchor" href="#H"></a><a class="header" href="#H">1.  Terms, Definitions, Symbols and Abbreviated Terms</a>
           </h1>
           <div id="J">
             <h2 class="TermNum" style="text-align:left;" id="_">
-              <a class="anchor" href="#J"/>
-              <a class="header" href="#J">1.1. Term2</a>
+              <a class="anchor" href="#J"></a><a class="header" href="#J">1.1. Term2</a>
             </h2>
           </div>
         </div>
