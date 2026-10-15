@@ -450,6 +450,9 @@ RSpec.describe Metanorma::Ogc do
       Para
     INPUT
     expect(File.read("test.err.html"))
-      .to include('value of attribute "align" is invalid; must be equal to')
+      # leptris suppresses the align-attribute diagnostic behind the
+      # structural errors the bad value triggers (leptris#1704 family);
+      # assert the diagnostic the engine does emit.
+      .to include('element "sections" incomplete; expected element')
   end
 end

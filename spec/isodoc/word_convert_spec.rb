@@ -49,8 +49,7 @@ RSpec.describe IsoDoc::Ogc do
       .gsub(%r{<o:p>&#xA0;</o:p>}, "")
       .sub(%r{<p class="MsoNormal">\s*<br clear="all" class="section"/>\s*</p>\s*<div class="WordSection3">.*$}m, "")
       .sub(%r{</span>\s*<p class="MsoNormal">&#xA0;</p>\s*</div>\s*$}, "</div>")
-    expect(strip_guid(word.gsub(/_Toc\d\d+/, "_Toc")))
-      .to be_xml_equivalent_to <<~'OUTPUT'
+    expected = <<~'OUTPUT'
         <div class="WordSection2"><div class="license">
           <div><a name="boilerplate-license-destination" id="boilerplate-license-destination"></a></div>
 
@@ -137,7 +136,10 @@ RSpec.describe IsoDoc::Ogc do
         <p class="MsoToc1"><span lang="EN-GB" xml:lang="EN-GB"><span style="mso-element:field-end"></span></span><span lang="EN-GB" xml:lang="EN-GB"><o:p class="MsoNormal">&#xA0;</o:p></span></p>
         </div><p class="MsoNormal">&#xA0;</p></div>
     
-      OUTPUT
+    OUTPUT
+    o_p = %r{</?o:p[^>]*/?>} # MS Word stamps undeclared-prefix <o:p> artifacts
+    expect(strip_guid(word.gsub(/_Toc\d\d+/, "_Toc").gsub(o_p, "")))
+      .to be_xml_equivalent_to expected.gsub(o_p, "")
   end
 
   it "processes boilerplate" do

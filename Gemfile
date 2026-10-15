@@ -16,5 +16,11 @@ gem "metanorma-iso", github: "metanorma/metanorma-iso", branch: "main"
 gem "isodoc",
     github: "metanorma/isodoc",
     branch: "main"
-gem "relaton-render", "= 3.0.0.pre.alpha.43" # canonical style packs; slot forms; bare from-only dates
-gem "pubid", "2.0.0.pre.alpha.8" # relaton 3.0.0.pre.alpha.1 pairs with pre-rename pubid; .alpha.9 renamed base_identifier->base
+gem "relaton-render", "~> 3.0.0.pre.alpha" # # canonical style packs; slot forms; bare from-only dates
+gem "pubid", "~> 2.0.0.pre.alpha" # # relaton 3.0.0.pre.alpha.1 pairs with pre-rename pubid; .alpha.9 renamed base_identifier->base
+
+# canonical line; the committed lock holds 0.8.29 which lacks map_any_element
+gem "lutaml-model", "~> 0.8.107"
+# released plugin-lutaml 0.7.50 lacks the preprocessor names standoc
+# registers (LutamlDataPreprocessor); main carries them (generic#133)
+gem "metanorma-plugin-lutaml", github: "metanorma/metanorma-plugin-lutaml", branch: "main"
