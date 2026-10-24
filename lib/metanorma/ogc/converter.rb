@@ -1,5 +1,6 @@
 require "asciidoctor"
 require "metanorma-standoc"
+require "metanorma/plugin/openapi"
 require "fileutils"
 require "date"
 require_relative "front"
@@ -9,6 +10,13 @@ module Metanorma
   module Ogc
     class Converter < Standoc::Converter
       register_for "ogc"
+
+      # OGC API building-block documents drive their normative sections
+      # from OpenAPI definitions (metanorma-ogc: metanorma-ogc#153
+      # pipeline; metanorma-plugin-openapi renders them).
+      Asciidoctor::Extensions.register do
+        block Metanorma::Plugin::Openapi::Block
+      end
 
       def init_toc(node)
         super
