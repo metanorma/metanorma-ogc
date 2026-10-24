@@ -8,6 +8,10 @@ gemspec
 gem "metanorma-core", github: "metanorma/metanorma-core", branch: "feat/flavor-table"
 gem "metanorma-standoc", github: "metanorma/metanorma-standoc", branch: "feat/move-standard-document"
 gem "metanorma-document", github: "metanorma/metanorma-document", branch: "feat/model-validation-l1-declarations"
+# metanorma-plugin-openapi#4 — released 0.1.0 hard-requires
+# coradoc/markdown, unresolvable under metanorma-plugin-lutaml's
+# coradoc ~> 1.1.8; drop for the release carrying the soft-coradoc fix
+gem "metanorma-plugin-openapi", github: "metanorma/metanorma-plugin-openapi", branch: "main"
 # main carries the CitationStyle port: no lib/relaton load paths
 gem "metanorma-iso", github: "metanorma/metanorma-iso", branch: "main"
 
