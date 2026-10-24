@@ -15,7 +15,7 @@ module Metanorma
       # from OpenAPI definitions (metanorma-ogc: metanorma-ogc#153
       # pipeline; metanorma-plugin-openapi renders them).
       Asciidoctor::Extensions.register do
-        block Metanorma::Plugin::Openapi::Block
+        preprocessor Metanorma::Plugin::Openapi::Preprocessor
       end
 
       def init_toc(node)
