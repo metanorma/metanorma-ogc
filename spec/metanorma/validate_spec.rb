@@ -449,7 +449,9 @@ RSpec.describe Metanorma::Ogc do
       [align=mid-air]
       Para
     INPUT
+    # leptris (unlike Jing) drops the attribute diagnostic when the element
+    # is also position-invalid: leptris#1704
     expect(File.read("test.err.html"))
-      .to include('value of attribute "align" is invalid; must be equal to')
+      .to include('element "p" not allowed anywhere')
   end
 end
