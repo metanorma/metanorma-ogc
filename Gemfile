@@ -5,7 +5,7 @@ gemspec
 
 # TEMPORARY cross-PR pins (metanorma-core#18 wave) — identical block in
 # every adoption PR; delete when the branches release.
-gem "metanorma-core", github: "metanorma/metanorma-core", branch: "feat/flavor-table"
+gem "metanorma-core", "~> 0.2.5.pre.alpha" # published flavor/taste table (metanorma-core#18)
 gem "metanorma-standoc", "~> 3.5.1.pre.alpha" # feat/move-standard-document is released
 gem "metanorma-document", "~> 0.5.2.pre.alpha" # feat/model-validation-l1-declarations is released
 # metanorma-plugin-openapi#4 — released 0.1.0 hard-requires
