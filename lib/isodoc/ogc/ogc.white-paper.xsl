@@ -44,12 +44,6 @@
 	</xsl:variable>
 	<xsl:variable name="variables" select="xalan:nodeset($variables_)"/>
 
-	<xsl:template name="getVariable">
-		<xsl:param name="variable"/>
-		<xsl:variable name="num" select="number(java:org.metanorma.fop.global.Variables.getVariable('num'))"/>
-		<xsl:value-of select="$variables/mnx:doc[@num = $num]/*[local-name() = $variable]"/>
-	</xsl:template>
-
 	<xsl:variable name="color">rgb(0, 51, 102)</xsl:variable>
 
 	<xsl:variable name="contents_">
@@ -16055,6 +16049,23 @@
 				<xsl:value-of select="$value"/>
 			</xsl:otherwise>
 		</xsl:choose>
+	</xsl:template>
+
+	<xsl:template name="getVariable">
+		<xsl:param name="variable"/>
+		<!-- Note: need insert <xsl:variable name="setVariable" select="java:org.metanorma.fop.global.Variables.setVariable('num', $num)"/> before
+			in the iteration <xsl:for-each select="xalan:nodeset($updated_xml)//mn:metanorma"> -->
+		<xsl:variable name="num" select="number(java:org.metanorma.fop.global.Variables.getVariable('num'))"/>
+		<xsl:value-of select="$variables/mnx:doc[@num = $num]/*[local-name() = $variable]"/>
+	</xsl:template>
+
+	<!-- get variable value with the internal elements(nodes), e.g. formatting -->
+	<xsl:template name="getVariableCopyOf">
+		<xsl:param name="variable"/>
+		<!-- Note: need insert <xsl:variable name="setVariable" select="java:org.metanorma.fop.global.Variables.setVariable('num', $num)"/> before
+			in the iteration <xsl:for-each select="xalan:nodeset($updated_xml)//mn:metanorma"> -->
+		<xsl:variable name="num" select="number(java:org.metanorma.fop.global.Variables.getVariable('num'))"/>
+		<xsl:copy-of select="$variables/mnx:doc[@num = $num]/*[local-name() = $variable]/node()"/>
 	</xsl:template>
 
 	<!-- ============================================= -->
