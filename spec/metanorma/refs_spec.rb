@@ -22,7 +22,7 @@ RSpec.describe Metanorma::Ogc do
       out = Nokogiri::XML(Asciidoctor.convert(input, *OPTIONS))
       expect(out.xpath("//xmlns:references/xmlns:bibitem/@anchor")
         .map(&:value))
-        .to be_equivalent_to ["ogc1", "ogc3", "ogc2", "iso4", "iso3", "iso2",
+        .to eq ["ogc1", "ogc3", "ogc2", "iso4", "iso3", "iso2",
                               "iso1", "ref2", "ref1"]
   end
 end
