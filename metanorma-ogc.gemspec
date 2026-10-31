@@ -31,7 +31,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "metanorma-plugin-openapi", ">= 0.1.1.pre.alpha.1"
 
   spec.add_development_dependency "debug"
-  spec.add_development_dependency "equivalent-xml", "~> 0.6"
   spec.add_development_dependency "guard", "~> 2.14"
   spec.add_development_dependency "guard-rspec", "~> 4.7"
   spec.add_development_dependency "rake", "~> 13.0"

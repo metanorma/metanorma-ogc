@@ -266,7 +266,7 @@ RSpec.describe IsoDoc::Ogc do
     m.delete(:logo_html_white)
     m.delete(:logo_html_blue)
     m.delete(:logo_word)
-    expect(m).to be_equivalent_to output
+    expect(m).to eq output
 
     html = <<~HTML
        <meta name="keywords" content="A, B" /><meta name="DC.subject" lang="en" content="A, B" xml:lang="en" /><meta name="description" content="This is a description. This is a blockquote within a description." />
@@ -285,7 +285,7 @@ RSpec.describe IsoDoc::Ogc do
     expect(File.read("test.html")
       .gsub(%r{^.*<meta name="keywords"}m, '<meta name="keywords"')
       .gsub(%r{</head>.*$}m, ""))
-      .to be_equivalent_to html
+      .to be_xml_equivalent_to html
   end
 
   it "processes metadata with 2026 logo" do
@@ -341,11 +341,11 @@ RSpec.describe IsoDoc::Ogc do
       .to be_xml_equivalent_to presxml
     docxml, = csdc.convert_init(pres_output, "test", true)
     m = metadata(csdc.info(docxml, nil))
-    expect(m[:logo_html]).to be_equivalent_to logo_2026_white_svg
-    expect(m[:logo_html_white]).to be_equivalent_to logo_2026_white_svg
-    expect(m[:logo_html_blue]).to be_equivalent_to logo_2026_svg
+    expect(m[:logo_html]).to be_xml_equivalent_to logo_2026_white_svg
+    expect(m[:logo_html_white]).to be_xml_equivalent_to logo_2026_white_svg
+    expect(m[:logo_html_blue]).to be_xml_equivalent_to logo_2026_svg
     expect(m[:logo_word])
-      .to be_equivalent_to logo_2026_png
+      .to be_xml_equivalent_to logo_2026_png
   end
 
   it "processes metadata with 2022 logo" do
@@ -401,10 +401,10 @@ RSpec.describe IsoDoc::Ogc do
       .to be_xml_equivalent_to presxml
     docxml, = csdc.convert_init(pres_output, "test", true)
     m = metadata(csdc.info(docxml, nil))
-    expect(m[:logo_html]).to be_equivalent_to logo_2022_svg
-    expect(m[:logo_html_blue]).to be_equivalent_to logo_2022_svg
-    expect(m[:logo_html_white]).to be_equivalent_to logo_2022_white_svg
-    expect(m[:logo_word]).to be_equivalent_to logo_2022_png
+    expect(m[:logo_html]).to be_xml_equivalent_to logo_2022_svg
+    expect(m[:logo_html_blue]).to be_xml_equivalent_to logo_2022_svg
+    expect(m[:logo_html_white]).to be_xml_equivalent_to logo_2022_white_svg
+    expect(m[:logo_word]).to be_xml_equivalent_to logo_2022_png
   end
 
   it "processes metadata with 2018 logo" do
@@ -457,17 +457,17 @@ RSpec.describe IsoDoc::Ogc do
       .to be_xml_equivalent_to presxml
     docxml, = csdc.convert_init(pres_output, "test", true)
     m = metadata(csdc.info(docxml, nil))
-    expect(m[:logo_html]).to be_equivalent_to <<~XML
+    expect(m[:logo_html]).to be_xml_equivalent_to <<~XML
       <img src="#{logo_2018_png}" mimetype="image/png"/>
     XML
-    expect(m[:logo_html_blue]).to be_equivalent_to <<~XML
+    expect(m[:logo_html_blue]).to be_xml_equivalent_to <<~XML
       <img src="#{logo_2018_png}" mimetype="image/png"/>
     XML
-    expect(m[:logo_html_white]).to be_equivalent_to <<~XML
+    expect(m[:logo_html_white]).to be_xml_equivalent_to <<~XML
       <img src="#{logo_2018_white_png}" mimetype="image/png"/>
     XML
     expect(m[:logo_word])
-      .to be_equivalent_to logo_2018_png
+      .to be_xml_equivalent_to logo_2018_png
   end
 
   it "uses new logo for invalid data" do
@@ -523,8 +523,8 @@ RSpec.describe IsoDoc::Ogc do
       .to be_xml_equivalent_to presxml
     docxml, = csdc.convert_init(pres_output, "test", true)
     m = metadata(csdc.info(docxml, nil))
-    expect(m[:logo_html]).to be_equivalent_to logo_2026_white_svg
+    expect(m[:logo_html]).to be_xml_equivalent_to logo_2026_white_svg
     expect(m[:logo_word])
-      .to be_equivalent_to logo_2026_png
+      .to be_xml_equivalent_to logo_2026_png
   end
 end
