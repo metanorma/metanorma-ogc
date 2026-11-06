@@ -18,5 +18,6 @@ gem "metanorma-iso", github: "metanorma/metanorma-iso", branch: "main"
 # relaton v3 monogem + pubid-2 prerelease chain (isodoc PR#825)
 # the pubid-2 line; render widened to the 3.0.0.pre family (isodoc #848)
 gem "isodoc", "~> 3.7.9" # rt-pubid-2-migration is released
-gem "relaton-render", "~> 3.0" # canonical style packs; slot forms; bare from-only dates
 gem "pubid", "~> 2.0"
+
+gem "relaton", "~> 3.1.1"
