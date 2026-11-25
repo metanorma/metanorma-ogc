@@ -8,10 +8,11 @@ gemspec
 gem "metanorma-core", "~> 0.2.7" # published flavor/taste table (metanorma-core#18)
 gem "metanorma-standoc", "~> 3.5.7" # feat/move-standard-document is released
 gem "metanorma-document", "~> 0.5.3" # feat/model-validation-l1-declarations is released
-# metanorma-plugin-openapi#4 — released 0.1.0 hard-requires
-# coradoc/markdown, unresolvable under metanorma-plugin-lutaml's
-# coradoc ~> 1.1.8; drop for the release carrying the soft-coradoc fix
-gem "metanorma-plugin-openapi", github: "metanorma/metanorma-plugin-openapi", branch: "main"
+# 0.1.5 carries the ceradoc migration (coradoc → coridoc → ceradoc,
+# 2026-11-25): the descriptions renderer converts through the ceradoc
+# hub (ceradoc ~> 3.0 + ceradoc-markdown + ceradoc-adoc), resolvable
+# alongside metanorma-plugin-lutaml 0.7.83 which pins the same line.
+gem "metanorma-plugin-openapi", "~> 0.1.5"
 # main carries the CitationStyle port: no lib/relaton load paths
 gem "metanorma-iso", github: "metanorma/metanorma-iso", branch: "main"
 
